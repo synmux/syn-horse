@@ -85,7 +85,7 @@ export default function Form() {
 <VueTurnstile :site-key="SITE_KEY" @success="token = $event" />
 
 <!-- Svelte: npm install svelte-turnstile -->
-<Turnstile siteKey={SITE_KEY} on:turnstile-callback={(e) => token = e.detail.token} />
+<Turnstile siteKey="{SITE_KEY}" on:turnstile-callback="{(e)" =""></Turnstile>
 ```
 
 ## Server Validation

@@ -11,7 +11,6 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@nuxt/image",
     "@nuxt/scripts",
-    "@nuxt/a11y",
     "@nuxt/eslint",
   ],
 
