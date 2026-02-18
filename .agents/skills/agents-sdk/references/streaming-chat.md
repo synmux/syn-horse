@@ -116,8 +116,7 @@ function ChatUI() {
     name: "my-chat-session",
   });
 
-  const { messages, input, handleInputChange, handleSubmit, status } =
-    useAgentChat({ agent });
+  const { messages, input, handleInputChange, handleSubmit, status } = useAgentChat({ agent });
 
   return (
     <div>
@@ -128,11 +127,7 @@ function ChatUI() {
       ))}
 
       <form onSubmit={handleSubmit}>
-        <input
-          value={input}
-          onChange={handleInputChange}
-          disabled={status === "streaming"}
-        />
+        <input value={input} onChange={handleInputChange} disabled={status === "streaming"} />
         <button type="submit">Send</button>
       </form>
     </div>

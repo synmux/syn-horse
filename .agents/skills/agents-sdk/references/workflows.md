@@ -99,36 +99,20 @@ await this.deleteWorkflows({ status: "complete", before: new Date(...) });
 
 ```typescript
 export class MyAgent extends Agent<Env, State> {
-  async onWorkflowProgress(
-    workflowName: string,
-    workflowId: string,
-    progress: unknown,
-  ) {
+  async onWorkflowProgress(workflowName: string, workflowId: string, progress: unknown) {
     // Workflow reported progress via this.reportProgress()
     this.broadcast({ type: "progress", workflowId, progress });
   }
 
-  async onWorkflowComplete(
-    workflowName: string,
-    workflowId: string,
-    result?: unknown,
-  ) {
+  async onWorkflowComplete(workflowName: string, workflowId: string, result?: unknown) {
     // Workflow finished successfully
   }
 
-  async onWorkflowError(
-    workflowName: string,
-    workflowId: string,
-    error: Error,
-  ) {
+  async onWorkflowError(workflowName: string, workflowId: string, error: Error) {
     // Workflow failed
   }
 
-  async onWorkflowEvent(
-    workflowName: string,
-    workflowId: string,
-    event: unknown,
-  ) {
+  async onWorkflowEvent(workflowName: string, workflowId: string, event: unknown) {
     // Workflow received an event via sendWorkflowEvent()
   }
 }

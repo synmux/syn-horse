@@ -11,12 +11,10 @@ const sql = postgres(env.HYPERDRIVE.connectionString, {
 });
 
 // Cacheable: popular content
-const posts =
-  await sql`SELECT * FROM posts WHERE published = true ORDER BY views DESC LIMIT 20`;
+const posts = await sql`SELECT * FROM posts WHERE published = true ORDER BY views DESC LIMIT 20`;
 
 // Cacheable: user profiles
-const [user] =
-  await sql`SELECT id, username, bio FROM users WHERE id = ${userId}`;
+const [user] = await sql`SELECT id, username, bio FROM users WHERE id = ${userId}`;
 ```
 
 **Benefits:** Trending/profiles cached (60s), connection pooling handles spikes.
@@ -55,9 +53,7 @@ const client = new Client({
 await client.connect();
 
 // Aggregate queries cached (use fixed timestamps for caching)
-const thirtyDaysAgo = new Date(
-  Date.now() - 30 * 24 * 60 * 60 * 1000,
-).toISOString();
+const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
 const dailyStats = await client.query(
   `
   SELECT DATE(created_at) as date, COUNT(*) as orders, SUM(amount) as revenue
@@ -67,9 +63,7 @@ const dailyStats = await client.query(
   [thirtyDaysAgo],
 );
 
-const sevenDaysAgo = new Date(
-  Date.now() - 7 * 24 * 60 * 60 * 1000,
-).toISOString();
+const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
 const topProducts = await client.query(
   `
   SELECT p.name, COUNT(oi.id) as count, SUM(oi.quantity * oi.price) as revenue
@@ -132,10 +126,8 @@ const sql = postgres(env.HYPERDRIVE.connectionString, { prepare: true });
 
 // Multiple queries benefit from Smart Placement
 const [user] = await sql`SELECT * FROM users WHERE id = ${userId}`;
-const orders =
-  await sql`SELECT * FROM orders WHERE user_id = ${userId} ORDER BY created_at DESC LIMIT 10`;
-const stats =
-  await sql`SELECT COUNT(*) as total, SUM(amount) as spent FROM orders WHERE user_id = ${userId}`;
+const orders = await sql`SELECT * FROM orders WHERE user_id = ${userId} ORDER BY created_at DESC LIMIT 10`;
+const stats = await sql`SELECT COUNT(*) as total, SUM(amount) as spent FROM orders WHERE user_id = ${userId}`;
 
 return Response.json({ user, orders, stats });
 ```

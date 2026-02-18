@@ -132,10 +132,7 @@ Pass multiple values:
 ```
 
 ```ts
-const vDemo = (
-  el: HTMLElement,
-  binding: DirectiveBinding<{ color: string; text: string }>,
-) => {
+const vDemo = (el: HTMLElement, binding: DirectiveBinding<{ color: string; text: string }>) => {
   console.log(binding.value.color); // 'white'
   console.log(binding.value.text); // 'hello'
 };

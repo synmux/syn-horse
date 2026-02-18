@@ -21,15 +21,11 @@ const scriptFile = new File([scriptContent], `${scriptName}.mjs`, {
   type: "application/javascript+module",
 });
 
-await client.workersForPlatforms.dispatch.namespaces.scripts.update(
-  namespace,
-  scriptName,
-  {
-    account_id: accountId,
-    metadata: { main_module: `${scriptName}.mjs` },
-    files: [scriptFile],
-  },
-);
+await client.workersForPlatforms.dispatch.namespaces.scripts.update(namespace, scriptName, {
+  account_id: accountId,
+  metadata: { main_module: `${scriptName}.mjs` },
+  files: [scriptFile],
+});
 ```
 
 ## TypeScript Types
@@ -38,11 +34,7 @@ await client.workersForPlatforms.dispatch.namespaces.scripts.update(
 import type { DispatchNamespace } from "@cloudflare/workers-types";
 
 interface DispatchNamespace {
-  get(
-    name: string,
-    options?: Record<string, unknown>,
-    dispatchOptions?: DynamicDispatchOptions,
-  ): Fetcher;
+  get(name: string, options?: Record<string, unknown>, dispatchOptions?: DynamicDispatchOptions): Fetcher;
 }
 
 interface DynamicDispatchOptions {

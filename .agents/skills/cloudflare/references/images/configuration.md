@@ -24,10 +24,7 @@ interface Env {
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    return await env.IMAGES.input(imageBuffer)
-      .transform({ width: 800 })
-      .output()
-      .response();
+    return await env.IMAGES.input(imageBuffer).transform({ width: 800 }).output().response();
   },
 };
 ```
@@ -48,16 +45,13 @@ async function uploadImage(filePath: string) {
   const formData = new FormData();
   formData.append("file", fs.createReadStream(filePath));
 
-  const response = await fetch(
-    `https://api.cloudflare.com/client/v4/accounts/${accountId}/images/v1`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiToken}`,
-      },
-      body: formData,
+  const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/images/v1`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiToken}`,
     },
-  );
+    body: formData,
+  });
 
   const result = await response.json();
   console.log("Uploaded:", result);
@@ -188,12 +182,7 @@ Generate signed URL:
 ```typescript
 import { createHmac } from "crypto";
 
-function signUrl(
-  imageId: string,
-  variant: string,
-  expiry: number,
-  key: string,
-): string {
+function signUrl(imageId: string, variant: string, expiry: number, key: string): string {
   const path = `/${imageId}/${variant}`;
   const toSign = `${path}${expiry}`;
   const signature = createHmac("sha256", key).update(toSign).digest("hex");
@@ -202,12 +191,7 @@ function signUrl(
 }
 
 // Sign URL valid for 1 hour
-const signedUrl = signUrl(
-  "image-id",
-  "public",
-  Date.now() + 3600,
-  env.SIGNING_KEY,
-);
+const signedUrl = signUrl("image-id", "public", Date.now() + 3600, env.SIGNING_KEY);
 ```
 
 ## Local Development

@@ -93,8 +93,7 @@ export class Counter extends Agent<Env, State> {
 }
 
 export default {
-  fetch: (req, env) =>
-    routeAgentRequest(req, env) ?? new Response("Not found", { status: 404 }),
+  fetch: (req, env) => routeAgentRequest(req, env) ?? new Response("Not found", { status: 404 }),
 };
 ```
 
@@ -138,11 +137,7 @@ function App() {
     onIdentity: (name, agentType) => console.log(`Connected to ${name}`),
   });
 
-  return (
-    <button onClick={() => agent.setState({ count: state.count + 1 })}>
-      Count: {state.count}
-    </button>
-  );
+  return <button onClick={() => agent.setState({ count: state.count + 1 })}>Count: {state.count}</button>;
 }
 ```
 

@@ -6,9 +6,7 @@
 
 ```typescript
 // ❌ WRONG: Stream consumed twice
-const email = await PostalMime.parse(
-  await new Response(message.raw).arrayBuffer(),
-);
+const email = await PostalMime.parse(await new Response(message.raw).arrayBuffer());
 const rawText = await new Response(message.raw).text(); // EMPTY!
 
 // ✅ CORRECT: Buffer first
@@ -65,9 +63,7 @@ Replies fail silently without DMARC. Verify: `dig TXT _dmarc.example.com`
 ```typescript
 const email = await PostalMime.parse(buffer);
 const fromAddress = email.from?.address || "unknown";
-const toAddresses = Array.isArray(email.to)
-  ? email.to.map((t) => t.address)
-  : [email.to?.address];
+const toAddresses = Array.isArray(email.to) ? email.to.map((t) => t.address) : [email.to?.address];
 ```
 
 ### Character Encoding
@@ -101,9 +97,7 @@ headers.set("Subject", "Modified"); // ❌ Dropped
 ```typescript
 // Use same domain as receiving address
 const receivingDomain = message.to.split("@")[1];
-await message.reply(
-  new EmailMessage(`noreply@${receivingDomain}`, message.from, rawMime),
-);
+await message.reply(new EmailMessage(`noreply@${receivingDomain}`, message.from, rawMime));
 ```
 
 ## Performance

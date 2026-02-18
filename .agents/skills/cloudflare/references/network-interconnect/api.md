@@ -146,12 +146,9 @@ await client.networkInterconnects.interconnects.create({
 await client.networkInterconnects.interconnects.get(accountId, iconId);
 
 // LOA (use fetch)
-const res = await fetch(
-  `https://api.cloudflare.com/client/v4/accounts/${id}/cni/interconnects/${iconId}/loa`,
-  {
-    headers: { Authorization: `Bearer ${token}` },
-  },
-);
+const res = await fetch(`https://api.cloudflare.com/client/v4/accounts/${id}/cni/interconnects/${iconId}/loa`, {
+  headers: { Authorization: `Bearer ${token}` },
+});
 await fs.writeFile("loa.pdf", Buffer.from(await res.arrayBuffer()));
 
 // CNI object

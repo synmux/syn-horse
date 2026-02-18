@@ -21,11 +21,7 @@ export class ImageProcessingWorkflow extends WorkflowEntrypoint<Env, Params> {
       event: "approved",
       timeout: "24h",
     });
-    await step.do(
-      "publish",
-      async () =>
-        await this.env.BUCKET.put(`public/${event.params.imageKey}`, imageData),
-    );
+    await step.do("publish", async () => await this.env.BUCKET.put(`public/${event.params.imageKey}`, imageData));
   }
 }
 ```
@@ -35,24 +31,16 @@ export class ImageProcessingWorkflow extends WorkflowEntrypoint<Env, Params> {
 ```typescript
 export class UserLifecycleWorkflow extends WorkflowEntrypoint<Env, Params> {
   async run(event, step) {
-    await step.do(
-      "welcome email",
-      async () => await sendEmail(event.params.email, "Welcome!"),
-    );
+    await step.do("welcome email", async () => await sendEmail(event.params.email, "Welcome!"));
     await step.sleep("trial period", "7 days");
     const hasConverted = await step.do("check conversion", async () => {
-      const user = await this.env.DB.prepare(
-        "SELECT subscription_status FROM users WHERE id = ?",
-      )
+      const user = await this.env.DB.prepare("SELECT subscription_status FROM users WHERE id = ?")
         .bind(event.params.userId)
         .first();
       return user.subscription_status === "active";
     });
     if (!hasConverted)
-      await step.do(
-        "trial expiration email",
-        async () => await sendEmail(event.params.email, "Trial ending"),
-      );
+      await step.do("trial expiration email", async () => await sendEmail(event.params.email, "Trial ending"));
   }
 }
 ```
@@ -85,12 +73,7 @@ export class DataPipelineWorkflow extends WorkflowEntrypoint<Env, Params> {
         await this.env.DB.batch(
           data
             .slice(i, i + 100)
-            .map((item) =>
-              this.env.DB.prepare("INSERT INTO records VALUES (?, ?)").bind(
-                item.id,
-                item.normalized,
-              ),
-            ),
+            .map((item) => this.env.DB.prepare("INSERT INTO records VALUES (?, ?)").bind(item.id, item.normalized)),
         );
       }
     });
@@ -106,17 +89,15 @@ export class ApprovalWorkflow extends WorkflowEntrypoint<Env, Params> {
     await step.do(
       "create approval",
       async () =>
-        await this.env.DB.prepare(
-          "INSERT INTO approvals (id, user_id, status) VALUES (?, ?, ?)",
-        )
+        await this.env.DB.prepare("INSERT INTO approvals (id, user_id, status) VALUES (?, ?, ?)")
           .bind(event.instanceId, event.params.userId, "pending")
           .run(),
     );
     try {
-      const approval = await step.waitForEvent<{ approved: boolean }>(
-        "wait for approval",
-        { event: "approval-response", timeout: "48h" },
-      );
+      const approval = await step.waitForEvent<{ approved: boolean }>("wait for approval", {
+        event: "approval-response",
+        timeout: "48h",
+      });
       if (approval.approved) {
         await step.do("process approval", async () => {});
       } else {
@@ -126,9 +107,7 @@ export class ApprovalWorkflow extends WorkflowEntrypoint<Env, Params> {
       await step.do(
         "auto reject",
         async () =>
-          await this.env.DB.prepare(
-            "UPDATE approvals SET status = ? WHERE id = ?",
-          )
+          await this.env.DB.prepare("UPDATE approvals SET status = ? WHERE id = ?")
             .bind("auto-rejected", event.instanceId)
             .run(),
       );
@@ -162,10 +141,7 @@ export default defineWorkersConfig({
 import { introspectWorkflowInstance } from "cloudflare:test";
 
 const instance = await env.MY_WORKFLOW.create({ params: { userId: "123" } });
-const introspector = await introspectWorkflowInstance(
-  env.MY_WORKFLOW,
-  instance.id,
-);
+const introspector = await introspectWorkflowInstance(env.MY_WORKFLOW, instance.id);
 
 // Wait for step completion
 const result = await introspector.waitForStepResult({
@@ -211,9 +187,7 @@ await introspector.modify(async (m) => {
 const files = await step.do("list", async () => this.env.BUCKET.list());
 await Promise.all(
   files.objects.map((file, i) =>
-    step.do(`process ${i}`, async () =>
-      processFile(await (await this.env.BUCKET.get(file.key)).arrayBuffer()),
-    ),
+    step.do(`process ${i}`, async () => processFile(await (await this.env.BUCKET.get(file.key)).arrayBuffer())),
   ),
 );
 ```
@@ -229,9 +203,7 @@ const child = await step.do(
       params: { data: result.data },
     }),
 );
-await step.do("other work", async () =>
-  console.log(`Child started: ${child.id}`),
-);
+await step.do("other work", async () => console.log(`Child started: ${child.id}`));
 ```
 
 ### Race Pattern

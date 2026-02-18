@@ -87,10 +87,8 @@ if (limits.remaining < 60000) return new Response("Quota low", { status: 429 });
 try {
   await page.goto(url, { timeout: 30000, waitUntil: "networkidle0" });
 } catch (e) {
-  if (e.message.includes("timeout"))
-    return new Response("Timeout", { status: 504 });
-  if (e.message.includes("Session limit"))
-    return new Response("Too many sessions", { status: 429 });
+  if (e.message.includes("timeout")) return new Response("Timeout", { status: 504 });
+  if (e.message.includes("Session limit")) return new Response("Too many sessions", { status: 429 });
 } finally {
   if (browser) await browser.close();
 }

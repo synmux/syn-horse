@@ -129,9 +129,7 @@ With `asSeoCollection()` (see main SKILL.md):
 
 ```vue
 <script setup>
-const { data: page } = await useAsyncData(() =>
-  queryCollection("posts").path(route.path).first(),
-);
+const { data: page } = await useAsyncData(() => queryCollection("posts").path(route.path).first());
 if (page.value?.ogImage) defineOgImage(page.value.ogImage);
 </script>
 ```

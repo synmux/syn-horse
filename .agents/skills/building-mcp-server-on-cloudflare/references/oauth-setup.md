@@ -64,10 +64,7 @@ function generateCSRFProtection(): { token: string; setCookie: string } {
 }
 
 // Validate token when user approves
-function validateCSRFToken(
-  formData: FormData,
-  request: Request,
-): { clearCookie: string } {
+function validateCSRFToken(formData: FormData, request: Request): { clearCookie: string } {
   const tokenFromForm = formData.get("csrf_token");
   const cookieHeader = request.headers.get("Cookie") || "";
   const tokenFromCookie = cookieHeader
@@ -166,10 +163,7 @@ Ensure the same user that hits authorize reaches the callback. Use a random stat
 
 ```typescript
 // Create state before redirecting to upstream provider
-async function createOAuthState(
-  oauthReqInfo: AuthRequest,
-  kv: KVNamespace,
-): Promise<{ stateToken: string }> {
+async function createOAuthState(oauthReqInfo: AuthRequest, kv: KVNamespace): Promise<{ stateToken: string }> {
   const stateToken = crypto.randomUUID();
   await kv.put(`oauth:state:${stateToken}`, JSON.stringify(oauthReqInfo), {
     expirationTtl: 600,
@@ -178,16 +172,12 @@ async function createOAuthState(
 }
 
 // Bind state to browser session via hashed cookie
-async function bindStateToSession(
-  stateToken: string,
-): Promise<{ setCookie: string }> {
+async function bindStateToSession(stateToken: string): Promise<{ setCookie: string }> {
   const encoder = new TextEncoder();
   const data = encoder.encode(stateToken);
   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
+  const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 
   return {
     setCookie: `__Host-CONSENTED_STATE=${hashHex}; HttpOnly; Secure; Path=/; SameSite=Lax; Max-Age=600`,
@@ -225,10 +215,7 @@ async function validateOAuthState(
 
   // Hash state and compare
   const encoder = new TextEncoder();
-  const hashBuffer = await crypto.subtle.digest(
-    "SHA-256",
-    encoder.encode(stateFromQuery),
-  );
+  const hashBuffer = await crypto.subtle.digest("SHA-256", encoder.encode(stateFromQuery));
   const stateHash = Array.from(new Uint8Array(hashBuffer))
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("");
@@ -253,13 +240,8 @@ async function validateOAuthState(
 Maintain a registry of approved client IDs per user. Store in a cryptographically signed cookie with HMAC-SHA256.
 
 ```typescript
-export async function addApprovedClient(
-  request: Request,
-  clientId: string,
-  cookieSecret: string,
-): Promise<string> {
-  const existingClients =
-    (await getApprovedClientsFromCookie(request, cookieSecret)) || [];
+export async function addApprovedClient(request: Request, clientId: string, cookieSecret: string): Promise<string> {
+  const existingClients = (await getApprovedClientsFromCookie(request, cookieSecret)) || [];
   const updatedClients = Array.from(new Set([...existingClients, clientId]));
 
   const payload = JSON.stringify(updatedClients);

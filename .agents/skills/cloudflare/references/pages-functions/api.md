@@ -76,9 +76,7 @@ interface Env {
   DB: D1Database;
 }
 export const onRequest: PagesFunction<Env> = async (ctx) => {
-  const user = await ctx.env.DB.prepare("SELECT * FROM users WHERE id = ?")
-    .bind(123)
-    .first();
+  const user = await ctx.env.DB.prepare("SELECT * FROM users WHERE id = ?").bind(123).first();
   return Response.json(user);
 };
 ```

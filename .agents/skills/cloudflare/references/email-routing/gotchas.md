@@ -77,8 +77,7 @@ const display = message.headers.get("from");
 **Solution:**
 
 ```typescript
-const size =
-  parseInt(message.headers.get("content-length") || "0") / 1024 / 1024;
+const size = parseInt(message.headers.get("content-length") || "0") / 1024 / 1024;
 if (size > 20) {
   message.setReject("Too large");
   return;

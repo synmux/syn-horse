@@ -71,9 +71,7 @@ await stub.someMethod(); // Data stays in EU
     { "tag": "v2", "renamed_classes": [{ "from": "Old", "to": "New" }] },
     {
       "tag": "v3",
-      "transferred_classes": [
-        { "from": "Src", "from_script": "old", "to": "Dest" },
-      ],
+      "transferred_classes": [{ "from": "Src", "from_script": "old", "to": "Dest" }],
     },
     { "tag": "v4", "deleted_classes": ["Obsolete"] }, // Destroys ALL data!
   ],

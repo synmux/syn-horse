@@ -236,8 +236,7 @@ import type { ComponentExposed } from "vue-component-type-helpers";
 import MyGenericComponent from "./MyGenericComponent.vue";
 
 // Get exposed methods/properties with correct generic types
-const compRef =
-  useTemplateRef<ComponentExposed<typeof MyGenericComponent>>("comp");
+const compRef = useTemplateRef<ComponentExposed<typeof MyGenericComponent>>("comp");
 
 onMounted(() => {
   compRef.value?.someExposedMethod(); // Typed!

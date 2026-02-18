@@ -136,10 +136,7 @@ try {
 Upgrades connection to TLS. Only available when `secureTransport: "starttls"` was specified.
 
 ```typescript
-const socket = connect(
-  { hostname: "db.internal", port: 5432 },
-  { secureTransport: "starttls" },
-);
+const socket = connect({ hostname: "db.internal", port: 5432 }, { secureTransport: "starttls" });
 
 // Send protocol-specific StartTLS command
 const writer = socket.writable.getWriter();
@@ -157,10 +154,7 @@ import { connect } from "cloudflare:sockets";
 
 export default {
   async fetch(req: Request): Promise<Response> {
-    const socket = connect(
-      { hostname: "echo.example.com", port: 7 },
-      { secureTransport: "on" },
-    );
+    const socket = connect({ hostname: "echo.example.com", port: 7 }, { secureTransport: "on" });
 
     try {
       await socket.opened;

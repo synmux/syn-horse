@@ -65,13 +65,9 @@ export class MyMCP extends McpAgent {
 
   async init() {
     // Simple tool with parameters
-    this.server.tool(
-      "add",
-      { a: z.number(), b: z.number() },
-      async ({ a, b }) => ({
-        content: [{ type: "text", text: String(a + b) }],
-      }),
-    );
+    this.server.tool("add", { a: z.number(), b: z.number() }, async ({ a, b }) => ({
+      content: [{ type: "text", text: String(a + b) }],
+    }));
 
     // Tool that calls external API
     this.server.tool("get_weather", { city: z.string() }, async ({ city }) => {

@@ -127,8 +127,7 @@ const stream = await client.chat.completions.create({
   messages,
   stream: true,
 });
-for await (const chunk of stream)
-  conn.send(JSON.stringify({ chunk: chunk.choices[0].delta.content }));
+for await (const chunk of stream) conn.send(JSON.stringify({ chunk: chunk.choices[0].delta.content }));
 ```
 
 **Type-safe state:** `Agent<Env, State, ConnState>` - third param types `conn.state`
@@ -183,8 +182,7 @@ const stream = await client.chat.completions.create({
   stream: true,
 });
 for await (const chunk of stream) {
-  if (chunk.choices[0]?.delta?.content)
-    conn.send(JSON.stringify({ chunk: chunk.choices[0].delta.content }));
+  if (chunk.choices[0]?.delta?.content) conn.send(JSON.stringify({ chunk: chunk.choices[0].delta.content }));
 }
 ```
 
@@ -200,22 +198,13 @@ const result = await agent.processTask({ text: "Hello" }); // Call @callable met
 // useAgentChat() - AI chat UI
 import { useAgentChat } from "agents/ai-react";
 const agent = useAgent({ agent: "ChatAgent" });
-const {
-  messages,
-  input,
-  handleInputChange,
-  handleSubmit,
-  isLoading,
-  stop,
-  clearHistory,
-} = useAgentChat({
+const { messages, input, handleInputChange, handleSubmit, isLoading, stop, clearHistory } = useAgentChat({
   agent,
   maxSteps: 5, // Max tool iterations
   resume: true, // Auto-resume on disconnect
   onToolCall: async (toolCall) => {
     // Client tools (human-in-the-loop)
-    if (toolCall.toolName === "confirm")
-      return { ok: window.confirm("Proceed?") };
+    if (toolCall.toolName === "confirm") return { ok: window.confirm("Proceed?") };
   },
 });
 // status: "ready" | "submitted" | "streaming" | "error"

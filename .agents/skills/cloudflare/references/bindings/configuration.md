@@ -6,9 +6,7 @@
 {
   "kv_namespaces": [{ "binding": "MY_KV", "id": "..." }],
   "r2_buckets": [{ "binding": "MY_BUCKET", "bucket_name": "my-bucket" }],
-  "d1_databases": [
-    { "binding": "DB", "database_name": "my-db", "database_id": "..." },
-  ],
+  "d1_databases": [{ "binding": "DB", "database_name": "my-db", "database_id": "..." }],
   "durable_objects": {
     "bindings": [{ "name": "MY_DO", "class_name": "MyDO" }],
   },
@@ -65,9 +63,7 @@ npx wrangler workflows create my-workflow
   "mtls_certificates": [{ "binding": "MY_CERT", "certificate_id": "..." }],
   "hyperdrive": [{ "binding": "HYPERDRIVE", "id": "..." }],
   "unsafe": {
-    "bindings": [
-      { "name": "RATE_LIMITER", "type": "ratelimit", "namespace_id": "..." },
-    ],
+    "bindings": [{ "name": "RATE_LIMITER", "type": "ratelimit", "namespace_id": "..." }],
   },
 }
 ```
@@ -148,9 +144,7 @@ npx wrangler dev --remote  # Uses production bindings
   "vars": { "API_URL": "https://api.example.com" },
   "kv_namespaces": [{ "binding": "CACHE", "id": "abc123" }],
   "r2_buckets": [{ "binding": "ASSETS", "bucket_name": "my-assets" }],
-  "d1_databases": [
-    { "binding": "DB", "database_name": "my-db", "database_id": "xyz789" },
-  ],
+  "d1_databases": [{ "binding": "DB", "database_name": "my-db", "database_id": "xyz789" }],
   "services": [{ "binding": "AUTH", "service": "auth-worker" }],
   "ai": { "binding": "AI" },
 }

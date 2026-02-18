@@ -190,10 +190,9 @@ Anti-pattern:
 
 ```ts
 // REST API from inside a Worker — unnecessary overhead
-const response = await fetch(
-  "https://api.cloudflare.com/client/v4/accounts/.../r2/buckets/.../objects/my-file",
-  { headers: { Authorization: `Bearer ${env.CF_API_TOKEN}` } },
-);
+const response = await fetch("https://api.cloudflare.com/client/v4/accounts/.../r2/buckets/.../objects/my-file", {
+  headers: { Authorization: `Bearer ${env.CF_API_TOKEN}` },
+});
 ```
 
 ### Use Queues and Workflows for async and background work
@@ -232,9 +231,7 @@ Service bindings are zero-cost, bypass the public internet, and support type-saf
 import { WorkerEntrypoint } from "cloudflare:workers";
 
 export class AuthService extends WorkerEntrypoint {
-  async verifyToken(
-    token: string,
-  ): Promise<{ userId: string; valid: boolean }> {
+  async verifyToken(token: string): Promise<{ userId: string; valid: boolean }> {
     return { userId: "user-123", valid: true };
   }
 }
@@ -330,11 +327,7 @@ Workers reuse isolates across requests. Module-level mutable variables cause cro
 
 ```ts
 export default {
-  async fetch(
-    request: Request,
-    env: Env,
-    ctx: ExecutionContext,
-  ): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const userId = request.headers.get("X-User-Id");
     const result = await handleRequest(userId, env);
     return Response.json(result);
@@ -430,10 +423,7 @@ const token = Array.from(tokenBytes)
 
 ```ts
 // Constant-time comparison — hash first to avoid length leak
-async function verifyToken(
-  provided: string,
-  expected: string,
-): Promise<boolean> {
+async function verifyToken(provided: string, expected: string): Promise<boolean> {
   const encoder = new TextEncoder();
   const [providedHash, expectedHash] = await Promise.all([
     crypto.subtle.digest("SHA-256", encoder.encode(provided)),

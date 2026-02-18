@@ -163,9 +163,7 @@ With `asSeoCollection()` (see main SKILL.md), ensure schema renders:
 
 ```vue
 <script setup>
-const { data: page } = await useAsyncData(() =>
-  queryCollection("posts").path(route.path).first(),
-);
+const { data: page } = await useAsyncData(() => queryCollection("posts").path(route.path).first());
 useHead(page.value?.head || {});
 </script>
 ```

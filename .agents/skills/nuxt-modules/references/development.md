@@ -107,9 +107,7 @@ export default defineNuxtModule({
   async setup() {
     // Lazy-load only the bundler plugin needed
     addVitePlugin(() => import("my-plugin/vite").then((r) => r.default()));
-    addWebpackPlugin(() =>
-      import("my-plugin/webpack").then((r) => r.default()),
-    );
+    addWebpackPlugin(() => import("my-plugin/webpack").then((r) => r.default()));
   },
 });
 ```
@@ -117,12 +115,7 @@ export default defineNuxtModule({
 ## Adding Components
 
 ```ts
-import {
-  addComponent,
-  addComponentsDir,
-  createResolver,
-  defineNuxtModule,
-} from "@nuxt/kit";
+import { addComponent, addComponentsDir, createResolver, defineNuxtModule } from "@nuxt/kit";
 
 export default defineNuxtModule({
   setup(options, nuxt) {
@@ -148,12 +141,7 @@ export default defineNuxtModule({
 ## Adding Composables
 
 ```ts
-import {
-  addImports,
-  addImportsDir,
-  createResolver,
-  defineNuxtModule,
-} from "@nuxt/kit";
+import { addImports, addImportsDir, createResolver, defineNuxtModule } from "@nuxt/kit";
 
 export default defineNuxtModule({
   setup(options, nuxt) {

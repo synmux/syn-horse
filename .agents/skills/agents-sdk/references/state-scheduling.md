@@ -62,11 +62,7 @@ function App() {
     onStateUpdate: (newState) => setLocalState(newState),
   });
 
-  return (
-    <button onClick={() => agent.setState({ count: state.count + 1 })}>
-      Count: {state.count}
-    </button>
-  );
+  return <button onClick={() => agent.setState({ count: state.count + 1 })}>Count: {state.count}</button>;
 }
 ```
 

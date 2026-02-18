@@ -98,10 +98,7 @@ const ruleset = await client.rulesets.get({
 await client.rulesets.update({
   zone_id: "zone_id",
   ruleset_id: "ruleset_id",
-  rules: [
-    ...ruleset.rules,
-    { action: "block", expression: "cf.waf.score gt 50" },
-  ],
+  rules: [...ruleset.rules, { action: "block", expression: "cf.waf.score gt 50" }],
 });
 ```
 

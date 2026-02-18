@@ -8,11 +8,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script
-      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-      async
-      defer
-    ></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   </head>
   <body>
     <form action="/submit" method="POST">
@@ -112,18 +108,15 @@ export default {
 
     // Validate token
     const ip = request.headers.get("CF-Connecting-IP");
-    const result = await fetch(
-      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          secret: env.TURNSTILE_SECRET,
-          response: token,
-          remoteip: ip,
-        }),
-      },
-    );
+    const result = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        secret: env.TURNSTILE_SECRET,
+        response: token,
+        remoteip: ip,
+      }),
+    });
 
     const validation = await result.json();
 
@@ -194,13 +187,8 @@ let widgetId = window.turnstile.render("#container", {
 ### Environment-Based Keys
 
 ```javascript
-const SITE_KEY =
-  process.env.NODE_ENV === "production"
-    ? "YOUR_PRODUCTION_SITE_KEY"
-    : "1x00000000000000000000AA"; // Always passes
+const SITE_KEY = process.env.NODE_ENV === "production" ? "YOUR_PRODUCTION_SITE_KEY" : "1x00000000000000000000AA"; // Always passes
 
 const SECRET_KEY =
-  process.env.NODE_ENV === "production"
-    ? process.env.TURNSTILE_SECRET
-    : "1x0000000000000000000000000000000AA";
+  process.env.NODE_ENV === "production" ? process.env.TURNSTILE_SECRET : "1x0000000000000000000000000000000AA";
 ```

@@ -36,8 +36,7 @@ const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
 };
-if (request.method === "OPTIONS")
-  return new Response(null, { headers: corsHeaders });
+if (request.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 ```
 
 ## Routing
@@ -49,9 +48,7 @@ const router = {
 };
 
 const handler = router[`${request.method} ${url.pathname}`];
-return handler
-  ? handler(request, env)
-  : new Response("Not Found", { status: 404 });
+return handler ? handler(request, env) : new Response("Not Found", { status: 404 });
 ```
 
 **Production**: Use Hono, itty-router, or Worktop (see [frameworks.md](./frameworks.md))
@@ -96,10 +93,7 @@ const user = await fetch("/api/user/1");
 const posts = await fetch("/api/posts?user=1");
 
 // ✅ Parallel
-const [user, posts] = await Promise.all([
-  fetch("/api/user/1"),
-  fetch("/api/posts?user=1"),
-]);
+const [user, posts] = await Promise.all([fetch("/api/user/1"), fetch("/api/posts?user=1")]);
 ```
 
 ## Streaming
@@ -180,14 +174,10 @@ const security = {
 
 // Auth
 const auth = request.headers.get("Authorization");
-if (!auth?.startsWith("Bearer "))
-  return new Response("Unauthorized", { status: 401 });
+if (!auth?.startsWith("Bearer ")) return new Response("Unauthorized", { status: 401 });
 
 // Gradual rollouts (deterministic user bucketing)
-const hash = await crypto.subtle.digest(
-  "SHA-256",
-  new TextEncoder().encode(userId),
-);
+const hash = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(userId));
 if (new Uint8Array(hash)[0] % 100 < rolloutPercent) return newFeature(request);
 ```
 
@@ -215,11 +205,7 @@ Parallel uploads, resume on failure, handle files > 5GB
 ## Workflows (Step Orchestration)
 
 ```typescript
-import {
-  WorkflowEntrypoint,
-  WorkflowStep,
-  WorkflowEvent,
-} from "cloudflare:workers";
+import { WorkflowEntrypoint, WorkflowStep, WorkflowEvent } from "cloudflare:workers";
 
 export class MyWorkflow extends WorkflowEntrypoint {
   async run(event: WorkflowEvent<{ userId: string }>, step: WorkflowStep) {

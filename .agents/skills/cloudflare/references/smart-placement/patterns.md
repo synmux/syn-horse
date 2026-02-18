@@ -5,14 +5,8 @@
 ```typescript
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const user = await env.DATABASE.prepare("SELECT * FROM users WHERE id = ?")
-      .bind(userId)
-      .first();
-    const orders = await env.DATABASE.prepare(
-      "SELECT * FROM orders WHERE user_id = ?",
-    )
-      .bind(userId)
-      .all();
+    const user = await env.DATABASE.prepare("SELECT * FROM users WHERE id = ?").bind(userId).first();
+    const orders = await env.DATABASE.prepare("SELECT * FROM orders WHERE user_id = ?").bind(userId).all();
     return Response.json({ user, orders });
   },
 };
@@ -121,9 +115,7 @@ export default {
 // Backend (Smart Placement) - DB operations close to data
 export default {
   async fetch(request: Request, env: Env) {
-    const data = await env.DATABASE.prepare("SELECT * FROM pages WHERE id = ?")
-      .bind(pageId)
-      .first();
+    const data = await env.DATABASE.prepare("SELECT * FROM pages WHERE id = ?").bind(pageId).first();
     return Response.json(data);
   },
 };

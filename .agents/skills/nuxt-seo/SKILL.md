@@ -59,9 +59,7 @@ import { asSeoCollection } from "@nuxtjs/seo/content";
 
 export default defineContentConfig({
   collections: {
-    posts: defineCollection(
-      asSeoCollection({ type: "page", source: "posts/**" }),
-    ),
+    posts: defineCollection(asSeoCollection({ type: "page", source: "posts/**" })),
   },
 });
 ```

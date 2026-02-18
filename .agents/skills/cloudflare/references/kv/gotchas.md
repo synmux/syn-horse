@@ -24,12 +24,7 @@ return new Response(newValue); // Don't re-read
 **Solution:** Use sequential writes, unique keys for concurrent operations, or implement retry with exponential backoff
 
 ```typescript
-async function putWithRetry(
-  kv: KVNamespace,
-  key: string,
-  value: string,
-  maxAttempts = 5,
-): Promise<void> {
+async function putWithRetry(kv: KVNamespace, key: string, value: string, maxAttempts = 5): Promise<void> {
   let delay = 1000;
   for (let i = 0; i < maxAttempts; i++) {
     try {

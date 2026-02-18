@@ -105,10 +105,7 @@ describe.skip("skipped", () => {});
 describe.only("only this", () => {});
 describe.concurrent("parallel", () => {});
 describe.shuffle("random order", () => {}); // Randomize test order
-describe.each([{ name: "Chrome" }, { name: "Firefox" }])(
-  "$name",
-  ({ name }) => {},
-);
+describe.each([{ name: "Chrome" }, { name: "Firefox" }])("$name", ({ name }) => {});
 ```
 
 ## Lifecycle Hooks

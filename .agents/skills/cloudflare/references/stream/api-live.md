@@ -24,20 +24,17 @@ const liveInput = await client.stream.liveInputs.create({
 
 ```typescript
 async function createLiveInput(accountId: string, apiToken: string) {
-  const response = await fetch(
-    `https://api.cloudflare.com/client/v4/accounts/${accountId}/stream/live_inputs`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiToken}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        recording: { mode: "automatic", timeoutSeconds: 30 },
-        deleteRecordingAfterDays: 30,
-      }),
+  const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/stream/live_inputs`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiToken}`,
+      "Content-Type": "application/json",
     },
-  );
+    body: JSON.stringify({
+      recording: { mode: "automatic", timeoutSeconds: 30 },
+      deleteRecordingAfterDays: 30,
+    }),
+  });
   const { result } = await response.json();
   return {
     uid: result.uid,
@@ -55,11 +52,7 @@ async function createLiveInput(accountId: string, apiToken: string) {
 ## Check Live Status
 
 ```typescript
-async function getLiveStatus(
-  accountId: string,
-  liveInputId: string,
-  apiToken: string,
-) {
+async function getLiveStatus(accountId: string, liveInputId: string, apiToken: string) {
   const response = await fetch(
     `https://api.cloudflare.com/client/v4/accounts/${accountId}/stream/live_inputs/${liveInputId}`,
     { headers: { Authorization: `Bearer ${apiToken}` } },
@@ -85,21 +78,18 @@ async function createLiveOutput(
   outputUrl: string,
   streamKey: string,
 ) {
-  return fetch(
-    `https://api.cloudflare.com/client/v4/accounts/${accountId}/stream/live_inputs/${liveInputId}/outputs`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiToken}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        url: `${outputUrl}/${streamKey}`,
-        enabled: true,
-        streamKey, // For platforms like YouTube, Twitch
-      }),
+  return fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/stream/live_inputs/${liveInputId}/outputs`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiToken}`,
+      "Content-Type": "application/json",
     },
-  ).then((r) => r.json());
+    body: JSON.stringify({
+      url: `${outputUrl}/${streamKey}`,
+      enabled: true,
+      streamKey, // For platforms like YouTube, Twitch
+    }),
+  }).then((r) => r.json());
 }
 ```
 
@@ -118,13 +108,7 @@ await createLiveOutput(
 );
 
 // Add Twitch output
-await createLiveOutput(
-  accountId,
-  liveInput.uid,
-  apiToken,
-  "rtmp://live.twitch.tv/app",
-  "your-twitch-stream-key",
-);
+await createLiveOutput(accountId, liveInput.uid, apiToken, "rtmp://live.twitch.tv/app", "your-twitch-stream-key");
 ```
 
 ## WebRTC Streaming (WHIP/WHEP)
@@ -147,14 +131,11 @@ async function startWebRTCBroadcast(liveInputId: string) {
   await pc.setLocalDescription(offer);
 
   // Send to Stream via WHIP
-  const response = await fetch(
-    `https://customer-<CODE>.cloudflarestream.com/${liveInputId}/webRTC/publish`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/sdp" },
-      body: offer.sdp,
-    },
-  );
+  const response = await fetch(`https://customer-<CODE>.cloudflarestream.com/${liveInputId}/webRTC/publish`, {
+    method: "POST",
+    headers: { "Content-Type": "application/sdp" },
+    body: offer.sdp,
+  });
 
   const answer = await response.text();
   await pc.setRemoteDescription({ type: "answer", sdp: answer });
@@ -173,14 +154,11 @@ async function playWebRTCStream(videoId: string) {
   const offer = await pc.createOffer();
   await pc.setLocalDescription(offer);
 
-  const response = await fetch(
-    `https://customer-<CODE>.cloudflarestream.com/${videoId}/webRTC/play`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/sdp" },
-      body: offer.sdp,
-    },
-  );
+  const response = await fetch(`https://customer-<CODE>.cloudflarestream.com/${videoId}/webRTC/play`, {
+    method: "POST",
+    headers: { "Content-Type": "application/sdp" },
+    body: offer.sdp,
+  });
 
   const answer = await response.text();
   await pc.setRemoteDescription({ type: "answer", sdp: answer });

@@ -75,16 +75,8 @@ await this.ctx.storage.put("key", value, {
 ```typescript
 // Sync (SQL/sync KV only)
 this.ctx.storage.transactionSync(() => {
-  this.sql.exec(
-    "UPDATE accounts SET balance = balance - ? WHERE id = ?",
-    100,
-    1,
-  );
-  this.sql.exec(
-    "UPDATE accounts SET balance = balance + ? WHERE id = ?",
-    100,
-    2,
-  );
+  this.sql.exec("UPDATE accounts SET balance = balance - ? WHERE id = ?", 100, 1);
+  this.sql.exec("UPDATE accounts SET balance = balance + ? WHERE id = ?", 100, 2);
   return "result";
 });
 

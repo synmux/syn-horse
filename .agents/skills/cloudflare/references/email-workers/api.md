@@ -74,9 +74,7 @@ msg.addMessage({
   data: "Thank you for your message.",
 });
 
-await message.reply(
-  new EmailMessage("support@example.com", message.from, msg.asRaw()),
-);
+await message.reply(new EmailMessage("support@example.com", message.from, msg.asRaw()));
 ```
 
 **Requirements**:
@@ -132,10 +130,7 @@ postal-mime v2.7.3 parses incoming emails into structured data.
 interface ParsedEmail {
   headers: Array<{ key: string; value: string }>;
   from: { name: string; address: string } | null;
-  to:
-    | Array<{ name: string; address: string }>
-    | { name: string; address: string }
-    | null;
+  to: Array<{ name: string; address: string }> | { name: string; address: string } | null;
   cc: Array<{ name: string; address: string }> | null;
   bcc: Array<{ name: string; address: string }> | null;
   subject: string;
@@ -228,11 +223,7 @@ interface Env {
 }
 
 export default {
-  async email(
-    message: ForwardableEmailMessage,
-    env: Env,
-    ctx: ExecutionContext,
-  ): Promise<void> {
+  async email(message: ForwardableEmailMessage, env: Env, ctx: ExecutionContext): Promise<void> {
     // Fully typed
   },
 };

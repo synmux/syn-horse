@@ -7,21 +7,13 @@ Using `queryCollection()`, building navigation, implementing search, or getting 
 ## Query Builder
 
 ```ts
-const posts = await queryCollection("blog")
-  .where("draft", "=", false)
-  .order("date", "DESC")
-  .limit(10)
-  .all();
+const posts = await queryCollection("blog").where("draft", "=", false).order("date", "DESC").limit(10).all();
 
 // Single item
-const post = await queryCollection("blog")
-  .where("path", "=", "/blog/my-post")
-  .first();
+const post = await queryCollection("blog").where("path", "=", "/blog/my-post").first();
 
 // Count
-const total = await queryCollection("blog")
-  .where("category", "=", "tech")
-  .count();
+const total = await queryCollection("blog").where("category", "=", "tech").count();
 ```
 
 ## Operators
@@ -43,25 +35,18 @@ const total = await queryCollection("blog")
 // AND conditions
 const posts = await queryCollection("blog")
   .where("draft", "=", false)
-  .andWhere((group) =>
-    group.where("category", "=", "tech").orWhere("featured", "=", true),
-  )
+  .andWhere((group) => group.where("category", "=", "tech").orWhere("featured", "=", true))
   .all();
 
 // OR conditions
-const posts = await queryCollection("blog")
-  .where("author", "=", "john")
-  .orWhere("author", "=", "jane")
-  .all();
+const posts = await queryCollection("blog").where("author", "=", "john").orWhere("author", "=", "jane").all();
 ```
 
 ## Select Fields
 
 ```ts
 // Select specific fields (reduces payload)
-const titles = await queryCollection("blog")
-  .select("title", "path", "date")
-  .all();
+const titles = await queryCollection("blog").select("title", "path", "date").all();
 ```
 
 ## Navigation
@@ -73,11 +58,7 @@ Generate hierarchical navigation trees:
 const navigation = await queryCollectionNavigation("docs");
 
 // With custom fields
-const navigation = await queryCollectionNavigation("docs", [
-  "title",
-  "icon",
-  "description",
-]);
+const navigation = await queryCollectionNavigation("docs", ["title", "icon", "description"]);
 ```
 
 Returns nested structure:
@@ -116,18 +97,14 @@ navigation:
 ## Surroundings (Prev/Next)
 
 ```ts
-const { prev, next } = await queryCollectionItemSurroundings(
-  "docs",
-  "/docs/current-page",
-  { before: 1, after: 1 },
-);
+const { prev, next } = await queryCollectionItemSurroundings("docs", "/docs/current-page", { before: 1, after: 1 });
 
 // With specific fields
-const { prev, next } = await queryCollectionItemSurroundings(
-  "docs",
-  currentPath,
-  { before: 1, after: 1, fields: ["title", "path", "description"] },
-);
+const { prev, next } = await queryCollectionItemSurroundings("docs", currentPath, {
+  before: 1,
+  after: 1,
+  fields: ["title", "path", "description"],
+});
 ```
 
 ## Search Sections
@@ -173,19 +150,13 @@ export default defineEventHandler(async (event) => {
 **Latest posts:**
 
 ```ts
-const latest = await queryCollection("blog")
-  .where("draft", "=", false)
-  .order("date", "DESC")
-  .limit(5)
-  .all();
+const latest = await queryCollection("blog").where("draft", "=", false).order("date", "DESC").limit(5).all();
 ```
 
 **Posts by tag:**
 
 ```ts
-const tagged = await queryCollection("blog")
-  .where("tags", "LIKE", `%${tag}%`)
-  .all();
+const tagged = await queryCollection("blog").where("tags", "LIKE", `%${tag}%`).all();
 ```
 
 **Paginated list:**

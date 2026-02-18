@@ -48,9 +48,7 @@ export default {
 ```typescript
 export default {
   async tail(events, env, ctx) {
-    const errors = events.filter(
-      (e) => e.outcome === "exception" || e.exceptions.length > 0,
-    );
+    const errors = events.filter((e) => e.outcome === "exception" || e.exceptions.length > 0);
 
     if (errors.length === 0) return;
 
@@ -114,9 +112,7 @@ Filter by route, outcome, or other criteria:
 export default {
   async tail(events, env, ctx) {
     // Route filtering
-    const apiEvents = events.filter((e) =>
-      e.event?.request?.url?.includes("/api/"),
-    );
+    const apiEvents = events.filter((e) => e.event?.request?.url?.includes("/api/"));
 
     // Multi-destination routing
     const errors = events.filter((e) => e.outcome === "exception");

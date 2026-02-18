@@ -146,9 +146,7 @@ npx wrangler deploy
 
 ```javascript
 // URL pattern: /agents/:className/:instanceName
-const socket = new WebSocket(
-  "wss://my-agent.workers.dev/agents/MyAgent/session-123",
-);
+const socket = new WebSocket("wss://my-agent.workers.dev/agents/MyAgent/session-123");
 
 socket.onmessage = (e) => {
   console.log("Received:", JSON.parse(e.data));

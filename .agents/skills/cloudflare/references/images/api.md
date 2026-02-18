@@ -86,14 +86,11 @@ https://imagedelivery.net/{hash}/{id}/width=800,height=600,fit=cover,format=avif
 
 ```typescript
 // 1. Get upload URL (backend)
-const { result } = await fetch(
-  `https://api.cloudflare.com/client/v4/accounts/${accountId}/images/v2/direct_upload`,
-  {
-    method: "POST",
-    headers: { Authorization: `Bearer ${token}` },
-    body: JSON.stringify({ requireSignedURLs: false }),
-  },
-).then((r) => r.json());
+const { result } = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/images/v2/direct_upload`, {
+  method: "POST",
+  headers: { Authorization: `Bearer ${token}` },
+  body: JSON.stringify({ requireSignedURLs: false }),
+}).then((r) => r.json());
 
 // 2. Client uploads to result.uploadURL
 const formData = new FormData();

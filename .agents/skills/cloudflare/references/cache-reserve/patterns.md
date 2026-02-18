@@ -10,12 +10,7 @@ const configuration = {
   tieredCache: "enabled", // Required for optimal performance
   cacheReserve: "enabled", // Works best with Tiered Cache
 
-  hierarchy: [
-    "Lower-Tier Cache (visitor)",
-    "Upper-Tier Cache (origin region)",
-    "Cache Reserve (persistent)",
-    "Origin",
-  ],
+  hierarchy: ["Lower-Tier Cache (visitor)", "Upper-Tier Cache (origin region)", "Cache Reserve (persistent)", "Origin"],
 };
 ```
 
@@ -39,8 +34,7 @@ const originHeaders = {
 const cacheRules = [
   {
     description: "Long-term cache for immutable assets",
-    expression:
-      '(http.request.uri.path matches "^/static/.*\\.[a-f0-9]{8}\\.")',
+    expression: '(http.request.uri.path matches "^/static/.*\\.[a-f0-9]{8}\\.")',
     action_parameters: {
       cache_reserve: { eligible: true },
       edge_ttl: { mode: "override_origin", default: 2592000 }, // 30 days
@@ -103,9 +97,7 @@ Use Worker's hostname for efficient caching - avoid overriding hostname unnecess
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
-    const isImmutable = /\.[a-f0-9]{8,}\.(js|css|jpg|png|woff2)$/.test(
-      url.pathname,
-    );
+    const isImmutable = /\.[a-f0-9]{8,}\.(js|css|jpg|png|woff2)$/.test(url.pathname);
     const response = await fetch(request);
 
     if (isImmutable) {

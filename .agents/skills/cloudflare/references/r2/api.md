@@ -109,11 +109,7 @@ const s3 = new S3Client({
   },
 });
 
-const uploadUrl = await getSignedUrl(
-  s3,
-  new PutObjectCommand({ Bucket: "my-bucket", Key: key }),
-  { expiresIn: 3600 },
-);
+const uploadUrl = await getSignedUrl(s3, new PutObjectCommand({ Bucket: "my-bucket", Key: key }), { expiresIn: 3600 });
 return Response.json({ uploadUrl });
 ```
 
@@ -130,10 +126,7 @@ interface R2Bucket {
   ): Promise<R2Object | null>;
   delete(keys: string | string[]): Promise<void>;
   list(options?: R2ListOptions): Promise<R2Objects>;
-  createMultipartUpload(
-    key: string,
-    options?: R2MultipartOptions,
-  ): Promise<R2MultipartUpload>;
+  createMultipartUpload(key: string, options?: R2MultipartOptions): Promise<R2MultipartUpload>;
   resumeMultipartUpload(key: string, uploadId: string): R2MultipartUpload;
 }
 
@@ -223,10 +216,7 @@ interface R2Checksums {
 interface R2MultipartUpload {
   key: string;
   uploadId: string;
-  uploadPart(
-    partNumber: number,
-    value: ReadableStream | ArrayBuffer | string | Blob,
-  ): Promise<R2UploadedPart>;
+  uploadPart(partNumber: number, value: ReadableStream | ArrayBuffer | string | Blob): Promise<R2UploadedPart>;
   abort(): Promise<void>;
   complete(uploadedParts: R2UploadedPart[]): Promise<R2Object>;
 }

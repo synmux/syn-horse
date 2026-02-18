@@ -62,10 +62,7 @@ export class ToolAgent extends Agent<Env, State> {
     }
   }
 
-  private async handleChatWithTools(
-    connection: Connection,
-    userMessage: string,
-  ) {
+  private async handleChatWithTools(connection: Connection, userMessage: string) {
     // Build tool descriptions for the AI
     const toolDescriptions = Array.from(this.tools.values()).map((t) => ({
       type: "function",
@@ -98,17 +95,14 @@ export class ToolAgent extends Agent<Env, State> {
           const result = await tool.handler(params);
 
           // Send tool result back to AI
-          const finalResponse = await this.env.AI.run(
-            "@cf/meta/llama-3-8b-instruct",
-            {
-              messages: [
-                ...this.state.messages,
-                { role: "user", content: userMessage },
-                { role: "assistant", tool_calls: response.tool_calls },
-                { role: "tool", tool_call_id: toolCall.id, content: result },
-              ],
-            },
-          );
+          const finalResponse = await this.env.AI.run("@cf/meta/llama-3-8b-instruct", {
+            messages: [
+              ...this.state.messages,
+              { role: "user", content: userMessage },
+              { role: "assistant", tool_calls: response.tool_calls },
+              { role: "tool", tool_call_id: toolCall.id, content: result },
+            ],
+          });
 
           connection.send(
             JSON.stringify({
@@ -158,9 +152,7 @@ export class RAGAgent extends Agent<Env, State> {
       });
 
       // 3. Build context from results
-      const context = results.matches
-        .map((m) => m.metadata?.text || "")
-        .join("\n\n");
+      const context = results.matches.map((m) => m.metadata?.text || "").join("\n\n");
 
       // 4. Generate response with context
       const response = await this.env.AI.run("@cf/meta/llama-3-8b-instruct", {
@@ -228,11 +220,10 @@ export class OrchestratorAgent extends Agent<Env, State> {
       connection.send(JSON.stringify({ type: "status", step: "researching" }));
 
       // Step 1: Research agent gathers information
-      const researchResult = await this.callAgent(
-        this.env.RESEARCHER,
-        data.topic,
-        { action: "research", topic: data.topic },
-      );
+      const researchResult = await this.callAgent(this.env.RESEARCHER, data.topic, {
+        action: "research",
+        topic: data.topic,
+      });
 
       connection.send(JSON.stringify({ type: "status", step: "writing" }));
 
@@ -260,11 +251,7 @@ export class OrchestratorAgent extends Agent<Env, State> {
     }
   }
 
-  private async callAgent(
-    namespace: DurableObjectNamespace,
-    id: string,
-    payload: any,
-  ): Promise<string> {
+  private async callAgent(namespace: DurableObjectNamespace, id: string, payload: any): Promise<string> {
     const agentId = namespace.idFromName(id);
     const agent = namespace.get(agentId);
 
@@ -332,16 +319,12 @@ export class ApprovalAgent extends Agent<Env, State> {
     }
 
     if (data.type === "approve") {
-      const approval = this.state.pendingApprovals.find(
-        (a) => a.id === data.approvalId,
-      );
+      const approval = this.state.pendingApprovals.find((a) => a.id === data.approvalId);
 
       if (approval) {
         // Remove from pending
         this.setState({
-          pendingApprovals: this.state.pendingApprovals.filter(
-            (a) => a.id !== data.approvalId,
-          ),
+          pendingApprovals: this.state.pendingApprovals.filter((a) => a.id !== data.approvalId),
         });
 
         // Execute the approved action
@@ -351,9 +334,7 @@ export class ApprovalAgent extends Agent<Env, State> {
 
     if (data.type === "reject") {
       this.setState({
-        pendingApprovals: this.state.pendingApprovals.filter(
-          (a) => a.id !== data.approvalId,
-        ),
+        pendingApprovals: this.state.pendingApprovals.filter((a) => a.id !== data.approvalId),
       });
 
       connection.send(
@@ -366,12 +347,7 @@ export class ApprovalAgent extends Agent<Env, State> {
   }
 
   private requiresApproval(action: string): boolean {
-    const sensitiveActions = [
-      "delete",
-      "send_email",
-      "make_payment",
-      "publish",
-    ];
+    const sensitiveActions = ["delete", "send_email", "make_payment", "publish"];
     return sensitiveActions.includes(action);
   }
 
@@ -380,11 +356,7 @@ export class ApprovalAgent extends Agent<Env, State> {
     return `${action}: ${JSON.stringify(data)}`;
   }
 
-  private async executeAction(
-    connection: Connection,
-    action: string,
-    data: any,
-  ) {
+  private async executeAction(connection: Connection, action: string, data: any) {
     // Execute the action
     const result = await this.performAction(action, data);
 

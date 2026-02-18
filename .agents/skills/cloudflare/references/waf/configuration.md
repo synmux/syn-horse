@@ -215,12 +215,9 @@ WAF configuration is zone-level (not Worker-specific). Configuration methods:
 ```typescript
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    return fetch(
-      `https://api.cloudflare.com/client/v4/zones/${env.ZONE_ID}/rulesets`,
-      {
-        headers: { Authorization: `Bearer ${env.CF_API_TOKEN}` },
-      },
-    );
+    return fetch(`https://api.cloudflare.com/client/v4/zones/${env.ZONE_ID}/rulesets`, {
+      headers: { Authorization: `Bearer ${env.CF_API_TOKEN}` },
+    });
   },
 };
 ```

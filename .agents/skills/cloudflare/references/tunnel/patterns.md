@@ -165,10 +165,7 @@ const config = new cloudflare.ZeroTrustTunnelCloudflaredConfig("config", {
   accountId: accountId,
   tunnelId: tunnel.id,
   config: {
-    ingressRules: [
-      { hostname: "app.example.com", service: "http://localhost:8000" },
-      { service: "http_status:404" },
-    ],
+    ingressRules: [{ hostname: "app.example.com", service: "http://localhost:8000" }, { service: "http_status:404" }],
   },
 });
 

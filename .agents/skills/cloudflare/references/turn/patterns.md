@@ -125,10 +125,7 @@ class TURNCredentialsManager {
     expiresAt: number;
   } | null = null;
 
-  async getCredentials(
-    keyId: string,
-    keySecret: string,
-  ): Promise<RTCIceServer[]> {
+  async getCredentials(keyId: string, keySecret: string): Promise<RTCIceServer[]> {
     const now = Date.now();
 
     if (this.creds && this.creds.expiresAt > now) {
@@ -138,22 +135,17 @@ class TURNCredentialsManager {
     const ttl = 3600;
     if (ttl > 172800) throw new Error("TTL max 48hrs");
 
-    const res = await fetch(
-      `https://rtc.live.cloudflare.com/v1/turn/keys/${keyId}/credentials/generate`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${keySecret}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ttl }),
+    const res = await fetch(`https://rtc.live.cloudflare.com/v1/turn/keys/${keyId}/credentials/generate`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${keySecret}`,
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify({ ttl }),
+    });
 
     const data = await res.json();
-    const filteredUrls = data.iceServers.urls.filter(
-      (url: string) => !url.includes(":53"),
-    );
+    const filteredUrls = data.iceServers.urls.filter((url: string) => !url.includes(":53"));
 
     this.creds = {
       username: data.iceServers.username,
@@ -165,11 +157,7 @@ class TURNCredentialsManager {
     return this.buildIceServers(this.creds);
   }
 
-  private buildIceServers(c: {
-    username: string;
-    credential: string;
-    urls: string[];
-  }): RTCIceServer[] {
+  private buildIceServers(c: { username: string; credential: string; urls: string[] }): RTCIceServer[] {
     return [
       { urls: "stun:stun.cloudflare.com:3478" },
       {
@@ -218,11 +206,7 @@ const session = await callsClient.createSession({
 ```typescript
 pc.addEventListener("icecandidate", (event) => {
   if (event.candidate) {
-    console.log(
-      "ICE candidate:",
-      event.candidate.type,
-      event.candidate.protocol,
-    );
+    console.log("ICE candidate:", event.candidate.type, event.candidate.protocol);
   }
 });
 

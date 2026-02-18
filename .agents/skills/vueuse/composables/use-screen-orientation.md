@@ -10,8 +10,7 @@ Reactive Screen Orientation API. It provides web developers with information abo
 ```ts
 import { useScreenOrientation } from "@vueuse/core";
 
-const { isSupported, orientation, angle, lockOrientation, unlockOrientation } =
-  useScreenOrientation();
+const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
 ```
 
 ## Returns

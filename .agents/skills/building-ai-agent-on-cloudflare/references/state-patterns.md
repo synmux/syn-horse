@@ -295,13 +295,11 @@ export class MigratingAgent extends Agent<Env, StateV2> {
     const rawState = this.state as any;
 
     if (!rawState.version || rawState.version < 2) {
-      const migratedMessages = (rawState.messages || []).map(
-        (content: string, i: number) => ({
-          id: `migrated-${i}`,
-          content,
-          timestamp: new Date().toISOString(),
-        }),
-      );
+      const migratedMessages = (rawState.messages || []).map((content: string, i: number) => ({
+        id: `migrated-${i}`,
+        content,
+        timestamp: new Date().toISOString(),
+      }));
 
       this.setState({
         messages: migratedMessages,
@@ -323,8 +321,7 @@ export class LeanStateAgent extends Agent<Env, State> {
   private readonly MAX_RECENT_MESSAGES = 100;
 
   async addMessage(message: Message) {
-    await this
-      .sql`INSERT INTO messages (id, content) VALUES (${message.id}, ${message.content})`;
+    await this.sql`INSERT INTO messages (id, content) VALUES (${message.id}, ${message.content})`;
 
     let recentMessages = [...this.state.recentMessages, message];
     if (recentMessages.length > this.MAX_RECENT_MESSAGES) {

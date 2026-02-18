@@ -143,11 +143,7 @@ export default {
 
     // SSE transport (legacy)
     if (url.pathname.startsWith("/sse")) {
-      return MyMCP.serveSSE("/sse", { binding: "MyMCP" }).fetch(
-        request,
-        env,
-        ctx,
-      );
+      return MyMCP.serveSSE("/sse", { binding: "MyMCP" }).fetch(request, env, ctx);
     }
 
     // Streamable HTTP transport (recommended)

@@ -168,9 +168,7 @@ Preserve existing bindings:
 
 ```json
 {
-  "bindings": [
-    { "type": "r2_bucket", "name": "STORAGE", "bucket_name": "new" }
-  ],
+  "bindings": [{ "type": "r2_bucket", "name": "STORAGE", "bucket_name": "new" }],
   "keep_bindings": ["kv_namespace", "d1"] // Preserves existing bindings of these types
 }
 ```

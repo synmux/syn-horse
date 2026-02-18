@@ -28,12 +28,7 @@ export class MyDO extends DurableObject<Env> {
   async webSocketMessage(ws: WebSocket, msg: string | ArrayBuffer) {
     /* ... */
   }
-  async webSocketClose(
-    ws: WebSocket,
-    code: number,
-    reason: string,
-    wasClean: boolean,
-  ) {
+  async webSocketClose(ws: WebSocket, code: number, reason: string, wasClean: boolean) {
     /* ... */
   }
   async webSocketError(ws: WebSocket, error: unknown) {

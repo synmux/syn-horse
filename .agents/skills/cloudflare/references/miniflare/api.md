@@ -12,16 +12,11 @@ class Miniflare {
   setOptions(options: MiniflareOptions): Promise<void>; // Reload config
 
   // Event dispatching
-  dispatchFetch(
-    url: string | URL | Request,
-    init?: RequestInit,
-  ): Promise<Response>;
+  dispatchFetch(url: string | URL | Request, init?: RequestInit): Promise<Response>;
   getWorker(name?: string): Promise<Worker>;
 
   // Bindings access
-  getBindings<Bindings = Record<string, unknown>>(
-    name?: string,
-  ): Promise<Bindings>;
+  getBindings<Bindings = Record<string, unknown>>(name?: string): Promise<Bindings>;
   getCf(name?: string): Promise<IncomingRequestCfProperties | undefined>;
   getKVNamespace(name: string): Promise<KVNamespace>;
   getR2Bucket(name: string): Promise<R2Bucket>;
@@ -68,9 +63,7 @@ const result = await worker.scheduled({ cron: "30 * * * *" });
 
 ```js
 const worker = await mf.getWorker();
-const result = await worker.queue("queue-name", [
-  { id: "msg1", timestamp: new Date(), body: "data", attempts: 1 },
-]);
+const result = await worker.queue("queue-name", [{ id: "msg1", timestamp: new Date(), body: "data", attempts: 1 }]);
 // result: { outcome: "ok", retryAll: false, ackAll: false, ... }
 ```
 

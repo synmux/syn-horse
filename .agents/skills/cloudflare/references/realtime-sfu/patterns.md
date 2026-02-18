@@ -74,13 +74,10 @@ Express:
 
 ```js
 app.post("/api/new-session", async (req, res) => {
-  const r = await fetch(
-    `${CALLS_API}/apps/${process.env.CALLS_APP_ID}/sessions/new`,
-    {
-      method: "POST",
-      headers: { Authorization: `Bearer ${process.env.CALLS_APP_SECRET}` },
-    },
-  );
+  const r = await fetch(`${CALLS_API}/apps/${process.env.CALLS_APP_ID}/sessions/new`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${process.env.CALLS_APP_SECRET}` },
+  });
   res.json(await r.json());
 });
 ```
@@ -132,12 +129,8 @@ pc.getStats().then((stats) => {
 let activeSubscriptions = new Set<string>();
 
 function updateStage(topSpeakers: string[]) {
-  const toAdd = topSpeakers
-    .filter((id) => !activeSubscriptions.has(id))
-    .slice(0, 6);
-  const toRemove = [...activeSubscriptions].filter(
-    (id) => !topSpeakers.includes(id),
-  );
+  const toAdd = topSpeakers.filter((id) => !activeSubscriptions.has(id)).slice(0, 6);
+  const toRemove = [...activeSubscriptions].filter((id) => !topSpeakers.includes(id));
 
   toRemove.forEach((id) => {
     pc.getSenders()

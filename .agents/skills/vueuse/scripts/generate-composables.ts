@@ -9,14 +9,7 @@
  */
 
 import { execSync } from "node:child_process";
-import {
-  existsSync,
-  mkdirSync,
-  readdirSync,
-  readFileSync,
-  rmSync,
-  writeFileSync,
-} from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -110,31 +103,19 @@ function extractDescription(content: string): string {
 
 // Extract first code block as usage example
 function extractUsage(content: string): string | undefined {
-  const match = content.match(
-    /```(?:ts|typescript|vue|js|javascript)\n([\s\S]*?)```/,
-  );
+  const match = content.match(/```(?:ts|typescript|vue|js|javascript)\n([\s\S]*?)```/);
   return match?.[1]?.trim();
 }
 
 // Extract options from TypeScript interface
-function extractOptions(
-  tsContent: string,
-  composableName: string,
-): OptionInfo[] {
+function extractOptions(tsContent: string, composableName: string): OptionInfo[] {
   const options: OptionInfo[] = [];
 
   // Look for Options interface (e.g., UseMouseOptions, UseFetchOptions)
-  const pascalName =
-    composableName.charAt(0).toUpperCase() + composableName.slice(1);
+  const pascalName = composableName.charAt(0).toUpperCase() + composableName.slice(1);
   const interfacePatterns = [
-    new RegExp(
-      `interface\\s+${pascalName}Options[^{]*\\{([^}]+(?:\\{[^}]*\\}[^}]*)*)\\}`,
-      "s",
-    ),
-    new RegExp(
-      `interface\\s+${pascalName}Option[^{]*\\{([^}]+(?:\\{[^}]*\\}[^}]*)*)\\}`,
-      "s",
-    ),
+    new RegExp(`interface\\s+${pascalName}Options[^{]*\\{([^}]+(?:\\{[^}]*\\}[^}]*)*)\\}`, "s"),
+    new RegExp(`interface\\s+${pascalName}Option[^{]*\\{([^}]+(?:\\{[^}]*\\}[^}]*)*)\\}`, "s"),
   ];
 
   let interfaceContent = "";
@@ -159,9 +140,7 @@ function extractOptions(
     const descMatch = jsdoc.match(/\*\s*([^@*\n][^\n]*)/)?.[1]?.trim() || "";
 
     // Extract @default value
-    const defaultMatch = jsdoc
-      .match(/@default\s+['"`]?([^'"`\n*]+)['"`]?/)?.[1]
-      ?.trim();
+    const defaultMatch = jsdoc.match(/@default\s+['"`]?([^'"`\n*]+)['"`]?/)?.[1]?.trim();
 
     options.push({
       name,
@@ -175,17 +154,11 @@ function extractOptions(
 }
 
 // Extract returns from function
-function extractReturns(
-  tsContent: string,
-  composableName: string,
-): ReturnInfo[] {
+function extractReturns(tsContent: string, composableName: string): ReturnInfo[] {
   const returns: ReturnInfo[] = [];
 
   // Look for return statement with object literal
-  const funcPattern = new RegExp(
-    `function\\s+${composableName}[^{]*\\{([\\s\\S]*)`,
-    "s",
-  );
+  const funcPattern = new RegExp(`function\\s+${composableName}[^{]*\\{([\\s\\S]*)`, "s");
   const funcMatch = tsContent.match(funcPattern);
   if (!funcMatch) return returns;
 
@@ -207,9 +180,7 @@ function extractReturns(
     const [name] = prop.split(":").map((s) => s.trim());
     if (name && /^\w+$/.test(name)) {
       // Try to find the type from variable declaration
-      const typeMatch = tsContent.match(
-        new RegExp(`const\\s+${name}\\s*=\\s*(\\w+)(?:<([^>]+)>)?\\(`),
-      );
+      const typeMatch = tsContent.match(new RegExp(`const\\s+${name}\\s*=\\s*(\\w+)(?:<([^>]+)>)?\\(`));
 
       let type = "Ref";
       if (typeMatch) {
@@ -227,10 +198,9 @@ function extractReturns(
 function cloneVueUseRepo(): void {
   if (existsSync(TEMP_DIR)) rmSync(TEMP_DIR, { recursive: true });
   console.log("Cloning VueUse repo (sparse checkout)...");
-  execSync(
-    `git clone --depth 1 --filter=blob:none --sparse https://github.com/vueuse/vueuse.git ${TEMP_DIR}`,
-    { stdio: "inherit" },
-  );
+  execSync(`git clone --depth 1 --filter=blob:none --sparse https://github.com/vueuse/vueuse.git ${TEMP_DIR}`, {
+    stdio: "inherit",
+  });
   execSync("git sparse-checkout set packages", {
     cwd: TEMP_DIR,
     stdio: "inherit",
@@ -323,10 +293,7 @@ ${info.usage}
 | --- | --- | --- | --- |
 `;
     for (const opt of info.options) {
-      const type = opt.type
-        .replace(/\|/g, "\\|")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+      const type = opt.type.replace(/\|/g, "\\|").replace(/</g, "&lt;").replace(/>/g, "&gt;");
       const def = opt.default || "-";
       content += `| ${opt.name} | \`${type}\` | ${def} | ${opt.description} |\n`;
     }
@@ -340,10 +307,7 @@ ${info.usage}
 | --- | --- |
 `;
     for (const ret of info.returns) {
-      const type = ret.type
-        .replace(/\|/g, "\\|")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+      const type = ret.type.replace(/\|/g, "\\|").replace(/</g, "&lt;").replace(/>/g, "&gt;");
       content += `| ${ret.name} | \`${type}\` |\n`;
     }
   }
@@ -384,10 +348,7 @@ function generateIndexFile(composables: ComposableInfo[]): void {
 `;
     for (const c of byCategory[category]) {
       const fileName = `${toKebabCase(c.name)}.md`;
-      const shortDesc =
-        c.description.length > 60
-          ? `${c.description.slice(0, 57)}...`
-          : c.description;
+      const shortDesc = c.description.length > 60 ? `${c.description.slice(0, 57)}...` : c.description;
       content += `| ${c.name} | ${shortDesc} | [${fileName}](../composables/${fileName}) |\n`;
     }
     content += "\n";

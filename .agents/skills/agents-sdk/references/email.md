@@ -14,9 +14,7 @@ Agents receive and reply to emails via Cloudflare Email Routing.
     "bindings": [{ "name": "EmailAgent", "class_name": "EmailAgent" }],
   },
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["EmailAgent"] }],
-  "send_email": [
-    { "name": "SEB", "destination_address": "reply@yourdomain.com" },
-  ],
+  "send_email": [{ "name": "SEB", "destination_address": "reply@yourdomain.com" }],
 }
 ```
 
@@ -58,10 +56,7 @@ export default {
   },
 
   async fetch(request, env) {
-    return (
-      routeAgentRequest(request, env) ??
-      new Response("Not found", { status: 404 })
-    );
+    return routeAgentRequest(request, env) ?? new Response("Not found", { status: 404 });
   },
 };
 ```

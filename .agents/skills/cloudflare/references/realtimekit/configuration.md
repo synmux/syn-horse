@@ -35,10 +35,7 @@ import { RtkMeeting } from "@cloudflare/realtimekit-react-ui";
 
 ```typescript
 @Component({
-  template: `<rtk-meeting
-    [authToken]="authToken"
-    (rtkLeave)="onLeave($event)"
-  ></rtk-meeting>`,
+  template: `<rtk-meeting [authToken]="authToken" (rtkLeave)="onLeave($event)"></rtk-meeting>`,
 })
 export class AppComponent {
   authToken = "<token>";
@@ -146,9 +143,7 @@ curl -X POST 'https://api.cloudflare.com/client/v4/accounts/<account_id>/realtim
 
 ```jsonc
 {
-  "d1_databases": [
-    { "binding": "DB", "database_name": "meetings", "database_id": "d1-id" },
-  ],
+  "d1_databases": [{ "binding": "DB", "database_name": "meetings", "database_id": "d1-id" }],
   "r2_buckets": [{ "binding": "RECORDINGS", "bucket_name": "recordings" }],
   "kv_namespaces": [{ "binding": "SESSIONS", "id": "kv-id" }],
 }

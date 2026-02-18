@@ -16,17 +16,11 @@ async function fetchWithAuth(url: string, key: string) {
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    let resp = await fetchWithAuth(
-      "https://api.example.com",
-      await env.PRIMARY_KEY.get(),
-    );
+    let resp = await fetchWithAuth("https://api.example.com", await env.PRIMARY_KEY.get());
 
     // Fallback during rotation
     if (!resp.ok && env.FALLBACK_KEY) {
-      resp = await fetchWithAuth(
-        "https://api.example.com",
-        await env.FALLBACK_KEY.get(),
-      );
+      resp = await fetchWithAuth("https://api.example.com", await env.FALLBACK_KEY.get());
     }
 
     return resp;
@@ -46,19 +40,9 @@ interface Env {
 
 async function encryptValue(value: string, key: string): Promise<string> {
   const enc = new TextEncoder();
-  const keyMaterial = await crypto.subtle.importKey(
-    "raw",
-    enc.encode(key),
-    { name: "AES-GCM" },
-    false,
-    ["encrypt"],
-  );
+  const keyMaterial = await crypto.subtle.importKey("raw", enc.encode(key), { name: "AES-GCM" }, false, ["encrypt"]);
   const iv = crypto.getRandomValues(new Uint8Array(12));
-  const encrypted = await crypto.subtle.encrypt(
-    { name: "AES-GCM", iv },
-    keyMaterial,
-    enc.encode(value),
-  );
+  const encrypted = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, keyMaterial, enc.encode(value));
 
   const combined = new Uint8Array(iv.length + encrypted.byteLength);
   combined.set(iv);
@@ -85,13 +69,9 @@ interface Env {
 
 async function signRequest(data: string, secret: string): Promise<string> {
   const enc = new TextEncoder();
-  const key = await crypto.subtle.importKey(
-    "raw",
-    enc.encode(secret),
-    { name: "HMAC", hash: "SHA-256" },
-    false,
-    ["sign"],
-  );
+  const key = await crypto.subtle.importKey("raw", enc.encode(secret), { name: "HMAC", hash: "SHA-256" }, false, [
+    "sign",
+  ]);
   const sig = await crypto.subtle.sign("HMAC", key, enc.encode(data));
   return btoa(String.fromCharCode(...new Uint8Array(sig)));
 }

@@ -164,24 +164,13 @@ meeting.self.on("roomJoined", () =>
 );
 
 // Log all events
-[
-  "roomJoined",
-  "audioUpdate",
-  "videoUpdate",
-  "screenShareUpdate",
-  "deviceUpdate",
-  "deviceListUpdate",
-].forEach((event) =>
+["roomJoined", "audioUpdate", "videoUpdate", "screenShareUpdate", "deviceUpdate", "deviceListUpdate"].forEach((event) =>
   meeting.self.on(event, (data) => console.log(`[self] ${event}:`, data)),
 );
 ["participantJoined", "participantLeft"].forEach((event) =>
-  meeting.participants.joined.on(event, (data) =>
-    console.log(`[participants] ${event}:`, data),
-  ),
+  meeting.participants.joined.on(event, (data) => console.log(`[participants] ${event}:`, data)),
 );
-meeting.chat.on("chatUpdate", (data) =>
-  console.log("[chat] chatUpdate:", data),
-);
+meeting.chat.on("chatUpdate", (data) => console.log("[chat] chatUpdate:", data));
 ```
 
 ## Security & Performance

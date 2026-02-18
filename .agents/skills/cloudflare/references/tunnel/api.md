@@ -115,10 +115,7 @@ curl -X PUT "https://api.cloudflare.com/client/v4/accounts/{account_id}/tunnels/
 const config = await cf.zeroTrust.tunnels.configurations.update(tunnelId, {
   account_id: accountId,
   config: {
-    ingress: [
-      { hostname: "app.example.com", service: "http://localhost:8000" },
-      { service: "http_status:404" },
-    ],
+    ingress: [{ hostname: "app.example.com", service: "http://localhost:8000" }, { service: "http_status:404" }],
   },
 });
 ```

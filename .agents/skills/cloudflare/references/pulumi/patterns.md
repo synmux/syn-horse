@@ -94,9 +94,7 @@ const processorWorker = new cloudflare.WorkerScript("processor", {
   accountId,
   name: "processor-worker",
   content: processorCode,
-  queueConsumers: [
-    { queue: queue.name, maxBatchSize: 10, maxRetries: 3, maxWaitTimeMs: 5000 },
-  ],
+  queueConsumers: [{ queue: queue.name, maxBatchSize: 10, maxRetries: 3, maxWaitTimeMs: 5000 }],
   r2BucketBindings: [{ name: "OUTPUT_BUCKET", bucketName: outputBucket.name }],
 });
 ```
@@ -258,9 +256,7 @@ const worker = new cloudflare.WorkerScript(
   {
     accountId,
     name: "my-worker",
-    content: build.stdout.apply(() =>
-      fs.readFileSync("./worker/dist/index.js", "utf8"),
-    ),
+    content: build.stdout.apply(() => fs.readFileSync("./worker/dist/index.js", "utf8")),
   },
   { dependsOn: [build] },
 );

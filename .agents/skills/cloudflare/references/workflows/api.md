@@ -122,8 +122,7 @@ import { NonRetryableError } from "cloudflare:workers";
 
 // NonRetryableError
 await step.do("validate", async () => {
-  if (!event.params.paymentMethod)
-    throw new NonRetryableError("Payment method required");
+  if (!event.params.paymentMethod) throw new NonRetryableError("Payment method required");
   const res = await fetch("https://api.example.com/charge", { method: "POST" });
   if (res.status === 401) throw new NonRetryableError("Invalid credentials"); // Don't retry
   if (!res.ok) throw new Error("Retryable failure"); // Will retry
@@ -141,9 +140,7 @@ try {
 
 // Idempotency
 await step.do("charge", async () => {
-  const sub = await fetch(`https://api/subscriptions/${id}`).then((r) =>
-    r.json(),
-  );
+  const sub = await fetch(`https://api/subscriptions/${id}`).then((r) => r.json());
   if (sub.charged) return sub; // Already done
   return await fetch(`https://api/subscriptions/${id}`, {
     method: "POST",

@@ -110,11 +110,7 @@ const mockCtx: ExecutionContext = {
   passThroughOnException: vi.fn(),
 };
 
-const response = await worker.fetch(
-  new Request("http://localhost/test"),
-  mockEnv,
-  mockCtx,
-);
+const response = await worker.fetch(new Request("http://localhost/test"), mockEnv, mockCtx);
 ```
 
 ## Binding Access Patterns

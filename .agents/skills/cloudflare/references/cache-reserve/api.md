@@ -58,47 +58,34 @@ if (!response) {
 
 ```typescript
 // Purge specific URL from Cache Reserve immediately
-const purgeCacheReserveByURL = async (
-  zoneId: string,
-  apiToken: string,
-  urls: string[],
-) => {
-  const response = await fetch(
-    `https://api.cloudflare.com/client/v4/zones/${zoneId}/purge_cache`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiToken}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ files: urls }),
+const purgeCacheReserveByURL = async (zoneId: string, apiToken: string, urls: string[]) => {
+  const response = await fetch(`https://api.cloudflare.com/client/v4/zones/${zoneId}/purge_cache`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiToken}`,
+      "Content-Type": "application/json",
     },
-  );
+    body: JSON.stringify({ files: urls }),
+  });
   return await response.json();
 };
 
 // Example usage
-await purgeCacheReserveByURL("zone123", "token456", [
-  "https://example.com/image.jpg",
-  "https://example.com/video.mp4",
-]);
+await purgeCacheReserveByURL("zone123", "token456", ["https://example.com/image.jpg", "https://example.com/video.mp4"]);
 ```
 
 ### Purge by Tag/Host/Prefix (Revalidation)
 
 ```typescript
 // Purge by cache tag - forces revalidation, not immediate removal
-await fetch(
-  `https://api.cloudflare.com/client/v4/zones/${zoneId}/purge_cache`,
-  {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiToken}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ tags: ["tag1", "tag2"] }),
+await fetch(`https://api.cloudflare.com/client/v4/zones/${zoneId}/purge_cache`, {
+  method: "POST",
+  headers: {
+    Authorization: `Bearer ${apiToken}`,
+    "Content-Type": "application/json",
   },
-);
+  body: JSON.stringify({ tags: ["tag1", "tag2"] }),
+});
 ```
 
 **Purge behavior:**
@@ -110,10 +97,10 @@ await fetch(
 
 ```typescript
 // Requires Cache Reserve OFF first
-await fetch(
-  `https://api.cloudflare.com/client/v4/zones/${zoneId}/cache/cache_reserve_clear`,
-  { method: "POST", headers: { Authorization: `Bearer ${apiToken}` } },
-);
+await fetch(`https://api.cloudflare.com/client/v4/zones/${zoneId}/cache/cache_reserve_clear`, {
+  method: "POST",
+  headers: { Authorization: `Bearer ${apiToken}` },
+});
 
 // Check status: GET same endpoint returns { state: "In-progress" | "Completed" }
 ```
@@ -166,10 +153,7 @@ const crHitsQuery = `
 query CacheReserveAnalytics($zoneTag: string, $since: string, $until: string) {
   viewer {
     zones(filter: { zoneTag: $zoneTag }) {
-      httpRequests1dGroups(
-        filter: { datetime_geq: $since, datetime_leq: $until }
-        limit: 1000
-      ) {
+      httpRequests1dGroups(filter: { datetime_geq: $since, datetime_leq: $until }, limit: 1000) {
         dimensions {
           date
         }

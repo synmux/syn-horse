@@ -149,18 +149,12 @@ source: {
 Fetch content from any API using `defineCollectionSource`:
 
 ```ts
-import {
-  defineCollection,
-  defineCollectionSource,
-  defineContentConfig,
-} from "@nuxt/content";
+import { defineCollection, defineCollectionSource, defineContentConfig } from "@nuxt/content";
 import { z } from "zod";
 
 const apiSource = defineCollectionSource({
   getKeys: async () => {
-    const items = await fetch("https://api.example.com/posts").then((r) =>
-      r.json(),
-    );
+    const items = await fetch("https://api.example.com/posts").then((r) => r.json());
     return items.map((item: { id: string }) => `${item.id}.json`);
   },
   getItem: async (key: string) => {

@@ -69,11 +69,7 @@ export function useCounter(initialValue = 0) {
 Hooks execute in component context:
 
 ```ts
-export function useEventListener(
-  target: EventTarget,
-  event: string,
-  handler: Function,
-) {
+export function useEventListener(target: EventTarget, event: string, handler: Function) {
   onMounted(() => target.addEventListener(event, handler));
   onUnmounted(() => target.removeEventListener(event, handler));
 }

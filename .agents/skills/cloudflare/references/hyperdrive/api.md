@@ -34,10 +34,7 @@ export default {
     });
     try {
       await client.connect();
-      const result = await client.query(
-        "SELECT * FROM users WHERE id = $1",
-        [123],
-      );
+      const result = await client.query("SELECT * FROM users WHERE id = $1", [123]);
       return Response.json(result.rows);
     } finally {
       await client.end();
@@ -78,10 +75,7 @@ const conn = await createConnection({
   disableEval: true, // ⚠️ REQUIRED for Workers
 });
 
-const [results] = await conn.query(
-  "SELECT * FROM users WHERE active = ? LIMIT ?",
-  [true, 10],
-);
+const [results] = await conn.query("SELECT * FROM users WHERE active = ? LIMIT ?", [true, 10]);
 ctx.waitUntil(conn.end());
 ```
 
@@ -124,8 +118,7 @@ const posts = await sqlCached`SELECT * FROM posts ORDER BY views DESC LIMIT 10`;
 
 // Writes/time-sensitive: no cache
 const sqlNoCache = postgres(env.HYPERDRIVE_NO_CACHE.connectionString);
-const orders =
-  await sqlNoCache`SELECT * FROM orders WHERE created_at > NOW() - INTERVAL 5 MINUTE`;
+const orders = await sqlNoCache`SELECT * FROM orders WHERE created_at > NOW() - INTERVAL 5 MINUTE`;
 ```
 
 ## ORMs
@@ -141,11 +134,7 @@ const client = postgres(env.HYPERDRIVE.connectionString, {
   prepare: true,
 });
 const db = drizzle(client);
-const users = await db
-  .select()
-  .from(users)
-  .where(eq(users.active, true))
-  .limit(10);
+const users = await db.select().from(users).where(eq(users.active, true)).limit(10);
 ```
 
 **Kysely:**
@@ -162,11 +151,7 @@ const db = new Kysely({
     }),
   }),
 });
-const users = await db
-  .selectFrom("users")
-  .selectAll()
-  .where("active", "=", true)
-  .execute();
+const users = await db.selectFrom("users").selectAll().where("active", "=", true).execute();
 ```
 
 See [patterns.md](./patterns.md) for use cases, [gotchas.md](./gotchas.md) for limits.

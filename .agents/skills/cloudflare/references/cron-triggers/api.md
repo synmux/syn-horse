@@ -4,11 +4,7 @@
 
 ```typescript
 export default {
-  async scheduled(
-    controller: ScheduledController,
-    env: Env,
-    ctx: ExecutionContext,
-  ): Promise<void> {
+  async scheduled(controller: ScheduledController, env: Env, ctx: ExecutionContext): Promise<void> {
     console.log("Cron executed:", new Date(controller.scheduledTime));
   },
 };
@@ -97,13 +93,7 @@ export default {
     const data = await fetchCriticalData(); // Critical path
 
     // Non-blocking background tasks
-    ctx.waitUntil(
-      Promise.all([
-        logToAnalytics(data),
-        cleanupOldRecords(env.DB),
-        notifyWebhook(env.WEBHOOK_URL, data),
-      ]),
-    );
+    ctx.waitUntil(Promise.all([logToAnalytics(data), cleanupOldRecords(env.DB), notifyWebhook(env.WEBHOOK_URL, data)]));
   },
 };
 ```

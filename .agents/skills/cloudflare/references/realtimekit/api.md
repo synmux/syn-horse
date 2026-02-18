@@ -17,11 +17,7 @@ Complete API reference for Meeting object, REST endpoints, and SDK methods.
   disableScreenShare();
 await meeting.self.setName("Name"); // Before join only
 await meeting.self.setDevice(device);
-const devices =
-  (await meeting.self.getAllDevices()) /
-  getAudioDevices() /
-  getVideoDevices() /
-  getSpeakerDevices();
+const devices = (await meeting.self.getAllDevices()) / getAudioDevices() / getVideoDevices() / getSpeakerDevices();
 // Events: 'roomJoined', 'audioUpdate', 'videoUpdate', 'screenShareUpdate', 'deviceUpdate', 'deviceListUpdate'
 meeting.self.on("roomJoined", () => {});
 meeting.self.on("audioUpdate", ({ audioEnabled, audioTrack }) => {});
@@ -98,12 +94,7 @@ await meeting.leave();
 ## TypeScript Types
 
 ```typescript
-import type {
-  RealtimeKitClient,
-  States,
-  UIConfig,
-  Participant,
-} from "@cloudflare/realtimekit";
+import type { RealtimeKitClient, States, UIConfig, Participant } from "@cloudflare/realtimekit";
 
 // Main interface
 interface RealtimeKitClient {

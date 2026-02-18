@@ -23,9 +23,7 @@ export default {
 ```typescript
 export default {
   async scheduled(controller, env, ctx) {
-    const result = await env.DB.prepare(
-      `DELETE FROM sessions WHERE expires_at < datetime('now')`,
-    ).run();
+    const result = await env.DB.prepare(`DELETE FROM sessions WHERE expires_at < datetime('now')`).run();
     console.log(`Deleted ${result.meta.changes} expired sessions`);
     ctx.waitUntil(env.DB.prepare("VACUUM").run());
   },
@@ -132,12 +130,8 @@ export default {
         }),
       ),
     );
-    console.log(
-      `Processed ${results.filter((r) => r.status === "fulfilled").length}/${batch.length} items`,
-    );
-    ctx.waitUntil(
-      env.QUEUE_KV.put("pending_items", JSON.stringify(queueData.slice(100))),
-    );
+    console.log(`Processed ${results.filter((r) => r.status === "fulfilled").length}/${batch.length} items`);
+    ctx.waitUntil(env.QUEUE_KV.put("pending_items", JSON.stringify(queueData.slice(100))));
   },
 };
 ```
@@ -154,9 +148,7 @@ export default {
         await msg.ack();
       }),
     );
-    console.log(
-      `Processed ${results.filter((r) => r.status === "fulfilled").length}/${batch.messages.length}`,
-    );
+    console.log(`Processed ${results.filter((r) => r.status === "fulfilled").length}/${batch.messages.length}`);
   },
 };
 ```
@@ -180,11 +172,9 @@ export default {
         count: result.count,
       });
       ctx.waitUntil(
-        env.METRICS.put(
-          `cron:${controller.scheduledTime}`,
-          JSON.stringify({ ...meta, status: "success" }),
-          { expirationTtl: 2592000 },
-        ),
+        env.METRICS.put(`cron:${controller.scheduledTime}`, JSON.stringify({ ...meta, status: "success" }), {
+          expirationTtl: 2592000,
+        }),
       );
     } catch (error) {
       console.error("[ERROR]", {

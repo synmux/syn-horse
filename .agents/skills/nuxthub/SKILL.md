@@ -109,16 +109,10 @@ const users = await db.select().from(schema.users);
 const user = await db.query.users.findFirst({ where: eq(schema.users.id, 1) });
 
 // Insert
-const [newUser] = await db
-  .insert(schema.users)
-  .values({ name: "John", email: "john@example.com" })
-  .returning();
+const [newUser] = await db.insert(schema.users).values({ name: "John", email: "john@example.com" }).returning();
 
 // Update
-await db
-  .update(schema.users)
-  .set({ name: "Jane" })
-  .where(eq(schema.users.id, 1));
+await db.update(schema.users).set({ name: "Jane" }).where(eq(schema.users.id, 1));
 
 // Delete
 await db.delete(schema.users).where(eq(schema.users.id, 1));

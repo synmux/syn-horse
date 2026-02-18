@@ -75,10 +75,7 @@ Update CSP: script-src 'self' /cdn-cgi/challenge-platform/;
     });
   }
 </script>
-<script
-  src="/cdn-cgi/challenge-platform/scripts/jsd/api.js?onload=jsdOnload"
-  async
-></script>
+<script src="/cdn-cgi/challenge-platform/scripts/jsd/api.js?onload=jsdOnload" async></script>
 ```
 
 **Use API for**: Selective deployment on specific pages  

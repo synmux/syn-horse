@@ -116,10 +116,7 @@ export class MyAgent extends Agent<Env, State> {
 
   private async handleChat(connection: Connection, userMessage: string) {
     // Add user message to history
-    const messages = [
-      ...this.state.messages,
-      { role: "user", content: userMessage },
-    ];
+    const messages = [...this.state.messages, { role: "user", content: userMessage }];
 
     // Call AI
     const response = await this.env.AI.run("@cf/meta/llama-3-8b-instruct", {
@@ -129,10 +126,7 @@ export class MyAgent extends Agent<Env, State> {
     // Update state (persists and syncs to all clients)
     this.setState({
       ...this.state,
-      messages: [
-        ...messages,
-        { role: "assistant", content: response.response },
-      ],
+      messages: [...messages, { role: "assistant", content: response.response }],
     });
 
     // Send response
@@ -156,10 +150,7 @@ import { MyAgent } from "./agent";
 export default {
   async fetch(request: Request, env: Env) {
     // routeAgentRequest handles routing to /agents/:class/:name
-    return (
-      (await routeAgentRequest(request, env)) ||
-      new Response("Not found", { status: 404 })
-    );
+    return (await routeAgentRequest(request, env)) || new Response("Not found", { status: 404 });
   },
 };
 
@@ -343,9 +334,7 @@ function Chat() {
           {msg.role}: {msg.content}
         </div>
       ))}
-      <input
-        onKeyDown={(e) => e.key === "Enter" && sendMessage(e.target.value)}
-      />
+      <input onKeyDown={(e) => e.key === "Enter" && sendMessage(e.target.value)} />
     </div>
   );
 }

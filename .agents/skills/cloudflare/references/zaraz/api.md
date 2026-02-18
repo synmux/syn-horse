@@ -67,8 +67,7 @@ zaraz.consent.set("marketing", true);
 
 // Listen
 zaraz.consent.addEventListener("consentChanged", () => {
-  if (zaraz.consent.getAll().marketing)
-    zaraz.track("marketing_consent_granted");
+  if (zaraz.consent.getAll().marketing) zaraz.track("marketing_consent_granted");
 });
 ```
 

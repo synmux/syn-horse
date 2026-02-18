@@ -104,9 +104,7 @@ const count = await storage.get("count");
 
 // Queue
 const worker = await mf.getWorker();
-await worker.queue("my-queue", [
-  { id: "msg1", timestamp: new Date(), body: { userId: 123 }, attempts: 1 },
-]);
+await worker.queue("my-queue", [{ id: "msg1", timestamp: new Date(), body: { userId: 123 }, attempts: 1 }]);
 
 // Scheduled
 await worker.scheduled({ cron: "0 0 * * *" });

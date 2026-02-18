@@ -9,20 +9,8 @@ Common workflows, full-stack flows, and best practices.
 ```tsx
 import { Stream } from "@cloudflare/stream-react";
 
-export function VideoPlayer({
-  videoId,
-  token,
-}: {
-  videoId: string;
-  token?: string;
-}) {
-  return (
-    <Stream
-      controls
-      src={token ? `${videoId}?token=${token}` : videoId}
-      responsive
-    />
-  );
+export function VideoPlayer({ videoId, token }: { videoId: string; token?: string }) {
+  return <Stream controls src={token ? `${videoId}?token=${token}` : videoId} responsive />;
 }
 ```
 
@@ -97,11 +85,7 @@ For large files (>500MB). `npm install tus-js-client`
 ```typescript
 import * as tus from "tus-js-client";
 
-async function uploadWithTUS(
-  file: File,
-  uploadURL: string,
-  onProgress?: (pct: number) => void,
-) {
+async function uploadWithTUS(file: File, uploadURL: string, onProgress?: (pct: number) => void) {
   return new Promise<string>((resolve, reject) => {
     const upload = new tus.Upload(file, {
       endpoint: uploadURL,
@@ -120,11 +104,7 @@ async function uploadWithTUS(
 ## Video State Polling
 
 ```typescript
-async function waitForVideoReady(
-  client: Cloudflare,
-  accountId: string,
-  videoId: string,
-) {
+async function waitForVideoReady(client: Cloudflare, accountId: string, videoId: string) {
   for (let i = 0; i < 60; i++) {
     const video = await client.stream.videos.get(videoId, {
       account_id: accountId,
@@ -143,10 +123,7 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const signature = request.headers.get("Webhook-Signature");
     const body = await request.text();
-    if (
-      !signature ||
-      !(await verifyWebhook(signature, body, env.WEBHOOK_SECRET))
-    ) {
+    if (!signature || !(await verifyWebhook(signature, body, env.WEBHOOK_SECRET))) {
       return new Response("Unauthorized", { status: 401 });
     }
     const payload = JSON.parse(body);
@@ -155,11 +132,7 @@ export default {
   },
 };
 
-async function verifyWebhook(
-  sig: string,
-  body: string,
-  secret: string,
-): Promise<boolean> {
+async function verifyWebhook(sig: string, body: string, secret: string): Promise<boolean> {
   const parts = Object.fromEntries(sig.split(",").map((p) => p.split("=")));
   const timestamp = parseInt(parts.time || "0", 10);
   if (Math.abs(Date.now() / 1000 - timestamp) > 300) return false;
@@ -171,14 +144,8 @@ async function verifyWebhook(
     false,
     ["sign"],
   );
-  const computed = await crypto.subtle.sign(
-    "HMAC",
-    key,
-    new TextEncoder().encode(`${timestamp}.${body}`),
-  );
-  const hex = Array.from(new Uint8Array(computed), (b) =>
-    b.toString(16).padStart(2, "0"),
-  ).join("");
+  const computed = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(`${timestamp}.${body}`));
+  const hex = Array.from(new Uint8Array(computed), (b) => b.toString(16).padStart(2, "0")).join("");
   return hex === parts.sig1;
 }
 ```
@@ -188,12 +155,7 @@ async function verifyWebhook(
 For >1k tokens/day. Prerequisites: Create signing key (see configuration.md).
 
 ```typescript
-async function selfSignToken(
-  keyId: string,
-  jwkBase64: string,
-  videoId: string,
-  expiresIn = 3600,
-) {
+async function selfSignToken(keyId: string, jwkBase64: string, videoId: string, expiresIn = 3600) {
   const key = await crypto.subtle.importKey(
     "jwk",
     JSON.parse(atob(jwkBase64)),
@@ -218,11 +180,7 @@ async function selfSignToken(
     .replace(/\+/g, "-")
     .replace(/\//g, "_");
   const message = `${header}.${payload}`;
-  const sig = await crypto.subtle.sign(
-    "RSASSA-PKCS1-v1_5",
-    key,
-    new TextEncoder().encode(message),
-  );
+  const sig = await crypto.subtle.sign("RSASSA-PKCS1-v1_5", key, new TextEncoder().encode(message));
   const b64Sig = btoa(String.fromCharCode(...new Uint8Array(sig)))
     .replace(/=/g, "")
     .replace(/\+/g, "-")

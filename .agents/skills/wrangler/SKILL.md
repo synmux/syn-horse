@@ -88,9 +88,7 @@ npx create-cloudflare@latest my-app
   "r2_buckets": [{ "binding": "BUCKET", "bucket_name": "my-bucket" }],
 
   // D1 Database
-  "d1_databases": [
-    { "binding": "DB", "database_name": "my-db", "database_id": "<DB_ID>" },
-  ],
+  "d1_databases": [{ "binding": "DB", "database_name": "my-db", "database_id": "<DB_ID>" }],
 
   // Workers AI (always remote)
   "ai": { "binding": "AI" },
@@ -170,13 +168,9 @@ Use `remote: true` in binding config to connect to real resources while running 
 
 ```jsonc
 {
-  "r2_buckets": [
-    { "binding": "BUCKET", "bucket_name": "my-bucket", "remote": true },
-  ],
+  "r2_buckets": [{ "binding": "BUCKET", "bucket_name": "my-bucket", "remote": true }],
   "ai": { "binding": "AI", "remote": true },
-  "vectorize": [
-    { "binding": "INDEX", "index_name": "my-index", "remote": true },
-  ],
+  "vectorize": [{ "binding": "INDEX", "index_name": "my-index", "remote": true }],
 }
 ```
 

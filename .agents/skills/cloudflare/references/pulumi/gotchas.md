@@ -23,9 +23,7 @@ const build = new command.local.Command("build", {
 const worker = new cloudflare.WorkerScript(
   "worker",
   {
-    content: build.stdout.apply(() =>
-      fs.readFileSync("./worker/dist/index.js", "utf8"),
-    ),
+    content: build.stdout.apply(() => fs.readFileSync("./worker/dist/index.js", "utf8")),
   },
   { dependsOn: [build] },
 );

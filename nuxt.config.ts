@@ -4,15 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  modules: [
-    "nitro-cloudflare-dev",
-    "@nuxt/eslint",
-    "@nuxt/fonts",
-    "@nuxt/icon",
-    "@nuxt/image",
-    "@nuxt/scripts",
-    "@nuxt/eslint",
-  ],
+  modules: ["nitro-cloudflare-dev", "@nuxt/eslint", "@nuxt/fonts", "@nuxt/icon", "@nuxt/image", "@nuxt/eslint"],
 
   // Global CSS - Tailwind v4 is imported here
   css: ["./app/assets/css/tailwind.css"],

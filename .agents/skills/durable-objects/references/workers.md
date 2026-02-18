@@ -21,9 +21,7 @@ High-level guidance for Workers that invoke Durable Objects.
     ],
   },
 
-  "migrations": [
-    { "tag": "v1", "new_sqlite_classes": ["ChatRoom", "UserSession"] },
-  ],
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ChatRoom", "UserSession"] }],
 
   // Environment variables
   "vars": {
@@ -98,11 +96,7 @@ export { ChatRoom } from "./durable-objects/chat-room";
 export { UserSession } from "./durable-objects/user-session";
 
 export default {
-  async fetch(
-    request: Request,
-    env: Env,
-    ctx: ExecutionContext,
-  ): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     // Worker handler
   },
 };
@@ -112,11 +106,7 @@ export default {
 
 ```typescript
 export default {
-  async fetch(
-    request: Request,
-    env: Env,
-    ctx: ExecutionContext,
-  ): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
     try {
@@ -167,25 +157,16 @@ const SendMessageSchema = z.object({
   message: z.string().min(1).max(1000),
 });
 
-async function handleSendMessage(
-  request: Request,
-  env: Env,
-): Promise<Response> {
+async function handleSendMessage(request: Request, env: Env): Promise<Response> {
   const body = await request.json();
   const result = SendMessageSchema.safeParse(body);
 
   if (!result.success) {
-    return Response.json(
-      { error: "Validation failed", details: result.error.issues },
-      { status: 400 },
-    );
+    return Response.json({ error: "Validation failed", details: result.error.issues }, { status: 400 });
   }
 
   const stub = env.CHAT_ROOM.getByName(result.data.userId);
-  const message = await stub.sendMessage(
-    result.data.userId,
-    result.data.message,
-  );
+  const message = await stub.sendMessage(result.data.userId, result.data.message);
   return Response.json(message);
 }
 ```
@@ -195,11 +176,7 @@ async function handleSendMessage(
 ### Structured Logging
 
 ```typescript
-function log(
-  level: "info" | "warn" | "error",
-  message: string,
-  data?: Record<string, unknown>,
-) {
+function log(level: "info" | "warn" | "error", message: string, data?: Record<string, unknown>) {
   console.log(
     JSON.stringify({
       level,
@@ -259,10 +236,7 @@ For production logging, use Tail Workers to forward logs:
 ### Graceful DO Errors
 
 ```typescript
-async function callDO(
-  stub: DurableObjectStub<ChatRoom>,
-  method: string,
-): Promise<Response> {
+async function callDO(stub: DurableObjectStub<ChatRoom>, method: string): Promise<Response> {
   try {
     const result = await stub.getMessages();
     return Response.json(result);
@@ -270,10 +244,7 @@ async function callDO(
     if (error instanceof Error) {
       // DO threw an error
       log("error", "DO operation failed", { error: error.message });
-      return Response.json(
-        { error: "Service temporarily unavailable" },
-        { status: 503 },
-      );
+      return Response.json({ error: "Service temporarily unavailable" }, { status: 503 });
     }
     throw error;
   }
@@ -284,9 +255,7 @@ async function callDO(
 
 ```typescript
 async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
-  const timeout = new Promise<never>((_, reject) =>
-    setTimeout(() => reject(new Error("Timeout")), ms),
-  );
+  const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Timeout")), ms));
   return Promise.race([promise, timeout]);
 }
 

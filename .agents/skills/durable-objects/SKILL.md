@@ -92,10 +92,7 @@ export class MyDurableObject extends DurableObject<Env> {
   }
 
   async addItem(data: string): Promise<number> {
-    const result = this.ctx.storage.sql.exec<{ id: number }>(
-      "INSERT INTO items (data) VALUES (?) RETURNING id",
-      data,
-    );
+    const result = this.ctx.storage.sql.exec<{ id: number }>("INSERT INTO items (data) VALUES (?) RETURNING id", data);
     return result.one().id;
   }
 }

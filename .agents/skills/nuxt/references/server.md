@@ -276,10 +276,7 @@ Centralize error handling for H3 errors, validation errors, and fallbacks:
 import { isError, createError } from "h3";
 import * as v from "valibot";
 
-export function handleApiError(
-  error: unknown,
-  fallback: { statusCode?: number; message: string },
-): never {
+export function handleApiError(error: unknown, fallback: { statusCode?: number; message: string }): never {
   // Re-throw existing H3 errors
   if (isError(error)) throw error;
 

@@ -154,13 +154,10 @@ await execute({ signal: abortController.signal });
 
 ```ts
 // Custom async logic
-const { data, error, pending, refresh } = await useAsyncData(
-  "users",
-  async () => {
-    const response = await $fetch("/api/users");
-    return response.filter((u) => u.active);
-  },
-);
+const { data, error, pending, refresh } = await useAsyncData("users", async () => {
+  const response = await $fetch("/api/users");
+  return response.filter((u) => u.active);
+});
 
 // Lazy version
 const { data } = await useLazyAsyncData("users", async () => {
@@ -196,11 +193,9 @@ const { data } = await useAsyncData("users", async () => $fetch("/api/users"), {
 });
 
 // Manual cancellation via execute/refresh
-const { data, execute } = await useAsyncData(
-  "users",
-  async ({ signal }) => $fetch("/api/users", { signal }),
-  { immediate: false },
-);
+const { data, execute } = await useAsyncData("users", async ({ signal }) => $fetch("/api/users", { signal }), {
+  immediate: false,
+});
 const abortController = new AbortController();
 await execute({ signal: abortController.signal });
 // Later: abortController.abort() to cancel

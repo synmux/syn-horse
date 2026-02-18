@@ -61,9 +61,7 @@ const [user, settings] = await Promise.all([
 ### Conditional Steps
 
 ```typescript
-const config = await step.do("fetch config", async () =>
-  this.env.KV.get("flags", { type: "json" }),
-);
+const config = await step.do("fetch config", async () => this.env.KV.get("flags", { type: "json" }));
 
 // ✅ Deterministic (based on step output)
 if (config.enableEmail) {

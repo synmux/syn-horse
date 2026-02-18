@@ -69,12 +69,7 @@ const levelConfig = {
   [ProtectionLevel.HIGH]: { action: "block", sensitivity: "default" },
 } as const;
 
-async function setProtectionLevel(
-  zoneId: string,
-  level: ProtectionLevel,
-  rulesetId: string,
-  client: Cloudflare,
-) {
+async function setProtectionLevel(zoneId: string, level: ProtectionLevel, rulesetId: string, client: Cloudflare) {
   const settings = levelConfig[level];
   return client.zones.rulesets.phases.entrypoint.update("ddos_l7", {
     zone_id: zoneId,
@@ -113,12 +108,7 @@ export default {
       });
       const recentAttacks = await getRecentAttacks(env.KV);
       if (recentAttacks.length > 5) {
-        await setProtectionLevel(
-          env.ZONE_ID,
-          ProtectionLevel.HIGH,
-          managedRulesetId,
-          client,
-        );
+        await setProtectionLevel(env.ZONE_ID, ProtectionLevel.HIGH, managedRulesetId, client);
         return new Response("Protection increased");
       }
     }
@@ -127,12 +117,7 @@ export default {
   async scheduled(event: ScheduledEvent, env: Env): Promise<void> {
     const recentAttacks = await getRecentAttacks(env.KV);
     if (recentAttacks.length === 0)
-      await setProtectionLevel(
-        env.ZONE_ID,
-        ProtectionLevel.MEDIUM,
-        managedRulesetId,
-        client,
-      );
+      await setProtectionLevel(env.ZONE_ID, ProtectionLevel.MEDIUM, managedRulesetId, client);
   },
 };
 ```
@@ -144,8 +129,7 @@ const config = {
   description: "Multi-tier DDoS protection",
   rules: [
     {
-      expression:
-        "not ip.src in $known_ips and not cf.bot_management.score gt 30",
+      expression: "not ip.src in $known_ips and not cf.bot_management.score gt 30",
       action: "execute",
       action_parameters: {
         id: managedRulesetId,
@@ -193,19 +177,16 @@ await client.zones.rulesets.phases.entrypoint.update("ddos_l7", {
 });
 
 // Layer 2: WAF (exploit protection)
-await client.zones.rulesets.phases.entrypoint.update(
-  "http_request_firewall_managed",
-  {
-    zone_id: zoneId,
-    rules: [
-      {
-        expression: "true",
-        action: "execute",
-        action_parameters: { id: wafRulesetId },
-      },
-    ],
-  },
-);
+await client.zones.rulesets.phases.entrypoint.update("http_request_firewall_managed", {
+  zone_id: zoneId,
+  rules: [
+    {
+      expression: "true",
+      action: "execute",
+      action_parameters: { id: wafRulesetId },
+    },
+  ],
+});
 
 // Layer 3: Rate Limiting (abuse prevention)
 await client.zones.rulesets.phases.entrypoint.update("http_ratelimit", {
@@ -252,10 +233,10 @@ const cacheRule = {
   },
 };
 
-await client.zones.rulesets.phases.entrypoint.update(
-  "http_request_cache_settings",
-  { zone_id: zoneId, rules: [cacheRule] },
-);
+await client.zones.rulesets.phases.entrypoint.update("http_request_cache_settings", {
+  zone_id: zoneId,
+  rules: [cacheRule],
+});
 ```
 
 **Rationale**: Attackers randomize query strings (`?random=123456`) to bypass cache. Excluding query params ensures cache hits absorb attack traffic.

@@ -50,9 +50,7 @@ const worker = await startWorker({
 ```jsonc
 {
   "durable_objects": {
-    "bindings": [
-      { "name": "MY_DO", "class_name": "MyDO", "script_name": "my-worker" },
-    ],
+    "bindings": [{ "name": "MY_DO", "class_name": "MyDO", "script_name": "my-worker" }],
   },
 }
 ```

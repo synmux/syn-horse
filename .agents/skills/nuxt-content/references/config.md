@@ -18,11 +18,7 @@ export default defineNuxtConfig({
       filename: ".data/content.db",
       // Optional: add database indexes for better query performance (v3.10+)
       // Recommended for large sites or frequently queried fields
-      indexes: [
-        { fields: ["path"] },
-        { fields: ["date", "draft"] },
-        { fields: ["category"] },
-      ],
+      indexes: [{ fields: ["path"] }, { fields: ["date", "draft"] }, { fields: ["category"] }],
     },
   },
 });

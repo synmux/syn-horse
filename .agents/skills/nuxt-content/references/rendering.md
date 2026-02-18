@@ -12,9 +12,7 @@ Render parsed markdown body:
 
 ```vue
 <script setup lang="ts">
-const post = await queryCollection("blog")
-  .where("path", "=", "/blog/my-post")
-  .first();
+const post = await queryCollection("blog").where("path", "=", "/blog/my-post").first();
 </script>
 
 <template>
@@ -237,9 +235,7 @@ Access TOC from parsed content:
 
 ```vue
 <script setup lang="ts">
-const post = await queryCollection("blog")
-  .where("path", "=", route.path)
-  .first();
+const post = await queryCollection("blog").where("path", "=", route.path).first();
 const toc = post?.body?.toc?.links || [];
 </script>
 

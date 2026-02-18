@@ -76,11 +76,7 @@ import type { User } from "./types";
 **Extract props type from component:**
 
 ```ts
-import type {
-  ComponentProps,
-  ComponentSlots,
-  ComponentEmits,
-} from "vue-component-type-helpers";
+import type { ComponentProps, ComponentSlots, ComponentEmits } from "vue-component-type-helpers";
 import MyComponent from "./MyComponent.vue";
 
 type Props = ComponentProps<typeof MyComponent>;

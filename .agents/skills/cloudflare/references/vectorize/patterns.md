@@ -39,9 +39,7 @@ const matches = await env.VECTORIZE.query(emb.data[0], {
 });
 
 // 3. Fetch full docs from R2/D1/KV
-const docs = await Promise.all(
-  matches.matches.map((m) => env.R2.get(m.metadata.key).then((o) => o?.text())),
-);
+const docs = await Promise.all(matches.matches.map((m) => env.R2.get(m.metadata.key).then((o) => o?.text())));
 
 // 4. Generate with context
 const answer = await env.AI.run("@cf/meta/llama-3-8b-instruct", {
@@ -54,9 +52,7 @@ const answer = await env.AI.run("@cf/meta/llama-3-8b-instruct", {
 ### Namespaces (< 50K tenants, fastest)
 
 ```typescript
-await env.VECTORIZE.upsert([
-  { id: "1", values: emb, namespace: `tenant-${id}` },
-]);
+await env.VECTORIZE.upsert([{ id: "1", values: emb, namespace: `tenant-${id}` }]);
 await env.VECTORIZE.query(vec, { namespace: `tenant-${id}`, topK: 10 });
 ```
 
@@ -67,9 +63,7 @@ wrangler vectorize create-metadata-index my-index --property-name=tenantId --typ
 ```
 
 ```typescript
-await env.VECTORIZE.upsert([
-  { id: "1", values: emb, metadata: { tenantId: id } },
-]);
+await env.VECTORIZE.upsert([{ id: "1", values: emb, metadata: { tenantId: id } }]);
 await env.VECTORIZE.query(vec, { filter: { tenantId: id }, topK: 10 });
 ```
 

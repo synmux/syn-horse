@@ -39,9 +39,7 @@ const writer = writable.getWriter();
 
 (async () => {
   for await (const chunk of stream) {
-    await writer.write(
-      new TextEncoder().encode(`data: ${JSON.stringify(chunk)}\n\n`),
-    );
+    await writer.write(new TextEncoder().encode(`data: ${JSON.stringify(chunk)}\n\n`));
   }
   await writer.write(new TextEncoder().encode("data: [DONE]\n\n"));
   await writer.close();

@@ -39,11 +39,7 @@ interface Env {
 }
 
 export default {
-  async fetch(
-    request: Request,
-    env: Env,
-    ctx: ExecutionContext,
-  ): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const result = await env.DB.prepare("SELECT * FROM users").all();
     return Response.json(result.results);
   },

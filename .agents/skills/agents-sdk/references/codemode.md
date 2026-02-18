@@ -60,11 +60,7 @@ export { CodeModeProxy } from "@cloudflare/codemode/ai";
 export const globalOutbound = {
   fetch: async (input: string | URL | RequestInfo, init?: RequestInit) => {
     const url = new URL(
-      typeof input === "string"
-        ? input
-        : typeof input === "object" && "url" in input
-          ? input.url
-          : input.toString(),
+      typeof input === "string" ? input : typeof input === "object" && "url" in input ? input.url : input.toString(),
     );
     // Block certain domains if needed
     if (url.hostname === "blocked.example.com") {

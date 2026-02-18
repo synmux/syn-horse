@@ -113,10 +113,7 @@ if (route.params.type === "posts") {
 Type navigation guards:
 
 ```ts
-import type {
-  NavigationGuardWithThis,
-  RouteLocationNormalized,
-} from "vue-router";
+import type { NavigationGuardWithThis, RouteLocationNormalized } from "vue-router";
 
 const authGuard: NavigationGuardWithThis<undefined> = (to, from) => {
   if (to.meta.requiresAuth && !isAuthenticated()) {
@@ -180,7 +177,5 @@ const route = useRoute();
 const id = route.params.id;
 
 // ✅ Handle both cases
-const id = Array.isArray(route.params.id)
-  ? route.params.id[0]
-  : route.params.id;
+const id = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id;
 ```

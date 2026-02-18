@@ -44,8 +44,7 @@ import { ref } from "vue";
 export const useVideoPlayer = defineStore("video", () => {
   const videoElement = ref<HTMLVideoElement>();
   const src = ref("/data/video.mp4");
-  const { playing, volume, currentTime, togglePictureInPicture } =
-    useMediaControls(videoElement, { src });
+  const { playing, volume, currentTime, togglePictureInPicture } = useMediaControls(videoElement, { src });
 
   function loadVideo(element: HTMLVideoElement, newSrc: string) {
     videoElement.value = element;

@@ -160,11 +160,7 @@ describe("DO listing", () => {
 Use `runDurableObjectAlarm()` to trigger alarms immediately:
 
 ```typescript
-import {
-  env,
-  runInDurableObject,
-  runDurableObjectAlarm,
-} from "cloudflare:test";
+import { env, runInDurableObject, runDurableObjectAlarm } from "cloudflare:test";
 import { describe, it, expect } from "vitest";
 
 describe("DO alarms", () => {
