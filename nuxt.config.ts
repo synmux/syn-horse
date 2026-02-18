@@ -60,7 +60,7 @@ export default defineNuxtConfig({
   },
   // Vite configuration with Tailwind CSS v4
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss() as never],
     optimizeDeps: {
       include: ["three"],
     },
