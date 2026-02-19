@@ -8,12 +8,12 @@
 **Solution:** Always call `destroy()` when done with keepAlive containers
 
 ```typescript
-const sandbox = getSandbox(env.Sandbox, "temp", { keepAlive: true });
+const sandbox = getSandbox(env.Sandbox, "temp", { keepAlive: true })
 try {
-  const result = await sandbox.exec("python script.py");
-  return result.stdout;
+  const result = await sandbox.exec("python script.py")
+  return result.stdout
 } finally {
-  await sandbox.destroy(); // REQUIRED to free resources
+  await sandbox.destroy() // REQUIRED to free resources
 }
 ```
 
@@ -26,13 +26,13 @@ try {
 async function execWithRetry(sandbox, cmd) {
   for (let i = 0; i < 3; i++) {
     try {
-      return await sandbox.exec(cmd);
+      return await sandbox.exec(cmd)
     } catch (e) {
       if (e.code === "CONTAINER_NOT_READY") {
-        await new Promise((r) => setTimeout(r, 2000));
-        continue;
+        await new Promise((r) => setTimeout(r, 2000))
+        continue
       }
-      throw e;
+      throw e
     }
   }
 }
@@ -79,8 +79,8 @@ async function execWithRetry(sandbox, cmd) {
 
 ```typescript
 // These create DIFFERENT sandboxes:
-getSandbox(env.Sandbox, "MyApp"); // DO ID: hash('MyApp')
-getSandbox(env.Sandbox, "MyApp", { normalizeId: true }); // DO ID: hash('myapp')
+getSandbox(env.Sandbox, "MyApp") // DO ID: hash('MyApp')
+getSandbox(env.Sandbox, "MyApp", { normalizeId: true }) // DO ID: hash('myapp')
 ```
 
 ### "Code context variables disappeared"
@@ -94,20 +94,20 @@ getSandbox(env.Sandbox, "MyApp", { normalizeId: true }); // DO ID: hash('myapp')
 
 ```typescript
 // ❌ BAD: New sandbox every time (slow)
-const sandbox = getSandbox(env.Sandbox, `user-${Date.now()}`);
+const sandbox = getSandbox(env.Sandbox, `user-${Date.now()}`)
 
 // ✅ GOOD: Reuse per user
-const sandbox = getSandbox(env.Sandbox, `user-${userId}`);
+const sandbox = getSandbox(env.Sandbox, `user-${userId}`)
 ```
 
 ### Sleep & Traffic Config
 
 ```typescript
 // Cost-optimized
-getSandbox(env.Sandbox, "id", { sleepAfter: "30m", keepAlive: false });
+getSandbox(env.Sandbox, "id", { sleepAfter: "30m", keepAlive: false })
 
 // Always-on (requires destroy())
-getSandbox(env.Sandbox, "id", { keepAlive: true });
+getSandbox(env.Sandbox, "id", { keepAlive: true })
 ```
 
 ```jsonc
@@ -127,11 +127,11 @@ getSandbox(env.Sandbox, "id", { keepAlive: true });
 
 ```typescript
 // ❌ DANGEROUS: Command injection
-const result = await sandbox.exec(`python3 -c "${userCode}"`);
+const result = await sandbox.exec(`python3 -c "${userCode}"`)
 
 // ✅ SAFE: Write to file, execute file
-await sandbox.writeFile("/workspace/user_code.py", userCode);
-const result = await sandbox.exec("python3 /workspace/user_code.py");
+await sandbox.writeFile("/workspace/user_code.py", userCode)
+const result = await sandbox.exec("python3 /workspace/user_code.py")
 ```
 
 ### Resource Limits
@@ -139,23 +139,23 @@ const result = await sandbox.exec("python3 /workspace/user_code.py");
 ```typescript
 // Timeout long-running commands
 const result = await sandbox.exec("python3 script.py", {
-  timeout: 30000, // 30 seconds
-});
+  timeout: 30000 // 30 seconds
+})
 ```
 
 ### Secrets Management
 
 ```typescript
 // ❌ NEVER hardcode secrets
-const token = "ghp_abc123";
+const token = "ghp_abc123"
 
 // ✅ Use environment secrets
-const token = env.GITHUB_TOKEN;
+const token = env.GITHUB_TOKEN
 
 // Pass to sandbox via exec env
 const result = await sandbox.exec("git clone ...", {
-  env: { GIT_TOKEN: token },
-});
+  env: { GIT_TOKEN: token }
+})
 ```
 
 ### Preview URL Security

@@ -59,42 +59,42 @@ npm install agents
 ```jsonc
 {
   "durable_objects": {
-    "bindings": [{ "name": "MyAgent", "class_name": "MyAgent" }],
+    "bindings": [{ "name": "MyAgent", "class_name": "MyAgent" }]
   },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["MyAgent"] }],
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["MyAgent"] }]
 }
 ```
 
 ## Agent Class
 
 ```typescript
-import { Agent, routeAgentRequest, callable } from "agents";
+import { Agent, routeAgentRequest, callable } from "agents"
 
-type State = { count: number };
+type State = { count: number }
 
 export class Counter extends Agent<Env, State> {
-  initialState = { count: 0 };
+  initialState = { count: 0 }
 
   // Validation hook - runs before state persists (sync, throwing rejects the update)
   validateStateChange(nextState: State, source: Connection | "server") {
-    if (nextState.count < 0) throw new Error("Count cannot be negative");
+    if (nextState.count < 0) throw new Error("Count cannot be negative")
   }
 
   // Notification hook - runs after state persists (async, non-blocking)
   onStateUpdate(state: State, source: Connection | "server") {
-    console.log("State updated:", state);
+    console.log("State updated:", state)
   }
 
   @callable()
   increment() {
-    this.setState({ count: this.state.count + 1 });
-    return this.state.count;
+    this.setState({ count: this.state.count + 1 })
+    return this.state.count
   }
 }
 
 export default {
-  fetch: (req, env) => routeAgentRequest(req, env) ?? new Response("Not found", { status: 404 }),
-};
+  fetch: (req, env) => routeAgentRequest(req, env) ?? new Response("Not found", { status: 404 })
+}
 ```
 
 ## Routing
@@ -125,19 +125,19 @@ Client: `useAgent({ agent: "Counter", name: "user-123" })`
 ## React Client
 
 ```tsx
-import { useAgent } from "agents/react";
+import { useAgent } from "agents/react"
 
 function App() {
-  const [state, setLocalState] = useState({ count: 0 });
+  const [state, setLocalState] = useState({ count: 0 })
 
   const agent = useAgent({
     agent: "Counter",
     name: "my-instance",
     onStateUpdate: (newState) => setLocalState(newState),
-    onIdentity: (name, agentType) => console.log(`Connected to ${name}`),
-  });
+    onIdentity: (name, agentType) => console.log(`Connected to ${name}`)
+  })
 
-  return <button onClick={() => agent.setState({ count: state.count + 1 })}>Count: {state.count}</button>;
+  return <button onClick={() => agent.setState({ count: state.count + 1 })}>Count: {state.count}</button>
 }
 ```
 

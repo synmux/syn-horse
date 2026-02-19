@@ -3,17 +3,17 @@
 ## Class Structure
 
 ```typescript
-import { DurableObject } from "cloudflare:workers";
+import { DurableObject } from "cloudflare:workers"
 
 export class MyDO extends DurableObject<Env> {
   constructor(ctx: DurableObjectState, env: Env) {
-    super(ctx, env);
+    super(ctx, env)
     // Runs on EVERY wake - keep light!
   }
 
   // RPC methods (called directly from worker)
   async myMethod(arg: string): Promise<string> {
-    return arg;
+    return arg
   }
 
   // fetch handler (legacy/HTTP semantics)
@@ -60,16 +60,16 @@ await this.ctx.blockConcurrencyWhile(async () => {
 ### Lifecycle
 
 ```typescript
-this.ctx.id; // DurableObjectId of this instance
-this.ctx.abort(); // Force eviction (use after PITR restore to reload state)
+this.ctx.id // DurableObjectId of this instance
+this.ctx.abort() // Force eviction (use after PITR restore to reload state)
 ```
 
 ### Storage Access
 
 ```typescript
-this.ctx.storage.sql; // SQLite API (recommended)
-this.ctx.storage.kv; // Sync KV API (SQLite DOs only)
-this.ctx.storage; // Async KV API (legacy/KV-only DOs)
+this.ctx.storage.sql // SQLite API (recommended)
+this.ctx.storage.kv // Sync KV API (SQLite DOs only)
+this.ctx.storage // Async KV API (legacy/KV-only DOs)
 ```
 
 See **[DO Storage](../do-storage/README.md)** for complete storage API reference.
@@ -100,13 +100,13 @@ Quick reference:
 
 ```typescript
 // SQLite (recommended)
-this.ctx.storage.sql.exec("SELECT * FROM users WHERE id = ?", userId).one();
+this.ctx.storage.sql.exec("SELECT * FROM users WHERE id = ?", userId).one()
 
 // Sync KV (SQLite DOs only)
-this.ctx.storage.kv.get("key");
+this.ctx.storage.kv.get("key")
 
 // Async KV (legacy)
-await this.ctx.storage.get("key");
+await this.ctx.storage.get("key")
 ```
 
 ## Alarms
@@ -192,10 +192,10 @@ async webSocketError(ws: WebSocket, error: unknown) {
 
 ```typescript
 // Store connection metadata (survives hibernation)
-ws.serializeAttachment({ userId: "abc", room: "lobby" });
+ws.serializeAttachment({ userId: "abc", room: "lobby" })
 
 // Retrieve after hibernation
-const { userId, room } = ws.deserializeAttachment();
+const { userId, room } = ws.deserializeAttachment()
 ```
 
 ## See Also

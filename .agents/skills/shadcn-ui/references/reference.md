@@ -575,7 +575,7 @@ Configure your project to work with shadcn.io components using TypeScript and Ta
 
 ```typescript
 // tailwind.config.ts
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
 
 const config: Config = {
   darkMode: ["class"],
@@ -590,15 +590,15 @@ const config: Config = {
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-      },
-    },
+          foreground: "hsl(var(--primary-foreground))"
+        }
+      }
+    }
   },
-  plugins: [require("tailwindcss-animate")],
-};
+  plugins: [require("tailwindcss-animate")]
+}
 
-export default config;
+export default config
 ```
 
 ## Summary

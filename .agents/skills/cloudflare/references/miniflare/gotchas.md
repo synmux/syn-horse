@@ -28,8 +28,8 @@
 ```js
 new Miniflare({
   modules: true,
-  modulesRules: [{ type: "ESModule", include: ["**/*.js"] }],
-});
+  modulesRules: [{ type: "ESModule", include: ["**/*.js"] }]
+})
 ```
 
 ### "Data not persisting"
@@ -52,7 +52,7 @@ kvPersist: "./data/kv",  // Directory, not file
 **Solution:**
 
 ```js
-new Miniflare({ cf: true }); // Or cf: "./cf.json"
+new Miniflare({ cf: true }) // Or cf: "./cf.json"
 ```
 
 ### "EADDRINUSE" port conflict
@@ -67,7 +67,7 @@ new Miniflare({ cf: true }); // Or cf: "./cf.json"
 
 ```js
 export class Counter {} // Must match
-new Miniflare({ durableObjects: { COUNTER: "Counter" } });
+new Miniflare({ durableObjects: { COUNTER: "Counter" } })
 ```
 
 ## Debugging
@@ -75,29 +75,29 @@ new Miniflare({ durableObjects: { COUNTER: "Counter" } });
 **Enable verbose logging:**
 
 ```js
-import { Log, LogLevel } from "miniflare";
-new Miniflare({ log: new Log(LogLevel.DEBUG) });
+import { Log, LogLevel } from "miniflare"
+new Miniflare({ log: new Log(LogLevel.DEBUG) })
 ```
 
 **Chrome DevTools:**
 
 ```js
-const url = await mf.getInspectorURL();
-console.log(`DevTools: ${url}`); // Open in Chrome
+const url = await mf.getInspectorURL()
+console.log(`DevTools: ${url}`) // Open in Chrome
 ```
 
 **Inspect bindings:**
 
 ```js
-const env = await mf.getBindings();
-console.log(Object.keys(env));
+const env = await mf.getBindings()
+console.log(Object.keys(env))
 ```
 
 **Verify storage:**
 
 ```js
-const ns = await mf.getKVNamespace("TEST");
-const { keys } = await ns.list();
+const ns = await mf.getKVNamespace("TEST")
+const { keys } = await ns.list()
 ```
 
 ## Best Practices
@@ -133,24 +133,24 @@ Breaking changes in v3+:
 
 ```js
 // v2
-const bindings = mf.getBindings();
-mf.ready; // void
+const bindings = mf.getBindings()
+mf.ready // void
 
 // v3+
-const bindings = await mf.getBindings();
-const url = await mf.ready; // Promise<URL>
+const bindings = await mf.getBindings()
+const url = await mf.ready // Promise<URL>
 ```
 
 ### From unstable_dev to Miniflare
 
 ```js
 // Old (deprecated)
-import { unstable_dev } from "wrangler";
-const worker = await unstable_dev("src/index.ts");
+import { unstable_dev } from "wrangler"
+const worker = await unstable_dev("src/index.ts")
 
 // New
-import { Miniflare } from "miniflare";
-const mf = new Miniflare({ scriptPath: "src/index.ts" });
+import { Miniflare } from "miniflare"
+const mf = new Miniflare({ scriptPath: "src/index.ts" })
 ```
 
 ### From Wrangler Dev
@@ -163,8 +163,8 @@ new Miniflare({
   scriptPath: "dist/worker.js",
   compatibilityDate: "2026-01-01",
   kvNamespaces: ["KV"],
-  bindings: { API_KEY: process.env.API_KEY },
-});
+  bindings: { API_KEY: process.env.API_KEY }
+})
 ```
 
 ## Resource Limits

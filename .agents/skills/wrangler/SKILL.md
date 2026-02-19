@@ -62,7 +62,7 @@ npx create-cloudflare@latest my-app
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "my-worker",
   "main": "src/index.ts",
-  "compatibility_date": "2026-01-01",
+  "compatibility_date": "2026-01-01"
 }
 ```
 
@@ -78,7 +78,7 @@ npx create-cloudflare@latest my-app
 
   // Environment variables
   "vars": {
-    "ENVIRONMENT": "production",
+    "ENVIRONMENT": "production"
   },
 
   // KV Namespace
@@ -101,21 +101,21 @@ npx create-cloudflare@latest my-app
 
   // Durable Objects
   "durable_objects": {
-    "bindings": [{ "name": "COUNTER", "class_name": "Counter" }],
+    "bindings": [{ "name": "COUNTER", "class_name": "Counter" }]
   },
 
   // Cron triggers
   "triggers": {
-    "crons": ["0 * * * *"],
+    "crons": ["0 * * * *"]
   },
 
   // Environments
   "env": {
     "staging": {
       "name": "my-worker-staging",
-      "vars": { "ENVIRONMENT": "staging" },
-    },
-  },
+      "vars": { "ENVIRONMENT": "staging" }
+    }
+  }
 }
 ```
 
@@ -170,7 +170,7 @@ Use `remote: true` in binding config to connect to real resources while running 
 {
   "r2_buckets": [{ "binding": "BUCKET", "bucket_name": "my-bucket", "remote": true }],
   "ai": { "binding": "AI", "remote": true },
-  "vectorize": [{ "binding": "INDEX", "index_name": "my-index", "remote": true }],
+  "vectorize": [{ "binding": "INDEX", "index_name": "my-index", "remote": true }]
 }
 ```
 
@@ -286,7 +286,7 @@ wrangler kv bulk put --namespace-id <ID> data.json
 
 ```jsonc
 {
-  "kv_namespaces": [{ "binding": "CACHE", "id": "<NAMESPACE_ID>" }],
+  "kv_namespaces": [{ "binding": "CACHE", "id": "<NAMESPACE_ID>" }]
 }
 ```
 
@@ -330,7 +330,7 @@ wrangler r2 object delete my-bucket/path/file.txt
 
 ```jsonc
 {
-  "r2_buckets": [{ "binding": "ASSETS", "bucket_name": "my-bucket" }],
+  "r2_buckets": [{ "binding": "ASSETS", "bucket_name": "my-bucket" }]
 }
 ```
 
@@ -405,9 +405,9 @@ wrangler d1 export my-database --remote --output schema.sql --no-data
       "binding": "DB",
       "database_name": "my-database",
       "database_id": "<DATABASE_ID>",
-      "migrations_dir": "./migrations",
-    },
-  ],
+      "migrations_dir": "./migrations"
+    }
+  ]
 }
 ```
 
@@ -448,7 +448,7 @@ wrangler vectorize query my-index --vector "[0.1, 0.2, ...]" --top-k 10
 
 ```jsonc
 {
-  "vectorize": [{ "binding": "SEARCH_INDEX", "index_name": "my-index" }],
+  "vectorize": [{ "binding": "SEARCH_INDEX", "index_name": "my-index" }]
 }
 ```
 
@@ -481,7 +481,7 @@ wrangler hyperdrive delete <HYPERDRIVE_ID>
 ```jsonc
 {
   "compatibility_flags": ["nodejs_compat_v2"],
-  "hyperdrive": [{ "binding": "HYPERDRIVE", "id": "<HYPERDRIVE_ID>" }],
+  "hyperdrive": [{ "binding": "HYPERDRIVE", "id": "<HYPERDRIVE_ID>" }]
 }
 ```
 
@@ -503,7 +503,7 @@ wrangler ai finetune list
 
 ```jsonc
 {
-  "ai": { "binding": "AI" },
+  "ai": { "binding": "AI" }
 }
 ```
 
@@ -542,10 +542,10 @@ wrangler queues consumer remove my-queue my-worker
       {
         "queue": "my-queue",
         "max_batch_size": 10,
-        "max_batch_timeout": 30,
-      },
-    ],
-  },
+        "max_batch_timeout": 30
+      }
+    ]
+  }
 }
 ```
 
@@ -647,9 +647,9 @@ wrangler workflows instances terminate my-workflow <INSTANCE_ID>
     {
       "binding": "MY_WORKFLOW",
       "name": "my-workflow",
-      "class_name": "MyWorkflow",
-    },
-  ],
+      "class_name": "MyWorkflow"
+    }
+  ]
 }
 ```
 
@@ -680,7 +680,7 @@ wrangler pipelines delete my-pipeline
 
 ```jsonc
 {
-  "pipelines": [{ "binding": "MY_PIPELINE", "pipeline": "my-pipeline" }],
+  "pipelines": [{ "binding": "MY_PIPELINE", "pipeline": "my-pipeline" }]
 }
 ```
 
@@ -725,9 +725,9 @@ wrangler secrets-store secret delete <STORE_ID> my-secret
     {
       "binding": "MY_SECRET",
       "store_id": "<STORE_ID>",
-      "secret_name": "my-secret",
-    },
-  ],
+      "secret_name": "my-secret"
+    }
+  ]
 }
 ```
 
@@ -778,8 +778,8 @@ wrangler tail --format json
 {
   "observability": {
     "enabled": true,
-    "head_sampling_rate": 1,
-  },
+    "head_sampling_rate": 1
+  }
 }
 ```
 
@@ -796,17 +796,17 @@ npm install -D @cloudflare/vitest-pool-workers vitest
 `vitest.config.ts`:
 
 ```typescript
-import { defineWorkersConfig } from "@cloudflare/vitest-pool-workers/config";
+import { defineWorkersConfig } from "@cloudflare/vitest-pool-workers/config"
 
 export default defineWorkersConfig({
   test: {
     poolOptions: {
       workers: {
-        wrangler: { configPath: "./wrangler.jsonc" },
-      },
-    },
-  },
-});
+        wrangler: { configPath: "./wrangler.jsonc" }
+      }
+    }
+  }
+})
 ```
 
 ### Test Scheduled Events

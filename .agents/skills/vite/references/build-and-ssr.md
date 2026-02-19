@@ -11,27 +11,27 @@ Build a library for distribution:
 
 ```ts
 // vite.config.ts
-import { resolve } from "node:path";
-import { defineConfig } from "vite";
+import { resolve } from "node:path"
+import { defineConfig } from "vite"
 
 export default defineConfig({
   build: {
     lib: {
       entry: resolve(import.meta.dirname, "lib/main.ts"),
       name: "MyLib",
-      fileName: "my-lib",
+      fileName: "my-lib"
     },
     rolldownOptions: {
       external: ["vue", "react"],
       output: {
         globals: {
           vue: "Vue",
-          react: "React",
-        },
-      },
-    },
-  },
-});
+          react: "React"
+        }
+      }
+    }
+  }
+})
 ```
 
 ### Multiple Entries
@@ -80,11 +80,11 @@ export default defineConfig({
     rolldownOptions: {
       input: {
         main: resolve(import.meta.dirname, "index.html"),
-        nested: resolve(import.meta.dirname, "nested/index.html"),
-      },
-    },
-  },
-});
+        nested: resolve(import.meta.dirname, "nested/index.html")
+      }
+    }
+  }
+})
 ```
 
 ## SSR Development
@@ -94,38 +94,38 @@ export default defineConfig({
 Use Vite as middleware in a custom server:
 
 ```ts
-import express from "express";
-import { createServer as createViteServer } from "vite";
+import express from "express"
+import { createServer as createViteServer } from "vite"
 
-const app = express();
+const app = express()
 
 const vite = await createViteServer({
   server: { middlewareMode: true },
-  appType: "custom",
-});
+  appType: "custom"
+})
 
-app.use(vite.middlewares);
+app.use(vite.middlewares)
 
 app.use("*all", async (req, res, next) => {
-  const url = req.originalUrl;
+  const url = req.originalUrl
 
   // 1. Read and transform index.html
-  let template = await fs.readFile("index.html", "utf-8");
-  template = await vite.transformIndexHtml(url, template);
+  let template = await fs.readFile("index.html", "utf-8")
+  template = await vite.transformIndexHtml(url, template)
 
   // 2. Load server entry
-  const { render } = await vite.ssrLoadModule("/src/entry-server.ts");
+  const { render } = await vite.ssrLoadModule("/src/entry-server.ts")
 
   // 3. Render app
-  const appHtml = await render(url);
+  const appHtml = await render(url)
 
   // 4. Inject into template
-  const html = template.replace("<!--ssr-outlet-->", appHtml);
+  const html = template.replace("<!--ssr-outlet-->", appHtml)
 
-  res.status(200).set({ "Content-Type": "text/html" }).end(html);
-});
+  res.status(200).set({ "Content-Type": "text/html" }).end(html)
+})
 
-app.listen(5173);
+app.listen(5173)
 ```
 
 ### SSR Build
@@ -162,9 +162,9 @@ Control which deps get bundled vs externalized:
 export default defineConfig({
   ssr: {
     noExternal: ["some-package"], // Bundle this dep
-    external: ["another-package"], // Externalize this dep
-  },
-});
+    external: ["another-package"] // Externalize this dep
+  }
+})
 ```
 
 ### Conditional Logic
@@ -180,54 +180,54 @@ if (import.meta.env.SSR) {
 ### createServer
 
 ```ts
-import { createServer } from "vite";
+import { createServer } from "vite"
 
 const server = await createServer({
   configFile: false,
   root: import.meta.dirname,
-  server: { port: 1337 },
-});
+  server: { port: 1337 }
+})
 
-await server.listen();
-server.printUrls();
+await server.listen()
+server.printUrls()
 ```
 
 ### build
 
 ```ts
-import { build } from "vite";
+import { build } from "vite"
 
 await build({
   root: "./project",
-  build: { outDir: "dist" },
-});
+  build: { outDir: "dist" }
+})
 ```
 
 ### preview
 
 ```ts
-import { preview } from "vite";
+import { preview } from "vite"
 
 const previewServer = await preview({
-  preview: { port: 8080, open: true },
-});
-previewServer.printUrls();
+  preview: { port: 8080, open: true }
+})
+previewServer.printUrls()
 ```
 
 ### resolveConfig
 
 ```ts
-import { resolveConfig } from "vite";
+import { resolveConfig } from "vite"
 
-const config = await resolveConfig({}, "build");
+const config = await resolveConfig({}, "build")
 ```
 
 ### loadEnv
 
 ```ts
-import { loadEnv } from "vite";
+import { loadEnv } from "vite"
 
-const env = loadEnv("development", process.cwd(), "");
+const env = loadEnv("development", process.cwd(), "")
 // Loads all env vars (empty prefix = no filtering)
 ```
 

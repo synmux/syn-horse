@@ -123,12 +123,12 @@ Access bindings in Nitro server routes via `event.context.cloudflare.env`:
 ```typescript
 // Example: server/api/example.ts
 export default defineEventHandler(async (event) => {
-  const { env } = event.context.cloudflare;
+  const { env } = event.context.cloudflare
   const result = await env.AI.run("@cf/meta/llama-3-8b-instruct", {
-    prompt: "Hello",
-  });
-  return result;
-});
+    prompt: "Hello"
+  })
+  return result
+})
 ```
 
 ## Key Files

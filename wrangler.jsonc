@@ -6,57 +6,57 @@
   "account_id": "def50674a738cee409235f71819973cf",
   "ai": {
     "binding": "AI",
-    "remote": true,
+    "remote": true
   },
   "assets": {
     "binding": "ASSETS",
-    "directory": "./.output/public/",
+    "directory": "./.output/public/"
   },
   "browser": {
     "binding": "BROWSER",
-    "remote": true,
+    "remote": true
   },
   "compatibility_date": "2026-02-17",
   "compatibility_flags": ["nodejs_compat"],
   "images": {
     "binding": "IMAGES",
-    "remote": true,
+    "remote": true
   },
   "keep_names": true,
   "main": "./.output/server/index.mjs",
   "media": {
     "binding": "MEDIA",
-    "remote": true,
+    "remote": true
   },
   "minify": true,
   "name": "syn-horse",
   "observability": {
-    "enabled": true,
+    "enabled": true
   },
   "placement": {
-    "mode": "smart",
+    "mode": "smart"
   },
   "routes": [
     {
       "custom_domain": true,
-      "pattern": "syn.horse",
+      "pattern": "syn.horse"
     },
     {
       "custom_domain": true,
-      "pattern": "www.syn.horse",
-    },
+      "pattern": "www.syn.horse"
+    }
   ],
   "send_email": [
     {
       "allowed_sender_addresses": ["ponygirl@syn.horse"],
       "name": "EMAIL",
-      "remote": true,
-    },
+      "remote": true
+    }
   ],
   "send_metrics": true,
   "upload_source_maps": true,
   "version_metadata": {
-    "binding": "CF_VERSION_METADATA",
+    "binding": "CF_VERSION_METADATA"
   },
-  "workers_dev": true,
+  "workers_dev": true
 }

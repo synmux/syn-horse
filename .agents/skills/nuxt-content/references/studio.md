@@ -21,10 +21,10 @@ export default defineNuxtConfig({
   modules: ["@nuxt/content"],
   content: {
     studio: {
-      enabled: true,
-    },
-  },
-});
+      enabled: true
+    }
+  }
+})
 ```
 
 ## Preview Mode
@@ -46,10 +46,10 @@ export default defineNuxtConfig({
     preview: {
       enabled: true,
       // Optional: custom API route
-      api: "/__preview",
-    },
-  },
-});
+      api: "/__preview"
+    }
+  }
+})
 ```
 
 ### Preview Token
@@ -62,10 +62,10 @@ export default defineNuxtConfig({
   content: {
     preview: {
       enabled: true,
-      token: process.env.PREVIEW_TOKEN,
-    },
-  },
-});
+      token: process.env.PREVIEW_TOKEN
+    }
+  }
+})
 ```
 
 Access preview: `https://your-site.com?preview=your-token`
@@ -74,7 +74,7 @@ Access preview: `https://your-site.com?preview=your-token`
 
 ```vue
 <script setup lang="ts">
-const { enabled: previewEnabled } = useContentPreview();
+const { enabled: previewEnabled } = useContentPreview()
 </script>
 
 <template>
@@ -104,11 +104,11 @@ export default defineNuxtConfig({
       enabled: true,
       git: {
         // Branch for preview changes
-        branch: "content-preview",
-      },
-    },
-  },
-});
+        branch: "content-preview"
+      }
+    }
+  }
+})
 ```
 
 ## Schema for Studio Editor
@@ -117,8 +117,8 @@ Add editor hints to your schema:
 
 ```ts
 // content.config.ts
-import { defineCollection, defineContentConfig } from "@nuxt/content";
-import { z } from "zod";
+import { defineCollection, defineContentConfig } from "@nuxt/content"
+import { z } from "zod"
 
 export default defineContentConfig({
   collections: {
@@ -130,11 +130,11 @@ export default defineContentConfig({
         description: z.string().describe("SEO description"),
         image: z.string().describe("Cover image URL"),
         date: z.date().describe("Publication date"),
-        tags: z.array(z.string()).describe("Post tags"),
-      }),
-    }),
-  },
-});
+        tags: z.array(z.string()).describe("Post tags")
+      })
+    })
+  }
+})
 ```
 
 The `.describe()` method adds labels in Studio's editor UI.
@@ -148,10 +148,10 @@ export default defineNuxtConfig({
     studio: {
       enabled: true,
       // Custom Studio URL (for self-hosted)
-      url: "https://studio.nuxt.com",
-    },
-  },
-});
+      url: "https://studio.nuxt.com"
+    }
+  }
+})
 ```
 
 ## Live Editing Components
@@ -169,9 +169,9 @@ Mark components as editable in Studio:
 
 <script setup lang="ts">
 defineProps<{
-  title: string;
-  description: string;
-}>();
+  title: string
+  description: string
+}>()
 </script>
 ```
 
@@ -196,10 +196,10 @@ export default defineNuxtConfig({
       // Watch for file changes
       enabled: true,
       // Debounce updates
-      debounce: 500,
-    },
-  },
-});
+      debounce: 500
+    }
+  }
+})
 ```
 
 ## Deployment Considerations
@@ -211,10 +211,10 @@ export default defineNuxtConfig({
 export default defineNuxtConfig({
   content: {
     studio: {
-      enabled: process.env.VERCEL_ENV === "preview",
-    },
-  },
-});
+      enabled: process.env.VERCEL_ENV === "preview"
+    }
+  }
+})
 ```
 
 ### Cloudflare Pages
@@ -224,10 +224,10 @@ export default defineNuxtConfig({
 export default defineNuxtConfig({
   content: {
     studio: {
-      enabled: process.env.CF_PAGES_BRANCH !== "main",
-    },
-  },
-});
+      enabled: process.env.CF_PAGES_BRANCH !== "main"
+    }
+  }
+})
 ```
 
 ## Common Patterns
@@ -237,7 +237,7 @@ export default defineNuxtConfig({
 ```vue
 <!-- components/PreviewBanner.vue -->
 <script setup lang="ts">
-const { enabled } = useContentPreview();
+const { enabled } = useContentPreview()
 </script>
 
 <template>
@@ -251,11 +251,11 @@ const { enabled } = useContentPreview();
 **Conditional preview logic:**
 
 ```ts
-const { enabled } = useContentPreview();
+const { enabled } = useContentPreview()
 
 const posts = await queryCollection("blog")
   .where("draft", "=", enabled ? undefined : false) // Show drafts in preview
-  .all();
+  .all()
 ```
 
 ## Best Practices

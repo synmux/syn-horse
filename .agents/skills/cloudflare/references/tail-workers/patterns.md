@@ -30,17 +30,17 @@ export default {
       url: event.event?.request?.url,
       status: event.event?.response?.status,
       logs: event.logs,
-      exceptions: event.exceptions,
-    }));
+      exceptions: event.exceptions
+    }))
 
     ctx.waitUntil(
       fetch(env.LOG_ENDPOINT, {
         method: "POST",
-        body: JSON.stringify(payload),
-      }),
-    );
-  },
-};
+        body: JSON.stringify(payload)
+      })
+    )
+  }
+}
 ```
 
 ### Error Tracking Only
@@ -48,18 +48,18 @@ export default {
 ```typescript
 export default {
   async tail(events, env, ctx) {
-    const errors = events.filter((e) => e.outcome === "exception" || e.exceptions.length > 0);
+    const errors = events.filter((e) => e.outcome === "exception" || e.exceptions.length > 0)
 
-    if (errors.length === 0) return;
+    if (errors.length === 0) return
 
     ctx.waitUntil(
       fetch(env.ERROR_ENDPOINT, {
         method: "POST",
-        body: JSON.stringify(errors),
-      }),
-    );
-  },
-};
+        body: JSON.stringify(errors)
+      })
+    )
+  }
+}
 ```
 
 ## Storage Integration
@@ -75,13 +75,13 @@ export default {
           env.LOGS_KV.put(
             `log:${event.scriptName}:${event.eventTimestamp}`,
             JSON.stringify(event),
-            { expirationTtl: 86400 }, // 24 hours
-          ),
-        ),
-      ),
-    );
-  },
-};
+            { expirationTtl: 86400 } // 24 hours
+          )
+        )
+      )
+    )
+  }
+}
 ```
 
 ### Analytics Engine Metrics
@@ -95,13 +95,13 @@ export default {
           env.ANALYTICS.writeDataPoint({
             blobs: [event.scriptName, event.outcome],
             doubles: [1, event.event?.response?.status ?? 0],
-            indexes: [event.event?.request?.cf?.colo ?? "unknown"],
-          }),
-        ),
-      ),
-    );
-  },
-};
+            indexes: [event.event?.request?.cf?.colo ?? "unknown"]
+          })
+        )
+      )
+    )
+  }
+}
 ```
 
 ## Filtering & Routing
@@ -112,33 +112,33 @@ Filter by route, outcome, or other criteria:
 export default {
   async tail(events, env, ctx) {
     // Route filtering
-    const apiEvents = events.filter((e) => e.event?.request?.url?.includes("/api/"));
+    const apiEvents = events.filter((e) => e.event?.request?.url?.includes("/api/"))
 
     // Multi-destination routing
-    const errors = events.filter((e) => e.outcome === "exception");
-    const success = events.filter((e) => e.outcome === "ok");
+    const errors = events.filter((e) => e.outcome === "exception")
+    const success = events.filter((e) => e.outcome === "ok")
 
-    const tasks = [];
+    const tasks = []
     if (errors.length > 0) {
       tasks.push(
         fetch(env.ERROR_ENDPOINT, {
           method: "POST",
-          body: JSON.stringify(errors),
-        }),
-      );
+          body: JSON.stringify(errors)
+        })
+      )
     }
     if (success.length > 0) {
       tasks.push(
         fetch(env.SUCCESS_ENDPOINT, {
           method: "POST",
-          body: JSON.stringify(success),
-        }),
-      );
+          body: JSON.stringify(success)
+        })
+      )
     }
 
-    ctx.waitUntil(Promise.all(tasks));
-  },
-};
+    ctx.waitUntil(Promise.all(tasks))
+  }
+}
 ```
 
 ## Sampling
@@ -148,15 +148,15 @@ Reduce costs by processing only a percentage of events:
 ```typescript
 export default {
   async tail(events, env, ctx) {
-    if (Math.random() > 0.1) return; // 10% sample rate
+    if (Math.random() > 0.1) return // 10% sample rate
     ctx.waitUntil(
       fetch(env.LOG_ENDPOINT, {
         method: "POST",
-        body: JSON.stringify(events),
-      }),
-    );
-  },
-};
+        body: JSON.stringify(events)
+      })
+    )
+  }
+}
 ```
 
 ## Advanced Patterns
@@ -168,15 +168,15 @@ Accumulate events before sending:
 ```typescript
 export default {
   async tail(events, env, ctx) {
-    const batch = env.BATCH_DO.get(env.BATCH_DO.idFromName("batch"));
+    const batch = env.BATCH_DO.get(env.BATCH_DO.idFromName("batch"))
     ctx.waitUntil(
       batch.fetch("https://batch/add", {
         method: "POST",
-        body: JSON.stringify(events),
-      }),
-    );
-  },
-};
+        body: JSON.stringify(events)
+      })
+    )
+  }
+}
 ```
 
 See durable-objects skill for full implementation.

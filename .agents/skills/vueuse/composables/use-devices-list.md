@@ -8,9 +8,9 @@ Reactive enumerateDevices listing available input/output devices.
 ## Usage
 
 ```ts
-import { useDevicesList } from "@vueuse/core";
+import { useDevicesList } from "@vueuse/core"
 
-const { devices, videoInputs: cameras, audioInputs: microphones, audioOutputs: speakers } = useDevicesList();
+const { devices, videoInputs: cameras, audioInputs: microphones, audioOutputs: speakers } = useDevicesList()
 ```
 
 ## Options

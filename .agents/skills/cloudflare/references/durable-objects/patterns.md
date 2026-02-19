@@ -17,8 +17,8 @@
 **fetch()**: Legacy compat, HTTP semantics, proxying
 
 ```typescript
-const count = await stub.increment(); // RPC
-const count = await (await stub.fetch(req)).json(); // fetch()
+const count = await stub.increment() // RPC
+const count = await (await stub.fetch(req)).json() // fetch()
 ```
 
 ## Sharding (High Throughput)
@@ -28,17 +28,17 @@ Single DO ~1K req/s max. Shard for higher throughput:
 ```typescript
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
-    const userId = new URL(req.url).searchParams.get("user");
-    const hash = hashCode(userId) % 100; // 100 shards
-    const id = env.COUNTER.idFromName(`shard:${hash}`);
-    return env.COUNTER.get(id).fetch(req);
-  },
-};
+    const userId = new URL(req.url).searchParams.get("user")
+    const hash = hashCode(userId) % 100 // 100 shards
+    const id = env.COUNTER.idFromName(`shard:${hash}`)
+    return env.COUNTER.get(id).fetch(req)
+  }
+}
 
 function hashCode(str: string): number {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) hash = (hash << 5) - hash + str.charCodeAt(i);
-  return Math.abs(hash);
+  let hash = 0
+  for (let i = 0; i < str.length; i++) hash = (hash << 5) - hash + str.charCodeAt(i)
+  return Math.abs(hash)
 }
 ```
 
@@ -114,14 +114,14 @@ async webSocketMessage(ws: WebSocket, msg: string) {
 
 ```typescript
 class ResilientWS {
-  private delay = 1000;
+  private delay = 1000
   connect(url: string) {
-    const ws = new WebSocket(url);
+    const ws = new WebSocket(url)
     ws.onclose = () =>
       setTimeout(() => {
-        this.connect(url);
-        this.delay = Math.min(this.delay * 2, 30000);
-      }, this.delay);
+        this.connect(url)
+        this.delay = Math.min(this.delay * 2, 30000)
+      }, this.delay)
   }
 }
 ```

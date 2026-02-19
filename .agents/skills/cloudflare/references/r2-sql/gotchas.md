@@ -12,10 +12,10 @@ Limitations, troubleshooting, and common pitfalls for R2 SQL.
 // ❌ This doesn't exist
 export default {
   async fetch(request, env) {
-    const result = await env.R2_SQL.query("SELECT * FROM table"); // Not possible
-    return Response.json(result);
-  },
-};
+    const result = await env.R2_SQL.query("SELECT * FROM table") // Not possible
+    return Response.json(result)
+  }
+}
 ```
 
 **Solutions:**

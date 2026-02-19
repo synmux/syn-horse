@@ -10,9 +10,9 @@ Instead of `run_worker_first = true`, use array patterns:
     "run_worker_first": [
       "/api/*", // API routes
       "/admin/*", // Admin area
-      "!/admin/assets/*", // Except admin assets
-    ],
-  },
+      "!/admin/assets/*" // Except admin assets
+    ]
+  }
 }
 ```
 
@@ -30,8 +30,8 @@ For SPAs, use `compatibility_date = "2025-04-01"` or later:
 {
   "compatibility_date": "2025-04-01",
   "assets": {
-    "not_found_handling": "single-page-application",
-  },
+    "not_found_handling": "single-page-application"
+  }
 }
 ```
 
@@ -43,7 +43,7 @@ Always type your environment:
 
 ```typescript
 interface Env {
-  ASSETS: Fetcher;
+  ASSETS: Fetcher
 }
 ```
 
@@ -131,8 +131,8 @@ Serve assets directly when possible:
 {
   "assets": {
     // Only invoke Worker for dynamic routes
-    "run_worker_first": ["/api/*", "/auth/*"],
-  },
+    "run_worker_first": ["/api/*", "/auth/*"]
+  }
 }
 ```
 

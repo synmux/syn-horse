@@ -14,21 +14,21 @@ Creates `worker-configuration.d.ts` with typed `Env` interface based on your bin
 // functions/api.ts
 export const onRequest: PagesFunction<Env> = async (ctx) => {
   // ctx.env.KV, ctx.env.DB, etc. are fully typed
-  return Response.json({ ok: true });
-};
+  return Response.json({ ok: true })
+}
 ```
 
 **Manual types** (if not using wrangler types):
 
 ```typescript
 interface Env {
-  KV: KVNamespace;
-  DB: D1Database;
-  API_KEY: string;
+  KV: KVNamespace
+  DB: D1Database
+  API_KEY: string
 }
 export const onRequest: PagesFunction<Env> = async (ctx) => {
   /* ... */
-};
+}
 ```
 
 ## wrangler.jsonc
@@ -50,14 +50,14 @@ export const onRequest: PagesFunction<Env> = async (ctx) => {
       {
         "name": "COUNTER",
         "class_name": "Counter",
-        "script_name": "counter-worker",
-      },
-    ],
+        "script_name": "counter-worker"
+      }
+    ]
   },
   "services": [{ "binding": "AUTH", "service": "auth-worker" }],
   "ai": { "binding": "AI" },
   "vectorize": [{ "binding": "VECTORIZE", "index_name": "my-index" }],
-  "analytics_engine_datasets": [{ "binding": "ANALYTICS" }],
+  "analytics_engine_datasets": [{ "binding": "ANALYTICS" }]
 }
 ```
 
@@ -69,8 +69,8 @@ Top-level → local dev, `env.preview` → preview, `env.production` → product
 {
   "vars": { "API_URL": "http://localhost:8787" },
   "env": {
-    "production": { "vars": { "API_URL": "https://api.example.com" } },
-  },
+    "production": { "vars": { "API_URL": "https://api.example.com" } }
+  }
 }
 ```
 

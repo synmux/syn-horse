@@ -22,14 +22,14 @@ export class ChatAgent extends AIChatAgent<Env> {
   async onChatMessage(onFinish) {
     // Keep only last 50 messages
     if (this.messages.length > 50) {
-      this.messages = this.messages.slice(-50);
+      this.messages = this.messages.slice(-50)
     }
 
     return this.streamText({
       model: openai("gpt-4"),
       messages: this.messages,
-      onFinish,
-    });
+      onFinish
+    })
   }
 }
 ```
@@ -69,10 +69,10 @@ async checkSchedules() { if ((await this.getSchedules()).length > 800) console.w
 
 ```ts
 try {
-  return await this.env.AI.run(model, { prompt });
+  return await this.env.AI.run(model, { prompt })
 } catch (e) {
-  console.error("AI error:", e);
-  return { error: "Unavailable" };
+  console.error("AI error:", e)
+  return { error: "Unavailable" }
 }
 ```
 

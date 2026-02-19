@@ -29,14 +29,14 @@ All examples: https://github.com/cloudflare/sandbox-sdk/tree/main/examples
 **Sandbox per user/session** (from `openai-agents`):
 
 ```typescript
-const sandbox = getSandbox(env.Sandbox, `session-${sessionId}`);
+const sandbox = getSandbox(env.Sandbox, `session-${sessionId}`)
 ```
 
 **Code context reuse** (from `code-interpreter`):
 
 ```typescript
-const pythonCtx = await sandbox.createCodeContext({ language: "python" });
-const result = await sandbox.runCode(code, { context: pythonCtx });
+const pythonCtx = await sandbox.createCodeContext({ language: "python" })
+const result = await sandbox.runCode(code, { context: pythonCtx })
 ```
 
 **Resource cleanup** (from `code-interpreter`):
@@ -45,7 +45,7 @@ const result = await sandbox.runCode(code, { context: pythonCtx });
 try {
   // ... use sandbox
 } finally {
-  await sandbox.destroy();
+  await sandbox.destroy()
 }
 ```
 

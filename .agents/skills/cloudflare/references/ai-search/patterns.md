@@ -23,9 +23,9 @@ const answer = await env.AI.autorag("saas-docs").aiSearch({
   filters: {
     column: "folder",
     operator: "gte", // "starts with" pattern
-    value: `tenants/${tenantId}/`,
-  },
-});
+    value: `tenants/${tenantId}/`
+  }
+})
 ```
 
 ## Streaming
@@ -34,11 +34,11 @@ const answer = await env.AI.autorag("saas-docs").aiSearch({
 const stream = await env.AI.autorag("docs").aiSearch({
   query,
   model: "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
-  stream: true,
-});
+  stream: true
+})
 return new Response(stream, {
-  headers: { "Content-Type": "text/event-stream" },
-});
+  headers: { "Content-Type": "text/event-stream" }
+})
 ```
 
 ## Score Threshold
@@ -55,7 +55,7 @@ return new Response(stream, {
 const systemPrompt = `You are a documentation assistant.
 - Answer ONLY based on provided context
 - If context doesn't contain answer, say "I don't have information"
-- Include code examples from context`;
+- Include code examples from context`
 ```
 
 ## Compound Filters

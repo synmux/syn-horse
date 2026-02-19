@@ -126,37 +126,37 @@ See systemd socket activation docs for complete setup.
 ### Hono
 
 ```javascript
-import { Hono } from "hono";
+import { Hono } from "hono"
 
-const app = new Hono();
+const app = new Hono()
 
-app.get("/", (c) => c.text("Hello Hono!"));
+app.get("/", (c) => c.text("Hello Hono!"))
 app.get("/api/:id", async (c) => {
-  const id = c.req.param("id");
-  const data = await c.env.KV.get(id);
-  return c.json({ id, data });
-});
+  const id = c.req.param("id")
+  const data = await c.env.KV.get(id)
+  return c.json({ id, data })
+})
 
-export default app;
+export default app
 ```
 
 ### itty-router
 
 ```javascript
-import { Router } from "itty-router";
+import { Router } from "itty-router"
 
-const router = Router();
+const router = Router()
 
-router.get("/", () => new Response("Hello itty!"));
+router.get("/", () => new Response("Hello itty!"))
 router.get("/api/:id", async (request, env) => {
-  const { id } = request.params;
-  const data = await env.KV.get(id);
-  return Response.json({ id, data });
-});
+  const { id } = request.params
+  const data = await env.KV.get(id)
+  return Response.json({ id, data })
+})
 
 export default {
-  fetch: (request, env, ctx) => router.handle(request, env, ctx),
-};
+  fetch: (request, env, ctx) => router.handle(request, env, ctx)
+}
 ```
 
 ## Best Practices
@@ -178,13 +178,13 @@ export default {
 export default {
   async fetch(request, env, ctx) {
     try {
-      return await handleRequest(request, env);
+      return await handleRequest(request, env)
     } catch (error) {
-      console.error("Request failed", error);
-      return new Response("Internal Error", { status: 500 });
+      console.error("Request failed", error)
+      return new Response("Internal Error", { status: 500 })
     }
-  },
-};
+  }
+}
 ```
 
 ### Background Tasks
@@ -192,14 +192,14 @@ export default {
 ```javascript
 export default {
   async fetch(request, env, ctx) {
-    const response = new Response("OK");
+    const response = new Response("OK")
 
     // Fire-and-forget background work
-    ctx.waitUntil(env.ANALYTICS.put(request.url, Date.now()));
+    ctx.waitUntil(env.ANALYTICS.put(request.url, Date.now()))
 
-    return response;
-  },
-};
+    return response
+  }
+}
 ```
 
 See [configuration.md](./configuration.md) for config syntax, [api.md](./api.md) for runtime APIs, [gotchas.md](./gotchas.md) for common errors.

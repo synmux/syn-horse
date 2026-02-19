@@ -8,10 +8,10 @@
   "r2_buckets": [{ "binding": "MY_BUCKET", "bucket_name": "my-bucket" }],
   "d1_databases": [{ "binding": "DB", "database_name": "my-db", "database_id": "..." }],
   "durable_objects": {
-    "bindings": [{ "name": "MY_DO", "class_name": "MyDO" }],
+    "bindings": [{ "name": "MY_DO", "class_name": "MyDO" }]
   },
   "vectorize": [{ "binding": "VECTORIZE", "index_name": "my-index" }],
-  "queues": { "producers": [{ "binding": "MY_QUEUE", "queue": "my-queue" }] },
+  "queues": { "producers": [{ "binding": "MY_QUEUE", "queue": "my-queue" }] }
 }
 ```
 
@@ -40,12 +40,12 @@ npx wrangler queues list
     {
       "binding": "MY_SERVICE",
       "service": "other-worker",
-      "environment": "production", // Optional: target specific env
-    },
+      "environment": "production" // Optional: target specific env
+    }
   ],
   "ai": { "binding": "AI" },
   "browser": { "binding": "BROWSER" },
-  "workflows": [{ "binding": "MY_WORKFLOW", "name": "my-workflow" }],
+  "workflows": [{ "binding": "MY_WORKFLOW", "name": "my-workflow" }]
 }
 ```
 
@@ -63,8 +63,8 @@ npx wrangler workflows create my-workflow
   "mtls_certificates": [{ "binding": "MY_CERT", "certificate_id": "..." }],
   "hyperdrive": [{ "binding": "HYPERDRIVE", "id": "..." }],
   "unsafe": {
-    "bindings": [{ "name": "RATE_LIMITER", "type": "ratelimit", "namespace_id": "..." }],
-  },
+    "bindings": [{ "name": "RATE_LIMITER", "type": "ratelimit", "namespace_id": "..." }]
+  }
 }
 ```
 
@@ -74,11 +74,11 @@ npx wrangler workflows create my-workflow
 {
   "vars": {
     "API_URL": "https://api.example.com",
-    "MAX_RETRIES": "3",
+    "MAX_RETRIES": "3"
   },
   "text_blobs": { "MY_TEXT": "./data/template.html" },
   "data_blobs": { "MY_DATA": "./data/config.bin" },
-  "wasm_modules": { "MY_WASM": "./build/module.wasm" },
+  "wasm_modules": { "MY_WASM": "./build/module.wasm" }
 }
 ```
 
@@ -99,9 +99,9 @@ npx wrangler secret put API_KEY
   "env": {
     "staging": {
       "vars": { "ENV": "staging" },
-      "kv_namespaces": [{ "binding": "CACHE", "id": "staging-kv-id" }],
-    },
-  },
+      "kv_namespaces": [{ "binding": "CACHE", "id": "staging-kv-id" }]
+    }
+  }
 }
 ```
 
@@ -120,9 +120,9 @@ npx wrangler deploy --env staging
     {
       "binding": "MY_KV",
       "id": "prod-id",
-      "preview_id": "dev-id", // Used in wrangler dev
-    },
-  ],
+      "preview_id": "dev-id" // Used in wrangler dev
+    }
+  ]
 }
 ```
 
@@ -146,7 +146,7 @@ npx wrangler dev --remote  # Uses production bindings
   "r2_buckets": [{ "binding": "ASSETS", "bucket_name": "my-assets" }],
   "d1_databases": [{ "binding": "DB", "database_name": "my-db", "database_id": "xyz789" }],
   "services": [{ "binding": "AUTH", "service": "auth-worker" }],
-  "ai": { "binding": "AI" },
+  "ai": { "binding": "AI" }
 }
 ```
 
@@ -161,10 +161,10 @@ npx wrangler dev --remote  # Uses production bindings
       {
         "name": "COUNTER",
         "class_name": "Counter",
-        "script_name": "my-worker",
-      },
-    ],
-  },
+        "script_name": "my-worker"
+      }
+    ]
+  }
 }
 ```
 
@@ -173,7 +173,7 @@ npx wrangler dev --remote  # Uses production bindings
 export class Counter {
   constructor(
     private state: DurableObjectState,
-    private env: Env,
+    private env: Env
   ) {}
   async fetch(request: Request) {
     /* ... */
@@ -187,8 +187,8 @@ export class Counter {
 {
   "queues": {
     "producers": [{ "binding": "MY_QUEUE", "queue": "my-queue" }],
-    "consumers": [{ "queue": "my-queue", "max_batch_size": 10 }],
-  },
+    "consumers": [{ "queue": "my-queue", "max_batch_size": 10 }]
+  }
 }
 ```
 

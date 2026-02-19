@@ -5,7 +5,7 @@
 **Timestamp precision:** Use seconds (10-digit), not milliseconds.
 
 ```typescript
-const nowInSeconds = Math.floor(Date.now() / 1000); // Correct
+const nowInSeconds = Math.floor(Date.now() / 1000) // Correct
 ```
 
 **Folder prefix matching:** Use `gte` for "starts with" on paths.

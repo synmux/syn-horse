@@ -25,11 +25,11 @@ const config = {
       action: "execute",
       action_parameters: {
         id: managedRulesetId,
-        overrides: { sensitivity_level: "default", action: "block" },
-      },
-    },
-  ],
-};
+        overrides: { sensitivity_level: "default", action: "block" }
+      }
+    }
+  ]
+}
 ```
 
 ### "Adaptive rules not working"

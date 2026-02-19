@@ -17,25 +17,25 @@ Source: https://ui.shadcn.com/docs/components/chart
 The ChartContainer wraps your Recharts component and accepts a config prop for theming. Requires `min-h-[value]` for responsiveness.
 
 ```tsx
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart"
 
 const chartConfig = {
   desktop: {
     label: "Desktop",
-    color: "var(--chart-1)",
+    color: "var(--chart-1)"
   },
   mobile: {
     label: "Mobile",
-    color: "var(--chart-2)",
-  },
-} satisfies import("@/components/ui/chart").ChartConfig;
+    color: "var(--chart-2)"
+  }
+} satisfies import("@/components/ui/chart").ChartConfig
 
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
   { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-];
+  { month: "March", desktop: 237, mobile: 120 }
+]
 
 export function BarChartDemo() {
   return (
@@ -48,7 +48,7 @@ export function BarChartDemo() {
         <ChartTooltip content={<ChartTooltipContent />} />
       </BarChart>
     </ChartContainer>
-  );
+  )
 }
 ```
 
@@ -67,14 +67,14 @@ const chartConfig = {
     color: "#2563eb",
     theme: {
       light: "#2563eb",
-      dark: "#60a5fa",
-    },
+      dark: "#60a5fa"
+    }
   },
   mobile: {
     label: "Mobile",
-    color: "var(--chart-2)",
-  },
-} satisfies import("@/components/ui/chart").ChartConfig;
+    color: "var(--chart-2)"
+  }
+} satisfies import("@/components/ui/chart").ChartConfig
 ```
 
 ---
@@ -113,23 +113,23 @@ Source: https://ui.shadcn.com/docs/components/chart
 Creating a line chart with shadcn/ui charts component.
 
 ```tsx
-import { Line, LineChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
+import { Line, LineChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart"
 
 const chartConfig = {
   price: {
     label: "Price",
-    color: "var(--chart-1)",
-  },
-} satisfies import("@/components/ui/chart").ChartConfig;
+    color: "var(--chart-1)"
+  }
+} satisfies import("@/components/ui/chart").ChartConfig
 
 const chartData = [
   { month: "January", price: 186 },
   { month: "February", price: 305 },
   { month: "March", price: 237 },
   { month: "April", price: 203 },
-  { month: "May", price: 276 },
-];
+  { month: "May", price: 276 }
+]
 
 export function LineChartDemo() {
   return (
@@ -142,7 +142,7 @@ export function LineChartDemo() {
         <ChartTooltip content={<ChartTooltipContent />} />
       </LineChart>
     </ChartContainer>
-  );
+  )
 }
 ```
 
@@ -155,13 +155,13 @@ Source: https://ui.shadcn.com/docs/components/chart
 Creating an area chart with gradient fill and legend.
 
 ```tsx
-import { Area, AreaChart, XAxis, YAxis } from "recharts";
-import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltipContent } from "@/components/ui/chart";
+import { Area, AreaChart, XAxis, YAxis } from "recharts"
+import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltipContent } from "@/components/ui/chart"
 
 const chartConfig = {
   desktop: { label: "Desktop", color: "var(--chart-1)" },
-  mobile: { label: "Mobile", color: "var(--chart-2)" },
-} satisfies import("@/components/ui/chart").ChartConfig;
+  mobile: { label: "Mobile", color: "var(--chart-2)" }
+} satisfies import("@/components/ui/chart").ChartConfig
 
 export function AreaChartDemo() {
   return (
@@ -175,7 +175,7 @@ export function AreaChartDemo() {
         <ChartLegend content={<ChartLegendContent />} />
       </AreaChart>
     </ChartContainer>
-  );
+  )
 }
 ```
 
@@ -188,20 +188,20 @@ Source: https://ui.shadcn.com/docs/components/chart
 Creating a pie/donut chart with shadcn/ui.
 
 ```tsx
-import { Pie, PieChart } from "recharts";
-import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltipContent } from "@/components/ui/chart";
+import { Pie, PieChart } from "recharts"
+import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltipContent } from "@/components/ui/chart"
 
 const chartConfig = {
   chrome: { label: "Chrome", color: "var(--chart-1)" },
   safari: { label: "Safari", color: "var(--chart-2)" },
-  firefox: { label: "Firefox", color: "var(--chart-3)" },
-} satisfies import("@/components/ui/chart").ChartConfig;
+  firefox: { label: "Firefox", color: "var(--chart-3)" }
+} satisfies import("@/components/ui/chart").ChartConfig
 
 const pieData = [
   { browser: "Chrome", visitors: 275, fill: "var(--color-chrome)" },
   { browser: "Safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "Firefox", visitors: 187, fill: "var(--color-firefox)" },
-];
+  { browser: "Firefox", visitors: 187, fill: "var(--color-firefox)" }
+]
 
 export function PieChartDemo() {
   return (
@@ -212,7 +212,7 @@ export function PieChartDemo() {
         <ChartLegend content={<ChartLegendContent />} />
       </PieChart>
     </ChartContainer>
-  );
+  )
 }
 ```
 

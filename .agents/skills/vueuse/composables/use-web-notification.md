@@ -8,7 +8,7 @@ Reactive Notification
 ## Usage
 
 ```ts
-import { useWebNotification } from "@vueuse/core";
+import { useWebNotification } from "@vueuse/core"
 
 const { isSupported, notification, permissionGranted, show, close, onClick, onShow, onError, onClose } =
   useWebNotification({
@@ -16,10 +16,10 @@ const { isSupported, notification, permissionGranted, show, close, onClick, onSh
     dir: "auto",
     lang: "en",
     renotify: true,
-    tag: "test",
-  });
+    tag: "test"
+  })
 
-if (isSupported.value && permissionGranted.value) show();
+if (isSupported.value && permissionGranted.value) show()
 ```
 
 ## Options

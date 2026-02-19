@@ -105,8 +105,8 @@ resource "cloudflare_snippet_rules" "security_rules" {
 **Best for**: Multi-cloud IaC, TypeScript/Python/Go workflows
 
 ```typescript
-import * as cloudflare from "@pulumi/cloudflare";
-import * as fs from "fs";
+import * as cloudflare from "@pulumi/cloudflare"
+import * as fs from "fs"
 
 // Create snippet
 const securitySnippet = new cloudflare.Snippet("security-headers", {
@@ -116,10 +116,10 @@ const securitySnippet = new cloudflare.Snippet("security-headers", {
   files: [
     {
       name: "security_headers.js",
-      content: fs.readFileSync("./snippets/security_headers.js", "utf8"),
-    },
-  ],
-});
+      content: fs.readFileSync("./snippets/security_headers.js", "utf8")
+    }
+  ]
+})
 
 // Create snippet rule
 const snippetRule = new cloudflare.SnippetRules("security-rules", {
@@ -129,10 +129,10 @@ const snippetRule = new cloudflare.SnippetRules("security-rules", {
       description: "Apply security headers",
       enabled: true,
       expression: "true",
-      snippetName: securitySnippet.name,
-    },
-  ],
-});
+      snippetName: securitySnippet.name
+    }
+  ]
+})
 ```
 
 ## Filter Expressions

@@ -153,16 +153,16 @@ async criticalOperation() {
 // Warming strategy (periodically ping critical DOs)
 export default {
   async scheduled(event: ScheduledEvent, env: Env) {
-    const criticalIds = ["auth", "sessions", "locks"];
+    const criticalIds = ["auth", "sessions", "locks"]
     await Promise.all(
       criticalIds.map((name) => {
-        const id = env.MY_DO.idFromName(name);
-        const stub = env.MY_DO.get(id);
-        return stub.ping(); // Keep warm
-      }),
-    );
-  },
-};
+        const id = env.MY_DO.idFromName(name)
+        const stub = env.MY_DO.get(id)
+        return stub.ping() // Keep warm
+      })
+    )
+  }
+}
 ```
 
 ## Limits

@@ -8,9 +8,9 @@ Reactive SpeechSynthesis.
 ## Usage
 
 ```ts
-import { useSpeechSynthesis } from "@vueuse/core";
+import { useSpeechSynthesis } from "@vueuse/core"
 
-const { isSupported, isPlaying, status, voiceInfo, utterance, error, stop, toggle, speak } = useSpeechSynthesis();
+const { isSupported, isPlaying, status, voiceInfo, utterance, error, stop, toggle, speak } = useSpeechSynthesis()
 ```
 
 ## Options

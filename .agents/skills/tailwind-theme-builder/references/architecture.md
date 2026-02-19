@@ -147,11 +147,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "hsl(var(--primary))",
-      },
-    },
-  },
-};
+        primary: "hsl(var(--primary))"
+      }
+    }
+  }
+}
 ```
 
 **Why It Fails:** Tailwind v4 completely ignores `theme.extend.colors` in config files.

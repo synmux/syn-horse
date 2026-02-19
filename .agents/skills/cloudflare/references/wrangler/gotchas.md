@@ -29,8 +29,8 @@
 ```typescript
 const worker = await startWorker({
   config: "wrangler.jsonc",
-  remote: true, // or "minimal" for faster tests
-});
+  remote: true // or "minimal" for faster tests
+})
 ```
 
 ### "Unexpected runtime changes"
@@ -50,8 +50,8 @@ const worker = await startWorker({
 ```jsonc
 {
   "durable_objects": {
-    "bindings": [{ "name": "MY_DO", "class_name": "MyDO", "script_name": "my-worker" }],
-  },
+    "bindings": [{ "name": "MY_DO", "class_name": "MyDO", "script_name": "my-worker" }]
+  }
 }
 ```
 
@@ -90,8 +90,8 @@ For local DOs in same Worker, `script_name` is optional.
   "assets": {
     "directory": "./dist",
     "html_handling": "auto-trailing-slash",
-    "not_found_handling": "single-page-application",
-  },
+    "not_found_handling": "single-page-application"
+  }
 }
 ```
 
@@ -110,7 +110,7 @@ For local DOs in same Worker, `script_name` is optional.
 **Solution:** Use stable `startWorker` instead:
 
 ```typescript
-import { startWorker } from "wrangler"; // Not unstable_startWorker
+import { startWorker } from "wrangler" // Not unstable_startWorker
 ```
 
 ### "outboundService not mocking fetch"
@@ -122,11 +122,11 @@ import { startWorker } from "wrangler"; // Not unstable_startWorker
 const worker = await startWorker({
   outboundService: (req) => {
     if (shouldMock(req)) {
-      return new Response("mocked");
+      return new Response("mocked")
     }
-    return fetch(req); // Required for non-mocked requests
-  },
-});
+    return fetch(req) // Required for non-mocked requests
+  }
+})
 ```
 
 ## Limits

@@ -15,16 +15,16 @@ export default defineNuxtConfig({
     // Block non-SEO bots (reduces server load)
     blockNonSeoBots: true,
     // Custom rules
-    groups: [{ userAgent: "*", disallow: ["/admin"] }],
-  },
-});
+    groups: [{ userAgent: "*", disallow: ["/admin"] }]
+  }
+})
 ```
 
 ### Per-Page Control
 
 ```ts
 // Disable indexing
-useRobotsRule("noindex, nofollow");
+useRobotsRule("noindex, nofollow")
 
 // Object syntax with AI directives
 useRobotsRule({
@@ -33,8 +33,8 @@ useRobotsRule({
   noai: true, // Block AI training
   noimageai: true, // Block AI image training
   "max-snippet": 150, // Preview controls
-  "max-image-preview": "large",
-});
+  "max-image-preview": "large"
+})
 ```
 
 Route rules:
@@ -43,9 +43,9 @@ Route rules:
 export default defineNuxtConfig({
   routeRules: {
     "/admin/**": { robots: "noindex, nofollow" },
-    "/hidden": { robots: false },
-  },
-});
+    "/hidden": { robots: false }
+  }
+})
 ```
 
 ### Nuxt Content Frontmatter
@@ -73,20 +73,20 @@ export default defineNuxtConfig({
     sources: ["/api/__sitemap__/urls"],
     exclude: ["/admin/**", "/secret"],
     // For static sites - no runtime generation
-    zeroRuntime: true,
-  },
-});
+    zeroRuntime: true
+  }
+})
 ```
 
 ### Dynamic URLs via API
 
 ```ts
 // server/api/__sitemap__/urls.ts
-import { defineSitemapEventHandler } from "#imports";
-import type { SitemapUrlInput } from "#sitemap/types";
+import { defineSitemapEventHandler } from "#imports"
+import type { SitemapUrlInput } from "#sitemap/types"
 
 export default defineSitemapEventHandler(async () => {
-  const posts = await $fetch("/api/posts");
+  const posts = await $fetch("/api/posts")
   return posts.map(
     (post) =>
       ({
@@ -95,10 +95,10 @@ export default defineSitemapEventHandler(async () => {
         // Image sitemap
         images: [{ loc: post.image, title: post.title }],
         // Video sitemap
-        videos: [{ content_loc: post.videoUrl, title: post.title }],
-      }) satisfies SitemapUrlInput,
-  );
-});
+        videos: [{ content_loc: post.videoUrl, title: post.title }]
+      }) satisfies SitemapUrlInput
+  )
+})
 ```
 
 ### Per-Page Control
@@ -109,9 +109,9 @@ Route rules:
 export default defineNuxtConfig({
   routeRules: {
     "/blog/**": { sitemap: { changefreq: "daily", priority: 0.9 } },
-    "/hidden": { sitemap: false },
-  },
-});
+    "/hidden": { sitemap: false }
+  }
+})
 ```
 
 Nuxt Content frontmatter:
@@ -134,10 +134,10 @@ export default defineNuxtConfig({
   sitemap: {
     sitemaps: {
       pages: { include: ["/**"], exclude: ["/blog/**"] },
-      blog: { include: ["/blog/**"] },
-    },
-  },
-});
+      blog: { include: ["/blog/**"] }
+    }
+  }
+})
 ```
 
 Generates `/pages-sitemap.xml`, `/blog-sitemap.xml`, and `/sitemap_index.xml`.

@@ -6,8 +6,8 @@
 export default {
   async tail(events: TraceItem[], env: Env, ctx: ExecutionContext): Promise<void> {
     // Process events
-  },
-} satisfies ExportedHandler<Env>;
+  }
+} satisfies ExportedHandler<Env>
 ```
 
 **Parameters:**
@@ -22,8 +22,8 @@ export default {
 
 ```typescript
 interface TraceItem {
-  scriptName: string; // Producer Worker name
-  eventTimestamp: number; // Epoch milliseconds
+  scriptName: string // Producer Worker name
+  eventTimestamp: number // Epoch milliseconds
   outcome:
     | "ok"
     | "exception"
@@ -32,38 +32,38 @@ interface TraceItem {
     | "canceled"
     | "scriptNotFound"
     | "responseStreamDisconnected"
-    | "unknown";
+    | "unknown"
 
   event?: {
     request?: {
-      url: string; // Redacted by default
-      method: string;
-      headers: Record<string, string>; // Sensitive headers redacted
-      cf?: IncomingRequestCfProperties;
-      getUnredacted(): TraceRequest; // Bypass redaction (use carefully)
-    };
+      url: string // Redacted by default
+      method: string
+      headers: Record<string, string> // Sensitive headers redacted
+      cf?: IncomingRequestCfProperties
+      getUnredacted(): TraceRequest // Bypass redaction (use carefully)
+    }
     response?: {
-      status: number;
-    };
-  };
+      status: number
+    }
+  }
 
   logs: Array<{
-    timestamp: number; // Epoch milliseconds
-    level: "debug" | "info" | "log" | "warn" | "error";
-    message: unknown[]; // Args passed to console function
-  }>;
+    timestamp: number // Epoch milliseconds
+    level: "debug" | "info" | "log" | "warn" | "error"
+    message: unknown[] // Args passed to console function
+  }>
 
   exceptions: Array<{
-    timestamp: number; // Epoch milliseconds
-    name: string; // Error type (Error, TypeError, etc.)
-    message: string; // Error description
-  }>;
+    timestamp: number // Epoch milliseconds
+    name: string // Error type (Error, TypeError, etc.)
+    message: string // Error description
+  }>
 
   diagnosticsChannelEvents: Array<{
-    channel: string;
-    message: unknown;
-    timestamp: number; // Epoch milliseconds
-  }>;
+    channel: string
+    message: unknown
+    timestamp: number // Epoch milliseconds
+  }>
 }
 ```
 
@@ -75,10 +75,10 @@ All timestamps are **epoch milliseconds**, not seconds:
 
 ```typescript
 // ✅ CORRECT - use directly with Date
-const date = new Date(event.eventTimestamp);
+const date = new Date(event.eventTimestamp)
 
 // ❌ WRONG - don't multiply by 1000
-const date = new Date(event.eventTimestamp * 1000);
+const date = new Date(event.eventTimestamp * 1000)
 ```
 
 ## Automatic Redaction
@@ -106,11 +106,11 @@ export default {
   async tail(events, env, ctx) {
     for (const event of events) {
       // ⚠️ Use with extreme caution
-      const unredacted = event.event?.request?.getUnredacted();
+      const unredacted = event.event?.request?.getUnredacted()
       // unredacted.url and unredacted.headers contain raw values
     }
-  },
-};
+  }
+}
 ```
 
 **Best practices:**
@@ -124,10 +124,10 @@ export default {
 
 ```typescript
 interface Env {
-  LOGS_KV: KVNamespace;
-  ANALYTICS: AnalyticsEngineDataset;
-  LOG_ENDPOINT: string;
-  API_TOKEN: string;
+  LOGS_KV: KVNamespace
+  ANALYTICS: AnalyticsEngineDataset
+  LOG_ENDPOINT: string
+  API_TOKEN: string
 }
 
 export default {
@@ -137,18 +137,18 @@ export default {
       timestamp: event.eventTimestamp,
       outcome: event.outcome,
       url: event.event?.request?.url,
-      status: event.event?.response?.status,
-    }));
+      status: event.event?.response?.status
+    }))
 
     ctx.waitUntil(
       fetch(env.LOG_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }),
-    );
-  },
-} satisfies ExportedHandler<Env>;
+        body: JSON.stringify(payload)
+      })
+    )
+  }
+} satisfies ExportedHandler<Env>
 ```
 
 ## Outcome vs HTTP Status
@@ -177,7 +177,7 @@ if (event.event?.response?.status === 500) {
 
 ```typescript
 // ❌ May fail with circular references or BigInt
-JSON.stringify(events);
+JSON.stringify(events)
 
 // ✅ Safe serialization
 const safePayload = events.map((event) => ({
@@ -186,13 +186,13 @@ const safePayload = events.map((event) => ({
     ...log,
     message: log.message.map((m) => {
       try {
-        return JSON.parse(JSON.stringify(m));
+        return JSON.parse(JSON.stringify(m))
       } catch {
-        return String(m);
+        return String(m)
       }
-    }),
-  })),
-}));
+    })
+  }))
+}))
 ```
 
 **Common serialization issues:**

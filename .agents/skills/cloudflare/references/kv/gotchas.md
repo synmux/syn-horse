@@ -9,13 +9,13 @@
 
 ```typescript
 // ❌ BAD: Read immediately after write
-await env.KV.put("key", "value");
-const value = await env.KV.get("key"); // May be null in other regions!
+await env.KV.put("key", "value")
+const value = await env.KV.get("key") // May be null in other regions!
 
 // ✅ GOOD: Use the value you just wrote
-const newValue = "value";
-await env.KV.put("key", newValue);
-return new Response(newValue); // Don't re-read
+const newValue = "value"
+await env.KV.put("key", newValue)
+return new Response(newValue) // Don't re-read
 ```
 
 ### "429 Rate Limit on Concurrent Writes"
@@ -25,18 +25,18 @@ return new Response(newValue); // Don't re-read
 
 ```typescript
 async function putWithRetry(kv: KVNamespace, key: string, value: string, maxAttempts = 5): Promise<void> {
-  let delay = 1000;
+  let delay = 1000
   for (let i = 0; i < maxAttempts; i++) {
     try {
-      await kv.put(key, value);
-      return;
+      await kv.put(key, value)
+      return
     } catch (err) {
       if (err instanceof Error && err.message.includes("429")) {
-        if (i === maxAttempts - 1) throw err;
-        await new Promise((r) => setTimeout(r, delay));
-        delay *= 2; // Exponential backoff
+        if (i === maxAttempts - 1) throw err
+        await new Promise((r) => setTimeout(r, delay))
+        delay *= 2 // Exponential backoff
       } else {
-        throw err;
+        throw err
       }
     }
   }
@@ -55,17 +55,17 @@ async function putWithRetry(kv: KVNamespace, key: string, value: string, maxAtte
 
 ```typescript
 // ❌ BAD: Assumes value exists
-const config = await env.KV.get("config", "json");
-return config.theme; // TypeError if null!
+const config = await env.KV.get("config", "json")
+return config.theme // TypeError if null!
 
 // ✅ GOOD: Null checks
-const config = await env.KV.get("config", "json");
-return config?.theme ?? "default";
+const config = await env.KV.get("config", "json")
+return config?.theme ?? "default"
 
 // ✅ GOOD: Early return
-const config = await env.KV.get("config", "json");
-if (!config) return new Response("Not found", { status: 404 });
-return new Response(config.theme);
+const config = await env.KV.get("config", "json")
+if (!config) return new Response("Not found", { status: 404 })
+return new Response(config.theme)
 ```
 
 ### "Negative Lookup Caching"
@@ -75,14 +75,14 @@ return new Response(config.theme);
 
 ```typescript
 // Check → create pattern has race condition
-const exists = await env.KV.get("key"); // null, cached as "not found"
+const exists = await env.KV.get("key") // null, cached as "not found"
 if (!exists) {
-  await env.KV.put("key", "value");
+  await env.KV.put("key", "value")
   // Next get() may still return null for ~60s due to negative cache
 }
 
 // Alternative: Always assume key may not exist, use defaults
-const value = (await env.KV.get("key")) ?? "default-value";
+const value = (await env.KV.get("key")) ?? "default-value"
 ```
 
 ## Performance Tips

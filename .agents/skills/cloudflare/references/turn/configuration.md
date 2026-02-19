@@ -15,16 +15,16 @@ TURN_KEY_SECRET=your_turn_key_secret
 Validate with zod:
 
 ```typescript
-import { z } from "zod";
+import { z } from "zod"
 
 const envSchema = z.object({
   CLOUDFLARE_ACCOUNT_ID: z.string().min(1),
   CLOUDFLARE_API_TOKEN: z.string().min(1),
   TURN_KEY_ID: z.string().min(1),
-  TURN_KEY_SECRET: z.string().min(1),
-});
+  TURN_KEY_SECRET: z.string().min(1)
+})
 
-export const config = envSchema.parse(process.env);
+export const config = envSchema.parse(process.env)
 ```
 
 ## wrangler.jsonc
@@ -35,18 +35,18 @@ export const config = envSchema.parse(process.env);
   "main": "src/index.ts",
   "compatibility_date": "2025-01-01",
   "vars": {
-    "TURN_KEY_ID": "your-turn-key-id", // Non-sensitive, can be in vars
+    "TURN_KEY_ID": "your-turn-key-id" // Non-sensitive, can be in vars
   },
   "env": {
     "production": {
       "kv_namespaces": [
         {
           "binding": "CREDENTIALS_CACHE",
-          "id": "your-kv-namespace-id",
-        },
-      ],
-    },
-  },
+          "id": "your-kv-namespace-id"
+        }
+      ]
+    }
+  }
 }
 ```
 
@@ -62,16 +62,16 @@ wrangler secret put TURN_KEY_SECRET
 
 ```typescript
 interface Env {
-  TURN_KEY_ID: string;
-  TURN_KEY_SECRET: string;
-  CREDENTIALS_CACHE?: KVNamespace;
+  TURN_KEY_ID: string
+  TURN_KEY_SECRET: string
+  CREDENTIALS_CACHE?: KVNamespace
 }
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     // See patterns.md for implementation
-  },
-};
+  }
+}
 ```
 
 ### Basic Worker Example
@@ -81,9 +81,9 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     if (request.url.endsWith("/turn-credentials")) {
       // Validate client auth
-      const authHeader = request.headers.get("Authorization");
+      const authHeader = request.headers.get("Authorization")
       if (!authHeader) {
-        return new Response("Unauthorized", { status: 401 });
+        return new Response("Unauthorized", { status: 401 })
       }
 
       const response = await fetch(
@@ -92,20 +92,20 @@ export default {
           method: "POST",
           headers: {
             Authorization: `Bearer ${env.TURN_KEY_SECRET}`,
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
-          body: JSON.stringify({ ttl: 3600 }),
-        },
-      );
+          body: JSON.stringify({ ttl: 3600 })
+        }
+      )
 
       if (!response.ok) {
-        return new Response("Failed to generate credentials", { status: 500 });
+        return new Response("Failed to generate credentials", { status: 500 })
       }
 
-      const data = await response.json();
+      const data = await response.json()
 
       // Filter port 53 for browser clients
-      const filteredUrls = data.iceServers.urls.filter((url: string) => !url.includes(":53"));
+      const filteredUrls = data.iceServers.urls.filter((url: string) => !url.includes(":53"))
 
       return Response.json({
         iceServers: [
@@ -113,15 +113,15 @@ export default {
           {
             urls: filteredUrls,
             username: data.iceServers.username,
-            credential: data.iceServers.credential,
-          },
-        ],
-      });
+            credential: data.iceServers.credential
+          }
+        ]
+      })
     }
 
-    return new Response("Not found", { status: 404 });
-  },
-};
+    return new Response("Not found", { status: 404 })
+  }
+}
 ```
 
 ## IP Allowlisting (Enterprise/Firewall)

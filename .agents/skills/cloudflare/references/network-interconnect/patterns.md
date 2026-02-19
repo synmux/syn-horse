@@ -40,11 +40,11 @@ const ic = await client.networkInterconnects.interconnects.create({
   type: "direct",
   facility: "EWR1",
   speed: "10G",
-  name: "magic-transit-primary",
-});
+  name: "magic-transit-primary"
+})
 
 // 2. Poll until active
-const status = await pollUntilActive(id, ic.id);
+const status = await pollUntilActive(id, ic.id)
 
 // 3. Configure Magic Transit tunnel via Dashboard/API
 ```
@@ -65,8 +65,8 @@ const status = await pollUntilActive(id, ic.id);
 
 await configureStaticRoutes(id, {
   prefix: "10.0.0.0/8",
-  nexthop: "aws-direct-connect",
-});
+  nexthop: "aws-direct-connect"
+})
 ```
 
 **GCP Cloud Interconnect:**
@@ -92,8 +92,8 @@ const primary = await client.networkInterconnects.interconnects.create({
   type: "direct",
   facility: "EWR1",
   speed: "10G",
-  name: "primary-ewr1",
-});
+  name: "primary-ewr1"
+})
 
 // Secondary (NY, different hardware)
 const secondary = await client.networkInterconnects.interconnects.create({
@@ -101,8 +101,8 @@ const secondary = await client.networkInterconnects.interconnects.create({
   type: "direct",
   facility: "EWR2",
   speed: "10G",
-  name: "secondary-ewr2",
-});
+  name: "secondary-ewr2"
+})
 
 // Tertiary (LA, different geography)
 const tertiary = await client.networkInterconnects.interconnects.create({
@@ -110,8 +110,8 @@ const tertiary = await client.networkInterconnects.interconnects.create({
   type: "partner",
   facility: "LAX1",
   speed: "10G",
-  name: "tertiary-lax1",
-});
+  name: "tertiary-lax1"
+})
 
 // BGP local preferences:
 // Primary: 200

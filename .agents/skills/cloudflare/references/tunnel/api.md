@@ -15,13 +15,13 @@ Authorization: Bearer ${CF_API_TOKEN}
 Install: `npm install cloudflare`
 
 ```typescript
-import Cloudflare from "cloudflare";
+import Cloudflare from "cloudflare"
 
 const cf = new Cloudflare({
-  apiToken: process.env.CF_API_TOKEN,
-});
+  apiToken: process.env.CF_API_TOKEN
+})
 
-const accountId = process.env.CF_ACCOUNT_ID;
+const accountId = process.env.CF_ACCOUNT_ID
 ```
 
 ## Create Tunnel
@@ -44,10 +44,10 @@ curl -X POST "https://api.cloudflare.com/client/v4/accounts/{account_id}/tunnels
 const tunnel = await cf.zeroTrust.tunnels.create({
   account_id: accountId,
   name: "my-tunnel",
-  tunnel_secret: Buffer.from(crypto.randomBytes(32)).toString("base64"),
-});
+  tunnel_secret: Buffer.from(crypto.randomBytes(32)).toString("base64")
+})
 
-console.log(`Tunnel ID: ${tunnel.id}`);
+console.log(`Tunnel ID: ${tunnel.id}`)
 ```
 
 ## List Tunnels
@@ -63,11 +63,11 @@ curl -X GET "https://api.cloudflare.com/client/v4/accounts/{account_id}/tunnels"
 
 ```typescript
 const tunnels = await cf.zeroTrust.tunnels.list({
-  account_id: accountId,
-});
+  account_id: accountId
+})
 
 for (const tunnel of tunnels.result) {
-  console.log(`${tunnel.name}: ${tunnel.id}`);
+  console.log(`${tunnel.name}: ${tunnel.id}`)
 }
 ```
 
@@ -84,11 +84,11 @@ curl -X GET "https://api.cloudflare.com/client/v4/accounts/{account_id}/tunnels/
 
 ```typescript
 const tunnel = await cf.zeroTrust.tunnels.get(tunnelId, {
-  account_id: accountId,
-});
+  account_id: accountId
+})
 
-console.log(`Status: ${tunnel.status}`);
-console.log(`Connections: ${tunnel.connections?.length || 0}`);
+console.log(`Status: ${tunnel.status}`)
+console.log(`Connections: ${tunnel.connections?.length || 0}`)
 ```
 
 ## Update Tunnel Config
@@ -115,9 +115,9 @@ curl -X PUT "https://api.cloudflare.com/client/v4/accounts/{account_id}/tunnels/
 const config = await cf.zeroTrust.tunnels.configurations.update(tunnelId, {
   account_id: accountId,
   config: {
-    ingress: [{ hostname: "app.example.com", service: "http://localhost:8000" }, { service: "http_status:404" }],
-  },
-});
+    ingress: [{ hostname: "app.example.com", service: "http://localhost:8000" }, { service: "http_status:404" }]
+  }
+})
 ```
 
 ## Delete Tunnel
@@ -133,8 +133,8 @@ curl -X DELETE "https://api.cloudflare.com/client/v4/accounts/{account_id}/tunne
 
 ```typescript
 await cf.zeroTrust.tunnels.delete(tunnelId, {
-  account_id: accountId,
-});
+  account_id: accountId
+})
 ```
 
 ## Token-Based Tunnels (Config Source: Cloudflare)
@@ -168,11 +168,11 @@ docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token ${TU
 ```typescript
 // Get tunnel to retrieve token
 const tunnel = await cf.zeroTrust.tunnels.get(tunnelId, {
-  account_id: accountId,
-});
+  account_id: accountId
+})
 
 // Token available in tunnel.token (only for config source: cloudflare)
-const token = tunnel.token;
+const token = tunnel.token
 ```
 
 ## DNS Routes API

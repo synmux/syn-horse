@@ -6,33 +6,33 @@ In server routes, access bindings via the H3 event context:
 
 ```typescript
 export default defineEventHandler(async (event) => {
-  const { env, context } = event.context.cloudflare;
+  const { env, context } = event.context.cloudflare
 
   // AI
-  const aiResult = await env.AI.run("@cf/meta/llama-3-8b-instruct", { prompt: "..." });
+  const aiResult = await env.AI.run("@cf/meta/llama-3-8b-instruct", { prompt: "..." })
 
   // Email
-  await env.EMAIL.send(emailMessage);
+  await env.EMAIL.send(emailMessage)
 
   // Browser
-  const browser = await env.BROWSER.fetch("https://example.com");
+  const browser = await env.BROWSER.fetch("https://example.com")
 
   // Images
-  const image = await env.IMAGES.transform(imageData, options);
+  const image = await env.IMAGES.transform(imageData, options)
 
   // Media
-  const media = await env.MEDIA.process(mediaData);
+  const media = await env.MEDIA.process(mediaData)
 
   // Assets
-  const asset = await env.ASSETS.fetch(new Request("https://host/path"));
+  const asset = await env.ASSETS.fetch(new Request("https://host/path"))
 
   // Version metadata
-  const version = env.CF_VERSION_METADATA;
+  const version = env.CF_VERSION_METADATA
 
   // Secrets
-  const adminToken = env.ADMIN_TOKEN;
-  const accountId = env.CLOUDFLARE_ACCOUNT_ID;
-});
+  const adminToken = env.ADMIN_TOKEN
+  const accountId = env.CLOUDFLARE_ACCOUNT_ID
+})
 ```
 
 ## Types

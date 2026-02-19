@@ -4,10 +4,10 @@
 
 ```typescript
 interface VectorizeVector {
-  id: string; // Max 64 bytes
-  values: number[]; // Must match index dimensions
-  namespace?: string; // Optional partition (max 64 bytes)
-  metadata?: Record<string, any>; // Max 10 KiB
+  id: string // Max 64 bytes
+  values: number[] // Must match index dimensions
+  namespace?: string // Optional partition (max 64 bytes)
+  metadata?: Record<string, any> // Max 10 KiB
 }
 ```
 
@@ -19,8 +19,8 @@ const matches = await env.VECTORIZE.query(queryVector, {
   returnMetadata: "indexed", // "none" | "indexed" | "all"
   returnValues: false,
   namespace: "tenant-123",
-  filter: { category: "docs" },
-});
+  filter: { category: "docs" }
+})
 // matches.matches[0] = { id, score, metadata? }
 ```
 
@@ -29,17 +29,17 @@ const matches = await env.VECTORIZE.query(queryVector, {
 **queryById (V2 only):** Search using existing vector as query.
 
 ```typescript
-await env.VECTORIZE.queryById("doc-123", { topK: 5 });
+await env.VECTORIZE.queryById("doc-123", { topK: 5 })
 ```
 
 ## Insert/Upsert
 
 ```typescript
 // Insert: ignores duplicates (keeps first)
-await env.VECTORIZE.insert([{ id, values, metadata }]);
+await env.VECTORIZE.insert([{ id, values, metadata }])
 
 // Upsert: overwrites duplicates (keeps last)
-await env.VECTORIZE.upsert([{ id, values, metadata }]);
+await env.VECTORIZE.upsert([{ id, values, metadata }])
 ```
 
 **Max 500 vectors per call.** Queryable after 5-10 seconds.
@@ -48,13 +48,13 @@ await env.VECTORIZE.upsert([{ id, values, metadata }]);
 
 ```typescript
 // Get by IDs
-const vectors = await env.VECTORIZE.getByIds(["id1", "id2"]);
+const vectors = await env.VECTORIZE.getByIds(["id1", "id2"])
 
 // Delete (max 1000 IDs per call)
-await env.VECTORIZE.deleteByIds(["id1", "id2"]);
+await env.VECTORIZE.deleteByIds(["id1", "id2"])
 
 // Index info
-const info = await env.VECTORIZE.describe();
+const info = await env.VECTORIZE.describe()
 // { dimensions, metric, vectorCount }
 ```
 
@@ -84,6 +84,6 @@ Requires metadata index. Filter operators:
 
 ```typescript
 for (let i = 0; i < vectors.length; i += 500) {
-  await env.VECTORIZE.upsert(vectors.slice(i, i + 500));
+  await env.VECTORIZE.upsert(vectors.slice(i, i + 500))
 }
 ```

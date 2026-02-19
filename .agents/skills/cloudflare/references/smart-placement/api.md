@@ -17,7 +17,7 @@ type PlacementStatus =
   | undefined // Not yet analyzed
   | "SUCCESS" // Successfully optimized
   | "INSUFFICIENT_INVOCATIONS" // Not enough traffic
-  | "UNSUPPORTED_APPLICATION"; // Made Worker slower (reverted)
+  | "UNSUPPORTED_APPLICATION" // Made Worker slower (reverted)
 ```
 
 ## Status Meanings
@@ -51,10 +51,10 @@ Smart Placement adds response header indicating routing decision:
 
 ```typescript
 // Remote placement (Smart Placement routed request)
-"cf-placement: remote-LHR"; // Routed to London
+"cf-placement: remote-LHR" // Routed to London
 
 // Local placement (default edge routing)
-"cf-placement: local-EWR"; // Stayed at Newark edge
+"cf-placement: local-EWR" // Stayed at Newark edge
 ```
 
 Format: `{placement-type}-{IATA-code}`
@@ -72,19 +72,19 @@ Format: `{placement-type}-{IATA-code}`
 ```typescript
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const placementHeader = request.headers.get("cf-placement");
+    const placementHeader = request.headers.get("cf-placement")
 
     if (placementHeader?.startsWith("remote-")) {
-      const location = placementHeader.split("-")[1];
-      console.log(`Smart Placement routed to ${location}`);
+      const location = placementHeader.split("-")[1]
+      console.log(`Smart Placement routed to ${location}`)
     } else if (placementHeader?.startsWith("local-")) {
-      const location = placementHeader.split("-")[1];
-      console.log(`Running at edge location ${location}`);
+      const location = placementHeader.split("-")[1]
+      console.log(`Running at edge location ${location}`)
     }
 
-    return new Response("OK");
-  },
-} satisfies ExportedHandler<Env>;
+    return new Response("OK")
+  }
+} satisfies ExportedHandler<Env>
 ```
 
 ## Request Duration Metrics
@@ -146,43 +146,43 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 ```typescript
 // Placement status returned by API (field may be absent)
-type PlacementStatus = "SUCCESS" | "INSUFFICIENT_INVOCATIONS" | "UNSUPPORTED_APPLICATION" | undefined;
+type PlacementStatus = "SUCCESS" | "INSUFFICIENT_INVOCATIONS" | "UNSUPPORTED_APPLICATION" | undefined
 
 // Placement configuration in wrangler.jsonc
-type PlacementMode = "smart" | "off";
+type PlacementMode = "smart" | "off"
 
 interface PlacementConfig {
-  mode: PlacementMode;
+  mode: PlacementMode
   // Legacy fields (deprecated/removed):
   // hint?: string;  // REMOVED - no longer supported
 }
 
 // Explicit placement (separate feature from Smart Placement)
 interface ExplicitPlacementConfig {
-  region?: string;
-  host?: string;
-  hostname?: string;
+  region?: string
+  host?: string
+  hostname?: string
   // Cannot combine with mode field
 }
 
 // Worker metadata from API response
 interface WorkerMetadata {
-  placement?: PlacementConfig | ExplicitPlacementConfig;
-  placement_status?: PlacementStatus;
+  placement?: PlacementConfig | ExplicitPlacementConfig
+  placement_status?: PlacementStatus
 }
 
 // Service Binding for backend Worker
 interface Env {
-  BACKEND_SERVICE: Fetcher; // Service Binding to backend Worker
-  DATABASE: D1Database;
+  BACKEND_SERVICE: Fetcher // Service Binding to backend Worker
+  DATABASE: D1Database
 }
 
 // Example Worker with Service Binding
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     // Forward to backend Worker with Smart Placement enabled
-    const response = await env.BACKEND_SERVICE.fetch(request);
-    return response;
-  },
-} satisfies ExportedHandler<Env>;
+    const response = await env.BACKEND_SERVICE.fetch(request)
+    return response
+  }
+} satisfies ExportedHandler<Env>
 ```

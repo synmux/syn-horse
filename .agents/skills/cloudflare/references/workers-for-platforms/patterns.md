@@ -4,26 +4,26 @@
 
 ```typescript
 interface Env {
-  DISPATCHER: DispatchNamespace;
-  CUSTOMERS_KV: KVNamespace;
+  DISPATCHER: DispatchNamespace
+  CUSTOMERS_KV: KVNamespace
 }
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const userWorkerName = new URL(request.url).hostname.split(".")[0];
-    const customerPlan = await env.CUSTOMERS_KV.get(userWorkerName);
+    const userWorkerName = new URL(request.url).hostname.split(".")[0]
+    const customerPlan = await env.CUSTOMERS_KV.get(userWorkerName)
 
     const plans = {
       enterprise: { cpuMs: 50, subRequests: 50 },
       pro: { cpuMs: 20, subRequests: 20 },
-      free: { cpuMs: 10, subRequests: 5 },
-    };
-    const limits = plans[customerPlan as keyof typeof plans] || plans.free;
+      free: { cpuMs: 10, subRequests: 5 }
+    }
+    const limits = plans[customerPlan as keyof typeof plans] || plans.free
 
-    const userWorker = env.DISPATCHER.get(userWorkerName, {}, { limits });
-    return await userWorker.fetch(request);
-  },
-};
+    const userWorker = env.DISPATCHER.get(userWorkerName, {}, { limits })
+    return await userWorker.fetch(request)
+  }
+}
 ```
 
 ## Resource Isolation
@@ -39,9 +39,9 @@ const bindings = [
   {
     type: "kv_namespace",
     name: "USER_KV",
-    namespace_id: `customer-${customerId}-kv`,
-  },
-];
+    namespace_id: `customer-${customerId}-kv`
+  }
+]
 ```
 
 ## Hostname Routing
@@ -68,19 +68,19 @@ Configure `*/*` route on SaaS domain → dispatch Worker
 ```typescript
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const hostname = new URL(request.url).hostname;
+    const hostname = new URL(request.url).hostname
     const hostnameData = await env.ROUTING_KV.get(`hostname:${hostname}`, {
-      type: "json",
-    });
+      type: "json"
+    })
 
     if (!hostnameData?.workerName) {
-      return new Response("Hostname not configured", { status: 404 });
+      return new Response("Hostname not configured", { status: 404 })
     }
 
-    const userWorker = env.DISPATCHER.get(hostnameData.workerName);
-    return await userWorker.fetch(request);
-  },
-};
+    const userWorker = env.DISPATCHER.get(hostnameData.workerName)
+    return await userWorker.fetch(request)
+  }
+}
 ```
 
 ### Subdomain-Only
@@ -123,8 +123,8 @@ For Cloudflare for SaaS: Store worker name in custom hostname `custom_metadata`,
 // Track violations
 env.ANALYTICS.writeDataPoint({
   indexes: [customerName],
-  blobs: ["cpu_limit_exceeded"],
-});
+  blobs: ["cpu_limit_exceeded"]
+})
 ```
 
 ### GraphQL
@@ -152,17 +152,17 @@ query {
 ```typescript
 async function deployGeneratedCode(name: string, code: string) {
   const file = new File([code], `${name}.mjs`, {
-    type: "application/javascript+module",
-  });
+    type: "application/javascript+module"
+  })
   await client.workersForPlatforms.dispatch.namespaces.scripts.update("production", name, {
     account_id: accountId,
     metadata: { main_module: `${name}.mjs`, tags: [name, "ai-generated"] },
-    files: [file],
-  });
+    files: [file]
+  })
 }
 
 // Short limits for untrusted code
-const userWorker = env.DISPATCHER.get(sessionId, {}, { limits: { cpuMs: 5, subRequests: 3 } });
+const userWorker = env.DISPATCHER.get(sessionId, {}, { limits: { cpuMs: 5, subRequests: 3 } })
 ```
 
 **VibeSDK:** For AI-powered code generation + deployment platforms, see [VibeSDK](https://github.com/cloudflare/vibesdk) - handles AI generation, sandbox execution, live preview, and deployment.
@@ -173,9 +173,9 @@ Reference: [AI Vibe Coding Platform Architecture](https://developers.cloudflare.
 
 ```typescript
 // Route: /customer-id/function-name
-const [customerId, functionName] = new URL(request.url).pathname.split("/").filter(Boolean);
-const workerName = `${customerId}-${functionName}`;
-const userWorker = env.DISPATCHER.get(workerName);
+const [customerId, functionName] = new URL(request.url).pathname.split("/").filter(Boolean)
+const workerName = `${customerId}-${functionName}`
+const userWorker = env.DISPATCHER.get(workerName)
 ```
 
 ### Website Builder

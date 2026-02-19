@@ -38,21 +38,21 @@ When implementing features, fetch the relevant doc page or example first.
       "class_name": "Sandbox",
       "image": "./Dockerfile",
       "instance_type": "lite",
-      "max_instances": 1,
-    },
+      "max_instances": 1
+    }
   ],
   "durable_objects": {
-    "bindings": [{ "class_name": "Sandbox", "name": "Sandbox" }],
+    "bindings": [{ "class_name": "Sandbox", "name": "Sandbox" }]
   },
-  "migrations": [{ "new_sqlite_classes": ["Sandbox"], "tag": "v1" }],
+  "migrations": [{ "new_sqlite_classes": ["Sandbox"], "tag": "v1" }]
 }
 ```
 
 **Worker entry** - must re-export Sandbox class:
 
 ```typescript
-import { getSandbox } from "@cloudflare/sandbox";
-export { Sandbox } from "@cloudflare/sandbox"; // Required export
+import { getSandbox } from "@cloudflare/sandbox"
+export { Sandbox } from "@cloudflare/sandbox" // Required export
 ```
 
 ## Quick Reference
@@ -74,8 +74,8 @@ export { Sandbox } from "@cloudflare/sandbox"; // Required export
 ### Execute Commands
 
 ```typescript
-const sandbox = getSandbox(env.Sandbox, "user-123");
-const result = await sandbox.exec("python --version");
+const sandbox = getSandbox(env.Sandbox, "user-123")
+const result = await sandbox.exec("python --version")
 // result: { stdout, stderr, exitCode, success }
 ```
 
@@ -84,10 +84,10 @@ const result = await sandbox.exec("python --version");
 Use `runCode()` for executing LLM-generated code with rich outputs:
 
 ```typescript
-const ctx = await sandbox.createCodeContext({ language: "python" });
+const ctx = await sandbox.createCodeContext({ language: "python" })
 
-await sandbox.runCode("import pandas as pd; data = [1,2,3]", { context: ctx });
-const result = await sandbox.runCode("sum(data)", { context: ctx });
+await sandbox.runCode("import pandas as pd; data = [1,2,3]", { context: ctx })
+const result = await sandbox.runCode("sum(data)", { context: ctx })
 // result.results[0].text = "6"
 ```
 
@@ -98,10 +98,10 @@ State persists within context. Create explicit contexts for production.
 ### File Operations
 
 ```typescript
-await sandbox.mkdir("/workspace/project", { recursive: true });
-await sandbox.writeFile("/workspace/project/main.py", code);
-const file = await sandbox.readFile("/workspace/project/main.py");
-const files = await sandbox.listFiles("/workspace/project");
+await sandbox.mkdir("/workspace/project", { recursive: true })
+await sandbox.writeFile("/workspace/project/main.py", code)
+const file = await sandbox.readFile("/workspace/project/main.py")
+const files = await sandbox.listFiles("/workspace/project")
 ```
 
 ## When to Use What
@@ -141,7 +141,7 @@ Keep images lean - affects cold start time.
 Expose HTTP services running in sandboxes:
 
 ```typescript
-const { url } = await sandbox.exposePort(8080);
+const { url } = await sandbox.exposePort(8080)
 // Returns preview URL for the service
 ```
 
@@ -154,7 +154,7 @@ See: https://developers.cloudflare.com/sandbox/guides/expose-services/
 The SDK provides helpers for OpenAI Agents at `@cloudflare/sandbox/openai`:
 
 ```typescript
-import { Shell, Editor } from "@cloudflare/sandbox/openai";
+import { Shell, Editor } from "@cloudflare/sandbox/openai"
 ```
 
 See `examples/openai-agents` for complete integration pattern.

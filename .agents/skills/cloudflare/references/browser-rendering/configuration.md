@@ -28,14 +28,14 @@ npm install @cloudflare/puppeteer  # or @cloudflare/playwright
 
 ```typescript
 interface Env {
-  MYBROWSER: Fetcher;
+  MYBROWSER: Fetcher
 }
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     // ...
-  },
-} satisfies ExportedHandler<Env>;
+  }
+} satisfies ExportedHandler<Env>
 ```
 
 ## Development

@@ -33,6 +33,7 @@ lint:
         - .wrangler/**
         - worker-configuration.d.ts
   enabled:
+    - taplo@0.10.0
     - actionlint@1.7.11
     - checkov@3.2.504
     - eslint@10.0.0

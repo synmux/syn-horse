@@ -12,28 +12,28 @@
 // ❌ WRONG - fire and forget
 export default {
   async tail(events) {
-    fetch(endpoint, { body: JSON.stringify(events) });
-  },
-};
+    fetch(endpoint, { body: JSON.stringify(events) })
+  }
+}
 
 // ❌ WRONG - blocking await
 export default {
   async tail(events, env, ctx) {
-    await fetch(endpoint, { body: JSON.stringify(events) });
-  },
-};
+    await fetch(endpoint, { body: JSON.stringify(events) })
+  }
+}
 
 // ✅ CORRECT
 export default {
   async tail(events, env, ctx) {
     ctx.waitUntil(
       (async () => {
-        await fetch(endpoint, { body: JSON.stringify(events) });
-        await processMore();
-      })(),
-    );
-  },
-};
+        await fetch(endpoint, { body: JSON.stringify(events) })
+        await processMore()
+      })()
+    )
+  }
+}
 ```
 
 ### 2. Missing `tail()` Handler
@@ -78,12 +78,12 @@ if (event.event?.response?.status === 500) {
 **Cause:** Old docs used `TailItem`, SDK uses `TraceItem`
 
 ```typescript
-import type { TraceItem } from "@cloudflare/workers-types";
+import type { TraceItem } from "@cloudflare/workers-types"
 export default {
   async tail(events: TraceItem[], env, ctx) {
     /* ... */
-  },
-};
+  }
+}
 ```
 
 ### 6. Excessive Logging Volume
@@ -95,10 +95,10 @@ export default {
 ```typescript
 export default {
   async tail(events, env, ctx) {
-    if (Math.random() > 0.1) return; // 10% sample
-    ctx.waitUntil(sendToEndpoint(events));
-  },
-};
+    if (Math.random() > 0.1) return // 10% sample
+    ctx.waitUntil(sendToEndpoint(events))
+  }
+}
 ```
 
 ### 7. Serialization Issues
@@ -114,13 +114,13 @@ const safePayload = events.map((e) => ({
     ...log,
     message: log.message.map((m) => {
       try {
-        return JSON.parse(JSON.stringify(m));
+        return JSON.parse(JSON.stringify(m))
       } catch {
-        return String(m);
+        return String(m)
       }
-    }),
-  })),
-}));
+    })
+  }))
+}))
 ```
 
 ### 8. Missing Error Handling
@@ -133,13 +133,13 @@ const safePayload = events.map((e) => ({
 ctx.waitUntil(
   (async () => {
     try {
-      await fetch(env.ENDPOINT, { body: JSON.stringify(events) });
+      await fetch(env.ENDPOINT, { body: JSON.stringify(events) })
     } catch (error) {
-      console.error("Tail error:", error);
-      await env.FALLBACK_KV.put(`failed:${Date.now()}`, JSON.stringify(events));
+      console.error("Tail error:", error)
+      await env.FALLBACK_KV.put(`failed:${Date.now()}`, JSON.stringify(events))
     }
-  })(),
-);
+  })()
+)
 ```
 
 ### 9. Deployment Order
@@ -179,12 +179,12 @@ Add test endpoint to producer:
 export default {
   async fetch(request) {
     if (request.url.includes("/test")) {
-      console.log("Test log");
-      throw new Error("Test error");
+      console.log("Test log")
+      throw new Error("Test error")
     }
-    return new Response("OK");
-  },
-};
+    return new Response("OK")
+  }
+}
 ```
 
 Trigger: `curl https://producer.example.workers.dev/test`

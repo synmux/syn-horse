@@ -69,7 +69,7 @@ Conversion Label: YYYYYYYYYY
 **Programmatic consent:**
 
 ```javascript
-zaraz.consent.setAll({ analytics: true, marketing: true });
+zaraz.consent.setAll({ analytics: true, marketing: true })
 ```
 
 ## Privacy Features

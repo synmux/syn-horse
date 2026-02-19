@@ -8,7 +8,7 @@ Provides helpers for building a multi-step wizard interface.
 ## Usage
 
 ```ts
-import { useStepper } from "@vueuse/core";
+import { useStepper } from "@vueuse/core"
 
 const {
   steps,
@@ -27,11 +27,11 @@ const {
   isPrevious,
   isCurrent,
   isBefore,
-  isAfter,
-} = useStepper(["billing-address", "terms", "payment"]);
+  isAfter
+} = useStepper(["billing-address", "terms", "payment"])
 
 // Access the step through `current`
-console.log(current.value); // 'billing-address'
+console.log(current.value) // 'billing-address'
 ```
 
 ## Returns

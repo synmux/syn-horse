@@ -22,11 +22,11 @@ CLOUDFLARE_ACCOUNT_ID=your-account-id
 
 ```typescript
 // TypeScript
-import "dotenv/config";
+import "dotenv/config"
 
 const client = new Cloudflare({
-  apiToken: process.env.CLOUDFLARE_API_TOKEN,
-});
+  apiToken: process.env.CLOUDFLARE_API_TOKEN
+})
 ```
 
 ```python
@@ -46,11 +46,11 @@ const client = new Cloudflare({
   apiToken: process.env.CLOUDFLARE_API_TOKEN,
   timeout: 120000, // 2 min (default 60s), in milliseconds
   maxRetries: 5, // default 2
-  baseURL: "https://...", // proxy (rare)
-});
+  baseURL: "https://..." // proxy (rare)
+})
 
 // Per-request overrides
-await client.zones.get({ zone_id: "zone-id" }, { timeout: 5000, maxRetries: 0 });
+await client.zones.get({ zone_id: "zone-id" }, { timeout: 5000, maxRetries: 0 })
 ```
 
 ### Python
@@ -101,8 +101,8 @@ client.Zones.Get(ctx, "zone-id", option.WithMaxRetries(0))
 
 ```typescript
 const client = new Cloudflare({
-  timeout: 300000, // 5 minutes
-});
+  timeout: 300000 // 5 minutes
+})
 ```
 
 ## Retry Configuration
@@ -113,10 +113,10 @@ const client = new Cloudflare({
 
 ```typescript
 // Increase retries for batch operations
-const client = new Cloudflare({ maxRetries: 10 });
+const client = new Cloudflare({ maxRetries: 10 })
 
 // Disable retries for fast-fail
-const fastClient = new Cloudflare({ maxRetries: 0 });
+const fastClient = new Cloudflare({ maxRetries: 0 })
 ```
 
 ## Wrangler CLI Integration

@@ -12,12 +12,12 @@
 
 ```typescript
 // ❌ WRONG
-const email1 = await parser.parse(await message.raw.arrayBuffer());
-const email2 = await parser.parse(await message.raw.arrayBuffer()); // FAILS
+const email1 = await parser.parse(await message.raw.arrayBuffer())
+const email2 = await parser.parse(await message.raw.arrayBuffer()) // FAILS
 
 // ✅ CORRECT
-const raw = await message.raw.arrayBuffer();
-const email = await parser.parse(raw);
+const raw = await message.raw.arrayBuffer()
+const email = await parser.parse(raw)
 ```
 
 Consume `message.raw` immediately before any async operations.
@@ -56,7 +56,7 @@ if (message.from === "trusted@example.com") {
 }
 
 // Display: headers
-const display = message.headers.get("from");
+const display = message.headers.get("from")
 ```
 
 ### SendEmail Limits
@@ -77,14 +77,14 @@ const display = message.headers.get("from");
 **Solution:**
 
 ```typescript
-const size = parseInt(message.headers.get("content-length") || "0") / 1024 / 1024;
+const size = parseInt(message.headers.get("content-length") || "0") / 1024 / 1024
 if (size > 20) {
-  message.setReject("Too large");
-  return;
+  message.setReject("Too large")
+  return
 }
 
-ctx.waitUntil(expensiveWork());
-await message.forward("dest@example.com");
+ctx.waitUntil(expensiveWork())
+await message.forward("dest@example.com")
 ```
 
 ### Rule Not Triggering
@@ -101,10 +101,10 @@ await message.forward("dest@example.com");
 
 ```typescript
 // ❌ WRONG
-const subj = message.headers.get("subject").toLowerCase();
+const subj = message.headers.get("subject").toLowerCase()
 
 // ✅ CORRECT
-const subj = message.headers.get("subject")?.toLowerCase() || "";
+const subj = message.headers.get("subject")?.toLowerCase() || ""
 ```
 
 ## Limits
@@ -145,14 +145,14 @@ npx wrangler tail
 export default {
   async email(message, env, ctx) {
     try {
-      console.log("From:", message.from);
-      await process(message, env);
+      console.log("From:", message.from)
+      await process(message, env)
     } catch (err) {
-      console.error(err);
-      message.setReject(err.message);
+      console.error(err)
+      message.setReject(err.message)
     }
-  },
-} satisfies ExportedHandler;
+  }
+} satisfies ExportedHandler
 ```
 
 ## Auth Troubleshooting
@@ -160,16 +160,16 @@ export default {
 ### Check Status
 
 ```typescript
-const auth = message.headers.get("authentication-results") || "";
+const auth = message.headers.get("authentication-results") || ""
 console.log({
   spf: auth.includes("spf=pass"),
   dkim: auth.includes("dkim=pass"),
-  dmarc: auth.includes("dmarc=pass"),
-});
+  dmarc: auth.includes("dmarc=pass")
+})
 
 if (!auth.includes("pass")) {
-  message.setReject("Failed auth");
-  return;
+  message.setReject("Failed auth")
+  return
 }
 ```
 
