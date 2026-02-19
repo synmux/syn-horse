@@ -25,7 +25,7 @@ export default defineNuxtConfig({
      */
     componentDir: "@/components/ui",
   },
-  // Global CSS - Tailwind v4 is imported here
+  // Global CSS - Tailwind 4 is imported here
   css: ["./app/assets/css/tailwind.css"],
 
   fonts: {
@@ -72,7 +72,7 @@ export default defineNuxtConfig({
       nodeCompat: true,
     },
   },
-  // Vite configuration with Tailwind CSS v4
+  // Vite configuration with Tailwind CSS 4
   vite: {
     plugins: [tailwindcss() as never],
     optimizeDeps: {

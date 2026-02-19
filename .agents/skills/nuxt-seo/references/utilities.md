@@ -9,8 +9,8 @@ Automatic canonical URLs based on site config.
 ```ts
 export default defineNuxtConfig({
   seoUtils: {
-    canonicalQueryWhitelist: ['page', 'sort'],  // Keep these query params
-    redirectToCanonicalSiteUrl: true  // 301 to canonical domain
+    canonicalQueryWhitelist: ["page", "sort"], // Keep these query params
+    redirectToCanonicalSiteUrl: true // 301 to canonical domain
   }
 })
 ```
@@ -19,7 +19,7 @@ Override per-page:
 
 ```ts
 useHead({
-  link: [{ rel: 'canonical', href: 'https://example.com/preferred-url' }]
+  link: [{ rel: "canonical", href: "https://example.com/preferred-url" }]
 })
 ```
 
@@ -54,7 +54,7 @@ Customize labels in route meta:
 ```ts
 // pages/blog/[slug].vue
 definePageMeta({
-  breadcrumb: { label: 'Article' }
+  breadcrumb: { label: "Article" }
 })
 ```
 
@@ -67,7 +67,7 @@ Set site-wide title template:
 export default defineNuxtConfig({
   app: {
     head: {
-      titleTemplate: '%s | My Site'
+      titleTemplate: "%s | My Site"
     }
   }
 })
@@ -77,8 +77,8 @@ Override per-page:
 
 ```ts
 useHead({
-  title: 'Page Title',
-  titleTemplate: '%s - Different Template'
+  title: "Page Title",
+  titleTemplate: "%s - Different Template"
 })
 ```
 
@@ -90,8 +90,8 @@ export default defineNuxtConfig({
   app: {
     head: {
       meta: [
-        { name: 'author', content: 'My Name' },
-        { property: 'og:site_name', content: 'My Site' }
+        { name: "author", content: "My Name" },
+        { property: "og:site_name", content: "My Site" }
       ]
     }
   }
@@ -105,10 +105,10 @@ Build-time validation of links.
 ```ts
 export default defineNuxtConfig({
   linkChecker: {
-    failOnError: true,  // Default: fail build on errors
-    exclude: ['/api/**'],
-    skipInspections: ['missing-hash'],
-    report: { html: true }  // Generate HTML report
+    failOnError: true, // Default: fail build on errors
+    exclude: ["/api/**"],
+    skipInspections: ["missing-hash"],
+    report: { html: true } // Generate HTML report
   }
 })
 ```
@@ -166,10 +166,10 @@ Override per-page:
 
 ```ts
 useSeoMeta({
-  title: 'Page Title',
-  description: 'Page description',
-  ogImage: '/images/page-og.png',
-  twitterCard: 'summary_large_image'
+  title: "Page Title",
+  description: "Page description",
+  ogImage: "/images/page-og.png",
+  twitterCard: "summary_large_image"
 })
 ```
 
@@ -180,7 +180,7 @@ Enforce consistent URLs:
 ```ts
 export default defineNuxtConfig({
   site: {
-    trailingSlash: false  // Redirect /blog/ to /blog
+    trailingSlash: false // Redirect /blog/ to /blog
   }
 })
 ```

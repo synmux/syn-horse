@@ -6,10 +6,10 @@ Dynamic Open Graph image generation using Vue components.
 
 ```ts
 // Component-first (recommended)
-defineOgImage('NuxtSeo', { title: 'My Page Title' })
+defineOgImage("NuxtSeo", { title: "My Page Title" })
 
 // Object syntax
-defineOgImage({ component: 'NuxtSeo', title: 'My Page Title' })
+defineOgImage({ component: "NuxtSeo", title: "My Page Title" })
 
 // Disable OG image
 defineOgImage(false)
@@ -20,14 +20,14 @@ defineOgImage(false)
 The `NuxtSeo` template supports:
 
 ```ts
-defineOgImage('NuxtSeo', {
-  title: 'Hello World',
-  description: 'My description',
-  theme: '#3b82f6',
-  colorMode: 'dark',
-  icon: 'carbon:cloud',
-  siteName: 'My Site',
-  siteLogo: '/logo.png'
+defineOgImage("NuxtSeo", {
+  title: "Hello World",
+  description: "My description",
+  theme: "#3b82f6",
+  colorMode: "dark",
+  icon: "carbon:cloud",
+  siteName: "My Site",
+  siteLogo: "/logo.png"
 })
 ```
 
@@ -37,12 +37,12 @@ Use `key` for platform-specific images:
 
 ```ts
 // Default OG image (1200x600)
-defineOgImage('NuxtSeo', { title: 'Default' })
+defineOgImage("NuxtSeo", { title: "Default" })
 
 // Square for WhatsApp (800x800)
-defineOgImage('NuxtSeo', {
-  title: 'Square',
-  key: 'square',
+defineOgImage("NuxtSeo", {
+  title: "Square",
+  key: "square",
   width: 800,
   height: 800
 })
@@ -59,7 +59,9 @@ defineProps<{ title: string; author: string }>()
 </script>
 
 <template>
-  <div class="w-full h-full flex flex-col justify-center items-center bg-gradient-to-br from-blue-500 to-purple-600 p-12">
+  <div
+    class="w-full h-full flex flex-col justify-center items-center bg-gradient-to-br from-blue-500 to-purple-600 p-12"
+  >
     <h1 class="text-6xl font-bold text-white text-center">{{ title }}</h1>
     <p class="text-2xl text-white/80 mt-4">By {{ author }}</p>
   </div>
@@ -69,7 +71,7 @@ defineProps<{ title: string; author: string }>()
 Use in pages:
 
 ```ts
-defineOgImage('OgImageBlog', { title: 'My Post', author: 'John' })
+defineOgImage("OgImageBlog", { title: "My Post", author: "John" })
 ```
 
 ## Renderers
@@ -82,7 +84,7 @@ defineOgImage('OgImageBlog', { title: 'My Post', author: 'John' })
 ```ts
 export default defineNuxtConfig({
   ogImage: {
-    defaults: { renderer: 'satori' }
+    defaults: { renderer: "satori" }
   }
 })
 ```
@@ -99,10 +101,10 @@ export default defineNuxtConfig({
 export default defineNuxtConfig({
   ogImage: {
     defaults: {
-      component: 'NuxtSeo',
+      component: "NuxtSeo",
       width: 1200,
       height: 600,
-      cacheMaxAgeSeconds: 60 * 60 * 24 * 3  // 3 days
+      cacheMaxAgeSeconds: 60 * 60 * 24 * 3 // 3 days
     },
     // For static sites
     zeroRuntime: true
@@ -127,9 +129,8 @@ With `asSeoCollection()` (see main SKILL.md):
 
 ```vue
 <script setup>
-const { data: page } = await useAsyncData(() => queryCollection('posts').path(route.path).first())
-if (page.value?.ogImage)
-  defineOgImage(page.value.ogImage)
+const { data: page } = await useAsyncData(() => queryCollection("posts").path(route.path).first())
+if (page.value?.ogImage) defineOgImage(page.value.ogImage)
 </script>
 ```
 
@@ -144,9 +145,9 @@ Capture page as OG image (requires Chromium):
 
 ```ts
 defineOgImageScreenshot({
-  colorScheme: 'dark',
-  mask: '.navigation, .footer',
-  selector: '.article-content'
+  colorScheme: "dark",
+  mask: ".navigation, .footer",
+  selector: ".article-content"
 })
 ```
 
@@ -155,8 +156,8 @@ defineOgImageScreenshot({
 ```ts
 export default defineNuxtConfig({
   routeRules: {
-    '/blog/**': { ogImage: { component: 'OgImageBlog' } },
-    '/admin/**': { ogImage: false }
+    "/blog/**": { ogImage: { component: "OgImageBlog" } },
+    "/admin/**": { ogImage: false }
   }
 })
 ```

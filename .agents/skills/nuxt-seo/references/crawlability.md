@@ -15,9 +15,7 @@ export default defineNuxtConfig({
     // Block non-SEO bots (reduces server load)
     blockNonSeoBots: true,
     // Custom rules
-    groups: [
-      { userAgent: '*', disallow: ['/admin'] }
-    ]
+    groups: [{ userAgent: "*", disallow: ["/admin"] }]
   }
 })
 ```
@@ -26,16 +24,16 @@ export default defineNuxtConfig({
 
 ```ts
 // Disable indexing
-useRobotsRule('noindex, nofollow')
+useRobotsRule("noindex, nofollow")
 
 // Object syntax with AI directives
 useRobotsRule({
   noindex: true,
   nofollow: true,
-  noai: true,           // Block AI training
-  noimageai: true,      // Block AI image training
-  'max-snippet': 150,   // Preview controls
-  'max-image-preview': 'large'
+  noai: true, // Block AI training
+  noimageai: true, // Block AI image training
+  "max-snippet": 150, // Preview controls
+  "max-image-preview": "large"
 })
 ```
 
@@ -44,8 +42,8 @@ Route rules:
 ```ts
 export default defineNuxtConfig({
   routeRules: {
-    '/admin/**': { robots: 'noindex, nofollow' },
-    '/hidden': { robots: false }
+    "/admin/**": { robots: "noindex, nofollow" },
+    "/hidden": { robots: false }
   }
 })
 ```
@@ -72,8 +70,8 @@ Auto-generated at `/sitemap.xml` from app routes.
 // nuxt.config.ts
 export default defineNuxtConfig({
   sitemap: {
-    sources: ['/api/__sitemap__/urls'],
-    exclude: ['/admin/**', '/secret'],
+    sources: ["/api/__sitemap__/urls"],
+    exclude: ["/admin/**", "/secret"],
     // For static sites - no runtime generation
     zeroRuntime: true
   }
@@ -84,19 +82,22 @@ export default defineNuxtConfig({
 
 ```ts
 // server/api/__sitemap__/urls.ts
-import { defineSitemapEventHandler } from '#imports'
-import type { SitemapUrlInput } from '#sitemap/types'
+import { defineSitemapEventHandler } from "#imports"
+import type { SitemapUrlInput } from "#sitemap/types"
 
 export default defineSitemapEventHandler(async () => {
-  const posts = await $fetch('/api/posts')
-  return posts.map(post => ({
-    loc: post.path,
-    lastmod: post.updatedAt,
-    // Image sitemap
-    images: [{ loc: post.image, title: post.title }],
-    // Video sitemap
-    videos: [{ content_loc: post.videoUrl, title: post.title }]
-  } satisfies SitemapUrlInput))
+  const posts = await $fetch("/api/posts")
+  return posts.map(
+    (post) =>
+      ({
+        loc: post.path,
+        lastmod: post.updatedAt,
+        // Image sitemap
+        images: [{ loc: post.image, title: post.title }],
+        // Video sitemap
+        videos: [{ content_loc: post.videoUrl, title: post.title }]
+      }) satisfies SitemapUrlInput
+  )
 })
 ```
 
@@ -107,8 +108,8 @@ Route rules:
 ```ts
 export default defineNuxtConfig({
   routeRules: {
-    '/blog/**': { sitemap: { changefreq: 'daily', priority: 0.9 } },
-    '/hidden': { sitemap: false }
+    "/blog/**": { sitemap: { changefreq: "daily", priority: 0.9 } },
+    "/hidden": { sitemap: false }
   }
 })
 ```
@@ -132,8 +133,8 @@ For large sites:
 export default defineNuxtConfig({
   sitemap: {
     sitemaps: {
-      pages: { include: ['/**'], exclude: ['/blog/**'] },
-      blog: { include: ['/blog/**'] }
+      pages: { include: ["/**"], exclude: ["/blog/**"] },
+      blog: { include: ["/blog/**"] }
     }
   }
 })
