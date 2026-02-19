@@ -8,12 +8,12 @@ Foundation module providing shared configuration for all SEO modules.
 // nuxt.config.ts
 export default defineNuxtConfig({
   site: {
-    url: "https://example.com", // Required for absolute URLs
-    name: "My Site", // Site name (used in titles, schema)
-    description: "Site description", // Default meta description
-    defaultLocale: "en", // Default language
-    indexable: true, // Allow search engine indexing
-    trailingSlash: false // URL trailing slash preference
+    url: 'https://example.com',       // Required for absolute URLs
+    name: 'My Site',                  // Site name (used in titles, schema)
+    description: 'Site description',  // Default meta description
+    defaultLocale: 'en',              // Default language
+    indexable: true,                  // Allow search engine indexing
+    trailingSlash: false,             // URL trailing slash preference
   }
 })
 ```
@@ -41,7 +41,7 @@ export default defineNuxtConfig({
   site: {
     url: process.env.NUXT_SITE_URL,
     // Explicit: only index when explicitly set to 'true'
-    indexable: process.env.NUXT_SITE_INDEXABLE === "true"
+    indexable: process.env.NUXT_SITE_INDEXABLE === 'true'
   }
 })
 ```
@@ -64,13 +64,13 @@ Automatically integrates with `@nuxtjs/i18n`:
 ```ts
 export default defineNuxtConfig({
   site: {
-    url: "https://example.com",
-    defaultLocale: "en"
+    url: 'https://example.com',
+    defaultLocale: 'en',
   },
   i18n: {
     locales: [
-      { code: "en", language: "en-US" },
-      { code: "fr", language: "fr-FR" }
+      { code: 'en', language: 'en-US' },
+      { code: 'fr', language: 'fr-FR' },
     ]
   }
 })
@@ -94,8 +94,8 @@ Use route rules for page-specific config:
 ```ts
 export default defineNuxtConfig({
   routeRules: {
-    "/admin/**": { site: { indexable: false } },
-    "/fr/**": { site: { name: "Mon Site", defaultLocale: "fr" } }
+    '/admin/**': { site: { indexable: false } },
+    '/fr/**': { site: { name: 'Mon Site', defaultLocale: 'fr' } }
   }
 })
 ```

@@ -7,15 +7,15 @@ JSON-LD structured data for rich search results.
 Configure once in `nuxt.config.ts`:
 
 ```ts
-import { defineOrganization } from "nuxt-schema-org/schema"
+import { defineOrganization } from 'nuxt-schema-org/schema'
 
 export default defineNuxtConfig({
   schemaOrg: {
     identity: defineOrganization({
-      name: "My Company",
-      url: "https://example.com",
-      logo: "/logo.png",
-      sameAs: ["https://twitter.com/mycompany", "https://github.com/mycompany"]
+      name: 'My Company',
+      url: 'https://example.com',
+      logo: '/logo.png',
+      sameAs: ['https://twitter.com/mycompany', 'https://github.com/mycompany']
     })
   }
 })
@@ -24,15 +24,15 @@ export default defineNuxtConfig({
 For personal sites:
 
 ```ts
-import { definePerson } from "nuxt-schema-org/schema"
+import { definePerson } from 'nuxt-schema-org/schema'
 
 export default defineNuxtConfig({
   schemaOrg: {
     identity: definePerson({
-      name: "John Doe",
-      url: "https://johndoe.com",
-      image: "/avatar.jpg",
-      sameAs: ["https://twitter.com/johndoe"]
+      name: 'John Doe',
+      url: 'https://johndoe.com',
+      image: '/avatar.jpg',
+      sameAs: ['https://twitter.com/johndoe']
     })
   }
 })
@@ -46,12 +46,12 @@ Define functions are **auto-imported** in components (no import needed):
 // Article page
 useSchemaOrg([
   defineArticle({
-    headline: "My Article Title",
-    description: "Article description",
-    image: "/article-image.jpg",
-    datePublished: "2025-01-15",
-    dateModified: "2025-01-20",
-    author: { name: "John Doe", url: "https://johndoe.com" }
+    headline: 'My Article Title',
+    description: 'Article description',
+    image: '/article-image.jpg',
+    datePublished: '2025-01-15',
+    dateModified: '2025-01-20',
+    author: { name: 'John Doe', url: 'https://johndoe.com' }
   })
 ])
 ```
@@ -60,14 +60,14 @@ useSchemaOrg([
 // Product page (include url in offers for Google validation)
 useSchemaOrg([
   defineProduct({
-    name: "Product Name",
-    description: "Product description",
-    image: "/product.jpg",
+    name: 'Product Name',
+    description: 'Product description',
+    image: '/product.jpg',
     offers: {
       price: 99.99,
-      priceCurrency: "USD",
-      availability: "InStock",
-      url: "https://example.com/product"
+      priceCurrency: 'USD',
+      availability: 'InStock',
+      url: 'https://example.com/product'
     }
   })
 ])
@@ -108,9 +108,9 @@ Auto-generated from route path, or customize:
 useSchemaOrg([
   defineBreadcrumb({
     itemListElement: [
-      { name: "Home", item: "/" },
-      { name: "Blog", item: "/blog" },
-      { name: "My Post", item: "/blog/my-post" }
+      { name: 'Home', item: '/' },
+      { name: 'Blog', item: '/blog' },
+      { name: 'My Post', item: '/blog/my-post' }
     ]
   })
 ])
@@ -129,14 +129,8 @@ useSchemaOrg([defineBreadcrumb({ itemListElement: items })])
 useSchemaOrg([
   defineFAQPage({
     mainEntity: [
-      {
-        name: "What is your return policy?",
-        acceptedAnswer: "You can return within 30 days."
-      },
-      {
-        name: "How do I contact support?",
-        acceptedAnswer: "Email us at support@example.com"
-      }
+      { name: 'What is your return policy?', acceptedAnswer: 'You can return within 30 days.' },
+      { name: 'How do I contact support?', acceptedAnswer: 'Email us at support@example.com' }
     ]
   })
 ])
@@ -163,7 +157,7 @@ With `asSeoCollection()` (see main SKILL.md), ensure schema renders:
 
 ```vue
 <script setup>
-const { data: page } = await useAsyncData(() => queryCollection("posts").path(route.path).first())
+const { data: page } = await useAsyncData(() => queryCollection('posts').path(route.path).first())
 useHead(page.value?.head || {})
 </script>
 ```
@@ -180,8 +174,8 @@ useHead(page.value?.head || {})
 ```ts
 export default defineNuxtConfig({
   routeRules: {
-    "/blog/**": {
-      schemaOrg: { type: "Article" }
+    '/blog/**': {
+      schemaOrg: { type: 'Article' }
     }
   }
 })

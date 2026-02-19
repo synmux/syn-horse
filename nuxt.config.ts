@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/eslint",
     "shadcn-nuxt",
+    "@nuxtjs/seo",
   ],
   shadcn: {
     /**
@@ -56,7 +57,10 @@ export default defineNuxtConfig({
       link: [{ rel: "icon", type: "image/avif", href: "/images/favicon.avif" }],
     },
   },
-
+  site: {
+    url: "https://syn.horse",
+    name: "syn dot horse",
+  },
   nitro: {
     preset: "cloudflare_module",
     prerender: {
