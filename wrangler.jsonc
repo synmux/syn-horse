@@ -24,10 +24,6 @@
   },
   "keep_names": true,
   "main": "./.output/server/index.mjs",
-  "media": {
-    "binding": "MEDIA",
-    "remote": true
-  },
   "minify": true,
   "name": "syn-horse",
   "observability": {

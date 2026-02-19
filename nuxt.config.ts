@@ -3,7 +3,12 @@ import tailwindcss from "@tailwindcss/vite"
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
-  devtools: { enabled: true },
+  devtools: {
+    enabled: true,
+    timeline: {
+      enabled: true,
+    },
+  },
   modules: [
     "nitro-cloudflare-dev",
     "@nuxt/eslint",
@@ -13,6 +18,13 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "shadcn-nuxt",
     "@nuxtjs/seo",
+    "@nuxt/devtools",
+    "@nuxt/hints",
+    "@nuxt/scripts",
+    "@nuxt/test-utils/module",
+    "@formkit/auto-animate/nuxt",
+    "reka-ui/nuxt",
+    "@nuxt/a11y",
   ],
   shadcn: {
     /**
