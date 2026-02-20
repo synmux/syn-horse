@@ -296,6 +296,35 @@ export default defineNuxtConfig({
     cloudflare: {
       deployConfig: true,
       nodeCompat: true,
+      wrangler: {
+        account_id: "def50674a738cee409235f71819973cf",
+        ai: { binding: "AI", experimental_remote: true },
+        analytics_engine_datasets: [{ binding: "ANALYTICS", dataset: "syn-horse" }],
+        browser: { binding: "BROWSER" },
+        compatibility_date: "2026-02-17",
+        compatibility_flags: ["nodejs_compat"],
+        images: { binding: "IMAGES" },
+        keep_names: true,
+        // TODO: media binding ({ binding: "MEDIA" }) not yet in Nitro's WranglerConfig types — configure via dashboard until types catch up
+        minify: true,
+        name: "syn-horse",
+        observability: { enabled: true },
+        placement: { mode: "smart" },
+        routes: [
+          { custom_domain: true, pattern: "syn.horse" },
+          { custom_domain: true, pattern: "www.syn.horse" },
+        ],
+        send_email: [
+          {
+            // TODO: allowed_sender_addresses (["ponygirl@syn.horse"]) not yet in Nitro's WranglerConfig types — configure via dashboard until types catch up
+            name: "EMAIL",
+          },
+        ],
+        send_metrics: true,
+        upload_source_maps: true,
+        version_metadata: { binding: "CF_VERSION_METADATA" },
+        workers_dev: true,
+      },
     },
     prerender: {
       crawlLinks: true,
