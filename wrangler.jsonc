@@ -8,22 +8,42 @@
     "binding": "AI",
     "remote": true
   },
+  "analytics_engine_datasets": [
+    {
+      "binding": "ANALYTICS",
+      "dataset": "syn-horse"
+    }
+  ],
   "assets": {
     "binding": "ASSETS",
     "directory": "./.output/public/"
   },
   "browser": {
-    "binding": "BROWSER",
-    "remote": true
+    "binding": "BROWSER"
   },
   "compatibility_date": "2026-02-17",
   "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_id": "1bfe03b0-9974-468c-b269-b0de87fc11cf",
+      "database_name": "syn-horse"
+    }
+  ],
   "images": {
-    "binding": "IMAGES",
-    "remote": true
+    "binding": "IMAGES"
   },
   "keep_names": true,
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      "id": "38a98c87bace4141b2c409f0e2a65032"
+    }
+  ],
   "main": "./.output/server/index.mjs",
+  "media": {
+    "binding": "MEDIA"
+  },
   "minify": true,
   "name": "syn-horse",
   "observability": {
@@ -32,6 +52,12 @@
   "placement": {
     "mode": "smart"
   },
+  "r2_buckets": [
+    {
+      "binding": "R2",
+      "bucket_name": "syn-horse"
+    }
+  ],
   "routes": [
     {
       "custom_domain": true,
