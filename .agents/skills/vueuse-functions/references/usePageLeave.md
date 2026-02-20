@@ -9,7 +9,7 @@ Reactive state to show whether the mouse leaves the page.
 ## Usage
 
 ```ts
-import { usePageLeave } from '@vueuse/core'
+import { usePageLeave } from "@vueuse/core"
 
 const isLeft = usePageLeave()
 ```
@@ -18,9 +18,7 @@ const isLeft = usePageLeave()
 
 ```vue
 <template>
-  <UsePageLeave v-slot="{ isLeft }">
-    Has Left Page: {{ isLeft }}
-  </UsePageLeave>
+  <UsePageLeave v-slot="{ isLeft }"> Has Left Page: {{ isLeft }} </UsePageLeave>
 </template>
 ```
 
@@ -35,8 +33,6 @@ const isLeft = usePageLeave()
  *
  * @__NO_SIDE_EFFECTS__
  */
-export declare function usePageLeave(
-  options?: ConfigurableWindow,
-): ShallowRef<boolean, boolean>
+export declare function usePageLeave(options?: ConfigurableWindow): ShallowRef<boolean, boolean>
 export type UsePageLeaveReturn = ReturnType<typeof usePageLeave>
 ```

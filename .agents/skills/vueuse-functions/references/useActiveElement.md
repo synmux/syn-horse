@@ -10,13 +10,13 @@ Reactive `document.activeElement`. Returns a shallow ref that updates when focus
 
 ```vue
 <script setup lang="ts">
-import { useActiveElement } from '@vueuse/core'
-import { watch } from 'vue'
+import { useActiveElement } from "@vueuse/core"
+import { watch } from "vue"
 
 const activeElement = useActiveElement()
 
 watch(activeElement, (el) => {
-  console.log('focus changed to', el)
+  console.log("focus changed to", el)
 })
 </script>
 ```
@@ -26,7 +26,7 @@ watch(activeElement, (el) => {
 By default, `useActiveElement` will traverse into shadow DOM to find the deeply active element. Set `deep: false` to disable this behavior.
 
 ```ts
-import { useActiveElement } from '@vueuse/core'
+import { useActiveElement } from "@vueuse/core"
 
 // Only get the shadow host, not the element inside shadow DOM
 const activeElement = useActiveElement({ deep: false })
@@ -37,7 +37,7 @@ const activeElement = useActiveElement({ deep: false })
 Set `triggerOnRemoval: true` to update the active element when the currently active element is removed from the DOM. This uses a `MutationObserver` under the hood.
 
 ```ts
-import { useActiveElement } from '@vueuse/core'
+import { useActiveElement } from "@vueuse/core"
 
 const activeElement = useActiveElement({ triggerOnRemoval: true })
 ```
@@ -46,17 +46,14 @@ const activeElement = useActiveElement({ triggerOnRemoval: true })
 
 ```vue
 <template>
-  <UseActiveElement v-slot="{ element }">
-    Active element is {{ element?.dataset.id }}
-  </UseActiveElement>
+  <UseActiveElement v-slot="{ element }"> Active element is {{ element?.dataset.id }} </UseActiveElement>
 </template>
 ```
 
 ## Type Declarations
 
 ```ts
-export interface UseActiveElementOptions
-  extends ConfigurableWindow, ConfigurableDocumentOrShadowRoot {
+export interface UseActiveElementOptions extends ConfigurableWindow, ConfigurableDocumentOrShadowRoot {
   /**
    * Search active element deeply inside shadow dom
    *
@@ -79,7 +76,7 @@ export interface UseActiveElementOptions
  * @__NO_SIDE_EFFECTS__
  */
 export declare function useActiveElement<T extends HTMLElement>(
-  options?: UseActiveElementOptions,
+  options?: UseActiveElementOptions
 ): ShallowRef<T | null | undefined, T | null | undefined>
 export type UseActiveElementReturn = ReturnType<typeof useActiveElement>
 ```

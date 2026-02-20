@@ -10,15 +10,15 @@ Reactive load an image in the browser, you can wait the result to display it or 
 
 ```vue
 <script setup lang="ts">
-import { useImage } from '@vueuse/core'
+import { useImage } from "@vueuse/core"
 
-const avatarUrl = 'https://place.dog/300/200'
+const avatarUrl = "https://place.dog/300/200"
 const { isLoading } = useImage({ src: avatarUrl })
 </script>
 
 <template>
   <span v-if="isLoading">Loading</span>
-  <img v-else :src="avatarUrl">
+  <img v-else :src="avatarUrl" />
 </template>
 ```
 
@@ -27,13 +27,9 @@ const { isLoading } = useImage({ src: avatarUrl })
 ```vue
 <template>
   <UseImage src="https://place.dog/300/200">
-    <template #loading>
-      Loading..
-    </template>
+    <template #loading> Loading.. </template>
 
-    <template #error>
-      Failed
-    </template>
+    <template #error> Failed </template>
   </UseImage>
 </template>
 ```
@@ -80,7 +76,7 @@ export interface UseImageOptions {
  */
 export declare function useImage<Shallow extends true>(
   options: MaybeRefOrGetter<UseImageOptions>,
-  asyncStateOptions?: UseAsyncStateOptions<Shallow>,
+  asyncStateOptions?: UseAsyncStateOptions<Shallow>
 ): UseAsyncStateReturn<HTMLImageElement | undefined, any[], true>
 export type UseImageReturn = ReturnType<typeof useImage>
 ```

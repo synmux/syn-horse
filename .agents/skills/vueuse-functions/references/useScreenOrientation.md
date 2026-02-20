@@ -9,37 +9,25 @@ Reactive [Screen Orientation API](https://developer.mozilla.org/en-US/docs/Web/A
 ## Usage
 
 ```ts
-import { useScreenOrientation } from '@vueuse/core'
+import { useScreenOrientation } from "@vueuse/core"
 
-const {
-  isSupported,
-  orientation,
-  angle,
-  lockOrientation,
-  unlockOrientation,
-} = useScreenOrientation()
+const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation()
 ```
 
 To lock the orientation, you can pass an [OrientationLockType](https://developer.mozilla.org/en-US/docs/Web/API/ScreenOrientation/type) to the lockOrientation function:
 
 ```ts
-import { useScreenOrientation } from '@vueuse/core'
+import { useScreenOrientation } from "@vueuse/core"
 
-const {
-  isSupported,
-  orientation,
-  angle,
-  lockOrientation,
-  unlockOrientation,
-} = useScreenOrientation()
+const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation()
 
-lockOrientation('portrait-primary')
+lockOrientation("portrait-primary")
 ```
 
 and then unlock again, with the following:
 
 ```ts
-import { useScreenOrientation } from '@vueuse/core'
+import { useScreenOrientation } from "@vueuse/core"
 
 const { unlockOrientation } = useScreenOrientation()
 // ---cut---
@@ -53,11 +41,7 @@ Accepted orientation types are one of `"landscape-primary"`, `"landscape-seconda
 ## Type Declarations
 
 ```ts
-export type OrientationType =
-  | "portrait-primary"
-  | "portrait-secondary"
-  | "landscape-primary"
-  | "landscape-secondary"
+export type OrientationType = "portrait-primary" | "portrait-secondary" | "landscape-primary" | "landscape-secondary"
 export type OrientationLockType =
   | "any"
   | "natural"
@@ -72,11 +56,7 @@ export interface ScreenOrientation extends EventTarget {
   unlock: () => void
   readonly type: OrientationType
   readonly angle: number
-  addEventListener: (
-    type: "change",
-    listener: (this: this, ev: Event) => any,
-    useCapture?: boolean,
-  ) => void
+  addEventListener: (type: "change", listener: (this: this, ev: Event) => any, useCapture?: boolean) => void
 }
 /**
  * Reactive screen orientation

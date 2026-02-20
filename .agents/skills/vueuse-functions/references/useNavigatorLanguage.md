@@ -9,7 +9,7 @@ Reactive [navigator.language](https://developer.mozilla.org/en-US/docs/Web/API/N
 ## Usage
 
 ```ts
-import { useNavigatorLanguage } from '@vueuse/core'
+import { useNavigatorLanguage } from "@vueuse/core"
 
 const { language } = useNavigatorLanguage()
 
@@ -50,8 +50,6 @@ export interface NavigatorLanguageState {
  *
  * @__NO_SIDE_EFFECTS__
  */
-export declare function useNavigatorLanguage(
-  options?: ConfigurableWindow,
-): Readonly<NavigatorLanguageState>
+export declare function useNavigatorLanguage(options?: ConfigurableWindow): Readonly<NavigatorLanguageState>
 export type UseNavigatorLanguageReturn = ReturnType<typeof useNavigatorLanguage>
 ```

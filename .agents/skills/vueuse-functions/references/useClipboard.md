@@ -12,9 +12,9 @@ Reactive [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipbo
 
 ```vue
 <script setup lang="ts">
-import { useClipboard } from '@vueuse/core'
+import { useClipboard } from "@vueuse/core"
 
-const source = ref('Hello')
+const source = ref("Hello")
 const { text, copy, copied, isSupported } = useClipboard({ source })
 </script>
 
@@ -25,11 +25,11 @@ const { text, copy, copied, isSupported } = useClipboard({ source })
       <span v-if="!copied">Copy</span>
       <span v-else>Copied!</span>
     </button>
-    <p>Current copied: <code>{{ text || 'none' }}</code></p>
+    <p>
+      Current copied: <code>{{ text || "none" }}</code>
+    </p>
   </div>
-  <p v-else>
-    Your browser does not support Clipboard API
-  </p>
+  <p v-else>Your browser does not support Clipboard API</p>
 </template>
 ```
 
@@ -65,7 +65,7 @@ const { copy, isSupported } = useClipboard({ legacy: true })
 <template>
   <UseClipboard v-slot="{ copy, copied }" source="copy me">
     <button @click="copy()">
-      {{ copied ? 'Copied' : 'Copy' }}
+      {{ copied ? "Copied" : "Copy" }}
     </button>
   </UseClipboard>
 </template>
@@ -102,9 +102,7 @@ export interface UseClipboardReturn<Optional> {
   isSupported: ComputedRef<boolean>
   text: Readonly<ShallowRef<string>>
   copied: Readonly<ShallowRef<boolean>>
-  copy: Optional extends true
-    ? (text?: string) => Promise<void>
-    : (text: string) => Promise<void>
+  copy: Optional extends true ? (text?: string) => Promise<void> : (text: string) => Promise<void>
 }
 /**
  * Reactive Clipboard API.
@@ -114,10 +112,6 @@ export interface UseClipboardReturn<Optional> {
  *
  * @__NO_SIDE_EFFECTS__
  */
-export declare function useClipboard(
-  options?: UseClipboardOptions<undefined>,
-): UseClipboardReturn<false>
-export declare function useClipboard(
-  options: UseClipboardOptions<MaybeRefOrGetter<string>>,
-): UseClipboardReturn<true>
+export declare function useClipboard(options?: UseClipboardOptions<undefined>): UseClipboardReturn<false>
+export declare function useClipboard(options: UseClipboardOptions<MaybeRefOrGetter<string>>): UseClipboardReturn<true>
 ```

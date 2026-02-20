@@ -58,6 +58,11 @@ export default defineNuxtConfig({
       args: [], // Additional CLI arguments
     },
   },
+  content: {
+    experimental: {
+      nativeSqlite: true,
+    },
+  },
   // Global CSS - Tailwind 4 is imported here
   css: ["./app/assets/css/tailwind.css"],
   devtools: {
@@ -179,6 +184,7 @@ export default defineNuxtConfig({
     "@formkit/auto-animate/nuxt",
     "@formkit/nuxt",
     "@nuxt/a11y",
+    "@nuxt/content",
     "@nuxt/devtools",
     "@nuxt/eslint",
     "@nuxt/fonts",

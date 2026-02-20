@@ -15,36 +15,26 @@ Before an app can send a notification, the user must grant the application the r
 :::
 
 ```ts
-import { useWebNotification } from '@vueuse/core'
+import { useWebNotification } from "@vueuse/core"
 
-const {
-  isSupported,
-  notification,
-  permissionGranted,
-  show,
-  close,
-  onClick,
-  onShow,
-  onError,
-  onClose,
-} = useWebNotification({
-  title: 'Hello, VueUse world!',
-  dir: 'auto',
-  lang: 'en',
-  renotify: true,
-  tag: 'test',
-})
+const { isSupported, notification, permissionGranted, show, close, onClick, onShow, onError, onClose } =
+  useWebNotification({
+    title: "Hello, VueUse world!",
+    dir: "auto",
+    lang: "en",
+    renotify: true,
+    tag: "test"
+  })
 
-if (isSupported.value && permissionGranted.value)
-  show()
+if (isSupported.value && permissionGranted.value) show()
 ```
 
 This composable also utilizes the createEventHook utility from '@vueuse/shared`:
 
 ```ts
-import { useWebNotification } from '@vueuse/core'
+import { useWebNotification } from "@vueuse/core"
 
-const { onClick, onShow, onError, onClose, } = useWebNotification()
+const { onClick, onShow, onError, onClose } = useWebNotification()
 // ---cut---
 onClick((evt: Event) => {
   // Do something with the notification on:click event...
@@ -139,8 +129,7 @@ export interface WebNotificationOptions {
    */
   vibrate?: number[]
 }
-export interface UseWebNotificationOptions
-  extends ConfigurableWindow, WebNotificationOptions {
+export interface UseWebNotificationOptions extends ConfigurableWindow, WebNotificationOptions {
   /**
    * Request for permissions onMounted if it's not granted.
    *
@@ -156,16 +145,12 @@ export interface UseWebNotificationOptions
  * @see https://vueuse.org/useWebNotification
  * @see https://developer.mozilla.org/en-US/docs/Web/API/notification
  */
-export declare function useWebNotification(
-  options?: UseWebNotificationOptions,
-): {
+export declare function useWebNotification(options?: UseWebNotificationOptions): {
   isSupported: ComputedRef<boolean>
   notification: Ref<Notification | null, Notification | null>
   ensurePermissions: () => Promise<boolean | undefined>
   permissionGranted: ShallowRef<boolean, boolean>
-  show: (
-    overrides?: WebNotificationOptions,
-  ) => Promise<Notification | undefined>
+  show: (overrides?: WebNotificationOptions) => Promise<Notification | undefined>
   close: () => void
   onClick: EventHookOn<any>
   onShow: EventHookOn<any>

@@ -11,7 +11,7 @@ Reactively track [`window.devicePixelRatio`](https://developer.mozilla.org/docs/
 ## Usage
 
 ```ts
-import { useDevicePixelRatio } from '@vueuse/core'
+import { useDevicePixelRatio } from "@vueuse/core"
 
 const { pixelRatio } = useDevicePixelRatio()
 ```
@@ -20,9 +20,7 @@ const { pixelRatio } = useDevicePixelRatio()
 
 ```vue
 <template>
-  <UseDevicePixelRatio v-slot="{ pixelRatio }">
-    Pixel Ratio: {{ pixelRatio }}
-  </UseDevicePixelRatio>
+  <UseDevicePixelRatio v-slot="{ pixelRatio }"> Pixel Ratio: {{ pixelRatio }} </UseDevicePixelRatio>
 </template>
 ```
 

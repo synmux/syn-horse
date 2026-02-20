@@ -9,7 +9,7 @@ Reactive [Navigator Languages](https://developer.mozilla.org/en-US/docs/Web/API/
 ## Usage
 
 ```ts
-import { usePreferredLanguages } from '@vueuse/core'
+import { usePreferredLanguages } from "@vueuse/core"
 
 const languages = usePreferredLanguages()
 ```
@@ -18,9 +18,7 @@ const languages = usePreferredLanguages()
 
 ```vue
 <template>
-  <UsePreferredLanguages v-slot="{ languages }">
-    Preferred Languages: {{ languages }}
-  </UsePreferredLanguages>
+  <UsePreferredLanguages v-slot="{ languages }"> Preferred Languages: {{ languages }} </UsePreferredLanguages>
 </template>
 ```
 
@@ -35,7 +33,5 @@ const languages = usePreferredLanguages()
  *
  * @__NO_SIDE_EFFECTS__
  */
-export declare function usePreferredLanguages(
-  options?: ConfigurableWindow,
-): ShallowRef<readonly string[]>
+export declare function usePreferredLanguages(options?: ConfigurableWindow): ShallowRef<readonly string[]>
 ```

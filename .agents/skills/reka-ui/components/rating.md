@@ -78,7 +78,7 @@ Star rating input (v2.8.0)
 
 ```vue
 <script setup>
-import { RatingRoot, RatingItem, RatingItemIndicator } from 'reka-ui'
+import { RatingRoot, RatingItem, RatingItemIndicator } from "reka-ui"
 const rating = ref(3)
 </script>
 
@@ -87,9 +87,7 @@ const rating = ref(3)
     <template #default="{ items }">
       <RatingItem v-for="item in items" :key="item" :item="item">
         <template #default="{ steps }">
-          <RatingItemIndicator v-for="step in steps" :key="step" :step="step">
-            ★
-          </RatingItemIndicator>
+          <RatingItemIndicator v-for="step in steps" :key="step" :step="step"> ★ </RatingItemIndicator>
         </template>
       </RatingItem>
     </template>

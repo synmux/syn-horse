@@ -11,15 +11,15 @@ Reactive [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Naviga
 ## Usage
 
 ```ts
-import { useShare } from '@vueuse/core'
+import { useShare } from "@vueuse/core"
 
 const { share, isSupported } = useShare()
 
 function startShare() {
   share({
-    title: 'Hello',
-    text: 'Hello my friend!',
-    url: location.href,
+    title: "Hello",
+    text: "Hello my friend!",
+    url: location.href
   })
 }
 ```
@@ -29,12 +29,12 @@ function startShare() {
 You can pass a `ref` to it, changes from the source ref will be reflected to your sharing options.
 
 ```ts {6}
-import { ref } from 'vue'
+import { ref } from "vue"
 
-const shareOptions = ref<ShareOptions>({ text: 'foo' })
+const shareOptions = ref<ShareOptions>({ text: "foo" })
 const { share, isSupported } = useShare(shareOptions)
 
-shareOptions.value.text = 'bar'
+shareOptions.value.text = "bar"
 
 share()
 ```
@@ -59,7 +59,7 @@ export interface UseShareOptions {
  */
 export declare function useShare(
   shareOptions?: MaybeRefOrGetter<UseShareOptions>,
-  options?: ConfigurableNavigator,
+  options?: ConfigurableNavigator
 ): {
   isSupported: ComputedRef<boolean>
   share: (overrideOptions?: MaybeRefOrGetter<UseShareOptions>) => Promise<void>

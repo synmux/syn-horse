@@ -11,19 +11,9 @@ Reactive [SpeechSynthesis](https://developer.mozilla.org/en-US/docs/Web/API/Spee
 ## Usage
 
 ```ts
-import { useSpeechSynthesis } from '@vueuse/core'
+import { useSpeechSynthesis } from "@vueuse/core"
 
-const {
-  isSupported,
-  isPlaying,
-  status,
-  voiceInfo,
-  utterance,
-  error,
-  stop,
-  toggle,
-  speak,
-} = useSpeechSynthesis()
+const { isSupported, isPlaying, status, voiceInfo, utterance, error, stop, toggle, speak } = useSpeechSynthesis()
 ```
 
 ### Options
@@ -31,13 +21,13 @@ const {
 The following shows the default values of the options, they will be directly passed to [SpeechSynthesis API](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis).
 
 ```ts
-import { useSpeechSynthesis } from '@vueuse/core'
+import { useSpeechSynthesis } from "@vueuse/core"
 // ---cut---
 useSpeechSynthesis({
-  lang: 'en-US',
+  lang: "en-US",
   pitch: 1,
   rate: 1,
-  volume: 1,
+  volume: 1
 })
 ```
 
@@ -87,16 +77,13 @@ export interface UseSpeechSynthesisOptions extends ConfigurableWindow {
  */
 export declare function useSpeechSynthesis(
   text: MaybeRefOrGetter<string>,
-  options?: UseSpeechSynthesisOptions,
+  options?: UseSpeechSynthesisOptions
 ): {
   isSupported: ComputedRef<boolean>
   isPlaying: ShallowRef<boolean, boolean>
   status: ShallowRef<UseSpeechSynthesisStatus, UseSpeechSynthesisStatus>
   utterance: ComputedRef<SpeechSynthesisUtterance>
-  error: ShallowRef<
-    SpeechSynthesisErrorEvent | undefined,
-    SpeechSynthesisErrorEvent | undefined
-  >
+  error: ShallowRef<SpeechSynthesisErrorEvent | undefined, SpeechSynthesisErrorEvent | undefined>
   stop: () => void
   toggle: (value?: boolean) => void
   speak: () => void

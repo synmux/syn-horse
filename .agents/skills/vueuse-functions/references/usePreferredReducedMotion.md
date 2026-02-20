@@ -9,7 +9,7 @@ Reactive [prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/C
 ## Usage
 
 ```ts
-import { usePreferredReducedMotion } from '@vueuse/core'
+import { usePreferredReducedMotion } from "@vueuse/core"
 
 const preferredMotion = usePreferredReducedMotion()
 ```
@@ -18,9 +18,7 @@ const preferredMotion = usePreferredReducedMotion()
 
 ```vue
 <template>
-  <UsePreferredReducedMotion v-slot="{ motion }">
-    Preferred Reduced Motion: {{ motion }}
-  </UsePreferredReducedMotion>
+  <UsePreferredReducedMotion v-slot="{ motion }"> Preferred Reduced Motion: {{ motion }} </UsePreferredReducedMotion>
 </template>
 ```
 
@@ -36,7 +34,5 @@ export type ReducedMotionType = "reduce" | "no-preference"
  *
  * @__NO_SIDE_EFFECTS__
  */
-export declare function usePreferredReducedMotion(
-  options?: ConfigurableWindow,
-): ComputedRef<ReducedMotionType>
+export declare function usePreferredReducedMotion(options?: ConfigurableWindow): ComputedRef<ReducedMotionType>
 ```

@@ -1,5 +1,5 @@
 ---
-category: '@Integrations'
+category: "@Integrations"
 ---
 
 # useDrauu
@@ -16,11 +16,11 @@ npm i drauu@^0
 
 ```vue
 <script setup lang="ts">
-import { toRefs } from '@vueuse/core'
-import { useDrauu } from '@vueuse/integrations/useDrauu'
-import { useTemplateRef } from 'vue'
+import { toRefs } from "@vueuse/core"
+import { useDrauu } from "@vueuse/integrations/useDrauu"
+import { useTemplateRef } from "vue"
 
-const target = useTemplateRef('target')
+const target = useTemplateRef("target")
 const { undo, redo, canUndo, canRedo, brush } = useDrauu(target)
 const { color, size } = toRefs(brush)
 </script>
@@ -58,8 +58,5 @@ export interface UseDrauuReturn {
  * @param target The target svg element
  * @param options Drauu Options
  */
-export declare function useDrauu(
-  target: MaybeComputedElementRef,
-  options?: UseDrauuOptions,
-): UseDrauuReturn
+export declare function useDrauu(target: MaybeComputedElementRef, options?: UseDrauuOptions): UseDrauuReturn
 ```

@@ -10,10 +10,10 @@ Reactive [bounding box](https://developer.mozilla.org/en-US/docs/Web/API/Element
 
 ```vue
 <script setup lang="ts">
-import { useElementBounding } from '@vueuse/core'
-import { useTemplateRef } from 'vue'
+import { useElementBounding } from "@vueuse/core"
+import { useTemplateRef } from "vue"
 
-const el = useTemplateRef('el')
+const el = useTemplateRef("el")
 const { x, y, top, right, bottom, left, width, height } = useElementBounding(el)
 </script>
 
@@ -26,9 +26,7 @@ const { x, y, top, right, bottom, left, width, height } = useElementBounding(el)
 
 ```vue
 <template>
-  <UseElementBounding v-slot="{ width, height }">
-    Width: {{ width }} Height: {{ height }}
-  </UseElementBounding>
+  <UseElementBounding v-slot="{ width, height }"> Width: {{ width }} Height: {{ height }} </UseElementBounding>
 </template>
 ```
 
@@ -36,7 +34,7 @@ const { x, y, top, right, bottom, left, width, height } = useElementBounding(el)
 
 ```vue
 <script setup lang="ts">
-import { vElementBounding } from '@vueuse/components'
+import { vElementBounding } from "@vueuse/components"
 
 interface BoundingType {
   height: number
@@ -58,7 +56,7 @@ const options = {
   windowResize: true,
   windowScroll: true,
   immediate: true,
-  updateTiming: 'sync',
+  updateTiming: "sync"
 }
 </script>
 
@@ -115,7 +113,7 @@ export interface UseElementBoundingOptions {
  */
 export declare function useElementBounding(
   target: MaybeComputedElementRef,
-  options?: UseElementBoundingOptions,
+  options?: UseElementBoundingOptions
 ): {
   height: ShallowRef<number, number>
   bottom: ShallowRef<number, number>
