@@ -54,8 +54,8 @@
   },
   "r2_buckets": [
     {
-      "binding": "R2",
-      "bucket_name": "syn-horse"
+      "bucket_name": "blob-syn-horse",
+      "binding": "BLOB"
     }
   ],
   "routes": [
