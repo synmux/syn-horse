@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
+      - name: trunk
+        uses: trunk-io/trunk-action@bf81325059d2534b31df5365182237788c5e0338
       - name: node
         uses: actions/setup-node@efcb663fc60e97218a2b2d6d827f7830f164739e
         with:
@@ -23,8 +25,6 @@ jobs:
         run: bun pm trust --all
       - name: install-pass2
         run: bun install
-      - name: trunk
-        uses: trunk-io/trunk-action@bf81325059d2534b31df5365182237788c5e0338
       - name: typecheck
         run: bun run lint:types
       - name: build
