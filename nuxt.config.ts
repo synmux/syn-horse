@@ -37,27 +37,50 @@ test: {
 export default defineNuxtConfig({
   app: {
     head: {
-      title: "syn dot horse",
       htmlAttrs: {
         lang: "en",
       },
-      meta: [
-        { charset: "utf-8" },
-        { name: "viewport", content: "width=device-width, initial-scale=1" },
-        { name: "description", content: "NEIGH" },
-        { name: "theme-color", content: "#24273a" },
+      link: [
+        {
+          href: "/images/favicon.avif",
+          rel: "icon",
+          type: "image/avif",
+        },
       ],
-      link: [{ rel: "icon", type: "image/avif", href: "/images/favicon.avif" }],
+      meta: [
+        {
+          charset: "utf-8",
+        },
+        {
+          content: "width=device-width, initial-scale=1",
+          name: "viewport",
+        },
+        {
+          content: "NEIGH",
+          name: "description",
+        },
+        {
+          content: "#24273a",
+          name: "theme-color",
+        },
+      ],
+      title: "syn dot horse",
     },
+  },
+  claudeDevtools: {
+    claude: {
+      // Path to Claude CLI
+      args: [], // Additional CLI arguments
+      command: "claude",
+    },
+    enabled: true,
+  },
+  colorMode: {
+    fallback: "dark",
+    preference: "dark",
+    storageKey: "color-mode",
   },
   compatibilityDate: "2025-07-15",
-  claudeDevtools: {
-    enabled: true,
-    claude: {
-      command: "claude", // Path to Claude CLI
-      args: [], // Additional CLI arguments
-    },
-  },
   content: {
     experimental: {
       nativeSqlite: true,
@@ -78,30 +101,68 @@ export default defineNuxtConfig({
       port: 3094,
     },
   },
+  eslint: {
+    checker: true,
+  },
+  experimental: {
+    browserDevtoolsTiming: true,
+    buildCache: true,
+    chromeDevtoolsProjectSettings: true,
+    clientFallback: true,
+    clientNodeCompat: true,
+    componentIslands: true,
+    crossOriginPrefetch: true,
+    decorators: true,
+    emitRouteChunkError: "automatic",
+    headNext: true,
+    inlineRouteRules: true,
+    lazyHydration: true,
+    localLayerAliases: true,
+    payloadExtraction: true,
+    typedPages: true,
+    viewTransition: true,
+    viteEnvironmentApi: true,
+    watcher: "parcel",
+    writeEarlyHints: true,
+  },
   fonts: {
+    assets: {
+      prefix: "/_fonts/",
+    },
+    defaults: {
+      styles: ["normal", "italic"],
+      subsets: ["latin-ext", "latin"],
+      weights: [400],
+    },
     families: [
       {
-        name: "Inter",
-        provider: "google",
-        weights: [300, 400, 500, 600, 700],
+        name: "Sixtyfour Convergence",
+        provider: "bunny",
+      },
+      {
+        name: "Sono",
+        provider: "bunny",
+      },
+      {
+        name: "Victor Mono",
+        provider: "bunny",
       },
     ],
-    defaults: {
-      weights: [400],
-      styles: ["normal"],
-    },
   },
   formkit: {
-    // Experimental support for auto loading (see note):
+    // Experimental support for autoloading (see note):
     autoImport: true,
   },
+  future: {
+    typescriptBundlerResolution: true,
+  },
   gtag: {
-    // TODO: is there a better detection for Cloudflare Workers prod vs. the dev server?
-    enabled: process.env.NODE_ENV === "production",
     // id: "G-XXXXXXXXXX", // defined in env as NUXT_PUBLIC_GTAG_ID
     config: {
       page_title: "My Custom Page Title",
     },
+    // TODO: is there a better detection for Cloudflare Workers prod vs. the dev server?
+    enabled: process.env.NODE_ENV === "production",
     initCommands: [
       // Setup up consent mode
       [
@@ -118,35 +179,44 @@ export default defineNuxtConfig({
     ],
   },
   htmlValidator: {
-    usePrettier: true,
-    logLevel: "verbose",
     failOnError: false,
+
     /** A list of routes to ignore (that is, not check validity for). */
     ignore: [/\.(xml|rss|json)$/],
+    logLevel: "verbose",
     options: {
       extends: ["html-validate:document", "html-validate:recommended", "html-validate:standard"],
       rules: {
-        "svg-focusable": "off",
-        "no-unknown-elements": "error",
-        // Conflicts or not needed as we use prettier formatting
-        "void-style": "off",
-        "no-trailing-whitespace": "off",
-        // Conflict with Nuxt defaults
-        "require-sri": "off",
         "attribute-boolean-style": "off",
         "doctype-style": "off",
         // Unreasonable rule
         "no-inline-style": "off",
+        "no-trailing-whitespace": "off",
+        "no-unknown-elements": "error",
+        // Conflict with Nuxt defaults
+        "require-sri": "off",
+        "svg-focusable": "off",
+        // Conflicts or not needed as we use prettier formatting
+        "void-style": "off",
       },
     },
+    usePrettier: true,
   },
   hub: {
     // https://hub.nuxt.com/docs
-    blob: true, // boolean | BlobConfig
-    cache: true, // boolean | CacheConfig
-    db: "sqlite", // 'postgresql' | 'sqlite' | 'mysql' | DatabaseConfig
-    kv: true, // boolean | KVConfig
+    blob: true,
+    // boolean | BlobConfig
+    cache: true,
+    // boolean | CacheConfig
+    db: "sqlite",
+    // boolean | KVConfig
     dir: ".data", // dir for data used in dev
+    // 'postgresql' | 'sqlite' | 'mysql' | DatabaseConfig
+    kv: true,
+  },
+  icon: {
+    cssLayer: "base",
+    mode: "css",
   },
   // i18n: {
   //   locales: [
@@ -165,11 +235,9 @@ export default defineNuxtConfig({
     format: ["avif", "webp"],
     quality: 70,
   },
-  icon: {
-    mode: "css",
-    cssLayer: "base",
-  },
   linkChecker: {
+    // exclude paths from checking
+    excludeLinks: ["/api/**"],
     failOnError: true,
     // generate reports
     report: {
@@ -177,8 +245,6 @@ export default defineNuxtConfig({
       markdown: true,
     },
     skipInspections: ["external-if-timeout", "missing-hash"],
-    // exclude paths from checking
-    excludeLinks: ["/api/**"],
   },
   modules: [
     "@formkit/auto-animate/nuxt",
@@ -194,8 +260,7 @@ export default defineNuxtConfig({
     "@nuxt/scripts",
     "@nuxt/test-utils/module",
     "@nuxtjs/color-mode",
-    "@nuxtjs/html-validator",
-    // "@nuxtjs/i18n",
+    "@nuxtjs/html-validator", // "@nuxtjs/i18n",
     "@nuxtjs/partytown",
     "@nuxtjs/seo",
     "@oro.ad/nuxt-claude-devtools",
@@ -213,17 +278,18 @@ export default defineNuxtConfig({
     "reka-ui/nuxt",
     "shadcn-nuxt",
     "@nuxthub/core",
+    "nuxt-security",
   ],
   nitro: {
-    preset: "cloudflare_module",
-    prerender: {
-      failOnError: false,
-      crawlLinks: true,
-    },
     cloudflare: {
       deployConfig: true,
       nodeCompat: true,
     },
+    prerender: {
+      crawlLinks: true,
+      failOnError: false,
+    },
+    preset: "cloudflare_module",
   },
   ogImage: {
     // fonts: ["Inter:400", "Inter:700"],
@@ -243,7 +309,12 @@ export default defineNuxtConfig({
   },
   robots: {
     disallow: ["/admin", "/private"],
-    groups: [{ userAgent: ["GPTBot", "ChatGPT-User"], disallow: ["/"] }],
+    groups: [
+      {
+        disallow: ["/"],
+        userAgent: ["GPTBot", "ChatGPT-User"],
+      },
+    ],
   },
   routeRules: {
     // "/blog/**": {
@@ -258,69 +329,91 @@ export default defineNuxtConfig({
     // },
   },
   runtimeConfig: {
+    // NUXT_PUBLIC_* environment variables are automatically added here
+    formkitProKey: "", // populated from NUXT_FORMKIT_PRO_KEY environment variable
     public: {
       gtagId: "", // populated from NUXT_PUBLIC_GTAG_ID environment variable
-    }, // NUXT_PUBLIC_* environment variables are automatically added here
-    formkitProKey: "", // populated from NUXT_FORMKIT_PRO_KEY environment variable
+    },
   },
   schemaOrg: {
     identity: {
-      type: "Person",
-      name: "John Doe",
       image: "/avatar.jpg",
+      name: "John Doe",
+      type: "Person",
       url: "https://johndoe.com",
     },
   },
-  seoUtils: {
-    automaticBreadcrumbs: true, // adds Schema.org BreadcrumbList automatically
+  security: {
+    sri: true,
+    ssg: {
+      hashScripts: true,
+      hashStyles: true,
+      meta: true,
+    },
   },
+  // TODO: wasn't passing validation? figure this out at some point
+  // seoUtils: {
+  //   automaticBreadcrumbs: true, // adds Schema.org BreadcrumbList automatically
+  // },
   shadcn: {
-    /**
-     * Prefix for all the imported component
-     */
-    prefix: "",
     /**
      * Directory that the component lives in.
      * @default "./components/ui"
      */
     componentDir: "@/components/ui",
+
+    /**
+     * Prefix for all the imported component
+     */
+    prefix: "",
   },
   site: {
-    url: "https://syn.horse",
-    name: "syn dot horse",
-    description: "it's syn and it's a horse.",
     defaultLocale: "en",
+    description: "it's syn and it's a horse.",
+    indexable: true,
+    name: "syn dot horse",
+    url: "https://syn.horse",
   },
   solarIcons: {
-    // Prefix for auto-imported components (default: 'Solar')
-    namePrefix: "Solar",
     // Auto-import all icons as components (default: true)
     autoImport: true,
-    // Inject global provider automatically (default: true)
-    provider: true,
     // Default icon properties
     color: "currentColor",
+    mirrored: false,
+    // Prefix for auto-imported components (default: 'Solar')
+    namePrefix: "Solar",
+    // Inject global provider automatically (default: true)
+    provider: true,
     size: 24,
     weight: "Linear",
-    mirrored: false,
+  },
+  sourcemap: {
+    client: true,
+    // consider "hidden"
+    server: true,
   },
   veeValidate: {
     // disable or enable auto imports
     autoImports: true,
     // Use different names for components
     componentNames: {
-      Form: "VeeForm",
+      ErrorMessage: "VeeErrorMessage",
       Field: "VeeField",
       FieldArray: "VeeFieldArray",
-      ErrorMessage: "VeeErrorMessage",
+      Form: "VeeForm",
     },
   },
   // Vite configuration with Tailwind CSS 4
   vite: {
-    plugins: [tailwindcss() as never],
+    build: {
+      manifest: true,
+      minify: "esbuild",
+      sourcemap: true,
+    },
     optimizeDeps: {
       include: ["three"],
     },
+    plugins: [tailwindcss() as never],
     ssr: {
       noExternal: ["three"],
     },
