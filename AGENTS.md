@@ -399,7 +399,7 @@ bunx shadcn-vue@latest add <component-name>
 
 <!-- NUXT-DEVTOOLS:CRITICAL-FILES -->
 
-## Critical Configuration Files
+## ⚠️ Critical Configuration Files
 
 The following files trigger a full Nuxt restart when modified:
 
@@ -410,15 +410,15 @@ The following files trigger a full Nuxt restart when modified:
 - `.nuxtrc`
 - `tsconfig.json`
 
-### MANDATORY CHECK (EVERY TIME, NO EXCEPTIONS)
+### 🔴 MANDATORY CHECK (EVERY TIME, NO EXCEPTIONS)
 
 **BEFORE modifying ANY of these files, you MUST:**
 
-```plaintext
+```
 1. READ .claude-devtools/settings.json
 2. CHECK criticalFiles.autoConfirm value
-3. IF false OR file missing -> STOP and ASK user
-4. IF true -> inform user, then proceed
+3. IF false OR file missing → STOP and ASK user
+4. IF true → inform user, then proceed
 ```
 
 **This check is REQUIRED every single time, even if you checked before in this session.**
@@ -438,11 +438,20 @@ The following files trigger a full Nuxt restart when modified:
 
 4. **Act based on autoConfirm setting**
 
+### Example: Adding i18n locale
+
+```
+Step 1: Create locales/es.json           ✓ prerequisite
+Step 2: Read .claude-devtools/settings.json  ✓ check flag
+Step 3: If autoConfirm=false → ask user
+Step 4: Update nuxt.config.ts            ✓ only after confirmation
+```
+
 ### Current Setting
 
 **autoConfirm: DISABLED**
 
-MUST ask user and WAIT for explicit "yes" before proceeding.
+→ MUST ask user and WAIT for explicit "yes" before proceeding.
 
 ---
 

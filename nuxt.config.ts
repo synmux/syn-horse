@@ -207,8 +207,9 @@ export default defineNuxtConfig({
     dir: ".data", // dir for data used in dev
     db: {
       dialect: "sqlite",
-      driver: "d1",
-      connection: { databaseId: "b5c9290a-7a8f-4da4-ae8a-e51b646cd629" },
+      connection: {
+        databaseId: "acf9b51d-7ed9-41e0-b308-de31b082aba5",
+      },
     },
     kv: {
       driver: "cloudflare-kv-binding",
@@ -298,14 +299,22 @@ export default defineNuxtConfig({
       nodeCompat: true,
       wrangler: {
         account_id: "def50674a738cee409235f71819973cf",
-        ai: { binding: "AI", experimental_remote: true },
+        ai: { binding: "AI" },
         analytics_engine_datasets: [{ binding: "ANALYTICS", dataset: "syn-horse" }],
         browser: { binding: "BROWSER" },
         compatibility_date: "2026-02-17",
         compatibility_flags: ["nodejs_compat"],
         images: { binding: "IMAGES" },
         keep_names: true,
-        // TODO: media binding ({ binding: "MEDIA" }) not yet in Nitro's WranglerConfig types — configure via dashboard until types catch up
+        build: {
+          command: "bun run build",
+          cwd: ".",
+        },
+        main: "",
+        preview_urls: true,
+        // TODO:  media binding ({ binding: "MEDIA" })
+        //        not yet in Nitro's WranglerConfig types;
+        //        configure via dashboard until types catch up.
         minify: true,
         name: "syn-horse",
         observability: { enabled: true },
@@ -316,7 +325,9 @@ export default defineNuxtConfig({
         ],
         send_email: [
           {
-            // TODO: allowed_sender_addresses (["ponygirl@syn.horse"]) not yet in Nitro's WranglerConfig types — configure via dashboard until types catch up
+            // TODO:  allowed_sender_addresses (["ponygirl@syn.horse"])
+            //        not yet in Nitro's WranglerConfig types;
+            //        configure via dashboard until types catch up.
             name: "EMAIL",
           },
         ],

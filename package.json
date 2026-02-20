@@ -92,6 +92,11 @@
   "private": true,
   "scripts": {
     "build": "bun run nuxt build",
+    "db:generate": "npx nuxt db generate",
+    "db:migrate": "npx nuxt db migrate",
+    "db:migrate:remote": "npx nuxt db migrate --remote",
+    "db:sql": "npx nuxt db sql",
+    "db:reset": "npx nuxt db drop-all",
     "deploy": "bun run-s build deploy:wrangler",
     "deploy:nonprod": "bun run-s build deploy:nonprod:wrangler",
     "deploy:nonprod:wrangler": "bun run wrangler versions upload",
