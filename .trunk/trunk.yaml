@@ -32,6 +32,10 @@ lint:
         - .serena/**
         - .wrangler/**
         - worker-configuration.d.ts
+    - linters:
+        - markdownlint
+      paths:
+        - AGENTS*.md
   enabled:
     - taplo@0.10.0
     - actionlint@1.7.11
