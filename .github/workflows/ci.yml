@@ -12,11 +12,11 @@ jobs:
       - name: node
         uses: actions/setup-node@efcb663fc60e97218a2b2d6d827f7830f164739e
         with:
-          node-version-file: ".node-version"
+          node-version-file: .node-version
       - name: bun
         uses: oven-sh/setup-bun@ab8cb4e8f89912a29b87e4abc4554f2301648a5c
         with:
-          bun-version-file: ".bun-version"
+          bun-version-file: .bun-version
       - name: install-pass1
         run: bun install
       - name: install-trust
