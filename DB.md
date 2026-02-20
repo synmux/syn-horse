@@ -80,9 +80,9 @@ server/db/
 NuxtHub manages migrations through a `_hub_migrations` table that tracks which migrations have been applied. The flow:
 
 1. You modify `server/db/schema.ts`
-2. You run `npx nuxt db generate` — Drizzle Kit diffs the schema against the last snapshot and generates a new `.sql` file in `server/db/migrations/`
+2. You run `bun run nuxt-db generate` — Drizzle Kit diffs the schema against the last snapshot and generates a new `.sql` file in `server/db/migrations/`
 3. Migrations auto-apply during `bun run dev` (local SQLite) and `bun run build` (production D1)
-4. You can also manually apply with `npx nuxt db migrate`
+4. You can also manually apply with `bun run nuxt-db migrate`
 
 Migrations are **idempotent** — if a migration has already been applied (tracked in `_hub_migrations`), it's skipped.
 
@@ -114,6 +114,8 @@ The `hub:db` import is a virtual module provided by NuxtHub. It resolves to the 
 
 ## Step-by-Step Guides
 
+> **Tip:** Most `bun run nuxt-db` commands have convenience aliases in `package.json` — e.g., `bun run db:generate` instead of `bun run nuxt-db generate`. See the [Command Reference](#command-reference) table for the full list.
+
 ### Adding a New Table
 
 1. Edit `server/db/schema.ts`:
@@ -135,18 +137,18 @@ The `hub:db` import is a virtual module provided by NuxtHub. It resolves to the 
    })
    ```
 
-2. Generate the migration:
+2. Generate the migration (`bun run db:generate`):
 
    ```bash
-   npx nuxt db generate
+   bun run nuxt-db generate
    ```
 
    This creates a new `.sql` file in `server/db/migrations/` (e.g., `0001_some_name.sql`).
 
-3. The migration auto-applies next time you run `bun run dev`. Or apply manually:
+3. The migration auto-applies next time you run `bun run dev`. Or apply manually (`bun run db:migrate`):
 
    ```bash
-   npx nuxt db migrate
+   bun run nuxt-db migrate
    ```
 
 ### Modifying an Existing Table
@@ -156,10 +158,10 @@ Same workflow as above. Edit the schema, generate, and the diff migration handle
 ```bash
 # 1. Edit server/db/schema.ts
 # 2. Generate migration
-npx nuxt db generate
+bun run nuxt-db generate
 # 3. Review the generated SQL in server/db/migrations/
 # 4. Apply (automatic on dev, or manual)
-npx nuxt db migrate
+bun run nuxt-db migrate
 ```
 
 ### Deploying Migrations to Production
@@ -174,11 +176,11 @@ bun run build
 bun run deploy
 ```
 
-If you want to apply migrations to production **without** a full deploy:
+If you want to apply migrations to production **without** a full deploy (`bun run db:migrate:remote`):
 
 ```bash
 # Apply migrations against the remote D1 database
-npx nuxt db migrate --remote
+bun run nuxt-db migrate --remote
 ```
 
 This requires Cloudflare authentication (API token or `wrangler login`).
@@ -189,18 +191,18 @@ For quick inspection or debugging:
 
 ```bash
 # Run arbitrary SQL against the local dev database
-npx nuxt db sql "SELECT * FROM redirects"
+bun run nuxt-db sql "SELECT * FROM redirects"
 
 # Or against production
-npx nuxt db sql --remote "SELECT * FROM redirects"
+bun run nuxt-db sql --remote "SELECT * FROM redirects"
 ```
 
 ### Seeding the Local Database
 
-There's no built-in seed command, but you can use `npx nuxt db sql`:
+There's no built-in seed command, but you can use `bun run nuxt-db sql`:
 
 ```bash
-npx nuxt db sql "INSERT INTO redirects (slug, destination) VALUES ('gh', 'https://github.com/daveio')"
+bun run nuxt-db sql "INSERT INTO redirects (slug, destination) VALUES ('gh', 'https://github.com/daveio')"
 ```
 
 Or create a seed script and use the `hub:db:queries:paths` hook (see Advanced section).
@@ -210,7 +212,7 @@ Or create a seed script and use the `hub:db:queries:paths` hook (see Advanced se
 Look at the `_hub_migrations` table:
 
 ```bash
-npx nuxt db sql "SELECT * FROM _hub_migrations"
+bun run nuxt-db sql "SELECT * FROM _hub_migrations"
 ```
 
 This shows which migrations have been applied and when.
@@ -235,7 +237,7 @@ NuxtHub recreates the database and re-applies all migrations from scratch on sta
 Use the NuxtHub drop-all command:
 
 ```bash
-npx nuxt db drop-all
+bun run nuxt-db drop-all
 ```
 
 This drops all tables but keeps the migration history. Next `bun run dev` re-applies all migrations.
@@ -243,7 +245,7 @@ This drops all tables but keeps the migration history. Next `bun run dev` re-app
 ### Drop a Specific Table Locally
 
 ```bash
-npx nuxt db drop redirects
+bun run nuxt-db drop redirects
 ```
 
 ### Reset the Production Database
@@ -252,10 +254,10 @@ npx nuxt db drop redirects
 
 ```bash
 # Drop all tables on the remote D1
-npx nuxt db drop-all --remote
+bun run nuxt-db drop-all --remote
 
 # Re-apply all migrations
-npx nuxt db migrate --remote
+bun run nuxt-db migrate --remote
 ```
 
 Alternatively, through the Cloudflare dashboard:
@@ -269,7 +271,7 @@ Alternatively, through the Cloudflare dashboard:
 If you have many small migration files and want to consolidate:
 
 ```bash
-npx nuxt db squash
+bun run nuxt-db squash
 ```
 
 This combines all migrations into a single file. Only do this when all environments (local + production) are fully migrated.
@@ -279,7 +281,7 @@ This combines all migrations into a single file. Only do this when all environme
 If production already has the schema changes (e.g., applied manually) but the `_hub_migrations` table doesn't know:
 
 ```bash
-npx nuxt db mark-as-migrated 0000_brave_moon_knight --remote
+bun run nuxt-db mark-as-migrated 0000_brave_moon_knight --remote
 ```
 
 ### Fix "Migration Already Applied" Errors
@@ -288,13 +290,13 @@ If you get errors about migrations being already applied (e.g., after a squash o
 
 ```bash
 # Check what's recorded as applied
-npx nuxt db sql "SELECT * FROM _hub_migrations"
+bun run nuxt-db sql "SELECT * FROM _hub_migrations"
 
 # Remove a migration record if needed
-npx nuxt db sql "DELETE FROM _hub_migrations WHERE name = '0000_brave_moon_knight'"
+bun run nuxt-db sql "DELETE FROM _hub_migrations WHERE name = '0000_brave_moon_knight'"
 
 # Re-apply
-npx nuxt db migrate
+bun run nuxt-db migrate
 ```
 
 ---
@@ -350,30 +352,30 @@ The seed SQL must be **idempotent** (safe to run multiple times) since it runs o
 
 There's a symlink at the project root:
 
-```
+```plaintext
 wrangler.json -> .output/server/wrangler.json
 ```
 
 This exists so that `wrangler` CLI commands (like `wrangler d1 execute`) can find the config. It points to the NuxtHub-generated config in the build output. **You must run `bun run build` at least once** for this symlink target to exist.
 
-For most operations, prefer NuxtHub's commands (`npx nuxt db ...`) over raw Wrangler commands, as they handle both local and remote environments consistently.
+For most operations, prefer NuxtHub's commands (`bun run nuxt-db ...`) over raw Wrangler commands, as they handle both local and remote environments consistently.
 
 ---
 
 ## Command Reference
 
-| Command                                 | What it does                                         |
-| --------------------------------------- | ---------------------------------------------------- |
-| `npx nuxt db generate`                  | Generate migration from schema changes               |
-| `npx nuxt db migrate`                   | Apply pending migrations (local)                     |
-| `npx nuxt db migrate --remote`          | Apply pending migrations (production D1)             |
-| `npx nuxt db sql "SELECT ..."`          | Run SQL query (local)                                |
-| `npx nuxt db sql --remote "SELECT ..."` | Run SQL query (production D1)                        |
-| `npx nuxt db drop <table>`              | Drop a table (local)                                 |
-| `npx nuxt db drop-all`                  | Drop all tables (local)                              |
-| `npx nuxt db drop-all --remote`         | Drop all tables (production D1)                      |
-| `npx nuxt db squash`                    | Consolidate migrations into one file                 |
-| `npx nuxt db mark-as-migrated [name]`   | Mark migration as applied without executing          |
-| `bun run dev`                           | Start dev server (auto-applies migrations locally)   |
-| `bun run build`                         | Build for production (auto-applies migrations to D1) |
-| `bun run deploy`                        | Build + deploy to Cloudflare                         |
+| Command                                     | Script alias                  | What it does                                         |
+| ------------------------------------------- | ----------------------------- | ---------------------------------------------------- |
+| `bun run nuxt-db generate`                  | `bun run db:generate`         | Generate migration from schema changes               |
+| `bun run nuxt-db migrate`                   | `bun run db:migrate`          | Apply pending migrations (local)                     |
+| `bun run nuxt-db migrate --remote`          | `bun run db:migrate:remote`   | Apply pending migrations (production D1)             |
+| `bun run nuxt-db sql "SELECT ..."`          | `bun run db:sql`              | Run SQL query (local)                                |
+| `bun run nuxt-db sql --remote "SELECT ..."` | —                             | Run SQL query (production D1)                        |
+| `bun run nuxt-db drop <table>`              | `bun run db:drop`             | Drop a table (local)                                 |
+| `bun run nuxt-db drop-all`                  | `bun run db:drop-all`         | Drop all tables (local)                              |
+| `bun run nuxt-db drop-all --remote`         | —                             | Drop all tables (production D1)                      |
+| `bun run nuxt-db squash`                    | `bun run db:squash`           | Consolidate migrations into one file                 |
+| `bun run nuxt-db mark-as-migrated [name]`   | `bun run db:mark-as-migrated` | Mark migration as applied without executing          |
+| `bun run dev`                               | —                             | Start dev server (auto-applies migrations locally)   |
+| `bun run build`                             | —                             | Build for production (auto-applies migrations to D1) |
+| `bun run deploy`                            | —                             | Build + deploy to Cloudflare                         |

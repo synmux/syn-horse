@@ -34,7 +34,7 @@ The postinstall script handles everything automatically:
 
 1. Ensures [Trunk.io](https://trunk.io/) is available (or falls back to the npm launcher)
 2. Runs `nuxt prepare` to generate TypeScript types and module augmentations
-3. Generates `worker-configuration.d.ts` from `wrangler.jsonc` bindings
+3. Generates `worker-configuration.d.ts` from Wrangler bindings in `nuxt.config.ts`
 4. Formats the generated types file with Prettier
 
 ## Development
@@ -49,6 +49,12 @@ To preview the production build locally with Wrangler (simulating the Cloudflare
 
 ```bash
 bun run preview
+```
+
+To remove build artefacts and caches (useful for recovering from stale state):
+
+```bash
+bun run clean
 ```
 
 ## Linting & Formatting
@@ -80,6 +86,16 @@ Test configuration lives in `vitest.config.mts` with three test projects:
 - **nuxt** — `test/nuxt/*.{test,spec}.ts` (Nuxt environment via `@nuxt/test-utils`)
 - **e2e** — `test/e2e/*.{test,spec}.ts` (Playwright)
 
+## Database
+
+```bash
+bun run db:generate           # Generate migration from schema changes
+bun run db:migrate            # Apply pending migrations (local)
+bun run db:migrate:remote     # Apply pending migrations (production D1)
+```
+
+See [DB.md](DB.md) for the full database guide including emergency procedures, advanced usage, and all available commands.
+
 ## Deployment
 
 ```bash
@@ -91,7 +107,7 @@ Deployment targets the custom domains `syn.horse` and `www.syn.horse` via Cloudf
 
 ## Cloudflare Platform Bindings
 
-The application has access to the following Cloudflare services (configured in `wrangler.jsonc`):
+The application has access to the following Cloudflare services (configured in `nuxt.config.ts` and managed by NuxtHub):
 
 | Service           | Binding               | Description                           |
 | ----------------- | --------------------- | ------------------------------------- |
