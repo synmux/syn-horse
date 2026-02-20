@@ -24,6 +24,7 @@
     "@nuxtjs/html-validator": "2.1.0",
     "@nuxtjs/i18n": "10.2.3",
     "@nuxtjs/partytown": "2.0.0",
+    "@nuxtjs/seo": "^3.4.0",
     "@parcel/watcher": "^2.5.6",
     "@pinia-orm/nuxt": "^1.10.2",
     "@pinia/colada": "^0.21.4",

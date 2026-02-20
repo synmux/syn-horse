@@ -351,10 +351,6 @@ export default defineNuxtConfig({
       meta: true,
     },
   },
-  // TODO: wasn't passing validation? figure this out at some point
-  // seoUtils: {
-  //   automaticBreadcrumbs: true, // adds Schema.org BreadcrumbList automatically
-  // },
   shadcn: {
     /**
      * Directory that the component lives in.
