@@ -9,6 +9,7 @@
     "@formkit/icons": "^1.7.2",
     "@formkit/nuxt": "1.7.2",
     "@formkit/pro": "^0.127.24",
+    "@libsql/client": "^0.17.0",
     "@nuxt/a11y": "1.0.0-alpha.1",
     "@nuxt/devtools": "3.2.1",
     "@nuxt/eslint": "1.15.1",
@@ -38,6 +39,8 @@
     "@vueuse/nuxt": "14.2.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "drizzle-kit": "^0.31.9",
+    "drizzle-orm": "^0.45.1",
     "lucide-vue-next": "^0.575.0",
     "magic-regexp": "^0.10.0",
     "nanoid": "^5.1.6",
@@ -117,6 +120,7 @@
     "esbuild",
     "sharp",
     "unrs-resolver",
+    "vue-demi",
     "workerd"
   ],
   "type": "module"

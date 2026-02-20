@@ -135,6 +135,14 @@ export default defineNuxtConfig({
       },
     },
   },
+  hub: {
+    // https://hub.nuxt.com/docs
+    blob: true, // boolean | BlobConfig
+    cache: true, // boolean | CacheConfig
+    db: "sqlite", // 'postgresql' | 'sqlite' | 'mysql' | DatabaseConfig
+    kv: true, // boolean | KVConfig
+    dir: ".data", // dir for data used in dev
+  },
   // i18n: {
   //   locales: [
   //     {
@@ -156,39 +164,49 @@ export default defineNuxtConfig({
     mode: "css",
     cssLayer: "base",
   },
+  linkChecker: {
+    failOnError: true,
+    // generate reports
+    report: {
+      html: true,
+      markdown: true,
+    },
+    skipInspections: ["external-if-timeout", "missing-hash"],
+    // exclude paths from checking
+    excludeLinks: ["/api/**"],
+  },
   modules: [
-    "nitro-cloudflare-dev",
-    "@oro.ad/nuxt-claude-devtools",
+    "@formkit/auto-animate/nuxt",
+    "@formkit/nuxt",
+    "@nuxt/a11y",
+    "@nuxt/devtools",
     "@nuxt/eslint",
     "@nuxt/fonts",
+    "@nuxt/hints",
     "@nuxt/icon",
     "@nuxt/image",
-    "@nuxt/eslint",
-    "shadcn-nuxt",
-    "@nuxtjs/seo",
-    "@nuxt/devtools",
-    "@nuxt/hints",
     "@nuxt/scripts",
     "@nuxt/test-utils/module",
-    "@formkit/auto-animate/nuxt",
-    "reka-ui/nuxt",
-    "@nuxt/a11y",
-    "nuxt-og-image",
     "@nuxtjs/color-mode",
     "@nuxtjs/html-validator",
     // "@nuxtjs/i18n",
     "@nuxtjs/partytown",
+    "@nuxtjs/seo",
+    "@oro.ad/nuxt-claude-devtools",
+    "@pinia/colada-nuxt",
+    "@pinia/nuxt",
     "@solar-icons/nuxt",
     "@tresjs/nuxt",
     "@unlazy/nuxt",
     "@vee-validate/nuxt",
     "@vueuse/nuxt",
-    "@pinia/nuxt",
-    "@pinia/colada-nuxt",
-    "@formkit/nuxt",
     "magic-regexp/nuxt",
+    "nitro-cloudflare-dev",
     "nuxt-gtag",
     "nuxt-svgo",
+    "reka-ui/nuxt",
+    "shadcn-nuxt",
+    "@nuxthub/core",
   ],
   nitro: {
     preset: "cloudflare_module",
@@ -201,6 +219,13 @@ export default defineNuxtConfig({
       nodeCompat: true,
     },
   },
+  ogImage: {
+    // fonts: ["Inter:400", "Inter:700"],
+    // runtimeBrowser: false, // prerender all images at build time
+    defaults: {
+      // component: "OgImageTemplate",
+    },
+  },
   partytown: {
     /**
      * When `true`, Partytown scripts are not minified. See https://partytown.builder.io/configuration
@@ -210,11 +235,38 @@ export default defineNuxtConfig({
      */
     debug: false,
   },
+  robots: {
+    disallow: ["/admin", "/private"],
+    groups: [{ userAgent: ["GPTBot", "ChatGPT-User"], disallow: ["/"] }],
+  },
+  routeRules: {
+    // "/blog/**": {
+    //   seoMeta: {
+    //     ogType: "article",
+    //   },
+    // },
+    // "/products/**": {
+    //   seoMeta: {
+    //     ogType: "product",
+    //   },
+    // },
+  },
   runtimeConfig: {
     public: {
       gtagId: "", // populated from NUXT_PUBLIC_GTAG_ID environment variable
     }, // NUXT_PUBLIC_* environment variables are automatically added here
     formkitProKey: "", // populated from NUXT_FORMKIT_PRO_KEY environment variable
+  },
+  schemaOrg: {
+    identity: {
+      type: "Person",
+      name: "John Doe",
+      image: "/avatar.jpg",
+      url: "https://johndoe.com",
+    },
+  },
+  seoUtils: {
+    automaticBreadcrumbs: true, // adds Schema.org BreadcrumbList automatically
   },
   shadcn: {
     /**
@@ -230,6 +282,8 @@ export default defineNuxtConfig({
   site: {
     url: "https://syn.horse",
     name: "syn dot horse",
+    description: "it's syn and it's a horse.",
+    defaultLocale: "en",
   },
   solarIcons: {
     // Prefix for auto-imported components (default: 'Solar')
