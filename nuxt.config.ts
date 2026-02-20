@@ -86,6 +86,32 @@ export default defineNuxtConfig({
       styles: ["normal"],
     },
   },
+  formkit: {
+    // Experimental support for auto loading (see note):
+    autoImport: true,
+  },
+  gtag: {
+    // TODO: is there a better detection for Cloudflare Workers prod vs. the dev server?
+    enabled: process.env.NODE_ENV === "production",
+    // id: "G-XXXXXXXXXX", // defined in env as NUXT_PUBLIC_GTAG_ID
+    config: {
+      page_title: "My Custom Page Title",
+    },
+    initCommands: [
+      // Setup up consent mode
+      [
+        "consent",
+        "default",
+        {
+          ad_user_data: "granted",
+          ad_personalization: "granted",
+          ad_storage: "granted",
+          analytics_storage: "granted",
+          wait_for_update: 500,
+        },
+      ],
+    ],
+  },
   htmlValidator: {
     usePrettier: true,
     logLevel: "verbose",
@@ -157,6 +183,12 @@ export default defineNuxtConfig({
     "@unlazy/nuxt",
     "@vee-validate/nuxt",
     "@vueuse/nuxt",
+    "@pinia/nuxt",
+    "@pinia/colada-nuxt",
+    "@formkit/nuxt",
+    "magic-regexp/nuxt",
+    "nuxt-gtag",
+    "nuxt-svgo",
   ],
   nitro: {
     preset: "cloudflare_module",
@@ -177,6 +209,12 @@ export default defineNuxtConfig({
      * @default true in development
      */
     debug: false,
+  },
+  runtimeConfig: {
+    public: {
+      gtagId: "", // populated from NUXT_PUBLIC_GTAG_ID environment variable
+    }, // NUXT_PUBLIC_* environment variables are automatically added here
+    formkitProKey: "", // populated from NUXT_FORMKIT_PRO_KEY environment variable
   },
   shadcn: {
     /**
