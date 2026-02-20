@@ -204,15 +204,27 @@ export default defineNuxtConfig({
   },
   hub: {
     // https://hub.nuxt.com/docs
-    blob: true,
-    // boolean | BlobConfig
-    cache: true,
-    // boolean | CacheConfig
-    db: "sqlite",
-    // boolean | KVConfig
     dir: ".data", // dir for data used in dev
-    // 'postgresql' | 'sqlite' | 'mysql' | DatabaseConfig
-    kv: true,
+    db: {
+      dialect: "sqlite",
+      driver: "d1",
+      connection: { databaseId: "b5c9290a-7a8f-4da4-ae8a-e51b646cd629" },
+    },
+    kv: {
+      driver: "cloudflare-kv-binding",
+      namespaceId: "96d98b8f0e2d40a7813e8d8e470d40cb",
+      binding: "KV",
+    },
+    cache: {
+      driver: "cloudflare-kv-binding",
+      namespaceId: "a778b327537e4660bb97f272483d102e",
+      binding: "CACHE",
+    },
+    blob: {
+      driver: "cloudflare-r2",
+      bucketName: "blob-syn-horse",
+      binding: "BLOB",
+    },
   },
   icon: {
     cssLayer: "base",
