@@ -102,7 +102,15 @@ export default defineNuxtConfig({
     },
   },
   eslint: {
-    checker: true,
+    checker: {
+      eslintPath: "eslint",
+    },
+    config: {
+      stylistic: true,
+      devtools: {
+        enabled: true,
+      },
+    },
   },
   experimental: {
     browserDevtoolsTiming: true,
