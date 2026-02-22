@@ -25,6 +25,7 @@ lint:
         - .agents/**
         - .claude/**
         - .data/**
+        - .env
         - .gemini/**
         - .github/workflows/claude.y*ml
         - .github/workflows/claude-code-review.y*ml
