@@ -188,7 +188,7 @@ export default defineNuxtConfig({
       nodeCompat: true,
       wrangler: {
         account_id: "def50674a738cee409235f71819973cf",
-        ai: { binding: "AI" },
+        ai: { binding: "AI", remote: true },
         analytics_engine_datasets: [{ binding: "ANALYTICS", dataset: "syn-horse" }],
         browser: { binding: "BROWSER" },
         compatibility_date: "2026-02-17",
@@ -290,7 +290,7 @@ export default defineNuxtConfig({
       eslintPath: "eslint",
     },
     config: {
-      stylistic: true,
+      stylistic: false,
       devtools: {
         enabled: true,
       },
