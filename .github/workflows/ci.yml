@@ -12,7 +12,7 @@ jobs:
       - name: trunk
         uses: trunk-io/trunk-action@bf81325059d2534b31df5365182237788c5e0338
       - name: node
-        uses: actions/setup-node@efcb663fc60e97218a2b2d6d827f7830f164739e
+        uses: actions/setup-node@774c1d62961e73038a114d59c8847023c003194d
         with:
           node-version-file: .node-version
       - name: bun
