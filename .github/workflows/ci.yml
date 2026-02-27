@@ -12,11 +12,11 @@ jobs:
       - name: trunk
         uses: trunk-io/trunk-action@bf81325059d2534b31df5365182237788c5e0338
       - name: node
-        uses: actions/setup-node@774c1d62961e73038a114d59c8847023c003194d
+        uses: actions/setup-node@54045abd5dcd3b0fee9ca02fa24c57545834c9cc
         with:
           node-version-file: .node-version
       - name: bun
-        uses: oven-sh/setup-bun@ab8cb4e8f89912a29b87e4abc4554f2301648a5c
+        uses: oven-sh/setup-bun@0ff83bfc51e05dd2251088164ec6a5e8533b476b
         with:
           bun-version-file: .bun-version
       - name: install-pass1
