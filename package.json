@@ -12,7 +12,7 @@
     "@libsql/client": "^0.17.0",
     "@nuxt/a11y": "1.0.0-alpha.1",
     "@nuxt/content": "^3.11.2",
-    "@nuxt/devtools": "3.2.3",
+    "@nuxt/devtools": "3.2.4",
     "@nuxt/eslint": "1.15.2",
     "@nuxt/fonts": "0.14.0",
     "@nuxt/hints": "1.0.0",
