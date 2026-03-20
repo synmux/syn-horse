@@ -8,8 +8,8 @@ Setting up `content.config.ts`, defining collection schemas, or configuring cont
 
 ```ts
 // content.config.ts
-import { defineCollection, defineContentConfig } from "@nuxt/content"
-import { z } from "zod" // Import z from 'zod' directly (not from @nuxt/content)
+import { defineCollection, defineContentConfig } from "@nuxt/content";
+import { z } from "zod"; // Import z from 'zod' directly (not from @nuxt/content)
 
 export default defineContentConfig({
   collections: {
@@ -19,8 +19,8 @@ export default defineContentConfig({
       schema: z.object({
         date: z.date(),
         tags: z.array(z.string()).optional(),
-        image: z.string().optional()
-      })
+        image: z.string().optional(),
+      }),
     }),
     authors: defineCollection({
       type: "data",
@@ -28,11 +28,11 @@ export default defineContentConfig({
       schema: z.object({
         name: z.string(),
         avatar: z.string(),
-        twitter: z.string().optional()
-      })
-    })
-  }
-})
+        twitter: z.string().optional(),
+      }),
+    }),
+  },
+});
 ```
 
 **Note:** In v3.7.0+, the `z` re-export from `@nuxt/content` was deprecated. Always import from `zod` directly.
@@ -54,7 +54,7 @@ Use Zod (or other validators like Valibot since v3.7+) for type-safe schemas:
 
 ```ts
 // Using Zod
-import { z } from "zod"
+import { z } from "zod";
 
 schema: z.object({
   // Required fields
@@ -76,10 +76,10 @@ schema: z.object({
   author: z
     .object({
       name: z.string(),
-      email: z.string().email()
+      email: z.string().email(),
     })
-    .optional()
-})
+    .optional(),
+});
 ```
 
 **Multi-validator support (v3.7+):** Nuxt Content supports multiple schema validators including Zod v4 and Valibot via the standard schema spec. Import your preferred validator directly.
@@ -117,11 +117,11 @@ export default defineContentConfig({
         include: "docs/content/**",
         prefix: "/docs",
         // Optional: shallow clone for faster fetching (v3.10+)
-        shallow: true
-      }
-    })
-  }
-})
+        shallow: true,
+      },
+    }),
+  },
+});
 ```
 
 **Private repositories:**
@@ -149,19 +149,25 @@ source: {
 Fetch content from any API using `defineCollectionSource`:
 
 ```ts
-import { defineCollection, defineCollectionSource, defineContentConfig } from "@nuxt/content"
-import { z } from "zod"
+import {
+  defineCollection,
+  defineCollectionSource,
+  defineContentConfig,
+} from "@nuxt/content";
+import { z } from "zod";
 
 const apiSource = defineCollectionSource({
   getKeys: async () => {
-    const items = await fetch("https://api.example.com/posts").then((r) => r.json())
-    return items.map((item: { id: string }) => `${item.id}.json`)
+    const items = await fetch("https://api.example.com/posts").then((r) =>
+      r.json(),
+    );
+    return items.map((item: { id: string }) => `${item.id}.json`);
   },
   getItem: async (key: string) => {
-    const id = key.replace(".json", "")
-    return fetch(`https://api.example.com/posts/${id}`).then((r) => r.json())
-  }
-})
+    const id = key.replace(".json", "");
+    return fetch(`https://api.example.com/posts/${id}`).then((r) => r.json());
+  },
+});
 
 export default defineContentConfig({
   collections: {
@@ -170,11 +176,11 @@ export default defineContentConfig({
       source: apiSource,
       schema: z.object({
         title: z.string(),
-        content: z.string()
-      })
-    })
-  }
-})
+        content: z.string(),
+      }),
+    }),
+  },
+});
 ```
 
 ## Path Extraction
@@ -236,9 +242,9 @@ blog: defineCollection({
   schema: z.object({
     category: z.enum(["tech", "life", "news"]),
     date: z.date(),
-    featured: z.boolean().default(false)
-  })
-})
+    featured: z.boolean().default(false),
+  }),
+});
 ```
 
 **Documentation with ordering:**
@@ -249,9 +255,9 @@ docs: defineCollection({
   source: "docs/**/*.md",
   schema: z.object({
     order: z.number().default(999),
-    section: z.string().optional()
-  })
-})
+    section: z.string().optional(),
+  }),
+});
 ```
 
 **Schema extension and inheritance (v3.8+):**
@@ -260,34 +266,34 @@ docs: defineCollection({
 // Base schema with common fields
 const baseSchema = z.object({
   title: z.string(),
-  description: z.string().optional()
-})
+  description: z.string().optional(),
+});
 
 // Extended schema with additional properties
 const blogSchema = baseSchema.extend({
   author: z.string(),
   date: z.date(), // Auto-cast to date string in v3.11+
-  tags: z.array(z.string()).optional()
-})
+  tags: z.array(z.string()).optional(),
+});
 
 blog: defineCollection({
   type: "page",
   source: "blog/**/*.md",
-  schema: blogSchema
-})
+  schema: blogSchema,
+});
 ```
 
 **Hidden properties in editor (v3.11+):**
 
 ```ts
 // Define properties that exist in content but shouldn't be shown in the editor UI
-import { property } from "@nuxt/content"
+import { property } from "@nuxt/content";
 
 schema: z.object({
   title: z.string(),
   // Hidden from editor without redefining validation
-  internalId: property(z.string()).hidden()
-})
+  internalId: property(z.string()).hidden(),
+});
 ```
 
 **Raw content access:**
@@ -298,9 +304,9 @@ docs: defineCollection({
   type: "page",
   source: "**/*.md",
   schema: z.object({
-    rawbody: z.string() // Auto-filled with raw markdown
-  })
-})
+    rawbody: z.string(), // Auto-filled with raw markdown
+  }),
+});
 // Exclude per-file: add `rawbody: ''` in frontmatter
 ```
 
@@ -308,36 +314,36 @@ docs: defineCollection({
 
 ```ts
 // content.config.ts - separate collection per language
-import { defineCollection, defineContentConfig } from "@nuxt/content"
-import { z } from "zod"
+import { defineCollection, defineContentConfig } from "@nuxt/content";
+import { z } from "zod";
 
-const commonSchema = z.object({ title: z.string() })
+const commonSchema = z.object({ title: z.string() });
 
 export default defineContentConfig({
   collections: {
     content_en: defineCollection({
       type: "page",
       source: { include: "en/**", prefix: "" },
-      schema: commonSchema
+      schema: commonSchema,
     }),
     content_fr: defineCollection({
       type: "page",
       source: { include: "fr/**", prefix: "" },
-      schema: commonSchema
-    })
-  }
-})
+      schema: commonSchema,
+    }),
+  },
+});
 
 // pages/[...slug].vue
-const collection = `content_${locale.value}` as keyof Collections
-const page = await queryCollection(collection).path(slug).first()
+const collection = `content_${locale.value}` as keyof Collections;
+const page = await queryCollection(collection).path(slug).first();
 ```
 
 **Inherit component prop types (v3.7+):**
 
 ```ts
-import { defineCollection, defineContentConfig, property } from "@nuxt/content"
-import { z } from "zod"
+import { defineCollection, defineContentConfig, property } from "@nuxt/content";
+import { z } from "zod";
 
 defineCollection({
   type: "page",
@@ -345,9 +351,9 @@ defineCollection({
   schema: z.object({
     // Use property().inherit() to inherit Vue component props
     hero: property(z.object({})).inherit("app/components/HeroComponent.vue"),
-    title: z.string()
-  })
-})
+    title: z.string(),
+  }),
+});
 ```
 
 This allows schema fields to automatically match Vue component prop types.

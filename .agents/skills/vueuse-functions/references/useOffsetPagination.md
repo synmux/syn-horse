@@ -9,21 +9,35 @@ Reactive offset pagination.
 ## Usage
 
 ```ts
-import { useOffsetPagination } from "@vueuse/core"
+import { useOffsetPagination } from "@vueuse/core";
 
-function fetchData({ currentPage, currentPageSize }: { currentPage: number; currentPageSize: number }) {
+function fetchData({
+  currentPage,
+  currentPageSize,
+}: {
+  currentPage: number;
+  currentPageSize: number;
+}) {
   fetch(currentPage, currentPageSize).then((responseData) => {
-    data.value = responseData
-  })
+    data.value = responseData;
+  });
 }
 
-const { currentPage, currentPageSize, pageCount, isFirstPage, isLastPage, prev, next } = useOffsetPagination({
+const {
+  currentPage,
+  currentPageSize,
+  pageCount,
+  isFirstPage,
+  isLastPage,
+  prev,
+  next,
+} = useOffsetPagination({
   total: database.value.length,
   page: 1,
   pageSize: 10,
   onPageChange: fetchData,
-  onPageSizeChange: fetchData
-})
+  onPageSizeChange: fetchData,
+});
 ```
 
 ## Component Usage
@@ -31,7 +45,15 @@ const { currentPage, currentPageSize, pageCount, isFirstPage, isLastPage, prev, 
 ```vue
 <template>
   <UseOffsetPagination
-    v-slot="{ currentPage, currentPageSize, next, prev, pageCount, isFirstPage, isLastPage }"
+    v-slot="{
+      currentPage,
+      currentPageSize,
+      next,
+      prev,
+      pageCount,
+      isFirstPage,
+      isLastPage,
+    }"
     :total="database.length"
     @page-change="fetchData"
     @page-size-change="fetchData"
@@ -65,7 +87,15 @@ event listener:
 ```vue
 <template>
   <UseOffsetPagination
-    v-slot="{ currentPage, currentPageSize, next, prev, pageCount, isFirstPage, isLastPage }"
+    v-slot="{
+      currentPage,
+      currentPageSize,
+      next,
+      prev,
+      pageCount,
+      isFirstPage,
+      isLastPage,
+    }"
     :total="database.length"
     @page-change="fetchData"
     @page-size-change="fetchData"
@@ -81,7 +111,15 @@ or props event callback:
 ```vue
 <template>
   <UseOffsetPagination
-    v-slot="{ currentPage, currentPageSize, next, prev, pageCount, isFirstPage, isLastPage }"
+    v-slot="{
+      currentPage,
+      currentPageSize,
+      next,
+      prev,
+      pageCount,
+      isFirstPage,
+      isLastPage,
+    }"
     :total="database.length"
     :on-page-change="fetchData"
     :on-page-size-change="fetchData"
@@ -99,42 +137,53 @@ export interface UseOffsetPaginationOptions {
   /**
    * Total number of items.
    */
-  total?: MaybeRefOrGetter<number>
+  total?: MaybeRefOrGetter<number>;
   /**
    * The number of items to display per page.
    * @default 10
    */
-  pageSize?: MaybeRefOrGetter<number>
+  pageSize?: MaybeRefOrGetter<number>;
   /**
    * The current page number.
    * @default 1
    */
-  page?: MaybeRef<number>
+  page?: MaybeRef<number>;
   /**
    * Callback when the `page` change.
    */
-  onPageChange?: (returnValue: UnwrapNestedRefs<UseOffsetPaginationReturn>) => unknown
+  onPageChange?: (
+    returnValue: UnwrapNestedRefs<UseOffsetPaginationReturn>,
+  ) => unknown;
   /**
    * Callback when the `pageSize` change.
    */
-  onPageSizeChange?: (returnValue: UnwrapNestedRefs<UseOffsetPaginationReturn>) => unknown
+  onPageSizeChange?: (
+    returnValue: UnwrapNestedRefs<UseOffsetPaginationReturn>,
+  ) => unknown;
   /**
    * Callback when the `pageCount` change.
    */
-  onPageCountChange?: (returnValue: UnwrapNestedRefs<UseOffsetPaginationReturn>) => unknown
+  onPageCountChange?: (
+    returnValue: UnwrapNestedRefs<UseOffsetPaginationReturn>,
+  ) => unknown;
 }
 export interface UseOffsetPaginationReturn {
-  currentPage: Ref<number>
-  currentPageSize: Ref<number>
-  pageCount: ComputedRef<number>
-  isFirstPage: ComputedRef<boolean>
-  isLastPage: ComputedRef<boolean>
-  prev: () => void
-  next: () => void
+  currentPage: Ref<number>;
+  currentPageSize: Ref<number>;
+  pageCount: ComputedRef<number>;
+  isFirstPage: ComputedRef<boolean>;
+  isLastPage: ComputedRef<boolean>;
+  prev: () => void;
+  next: () => void;
 }
-export type UseOffsetPaginationInfinityPageReturn = Omit<UseOffsetPaginationReturn, "isLastPage">
+export type UseOffsetPaginationInfinityPageReturn = Omit<
+  UseOffsetPaginationReturn,
+  "isLastPage"
+>;
 export declare function useOffsetPagination(
-  options: Omit<UseOffsetPaginationOptions, "total">
-): UseOffsetPaginationInfinityPageReturn
-export declare function useOffsetPagination(options: UseOffsetPaginationOptions): UseOffsetPaginationReturn
+  options: Omit<UseOffsetPaginationOptions, "total">,
+): UseOffsetPaginationInfinityPageReturn;
+export declare function useOffsetPagination(
+  options: UseOffsetPaginationOptions,
+): UseOffsetPaginationReturn;
 ```

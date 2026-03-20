@@ -15,13 +15,13 @@
 
 ```javascript
 // ❌ Body consumed twice
-const body = await request.text()
-await fetch(url, { body: request.body }) // Error!
+const body = await request.text();
+await fetch(url, { body: request.body }); // Error!
 
 // ✅ Clone first
-const clone = request.clone()
-const body = await request.text()
-await fetch(url, { body: clone.body })
+const clone = request.clone();
+const body = await request.text();
+await fetch(url, { body: clone.body });
 ```
 
 ### "Worker exceeded CPU time"
@@ -82,7 +82,7 @@ try { ... } catch (e) {
 ## Debugging
 
 ```javascript
-console.log("URL:", request.url) // View in browser DevTools Console
+console.log("URL:", request.url); // View in browser DevTools Console
 ```
 
 **Note:** `console.log` works in playground. For production, use Logpush or Tail Workers.

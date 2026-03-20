@@ -11,18 +11,18 @@
     "bindings": [
       {
         "name": "MY_DO", // Env binding name
-        "class_name": "MyDO" // Class exported from this worker
+        "class_name": "MyDO", // Class exported from this worker
       },
       {
         "name": "EXTERNAL", // Access DO from another worker
         "class_name": "ExternalDO",
-        "script_name": "other-worker"
-      }
-    ]
+        "script_name": "other-worker",
+      },
+    ],
   },
   "migrations": [
-    { "tag": "v1", "new_sqlite_classes": ["MyDO"] } // Prefer SQLite
-  ]
+    { "tag": "v1", "new_sqlite_classes": ["MyDO"] }, // Prefer SQLite
+  ],
 }
 ```
 
@@ -33,7 +33,7 @@
   "name": "BINDING_NAME",
   "class_name": "ClassName",
   "script_name": "other-worker", // Optional: external DO
-  "environment": "production" // Optional: isolate by env
+  "environment": "production", // Optional: isolate by env
 }
 ```
 
@@ -43,14 +43,14 @@ Specify jurisdiction at ID creation for data residency compliance:
 
 ```typescript
 // EU data residency
-const id = env.MY_DO.idFromName("user:123", { jurisdiction: "eu" })
+const id = env.MY_DO.idFromName("user:123", { jurisdiction: "eu" });
 
 // Available jurisdictions
-const jurisdictions = ["eu", "fedramp"] // More may be added
+const jurisdictions = ["eu", "fedramp"]; // More may be added
 
 // All operations on this DO stay within jurisdiction
-const stub = env.MY_DO.get(id)
-await stub.someMethod() // Data stays in EU
+const stub = env.MY_DO.get(id);
+await stub.someMethod(); // Data stays in EU
 ```
 
 **Key points:**
@@ -71,10 +71,12 @@ await stub.someMethod() // Data stays in EU
     { "tag": "v2", "renamed_classes": [{ "from": "Old", "to": "New" }] },
     {
       "tag": "v3",
-      "transferred_classes": [{ "from": "Src", "from_script": "old", "to": "Dest" }]
+      "transferred_classes": [
+        { "from": "Src", "from_script": "old", "to": "Dest" },
+      ],
     },
-    { "tag": "v4", "deleted_classes": ["Obsolete"] } // Destroys ALL data!
-  ]
+    { "tag": "v4", "deleted_classes": ["Obsolete"] }, // Destroys ALL data!
+  ],
 }
 ```
 
@@ -93,7 +95,7 @@ Separate DO namespaces per environment (staging/production have distinct object 
 ```jsonc
 {
   "durable_objects": {
-    "bindings": [{ "name": "MY_DO", "class_name": "MyDO" }]
+    "bindings": [{ "name": "MY_DO", "class_name": "MyDO" }],
   },
   "env": {
     "production": {
@@ -102,12 +104,12 @@ Separate DO namespaces per environment (staging/production have distinct object 
           {
             "name": "MY_DO",
             "class_name": "MyDO",
-            "environment": "production"
-          }
-        ]
-      }
-    }
-  }
+            "environment": "production",
+          },
+        ],
+      },
+    },
+  },
 }
 ```
 
@@ -118,8 +120,8 @@ Deploy: `npx wrangler deploy --env production`
 ```jsonc
 {
   "limits": {
-    "cpu_ms": 300000 // Max CPU time: 30s default, 300s max
-  }
+    "cpu_ms": 300000, // Max CPU time: 30s default, 300s max
+  },
 }
 ```
 
@@ -128,20 +130,20 @@ See [Gotchas](./gotchas.md) for complete limits table.
 ## Types
 
 ```typescript
-import { DurableObject } from "cloudflare:workers"
+import { DurableObject } from "cloudflare:workers";
 
 interface Env {
-  MY_DO: DurableObjectNamespace<MyDO>
+  MY_DO: DurableObjectNamespace<MyDO>;
 }
 
 export class MyDO extends DurableObject<Env> {}
 
 type DurableObjectNamespace<T> = {
-  newUniqueId(options?: { jurisdiction?: string }): DurableObjectId
-  idFromName(name: string): DurableObjectId
-  idFromString(id: string): DurableObjectId
-  get(id: DurableObjectId): DurableObjectStub<T>
-}
+  newUniqueId(options?: { jurisdiction?: string }): DurableObjectId;
+  idFromName(name: string): DurableObjectId;
+  idFromString(id: string): DurableObjectId;
+  get(id: DurableObjectId): DurableObjectStub<T>;
+};
 ```
 
 ## Commands

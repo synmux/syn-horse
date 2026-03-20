@@ -41,8 +41,8 @@ STREAM_CUSTOMER_CODE=your-customer-code
   "main": "src/index.ts",
   "compatibility_date": "2025-01-01", // Use current date for new projects
   "vars": {
-    "CF_ACCOUNT_ID": "your-account-id"
-  }
+    "CF_ACCOUNT_ID": "your-account-id",
+  },
   // Store secrets: wrangler secret put CF_API_TOKEN
   // wrangler secret put STREAM_KEY_ID
   // wrangler secret put STREAM_JWK
@@ -100,14 +100,14 @@ const uploadConfig = {
   expiry: new Date(Date.now() + 3600000).toISOString(),
   requireSignedURLs: true,
   allowedOrigins: ["https://yourdomain.com"],
-  meta: { creator: "user-123" }
-}
+  meta: { creator: "user-123" },
+};
 
 // Live input
 const liveConfig = {
   recording: { mode: "automatic", timeoutSeconds: 30 },
-  deleteRecordingAfterDays: 30
-}
+  deleteRecordingAfterDays: 30,
+};
 
 // Watermark
 const watermark = {
@@ -115,8 +115,8 @@ const watermark = {
   opacity: 0.7,
   padding: 20,
   position: "lowerRight",
-  scale: 0.15
-}
+  scale: 0.15,
+};
 ```
 
 ## Access Rules & Player Config
@@ -125,16 +125,16 @@ const watermark = {
 // Access rules: allow US/CA, block CN/RU, or IP allowlist
 const geoRestrict = [
   { type: "ip.geoip.country", action: "allow", country: ["US", "CA"] },
-  { type: "any", action: "block" }
-]
+  { type: "any", action: "block" },
+];
 
 // Player params for iframe
 const playerParams = new URLSearchParams({
   autoplay: "true",
   muted: "true",
   preload: "auto",
-  defaultTextTrack: "en"
-})
+  defaultTextTrack: "en",
+});
 ```
 
 ## In This Reference

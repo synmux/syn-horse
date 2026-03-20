@@ -8,9 +8,9 @@ Runtime error or syntax error. Wrap code in try/catch:
 
 ```javascript
 try {
-  return await fetch(request)
+  return await fetch(request);
 } catch (error) {
-  return new Response(`Error: ${error.message}`, { status: 500 })
+  return new Response(`Error: ${error.message}`, { status: 500 });
 }
 ```
 
@@ -24,10 +24,10 @@ Call `fetch(request)` exactly once:
 
 ```javascript
 // ❌ Multiple origin fetches
-const r1 = await fetch(request)
-const r2 = await fetch(request)
+const r1 = await fetch(request);
+const r2 = await fetch(request);
 // ✅ Single fetch, reuse response
-const response = await fetch(request)
+const response = await fetch(request);
 ```
 
 ### 1202: "Subrequest limit exceeded"
@@ -39,8 +39,8 @@ Pro: 2 subrequests, Business/Enterprise: 5. Reduce fetch calls.
 Clone before modifying:
 
 ```javascript
-const modifiedRequest = new Request(request)
-modifiedRequest.headers.set("X-Custom", "value")
+const modifiedRequest = new Request(request);
+modifiedRequest.headers.set("X-Custom", "value");
 ```
 
 ### "caches is not defined"
@@ -70,7 +70,7 @@ Snippets don't support `import`. Use inline code or Workers.
 ### Debugging
 
 ```javascript
-newResponse.headers.set("X-Debug-Country", request.cf.country)
+newResponse.headers.set("X-Debug-Country", request.cf.country);
 ```
 
 ```bash

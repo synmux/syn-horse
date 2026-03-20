@@ -13,8 +13,8 @@ const app = await client.spectrum.apps.create({
   dns: { type: "CNAME", name: "ssh.example.com" },
   origin_direct: ["tcp://192.0.2.1:22"],
   ip_firewall: true,
-  tls: "off"
-})
+  tls: "off",
+});
 ```
 
 **Terraform:**
@@ -49,8 +49,8 @@ const app = await client.spectrum.apps.create({
   dns: { type: "CNAME", name: "db.example.com" },
   origin_dns: { name: "db-primary.internal.example.com" },
   origin_port: 3306,
-  tls: "full"
-})
+  tls: "full",
+});
 ```
 
 **Terraform:**
@@ -124,8 +124,8 @@ const app = await client.spectrum.apps.create({
   protocol: "tcp/3306",
   dns: { type: "CNAME", name: "db.example.com" },
   origin_direct: ["tcp://192.0.2.1:3306"],
-  tls: "strict" // Validates origin certificate
-})
+  tls: "strict", // Validates origin certificate
+});
 ```
 
 ## Proxy Protocol
@@ -150,8 +150,8 @@ Forwards real client IP to origin. Origin must support parsing.
 ```typescript
 const app = await client.spectrum.apps.create({
   // ...
-  proxy_protocol: "v1" // Origin must parse PROXY header
-})
+  proxy_protocol: "v1", // Origin must parse PROXY header
+});
 ```
 
 **Origin Config (nginx):**
@@ -172,8 +172,8 @@ Enable `ip_firewall: true` then configure zone-level firewall rules.
 ```typescript
 const app = await client.spectrum.apps.create({
   // ...
-  ip_firewall: true // Applies zone firewall rules
-})
+  ip_firewall: true, // Applies zone firewall rules
+});
 ```
 
 ## Port Ranges (Enterprise Only)

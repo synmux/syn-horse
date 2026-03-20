@@ -38,8 +38,8 @@ wrangler secret put OPENAI_API_KEY  # If not using BYOK
 ```typescript
 const client = new OpenAI({
   baseURL: `https://gateway.ai.cloudflare.com/v1/${accountId}/${gatewayId}/openai`,
-  defaultHeaders: { "cf-aig-authorization": `Bearer ${cfToken}` }
-})
+  defaultHeaders: { "cf-aig-authorization": `Bearer ${cfToken}` },
+});
 ```
 
 ### Provider Auth Options
@@ -49,8 +49,8 @@ const client = new OpenAI({
 ```typescript
 const client = new OpenAI({
   baseURL: `https://gateway.ai.cloudflare.com/v1/${accountId}/${gatewayId}/openai`,
-  defaultHeaders: { "cf-aig-authorization": `Bearer ${cfToken}` }
-})
+  defaultHeaders: { "cf-aig-authorization": `Bearer ${cfToken}` },
+});
 ```
 
 Supports: OpenAI, Anthropic, Google AI Studio
@@ -63,8 +63,8 @@ Supports: OpenAI, Anthropic, Google AI Studio
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
   baseURL: `https://gateway.ai.cloudflare.com/v1/${accountId}/${gatewayId}/openai`,
-  defaultHeaders: { "cf-aig-authorization": `Bearer ${cfToken}` }
-})
+  defaultHeaders: { "cf-aig-authorization": `Bearer ${cfToken}` },
+});
 ```
 
 ## API Token Permissions

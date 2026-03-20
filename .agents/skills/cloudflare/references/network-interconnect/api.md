@@ -89,9 +89,9 @@ await client.magicTransit.tunnels.update(accountId, tunnelId, {
     enabled: true,
     target: "192.0.2.1",
     rate: "high",
-    type: "request"
-  }
-})
+    type: "request",
+  },
+});
 ```
 
 Rates: `high` | `medium` | `low`. Types: `request` | `reply`. See [Magic Transit docs](https://developers.cloudflare.com/magic-transit/how-to/configure-tunnel-endpoints/#add-tunnels).
@@ -108,12 +108,12 @@ Body: `default_asn`
 ## TypeScript SDK
 
 ```typescript
-import Cloudflare from "cloudflare"
+import Cloudflare from "cloudflare";
 
-const client = new Cloudflare({ apiToken: process.env.CF_TOKEN })
+const client = new Cloudflare({ apiToken: process.env.CF_TOKEN });
 
 // List
-await client.networkInterconnects.interconnects.list({ account_id: id })
+await client.networkInterconnects.interconnects.list({ account_id: id });
 
 // Create with validation
 await client.networkInterconnects.interconnects.create(
@@ -124,12 +124,12 @@ await client.networkInterconnects.interconnects.create(
     type: "direct",
     facility: "EWR1",
     speed: "10G",
-    name: "prod-interconnect"
+    name: "prod-interconnect",
   },
   {
-    query: { validate_only: true } // Dry-run validation
-  }
-)
+    query: { validate_only: true }, // Dry-run validation
+  },
+);
 
 // Create without validation
 await client.networkInterconnects.interconnects.create({
@@ -139,17 +139,20 @@ await client.networkInterconnects.interconnects.create({
   type: "direct",
   facility: "EWR1",
   speed: "10G",
-  name: "prod-interconnect"
-})
+  name: "prod-interconnect",
+});
 
 // Status
-await client.networkInterconnects.interconnects.get(accountId, iconId)
+await client.networkInterconnects.interconnects.get(accountId, iconId);
 
 // LOA (use fetch)
-const res = await fetch(`https://api.cloudflare.com/client/v4/accounts/${id}/cni/interconnects/${iconId}/loa`, {
-  headers: { Authorization: `Bearer ${token}` }
-})
-await fs.writeFile("loa.pdf", Buffer.from(await res.arrayBuffer()))
+const res = await fetch(
+  `https://api.cloudflare.com/client/v4/accounts/${id}/cni/interconnects/${iconId}/loa`,
+  {
+    headers: { Authorization: `Bearer ${token}` },
+  },
+);
+await fs.writeFile("loa.pdf", Buffer.from(await res.arrayBuffer()));
 
 // CNI object
 await client.networkInterconnects.cnis.create({
@@ -158,16 +161,16 @@ await client.networkInterconnects.cnis.create({
   cust_ip: "192.0.2.1/31",
   cf_ip: "192.0.2.0/31",
   bgp_asn: 65000,
-  vlan: 100
-})
+  vlan: 100,
+});
 
 // Slots (filter by facility and speed)
 await client.networkInterconnects.slots.list({
   account_id: id,
   occupied: false,
   facility: "EWR1",
-  speed: "10G"
-})
+  speed: "10G",
+});
 ```
 
 ## Python SDK

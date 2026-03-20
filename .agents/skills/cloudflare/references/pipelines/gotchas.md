@@ -14,10 +14,10 @@
 **Solution:** Validate client-side with Zod:
 
 ```typescript
-const EventSchema = z.object({ user_id: z.string(), amount: z.number() })
+const EventSchema = z.object({ user_id: z.string(), amount: z.number() });
 try {
-  const validated = EventSchema.parse(rawEvent)
-  await env.STREAM.send([validated])
+  const validated = EventSchema.parse(rawEvent);
+  await env.STREAM.send([validated]);
 } catch (e) {
   /* get immediate feedback */
 }

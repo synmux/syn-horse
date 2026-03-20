@@ -13,16 +13,16 @@ await client.rulesets.create({
     {
       action: "execute",
       action_parameters: {
-        id: "efb7b8c949ac4650a09736fc376e9aee" // Cloudflare Managed
+        id: "efb7b8c949ac4650a09736fc376e9aee", // Cloudflare Managed
         // Or: '4814384a9e5d4991b9815dcfc25d2f1f' for OWASP CRS
         // Or: 'c2e184081120413c86c3ab7e14069605' for Exposed Credentials
       },
       expression: "true", // All requests
       // Or: 'http.request.uri.path starts_with "/api"' for specific paths
-      enabled: true
-    }
-  ]
-})
+      enabled: true,
+    },
+  ],
+});
 ```
 
 ## Override Managed Ruleset
@@ -40,19 +40,19 @@ await client.rulesets.create({
           // Override specific rules
           rules: [
             { id: "5de7edfa648c4d6891dc3e7f84534ffa", action: "log" },
-            { id: "75a0060762034b9dad4e883afc121b4c", enabled: false }
+            { id: "75a0060762034b9dad4e883afc121b4c", enabled: false },
           ],
           // Override categories: wordpress, sqli, xss, rce, etc.
           categories: [
             { category: "wordpress", enabled: false },
-            { category: "sqli", action: "log" }
-          ]
-        }
+            { category: "sqli", action: "log" },
+          ],
+        },
       },
-      expression: "true"
-    }
-  ]
-})
+      expression: "true",
+    },
+  ],
+});
 ```
 
 ## Custom Rules
@@ -72,17 +72,17 @@ await client.rulesets.create({
     {
       action: "block",
       expression: "cf.waf.score.sqli gt 30 or cf.waf.score.xss gt 30",
-      enabled: true
+      enabled: true,
     },
 
     // Geographic blocking
     {
       action: "block",
       expression: 'ip.geoip.country in {"CN" "RU"}',
-      enabled: true
-    }
-  ]
-})
+      enabled: true,
+    },
+  ],
+});
 ```
 
 ## Rate Limiting
@@ -103,9 +103,9 @@ await client.rulesets.create({
           characteristics: ["cf.colo.id", "ip.src"],
           period: 60,
           requests_per_period: 100,
-          mitigation_timeout: 600
-        }
-      }
+          mitigation_timeout: 600,
+        },
+      },
     },
 
     // Login endpoint (stricter)
@@ -117,9 +117,9 @@ await client.rulesets.create({
           characteristics: ["ip.src"],
           period: 60,
           requests_per_period: 5,
-          mitigation_timeout: 600
-        }
-      }
+          mitigation_timeout: 600,
+        },
+      },
     },
 
     // API writes only (using counting_expression)
@@ -131,12 +131,12 @@ await client.rulesets.create({
           characteristics: ["cf.colo.id", "ip.src"],
           period: 60,
           requests_per_period: 50,
-          counting_expression: 'http.request.method ne "GET"'
-        }
-      }
-    }
-  ]
-})
+          counting_expression: 'http.request.method ne "GET"',
+        },
+      },
+    },
+  ],
+});
 ```
 
 ## Skip Rules
@@ -152,19 +152,19 @@ await client.rulesets.create({
     {
       action: "skip",
       action_parameters: { ruleset: "current" },
-      expression: 'http.request.uri.path matches "\\.(jpg|css|js|woff2?)$"'
+      expression: 'http.request.uri.path matches "\\.(jpg|css|js|woff2?)$"',
     },
 
     // Skip all WAF phases for trusted IPs
     {
       action: "skip",
       action_parameters: {
-        phases: ["http_request_firewall_managed", "http_ratelimit"]
+        phases: ["http_request_firewall_managed", "http_ratelimit"],
       },
-      expression: "ip.src in {192.0.2.0/24}"
-    }
-  ]
-})
+      expression: "ip.src in {192.0.2.0/24}",
+    },
+  ],
+});
 ```
 
 ## Complete Setup Example
@@ -172,8 +172,8 @@ await client.rulesets.create({
 Combine all three phases for comprehensive protection:
 
 ```typescript
-const client = new Cloudflare({ apiToken: process.env.CF_API_TOKEN })
-const zoneId = process.env.ZONE_ID
+const client = new Cloudflare({ apiToken: process.env.CF_API_TOKEN });
+const zoneId = process.env.ZONE_ID;
 
 // 1. Custom rules (execute first)
 await client.rulesets.create({
@@ -183,14 +183,14 @@ await client.rulesets.create({
     {
       action: "skip",
       action_parameters: {
-        phases: ["http_request_firewall_managed", "http_ratelimit"]
+        phases: ["http_request_firewall_managed", "http_ratelimit"],
       },
-      expression: "ip.src in {192.0.2.0/24}"
+      expression: "ip.src in {192.0.2.0/24}",
     },
     { action: "block", expression: "cf.waf.score gt 50" },
-    { action: "managed_challenge", expression: "cf.waf.score gt 20" }
-  ]
-})
+    { action: "managed_challenge", expression: "cf.waf.score gt 20" },
+  ],
+});
 
 // 2. Managed ruleset (execute second)
 await client.rulesets.create({
@@ -201,12 +201,12 @@ await client.rulesets.create({
       action: "execute",
       action_parameters: {
         id: "efb7b8c949ac4650a09736fc376e9aee",
-        overrides: { categories: [{ category: "wordpress", enabled: false }] }
+        overrides: { categories: [{ category: "wordpress", enabled: false }] },
       },
-      expression: "true"
-    }
-  ]
-})
+      expression: "true",
+    },
+  ],
+});
 
 // 3. Rate limiting (execute third)
 await client.rulesets.create({
@@ -221,9 +221,9 @@ await client.rulesets.create({
           characteristics: ["cf.colo.id", "ip.src"],
           period: 60,
           requests_per_period: 100,
-          mitigation_timeout: 600
-        }
-      }
+          mitigation_timeout: 600,
+        },
+      },
     },
     {
       action: "block",
@@ -233,10 +233,10 @@ await client.rulesets.create({
           characteristics: ["ip.src"],
           period: 60,
           requests_per_period: 5,
-          mitigation_timeout: 600
-        }
-      }
-    }
-  ]
-})
+          mitigation_timeout: 600,
+        },
+      },
+    },
+  ],
+});
 ```

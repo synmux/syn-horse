@@ -18,10 +18,14 @@ export default defineNuxtConfig({
       filename: ".data/content.db",
       // Optional: add database indexes for better query performance (v3.10+)
       // Recommended for large sites or frequently queried fields
-      indexes: [{ fields: ["path"] }, { fields: ["date", "draft"] }, { fields: ["category"] }]
-    }
-  }
-})
+      indexes: [
+        { fields: ["path"] },
+        { fields: ["date", "draft"] },
+        { fields: ["category"] },
+      ],
+    },
+  },
+});
 ```
 
 ### PostgreSQL
@@ -31,10 +35,10 @@ export default defineNuxtConfig({
   content: {
     database: {
       type: "postgresql",
-      url: process.env.DATABASE_URL
-    }
-  }
-})
+      url: process.env.DATABASE_URL,
+    },
+  },
+});
 ```
 
 ### Cloudflare D1
@@ -44,10 +48,10 @@ export default defineNuxtConfig({
   content: {
     database: {
       type: "d1",
-      bindingName: "DB" // Matches wrangler.toml binding
-    }
-  }
-})
+      bindingName: "DB", // Matches wrangler.toml binding
+    },
+  },
+});
 ```
 
 ### LibSQL / Turso
@@ -58,10 +62,10 @@ export default defineNuxtConfig({
     database: {
       type: "libsql",
       url: process.env.TURSO_URL,
-      authToken: process.env.TURSO_AUTH_TOKEN
-    }
-  }
-})
+      authToken: process.env.TURSO_AUTH_TOKEN,
+    },
+  },
+});
 ```
 
 ### PGlite (In-memory)
@@ -70,10 +74,10 @@ export default defineNuxtConfig({
 export default defineNuxtConfig({
   content: {
     database: {
-      type: "pglite"
-    }
-  }
-})
+      type: "pglite",
+    },
+  },
+});
 ```
 
 ## Local Development Database
@@ -85,15 +89,15 @@ export default defineNuxtConfig({
   content: {
     database: {
       type: "d1",
-      bindingName: "DB"
+      bindingName: "DB",
     },
     // Dev-only SQLite
     _localDatabase: {
       type: "sqlite",
-      filename: ".data/content-dev.db"
-    }
-  }
-})
+      filename: ".data/content-dev.db",
+    },
+  },
+});
 ```
 
 ## Markdown Configuration
@@ -106,7 +110,7 @@ export default defineNuxtConfig({
         // Table of contents
         toc: {
           depth: 3, // Max heading depth
-          searchDepth: 2 // Search depth in tree
+          searchDepth: 2, // Search depth in tree
         },
 
         // Extract title from first H1
@@ -115,26 +119,26 @@ export default defineNuxtConfig({
         // Remark plugins (markdown → mdast)
         remarkPlugins: {
           "remark-emoji": {},
-          "remark-gfm": { singleTilde: false }
+          "remark-gfm": { singleTilde: false },
         },
 
         // Rehype plugins (mdast → hast)
         rehypePlugins: {
           "rehype-external-links": {
             target: "_blank",
-            rel: ["noopener", "noreferrer"]
-          }
+            rel: ["noopener", "noreferrer"],
+          },
         },
 
         // Code highlighting
         highlight: {
           theme: "github-dark",
-          langs: ["js", "ts", "vue", "css", "html", "bash", "yaml", "json"]
-        }
-      }
-    }
-  }
-})
+          langs: ["js", "ts", "vue", "css", "html", "bash", "yaml", "json"],
+        },
+      },
+    },
+  },
+});
 ```
 
 ## Highlight Themes
@@ -170,7 +174,7 @@ export default defineNuxtConfig({
       alias: {
         p: "MyParagraph",
         h2: "MyHeading2",
-        code: "MyCodeBlock"
+        code: "MyCodeBlock",
       },
 
       // Anchor links per heading level
@@ -180,11 +184,11 @@ export default defineNuxtConfig({
         h3: true,
         h4: false,
         h5: false,
-        h6: false
-      }
-    }
-  }
-})
+        h6: false,
+      },
+    },
+  },
+});
 ```
 
 ## File Type Configuration
@@ -199,10 +203,10 @@ export default defineNuxtConfig({
         // YAML parser options
       },
       // Or disable YAML parsing
-      yaml: false
-    }
-  }
-})
+      yaml: false,
+    },
+  },
+});
 ```
 
 ### CSV
@@ -213,11 +217,11 @@ export default defineNuxtConfig({
     build: {
       csv: {
         json: true, // Parse as JSON objects
-        delimiter: "," // Column delimiter
-      }
-    }
-  }
-})
+        delimiter: ",", // Column delimiter
+      },
+    },
+  },
+});
 ```
 
 ## Experimental Options
@@ -231,10 +235,10 @@ export default defineNuxtConfig({
 
       // Specify SQLite connector (v3.6+)
       // 'better-sqlite3' moved to peer dependency in v3.6.0
-      sqliteConnector: "better-sqlite3" // or 'native' (Node 22+), 'sqlite3'
-    }
-  }
-})
+      sqliteConnector: "better-sqlite3", // or 'native' (Node 22+), 'sqlite3'
+    },
+  },
+});
 ```
 
 **Note:** Starting v3.6.0, `better-sqlite3` is a peer dependency. The module will prompt you to install your preferred SQLite connector on first run.
@@ -246,25 +250,25 @@ export default defineNuxtConfig({
   content: {
     database: {
       type: "sqlite",
-      filename: ".data/content.db"
+      filename: ".data/content.db",
     },
     build: {
       markdown: {
         toc: { depth: 3, searchDepth: 2 },
         remarkPlugins: {
-          "remark-gfm": {}
+          "remark-gfm": {},
         },
         highlight: {
           themes: { default: "github-light", dark: "github-dark" },
-          langs: ["vue", "ts", "bash", "yaml", "json"]
-        }
-      }
+          langs: ["vue", "ts", "bash", "yaml", "json"],
+        },
+      },
     },
     renderer: {
-      anchorLinks: { h2: true, h3: true }
-    }
-  }
-})
+      anchorLinks: { h2: true, h3: true },
+    },
+  },
+});
 ```
 
 ## Environment Variables
@@ -294,26 +298,26 @@ export default defineNuxtConfig({
     "content:file:beforeParse": function (ctx) {
       // Modify raw content before parsing
       if (ctx.file.id.endsWith(".md")) {
-        ctx.file.body = ctx.file.body.replace(/oldTerm/gi, "newTerm")
+        ctx.file.body = ctx.file.body.replace(/oldTerm/gi, "newTerm");
       }
     },
     "content:file:afterParse": function (ctx) {
       // Add computed fields after parsing
-      const wordCount = ctx.file.body?.split(/\s+/).length || 0
-      ctx.content.readingTime = Math.ceil(wordCount / 180)
+      const wordCount = ctx.file.body?.split(/\s+/).length || 0;
+      ctx.content.readingTime = Math.ceil(wordCount / 180);
     },
     "content:document:generated": function (ctx) {
       // Hook fires when auto-generated markdown versions are created (v3.11+)
       // Use to modify or process generated markdown
-    }
-  }
-})
+    },
+  },
+});
 ```
 
 **Note:** Fields added in `afterParse` must be defined in your collection schema:
 
 ```ts
-schema: z.object({ readingTime: z.number().optional() })
+schema: z.object({ readingTime: z.number().optional() });
 ```
 
 **Date field casting (v3.11+):** Date fields are automatically cast to date strings in proper format.
@@ -332,11 +336,11 @@ export default defineNuxtConfig({
       {
         title: "Docs",
         contentCollection: "docs",
-        contentFilters: [{ field: "draft", operator: "<>", value: true }]
-      }
-    ]
-  }
-})
+        contentFilters: [{ field: "draft", operator: "<>", value: true }],
+      },
+    ],
+  },
+});
 ```
 
 Auto-generates `/llms.txt` for LLM consumption.

@@ -24,18 +24,18 @@ const buttonVariants = cva("base-classes", {
   variants: {
     variant: {
       default: "variant-classes",
-      destructive: "destructive-classes"
+      destructive: "destructive-classes",
     },
     size: {
       default: "size-classes",
-      sm: "small-classes"
-    }
+      sm: "small-classes",
+    },
   },
   defaultVariants: {
     variant: "default",
-    size: "default"
-  }
-})
+    size: "default",
+  },
+});
 ```
 
 #### cn Utility Function
@@ -43,11 +43,11 @@ const buttonVariants = cva("base-classes", {
 The `cn` function combines classes and resolves conflicts:
 
 ```tsx
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 ```
 

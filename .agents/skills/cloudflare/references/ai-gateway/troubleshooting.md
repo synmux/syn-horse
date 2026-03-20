@@ -13,8 +13,8 @@
 ```typescript
 const client = new OpenAI({
   baseURL: `https://gateway.ai.cloudflare.com/v1/${accountId}/${gatewayId}/openai`,
-  defaultHeaders: { "cf-aig-authorization": `Bearer ${CF_API_TOKEN}` }
-})
+  defaultHeaders: { "cf-aig-authorization": `Bearer ${CF_API_TOKEN}` },
+});
 ```
 
 ### 429 Retry Pattern
@@ -23,13 +23,13 @@ const client = new OpenAI({
 async function requestWithRetry(fn, maxRetries = 3) {
   for (let i = 0; i < maxRetries; i++) {
     try {
-      return await fn()
+      return await fn();
     } catch (e) {
       if (e.status === 429 && i < maxRetries - 1) {
-        await new Promise((r) => setTimeout(r, Math.pow(2, i) * 1000))
-        continue
+        await new Promise((r) => setTimeout(r, Math.pow(2, i) * 1000));
+        continue;
       }
-      throw e
+      throw e;
     }
   }
 }
@@ -75,8 +75,8 @@ curl -v https://gateway.ai.cloudflare.com/v1/{account}/{gateway}/openai/models \
 
 ```typescript
 // Check response headers
-console.log("Cache:", response.headers.get("cf-aig-cache-status"))
-console.log("Request ID:", response.headers.get("cf-ray"))
+console.log("Cache:", response.headers.get("cf-aig-cache-status"));
+console.log("Request ID:", response.headers.get("cf-ray"));
 ```
 
 ## Analytics

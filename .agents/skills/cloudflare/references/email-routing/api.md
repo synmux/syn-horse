@@ -6,7 +6,11 @@
 
 ```typescript
 interface ExportedHandler<Env = unknown> {
-  email?(message: ForwardableEmailMessage, env: Env, ctx: ExecutionContext): void | Promise<void>
+  email?(
+    message: ForwardableEmailMessage,
+    env: Env,
+    ctx: ExecutionContext,
+  ): void | Promise<void>;
 }
 ```
 
@@ -16,13 +20,13 @@ Main interface for incoming emails:
 
 ```typescript
 interface ForwardableEmailMessage {
-  readonly from: string // Envelope sender (e.g., "sender@example.com")
-  readonly to: string // Envelope recipient (e.g., "you@yourdomain.com")
-  readonly headers: Headers // Web API Headers object
-  readonly raw: ReadableStream // Raw MIME message stream
+  readonly from: string; // Envelope sender (e.g., "sender@example.com")
+  readonly to: string; // Envelope recipient (e.g., "you@yourdomain.com")
+  readonly headers: Headers; // Web API Headers object
+  readonly raw: ReadableStream; // Raw MIME message stream
 
-  setReject(reason: string): void
-  forward(rcptTo: string, headers?: Headers): Promise<void>
+  setReject(reason: string): void;
+  forward(rcptTo: string, headers?: Headers): Promise<void>;
 }
 ```
 
@@ -46,14 +50,14 @@ Standard Web API Headers interface:
 
 ```typescript
 // Access headers
-const subject = message.headers.get("subject")
-const from = message.headers.get("from")
-const messageId = message.headers.get("message-id")
+const subject = message.headers.get("subject");
+const from = message.headers.get("from");
+const messageId = message.headers.get("message-id");
 
 // Check spam score
-const spamScore = parseFloat(message.headers.get("x-cf-spamh-score") || "0")
+const spamScore = parseFloat(message.headers.get("x-cf-spamh-score") || "0");
 if (spamScore > 5) {
-  message.setReject("Spam detected")
+  message.setReject("Spam detected");
 }
 ```
 
@@ -67,12 +71,12 @@ if (spamScore > 5) {
 
 ```typescript
 // Envelope addresses (routing, auth checks)
-message.from // "bounce@sender.com" (actual sender)
-message.to // "you@yourdomain.com" (your address)
+message.from; // "bounce@sender.com" (actual sender)
+message.to; // "you@yourdomain.com" (your address)
 
 // Header addresses (display, user-facing)
-message.headers.get("from") // "Alice <alice@sender.com>"
-message.headers.get("to") // "Bob <you@yourdomain.com>"
+message.headers.get("from"); // "Alice <alice@sender.com>"
+message.headers.get("to"); // "Bob <you@yourdomain.com>"
 ```
 
 **Use envelope addresses for:**
@@ -96,7 +100,7 @@ Outbound email API for transactional messages.
 ```jsonc
 // wrangler.jsonc
 {
-  "send_email": [{ "name": "EMAIL" }]
+  "send_email": [{ "name": "EMAIL" }],
 }
 ```
 
@@ -104,21 +108,24 @@ Outbound email API for transactional messages.
 
 ```typescript
 interface Env {
-  EMAIL: SendEmail
+  EMAIL: SendEmail;
 }
 
 interface SendEmail {
-  send(message: EmailMessage): Promise<void>
+  send(message: EmailMessage): Promise<void>;
 }
 
 interface EmailMessage {
-  from: string | { name?: string; email: string }
-  to: string | { name?: string; email: string } | Array<string | { name?: string; email: string }>
-  subject: string
-  text?: string
-  html?: string
-  headers?: Headers
-  reply_to?: string | { name?: string; email: string }
+  from: string | { name?: string; email: string };
+  to:
+    | string
+    | { name?: string; email: string }
+    | Array<string | { name?: string; email: string }>;
+  subject: string;
+  text?: string;
+  html?: string;
+  headers?: Headers;
+  reply_to?: string | { name?: string; email: string };
 }
 ```
 
@@ -126,7 +133,7 @@ interface EmailMessage {
 
 ```typescript
 interface Env {
-  EMAIL: SendEmail
+  EMAIL: SendEmail;
 }
 
 export default {
@@ -137,12 +144,12 @@ export default {
       subject: "Your order #12345 has shipped",
       text: "Track your package at: https://track.example.com/12345",
       html: "<p>Track your package at: <a href='https://track.example.com/12345'>View tracking</a></p>",
-      reply_to: { name: "Support", email: "support@yourdomain.com" }
-    })
+      reply_to: { name: "Support", email: "support@yourdomain.com" },
+    });
 
-    return new Response("Email sent")
-  }
-} satisfies ExportedHandler<Env>
+    return new Response("Email sent");
+  },
+} satisfies ExportedHandler<Env>;
 ```
 
 ### SendEmail Constraints

@@ -30,9 +30,9 @@ Ensure `observability.enabled = true`, redeploy Worker, check `head_sampling_rat
     "enabled": true,
     "head_sampling_rate": 1.0,
     "traces": {
-      "enabled": true
-    }
-  }
+      "enabled": true,
+    },
+  },
 }
 ```
 
@@ -59,16 +59,20 @@ Ensure `observability.traces.enabled = true`, set `head_sampling_rate` to 1.0 fo
 ```typescript
 // Date.now() is coarsened - trace spans are accurate
 export default {
-  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext,
+  ): Promise<Response> {
     // For user-facing timing, Date.now() is fine
-    const start = Date.now()
-    const response = await processRequest(request)
-    const duration = Date.now() - start
+    const start = Date.now();
+    const response = await processRequest(request);
+    const duration = Date.now() - start;
 
     // For detailed performance analysis, use Workers Traces instead
-    return response
-  }
-}
+    return response;
+  },
+};
 ```
 
 ### Analytics Engine \_sample_interval Aggregation
@@ -95,13 +99,13 @@ FROM api_usage GROUP BY customer_id;
 
 ```typescript
 // For deep call chains, add custom correlation ID
-const correlationId = crypto.randomUUID()
-console.log({ correlationId, event: "request_start" })
+const correlationId = crypto.randomUUID();
+console.log({ correlationId, event: "request_start" });
 
 // Pass correlationId through headers to downstream services
 await fetch("https://api.example.com", {
-  headers: { "X-Correlation-ID": correlationId }
-})
+  headers: { "X-Correlation-ID": correlationId },
+});
 ```
 
 ## Pricing (2026)

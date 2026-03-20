@@ -18,11 +18,11 @@
 
 ```typescript
 // Increase retries for rate-limit-heavy workflows
-const client = new Cloudflare({ maxRetries: 5 })
+const client = new Cloudflare({ maxRetries: 5 });
 
 // Add application-level throttling
-import pLimit from "p-limit"
-const limit = pLimit(10) // Max 10 concurrent requests
+import pLimit from "p-limit";
+const limit = pLimit(10); // Max 10 concurrent requests
 ```
 
 ## SDK-Specific Issues
@@ -91,12 +91,12 @@ await client.zones.list()
 
 ```typescript
 // ❌ WRONG - Only first page (20 items)
-const page = await client.zones.list()
+const page = await client.zones.list();
 
 // ✅ CORRECT - All results
-const zones = []
+const zones = [];
 for await (const zone of client.zones.list()) {
-  zones.push(zone)
+  zones.push(zone);
 }
 ```
 
@@ -110,8 +110,8 @@ for await (const zone of client.zones.list()) {
 
 ```typescript
 // ❌ WRONG - REST API in Workers (counts against rate limit)
-const client = new Cloudflare({ apiToken: env.CLOUDFLARE_API_TOKEN })
-const zones = await client.zones.list()
+const client = new Cloudflare({ apiToken: env.CLOUDFLARE_API_TOKEN });
+const zones = await client.zones.list();
 
 // ✅ CORRECT - Use bindings (no rate limit)
 // Access via env.MY_BINDING
@@ -133,12 +133,12 @@ const zones = await client.zones.list()
 ```typescript
 // Verify token is set
 if (!process.env.CLOUDFLARE_API_TOKEN) {
-  throw new Error("CLOUDFLARE_API_TOKEN not set")
+  throw new Error("CLOUDFLARE_API_TOKEN not set");
 }
 
 // Test token
-const user = await client.user.tokens.verify()
-console.log("Token valid:", user.status)
+const user = await client.user.tokens.verify();
+console.log("Token valid:", user.status);
 ```
 
 ## Timeout Errors
@@ -152,14 +152,14 @@ console.log("Token valid:", user.status)
 ```typescript
 // Increase timeout
 const client = new Cloudflare({
-  timeout: 300000 // 5 minutes
-})
+  timeout: 300000, // 5 minutes
+});
 
 // Or split operations
-const batchSize = 100
+const batchSize = 100;
 for (let i = 0; i < records.length; i += batchSize) {
-  const batch = records.slice(i, i + batchSize)
-  await processBatch(batch)
+  const batch = records.slice(i, i + batchSize);
+  await processBatch(batch);
 }
 ```
 
@@ -178,7 +178,7 @@ for (let i = 0; i < records.length; i += batchSize) {
 ```typescript
 // List all zones to find correct ID
 for await (const zone of client.zones.list()) {
-  console.log(zone.id, zone.name)
+  console.log(zone.id, zone.name);
 }
 ```
 
@@ -215,12 +215,12 @@ for await (const zone of client.zones.list()) {
 // Create reusable client instance
 export const cfClient = new Cloudflare({
   apiToken: process.env.CLOUDFLARE_API_TOKEN,
-  maxRetries: 5
-})
+  maxRetries: 5,
+});
 
 // Wrap common operations
 export async function getZoneDetails(zoneId: string) {
-  return await cfClient.zones.get({ zone_id: zoneId })
+  return await cfClient.zones.get({ zone_id: zoneId });
 }
 ```
 

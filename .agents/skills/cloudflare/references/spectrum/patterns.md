@@ -33,8 +33,8 @@ const app = await client.spectrum.apps.create({
   dns: { type: "CNAME", name: "mc.example.com" },
   origin_direct: ["tcp://192.168.1.10:25565"],
   proxy_protocol: "v1", // Preserves player IPs
-  argo_smart_routing: true
-})
+  argo_smart_routing: true,
+});
 ```
 
 **Benefits:** DDoS protection, hide origin IP, Proxy Protocol for player IPs/bans, Argo reduces latency
@@ -51,8 +51,8 @@ const mqttApp = await client.spectrum.apps.create({
   protocol: "tcp/8883", // Use 1883 for plain MQTT
   dns: { type: "CNAME", name: "mqtt.example.com" },
   origin_direct: ["tcp://mqtt-broker.internal:8883"],
-  tls: "full" // Use 'off' for plain MQTT
-})
+  tls: "full", // Use 'off' for plain MQTT
+});
 ```
 
 **Benefits:** DDoS protection, hide broker IP, TLS termination at edge
@@ -98,8 +98,8 @@ const postgresApp = await client.spectrum.apps.create({
   origin_dns: { name: "db-primary.internal.example.com" },
   origin_port: 5432,
   tls: "strict", // REQUIRED
-  ip_firewall: true // REQUIRED
-})
+  ip_firewall: true, // REQUIRED
+});
 ```
 
 **MySQL:**

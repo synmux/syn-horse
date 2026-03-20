@@ -10,13 +10,13 @@
 
 ```typescript
 // Pre-aggregate before writing
-let buffer = { count: 0, total: 0 }
-buffer.count++
-buffer.total += value
+let buffer = { count: 0, total: 0 };
+buffer.count++;
+buffer.total += value;
 
 // Write once per second instead of per request
 if (Date.now() % 1000 === 0) {
-  env.ANALYTICS.writeDataPoint({ doubles: [buffer.count, buffer.total] })
+  env.ANALYTICS.writeDataPoint({ doubles: [buffer.count, buffer.total] });
 }
 ```
 

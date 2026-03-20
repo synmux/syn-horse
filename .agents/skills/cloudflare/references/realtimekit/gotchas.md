@@ -125,8 +125,8 @@ Enable for users behind restrictive firewalls/proxies:
 // wrangler.jsonc
 {
   "vars": {
-    "TURN_SERVICE_ID": "your_turn_service_id"
-  }
+    "TURN_SERVICE_ID": "your_turn_service_id",
+  },
   // Set secret: wrangler secret put TURN_SERVICE_TOKEN
 }
 ```
@@ -137,10 +137,10 @@ TURN automatically configured in SDK when enabled in account.
 
 ```typescript
 // Check devices
-const devices = await meeting.self.getAllDevices()
+const devices = await meeting.self.getAllDevices();
 meeting.self.on("deviceListUpdate", ({ added, removed, devices }) =>
-  console.log("Devices:", { added, removed, devices })
-)
+  console.log("Devices:", { added, removed, devices }),
+);
 
 // Monitor participants
 meeting.participants.joined.on("participantJoined", (p) =>
@@ -148,9 +148,9 @@ meeting.participants.joined.on("participantJoined", (p) =>
     id: p.id,
     userId: p.userId,
     audioEnabled: p.audioEnabled,
-    videoEnabled: p.videoEnabled
-  })
-)
+    videoEnabled: p.videoEnabled,
+  }),
+);
 
 // Check room state
 meeting.self.on("roomJoined", () =>
@@ -159,18 +159,29 @@ meeting.self.on("roomJoined", () =>
     meetingTitle: meeting.meta.meetingTitle,
     participantCount: meeting.participants.joined.size() + 1,
     audioEnabled: meeting.self.audioEnabled,
-    videoEnabled: meeting.self.videoEnabled
-  })
-)
+    videoEnabled: meeting.self.videoEnabled,
+  }),
+);
 
 // Log all events
-;["roomJoined", "audioUpdate", "videoUpdate", "screenShareUpdate", "deviceUpdate", "deviceListUpdate"].forEach(
-  (event) => meeting.self.on(event, (data) => console.log(`[self] ${event}:`, data))
-)
-;["participantJoined", "participantLeft"].forEach((event) =>
-  meeting.participants.joined.on(event, (data) => console.log(`[participants] ${event}:`, data))
-)
-meeting.chat.on("chatUpdate", (data) => console.log("[chat] chatUpdate:", data))
+[
+  "roomJoined",
+  "audioUpdate",
+  "videoUpdate",
+  "screenShareUpdate",
+  "deviceUpdate",
+  "deviceListUpdate",
+].forEach((event) =>
+  meeting.self.on(event, (data) => console.log(`[self] ${event}:`, data)),
+);
+["participantJoined", "participantLeft"].forEach((event) =>
+  meeting.participants.joined.on(event, (data) =>
+    console.log(`[participants] ${event}:`, data),
+  ),
+);
+meeting.chat.on("chatUpdate", (data) =>
+  console.log("[chat] chatUpdate:", data),
+);
 ```
 
 ## Security & Performance

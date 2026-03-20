@@ -13,15 +13,17 @@
   "vars": { "ENVIRONMENT": "production" },
   "kv_namespaces": [{ "binding": "MY_KV", "id": "abc123" }],
   "r2_buckets": [{ "binding": "MY_BUCKET", "bucket_name": "my-bucket" }],
-  "d1_databases": [{ "binding": "DB", "database_name": "my-db", "database_id": "xyz789" }],
+  "d1_databases": [
+    { "binding": "DB", "database_name": "my-db", "database_id": "xyz789" },
+  ],
 
   // Environments
   "env": {
     "staging": {
       "vars": { "ENVIRONMENT": "staging" },
-      "kv_namespaces": [{ "binding": "MY_KV", "id": "staging-id" }]
-    }
-  }
+      "kv_namespaces": [{ "binding": "MY_KV", "id": "staging-id" }],
+    },
+  },
 }
 ```
 
@@ -47,24 +49,26 @@
   "r2_buckets": [{ "binding": "MY_BUCKET", "bucket_name": "my-bucket" }],
 
   // D1 (SQL database)
-  "d1_databases": [{ "binding": "DB", "database_name": "my-db", "database_id": "xyz789" }],
+  "d1_databases": [
+    { "binding": "DB", "database_name": "my-db", "database_id": "xyz789" },
+  ],
 
   // Durable Objects (stateful coordination)
   "durable_objects": {
-    "bindings": [{ "name": "COUNTER", "class_name": "Counter" }]
+    "bindings": [{ "name": "COUNTER", "class_name": "Counter" }],
   },
 
   // Queues (message queues)
   "queues": {
     "producers": [{ "binding": "MY_QUEUE", "queue": "my-queue" }],
-    "consumers": [{ "queue": "my-queue", "max_batch_size": 10 }]
+    "consumers": [{ "queue": "my-queue", "max_batch_size": 10 }],
   },
 
   // Service bindings (worker-to-worker RPC)
   "services": [{ "binding": "SERVICE_B", "service": "service-b" }],
 
   // Analytics Engine
-  "analytics_engine_datasets": [{ "binding": "ANALYTICS" }]
+  "analytics_engine_datasets": [{ "binding": "ANALYTICS" }],
 }
 ```
 
@@ -92,8 +96,8 @@ Bindings without IDs are auto-created:
 {
   "routes": [{ "pattern": "example.com/*", "zone_name": "example.com" }],
   "triggers": {
-    "crons": ["0 */6 * * *"] // Every 6 hours
-  }
+    "crons": ["0 */6 * * *"], // Every 6 hours
+  },
 }
 ```
 
@@ -113,23 +117,27 @@ npx wrangler types  # Generates .wrangler/types/runtime.d.ts from wrangler.jsonc
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2022"],
-    "types": ["@cloudflare/workers-types"]
+    "types": ["@cloudflare/workers-types"],
   },
-  "include": [".wrangler/types/**/*.ts", "src/**/*"]
+  "include": [".wrangler/types/**/*.ts", "src/**/*"],
 }
 ```
 
 Import generated types:
 
 ```typescript
-import type { Env } from "./.wrangler/types/runtime"
+import type { Env } from "./.wrangler/types/runtime";
 
 export default {
-  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-    await env.MY_KV.get("key") // Fully typed, autocomplete works
-    return new Response("OK")
-  }
-}
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext,
+  ): Promise<Response> {
+    await env.MY_KV.get("key"); // Fully typed, autocomplete works
+    return new Response("OK");
+  },
+};
 ```
 
 Re-run `npx wrangler types` after changing bindings in wrangler.jsonc
@@ -138,9 +146,9 @@ Re-run `npx wrangler types` after changing bindings in wrangler.jsonc
 
 ```typescript
 interface Env {
-  MY_KV: KVNamespace
-  DB: D1Database
-  API_KEY: string
+  MY_KV: KVNamespace;
+  DB: D1Database;
+  API_KEY: string;
 }
 ```
 
@@ -155,7 +163,7 @@ interface Env {
   "compatibility_flags": ["nodejs_compat_v2"],
 
   // Observability (10% sampling)
-  "observability": { "enabled": true, "head_sampling_rate": 0.1 }
+  "observability": { "enabled": true, "head_sampling_rate": 0.1 },
 }
 ```
 

@@ -9,9 +9,9 @@ Safe `onMounted`. Call `onMounted()` if it's inside a component lifecycle, if no
 ## Usage
 
 ```ts
-import { tryOnMounted } from "@vueuse/core"
+import { tryOnMounted } from "@vueuse/core";
 
-tryOnMounted(() => {})
+tryOnMounted(() => {});
 ```
 
 ## Type Declarations
@@ -24,5 +24,9 @@ tryOnMounted(() => {})
  * @param sync if set to false, it will run in the nextTick() of Vue
  * @param target
  */
-export declare function tryOnMounted(fn: Fn, sync?: boolean, target?: ComponentInternalInstance | null): void
+export declare function tryOnMounted(
+  fn: Fn,
+  sync?: boolean,
+  target?: ComponentInternalInstance | null,
+): void;
 ```

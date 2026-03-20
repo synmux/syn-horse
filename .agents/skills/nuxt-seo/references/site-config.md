@@ -13,9 +13,9 @@ export default defineNuxtConfig({
     description: "Site description", // Default meta description
     defaultLocale: "en", // Default language
     indexable: true, // Allow search engine indexing
-    trailingSlash: false // URL trailing slash preference
-  }
-})
+    trailingSlash: false, // URL trailing slash preference
+  },
+});
 ```
 
 ## Environment-Based Indexing
@@ -41,9 +41,9 @@ export default defineNuxtConfig({
   site: {
     url: process.env.NUXT_SITE_URL,
     // Explicit: only index when explicitly set to 'true'
-    indexable: process.env.NUXT_SITE_INDEXABLE === "true"
-  }
-})
+    indexable: process.env.NUXT_SITE_INDEXABLE === "true",
+  },
+});
 ```
 
 **Note:** `!== 'false'` defaults to `true` when env var is undefined - use `=== 'true'` for fail-safe behavior.
@@ -51,8 +51,8 @@ export default defineNuxtConfig({
 ## Runtime Access
 
 ```ts
-const site = useSiteConfig()
-console.log(site.url, site.name, site.description)
+const site = useSiteConfig();
+console.log(site.url, site.name, site.description);
 ```
 
 Works in components, composables, and server routes.
@@ -65,15 +65,15 @@ Automatically integrates with `@nuxtjs/i18n`:
 export default defineNuxtConfig({
   site: {
     url: "https://example.com",
-    defaultLocale: "en"
+    defaultLocale: "en",
   },
   i18n: {
     locales: [
       { code: "en", language: "en-US" },
-      { code: "fr", language: "fr-FR" }
-    ]
-  }
-})
+      { code: "fr", language: "fr-FR" },
+    ],
+  },
+});
 ```
 
 Locale-specific overrides in `site` object:
@@ -95,7 +95,7 @@ Use route rules for page-specific config:
 export default defineNuxtConfig({
   routeRules: {
     "/admin/**": { site: { indexable: false } },
-    "/fr/**": { site: { name: "Mon Site", defaultLocale: "fr" } }
-  }
-})
+    "/fr/**": { site: { name: "Mon Site", defaultLocale: "fr" } },
+  },
+});
 ```

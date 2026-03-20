@@ -104,11 +104,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "hsl(var(--primary))"
-      }
-    }
-  }
-}
+        primary: "hsl(var(--primary))",
+      },
+    },
+  },
+};
 ```
 
 ✅ **CORRECT:**
@@ -193,19 +193,19 @@ Result: `bg-background` class doesn't exist
 // vite.config.ts
 export default defineConfig({
   css: {
-    postcss: "./postcss.config.js" // Old v3 way
-  }
-})
+    postcss: "./postcss.config.js", // Old v3 way
+  },
+});
 ```
 
 ✅ **CORRECT:**
 
 ```typescript
-import tailwindcss from "@tailwindcss/vite"
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()] // v4 way
-})
+  plugins: [react(), tailwindcss()], // v4 way
+});
 ```
 
 ---
@@ -216,7 +216,7 @@ export default defineConfig({
 
 ```typescript
 // tsconfig.json has no paths
-import { Button } from "../../components/ui/button"
+import { Button } from "../../components/ui/button";
 ```
 
 ✅ **CORRECT:**
@@ -234,7 +234,7 @@ import { Button } from "../../components/ui/button"
 ```
 
 ```typescript
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 ```
 
 ---
@@ -290,8 +290,8 @@ import { Button } from "@/components/ui/button"
 ✅ **CORRECT:**
 
 ```tsx
-import { cn } from "@/lib/utils"
-;<div className={cn("base", isActive && "active")} />
+import { cn } from "@/lib/utils";
+<div className={cn("base", isActive && "active")} />;
 ```
 
 **Why:** `cn()` properly merges and deduplicates Tailwind classes.

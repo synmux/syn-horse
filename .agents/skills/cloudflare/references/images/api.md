@@ -17,31 +17,31 @@ const imageResponse = await env.IMAGES.input(fileBuffer)
     height: 600,
     fit: "cover",
     quality: 85,
-    format: "avif"
+    format: "avif",
   })
-  .output()
-return imageResponse.response()
+  .output();
+return imageResponse.response();
 ```
 
 ### Transform Options
 
 ```typescript
 interface TransformOptions {
-  width?: number
-  height?: number
-  fit?: "scale-down" | "contain" | "cover" | "crop" | "pad"
-  quality?: number // 1-100
-  format?: "avif" | "webp" | "jpeg" | "png"
-  dpr?: number // 1-3
-  gravity?: "auto" | "left" | "right" | "top" | "bottom" | "face" | string
-  sharpen?: number // 0-10
-  blur?: number // 1-250
-  rotate?: 90 | 180 | 270
-  background?: string // CSS color for pad
-  metadata?: "none" | "copyright" | "keep"
-  brightness?: number
-  contrast?: number
-  gamma?: number // 0-2
+  width?: number;
+  height?: number;
+  fit?: "scale-down" | "contain" | "cover" | "crop" | "pad";
+  quality?: number; // 1-100
+  format?: "avif" | "webp" | "jpeg" | "png";
+  dpr?: number; // 1-3
+  gravity?: "auto" | "left" | "right" | "top" | "bottom" | "face" | string;
+  sharpen?: number; // 0-10
+  blur?: number; // 1-250
+  rotate?: 90 | 180 | 270;
+  background?: string; // CSS color for pad
+  metadata?: "none" | "copyright" | "keep";
+  brightness?: number;
+  contrast?: number;
+  gamma?: number; // 0-2
 }
 ```
 
@@ -52,9 +52,9 @@ await env.IMAGES.input(baseImage)
   .draw(env.IMAGES.input(watermark).transform({ width: 100 }), {
     top: 10,
     left: 10,
-    opacity: 0.8
+    opacity: 0.8,
   })
-  .output()
+  .output();
 ```
 
 ## REST API
@@ -86,16 +86,19 @@ https://imagedelivery.net/{hash}/{id}/width=800,height=600,fit=cover,format=avif
 
 ```typescript
 // 1. Get upload URL (backend)
-const { result } = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/images/v2/direct_upload`, {
-  method: "POST",
-  headers: { Authorization: `Bearer ${token}` },
-  body: JSON.stringify({ requireSignedURLs: false })
-}).then((r) => r.json())
+const { result } = await fetch(
+  `https://api.cloudflare.com/client/v4/accounts/${accountId}/images/v2/direct_upload`,
+  {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ requireSignedURLs: false }),
+  },
+).then((r) => r.json());
 
 // 2. Client uploads to result.uploadURL
-const formData = new FormData()
-formData.append("file", file)
-await fetch(result.uploadURL, { method: "POST", body: formData })
+const formData = new FormData();
+formData.append("file", file);
+await fetch(result.uploadURL, { method: "POST", body: formData });
 ```
 
 ## Error Codes

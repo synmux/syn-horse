@@ -3,7 +3,7 @@
 ## Core Method
 
 ```typescript
-const response = await env.AI.run(model, input)
+const response = await env.AI.run(model, input);
 ```
 
 ## Text Generation
@@ -12,30 +12,30 @@ const response = await env.AI.run(model, input)
 const result = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
   messages: [
     { role: "system", content: "You are helpful" },
-    { role: "user", content: "Hello" }
+    { role: "user", content: "Hello" },
   ],
   temperature: 0.7, // 0-1
-  max_tokens: 100
-})
-console.log(result.response)
+  max_tokens: 100,
+});
+console.log(result.response);
 ```
 
 **Streaming:**
 
 ```typescript
-const stream = await env.AI.run(model, { messages, stream: true })
+const stream = await env.AI.run(model, { messages, stream: true });
 return new Response(stream, {
-  headers: { "Content-Type": "text/event-stream" }
-})
+  headers: { "Content-Type": "text/event-stream" },
+});
 ```
 
 ## Embeddings
 
 ```typescript
 const result = await env.AI.run("@cf/baai/bge-base-en-v1.5", {
-  text: ["Query", "Doc 1", "Doc 2"] // Batch for efficiency
-})
-const [queryEmbed, doc1Embed, doc2Embed] = result.data // 768-dim vectors
+  text: ["Query", "Doc 1", "Doc 2"], // Batch for efficiency
+});
+const [queryEmbed, doc1Embed, doc2Embed] = result.data; // 768-dim vectors
 ```
 
 ## Function Calling
@@ -50,15 +50,15 @@ const tools = [
       parameters: {
         type: "object",
         properties: { location: { type: "string" } },
-        required: ["location"]
-      }
-    }
-  }
-]
+        required: ["location"],
+      },
+    },
+  },
+];
 
-const response = await env.AI.run(model, { messages, tools })
+const response = await env.AI.run(model, { messages, tools });
 if (response.tool_calls) {
-  const args = JSON.parse(response.tool_calls[0].function.arguments)
+  const args = JSON.parse(response.tool_calls[0].function.arguments);
   // Execute function, send result back
 }
 ```
@@ -69,17 +69,17 @@ if (response.tool_calls) {
 const image = await env.AI.run("@cf/stabilityai/stable-diffusion-xl-base-1.0", {
   prompt: "Mountain sunset",
   num_steps: 20, // 1-20
-  guidance: 7.5 // 1-20
-})
-return new Response(image, { headers: { "Content-Type": "image/png" } })
+  guidance: 7.5, // 1-20
+});
+return new Response(image, { headers: { "Content-Type": "image/png" } });
 ```
 
 ## Speech Recognition
 
 ```typescript
-const audioArray = Array.from(new Uint8Array(await request.arrayBuffer()))
-const result = await env.AI.run("@cf/openai/whisper", { audio: audioArray })
-console.log(result.text)
+const audioArray = Array.from(new Uint8Array(await request.arrayBuffer()));
+const result = await env.AI.run("@cf/openai/whisper", { audio: audioArray });
+console.log(result.text);
 ```
 
 ## Translation
@@ -88,9 +88,9 @@ console.log(result.text)
 const result = await env.AI.run("@cf/meta/m2m100-1.2b", {
   text: "Hello",
   source_lang: "en",
-  target_lang: "es"
-})
-console.log(result.translated_text)
+  target_lang: "es",
+});
+console.log(result.translated_text);
 ```
 
 ## REST API

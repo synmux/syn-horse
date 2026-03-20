@@ -7,13 +7,21 @@ Using `queryCollection()`, building navigation, implementing search, or getting 
 ## Query Builder
 
 ```ts
-const posts = await queryCollection("blog").where("draft", "=", false).order("date", "DESC").limit(10).all()
+const posts = await queryCollection("blog")
+  .where("draft", "=", false)
+  .order("date", "DESC")
+  .limit(10)
+  .all();
 
 // Single item
-const post = await queryCollection("blog").where("path", "=", "/blog/my-post").first()
+const post = await queryCollection("blog")
+  .where("path", "=", "/blog/my-post")
+  .first();
 
 // Count
-const total = await queryCollection("blog").where("category", "=", "tech").count()
+const total = await queryCollection("blog")
+  .where("category", "=", "tech")
+  .count();
 ```
 
 ## Operators
@@ -35,18 +43,25 @@ const total = await queryCollection("blog").where("category", "=", "tech").count
 // AND conditions
 const posts = await queryCollection("blog")
   .where("draft", "=", false)
-  .andWhere((group) => group.where("category", "=", "tech").orWhere("featured", "=", true))
-  .all()
+  .andWhere((group) =>
+    group.where("category", "=", "tech").orWhere("featured", "=", true),
+  )
+  .all();
 
 // OR conditions
-const posts = await queryCollection("blog").where("author", "=", "john").orWhere("author", "=", "jane").all()
+const posts = await queryCollection("blog")
+  .where("author", "=", "john")
+  .orWhere("author", "=", "jane")
+  .all();
 ```
 
 ## Select Fields
 
 ```ts
 // Select specific fields (reduces payload)
-const titles = await queryCollection("blog").select("title", "path", "date").all()
+const titles = await queryCollection("blog")
+  .select("title", "path", "date")
+  .all();
 ```
 
 ## Navigation
@@ -55,25 +70,29 @@ Generate hierarchical navigation trees:
 
 ```ts
 // In pages/[...slug].vue or composables
-const navigation = await queryCollectionNavigation("docs")
+const navigation = await queryCollectionNavigation("docs");
 
 // With custom fields
-const navigation = await queryCollectionNavigation("docs", ["title", "icon", "description"])
+const navigation = await queryCollectionNavigation("docs", [
+  "title",
+  "icon",
+  "description",
+]);
 ```
 
 Returns nested structure:
 
 ```ts
-;[
+[
   {
     title: "Getting Started",
     path: "/docs/getting-started",
     children: [
       { title: "Installation", path: "/docs/getting-started/installation" },
-      { title: "Configuration", path: "/docs/getting-started/configuration" }
-    ]
-  }
-]
+      { title: "Configuration", path: "/docs/getting-started/configuration" },
+    ],
+  },
+];
 ```
 
 **Navigation control** via frontmatter:
@@ -97,14 +116,22 @@ navigation:
 ## Surroundings (Prev/Next)
 
 ```ts
-const { prev, next } = await queryCollectionItemSurroundings("docs", "/docs/current-page", { before: 1, after: 1 })
+const { prev, next } = await queryCollectionItemSurroundings(
+  "docs",
+  "/docs/current-page",
+  { before: 1, after: 1 },
+);
 
 // With specific fields
-const { prev, next } = await queryCollectionItemSurroundings("docs", currentPath, {
-  before: 1,
-  after: 1,
-  fields: ["title", "path", "description"]
-})
+const { prev, next } = await queryCollectionItemSurroundings(
+  "docs",
+  currentPath,
+  {
+    before: 1,
+    after: 1,
+    fields: ["title", "path", "description"],
+  },
+);
 ```
 
 ## Search Sections
@@ -114,7 +141,7 @@ Split pages into searchable sections:
 ```ts
 const sections = await queryCollectionSearchSections("docs", {
   minHeading: 2, // Minimum heading level to index (v3.10+)
-  maxHeading: 4 // Maximum heading level to index (v3.10+)
+  maxHeading: 4, // Maximum heading level to index (v3.10+)
 })[
   // Returns
   {
@@ -122,16 +149,16 @@ const sections = await queryCollectionSearchSections("docs", {
     title: "Installation",
     titles: ["Getting Started", "Installation"],
     content: "Section text content...",
-    path: "/docs/getting-started"
+    path: "/docs/getting-started",
   }
-]
+];
 
 // Include extra fields (v3.4+)
 const sections = await queryCollectionSearchSections("docs", {
   minHeading: 2,
   maxHeading: 3,
-  fields: ["description", "category"]
-})
+  fields: ["description", "category"],
+});
 ```
 
 ## Server-Side Queries
@@ -141,8 +168,8 @@ In server routes, pass the event:
 ```ts
 // server/api/posts.get.ts
 export default defineEventHandler(async (event) => {
-  return await queryCollection(event, "blog").where("draft", "=", false).all()
-})
+  return await queryCollection(event, "blog").where("draft", "=", false).all();
+});
 ```
 
 ## Common Patterns
@@ -150,25 +177,31 @@ export default defineEventHandler(async (event) => {
 **Latest posts:**
 
 ```ts
-const latest = await queryCollection("blog").where("draft", "=", false).order("date", "DESC").limit(5).all()
+const latest = await queryCollection("blog")
+  .where("draft", "=", false)
+  .order("date", "DESC")
+  .limit(5)
+  .all();
 ```
 
 **Posts by tag:**
 
 ```ts
-const tagged = await queryCollection("blog").where("tags", "LIKE", `%${tag}%`).all()
+const tagged = await queryCollection("blog")
+  .where("tags", "LIKE", `%${tag}%`)
+  .all();
 ```
 
 **Paginated list:**
 
 ```ts
-const page = 1
-const perPage = 10
+const page = 1;
+const perPage = 10;
 const posts = await queryCollection("blog")
   .order("date", "DESC")
   .skip((page - 1) * perPage)
   .limit(perPage)
-  .all()
+  .all();
 ```
 
 **Featured + recent:**
@@ -176,8 +209,8 @@ const posts = await queryCollection("blog")
 ```ts
 const [featured, recent] = await Promise.all([
   queryCollection("blog").where("featured", "=", true).first(),
-  queryCollection("blog").order("date", "DESC").limit(5).all()
-])
+  queryCollection("blog").order("date", "DESC").limit(5).all(),
+]);
 ```
 
 ## Best Practices
@@ -195,17 +228,17 @@ Helper functions for common navigation patterns:
 
 ```ts
 // Find page headline (first H1)
-const headline = findPageHeadline(page)
+const headline = findPageHeadline(page);
 
 // Get breadcrumb trail
-const breadcrumb = findPageBreadcrumb(navigation, "/docs/collections/schema")
+const breadcrumb = findPageBreadcrumb(navigation, "/docs/collections/schema");
 // Returns: [{ title: 'Docs', path: '/docs' }, { title: 'Collections', path: '/docs/collections' }, ...]
 
 // Get immediate children of a page
-const children = findPageChildren(navigation, "/docs/collections")
+const children = findPageChildren(navigation, "/docs/collections");
 
 // Get siblings (prev/next at same level)
-const siblings = findPageSiblings(navigation, "/docs/collections/schema")
+const siblings = findPageSiblings(navigation, "/docs/collections/schema");
 ```
 
 ## Resources

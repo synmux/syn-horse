@@ -14,7 +14,11 @@ rotate=90|180|270   background=white   metadata=none|copyright|keep
 ```html
 <img
   src="https://imagedelivery.net/{hash}/{id}/width=800"
-  srcset=".../{id}/width=400 400w, .../{id}/width=800 800w, .../{id}/width=1200 1200w"
+  srcset="
+    .../{id}/width=400   400w,
+    .../{id}/width=800   800w,
+    .../{id}/width=1200 1200w
+  "
   sizes="(max-width: 600px) 400px, 800px"
 />
 ```
@@ -38,14 +42,14 @@ const response = await fetch(
   {
     method: "POST",
     headers: { Authorization: `Bearer ${env.API_TOKEN}` },
-    body: JSON.stringify({ requireSignedURLs: false, metadata: { userId } })
-  }
-)
+    body: JSON.stringify({ requireSignedURLs: false, metadata: { userId } }),
+  },
+);
 
 // Frontend: Upload to returned uploadURL
-const formData = new FormData()
-formData.append("file", file)
-await fetch(result.uploadURL, { method: "POST", body: formData })
+const formData = new FormData();
+formData.append("file", file);
+await fetch(result.uploadURL, { method: "POST", body: formData });
 // Use: https://imagedelivery.net/{hash}/${result.id}/public
 ```
 
@@ -66,31 +70,33 @@ async fetch(request: Request, env: Env): Promise<Response> {
 ## Watermarking
 
 ```typescript
-const watermark = await env.ASSETS.fetch(new URL("/watermark.png", request.url))
+const watermark = await env.ASSETS.fetch(
+  new URL("/watermark.png", request.url),
+);
 const result = await env.IMAGES.input(await image.arrayBuffer())
   .draw(env.IMAGES.input(watermark.body).transform({ width: 100 }), {
     bottom: 20,
     right: 20,
-    opacity: 0.7
+    opacity: 0.7,
   })
   .transform({ format: "avif" })
-  .output()
-return result.response()
+  .output();
+return result.response();
 ```
 
 ## Device-Based Transforms
 
 ```typescript
-const ua = request.headers.get("User-Agent") || ""
-const isMobile = /Mobile|Android|iPhone/i.test(ua)
+const ua = request.headers.get("User-Agent") || "";
+const isMobile = /Mobile|Android|iPhone/i.test(ua);
 return env.IMAGES.input(buffer)
   .transform({
     width: isMobile ? 400 : 1200,
     quality: isMobile ? 75 : 85,
-    format: "avif"
+    format: "avif",
   })
   .output()
-  .response()
+  .response();
 ```
 
 ## Caching Strategy
@@ -112,17 +118,23 @@ async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response
 
 ```typescript
 const results = await Promise.all(
-  images.map((buffer) => env.IMAGES.input(buffer).transform({ width: 800, fit: "cover", format: "avif" }).output())
-)
+  images.map((buffer) =>
+    env.IMAGES.input(buffer)
+      .transform({ width: 800, fit: "cover", format: "avif" })
+      .output(),
+  ),
+);
 ```
 
 ## Error Handling
 
 ```typescript
 try {
-  return (await env.IMAGES.input(buffer).transform({ width: 800 }).output()).response()
+  return (
+    await env.IMAGES.input(buffer).transform({ width: 800 }).output()
+  ).response();
 } catch (error) {
-  console.error("Transform failed:", error)
-  return new Response("Image processing failed", { status: 500 })
+  console.error("Transform failed:", error);
+  return new Response("Image processing failed", { status: 500 });
 }
 ```

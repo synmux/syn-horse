@@ -8,13 +8,16 @@ Reactive countdown timer in seconds.
 ## Usage
 
 ```ts
-import { useCountdown } from "@vueuse/core"
+import { useCountdown } from "@vueuse/core";
 
-const countdownSeconds = 5
-const { remaining, start, stop, pause, resume } = useCountdown(countdownSeconds, {
-  onComplete() {},
-  onTick() {}
-})
+const countdownSeconds = 5;
+const { remaining, start, stop, pause, resume } = useCountdown(
+  countdownSeconds,
+  {
+    onComplete() {},
+    onTick() {},
+  },
+);
 ```
 
 ## Options

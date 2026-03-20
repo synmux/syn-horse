@@ -44,9 +44,9 @@
 ```typescript
 export default {
   async scheduled(controller, env, ctx) {
-    console.log("Cron triggered")
-  }
-}
+    console.log("Cron triggered");
+  },
+};
 ```
 
 2. Start dev server:
@@ -81,17 +81,17 @@ npm install -g wrangler@latest
 export default {
   async scheduled(controller, env, ctx) {
     // BAD: Silent failures
-    ctx.waitUntil(riskyOperation())
+    ctx.waitUntil(riskyOperation());
 
     // GOOD: Explicit error handling
     ctx.waitUntil(
       riskyOperation().catch((err) => {
-        console.error("Background task failed:", err)
-        return logError(err, env)
-      })
-    )
-  }
-}
+        console.error("Background task failed:", err);
+        return logError(err, env);
+      }),
+    );
+  },
+};
 ```
 
 ### "Idempotency Issues"
@@ -103,19 +103,19 @@ export default {
 ```typescript
 export default {
   async scheduled(controller, env, ctx) {
-    const executionId = `${controller.cron}-${controller.scheduledTime}`
-    const existing = await env.EXECUTIONS.get(executionId)
+    const executionId = `${controller.cron}-${controller.scheduledTime}`;
+    const existing = await env.EXECUTIONS.get(executionId);
 
     if (existing) {
-      console.log("Already executed, skipping")
-      controller.noRetry()
-      return
+      console.log("Already executed, skipping");
+      controller.noRetry();
+      return;
     }
 
-    await env.EXECUTIONS.put(executionId, "1", { expirationTtl: 86400 }) // 24h TTL
-    await performIdempotentOperation(env)
-  }
-}
+    await env.EXECUTIONS.put(executionId, "1", { expirationTtl: 86400 }); // 24h TTL
+    await performIdempotentOperation(env);
+  },
+};
 ```
 
 ### "Security Concerns"
@@ -127,20 +127,20 @@ export default {
 ```typescript
 export default {
   async fetch(request, env, ctx) {
-    const url = new URL(request.url)
+    const url = new URL(request.url);
 
     // Block __scheduled in production
     if (url.pathname === "/__scheduled" && env.ENVIRONMENT === "production") {
-      return new Response("Not Found", { status: 404 })
+      return new Response("Not Found", { status: 404 });
     }
 
-    return handleRequest(request, env, ctx)
+    return handleRequest(request, env, ctx);
   },
 
   async scheduled(controller, env, ctx) {
     // Your cron logic
-  }
-}
+  },
+};
 ```
 
 **Also:** Use `env.API_KEY` for secrets (never hardcode)
@@ -150,23 +150,23 @@ export default {
 ```typescript
 export default {
   async fetch(request, env, ctx) {
-    const url = new URL(request.url)
+    const url = new URL(request.url);
 
     if (url.pathname === "/__scheduled") {
       // Check Cloudflare headers to verify internal request
-      const cfRay = request.headers.get("cf-ray")
+      const cfRay = request.headers.get("cf-ray");
       if (!cfRay && env.ENVIRONMENT === "production") {
-        return new Response("Not Found", { status: 404 })
+        return new Response("Not Found", { status: 404 });
       }
     }
 
-    return handleRequest(request, env, ctx)
+    return handleRequest(request, env, ctx);
   },
 
   async scheduled(controller, env, ctx) {
     // Your cron logic
-  }
-}
+  },
+};
 ```
 
 ## Limits & Quotas

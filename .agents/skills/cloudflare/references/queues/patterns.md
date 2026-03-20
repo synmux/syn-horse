@@ -6,27 +6,27 @@
 // Producer: Accept request, queue work
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const { userId, reportType } = await request.json()
+    const { userId, reportType } = await request.json();
     await env.REPORT_QUEUE.send({
       userId,
       reportType,
-      requestedAt: Date.now()
-    })
-    return Response.json({ message: "Report queued", status: "pending" })
-  }
-}
+      requestedAt: Date.now(),
+    });
+    return Response.json({ message: "Report queued", status: "pending" });
+  },
+};
 
 // Consumer: Process reports
 export default {
   async queue(batch: MessageBatch, env: Env): Promise<void> {
     for (const msg of batch.messages) {
-      const { userId, reportType } = msg.body
-      const report = await generateReport(userId, reportType, env)
-      await env.REPORTS_BUCKET.put(`${userId}/${reportType}.pdf`, report)
-      msg.ack()
+      const { userId, reportType } = msg.body;
+      const report = await generateReport(userId, reportType, env);
+      await env.REPORTS_BUCKET.put(`${userId}/${reportType}.pdf`, report);
+      msg.ack();
     }
-  }
-}
+  },
+};
 ```
 
 ## Buffering API Calls
@@ -72,16 +72,16 @@ async queue(batch: MessageBatch, env: Env): Promise<void> {
 export default {
   async queue(batch: MessageBatch, env: Env): Promise<void> {
     for (const msg of batch.messages) {
-      const event = msg.body
+      const event = msg.body;
       if (event.action === "PutObject") {
-        await processNewFile(event.object.key, env)
+        await processNewFile(event.object.key, env);
       } else if (event.action === "DeleteObject") {
-        await cleanupReferences(event.object.key, env)
+        await cleanupReferences(event.object.key, env);
       }
-      msg.ack()
+      msg.ack();
     }
-  }
-}
+  },
+};
 ```
 
 ## Dead Letter Queue Pattern
@@ -92,24 +92,24 @@ export default {
   async queue(batch: MessageBatch, env: Env): Promise<void> {
     for (const msg of batch.messages) {
       try {
-        await riskyOperation(msg.body)
-        msg.ack()
+        await riskyOperation(msg.body);
+        msg.ack();
       } catch (error) {
-        console.error(`Failed after ${msg.attempts} attempts:`, error)
+        console.error(`Failed after ${msg.attempts} attempts:`, error);
       }
     }
-  }
-}
+  },
+};
 
 // DLQ consumer: Log and store failed messages
 export default {
   async queue(batch: MessageBatch, env: Env): Promise<void> {
     for (const msg of batch.messages) {
-      await env.FAILED_KV.put(msg.id, JSON.stringify(msg.body))
-      msg.ack()
+      await env.FAILED_KV.put(msg.id, JSON.stringify(msg.body));
+      msg.ack();
     }
-  }
-}
+  },
+};
 ```
 
 ## Priority Queues
@@ -119,7 +119,7 @@ High priority: `max_batch_size: 5, max_batch_timeout: 1`. Low priority: `max_bat
 ## Delayed Job Processing
 
 ```typescript
-await env.EMAIL_QUEUE.send({ to, template, userId }, { delaySeconds: 3600 })
+await env.EMAIL_QUEUE.send({ to, template, userId }, { delaySeconds: 3600 });
 ```
 
 ## Fan-out Pattern

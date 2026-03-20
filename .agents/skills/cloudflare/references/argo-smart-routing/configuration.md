@@ -30,12 +30,12 @@ output "argo_enabled" {
 ```typescript
 // config/argo.ts
 interface ArgoEnvironmentConfig {
-  enabled: boolean
-  tieredCache: boolean
+  enabled: boolean;
+  tieredCache: boolean;
   monitoring: {
-    usageAlerts: boolean
-    threshold: number
-  }
+    usageAlerts: boolean;
+    threshold: number;
+  };
 }
 
 const configs: Record<string, ArgoEnvironmentConfig> = {
@@ -44,29 +44,29 @@ const configs: Record<string, ArgoEnvironmentConfig> = {
     tieredCache: true,
     monitoring: {
       usageAlerts: true,
-      threshold: 1000 // GB
-    }
+      threshold: 1000, // GB
+    },
   },
   staging: {
     enabled: true,
     tieredCache: false,
     monitoring: {
       usageAlerts: false,
-      threshold: 100 // GB
-    }
+      threshold: 100, // GB
+    },
   },
   development: {
     enabled: false,
     tieredCache: false,
     monitoring: {
       usageAlerts: false,
-      threshold: 0
-    }
-  }
-}
+      threshold: 0,
+    },
+  },
+};
 
 export function getArgoConfig(env: string): ArgoEnvironmentConfig {
-  return configs[env] || configs.development
+  return configs[env] || configs.development;
 }
 ```
 
@@ -74,21 +74,21 @@ export function getArgoConfig(env: string): ArgoEnvironmentConfig {
 
 ```typescript
 // pulumi/argo.ts
-import * as cloudflare from "@pulumi/cloudflare"
+import * as cloudflare from "@pulumi/cloudflare";
 
 const zone = new cloudflare.Zone("example-zone", {
   zone: "example.com",
-  plan: "enterprise"
-})
+  plan: "enterprise",
+});
 
 const argoSettings = new cloudflare.Argo("argo-config", {
   zoneId: zone.id,
   smartRouting: "on",
-  tieredCaching: "on"
-})
+  tieredCaching: "on",
+});
 
-export const argoEnabled = argoSettings.smartRouting
-export const zoneId = zone.id
+export const argoEnabled = argoSettings.smartRouting;
+export const zoneId = zone.id;
 ```
 
 ## Billing Configuration
@@ -128,22 +128,22 @@ ARGO_TIERED_CACHE=true
 
 ```typescript
 // config/env.ts
-import { z } from "zod"
+import { z } from "zod";
 
 const envSchema = z.object({
   CLOUDFLARE_API_TOKEN: z.string().min(1),
   CLOUDFLARE_ZONE_ID: z.string().min(1),
   CLOUDFLARE_ACCOUNT_ID: z.string().min(1),
   ARGO_ENABLED: z.string().optional().default("false"),
-  ARGO_TIERED_CACHE: z.string().optional().default("false")
-})
+  ARGO_TIERED_CACHE: z.string().optional().default("false"),
+});
 
-export const env = envSchema.parse(process.env)
+export const env = envSchema.parse(process.env);
 
 export const argoConfig = {
   enabled: env.ARGO_ENABLED === "true",
-  tieredCache: env.ARGO_TIERED_CACHE === "true"
-}
+  tieredCache: env.ARGO_TIERED_CACHE === "true",
+};
 ```
 
 ## CI/CD Integration

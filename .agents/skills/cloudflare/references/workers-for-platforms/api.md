@@ -13,38 +13,46 @@ curl -X PUT \
 ### TypeScript SDK
 
 ```typescript
-import Cloudflare from "cloudflare"
+import Cloudflare from "cloudflare";
 
-const client = new Cloudflare({ apiToken: process.env.API_TOKEN })
+const client = new Cloudflare({ apiToken: process.env.API_TOKEN });
 
 const scriptFile = new File([scriptContent], `${scriptName}.mjs`, {
-  type: "application/javascript+module"
-})
+  type: "application/javascript+module",
+});
 
-await client.workersForPlatforms.dispatch.namespaces.scripts.update(namespace, scriptName, {
-  account_id: accountId,
-  metadata: { main_module: `${scriptName}.mjs` },
-  files: [scriptFile]
-})
+await client.workersForPlatforms.dispatch.namespaces.scripts.update(
+  namespace,
+  scriptName,
+  {
+    account_id: accountId,
+    metadata: { main_module: `${scriptName}.mjs` },
+    files: [scriptFile],
+  },
+);
 ```
 
 ## TypeScript Types
 
 ```typescript
-import type { DispatchNamespace } from "@cloudflare/workers-types"
+import type { DispatchNamespace } from "@cloudflare/workers-types";
 
 interface DispatchNamespace {
-  get(name: string, options?: Record<string, unknown>, dispatchOptions?: DynamicDispatchOptions): Fetcher
+  get(
+    name: string,
+    options?: Record<string, unknown>,
+    dispatchOptions?: DynamicDispatchOptions,
+  ): Fetcher;
 }
 
 interface DynamicDispatchOptions {
-  limits?: DynamicDispatchLimits
-  outbound?: Record<string, unknown>
+  limits?: DynamicDispatchLimits;
+  outbound?: Record<string, unknown>;
 }
 
 interface DynamicDispatchLimits {
-  cpuMs?: number // Max CPU milliseconds
-  subRequests?: number // Max fetch() calls
+  cpuMs?: number; // Max CPU milliseconds
+  subRequests?: number; // Max fetch() calls
 }
 
 // Usage
@@ -53,9 +61,9 @@ const userWorker = env.DISPATCHER.get(
   {},
   {
     limits: { cpuMs: 50, subRequests: 20 },
-    outbound: { customerId: "123", url: request.url }
-  }
-)
+    outbound: { customerId: "123", url: request.url },
+  },
+);
 ```
 
 ## Deploy with Bindings
@@ -140,28 +148,28 @@ curl -X PUT ".../scripts/$SCRIPT_NAME" \
 ```typescript
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const userWorkerName = new URL(request.url).hostname.split(".")[0]
-    const userWorker = env.DISPATCHER.get(userWorkerName)
-    return await userWorker.fetch(request)
-  }
-}
+    const userWorkerName = new URL(request.url).hostname.split(".")[0];
+    const userWorker = env.DISPATCHER.get(userWorkerName);
+    return await userWorker.fetch(request);
+  },
+};
 ```
 
 ### Path Routing
 
 ```typescript
-const pathParts = new URL(request.url).pathname.split("/").filter(Boolean)
-const userWorker = env.DISPATCHER.get(pathParts[0])
-return await userWorker.fetch(request)
+const pathParts = new URL(request.url).pathname.split("/").filter(Boolean);
+const userWorker = env.DISPATCHER.get(pathParts[0]);
+return await userWorker.fetch(request);
 ```
 
 ### KV Routing
 
 ```typescript
-const hostname = new URL(request.url).hostname
-const userWorkerName = await env.ROUTING_KV.get(hostname)
-const userWorker = env.DISPATCHER.get(userWorkerName)
-return await userWorker.fetch(request)
+const hostname = new URL(request.url).hostname;
+const userWorkerName = await env.ROUTING_KV.get(hostname);
+const userWorker = env.DISPATCHER.get(userWorkerName);
+return await userWorker.fetch(request);
 ```
 
 ## Outbound Workers
@@ -176,10 +184,10 @@ const userWorker = env.DISPATCHER.get(
   {},
   {
     outbound: {
-      customer_context: { customer_name: workerName, url: request.url }
-    }
-  }
-)
+      customer_context: { customer_name: workerName, url: request.url },
+    },
+  },
+);
 ```
 
 ### Implement
@@ -187,24 +195,24 @@ const userWorker = env.DISPATCHER.get(
 ```typescript
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const customerName = env.customer_name
-    const url = new URL(request.url)
+    const customerName = env.customer_name;
+    const url = new URL(request.url);
 
     // Block domains
     if (["malicious.com"].some((d) => url.hostname.includes(d))) {
-      return new Response("Blocked", { status: 403 })
+      return new Response("Blocked", { status: 403 });
     }
 
     // Inject auth
     if (url.hostname === "api.example.com") {
-      const headers = new Headers(request.headers)
-      headers.set("Authorization", `Bearer ${generateJWT(customerName)}`)
-      return fetch(new Request(request, { headers }))
+      const headers = new Headers(request.headers);
+      headers.set("Authorization", `Bearer ${generateJWT(customerName)}`);
+      return fetch(new Request(request, { headers }));
     }
 
-    return fetch(request)
-  }
-}
+    return fetch(request);
+  },
+};
 ```
 
 **Note:** Doesn't intercept DO/mTLS fetch.

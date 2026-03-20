@@ -10,9 +10,9 @@ const sandbox = getSandbox(env.Sandbox, "sandbox-id", {
 
   containerTimeouts: {
     instanceGetTimeoutMS: 30000, // 30s for provisioning (default: 30000)
-    portReadyTimeoutMS: 90000 // 90s for container startup (default: 90000)
-  }
-})
+    portReadyTimeoutMS: 90000, // 90s for container startup (default: 90000)
+  },
+});
 ```
 
 **Sleep Config**:
@@ -77,24 +77,24 @@ wrangler secret put KEY         # Set secret
 {
   "vars": {
     "ENVIRONMENT": "production",
-    "API_URL": "https://api.example.com"
+    "API_URL": "https://api.example.com",
   },
   "r2_buckets": [
     {
       "binding": "DATA_BUCKET",
-      "bucket_name": "my-data-bucket"
-    }
-  ]
+      "bucket_name": "my-data-bucket",
+    },
+  ],
 }
 ```
 
 **Usage**:
 
 ```typescript
-const token = env.GITHUB_TOKEN // From wrangler secret
+const token = env.GITHUB_TOKEN; // From wrangler secret
 await sandbox.exec("git clone ...", {
-  env: { GIT_TOKEN: token }
-})
+  env: { GIT_TOKEN: token },
+});
 ```
 
 ## Preview URL Setup
@@ -111,18 +111,18 @@ await sandbox.exec("git clone ...", {
 ```jsonc
 {
   "triggers": {
-    "crons": ["*/5 * * * *"] // Every 5 minutes
-  }
+    "crons": ["*/5 * * * *"], // Every 5 minutes
+  },
 }
 ```
 
 ```typescript
 export default {
   async scheduled(event: ScheduledEvent, env: Env) {
-    const sandbox = getSandbox(env.Sandbox, "main")
-    await sandbox.exec('echo "keepalive"') // Wake sandbox
-  }
-}
+    const sandbox = getSandbox(env.Sandbox, "main");
+    await sandbox.exec('echo "keepalive"'); // Wake sandbox
+  },
+};
 ```
 
 ## Logging Configuration
@@ -133,8 +133,8 @@ export default {
 {
   "vars": {
     "SANDBOX_LOG_LEVEL": "debug", // debug | info | warn | error (default: info)
-    "SANDBOX_LOG_FORMAT": "pretty" // json | pretty (default: json)
-  }
+    "SANDBOX_LOG_FORMAT": "pretty", // json | pretty (default: json)
+  },
 }
 ```
 
@@ -148,7 +148,7 @@ Override default timeouts via environment variables:
 {
   "vars": {
     "SANDBOX_INSTANCE_TIMEOUT_MS": "60000", // Override instanceGetTimeoutMS
-    "SANDBOX_PORT_TIMEOUT_MS": "120000" // Override portReadyTimeoutMS
-  }
+    "SANDBOX_PORT_TIMEOUT_MS": "120000", // Override portReadyTimeoutMS
+  },
 }
 ```

@@ -5,14 +5,14 @@
 ```typescript
 class WorkerApp extends pulumi.ComponentResource {
   constructor(name: string, args: WorkerAppArgs, opts?) {
-    super("custom:cloudflare:WorkerApp", name, {}, opts)
-    const defaultOpts = { parent: this }
+    super("custom:cloudflare:WorkerApp", name, {}, opts);
+    const defaultOpts = { parent: this };
 
     this.kv = new cloudflare.WorkersKvNamespace(
       `${name}-kv`,
       { accountId: args.accountId, title: `${name}-kv` },
-      defaultOpts
-    )
+      defaultOpts,
+    );
     this.worker = new cloudflare.WorkerScript(
       `${name}-worker`,
       {
@@ -20,19 +20,19 @@ class WorkerApp extends pulumi.ComponentResource {
         name: `${name}-worker`,
         content: args.workerCode,
         module: true,
-        kvNamespaceBindings: [{ name: "KV", namespaceId: this.kv.id }]
+        kvNamespaceBindings: [{ name: "KV", namespaceId: this.kv.id }],
       },
-      defaultOpts
-    )
+      defaultOpts,
+    );
     this.domain = new cloudflare.WorkersDomain(
       `${name}-domain`,
       {
         accountId: args.accountId,
         hostname: args.domain,
-        service: this.worker.name
+        service: this.worker.name,
       },
-      defaultOpts
-    )
+      defaultOpts,
+    );
   }
 }
 ```
@@ -42,13 +42,13 @@ class WorkerApp extends pulumi.ComponentResource {
 ```typescript
 const kv = new cloudflare.WorkersKvNamespace("cache", {
   accountId,
-  title: "api-cache"
-})
-const db = new cloudflare.D1Database("db", { accountId, name: "app-database" })
+  title: "api-cache",
+});
+const db = new cloudflare.D1Database("db", { accountId, name: "app-database" });
 const bucket = new cloudflare.R2Bucket("assets", {
   accountId,
-  name: "app-assets"
-})
+  name: "app-assets",
+});
 
 const apiWorker = new cloudflare.WorkerScript("api", {
   accountId,
@@ -57,20 +57,20 @@ const apiWorker = new cloudflare.WorkerScript("api", {
   module: true,
   kvNamespaceBindings: [{ name: "CACHE", namespaceId: kv.id }],
   d1DatabaseBindings: [{ name: "DB", databaseId: db.id }],
-  r2BucketBindings: [{ name: "ASSETS", bucketName: bucket.name }]
-})
+  r2BucketBindings: [{ name: "ASSETS", bucketName: bucket.name }],
+});
 ```
 
 ## Multi-Environment Setup
 
 ```typescript
-const stack = pulumi.getStack()
+const stack = pulumi.getStack();
 const worker = new cloudflare.WorkerScript(`worker-${stack}`, {
   accountId,
   name: `my-worker-${stack}`,
   content: code,
-  plainTextBindings: [{ name: "ENVIRONMENT", text: stack }]
-})
+  plainTextBindings: [{ name: "ENVIRONMENT", text: stack }],
+});
 ```
 
 ## Queue-Based Processing
@@ -78,25 +78,27 @@ const worker = new cloudflare.WorkerScript(`worker-${stack}`, {
 ```typescript
 const queue = new cloudflare.Queue("processing-queue", {
   accountId,
-  name: "image-processing"
-})
+  name: "image-processing",
+});
 
 // Producer: API receives requests
 const apiWorker = new cloudflare.WorkerScript("api", {
   accountId,
   name: "api-worker",
   content: apiCode,
-  queueBindings: [{ name: "PROCESSING_QUEUE", queue: queue.id }]
-})
+  queueBindings: [{ name: "PROCESSING_QUEUE", queue: queue.id }],
+});
 
 // Consumer: Process async
 const processorWorker = new cloudflare.WorkerScript("processor", {
   accountId,
   name: "processor-worker",
   content: processorCode,
-  queueConsumers: [{ queue: queue.name, maxBatchSize: 10, maxRetries: 3, maxWaitTimeMs: 5000 }],
-  r2BucketBindings: [{ name: "OUTPUT_BUCKET", bucketName: outputBucket.name }]
-})
+  queueConsumers: [
+    { queue: queue.name, maxBatchSize: 10, maxRetries: 3, maxWaitTimeMs: 5000 },
+  ],
+  r2BucketBindings: [{ name: "OUTPUT_BUCKET", bucketName: outputBucket.name }],
+});
 ```
 
 ## Microservices with Service Bindings
@@ -105,14 +107,14 @@ const processorWorker = new cloudflare.WorkerScript("processor", {
 const authWorker = new cloudflare.WorkerScript("auth", {
   accountId,
   name: "auth-service",
-  content: authCode
-})
+  content: authCode,
+});
 const apiWorker = new cloudflare.WorkerScript("api", {
   accountId,
   name: "api-service",
   content: apiCode,
-  serviceBindings: [{ name: "AUTH", service: authWorker.name }]
-})
+  serviceBindings: [{ name: "AUTH", service: authWorker.name }],
+});
 ```
 
 ## Event-Driven Architecture
@@ -120,38 +122,38 @@ const apiWorker = new cloudflare.WorkerScript("api", {
 ```typescript
 const eventQueue = new cloudflare.Queue("events", {
   accountId,
-  name: "event-bus"
-})
+  name: "event-bus",
+});
 const producer = new cloudflare.WorkerScript("producer", {
   accountId,
   name: "api-producer",
   content: producerCode,
-  queueBindings: [{ name: "EVENTS", queue: eventQueue.id }]
-})
+  queueBindings: [{ name: "EVENTS", queue: eventQueue.id }],
+});
 const consumer = new cloudflare.WorkerScript("consumer", {
   accountId,
   name: "email-consumer",
   content: consumerCode,
-  queueConsumers: [{ queue: eventQueue.name, maxBatchSize: 10 }]
-})
+  queueConsumers: [{ queue: eventQueue.name, maxBatchSize: 10 }],
+});
 ```
 
 ## v6.x Versioned Deployments (Blue-Green/Canary)
 
 ```typescript
-const worker = new cloudflare.Worker("api", { accountId, name: "api-worker" })
+const worker = new cloudflare.Worker("api", { accountId, name: "api-worker" });
 const v1 = new cloudflare.WorkerVersion("v1", {
   accountId,
   workerId: worker.id,
   content: fs.readFileSync("./dist/v1.js", "utf8"),
-  compatibilityDate: "2025-01-01"
-})
+  compatibilityDate: "2025-01-01",
+});
 const v2 = new cloudflare.WorkerVersion("v2", {
   accountId,
   workerId: worker.id,
   content: fs.readFileSync("./dist/v2.js", "utf8"),
-  compatibilityDate: "2025-01-01"
-})
+  compatibilityDate: "2025-01-01",
+});
 
 // Gradual rollout: 10% v2, 90% v1
 const deployment = new cloudflare.WorkersDeployment("canary", {
@@ -159,10 +161,10 @@ const deployment = new cloudflare.WorkersDeployment("canary", {
   workerId: worker.id,
   versions: [
     { versionId: v2.id, percentage: 10 },
-    { versionId: v1.id, percentage: 90 }
+    { versionId: v1.id, percentage: 90 },
   ],
-  kvNamespaceBindings: [{ name: "MY_KV", namespaceId: kv.id }]
-})
+  kvNamespaceBindings: [{ name: "MY_KV", namespaceId: kv.id }],
+});
 ```
 
 **Use:** Canary releases, A/B testing, blue-green. Most apps use `WorkerScript` (auto-versioning).
@@ -172,24 +174,24 @@ const deployment = new cloudflare.WorkersDeployment("canary", {
 Generate wrangler.toml from Pulumi config to keep local dev in sync:
 
 ```typescript
-import * as command from "@pulumi/command"
+import * as command from "@pulumi/command";
 
 const workerConfig = {
   name: "my-worker",
   compatibilityDate: "2025-01-01",
-  compatibilityFlags: ["nodejs_compat"]
-}
+  compatibilityFlags: ["nodejs_compat"],
+};
 
 // Create resources
 const kv = new cloudflare.WorkersKvNamespace("kv", {
   accountId,
-  title: "my-kv"
-})
-const db = new cloudflare.D1Database("db", { accountId, name: "my-db" })
+  title: "my-kv",
+});
+const db = new cloudflare.D1Database("db", { accountId, name: "my-db" });
 const bucket = new cloudflare.R2Bucket("bucket", {
   accountId,
-  name: "my-bucket"
-})
+  name: "my-bucket",
+});
 
 // Generate wrangler.toml after resources created
 const wranglerGen = new command.local.Command(
@@ -213,10 +215,10 @@ database_name = "${db.name}"
 [[r2_buckets]]
 binding = "MY_BUCKET"
 bucket_name = "${bucket.name}"
-EOF`
+EOF`,
   },
-  { dependsOn: [kv, db, bucket] }
-)
+  { dependsOn: [kv, db, bucket] },
+);
 
 // Deploy worker after wrangler.toml generated
 const worker = new cloudflare.WorkerScript(
@@ -229,10 +231,10 @@ const worker = new cloudflare.WorkerScript(
     compatibilityFlags: workerConfig.compatibilityFlags,
     kvNamespaceBindings: [{ name: "MY_KV", namespaceId: kv.id }],
     d1DatabaseBindings: [{ name: "DB", databaseId: db.id }],
-    r2BucketBindings: [{ name: "MY_BUCKET", bucketName: bucket.name }]
+    r2BucketBindings: [{ name: "MY_BUCKET", bucketName: bucket.name }],
   },
-  { dependsOn: [wranglerGen] }
-)
+  { dependsOn: [wranglerGen] },
+);
 ```
 
 **Benefits:**
@@ -246,20 +248,22 @@ const worker = new cloudflare.WorkerScript(
 ## Build + Deploy Pattern
 
 ```typescript
-import * as command from "@pulumi/command"
+import * as command from "@pulumi/command";
 const build = new command.local.Command("build", {
   create: "npm run build",
-  dir: "./worker"
-})
+  dir: "./worker",
+});
 const worker = new cloudflare.WorkerScript(
   "worker",
   {
     accountId,
     name: "my-worker",
-    content: build.stdout.apply(() => fs.readFileSync("./worker/dist/index.js", "utf8"))
+    content: build.stdout.apply(() =>
+      fs.readFileSync("./worker/dist/index.js", "utf8"),
+    ),
   },
-  { dependsOn: [build] }
-)
+  { dependsOn: [build] },
+);
 ```
 
 ## Content SHA Pattern (Force Updates)
@@ -267,13 +271,13 @@ const worker = new cloudflare.WorkerScript(
 Prevent false "no changes" detections:
 
 ```typescript
-const version = Date.now().toString()
+const version = Date.now().toString();
 const worker = new cloudflare.WorkerScript("worker", {
   accountId,
   name: "my-worker",
   content: code,
-  plainTextBindings: [{ name: "VERSION", text: version }] // Forces deployment
-})
+  plainTextBindings: [{ name: "VERSION", text: version }], // Forces deployment
+});
 ```
 
 ---

@@ -33,20 +33,20 @@ export default defineConfig({
   build: {
     rollupOptions: {
       external: ["vue"],
-      output: { globals: { vue: "Vue" } }
-    }
-  }
-})
+      output: { globals: { vue: "Vue" } },
+    },
+  },
+});
 
 // After (Vite 8)
 export default defineConfig({
   build: {
     rolldownOptions: {
       external: ["vue"],
-      output: { globals: { vue: "Vue" } }
-    }
-  }
-})
+      output: { globals: { vue: "Vue" } },
+    },
+  },
+});
 ```
 
 ### esbuild → oxc
@@ -56,9 +56,9 @@ export default defineConfig({
 export default defineConfig({
   esbuild: {
     jsxFactory: "h",
-    jsxFragment: "Fragment"
-  }
-})
+    jsxFragment: "Fragment",
+  },
+});
 
 // After (Vite 8)
 export default defineConfig({
@@ -66,10 +66,10 @@ export default defineConfig({
     jsx: {
       runtime: "classic",
       pragma: "h",
-      pragmaFrag: "Fragment"
-    }
-  }
-})
+      pragmaFrag: "Fragment",
+    },
+  },
+});
 ```
 
 ### JSX Configuration
@@ -79,11 +79,11 @@ export default defineConfig({
   oxc: {
     jsx: {
       runtime: "automatic", // or 'classic'
-      importSource: "react" // for automatic runtime
+      importSource: "react", // for automatic runtime
     },
-    jsxInject: `import React from 'react'` // auto-inject
-  }
-})
+    jsxInject: `import React from 'react'`, // auto-inject
+  },
+});
 ```
 
 ### Custom Transform Targets
@@ -92,9 +92,9 @@ export default defineConfig({
 export default defineConfig({
   oxc: {
     include: ["**/*.ts", "**/*.tsx"],
-    exclude: ["node_modules/**"]
-  }
-})
+    exclude: ["node_modules/**"],
+  },
+});
 ```
 
 ## Plugin Compatibility

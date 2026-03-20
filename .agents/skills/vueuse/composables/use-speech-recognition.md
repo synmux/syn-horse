@@ -8,9 +8,10 @@ Reactive SpeechRecognition.
 ## Usage
 
 ```ts
-import { useSpeechRecognition } from "@vueuse/core"
+import { useSpeechRecognition } from "@vueuse/core";
 
-const { isSupported, isListening, isFinal, result, start, stop } = useSpeechRecognition()
+const { isSupported, isListening, isFinal, result, start, stop } =
+  useSpeechRecognition();
 ```
 
 ## Options

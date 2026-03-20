@@ -14,20 +14,20 @@
 **Check quota:**
 
 ```typescript
-const limits = await puppeteer.limits(env.MYBROWSER)
+const limits = await puppeteer.limits(env.MYBROWSER);
 // { remaining: 540000, total: 600000, concurrent: 2 }
 ```
 
 ## Always Close Browsers
 
 ```typescript
-const browser = await puppeteer.launch(env.MYBROWSER)
+const browser = await puppeteer.launch(env.MYBROWSER);
 try {
-  const page = await browser.newPage()
-  await page.goto("https://example.com")
-  return new Response(await page.content())
+  const page = await browser.newPage();
+  await page.goto("https://example.com");
+  return new Response(await page.content());
 } finally {
-  await browser.close() // ALWAYS in finally
+  await browser.close(); // ALWAYS in finally
 }
 ```
 
@@ -37,13 +37,13 @@ try {
 
 ```typescript
 // ❌ 3 sessions (hits free tier limit)
-const browser1 = await puppeteer.launch(env.MYBROWSER)
-const browser2 = await puppeteer.launch(env.MYBROWSER)
+const browser1 = await puppeteer.launch(env.MYBROWSER);
+const browser2 = await puppeteer.launch(env.MYBROWSER);
 
 // ✅ 1 session, multiple pages
-const browser = await puppeteer.launch(env.MYBROWSER)
-const page1 = await browser.newPage()
-const page2 = await browser.newPage()
+const browser = await puppeteer.launch(env.MYBROWSER);
+const page1 = await browser.newPage();
+const page2 = await browser.newPage();
 ```
 
 ## Common Errors
@@ -60,11 +60,14 @@ const page2 = await browser.newPage()
 
 ```typescript
 // ❌ Outer scope not available
-const selector = "h1"
-await page.evaluate(() => document.querySelector(selector))
+const selector = "h1";
+await page.evaluate(() => document.querySelector(selector));
 
 // ✅ Pass as argument
-await page.evaluate((sel) => document.querySelector(sel)?.textContent, selector)
+await page.evaluate(
+  (sel) => document.querySelector(sel)?.textContent,
+  selector,
+);
 ```
 
 ## Performance
@@ -78,14 +81,14 @@ await page.evaluate((sel) => document.querySelector(sel)?.textContent, selector)
 **Block unnecessary resources:**
 
 ```typescript
-await page.setRequestInterception(true)
+await page.setRequestInterception(true);
 page.on("request", (req) => {
   if (["image", "stylesheet", "font"].includes(req.resourceType())) {
-    req.abort()
+    req.abort();
   } else {
-    req.continue()
+    req.continue();
   }
-})
+});
 ```
 
 **Session reuse:** Cold start ~1-2s, warm connect ~100-200ms. Store sessionId in KV for reuse.

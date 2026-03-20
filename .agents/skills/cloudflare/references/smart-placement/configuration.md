@@ -6,8 +6,8 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "placement": {
-    "mode": "smart"
-  }
+    "mode": "smart",
+  },
 }
 ```
 
@@ -34,9 +34,9 @@
   "services": [
     {
       "binding": "BACKEND",
-      "service": "backend-api"
-    }
-  ]
+      "service": "backend-api",
+    },
+  ],
 }
 ```
 
@@ -48,14 +48,14 @@
   "name": "backend-api",
   "main": "backend-worker.ts",
   "placement": {
-    "mode": "smart"
+    "mode": "smart",
   },
   "d1_databases": [
     {
       "binding": "DATABASE",
-      "database_id": "xxx"
-    }
-  ]
+      "database_id": "xxx",
+    },
+  ],
 }
 ```
 
@@ -88,17 +88,17 @@ Smart Placement is fundamentally limited to Workers with default `fetch` handler
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     // This runs close to backend when Smart Placement enabled
-    const data = await env.DATABASE.prepare("SELECT * FROM users").all()
-    return Response.json(data)
-  }
-}
+    const data = await env.DATABASE.prepare("SELECT * FROM users").all();
+    return Response.json(data);
+  },
+};
 
 // ❌ Smart Placement DOES NOT affect these:
 export class MyRPC extends WorkerEntrypoint {
   async myMethod() {
     // This ALWAYS runs at edge, Smart Placement has NO EFFECT
-    const data = await this.env.DATABASE.prepare("SELECT * FROM users").all()
-    return data
+    const data = await this.env.DATABASE.prepare("SELECT * FROM users").all();
+    return data;
   }
 }
 
@@ -141,16 +141,16 @@ Smart Placement automatically routes 1% of requests WITHOUT optimization as base
 
 ```typescript
 interface Env {
-  BACKEND: Fetcher
-  DATABASE: D1Database
+  BACKEND: Fetcher;
+  DATABASE: D1Database;
 }
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const data = await env.DATABASE.prepare("SELECT * FROM table").all()
-    return Response.json(data)
-  }
-} satisfies ExportedHandler<Env>
+    const data = await env.DATABASE.prepare("SELECT * FROM table").all();
+    return Response.json(data);
+  },
+} satisfies ExportedHandler<Env>;
 ```
 
 ## Cloudflare Pages/Assets Warning

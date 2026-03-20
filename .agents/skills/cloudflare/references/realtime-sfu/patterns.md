@@ -74,12 +74,15 @@ Express:
 
 ```js
 app.post("/api/new-session", async (req, res) => {
-  const r = await fetch(`${CALLS_API}/apps/${process.env.CALLS_APP_ID}/sessions/new`, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${process.env.CALLS_APP_SECRET}` }
-  })
-  res.json(await r.json())
-})
+  const r = await fetch(
+    `${CALLS_API}/apps/${process.env.CALLS_APP_ID}/sessions/new`,
+    {
+      method: "POST",
+      headers: { Authorization: `Bearer ${process.env.CALLS_APP_SECRET}` },
+    },
+  );
+  res.json(await r.json());
+});
 ```
 
 Workers: Same pattern, use `env.CALLS_APP_ID` and `env.CALLS_APP_SECRET`
@@ -91,19 +94,19 @@ DO Presence: See configuration.md for boilerplate
 ```typescript
 // Attach analyzer to audio track
 function attachAudioLevelDetector(track: MediaStreamTrack) {
-  const ctx = new AudioContext()
-  const analyzer = ctx.createAnalyser()
-  const src = ctx.createMediaStreamSource(new MediaStream([track]))
-  src.connect(analyzer)
+  const ctx = new AudioContext();
+  const analyzer = ctx.createAnalyser();
+  const src = ctx.createMediaStreamSource(new MediaStream([track]));
+  src.connect(analyzer);
 
-  const data = new Uint8Array(analyzer.frequencyBinCount)
+  const data = new Uint8Array(analyzer.frequencyBinCount);
   const checkLevel = () => {
-    analyzer.getByteFrequencyData(data)
-    const level = data.reduce((a, b) => a + b) / data.length
-    if (level > 30) console.log("Speaking:", level) // Trigger UI update
-    requestAnimationFrame(checkLevel)
-  }
-  checkLevel()
+    analyzer.getByteFrequencyData(data);
+    const level = data.reduce((a, b) => a + b) / data.length;
+    if (level > 30) console.log("Speaking:", level); // Trigger UI update
+    requestAnimationFrame(checkLevel);
+  };
+  checkLevel();
 }
 ```
 
@@ -113,39 +116,43 @@ function attachAudioLevelDetector(track: MediaStreamTrack) {
 pc.getStats().then((stats) => {
   stats.forEach((report) => {
     if (report.type === "inbound-rtp" && report.kind === "video") {
-      const { packetsLost, packetsReceived, jitter } = report
-      const lossRate = packetsLost / (packetsLost + packetsReceived)
-      if (lossRate > 0.05) console.warn("High packet loss:", lossRate)
-      if (jitter > 100) console.warn("High jitter:", jitter)
+      const { packetsLost, packetsReceived, jitter } = report;
+      const lossRate = packetsLost / (packetsLost + packetsReceived);
+      if (lossRate > 0.05) console.warn("High packet loss:", lossRate);
+      if (jitter > 100) console.warn("High jitter:", jitter);
     }
-  })
-})
+  });
+});
 ```
 
 ## Stage Management (Limit Visible Participants)
 
 ```typescript
 // Subscribe to top 6 active speakers only
-let activeSubscriptions = new Set<string>()
+let activeSubscriptions = new Set<string>();
 
 function updateStage(topSpeakers: string[]) {
-  const toAdd = topSpeakers.filter((id) => !activeSubscriptions.has(id)).slice(0, 6)
-  const toRemove = [...activeSubscriptions].filter((id) => !topSpeakers.includes(id))
+  const toAdd = topSpeakers
+    .filter((id) => !activeSubscriptions.has(id))
+    .slice(0, 6);
+  const toRemove = [...activeSubscriptions].filter(
+    (id) => !topSpeakers.includes(id),
+  );
 
   toRemove.forEach((id) => {
     pc.getSenders()
       .find((s) => s.track?.id === id)
-      ?.track?.stop()
-    activeSubscriptions.delete(id)
-  })
+      ?.track?.stop();
+    activeSubscriptions.delete(id);
+  });
 
   toAdd.forEach(async (id) => {
     await fetch(`/api/subscribe`, {
       method: "POST",
-      body: JSON.stringify({ trackId: id })
-    })
-    activeSubscriptions.add(id)
-  })
+      body: JSON.stringify({ trackId: id }),
+    });
+    activeSubscriptions.add(id);
+  });
 }
 ```
 
@@ -154,12 +161,12 @@ function updateStage(topSpeakers: string[]) {
 Bandwidth mgmt:
 
 ```ts
-const s = pc.getSenders().find((s) => s.track?.kind === "video")
-const p = s.getParameters()
-if (!p.encodings) p.encodings = [{}]
-p.encodings[0].maxBitrate = 1200000
-p.encodings[0].maxFramerate = 24
-await s.setParameters(p)
+const s = pc.getSenders().find((s) => s.track?.kind === "video");
+const p = s.getParameters();
+if (!p.encodings) p.encodings = [{}];
+p.encodings[0].maxBitrate = 1200000;
+p.encodings[0].maxFramerate = 24;
+await s.setParameters(p);
 ```
 
 Simulcast (CF auto-forwards best layer):
@@ -170,17 +177,17 @@ pc.addTransceiver("video", {
   sendEncodings: [
     { rid: "high", maxBitrate: 1200000 },
     { rid: "med", maxBitrate: 600000, scaleResolutionDownBy: 2 },
-    { rid: "low", maxBitrate: 200000, scaleResolutionDownBy: 4 }
-  ]
-})
+    { rid: "low", maxBitrate: 200000, scaleResolutionDownBy: 4 },
+  ],
+});
 ```
 
 DataChannel:
 
 ```ts
-const dc = pc.createDataChannel("chat", { ordered: true, maxRetransmits: 3 })
-dc.onopen = () => dc.send(JSON.stringify({ type: "chat", text: "Hi" }))
-dc.onmessage = (e) => console.log("RX:", JSON.parse(e.data))
+const dc = pc.createDataChannel("chat", { ordered: true, maxRetransmits: 3 });
+dc.onopen = () => dc.send(JSON.stringify({ type: "chat", text: "Hi" }));
+dc.onmessage = (e) => console.log("RX:", JSON.parse(e.data));
 ```
 
 **WHIP/WHEP:** For streaming interop (OBS → SFU, SFU → video players), use WHIP (ingest) and WHEP (egress) protocols. See Cloudflare Stream integration docs.

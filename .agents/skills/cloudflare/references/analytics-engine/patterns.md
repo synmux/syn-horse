@@ -16,8 +16,8 @@
 env.ANALYTICS.writeDataPoint({
   blobs: [pathname, method, status, tier],
   doubles: [1, computeUnits, bytes, latencyMs],
-  indexes: [apiKey]
-})
+  indexes: [apiKey],
+});
 
 // Query: Monthly usage by customer
 // SELECT index1 AS api_key, SUM(double2) AS compute_units
@@ -30,8 +30,8 @@ env.ANALYTICS.writeDataPoint({
 env.ANALYTICS.writeDataPoint({
   blobs: [endpoint, method, errorName, errorMessage.slice(0, 1000)],
   doubles: [1, timeToErrorMs],
-  indexes: [customerId]
-})
+  indexes: [customerId],
+});
 ```
 
 ## Performance Monitoring
@@ -40,8 +40,8 @@ env.ANALYTICS.writeDataPoint({
 env.ANALYTICS.writeDataPoint({
   blobs: [pathname, method, cacheStatus, status],
   doubles: [latencyMs, 1],
-  indexes: [userId]
-})
+  indexes: [userId],
+});
 
 // Query: P95 latency by endpoint
 // SELECT blob1, quantile(0.95)(double1) AS p95_ms FROM perf GROUP BY blob1

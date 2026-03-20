@@ -10,10 +10,10 @@
 
 ```typescript
 // ❌ WRONG
-return container.containerFetch(request)
+return container.containerFetch(request);
 
 // ✅ CORRECT
-return container.fetch(request)
+return container.fetch(request);
 ```
 
 ### ⚠️ startAndWaitForPorts() vs start()
@@ -26,12 +26,12 @@ return container.fetch(request)
 
 ```typescript
 // ❌ WRONG
-await container.start()
-return container.fetch(request)
+await container.start();
+return container.fetch(request);
 
 // ✅ CORRECT
-await container.startAndWaitForPorts()
-return container.fetch(request)
+await container.startAndWaitForPorts();
+return container.fetch(request);
 ```
 
 ### ⚠️ Activity Timeout on Long Operations
@@ -44,13 +44,13 @@ return container.fetch(request)
 
 ```typescript
 const interval = setInterval(() => {
-  this.ctx.storage.put("keepalive", Date.now())
-}, 60000)
+  this.ctx.storage.put("keepalive", Date.now());
+}, 60000);
 
 try {
-  await this.doLongWork(data)
+  await this.doLongWork(data);
 } finally {
-  clearInterval(interval)
+  clearInterval(interval);
 }
 ```
 
@@ -63,10 +63,10 @@ try {
 ```typescript
 await this.ctx.blockConcurrencyWhile(async () => {
   if (!this.initialized) {
-    await this.startAndWaitForPorts()
-    this.initialized = true
+    await this.startAndWaitForPorts();
+    this.initialized = true;
   }
-})
+});
 ```
 
 ### ⚠️ Lifecycle Hooks Block Requests

@@ -11,22 +11,24 @@
 ```typescript
 // WRONG: Pulumi won't bundle this
 const worker = new cloudflare.WorkerScript("worker", {
-  content: fs.readFileSync("./src/index.ts", "utf8") // Raw TS file
-})
+  content: fs.readFileSync("./src/index.ts", "utf8"), // Raw TS file
+});
 
 // RIGHT: Build first, then deploy
-import * as command from "@pulumi/command"
+import * as command from "@pulumi/command";
 const build = new command.local.Command("build", {
   create: "npm run build",
-  dir: "./worker"
-})
+  dir: "./worker",
+});
 const worker = new cloudflare.WorkerScript(
   "worker",
   {
-    content: build.stdout.apply(() => fs.readFileSync("./worker/dist/index.js", "utf8"))
+    content: build.stdout.apply(() =>
+      fs.readFileSync("./worker/dist/index.js", "utf8"),
+    ),
   },
-  { dependsOn: [build] }
-)
+  { dependsOn: [build] },
+);
 ```
 
 ### "wrangler.toml not consumed" - Config drift
@@ -40,16 +42,16 @@ const worker = new cloudflare.WorkerScript(
 const workerConfig = {
   name: "my-worker",
   compatibilityDate: "2025-01-01",
-  compatibilityFlags: ["nodejs_compat"]
-}
+  compatibilityFlags: ["nodejs_compat"],
+};
 
 new command.local.Command("generate-wrangler", {
   create: pulumi.interpolate`cat > wrangler.toml <<EOF
 name = "${workerConfig.name}"
 compatibility_date = "${workerConfig.compatibilityDate}"
 compatibility_flags = ${JSON.stringify(workerConfig.compatibilityFlags)}
-EOF`
-})
+EOF`,
+});
 ```
 
 ### "False no-changes detection" - Content SHA unchanged
@@ -59,11 +61,11 @@ EOF`
 **Solution:** Add build timestamp or version to force update
 
 ```typescript
-const version = Date.now().toString()
+const version = Date.now().toString();
 const worker = new cloudflare.WorkerScript("worker", {
   content: code,
-  plainTextBindings: [{ name: "VERSION", text: version }] // Forces new deployment
-})
+  plainTextBindings: [{ name: "VERSION", text: version }], // Forces new deployment
+});
 ```
 
 ### "D1 migrations don't run on pulumi up"
@@ -73,25 +75,25 @@ const worker = new cloudflare.WorkerScript("worker", {
 **Solution:** Use Command resource with dependsOn
 
 ```typescript
-const db = new cloudflare.D1Database("db", { accountId, name: "mydb" })
+const db = new cloudflare.D1Database("db", { accountId, name: "mydb" });
 
 // Run migrations after DB created
 const migration = new command.local.Command(
   "migrate",
   {
-    create: pulumi.interpolate`wrangler d1 execute ${db.name} --file ./schema.sql`
+    create: pulumi.interpolate`wrangler d1 execute ${db.name} --file ./schema.sql`,
   },
-  { dependsOn: [db] }
-)
+  { dependsOn: [db] },
+);
 
 // Worker depends on migrations
 const worker = new cloudflare.WorkerScript(
   "worker",
   {
-    d1DatabaseBindings: [{ name: "DB", databaseId: db.id }]
+    d1DatabaseBindings: [{ name: "DB", databaseId: db.id }],
   },
-  { dependsOn: [migration] }
-)
+  { dependsOn: [migration] },
+);
 ```
 
 ### "Missing required property 'accountId'"
@@ -114,14 +116,14 @@ config:
 
 ```typescript
 // Pulumi
-kvNamespaceBindings: [{ name: "MY_KV", namespaceId: kv.id }]
+kvNamespaceBindings: [{ name: "MY_KV", namespaceId: kv.id }];
 
 // Worker code
 export default {
   async fetch(request, env) {
-    await env.MY_KV.get("key")
-  }
-}
+    await env.MY_KV.get("key");
+  },
+};
 ```
 
 ### "API token permissions insufficient"
@@ -152,25 +154,25 @@ pulumi preview # If shows changes, adjust Pulumi code to match actual resource
 const worker = new cloudflare.WorkerScript("worker", {
   accountId,
   name: "my-worker",
-  content: code
-})
+  content: code,
+});
 
 // ADVANCED: Manual versioning for gradual rollouts (v6.x)
 const worker = new cloudflare.Worker("worker", {
   accountId,
-  name: "my-worker"
-})
+  name: "my-worker",
+});
 const version = new cloudflare.WorkerVersion("v1", {
   accountId,
   workerId: worker.id,
   content: code,
-  compatibilityDate: "2025-01-01"
-})
+  compatibilityDate: "2025-01-01",
+});
 const deployment = new cloudflare.WorkersDeployment("prod", {
   accountId,
   workerId: worker.id,
-  versionId: version.id
-})
+  versionId: version.id,
+});
 ```
 
 ## Best Practices

@@ -6,13 +6,13 @@ Vitest reads from `vitest.config.ts` or `vite.config.ts`.
 
 ```ts
 // vitest.config.ts
-import { defineConfig } from "vitest/config"
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
     // test options
-  }
-})
+  },
+});
 ```
 
 With existing Vite config:
@@ -20,28 +20,28 @@ With existing Vite config:
 ```ts
 // vite.config.ts
 /// <reference types="vitest/config" />
-import { defineConfig } from "vite"
+import { defineConfig } from "vite";
 
 export default defineConfig({
   test: {
     globals: true,
-    environment: "jsdom"
-  }
-})
+    environment: "jsdom",
+  },
+});
 ```
 
 Merge configs:
 
 ```ts
-import { defineConfig, mergeConfig } from "vitest/config"
-import viteConfig from "./vite.config"
+import { defineConfig, mergeConfig } from "vitest/config";
+import viteConfig from "./vite.config";
 
 export default mergeConfig(
   viteConfig,
   defineConfig({
-    test: { environment: "jsdom" }
-  })
-)
+    test: { environment: "jsdom" },
+  }),
+);
 ```
 
 ## Common Options
@@ -60,20 +60,20 @@ defineConfig({
     coverage: {
       provider: "v8", // or 'istanbul'
       reporter: ["text", "html"],
-      include: ["src/**/*.ts"]
+      include: ["src/**/*.ts"],
     },
     isolate: true, // Each file in separate process
     fileParallelism: true, // Run test files in parallel
     pool: "threads", // 'threads', 'forks', 'vmThreads'
     poolOptions: {
-      threads: { maxThreads: 4, minThreads: 1 }
+      threads: { maxThreads: 4, minThreads: 1 },
     },
     clearMocks: true,
     restoreMocks: true,
     retry: 0,
-    bail: 0
-  }
-})
+    bail: 0,
+  },
+});
 ```
 
 ## Conditional Config
@@ -83,8 +83,8 @@ export default defineConfig(({ mode }) => ({
   plugins: mode === "test" ? [] : [myPlugin()],
   test: {
     /* options */
-  }
-}))
+  },
+}));
 ```
 
 ## Projects (Monorepos)
@@ -98,19 +98,19 @@ defineConfig({
         test: {
           name: "unit",
           include: ["tests/unit/**/*.test.ts"],
-          environment: "node"
-        }
+          environment: "node",
+        },
       },
       {
         test: {
           name: "integration",
           include: ["tests/integration/**/*.test.ts"],
-          environment: "jsdom"
-        }
-      }
-    ]
-  }
-})
+          environment: "jsdom",
+        },
+      },
+    ],
+  },
+});
 ```
 
 ## CLI Commands

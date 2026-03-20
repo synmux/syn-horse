@@ -10,9 +10,9 @@ Reactive window scroll
 
 ```vue
 <script setup lang="ts">
-import { useWindowScroll } from "@vueuse/core"
+import { useWindowScroll } from "@vueuse/core";
 
-const { x, y } = useWindowScroll()
+const { x, y } = useWindowScroll();
 </script>
 
 <template>
@@ -25,7 +25,8 @@ const { x, y } = useWindowScroll()
 ## Type Declarations
 
 ```ts
-export interface UseWindowScrollOptions extends ConfigurableWindow, UseScrollOptions {}
+export interface UseWindowScrollOptions
+  extends ConfigurableWindow, UseScrollOptions {}
 /**
  * Reactive window scroll.
  *
@@ -33,22 +34,22 @@ export interface UseWindowScrollOptions extends ConfigurableWindow, UseScrollOpt
  * @param options
  */
 export declare function useWindowScroll(options?: UseWindowScrollOptions): {
-  x: WritableComputedRef<number, number>
-  y: WritableComputedRef<number, number>
-  isScrolling: ShallowRef<boolean, boolean>
+  x: WritableComputedRef<number, number>;
+  y: WritableComputedRef<number, number>;
+  isScrolling: ShallowRef<boolean, boolean>;
   arrivedState: {
-    left: boolean
-    right: boolean
-    top: boolean
-    bottom: boolean
-  }
+    left: boolean;
+    right: boolean;
+    top: boolean;
+    bottom: boolean;
+  };
   directions: {
-    left: boolean
-    right: boolean
-    top: boolean
-    bottom: boolean
-  }
-  measure(): void
-}
-export type UseWindowScrollReturn = ReturnType<typeof useWindowScroll>
+    left: boolean;
+    right: boolean;
+    top: boolean;
+    bottom: boolean;
+  };
+  measure(): void;
+};
+export type UseWindowScrollReturn = ReturnType<typeof useWindowScroll>;
 ```

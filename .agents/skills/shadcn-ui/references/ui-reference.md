@@ -352,7 +352,7 @@ Source: https://ui.shadcn.com/docs/components/alert
 Example of how to import the Alert, AlertDescription, and AlertTitle components from shadcn/ui after installation. This allows you to use them in your React components.
 
 ```jsx
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 ```
 
 ---
@@ -497,8 +497,8 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu"
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 ```
 
 ```javascript
@@ -703,8 +703,8 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger
-} from "@/components/ui/drawer"
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 ```
 
 ---
@@ -1167,7 +1167,11 @@ Defines a custom style that extends shadcn/ui, installing specific dependencies 
   "name": "example-style",
   "type": "registry:style",
   "dependencies": ["@tabler/icons-react"],
-  "registryDependencies": ["login-01", "calendar", "https://example.com/r/editor.json"],
+  "registryDependencies": [
+    "login-01",
+    "calendar",
+    "https://example.com/r/editor.json"
+  ],
   "cssVars": {
     "theme": {
       "font-sans": "Inter, sans-serif"

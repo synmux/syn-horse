@@ -10,11 +10,12 @@ Reactive [bounding box](https://developer.mozilla.org/en-US/docs/Web/API/Element
 
 ```vue
 <script setup lang="ts">
-import { useElementBounding } from "@vueuse/core"
-import { useTemplateRef } from "vue"
+import { useElementBounding } from "@vueuse/core";
+import { useTemplateRef } from "vue";
 
-const el = useTemplateRef("el")
-const { x, y, top, right, bottom, left, width, height } = useElementBounding(el)
+const el = useTemplateRef("el");
+const { x, y, top, right, bottom, left, width, height } =
+  useElementBounding(el);
 </script>
 
 <template>
@@ -26,7 +27,9 @@ const { x, y, top, right, bottom, left, width, height } = useElementBounding(el)
 
 ```vue
 <template>
-  <UseElementBounding v-slot="{ width, height }"> Width: {{ width }} Height: {{ height }} </UseElementBounding>
+  <UseElementBounding v-slot="{ width, height }">
+    Width: {{ width }} Height: {{ height }}
+  </UseElementBounding>
 </template>
 ```
 
@@ -34,21 +37,30 @@ const { x, y, top, right, bottom, left, width, height } = useElementBounding(el)
 
 ```vue
 <script setup lang="ts">
-import { vElementBounding } from "@vueuse/components"
+import { vElementBounding } from "@vueuse/components";
 
 interface BoundingType {
-  height: number
-  bottom: number
-  left: number
-  right: number
-  top: number
-  width: number
-  x: number
-  y: number
+  height: number;
+  bottom: number;
+  left: number;
+  right: number;
+  top: number;
+  width: number;
+  x: number;
+  y: number;
 }
 
-function onBounding({ height, bottom, left, right, top, width, x, y }: BoundingType) {
-  console.log(height, bottom, left, right, top, width, x, y)
+function onBounding({
+  height,
+  bottom,
+  left,
+  right,
+  top,
+  width,
+  x,
+  y,
+}: BoundingType) {
+  console.log(height, bottom, left, right, top, width, x, y);
 }
 
 const options = {
@@ -56,8 +68,8 @@ const options = {
   windowResize: true,
   windowScroll: true,
   immediate: true,
-  updateTiming: "sync"
-}
+  updateTiming: "sync",
+};
 </script>
 
 <template>
@@ -76,25 +88,25 @@ export interface UseElementBoundingOptions {
    *
    * @default true
    */
-  reset?: boolean
+  reset?: boolean;
   /**
    * Listen to window resize event
    *
    * @default true
    */
-  windowResize?: boolean
+  windowResize?: boolean;
   /**
    * Listen to window scroll event
    *
    * @default true
    */
-  windowScroll?: boolean
+  windowScroll?: boolean;
   /**
    * Immediately call update on component mounted
    *
    * @default true
    */
-  immediate?: boolean
+  immediate?: boolean;
   /**
    * Timing to recalculate the bounding box
    *
@@ -103,7 +115,7 @@ export interface UseElementBoundingOptions {
    *
    * @default 'sync'
    */
-  updateTiming?: "sync" | "next-frame"
+  updateTiming?: "sync" | "next-frame";
 }
 /**
  * Reactive bounding box of an HTML element.
@@ -113,17 +125,17 @@ export interface UseElementBoundingOptions {
  */
 export declare function useElementBounding(
   target: MaybeComputedElementRef,
-  options?: UseElementBoundingOptions
+  options?: UseElementBoundingOptions,
 ): {
-  height: ShallowRef<number, number>
-  bottom: ShallowRef<number, number>
-  left: ShallowRef<number, number>
-  right: ShallowRef<number, number>
-  top: ShallowRef<number, number>
-  width: ShallowRef<number, number>
-  x: ShallowRef<number, number>
-  y: ShallowRef<number, number>
-  update: () => void
-}
-export type UseElementBoundingReturn = ReturnType<typeof useElementBounding>
+  height: ShallowRef<number, number>;
+  bottom: ShallowRef<number, number>;
+  left: ShallowRef<number, number>;
+  right: ShallowRef<number, number>;
+  top: ShallowRef<number, number>;
+  width: ShallowRef<number, number>;
+  x: ShallowRef<number, number>;
+  y: ShallowRef<number, number>;
+  update: () => void;
+};
+export type UseElementBoundingReturn = ReturnType<typeof useElementBounding>;
 ```

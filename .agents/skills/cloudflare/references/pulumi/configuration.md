@@ -3,8 +3,8 @@
 ## Workers (cloudflare.WorkerScript)
 
 ```typescript
-import * as cloudflare from "@pulumi/cloudflare"
-import * as fs from "fs"
+import * as cloudflare from "@pulumi/cloudflare";
+import * as fs from "fs";
 
 const worker = new cloudflare.WorkerScript("my-worker", {
   accountId: accountId,
@@ -34,8 +34,8 @@ const worker = new cloudflare.WorkerScript("my-worker", {
   analyticsEngineBindings: [{ name: "ANALYTICS", dataset: "my-dataset" }],
   browserBinding: { name: "BROWSER" }, // Browser Rendering
   aiBinding: { name: "AI" }, // Workers AI
-  hyperdriveBindings: [{ name: "HYPERDRIVE", id: hyperdriveConfig.id }]
-})
+  hyperdriveBindings: [{ name: "HYPERDRIVE", id: hyperdriveConfig.id }],
+});
 ```
 
 ## Workers KV (cloudflare.WorkersKvNamespace)
@@ -43,16 +43,16 @@ const worker = new cloudflare.WorkerScript("my-worker", {
 ```typescript
 const kv = new cloudflare.WorkersKvNamespace("my-kv", {
   accountId: accountId,
-  title: "my-kv-namespace"
-})
+  title: "my-kv-namespace",
+});
 
 // Write values
 const kvValue = new cloudflare.WorkersKvValue("config", {
   accountId: accountId,
   namespaceId: kv.id,
   key: "config",
-  value: JSON.stringify({ foo: "bar" })
-})
+  value: JSON.stringify({ foo: "bar" }),
+});
 ```
 
 ## R2 Buckets (cloudflare.R2Bucket)
@@ -61,8 +61,8 @@ const kvValue = new cloudflare.WorkersKvValue("config", {
 const bucket = new cloudflare.R2Bucket("my-bucket", {
   accountId: accountId,
   name: "my-bucket",
-  location: "auto" // or "wnam", etc.
-})
+  location: "auto", // or "wnam", etc.
+});
 ```
 
 ## D1 Databases (cloudflare.D1Database)
@@ -70,40 +70,40 @@ const bucket = new cloudflare.R2Bucket("my-bucket", {
 ```typescript
 const db = new cloudflare.D1Database("my-db", {
   accountId,
-  name: "my-database"
-})
+  name: "my-database",
+});
 
 // Migrations via wrangler
-import * as command from "@pulumi/command"
+import * as command from "@pulumi/command";
 const migration = new command.local.Command(
   "d1-migration",
   {
-    create: pulumi.interpolate`wrangler d1 execute ${db.name} --file ./schema.sql`
+    create: pulumi.interpolate`wrangler d1 execute ${db.name} --file ./schema.sql`,
   },
-  { dependsOn: [db] }
-)
+  { dependsOn: [db] },
+);
 ```
 
 ## Queues (cloudflare.Queue)
 
 ```typescript
-const queue = new cloudflare.Queue("my-queue", { accountId, name: "my-queue" })
+const queue = new cloudflare.Queue("my-queue", { accountId, name: "my-queue" });
 
 // Producer
 const producer = new cloudflare.WorkerScript("producer", {
   accountId,
   name: "producer",
   content: code,
-  queueBindings: [{ name: "MY_QUEUE", queue: queue.id }]
-})
+  queueBindings: [{ name: "MY_QUEUE", queue: queue.id }],
+});
 
 // Consumer
 const consumer = new cloudflare.WorkerScript("consumer", {
   accountId,
   name: "consumer",
   content: code,
-  queueConsumers: [{ queue: queue.name, maxBatchSize: 10, maxRetries: 3 }]
-})
+  queueConsumers: [{ queue: queue.name, maxBatchSize: 10, maxRetries: 3 }],
+});
 ```
 
 ## Pages Projects (cloudflare.PagesProject)
@@ -116,30 +116,30 @@ const pages = new cloudflare.PagesProject("my-site", {
   buildConfig: { buildCommand: "npm run build", destinationDir: "dist" },
   source: {
     type: "github",
-    config: { owner: "my-org", repoName: "my-repo", productionBranch: "main" }
+    config: { owner: "my-org", repoName: "my-repo", productionBranch: "main" },
   },
   deploymentConfigs: {
     production: {
       environmentVariables: { NODE_VERSION: "18" },
       kvNamespaces: { MY_KV: kv.id },
-      d1Databases: { DB: db.id }
-    }
-  }
-})
+      d1Databases: { DB: db.id },
+    },
+  },
+});
 ```
 
 ## DNS Records (cloudflare.DnsRecord)
 
 ```typescript
-const zone = cloudflare.getZone({ name: "example.com" })
+const zone = cloudflare.getZone({ name: "example.com" });
 const record = new cloudflare.DnsRecord("www", {
   zoneId: zone.then((z) => z.id),
   name: "www",
   type: "A",
   content: "192.0.2.1",
   ttl: 3600,
-  proxied: true
-})
+  proxied: true,
+});
 ```
 
 ## Workers Domains/Routes
@@ -149,16 +149,16 @@ const record = new cloudflare.DnsRecord("www", {
 const route = new cloudflare.WorkerRoute("my-route", {
   zoneId: zoneId,
   pattern: "example.com/api/*",
-  scriptName: worker.name
-})
+  scriptName: worker.name,
+});
 
 // Domain (dedicated subdomain)
 const domain = new cloudflare.WorkersDomain("my-domain", {
   accountId: accountId,
   hostname: "api.example.com",
   service: worker.name,
-  zoneId: zoneId
-})
+  zoneId: zoneId,
+});
 ```
 
 ## Assets Configuration (v6.x)
@@ -171,10 +171,10 @@ const worker = new cloudflare.WorkerScript("app", {
   name: "my-app",
   content: code,
   assets: {
-    path: "./public" // Local directory
+    path: "./public", // Local directory
     // Assets uploaded and served from Workers
-  }
-})
+  },
+});
 ```
 
 ## v6.x Versioned Deployments (Advanced)
@@ -185,8 +185,8 @@ For gradual rollouts, use 3-resource pattern:
 // 1. Worker (container for versions)
 const worker = new cloudflare.Worker("api", {
   accountId: accountId,
-  name: "api-worker"
-})
+  name: "api-worker",
+});
 
 // 2. Version (immutable code + config)
 const version = new cloudflare.WorkerVersion("v1", {
@@ -194,9 +194,9 @@ const version = new cloudflare.WorkerVersion("v1", {
   workerId: worker.id,
   content: fs.readFileSync("./dist/worker.js", "utf8"),
   compatibilityDate: "2025-01-01",
-  compatibilityFlags: ["nodejs_compat"]
+  compatibilityFlags: ["nodejs_compat"],
   // Note: Bindings configured at deployment level
-})
+});
 
 // 3. Deployment (version + bindings + traffic split)
 const deployment = new cloudflare.WorkersDeployment("prod", {
@@ -204,8 +204,8 @@ const deployment = new cloudflare.WorkersDeployment("prod", {
   workerId: worker.id,
   versionId: version.id,
   // Bindings applied to deployment
-  kvNamespaceBindings: [{ name: "MY_KV", namespaceId: kv.id }]
-})
+  kvNamespaceBindings: [{ name: "MY_KV", namespaceId: kv.id }],
+});
 ```
 
 **When to use:** Blue-green deployments, canary releases, gradual rollouts  

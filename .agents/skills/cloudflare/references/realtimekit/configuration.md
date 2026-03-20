@@ -27,18 +27,21 @@ npm install @cloudflare/realtimekit @cloudflare/realtimekit-ui
 ### React UI Kit
 
 ```tsx
-import { RtkMeeting } from "@cloudflare/realtimekit-react-ui"
-;<RtkMeeting authToken="<token>" onLeave={() => {}} />
+import { RtkMeeting } from "@cloudflare/realtimekit-react-ui";
+<RtkMeeting authToken="<token>" onLeave={() => {}} />;
 ```
 
 ### Angular UI Kit
 
 ```typescript
 @Component({
-  template: `<rtk-meeting [authToken]="authToken" (rtkLeave)="onLeave($event)"></rtk-meeting>`
+  template: `<rtk-meeting
+    [authToken]="authToken"
+    (rtkLeave)="onLeave($event)"
+  ></rtk-meeting>`,
 })
 export class AppComponent {
-  authToken = "<token>"
+  authToken = "<token>";
   onLeave() {}
 }
 ```
@@ -52,14 +55,14 @@ export class AppComponent {
 ></script>
 <rtk-meeting id="meeting"></rtk-meeting>
 <script>
-  document.getElementById("meeting").authToken = "<token>"
+  document.getElementById("meeting").authToken = "<token>";
 </script>
 ```
 
 ### Core SDK Configuration
 
 ```typescript
-import RealtimeKitClient from "@cloudflare/realtimekit"
+import RealtimeKitClient from "@cloudflare/realtimekit";
 
 const meeting = new RealtimeKitClient({
   authToken: "<token>",
@@ -70,21 +73,21 @@ const meeting = new RealtimeKitClient({
     video: {
       width: { ideal: 1280 },
       height: { ideal: 720 },
-      frameRate: { ideal: 30 }
+      frameRate: { ideal: 30 },
     },
     audio: {
       echoCancellation: true,
       noiseSuppression: true,
-      autoGainControl: true
+      autoGainControl: true,
     },
     screenshare: {
       width: { max: 1920 },
       height: { max: 1080 },
-      frameRate: { ideal: 15 }
-    }
-  }
-})
-await meeting.join()
+      frameRate: { ideal: 15 },
+    },
+  },
+});
+await meeting.join();
 ```
 
 ## Backend Setup
@@ -133,8 +136,8 @@ curl -X POST 'https://api.cloudflare.com/client/v4/accounts/<account_id>/realtim
   "compatibility_date": "2025-01-01", // Use current date
   "vars": {
     "CLOUDFLARE_ACCOUNT_ID": "abc123",
-    "REALTIMEKIT_APP_ID": "xyz789"
-  }
+    "REALTIMEKIT_APP_ID": "xyz789",
+  },
   // Secrets: wrangler secret put CLOUDFLARE_API_TOKEN
 }
 ```
@@ -143,9 +146,11 @@ curl -X POST 'https://api.cloudflare.com/client/v4/accounts/<account_id>/realtim
 
 ```jsonc
 {
-  "d1_databases": [{ "binding": "DB", "database_name": "meetings", "database_id": "d1-id" }],
+  "d1_databases": [
+    { "binding": "DB", "database_name": "meetings", "database_id": "d1-id" },
+  ],
   "r2_buckets": [{ "binding": "RECORDINGS", "bucket_name": "recordings" }],
-  "kv_namespaces": [{ "binding": "SESSIONS", "id": "kv-id" }]
+  "kv_namespaces": [{ "binding": "SESSIONS", "id": "kv-id" }],
 }
 ```
 
@@ -165,8 +170,8 @@ RealtimeKit can use Cloudflare's TURN service for connectivity through restricti
 // wrangler.jsonc
 {
   "vars": {
-    "TURN_SERVICE_ID": "your_turn_service_id"
-  }
+    "TURN_SERVICE_ID": "your_turn_service_id",
+  },
   // Set secret: wrangler secret put TURN_SERVICE_TOKEN
 }
 ```
@@ -227,8 +232,8 @@ const t = useLanguage(customLanguage);
 Default locales available: `en`, `es`, `fr`, `de`, `pt`, `ja`, `zh`
 
 ```typescript
-import { setLocale } from "@cloudflare/realtimekit-ui"
-setLocale("es") // Switch to Spanish
+import { setLocale } from "@cloudflare/realtimekit-ui";
+setLocale("es"); // Switch to Spanish
 ```
 
 ## See Also

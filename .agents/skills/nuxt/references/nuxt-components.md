@@ -20,7 +20,9 @@ Working with images, links, or time display in templates. **Always prefer Nuxt c
 <template>
   <!-- Internal navigation -->
   <NuxtLink to="/about">About</NuxtLink>
-  <NuxtLink :to="{ name: '/users/[userId]', params: { userId } }">Profile</NuxtLink>
+  <NuxtLink :to="{ name: '/users/[userId]', params: { userId } }"
+    >Profile</NuxtLink
+  >
 
   <!-- External links (uses target="_blank" automatically with external) -->
   <NuxtLink to="https://nuxt.com" external>Nuxt Docs</NuxtLink>
@@ -29,7 +31,13 @@ Working with images, links, or time display in templates. **Always prefer Nuxt c
   <NuxtLink to="/dashboard" :prefetch="false">Dashboard</NuxtLink>
 
   <!-- Active state styling -->
-  <NuxtLink to="/settings" active-class="text-primary" exact-active-class="font-bold"> Settings </NuxtLink>
+  <NuxtLink
+    to="/settings"
+    active-class="text-primary"
+    exact-active-class="font-bold"
+  >
+    Settings
+  </NuxtLink>
 </template>
 ```
 
@@ -57,7 +65,13 @@ Requires `@nuxt/image` module (usually pre-installed).
   <NuxtImg src="/images/hero.jpg" alt="Hero image" />
 
   <!-- Responsive with sizes -->
-  <NuxtImg src="/images/banner.jpg" alt="Banner" width="1200" height="600" sizes="100vw sm:50vw md:400px" />
+  <NuxtImg
+    src="/images/banner.jpg"
+    alt="Banner"
+    width="1200"
+    height="600"
+    sizes="100vw sm:50vw md:400px"
+  />
 
   <!-- Lazy loading (default) -->
   <NuxtImg src="/images/photo.jpg" loading="lazy" alt="Photo" />

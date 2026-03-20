@@ -60,8 +60,8 @@
 await client.networkInterconnects.slots.list({
   account_id: id,
   occupied: false,
-  facility: "EWR1"
-})
+  facility: "EWR1",
+});
 ```
 
 ### 400 Bad Request: "invalid facility code"

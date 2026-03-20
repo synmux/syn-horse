@@ -22,9 +22,9 @@ npm install cloudflare
 ```
 
 ```typescript
-import Cloudflare from "cloudflare"
+import Cloudflare from "cloudflare";
 
-const client = new Cloudflare({ apiToken: process.env.CF_API_TOKEN })
+const client = new Cloudflare({ apiToken: process.env.CF_API_TOKEN });
 
 // Custom rules
 await client.rulesets.create({
@@ -37,10 +37,10 @@ await client.rulesets.create({
     {
       action: "challenge",
       expression: 'http.request.uri.path eq "/admin"',
-      enabled: true
-    }
-  ]
-})
+      enabled: true,
+    },
+  ],
+});
 
 // Managed ruleset
 await client.rulesets.create({
@@ -50,10 +50,10 @@ await client.rulesets.create({
     {
       action: "execute",
       action_parameters: { id: "efb7b8c949ac4650a09736fc376e9aee" },
-      expression: "true"
-    }
-  ]
-})
+      expression: "true",
+    },
+  ],
+});
 
 // Rate limiting
 await client.rulesets.create({
@@ -68,12 +68,12 @@ await client.rulesets.create({
           characteristics: ["cf.colo.id", "ip.src"],
           period: 60,
           requests_per_period: 100,
-          mitigation_timeout: 600
-        }
-      }
-    }
-  ]
-})
+          mitigation_timeout: 600,
+        },
+      },
+    },
+  ],
+});
 ```
 
 ## Terraform Configuration
@@ -139,9 +139,9 @@ resource "cloudflare_ruleset" "rate_limiting" {
 ## Pulumi Configuration
 
 ```typescript
-import * as cloudflare from "@pulumi/cloudflare"
+import * as cloudflare from "@pulumi/cloudflare";
 
-const zoneId = "zone_id"
+const zoneId = "zone_id";
 
 // Custom rules
 const wafCustom = new cloudflare.Ruleset("waf-custom", {
@@ -152,10 +152,10 @@ const wafCustom = new cloudflare.Ruleset("waf-custom", {
     {
       action: "challenge",
       expression: 'http.request.uri.path eq "/admin"',
-      enabled: true
-    }
-  ]
-})
+      enabled: true,
+    },
+  ],
+});
 
 // Managed ruleset
 const wafManaged = new cloudflare.Ruleset("waf-managed", {
@@ -165,10 +165,10 @@ const wafManaged = new cloudflare.Ruleset("waf-managed", {
     {
       action: "execute",
       actionParameters: { id: "efb7b8c949ac4650a09736fc376e9aee" },
-      expression: "true"
-    }
-  ]
-})
+      expression: "true",
+    },
+  ],
+});
 
 // Rate limiting
 const rateLimiting = new cloudflare.Ruleset("rate-limiting", {
@@ -182,11 +182,11 @@ const rateLimiting = new cloudflare.Ruleset("rate-limiting", {
         characteristics: ["cf.colo.id", "ip.src"],
         period: 60,
         requestsPerPeriod: 100,
-        mitigationTimeout: 600
-      }
-    }
-  ]
-})
+        mitigationTimeout: 600,
+      },
+    },
+  ],
+});
 ```
 
 ## Dashboard Configuration
@@ -215,9 +215,12 @@ WAF configuration is zone-level (not Worker-specific). Configuration methods:
 ```typescript
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    return fetch(`https://api.cloudflare.com/client/v4/zones/${env.ZONE_ID}/rulesets`, {
-      headers: { Authorization: `Bearer ${env.CF_API_TOKEN}` }
-    })
-  }
-}
+    return fetch(
+      `https://api.cloudflare.com/client/v4/zones/${env.ZONE_ID}/rulesets`,
+      {
+        headers: { Authorization: `Bearer ${env.CF_API_TOKEN}` },
+      },
+    );
+  },
+};
 ```

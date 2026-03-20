@@ -77,9 +77,11 @@ WHERE json_valid(metadata) AND json_extract(metadata, '$.country') = 'AU'
 ### `.all<T>()` — Array of row objects
 
 ```typescript
-const { results, success, meta } = await env.DB.prepare("SELECT * FROM users WHERE role = ?")
+const { results, success, meta } = await env.DB.prepare(
+  "SELECT * FROM users WHERE role = ?",
+)
   .bind("admin")
-  .all<UserRow>()
+  .all<UserRow>();
 // results: UserRow[]
 // meta: { duration, rows_read, rows_written, last_row_id, changes, size_after }
 ```
@@ -87,29 +89,39 @@ const { results, success, meta } = await env.DB.prepare("SELECT * FROM users WHE
 ### `.first()` — Single row or null
 
 ```typescript
-const row = await env.DB.prepare("SELECT * FROM users WHERE id = ?").bind(id).first()
+const row = await env.DB.prepare("SELECT * FROM users WHERE id = ?")
+  .bind(id)
+  .first();
 // row: Record<string, unknown> | null
 
 // With column name — returns scalar:
-const count = await env.DB.prepare("SELECT COUNT(*) as count FROM users").first("count")
+const count = await env.DB.prepare("SELECT COUNT(*) as count FROM users").first(
+  "count",
+);
 // count: number | null
 ```
 
 ### `.run()` — Execute mutation (no rows returned)
 
 ```typescript
-const result = await env.DB.prepare("INSERT INTO users (id, name) VALUES (?, ?)").bind(id, name).run()
+const result = await env.DB.prepare(
+  "INSERT INTO users (id, name) VALUES (?, ?)",
+)
+  .bind(id, name)
+  .run();
 // result: { success, meta: { changes, last_row_id, ... } }
 ```
 
 ### `.raw()` — Array of arrays (no column names)
 
 ```typescript
-const rows = await env.DB.prepare("SELECT id, name FROM users").raw()
+const rows = await env.DB.prepare("SELECT id, name FROM users").raw();
 // rows: [["abc", "Alice"], ["def", "Bob"]]
 
 // With column names:
-const rows = await env.DB.prepare("SELECT id, name FROM users").raw({ columnNames: true })
+const rows = await env.DB.prepare("SELECT id, name FROM users").raw({
+  columnNames: true,
+});
 // rows: [["id", "name"], ["abc", "Alice"], ["def", "Bob"]]
 ```
 
@@ -118,8 +130,8 @@ const rows = await env.DB.prepare("SELECT id, name FROM users").raw({ columnName
 ```typescript
 const [r1, r2] = await env.DB.batch([
   env.DB.prepare("INSERT INTO users VALUES (?, ?)").bind(id1, name1),
-  env.DB.prepare("INSERT INTO users VALUES (?, ?)").bind(id2, name2)
-])
+  env.DB.prepare("INSERT INTO users VALUES (?, ?)").bind(id2, name2),
+]);
 // Returns: D1Result[] — one per statement, all in single transaction
 ```
 

@@ -12,9 +12,9 @@
 **Debug:**
 
 ```javascript
-zaraz.debug = true
-console.log("Tools:", zaraz.tools)
-console.log("Consent:", zaraz.consent.getAll())
+zaraz.debug = true;
+console.log("Tools:", zaraz.tools);
+console.log("Consent:", zaraz.consent.getAll());
 ```
 
 ## Consent Issues
@@ -23,8 +23,9 @@ console.log("Consent:", zaraz.consent.getAll())
 
 ```javascript
 // Clear consent cookie
-document.cookie = "zaraz-consent=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-location.reload()
+document.cookie =
+  "zaraz-consent=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+location.reload();
 ```
 
 **Tools firing before consent:** Map tool to consent purpose with "Do not load until consent granted".
@@ -38,17 +39,17 @@ location.reload()
 
 ```javascript
 window.addEventListener("hashchange", () => {
-  zaraz.track("pageview", { page_path: location.pathname + location.hash })
-})
+  zaraz.track("pageview", { page_path: location.pathname + location.hash });
+});
 ```
 
 **React fix:**
 
 ```javascript
-const location = useLocation()
+const location = useLocation();
 useEffect(() => {
-  zaraz.track("pageview", { page_path: location.pathname })
-}, [location]) // Include dependency
+  zaraz.track("pageview", { page_path: location.pathname });
+}, [location]); // Include dependency
 ```
 
 ## Performance
