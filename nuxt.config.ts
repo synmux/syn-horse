@@ -74,6 +74,7 @@ export default defineNuxtConfig({
     "nuxt-security",
     "nuxt-gtag",
     "@nuxt/content",
+    "@nuxthub/core",
   ],
   nitro: {
     cloudflare: {
