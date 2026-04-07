@@ -42,6 +42,11 @@ lint:
         - _DIO/**
         - _DSOY/**
     - linters:
+        - yamllint
+        - checkov
+      paths:
+        - .github/workflows/claude*.y*ml
+    - linters:
         - trunk-toolbox
       paths:
         - "**/*.gif"
