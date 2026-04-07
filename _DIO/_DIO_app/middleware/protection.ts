@@ -1,0 +1,36 @@
+/**
+ * Access Control Middleware
+ *
+ * Simple middleware that runs a conditional check to decide whether to allow a page to render.
+ * Currently uses a simple `true` check but designed to be expanded for real access control logic.
+ * 'auth' is taken over by Supabase apparently, so we call ourselves 'protection'.
+ *
+ * @example
+ * // Apply to a specific page:
+ * // In a .vue page file:
+ * definePageMeta({
+ *   middleware: 'access-control'
+ * })
+ *
+ * @example
+ * // Apply globally by naming it 'auth.global.ts'
+ */
+
+export default defineNuxtRouteMiddleware((to, _from) => {
+  // Simple conditional check - expand this logic as needed
+  const allowAccess = true
+
+  if (!allowAccess) {
+    // Access denied - redirect to access denied page or throw error
+    throw createError({
+      statusCode: 403,
+      statusMessage: "Access Denied",
+      data: {
+        path: to.path,
+        reason: "Access control check failed",
+      },
+    })
+  }
+
+  // Allow the page to render
+})

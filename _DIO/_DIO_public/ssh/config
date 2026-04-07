@@ -1,0 +1,48 @@
+# code: language=ssh_config insertSpaces=true tabSize=2
+
+Host github.com *.github.com
+  Port 22
+
+Host tilde.club
+  User daveio
+  Port 22
+
+Host tilde.pink
+  Port 22
+
+Host fw fw-16c
+  HostName 10.69.69.1
+  HostName 10.0.98.1
+  HostName 10.0.99.1
+  HostName fd8b:d512:4fd6:3a0d:4799:93ea:678c:f242
+  HostName fc5d:ef1f:08ea:678c:f242:0000:0000:0001
+
+Host nas nas-7t54
+  HostName nas-7t54.manticore-minor.ts.net
+  HostName 100.80.254.9
+  HostName fd7a:115c:a1e0::1301:fe09
+
+Host basilisk
+  # HostName 161.35.35.39
+  # HostName 2a03:b0c0:1:d0::10bd:6001
+  HostName basilisk.manticore-minor.ts.net
+  HostName 100.87.5.50
+  HostName fd7a:115c:a1e0::1501:532
+  LocalForward 9443 localhost:9443
+
+Host mba
+  HostName dave-mba.manticore-minor.ts.net
+  HostName 100.96.172.64
+  HostName fd7a:115c:a1e0::5601:ac40
+
+Host mbp
+  HostName dave-mbp.manticore-minor.ts.net
+  HostName 100.84.242.28
+  HostName fd7a:115c:a1e0::d801:f21d
+
+# Global settings unless overridden
+Host *
+  Compression yes
+  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+  ForwardAgent yes
+  Port 212
