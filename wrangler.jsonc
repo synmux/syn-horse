@@ -1,0 +1,218 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "account_id": "def50674a738cee409235f71819973cf",
+  "ai": {
+    "binding": "AI",
+    "remote": true
+  },
+  "analytics_engine_datasets": [
+    {
+      "binding": "ANALYTICS",
+      "dataset": "syn-horse"
+    }
+  ],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./.output/public/"
+  },
+  "browser": {
+    "binding": "BROWSER"
+  },
+  "compatibility_date": "2026-04-07",
+  "compatibility_flags": ["nodejs_compat", "nodejs_compat_populate_process_env"],
+  // "d1_databases": [
+  //   {
+  //     "binding": "DB",
+  //     "database_id": "b7438090-d76e-4b31-9041-2df146c88cae",
+  //     "migrations_dir": "./drizzle",
+  //     "database_name": "dave-io"
+  //   }
+  // ],
+  "dev": {
+    "container_engine": "docker",
+    "enable_containers": true,
+    "host": "dave-mbp.manticore-minor.ts.net",
+    "inspector_port": 9229,
+    "port": 443
+  },
+  "images": {
+    "binding": "IMAGES"
+  },
+  "keep_names": true,
+  // "kv_namespaces": [
+  //   {
+  //     "binding": "CACHE",
+  //     "id": "55698aec82e54c0b903b0ae75dcb1faa"
+  //   },
+  //   {
+  //     "binding": "KV",
+  //     "id": "7ea47b9cb1ce47d7abefd311ad5b5515"
+  //   }
+  // ],
+  "limits": {
+    "cpu_ms": 30000
+  },
+  "logpush": false,
+  "main": "./.output/server/index.mjs",
+  "minify": true,
+  "name": "syn-horse",
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true
+    }
+  },
+  "placement": {
+    "mode": "smart"
+  },
+  "preview_urls": true,
+  // "r2_buckets": [
+  //   {
+  //     "binding": "BLOB",
+  //     "bucket_name": "syn-horse"
+  //   }
+  // ],
+  "routes": [
+    {
+      "custom_domain": true,
+      "pattern": "syn.horse"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "www.syn.horse"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "syn.as"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "www.syn.as"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "syn.haus"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "www.syn.haus"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "syn.ing"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "www.syn.ing"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "syn.pink"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "www.syn.pink"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "clarion.sh"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "www.clarion.sh"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "dcw.soy"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "www.dcw.soy"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "dcw.soy"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "www.dcw.soy"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "dcw.soy"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "www.dcw.soy"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "dcw.soy"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "www.dcw.soy"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "sl1p.dev"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "www.sl1p.dev"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "sl1p.email"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "www.sl1p.email"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "sl1p.net"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "www.sl1p.net"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "sl1p.services"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "www.sl1p.services"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "sl1p.space"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "www.sl1p.space"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "sl1p.systems"
+    },
+    {
+      "custom_domain": true,
+      "pattern": "www.sl1p.systems"
+    }
+  ],
+  "send_metrics": true,
+  "upload_source_maps": true,
+  "vars": {
+    "CLOUDFLARE_ACCOUNT_ID": "def50674a738cee409235f71819973cf"
+    // "CLOUDFLARE_DATABASE_ID": "b7438090-d76e-4b31-9041-2df146c88cae",
+    // "SENTRY_ENVIRONMENT": "production"
+  },
+  "version_metadata": {
+    "binding": "CF_VERSION_METADATA"
+  },
+  "workers_dev": true
+}
