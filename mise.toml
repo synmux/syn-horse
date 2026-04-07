@@ -10,4 +10,4 @@ node = { version = '24.14.1' }
 rust = { version = '1.94.1' }
 
 [tasks]
-claude = 'bun run claude'
+claude = 'npx @anthropic-ai/claude-code'
