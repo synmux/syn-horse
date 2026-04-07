@@ -5,15 +5,18 @@
     "url": "https://github.com/synmux"
   },
   "dependencies": {
+    "@nuxt/content": "3.12.0",
     "@nuxt/eslint": "1.15.2",
     "@nuxt/fonts": "0.14.0",
     "@nuxt/icon": "2.2.1",
     "@nuxt/image": "2.0.0",
     "@nuxt/scripts": "0.13.2",
     "@tailwindcss/vite": "^4.2.2",
+    "better-sqlite3": "^12.8.0",
     "daisyui": "^5.5.19",
     "dotenv": "^17.4.1",
     "eslint": "^10.2.0",
+    "node-gyp": "^12.2.0",
     "nuxt": "^4.4.2",
     "nuxt-gtag": "4.1.0",
     "nuxt-security": "2.5.1",
@@ -81,9 +84,13 @@
   },
   "trustedDependencies": [
     "@parcel/watcher",
+    "better-sqlite3",
+    "esbuild",
     "onnxruntime-node",
     "protobufjs",
-    "unrs-resolver"
+    "sharp",
+    "unrs-resolver",
+    "workerd"
   ],
   "type": "module"
 }

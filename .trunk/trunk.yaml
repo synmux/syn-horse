@@ -40,6 +40,7 @@ lint:
         - _cloudflare/env.d.ts
         - worker-configuration.d.ts
         - _DIO/**
+        - _DSOY/**
     - linters:
         - trunk-toolbox
       paths:
