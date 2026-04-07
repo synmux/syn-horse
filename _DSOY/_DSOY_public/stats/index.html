@@ -258,88 +258,88 @@
     </div>
 
     <script>
-      const fmt = new Intl.NumberFormat("en-US");
+      const fmt = new Intl.NumberFormat("en-US")
       const EVENT_COLORS = {
         static_root: "#4ade80",
         static_asset: "#60a5fa",
         redirect: "#a78bfa",
         redirect_fallback: "#fbbf24",
-        not_found: "#f87171",
-      };
-      const CACHE_COLORS = { hit: "#4ade80", miss: "#f87171" };
-      const VALID_EVENT_TYPES = new Set(Object.keys(EVENT_COLORS));
-      const VALID_CACHE_STATUSES = new Set(Object.keys(CACHE_COLORS));
+        not_found: "#f87171"
+      }
+      const CACHE_COLORS = { hit: "#4ade80", miss: "#f87171" }
+      const VALID_EVENT_TYPES = new Set(Object.keys(EVENT_COLORS))
+      const VALID_CACHE_STATUSES = new Set(Object.keys(CACHE_COLORS))
 
-      let trafficChart = null;
-      let eventChart = null;
-      let cacheChart = null;
-      let lastFetchTime = null;
+      let trafficChart = null
+      let eventChart = null
+      let cacheChart = null
+      let lastFetchTime = null
 
       function fmtMs(v) {
-        return v != null ? Number(v).toFixed(1) + "ms" : "—";
+        return v != null ? Number(v).toFixed(1) + "ms" : "—"
       }
 
       function setText(id, text) {
-        document.getElementById(id).textContent = text;
+        document.getElementById(id).textContent = text
       }
 
       function clearChildren(el) {
-        while (el.firstChild) el.removeChild(el.firstChild);
+        while (el.firstChild) el.removeChild(el.firstChild)
       }
 
       function createEl(tag, attrs, text) {
-        const el = document.createElement(tag);
-        if (attrs) for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
-        if (text != null) el.textContent = String(text);
-        return el;
+        const el = document.createElement(tag)
+        if (attrs) for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v)
+        if (text != null) el.textContent = String(text)
+        return el
       }
 
       function showEmpty(container) {
-        clearChildren(container);
-        container.appendChild(createEl("div", { class: "empty" }, "No data yet"));
+        clearChildren(container)
+        container.appendChild(createEl("div", { class: "empty" }, "No data yet"))
       }
 
       function showError(container) {
-        clearChildren(container);
-        container.appendChild(createEl("div", { class: "error" }, "Failed to load data"));
+        clearChildren(container)
+        container.appendChild(createEl("div", { class: "error" }, "Failed to load data"))
       }
 
       function renderOverview(data) {
         if (data === null) {
-          setText("totalRequests", "—");
-          setText("redirects", "—");
-          setText("notFound", "—");
-          setText("avgResponse", "—");
-          return;
+          setText("totalRequests", "—")
+          setText("redirects", "—")
+          setText("notFound", "—")
+          setText("avgResponse", "—")
+          return
         }
         if (!data || !data.length) {
-          setText("totalRequests", "0");
-          setText("redirects", "0");
-          setText("notFound", "0");
-          setText("avgResponse", "—");
-          return;
+          setText("totalRequests", "0")
+          setText("redirects", "0")
+          setText("notFound", "0")
+          setText("avgResponse", "—")
+          return
         }
-        const d = data[0];
-        setText("totalRequests", fmt.format(Math.round(d.total_requests || 0)));
-        setText("redirects", fmt.format(Math.round(d.redirects || 0)));
-        setText("notFound", fmt.format(Math.round(d.not_found || 0)));
-        setText("avgResponse", fmtMs(d.avg_response_ms));
+        const d = data[0]
+        setText("totalRequests", fmt.format(Math.round(d.total_requests || 0)))
+        setText("redirects", fmt.format(Math.round(d.redirects || 0)))
+        setText("notFound", fmt.format(Math.round(d.not_found || 0)))
+        setText("avgResponse", fmtMs(d.avg_response_ms))
       }
 
       function renderTrafficChart(data) {
-        const canvas = document.getElementById("trafficChart");
+        const canvas = document.getElementById("trafficChart")
         if (!data || !data.length) {
-          if (trafficChart) trafficChart.destroy();
-          trafficChart = null;
-          return;
+          if (trafficChart) trafficChart.destroy()
+          trafficChart = null
+          return
         }
 
-        const hours = [...new Set(data.map((d) => d.hour))].sort();
-        const types = [...new Set(data.map((d) => d.event_type))];
-        const byHourType = {};
+        const hours = [...new Set(data.map((d) => d.hour))].sort()
+        const types = [...new Set(data.map((d) => d.event_type))]
+        const byHourType = {}
         for (const row of data) {
-          const key = row.hour + "|" + row.event_type;
-          byHourType[key] = (byHourType[key] || 0) + Number(row.count);
+          const key = row.hour + "|" + row.event_type
+          byHourType[key] = (byHourType[key] || 0) + Number(row.count)
         }
 
         const datasets = types.map((t) => ({
@@ -349,15 +349,15 @@
           backgroundColor: (EVENT_COLORS[t] || "#888") + "33",
           fill: true,
           tension: 0.3,
-          pointRadius: 0,
-        }));
+          pointRadius: 0
+        }))
 
         const labels = hours.map((h) => {
-          const d = new Date(h);
-          return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-        });
+          const d = new Date(h)
+          return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+        })
 
-        if (trafficChart) trafficChart.destroy();
+        if (trafficChart) trafficChart.destroy()
         trafficChart = new Chart(canvas, {
           type: "line",
           data: { labels, datasets },
@@ -370,69 +370,69 @@
                 stacked: true,
                 beginAtZero: true,
                 ticks: { color: "#666" },
-                grid: { color: "#2a2a4a" },
-              },
+                grid: { color: "#2a2a4a" }
+              }
             },
             plugins: {
-              legend: { labels: { color: "#aaa", boxWidth: 12, padding: 16 } },
-            },
-          },
-        });
+              legend: { labels: { color: "#aaa", boxWidth: 12, padding: 16 } }
+            }
+          }
+        })
       }
 
       function renderPathsTable(data) {
-        const container = document.getElementById("pathsTable");
+        const container = document.getElementById("pathsTable")
         if (data === null) {
-          showError(container);
-          return;
+          showError(container)
+          return
         }
         if (!data || !data.length) {
-          showEmpty(container);
-          return;
+          showEmpty(container)
+          return
         }
-        clearChildren(container);
-        const table = createEl("table");
-        const thead = createEl("thead");
-        const headerRow = createEl("tr");
+        clearChildren(container)
+        const table = createEl("table")
+        const thead = createEl("thead")
+        const headerRow = createEl("tr")
         for (const h of ["Path", "Type", "Hits", "Avg ms"]) {
-          headerRow.appendChild(createEl("th", null, h));
+          headerRow.appendChild(createEl("th", null, h))
         }
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
-        const tbody = createEl("tbody");
+        thead.appendChild(headerRow)
+        table.appendChild(thead)
+        const tbody = createEl("tbody")
         for (const row of data) {
-          const tr = createEl("tr");
-          const p = String(row.path);
-          tr.appendChild(createEl("td", null, p.startsWith("/") ? p : "/" + p));
-          const typeTd = createEl("td");
-          const eventType = String(row.event_type);
-          const badgeClass = VALID_EVENT_TYPES.has(eventType) ? "event-badge " + eventType : "event-badge";
-          typeTd.appendChild(createEl("span", { class: badgeClass }, eventType));
-          tr.appendChild(typeTd);
-          tr.appendChild(createEl("td", null, fmt.format(Math.round(row.hits))));
-          tr.appendChild(createEl("td", null, fmtMs(row.avg_ms)));
-          tbody.appendChild(tr);
+          const tr = createEl("tr")
+          const p = String(row.path)
+          tr.appendChild(createEl("td", null, p.startsWith("/") ? p : "/" + p))
+          const typeTd = createEl("td")
+          const eventType = String(row.event_type)
+          const badgeClass = VALID_EVENT_TYPES.has(eventType) ? "event-badge " + eventType : "event-badge"
+          typeTd.appendChild(createEl("span", { class: badgeClass }, eventType))
+          tr.appendChild(typeTd)
+          tr.appendChild(createEl("td", null, fmt.format(Math.round(row.hits))))
+          tr.appendChild(createEl("td", null, fmtMs(row.avg_ms)))
+          tbody.appendChild(tr)
         }
-        table.appendChild(tbody);
-        container.appendChild(table);
+        table.appendChild(tbody)
+        container.appendChild(table)
       }
 
       function renderEventChart(data) {
-        const canvas = document.getElementById("eventChart");
+        const canvas = document.getElementById("eventChart")
         if (!data || !data.length) {
-          return;
+          return
         }
 
-        const agg = {};
+        const agg = {}
         for (const row of data) {
-          const t = String(row.event_type);
-          agg[t] = (agg[t] || 0) + Number(row.hits);
+          const t = String(row.event_type)
+          agg[t] = (agg[t] || 0) + Number(row.hits)
         }
-        const labels = Object.keys(agg);
-        const values = Object.values(agg);
-        const colors = labels.map((l) => EVENT_COLORS[l] || "#888");
+        const labels = Object.keys(agg)
+        const values = Object.values(agg)
+        const colors = labels.map((l) => EVENT_COLORS[l] || "#888")
 
-        if (eventChart) eventChart.destroy();
+        if (eventChart) eventChart.destroy()
         eventChart = new Chart(canvas, {
           type: "doughnut",
           data: {
@@ -442,62 +442,62 @@
                 data: values,
                 backgroundColor: colors,
                 borderColor: "#16213e",
-                borderWidth: 2,
-              },
-            ],
+                borderWidth: 2
+              }
+            ]
           },
           options: {
             plugins: {
               legend: {
                 position: "bottom",
-                labels: { color: "#aaa", boxWidth: 10, padding: 12 },
-              },
-            },
-          },
-        });
+                labels: { color: "#aaa", boxWidth: 10, padding: 12 }
+              }
+            }
+          }
+        })
       }
 
       function renderCountriesTable(data) {
-        const container = document.getElementById("countriesTable");
+        const container = document.getElementById("countriesTable")
         if (data === null) {
-          showError(container);
-          return;
+          showError(container)
+          return
         }
         if (!data || !data.length) {
-          showEmpty(container);
-          return;
+          showEmpty(container)
+          return
         }
-        clearChildren(container);
-        const table = createEl("table");
-        const thead = createEl("thead");
-        const headerRow = createEl("tr");
+        clearChildren(container)
+        const table = createEl("table")
+        const thead = createEl("thead")
+        const headerRow = createEl("tr")
         for (const h of ["Country", "Requests"]) {
-          headerRow.appendChild(createEl("th", null, h));
+          headerRow.appendChild(createEl("th", null, h))
         }
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
-        const tbody = createEl("tbody");
+        thead.appendChild(headerRow)
+        table.appendChild(thead)
+        const tbody = createEl("tbody")
         for (const row of data) {
-          const tr = createEl("tr");
-          tr.appendChild(createEl("td", null, String(row.country)));
-          tr.appendChild(createEl("td", null, fmt.format(Math.round(row.requests))));
-          tbody.appendChild(tr);
+          const tr = createEl("tr")
+          tr.appendChild(createEl("td", null, String(row.country)))
+          tr.appendChild(createEl("td", null, fmt.format(Math.round(row.requests))))
+          tbody.appendChild(tr)
         }
-        table.appendChild(tbody);
-        container.appendChild(table);
+        table.appendChild(tbody)
+        container.appendChild(table)
       }
 
       function renderCacheChart(data) {
-        const canvas = document.getElementById("cacheChart");
+        const canvas = document.getElementById("cacheChart")
         if (!data || !data.length) {
-          return;
+          return
         }
 
-        const labels = data.map((d) => String(d.cache_status));
-        const values = data.map((d) => Number(d.count));
-        const colors = labels.map((l) => CACHE_COLORS[l] || "#888");
+        const labels = data.map((d) => String(d.cache_status))
+        const values = data.map((d) => Number(d.count))
+        const colors = labels.map((l) => CACHE_COLORS[l] || "#888")
 
-        if (cacheChart) cacheChart.destroy();
+        if (cacheChart) cacheChart.destroy()
         cacheChart = new Chart(canvas, {
           type: "doughnut",
           data: {
@@ -507,53 +507,53 @@
                 data: values,
                 backgroundColor: colors,
                 borderColor: "#16213e",
-                borderWidth: 2,
-              },
-            ],
+                borderWidth: 2
+              }
+            ]
           },
           options: {
             plugins: {
               legend: {
                 position: "bottom",
-                labels: { color: "#aaa", boxWidth: 10, padding: 12 },
-              },
-            },
-          },
-        });
+                labels: { color: "#aaa", boxWidth: 10, padding: 12 }
+              }
+            }
+          }
+        })
       }
 
       function updateTimestamp() {
-        if (!lastFetchTime) return;
-        const ago = Math.round((Date.now() - lastFetchTime) / 1000);
-        setText("lastUpdated", "Updated " + ago + "s ago \u00b7 auto-refresh 60s");
+        if (!lastFetchTime) return
+        const ago = Math.round((Date.now() - lastFetchTime) / 1000)
+        setText("lastUpdated", "Updated " + ago + "s ago \u00b7 auto-refresh 60s")
       }
 
       async function fetchAll() {
-        const endpoints = ["overview", "traffic", "paths", "countries", "cache"];
+        const endpoints = ["overview", "traffic", "paths", "countries", "cache"]
         const results = await Promise.all(
           endpoints.map((e) =>
             fetch("/stats/api/" + e)
               .then((r) => r.json())
-              .catch(() => null),
-          ),
-        );
+              .catch(() => null)
+          )
+        )
 
-        lastFetchTime = Date.now();
-        renderOverview(results[0]);
-        renderTrafficChart(results[1]);
-        renderPathsTable(results[2]);
-        renderEventChart(results[2]);
-        renderCountriesTable(results[3]);
-        renderCacheChart(results[4]);
-        updateTimestamp();
+        lastFetchTime = Date.now()
+        renderOverview(results[0])
+        renderTrafficChart(results[1])
+        renderPathsTable(results[2])
+        renderEventChart(results[2])
+        renderCountriesTable(results[3])
+        renderCacheChart(results[4])
+        updateTimestamp()
       }
 
       async function scheduleFetch() {
-        await fetchAll();
-        setTimeout(scheduleFetch, 60000);
+        await fetchAll()
+        setTimeout(scheduleFetch, 60000)
       }
-      scheduleFetch();
-      setInterval(updateTimestamp, 1000);
+      scheduleFetch()
+      setInterval(updateTimestamp, 1000)
     </script>
   </body>
 </html>

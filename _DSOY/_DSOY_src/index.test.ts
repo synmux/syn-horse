@@ -18,7 +18,7 @@ function createAssetsFetch(assetMap: AssetMap) {
     if (asset) {
       return new Response(asset.body ?? "", {
         status: asset.status ?? 200,
-        headers: asset.headers
+        headers: asset.headers,
       })
     }
     return new Response("not found", { status: 404 })
@@ -31,17 +31,17 @@ function createMockEnv(assetMap: AssetMap = {}) {
 
   const env = {
     ANALYTICS: {
-      writeDataPoint
+      writeDataPoint,
     },
     ANALYTICS_API_TOKEN: {
-      get: vi.fn(async () => "test-token")
+      get: vi.fn(async () => "test-token"),
     },
     ACCOUNT_ID: {
-      get: vi.fn(async () => "test-account-id")
+      get: vi.fn(async () => "test-account-id"),
     },
     ASSETS: {
       fetch: createAssetsFetch(assetMap),
-      connect: vi.fn()
+      connect: vi.fn(),
     },
     KV: {
       get: vi.fn(async (key: string, type?: "text" | "json" | "arrayBuffer" | "stream") => {
@@ -63,8 +63,8 @@ function createMockEnv(assetMap: AssetMap = {}) {
         store.delete(key)
       }),
       list: vi.fn(),
-      getWithMetadata: vi.fn()
-    }
+      getWithMetadata: vi.fn(),
+    },
   } as unknown as Env
 
   return { env, kvStore: store, assetsFetch: env.ASSETS.fetch as ReturnType<typeof createAssetsFetch>, writeDataPoint }
@@ -72,7 +72,7 @@ function createMockEnv(assetMap: AssetMap = {}) {
 
 function createExecutionContext() {
   return {
-    waitUntil: vi.fn()
+    waitUntil: vi.fn(),
   } as unknown as ExecutionContext
 }
 
@@ -99,8 +99,8 @@ describe("worker fetch", () => {
       expect.objectContaining({
         blobs: ["static_root", "GET", "unknown", "n/a"],
         doubles: expect.arrayContaining([200]),
-        indexes: ["/"]
-      })
+        indexes: ["/"],
+      }),
     )
   })
 
@@ -116,8 +116,8 @@ describe("worker fetch", () => {
       expect.objectContaining({
         blobs: ["static_asset", "GET", "unknown", "n/a"],
         doubles: expect.arrayContaining([200]),
-        indexes: ["soy.webp"]
-      })
+        indexes: ["soy.webp"],
+      }),
     )
   })
 
@@ -135,14 +135,14 @@ describe("worker fetch", () => {
       expect.objectContaining({
         blobs: ["redirect", "GET", "unknown", "hit"],
         doubles: expect.arrayContaining([301]),
-        indexes: ["foo"]
-      })
+        indexes: ["foo"],
+      }),
     )
   })
 
   it("serves the not-found page for invalid redirects", async () => {
     const { env, kvStore, assetsFetch, writeDataPoint } = createMockEnv({
-      "/not-found.html": { body: "not-found", headers: { Location: "/should-remove" } }
+      "/not-found.html": { body: "not-found", headers: { Location: "/should-remove" } },
     })
     kvStore.set(KV_KEY, { redirects: ["existing"], lastUpdated: new Date().toISOString() })
 
@@ -157,8 +157,8 @@ describe("worker fetch", () => {
       expect.objectContaining({
         blobs: ["not_found", "GET", "unknown", "hit"],
         doubles: expect.arrayContaining([404]),
-        indexes: ["missing"]
-      })
+        indexes: ["missing"],
+      }),
     )
   })
 
@@ -187,10 +187,10 @@ describe("worker fetch", () => {
             message: "ok",
             error: null,
             status: { message: "ok" },
-            timestamp: new Date().toISOString()
+            timestamp: new Date().toISOString(),
           }),
-          { status: 200 }
-        )
+          { status: 200 },
+        ),
     )
     globalThis.fetch = fetchMock
 
@@ -210,8 +210,8 @@ describe("worker fetch", () => {
       expect.objectContaining({
         blobs: ["redirect", "GET", "unknown", "miss"],
         doubles: expect.arrayContaining([301]),
-        indexes: ["zap"]
-      })
+        indexes: ["zap"],
+      }),
     )
   })
 })
@@ -260,8 +260,8 @@ describe("analytics data model", () => {
       expect.objectContaining({
         blobs: ["redirect_fallback", "GET", "unknown", "miss"],
         doubles: expect.arrayContaining([301]),
-        indexes: ["anything"]
-      })
+        indexes: ["anything"],
+      }),
     )
   })
 })
@@ -282,7 +282,7 @@ describe("stats API", () => {
     data: [{ total_requests: 100, redirects: 80, not_found: 5, static_served: 15, avg_response_ms: 2.5 }],
     meta: [],
     rows: 1,
-    rows_before_limit_at_least: 1
+    rows_before_limit_at_least: 1,
   }
 
   function mockAnalyticsFetch() {
@@ -301,7 +301,7 @@ describe("stats API", () => {
     const response = await handler.fetch(
       new Request("https://dcw.soy/stats/api/overview"),
       env,
-      createExecutionContext()
+      createExecutionContext(),
     )
 
     expect(response.status).toBe(200)
@@ -315,7 +315,7 @@ describe("stats API", () => {
     const response = await handler.fetch(
       new Request("https://dcw.soy/stats/api/unknown"),
       env,
-      createExecutionContext()
+      createExecutionContext(),
     )
 
     expect(response.status).toBe(404)
@@ -329,7 +329,7 @@ describe("stats API", () => {
     const response = await handler.fetch(
       new Request("https://dcw.soy/stats/api/overview"),
       env,
-      createExecutionContext()
+      createExecutionContext(),
     )
 
     expect(response.status).toBe(500)
@@ -348,7 +348,7 @@ describe("stats API", () => {
   it("serves /stats from ASSETS (not intercepted by API handler)", async () => {
     const { env, assetsFetch } = createMockEnv({
       "/stats": { body: "dashboard", status: 200 },
-      "/stats/": { body: "dashboard", status: 200 }
+      "/stats/": { body: "dashboard", status: 200 },
     })
     const response = await handler.fetch(new Request("https://dcw.soy/stats"), env, createExecutionContext())
 
@@ -366,7 +366,7 @@ describe("stats API", () => {
       const response = await handler.fetch(
         new Request(`https://dcw.soy/stats/api/${endpoint}`),
         env,
-        createExecutionContext()
+        createExecutionContext(),
       )
       expect(response.status).toBe(200)
     }
@@ -377,7 +377,7 @@ describe("stats API", () => {
     const response = await handler.fetch(
       new Request("https://dcw.soy/stats/api/overview", { method: "POST" }),
       env,
-      createExecutionContext()
+      createExecutionContext(),
     )
 
     expect(response.status).toBe(405)

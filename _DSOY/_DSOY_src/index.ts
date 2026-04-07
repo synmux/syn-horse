@@ -31,7 +31,7 @@ function writeAnalyticsEvent(env: Env, event: AnalyticsEvent): void {
   env.ANALYTICS.writeDataPoint({
     blobs: [event.eventType, event.method, event.country, event.cacheStatus],
     doubles: [event.statusCode, event.responseTimeMs],
-    indexes: [event.pathname]
+    indexes: [event.pathname],
   })
 }
 
@@ -61,7 +61,7 @@ export default {
         cacheStatus: "n/a",
         statusCode: response.status,
         responseTimeMs: Date.now() - startTime,
-        pathname: analyticsPath || "/"
+        pathname: analyticsPath || "/",
       })
       return response
     }
@@ -82,14 +82,14 @@ export default {
           cacheStatus: "n/a",
           statusCode: assetResponse.status,
           responseTimeMs: Date.now() - startTime,
-          pathname: analyticsPath
+          pathname: analyticsPath,
         })
         return assetResponse
       }
     }
 
     return await handleRedirect(request, env, ctx, startTime, country)
-  }
+  },
 } satisfies ExportedHandler<Env>
 
 /**
@@ -100,7 +100,7 @@ async function handleRedirect(
   env: Env,
   ctx: ExecutionContext,
   startTime: number,
-  country: string
+  country: string,
 ): Promise<Response> {
   const url: URL = new URL(request.url)
   const { pathname }: { pathname: string } = url
@@ -121,7 +121,7 @@ async function handleRedirect(
       cacheStatus: "miss",
       statusCode: 301,
       responseTimeMs: Date.now() - startTime,
-      pathname: redirectPath
+      pathname: redirectPath,
     })
     return Response.redirect(redirectUrl, 301)
   }
@@ -137,7 +137,7 @@ async function handleRedirect(
       cacheStatus: cacheHit ? "hit" : "miss",
       statusCode: 301,
       responseTimeMs: Date.now() - startTime,
-      pathname: redirectPath
+      pathname: redirectPath,
     })
     return Response.redirect(redirectUrl, 301)
   }
@@ -150,7 +150,7 @@ async function handleRedirect(
     cacheStatus: cacheHit ? "hit" : "miss",
     statusCode: 404,
     responseTimeMs: Date.now() - startTime,
-    pathname: redirectPath
+    pathname: redirectPath,
   })
   return await serveNotFoundPage(request, env)
 }
@@ -182,8 +182,8 @@ async function fetchValidRedirects(): Promise<string[] | null> {
     const response = await fetch("https://dave.io/api/redirects", {
       method: "GET",
       headers: {
-        "User-Agent": "THERE IS NO USER AGENT. THERE IS ONLY SOY."
-      }
+        "User-Agent": "THERE IS NO USER AGENT. THERE IS ONLY SOY.",
+      },
     })
 
     if (!response.ok) {
@@ -250,10 +250,10 @@ async function getValidRedirects(env: Env, ctx: ExecutionContext): Promise<Valid
 async function updateCache(env: Env, redirects: string[]): Promise<void> {
   const cacheData: RedirectCache = {
     redirects,
-    lastUpdated: new Date().toISOString()
+    lastUpdated: new Date().toISOString(),
   }
   await env.KV.put(KV_KEY, JSON.stringify(cacheData), {
-    expirationTtl: CACHE_TTL
+    expirationTtl: CACHE_TTL,
   })
 }
 
@@ -271,7 +271,7 @@ async function refreshCacheWithLock(env: Env): Promise<void> {
 
     // Acquire the lock
     await env.KV.put(KV_LOCK_KEY, new Date().toISOString(), {
-      expirationTtl: REFRESH_LOCK_TTL
+      expirationTtl: REFRESH_LOCK_TTL,
     })
 
     // Perform the refresh
@@ -317,7 +317,7 @@ async function serveNotFoundPage(request: Request, env: Env): Promise<Response> 
     console.error("Error serving not-found page: asset missing")
     return new Response("404 - Page Not Found", {
       status: 404,
-      headers: { "Content-Type": "text/plain" }
+      headers: { "Content-Type": "text/plain" },
     })
   }
 
@@ -326,7 +326,7 @@ async function serveNotFoundPage(request: Request, env: Env): Promise<Response> 
   headers.delete("Location")
   return new Response(response.body, {
     status: 404,
-    headers
+    headers,
   })
 }
 
@@ -334,7 +334,7 @@ async function serveNotFoundPage(request: Request, env: Env): Promise<Response> 
 
 const STATS_API_HEADERS = {
   "Content-Type": "application/json",
-  "Cache-Control": "public, max-age=30"
+  "Cache-Control": "public, max-age=30",
 } as const
 
 /**
@@ -346,7 +346,7 @@ async function queryAnalyticsEngine(env: Env, sql: string): Promise<{ data: Reco
   const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/analytics_engine/sql`, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
-    body: sql
+    body: sql,
   })
   if (!response.ok) {
     const text = await response.text()
@@ -362,7 +362,7 @@ async function handleStatsApi(pathname: string, method: string, env: Env): Promi
   if (method !== "GET" && method !== "HEAD") {
     return new Response(JSON.stringify({ error: "Method not allowed" }), {
       status: 405,
-      headers: { ...STATS_API_HEADERS, Allow: "GET, HEAD" }
+      headers: { ...STATS_API_HEADERS, Allow: "GET, HEAD" },
     })
   }
 
@@ -395,7 +395,7 @@ async function handleStatsApi(pathname: string, method: string, env: Env): Promi
     console.error("Stats API error:", error)
     return new Response(JSON.stringify({ error: "Failed to query analytics" }), {
       status: 500,
-      headers: STATS_API_HEADERS
+      headers: STATS_API_HEADERS,
     })
   }
 }
@@ -415,7 +415,7 @@ async function queryOverview(env: Env) {
       SUM(_sample_interval * double2) / SUM(_sample_interval) AS avg_response_ms
     FROM "dcw-soy"
     WHERE timestamp > NOW() - INTERVAL '1' DAY
-  `
+  `,
   )
 }
 
@@ -434,7 +434,7 @@ async function queryTraffic(env: Env) {
     WHERE timestamp > NOW() - INTERVAL '1' DAY
     GROUP BY hour, event_type
     ORDER BY hour ASC
-  `
+  `,
   )
 }
 
@@ -455,7 +455,7 @@ async function queryTopPaths(env: Env) {
     GROUP BY path, event_type
     ORDER BY hits DESC
     LIMIT 20
-  `
+  `,
   )
 }
 
@@ -475,7 +475,7 @@ async function queryCountries(env: Env) {
     GROUP BY country
     ORDER BY requests DESC
     LIMIT 15
-  `
+  `,
   )
 }
 
@@ -493,6 +493,6 @@ async function queryCache(env: Env) {
     WHERE timestamp > NOW() - INTERVAL '1' DAY
       AND blob4 != 'n/a'
     GROUP BY cache_status
-  `
+  `,
   )
 }
