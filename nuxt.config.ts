@@ -64,6 +64,30 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
+  hub: {
+    // D1 database
+    db: {
+      dialect: "sqlite",
+      driver: "d1",
+      connection: { databaseId: "2722c422-9352-45b5-9e7f-a4f6504e4f85" },
+    },
+    // KV namespace (binding defaults to 'KV')
+    kv: {
+      driver: "cloudflare-kv-binding",
+      namespaceId: "e8ba4689173e4710aaff726ce8ddb225",
+    },
+    // Cache KV namespace (binding defaults to 'CACHE')
+    cache: {
+      driver: "cloudflare-kv-binding",
+      namespaceId: "6d108e06dbe144ff9752c63084e4bd85",
+    },
+    // R2 bucket (binding defaults to 'BLOB')
+    blob: {
+      driver: "cloudflare-r2",
+      bucketName: "blob-syn-horse",
+      binding: "BLOB",
+    },
+  },
   modules: [
     "nitro-cloudflare-dev",
     "@nuxt/icon",
@@ -75,63 +99,246 @@ export default defineNuxtConfig({
     "nuxt-gtag",
     "@nuxt/content",
     "@nuxthub/core",
+    "@nuxtjs/turnstile",
+    "@nuxtjs/seo",
   ],
   nitro: {
     cloudflare: {
       deployConfig: true,
       nodeCompat: true,
+      wrangler: {
+        account_id: "def50674a738cee409235f71819973cf",
+        ai: {
+          binding: "AI",
+        },
+        analytics_engine_datasets: [
+          {
+            binding: "ANALYTICS",
+            dataset: "syn-horse",
+          },
+        ],
+        assets: {
+          binding: "ASSETS",
+          directory: "./.output/public/",
+        },
+        browser: {
+          binding: "BROWSER",
+        },
+        compatibility_date: "2026-04-07",
+        compatibility_flags: ["nodejs_compat", "nodejs_compat_populate_process_env"],
+        dev: {
+          host: "dave-mbp.manticore-minor.ts.net",
+          inspector_port: 9229,
+          port: 443,
+        },
+        images: {
+          binding: "IMAGES",
+        },
+        keep_names: true,
+        limits: {
+          cpu_ms: 30000,
+        },
+        logpush: false,
+        main: "./.output/server/index.mjs",
+        minify: true,
+        name: "syn-horse",
+        observability: {
+          enabled: true,
+          logs: {
+            enabled: true,
+            head_sampling_rate: 1,
+            invocation_logs: true,
+          },
+        },
+        placement: {
+          mode: "smart",
+        },
+        preview_urls: true,
+        routes: [
+          {
+            custom_domain: true,
+            pattern: "syn.horse",
+          },
+          {
+            custom_domain: true,
+            pattern: "www.syn.horse",
+          },
+          {
+            custom_domain: true,
+            pattern: "syn.as",
+          },
+          {
+            custom_domain: true,
+            pattern: "www.syn.as",
+          },
+          {
+            custom_domain: true,
+            pattern: "syn.haus",
+          },
+          {
+            custom_domain: true,
+            pattern: "www.syn.haus",
+          },
+          {
+            custom_domain: true,
+            pattern: "syn.ing",
+          },
+          {
+            custom_domain: true,
+            pattern: "www.syn.ing",
+          },
+          {
+            custom_domain: true,
+            pattern: "syn.pink",
+          },
+          {
+            custom_domain: true,
+            pattern: "www.syn.pink",
+          },
+          {
+            custom_domain: true,
+            pattern: "clarion.sh",
+          },
+          {
+            custom_domain: true,
+            pattern: "www.clarion.sh",
+          },
+          {
+            custom_domain: true,
+            pattern: "dcw.soy",
+          },
+          {
+            custom_domain: true,
+            pattern: "www.dcw.soy",
+          },
+          {
+            custom_domain: true,
+            pattern: "dcw.soy",
+          },
+          {
+            custom_domain: true,
+            pattern: "www.dcw.soy",
+          },
+          {
+            custom_domain: true,
+            pattern: "dcw.soy",
+          },
+          {
+            custom_domain: true,
+            pattern: "www.dcw.soy",
+          },
+          {
+            custom_domain: true,
+            pattern: "dcw.soy",
+          },
+          {
+            custom_domain: true,
+            pattern: "www.dcw.soy",
+          },
+          {
+            custom_domain: true,
+            pattern: "sl1p.dev",
+          },
+          {
+            custom_domain: true,
+            pattern: "www.sl1p.dev",
+          },
+          {
+            custom_domain: true,
+            pattern: "sl1p.email",
+          },
+          {
+            custom_domain: true,
+            pattern: "www.sl1p.email",
+          },
+          {
+            custom_domain: true,
+            pattern: "sl1p.net",
+          },
+          {
+            custom_domain: true,
+            pattern: "www.sl1p.net",
+          },
+          {
+            custom_domain: true,
+            pattern: "sl1p.services",
+          },
+          {
+            custom_domain: true,
+            pattern: "www.sl1p.services",
+          },
+          {
+            custom_domain: true,
+            pattern: "sl1p.space",
+          },
+          {
+            custom_domain: true,
+            pattern: "www.sl1p.space",
+          },
+          {
+            custom_domain: true,
+            pattern: "sl1p.systems",
+          },
+          {
+            custom_domain: true,
+            pattern: "www.sl1p.systems",
+          },
+        ],
+        send_metrics: true,
+        upload_source_maps: true,
+        vars: {
+          PLACEHOLDER_ENV_VAR: "foo",
+        },
+        version_metadata: {
+          binding: "CF_VERSION_METADATA",
+        },
+        workers_dev: true,
+      },
     },
     experimental: {
       wasm: true,
     },
-    preset: "cloudflare_module", // routeRules: {
-    //   "/": { prerender: true },
-    //   "/gender": { isr: 3600 },
-    //   "/api": { prerender: true },
-    //   "/todo": { ssr: false }, // Client-only interactive page
-    //   "/api/**": {
-    //     cors: true,
-    //     headers: {
-    //       "Cache-Control": "no-cache, no-store, must-revalidate",
-    //       "X-Content-Type-Options": "nosniff",
-    //       "X-Frame-Options": "DENY",
-    //       "X-XSS-Protection": "0",
-    //     },
-    //   },
-    //   "/go/**": {
-    //     headers: {
-    //       "Cache-Control": "no-cache, no-store, must-revalidate",
-    //     },
-    //   },
-    //   "/.well-known/nostr.json": {
-    //     headers: {
-    //       "Access-Control-Allow-Origin": "*",
-    //     },
-    //   },
-    // },
+    preset: "cloudflare_module",
+    routeRules: {
+      "/": { prerender: true },
+      "/api/**": {
+        cors: true,
+        headers: {
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          "X-Content-Type-Options": "nosniff",
+          "X-Frame-Options": "DENY",
+          "X-XSS-Protection": "0",
+        },
+      },
+      // "/gender":s { isr: 3600 },
+      // "/api": { prerender: true },
+      // "/todo": { ssr: false }, // Client-only interactive page
+      // "/go/**": {
+      //   headers: {
+      //     "Cache-Control": "no-cache, no-store, must-revalidate",
+      //   },
+      // },
+      // "/.well-known/nostr.json": {
+      //   headers: {
+      //     "Access-Control-Allow-Origin": "*",
+      //   },
+      // },
+    },
   },
   runtimeConfig: {
-    anthropicApiKey: "",
-    // overridden by environment variable
-    ctrldApiKey: "",
-    // overridden by environment variable
-    ctrldAuthKey: "",
-    // overridden by environment variable
-    linearApiKey: "",
-    // overridden by environment variable
-    openRouterApiKey: "",
-    // overridden by environment variable
+    cloudflare: {
+      d1Token: "", // overridden by environment variable
+    },
     public: {
       apiBase: "/api",
       cloudflare: {
         accountId: "def50674a738cee409235f71819973cf",
       },
       siteUrl: "https://syn.horse",
-      // turnstile: {
-      //   siteKey: "0x4AAAAAABraTjA80I4Pmf1K"
-      // }
     },
-    turnstileSecretKey: "", // overridden by environment variable
+    turnstile: {
+      secretKey: "", // overridden by environment variable
+    },
   },
   security: {
     sri: true,
@@ -141,18 +348,18 @@ export default defineNuxtConfig({
       meta: true,
     },
   },
-  // site: {
-  //   indexable: true,
-  //   name: "syn.horse",
-  //   url: "https://syn.horse"
-  // },
+  site: {
+    indexable: true,
+    name: "syn.horse",
+    url: "https://syn.horse",
+  },
   sourcemap: {
     client: "hidden",
     server: true,
   },
-  // turnstile: {
-  //   siteKey: "0x4AAAAAABraTjA80I4Pmf1K",
-  // },
+  turnstile: {
+    siteKey: "0x4AAAAAABraTjA80I4Pmf1K",
+  },
   vite: {
     build: {
       minify: "esbuild",
