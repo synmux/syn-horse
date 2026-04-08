@@ -149,6 +149,9 @@ export default defineNuxtConfig({
             head_sampling_rate: 1,
             invocation_logs: true,
           },
+          traces: {
+            enabled: true,
+          },
         },
         placement: {
           mode: "smart",
