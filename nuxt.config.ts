@@ -214,78 +214,6 @@ export default defineNuxtConfig({
             custom_domain: true,
             pattern: "www.dcw.soy",
           },
-          {
-            custom_domain: true,
-            pattern: "dcw.soy",
-          },
-          {
-            custom_domain: true,
-            pattern: "www.dcw.soy",
-          },
-          {
-            custom_domain: true,
-            pattern: "dcw.soy",
-          },
-          {
-            custom_domain: true,
-            pattern: "www.dcw.soy",
-          },
-          {
-            custom_domain: true,
-            pattern: "dcw.soy",
-          },
-          {
-            custom_domain: true,
-            pattern: "www.dcw.soy",
-          },
-          {
-            custom_domain: true,
-            pattern: "sl1p.dev",
-          },
-          {
-            custom_domain: true,
-            pattern: "www.sl1p.dev",
-          },
-          {
-            custom_domain: true,
-            pattern: "sl1p.email",
-          },
-          {
-            custom_domain: true,
-            pattern: "www.sl1p.email",
-          },
-          {
-            custom_domain: true,
-            pattern: "sl1p.net",
-          },
-          {
-            custom_domain: true,
-            pattern: "www.sl1p.net",
-          },
-          {
-            custom_domain: true,
-            pattern: "sl1p.services",
-          },
-          {
-            custom_domain: true,
-            pattern: "www.sl1p.services",
-          },
-          {
-            custom_domain: true,
-            pattern: "sl1p.space",
-          },
-          {
-            custom_domain: true,
-            pattern: "www.sl1p.space",
-          },
-          {
-            custom_domain: true,
-            pattern: "sl1p.systems",
-          },
-          {
-            custom_domain: true,
-            pattern: "www.sl1p.systems",
-          },
         ],
         send_metrics: true,
         upload_source_maps: true,
@@ -338,6 +266,9 @@ export default defineNuxtConfig({
         accountId: "def50674a738cee409235f71819973cf",
       },
       siteUrl: "https://syn.horse",
+      turnstile: {
+        siteKey: "0x4AAAAAAC2QY6ZikvZ4TAQq",
+      },
     },
     turnstile: {
       secretKey: "", // overridden by environment variable
@@ -361,7 +292,7 @@ export default defineNuxtConfig({
     server: true,
   },
   turnstile: {
-    siteKey: "0x4AAAAAABraTjA80I4Pmf1K",
+    siteKey: "0x4AAAAAAC2QY6ZikvZ4TAQq",
   },
   vite: {
     build: {
