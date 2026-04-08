@@ -218,7 +218,7 @@ export default defineNuxtConfig({
         send_metrics: true,
         upload_source_maps: true,
         vars: {
-          PLACEHOLDER_ENV_VAR: "foo",
+          NUXT_PUBLIC_TURNSTILE_SITE_KEY: "0x4AAAAAAC2QY6ZikvZ4TAQq",
         },
         version_metadata: {
           binding: "CF_VERSION_METADATA",
@@ -267,7 +267,7 @@ export default defineNuxtConfig({
       },
       siteUrl: "https://syn.horse",
       turnstile: {
-        siteKey: "0x4AAAAAAC2QY6ZikvZ4TAQq",
+        siteKey: "", // overridden by environment variable
       },
     },
     turnstile: {
