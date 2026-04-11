@@ -91,7 +91,8 @@
     "x:test:e2e:ui": "playwright test --ui",
     "x:test:nuxt": "vitest --project nuxt",
     "x:test:unit": "vitest --project unit",
-    "x:test:watch": "vitest --watch"
+    "x:test:watch": "vitest --watch",
+    "prepare": "skilld prepare || true"
   },
   "trustedDependencies": [
     "@parcel/watcher",
