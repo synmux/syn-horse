@@ -31,3 +31,7 @@ logs
 
 # Skilld references (recreated by `skilld install`)
 .skilld
+
+# eslint cache
+.eslintcache
+
