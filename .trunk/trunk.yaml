@@ -39,6 +39,7 @@ lint:
       paths:
         - _cloudflare/env.d.ts
         - worker-configuration.d.ts
+        - .claude/**
         - _DIO/**
         - _DSOY/**
     - linters:
@@ -66,7 +67,7 @@ actions:
     - id: bun-install
       display_name: Install dependencies with bun
       description: Run bun install to ensure dependencies are up to date
-      run: bun install && bun run format:githook
+      run: bun install && bun run format
       triggers:
         - git_hooks:
             - pre-commit

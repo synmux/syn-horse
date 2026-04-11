@@ -63,7 +63,6 @@
     "deploy:nonprod": "bun run wrangler versions upload",
     "dev": "bun run nuxt dev",
     "format": "bun run run-s format:prettier format:trunk",
-    "format:githook": "bun run run-s format:prettier format:trunk && git add -A .",
     "format:prettier": "bun run prettier --write .",
     "format:trunk": "bun run trunk fmt -a",
     "generate": "bun run nuxt generate",
