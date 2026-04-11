@@ -28,3 +28,6 @@ logs
 # .dev.vars* # disabled due to symlink
 # !.dev.vars.example # disabled due to symlink
 
+
+# Skilld references (recreated by `skilld install`)
+.skilld

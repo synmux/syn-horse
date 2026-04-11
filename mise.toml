@@ -1,5 +1,6 @@
 [env]
 SYN_HORSE_MISE_ACTIVE = 'true'
+V0_API_KEY = ''
 
 [settings]
 env_file = '.env'
