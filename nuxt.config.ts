@@ -3,6 +3,8 @@
 
 import tailwindcss from "@tailwindcss/vite"
 
+const compatibilityDate = "2026-04-15"
+
 export default defineNuxtConfig({
   app: {
     head: {
@@ -19,7 +21,7 @@ export default defineNuxtConfig({
       ],
     },
   },
-  compatibilityDate: "2026-04-07",
+  compatibilityDate,
   css: ["~/assets/css/main.css"],
   devtools: {
     enabled: true,
@@ -68,11 +70,11 @@ export default defineNuxtConfig({
   },
   hub: {
     // D1 database
-    db: {
-      dialect: "sqlite",
-      driver: "d1",
-      connection: { databaseId: "2722c422-9352-45b5-9e7f-a4f6504e4f85" },
-    },
+    // db: {
+    //   dialect: "sqlite",
+    //   driver: "d1",
+    //   connection: { databaseId: "2722c422-9352-45b5-9e7f-a4f6504e4f85" },
+    // },
     // KV namespace (binding defaults to 'KV')
     kv: {
       driver: "cloudflare-kv-binding",
@@ -126,7 +128,7 @@ export default defineNuxtConfig({
         browser: {
           binding: "BROWSER",
         },
-        compatibility_date: "2026-04-07",
+        compatibility_date: compatibilityDate,
         compatibility_flags: ["nodejs_compat", "nodejs_compat_populate_process_env"],
         dev: {
           host: "dave-mbp.manticore-minor.ts.net",
@@ -199,14 +201,6 @@ export default defineNuxtConfig({
           {
             custom_domain: true,
             pattern: "www.syn.pink",
-          },
-          {
-            custom_domain: true,
-            pattern: "clarion.sh",
-          },
-          {
-            custom_domain: true,
-            pattern: "www.clarion.sh",
           },
           {
             custom_domain: true,
@@ -299,6 +293,9 @@ export default defineNuxtConfig({
   vite: {
     build: {
       minify: "esbuild",
+    },
+    optimizeDeps: {
+      include: ["@vue/devtools-core", "@vue/devtools-kit"],
     },
     plugins: [tailwindcss()],
   },
