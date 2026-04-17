@@ -188,14 +188,6 @@ export default defineNuxtConfig({
           },
           {
             custom_domain: true,
-            pattern: "syn.ing",
-          },
-          {
-            custom_domain: true,
-            pattern: "www.syn.ing",
-          },
-          {
-            custom_domain: true,
             pattern: "syn.pink",
           },
           {
