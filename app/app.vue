@@ -4,7 +4,7 @@ useSeoMeta({
   description: "syn.horse — a small corner of the internet",
   ogTitle: "syn",
   ogDescription: "syn.horse — a small corner of the internet",
-  themeColor: "#0a0a0a",
+  themeColor: "#0a0a0a"
 })
 
 // Horse ASCII art [by hjw](https://ascii-art.de/ascii/ghi/horse.txt)
@@ -12,14 +12,14 @@ const horse = [
   "   >>\\.",
   "  /_  )`.",
   " /  _)`^)`.   _.---. _",
-  "(_,' \\  `^-)\"\"      `.\\",
+  '(_,\' \\  `^-)""      `.\\',
   "      |              | \\",
   "      \\              / |",
   "     / \\  /.___.'\\  (\\ (_",
   "    < ,\"||     \\ |`. \\`-'",
   "     \\\\ ()      )|  )/",
   "     |_>|>     /_] //",
-  "       /_]        /_]",
+  "       /_]        /_]"
 ].join("\n")
 </script>
 
@@ -28,7 +28,11 @@ const horse = [
     <NuxtRouteAnnouncer />
     <main class="stage">
       <div class="horse-frame">
-        <pre class="horse" role="img" aria-label="ASCII horse spinning"><span aria-hidden="true">{{ horse }}</span></pre>
+        <pre
+          class="horse"
+          role="img"
+          aria-label="ASCII horse spinning"
+        ><span aria-hidden="true">{{ horse }}</span></pre>
       </div>
       <h1 class="brand">hello.</h1>
       <p class="tag">syn.horse</p>
@@ -57,11 +61,7 @@ const horse = [
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(
-      circle at 50% 45%,
-      rgba(191, 255, 0, 0.08),
-      transparent 60%
-    ),
+    radial-gradient(circle at 50% 45%, rgba(191, 255, 0, 0.08), transparent 60%),
     repeating-linear-gradient(
       0deg,
       rgba(191, 255, 0, 0.025) 0px,
