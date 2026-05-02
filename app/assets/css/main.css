@@ -38,6 +38,11 @@
   /* Additional semantic colors */
   --color-purple: #cba6f7;
   --color-cyan: #89dceb;
+
+  /* Lime accent for syn.horse */
+  --color-lime: #bfff00;
+  --color-lime-soft: #d4ff5c;
+  --color-lime-dim: #88b300;
 }
 
 @layer components {
