@@ -7,16 +7,19 @@ useSeoMeta({
   themeColor: "#0a0a0a",
 })
 
-// Horse head ASCII art by Tua Xiong, sourced from ascii-art.de/ascii/ghi/horse.txt
+// Horse ASCII art [by hjw](https://ascii-art.de/ascii/ghi/horse.txt)
 const horse = [
-  "           {)",
-  "        c==//\\",
-  "   _-~~/-._|_|",
-  "  /'_,/,   //'~~~\\;;,",
-  "  `~  _( _||_..\\ | ';;",
-  "    /'~|/ ~' `\\<\\>  ;",
-  "    \"  |      /  |",
-  "       \"      \"  \"",
+  "   >>\\.",
+  "  /_  )`.",
+  " /  _)`^)`.   _.---. _",
+  "(_,' \\  `^-)\"\"      `.\\",
+  "      |              | \\",
+  "      \\              / |",
+  "     / \\  /.___.'\\  (\\ (_",
+  "    < ,\"||     \\ |`. \\`-'",
+  "     \\\\ ()      )|  )/",
+  "     |_>|>     /_] //",
+  "       /_]        /_]",
 ].join("\n")
 </script>
 
@@ -25,13 +28,13 @@ const horse = [
     <NuxtRouteAnnouncer />
     <main class="stage">
       <div class="horse-frame">
-        <pre class="horse" role="img" aria-label="ASCII horse head spinning"><span aria-hidden="true">{{ horse }}</span></pre>
+        <pre class="horse" role="img" aria-label="ASCII horse spinning"><span aria-hidden="true">{{ horse }}</span></pre>
       </div>
-      <h1 class="brand">syn</h1>
+      <h1 class="brand">hello.</h1>
       <p class="tag">syn.horse</p>
     </main>
     <footer class="foot">
-      <span>ascii horse head — tua xiong</span>
+      <span>ascii horse — hjw</span>
     </footer>
   </div>
 </template>
@@ -91,8 +94,8 @@ const horse = [
   line-height: 1.05;
   color: var(--color-lime);
   text-shadow:
-    0 0 6px rgba(191, 255, 0, 0.55),
-    0 0 18px rgba(191, 255, 0, 0.25);
+    0 0 6px color-mix(in srgb, var(--color-lime), transparent 45%),
+    0 0 18px color-mix(in srgb, var(--color-lime-soft), transparent 75%);
   margin: 0;
   animation: spin 9s linear infinite;
   transform-origin: 50% 50%;
