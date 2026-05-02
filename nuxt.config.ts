@@ -153,6 +153,7 @@ export default defineNuxtConfig({
             head_sampling_rate: 1,
             invocation_logs: true,
           },
+          // @ts-expect-error: types are lagging reality
           traces: {
             enabled: true,
           },

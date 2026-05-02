@@ -5,7 +5,7 @@
   /* Font Families */
   --font-mono: "Victor Mono", monospace;
   --font-subtitle: "Sono", sans-serif;
-  --font-display: "Sixtyfour Convergence", sans-serif;
+  --font-display: "Victor Mono", sans-serif;
 
   /* Catppuccin Mocha Color Palette */
   --color-rosewater: #f5e0dc;
@@ -38,6 +38,10 @@
   /* Additional semantic colors */
   --color-purple: #cba6f7;
   --color-cyan: #89dceb;
+
+  /* Lime accent for syn.horse */
+  --color-lime: #bfff00;
+  --color-lime-dim: #88b300;
 }
 
 @layer components {
