@@ -25,7 +25,7 @@ const horse = [
     <NuxtRouteAnnouncer />
     <main class="stage">
       <div class="horse-frame">
-        <pre class="horse" aria-label="ASCII horse head spinning">{{ horse }}</pre>
+        <pre class="horse" role="img" aria-label="ASCII horse head spinning"><span aria-hidden="true">{{ horse }}</span></pre>
       </div>
       <h1 class="brand">syn</h1>
       <p class="tag">syn.horse</p>
