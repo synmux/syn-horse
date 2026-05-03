@@ -34,11 +34,7 @@ const stamps = [
     </h1>
     <pre class="mt-3 font-mono text-[10px] leading-[1.05] whitespace-pre opacity-80 text-lilac">{{ ascii }}</pre>
     <div class="mt-8 grid grid-cols-3 gap-0 border border-void-4">
-      <div
-        v-for="(s, i) in stamps"
-        :key="i"
-        class="border-r border-b border-void-4 p-4.5 nth-[3n]:border-r-0"
-      >
+      <div v-for="(s, i) in stamps" :key="i" class="border-r border-b border-void-4 p-4.5 nth-[3n]:border-r-0">
         <div class="font-mono text-[9px] tracking-[0.14em] uppercase text-paper-3">{{ s.k }}</div>
         <div :class="['pt-1 font-display text-[32px] leading-[1.05]', s.colour || 'text-paper']">{{ s.v }}</div>
       </div>

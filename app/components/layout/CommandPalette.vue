@@ -106,24 +106,14 @@ useEventListener("keydown", (e: KeyboardEvent) => {
           @mouseenter="sel = i"
           @click="dispatch(c)"
         >
-          <span
-            :class="[
-              'font-mono text-[11px] tracking-[0.14em]',
-              i === sel ? 'text-hot' : 'text-paper-3'
-            ]"
+          <span :class="['font-mono text-[11px] tracking-[0.14em]', i === sel ? 'text-hot' : 'text-paper-3']"
             >[{{ c.ic }}]</span
           >
           <div>
             <div class="font-sans text-[14px] text-paper">{{ c.label }}</div>
             <div class="font-mono text-[11px] tracking-[0.04em] text-paper-3">{{ c.desc }}</div>
           </div>
-          <span
-            :class="[
-              'font-mono text-[11px] tracking-[0.14em]',
-              i === sel ? 'text-hot' : 'text-paper-3'
-            ]"
-            >↵</span
-          >
+          <span :class="['font-mono text-[11px] tracking-[0.14em]', i === sel ? 'text-hot' : 'text-paper-3']">↵</span>
         </div>
         <div
           v-if="filtered.length === 0"

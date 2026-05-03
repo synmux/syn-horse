@@ -35,7 +35,9 @@ const slug = computed(() => {
       online
     </span>
     <span class="flex gap-4 overflow-hidden whitespace-nowrap text-paper-3">
-      <span class="inline-flex items-center gap-1.5">◆ <span class="text-hot">/{{ slug }}</span></span>
+      <span class="inline-flex items-center gap-1.5"
+        >◆ <span class="text-hot">/{{ slug }}</span></span
+      >
       <span class="inline-flex items-center gap-1.5">tz <span class="text-paper-2">UTC</span></span>
     </span>
     <span>
