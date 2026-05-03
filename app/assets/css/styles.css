@@ -199,7 +199,7 @@ ul {
 .nav .spacer {
   flex: 1;
 }
-.nav button.tab {
+.nav .tab {
   font-family: var(--font-body);
   font-size: 13px;
   color: var(--paper-3);
@@ -208,14 +208,14 @@ ul {
   transition: color 80ms var(--ease-snap);
   position: relative;
 }
-.nav button.tab:hover {
+.nav .tab:hover {
   color: var(--paper);
   text-shadow: var(--ca,);
 }
-.nav button.tab.active {
+.nav .tab.active {
   color: var(--paper);
 }
-.nav button.tab.active::before {
+.nav .tab.active::before {
   content: "◆ ";
   color: var(--accent-color, var(--hot));
   font-size: 10px;
@@ -240,7 +240,7 @@ ul {
 .ca-on a:hover h3,
 .ca-on .blog-row:hover h3,
 .ca-on .proj:hover h3,
-.ca-on .nav button.tab:hover {
+.ca-on .nav .tab:hover {
   text-shadow:
     2px 0 0 var(--accent-color, var(--hot)),
     -2px 0 0 var(--cool);
