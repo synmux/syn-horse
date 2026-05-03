@@ -1,8 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config]
 // trunk-ignore-all(trunk-toolbox/todo)
 
-import tailwindcss from "@tailwindcss/vite"
-
 const compatibilityDate = "2026-04-15"
 
 export default defineNuxtConfig({
@@ -52,16 +50,22 @@ export default defineNuxtConfig({
     },
     families: [
       {
-        name: "Sixtyfour Convergence",
-        provider: "bunny",
+        name: "VT323",
+        provider: "google",
+        styles: ["normal"],
+        weights: ["400"],
       },
       {
-        name: "Sono",
-        provider: "bunny",
+        name: "Inter",
+        provider: "google",
+        styles: ["normal", "italic"],
+        weights: ["100 900"],
       },
       {
-        name: "Victor Mono",
-        provider: "bunny",
+        name: "JetBrains Mono",
+        provider: "google",
+        styles: ["normal", "italic"],
+        weights: ["100 800"],
       },
     ],
   },
@@ -220,7 +224,6 @@ export default defineNuxtConfig({
     },
     preset: "cloudflare_module",
     routeRules: {
-      "/": { prerender: true },
       "/api/**": {
         cors: true,
         headers: {
@@ -290,6 +293,5 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include: ["@vue/devtools-core", "@vue/devtools-kit"],
     },
-    plugins: [tailwindcss()],
   },
 })
