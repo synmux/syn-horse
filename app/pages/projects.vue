@@ -4,7 +4,7 @@ import { SITE } from "~/data/site"
 
 useSeoMeta({
   title: `projects · ${SITE.name}`,
-  description: "things i made on purpose.",
+  description: "things i made on purpose."
 })
 </script>
 

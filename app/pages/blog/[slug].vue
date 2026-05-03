@@ -19,18 +19,16 @@ if (!post.value) {
   throw createError({
     statusCode: 404,
     statusMessage: "post not found",
-    fatal: true,
+    fatal: true
   })
 }
 
 useSeoMeta({
   title: () => `${post.value!.title} · ${SITE.name}`,
-  description: () => post.value!.desc,
+  description: () => post.value!.desc
 })
 
-const sourcePath = computed(
-  () => `content/blog/${post.value!.date.replace(/\./g, "-")}_${post.value!.slug}.md`,
-)
+const sourcePath = computed(() => `content/blog/${post.value!.date.replace(/\./g, "-")}_${post.value!.slug}.md`)
 </script>
 
 <template>
@@ -54,15 +52,13 @@ const sourcePath = computed(
       </p>
       <h2>the setup</h2>
       <p>
-        here's the thesis. i had a problem, i refused to leave the house, and i had a half-charged
-        thinkpad. you can guess what happened next.
+        here's the thesis. i had a problem, i refused to leave the house, and i had a half-charged thinkpad. you can
+        guess what happened next.
       </p>
       <p>
-        i'd been running this exact stack for about six months — <code>nuxt 4</code>,
-        <code>cloudflare workers</code>, <code>@nuxt/content</code>, <code>tailwind</code>,
-        <code>daisyui</code> — and the thing that finally broke me was the
-        <b>build pipeline</b>. specifically, the part where it lies about whether content has
-        changed.
+        i'd been running this exact stack for about six months — <code>nuxt 4</code>, <code>cloudflare workers</code>,
+        <code>@nuxt/content</code>, <code>tailwind</code>, <code>daisyui</code> — and the thing that finally broke me
+        was the <b>build pipeline</b>. specifically, the part where it lies about whether content has changed.
       </p>
       <pre><code>&gt; wrangler deploy
 ✘ [ERROR] you tried something
@@ -72,13 +68,12 @@ i lost the file. i'm not sorry.</code></pre>
       <h2>what changed</h2>
       <p>
         the fix, as is tradition, was three lines of yaml. but the journey there involved
-        <a href="#">prometheus</a>, <a href="#">grafana</a>, a misconfigured tailnet, two pots of
-        coffee, and a brief out-of-body experience.
+        <a href="#">prometheus</a>, <a href="#">grafana</a>, a misconfigured tailnet, two pots of coffee, and a brief
+        out-of-body experience.
       </p>
       <blockquote>"the kernel panics, but romantically."</blockquote>
       <p>
-        that's an error message i would die for. instead i get "<i
-          >something went wrong, our team has been notified</i
+        that's an error message i would die for. instead i get "<i>something went wrong, our team has been notified</i
         >." nothing went wrong. somebody wrote a bad query and capitalism happened. say so.
       </p>
       <h2>what to do</h2>
@@ -90,8 +85,8 @@ i lost the file. i'm not sorry.</code></pre>
         <li>link to a friend.</li>
       </ul>
       <p>
-        that's it. that's the post. there's no call to action. there's no "if you liked this,
-        consider subscribing." you got here. you read it. that's the contract. thanks.
+        that's it. that's the post. there's no call to action. there's no "if you liked this, consider subscribing." you
+        got here. you read it. that's the contract. thanks.
       </p>
     </div>
     <div class="post-foot">

@@ -4,7 +4,7 @@ import { SITE } from "~/data/site"
 
 useSeoMeta({
   title: `domains · ${SITE.name}`,
-  description: "the syn.* family.",
+  description: "the syn.* family."
 })
 </script>
 
@@ -13,8 +13,8 @@ useSeoMeta({
     <div class="eyebrow">▶ /domains · the syn.* family · {{ DOMAINS.length }} of them</div>
     <h1>domains<span class="dot">.</span></h1>
     <p class="lede">
-      i collect tlds the way other people collect houseplants. one is the main site. the rest
-      redirect, park, or quietly ask a question about ducks.
+      i collect tlds the way other people collect houseplants. one is the main site. the rest redirect, park, or quietly
+      ask a question about ducks.
     </p>
     <div class="dom-grid">
       <div v-for="d in DOMAINS" :key="d.tld" :class="['dom-row', d.cls]">

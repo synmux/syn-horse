@@ -65,7 +65,7 @@ export default defineNuxtConfig({
         name: "JetBrains Mono",
         provider: "google",
         styles: ["normal", "italic"],
-        weights: ["100 900"],
+        weights: ["100 800"],
       },
     ],
   },
@@ -224,7 +224,6 @@ export default defineNuxtConfig({
     },
     preset: "cloudflare_module",
     routeRules: {
-      "/": { prerender: true },
       "/api/**": {
         cors: true,
         headers: {

@@ -13,10 +13,7 @@ const filtered = computed<Command[]>(() => {
   const q = palette.query.value.trim().toLowerCase()
   if (!q) return COMMANDS
   return COMMANDS.filter(
-    (c) =>
-      c.label.toLowerCase().includes(q) ||
-      c.desc.toLowerCase().includes(q) ||
-      c.id.toLowerCase().includes(q),
+    (c) => c.label.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q) || c.id.toLowerCase().includes(q)
   )
 })
 
@@ -31,7 +28,7 @@ watch(
       sel.value = 0
       nextTick(() => inputEl.value?.focus())
     }
-  },
+  }
 )
 
 const keys = useMagicKeys()

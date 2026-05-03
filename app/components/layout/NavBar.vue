@@ -13,7 +13,7 @@ const tabs = [
   { id: "blog", label: "blog", to: "/blog" },
   { id: "cv", label: "cv", to: "/cv" },
   { id: "domains", label: "domains", to: "/domains" },
-  { id: "contact", label: "contact", to: "/contact" },
+  { id: "contact", label: "contact", to: "/contact" }
 ] as const
 
 const activeId = computed(() => {
@@ -32,16 +32,9 @@ const activeId = computed(() => {
       <span class="word">syn<span class="dot">.</span>horse</span>
     </NuxtLink>
     <span class="spacer" />
-    <NuxtLink
-      v-for="t in tabs"
-      :key="t.id"
-      :to="t.to"
-      :class="['tab', 'fx-glitch', activeId === t.id && 'active']"
-    >
+    <NuxtLink v-for="t in tabs" :key="t.id" :to="t.to" :class="['tab', 'fx-glitch', activeId === t.id && 'active']">
       {{ t.label }}
     </NuxtLink>
-    <button class="cmd-hint" type="button" @click="palette.show()">
-      press <kbd>/</kbd>
-    </button>
+    <button class="cmd-hint" type="button" @click="palette.show()">press <kbd>/</kbd></button>
   </nav>
 </template>

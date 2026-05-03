@@ -16,7 +16,7 @@ const marqueeItems = [
   "no analytics",
   "◆ NO WE",
   "do not subscribe",
-  "◆ ask me about meshtastic",
+  "◆ ask me about meshtastic"
 ] as const
 </script>
 
@@ -82,9 +82,7 @@ const marqueeItems = [
     </div>
     <div class="footer-note" style="margin-top: 48px">
       <span>◆ syn · 2026 · built in the void</span>
-      <span>
-        press <kbd style="color: var(--cool)">/</kbd> for command palette · ↑↑↓↓ for a surprise
-      </span>
+      <span> press <kbd style="color: var(--cool)">/</kbd> for command palette · ↑↑↓↓ for a surprise </span>
     </div>
   </div>
 </template>

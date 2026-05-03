@@ -5,14 +5,12 @@ import { SITE } from "~/data/site"
 
 useSeoMeta({
   title: `blog · ${SITE.name}`,
-  description: "essays, notes, and shouts into the void.",
+  description: "essays, notes, and shouts into the void."
 })
 
 const filter = ref<string>("all")
 
-const filtered = computed(() =>
-  filter.value === "all" ? POSTS : POSTS.filter((p) => p.tags.includes(filter.value)),
-)
+const filtered = computed(() => (filter.value === "all" ? POSTS : POSTS.filter((p) => p.tags.includes(filter.value))))
 </script>
 
 <template>
@@ -20,19 +18,12 @@ const filtered = computed(() =>
     <div class="eyebrow">▶ /blog · {{ POSTS.length }} posts · infrequent · lowercase</div>
     <h1>blog<span class="dot">.</span></h1>
     <p class="lede">
-      writing about devops, hardware, the slow death of weird websites, and occasionally my body.
-      infrequent. unedited. no editor will ever fix that.
+      writing about devops, hardware, the slow death of weird websites, and occasionally my body. infrequent. unedited.
+      no editor will ever fix that.
     </p>
     <div class="filter">
-      <span :class="['tg', filter === 'all' && 'on']" @click="filter = 'all'">
-        ALL · {{ POSTS.length }}
-      </span>
-      <span
-        v-for="[t, c] in TAG_COUNTS"
-        :key="t"
-        :class="['tg', filter === t && 'on']"
-        @click="filter = t"
-      >
+      <span :class="['tg', filter === 'all' && 'on']" @click="filter = 'all'"> ALL · {{ POSTS.length }} </span>
+      <span v-for="[t, c] in TAG_COUNTS" :key="t" :class="['tg', filter === t && 'on']" @click="filter = t">
         {{ t.toUpperCase() }} · {{ c }}
       </span>
     </div>
@@ -53,8 +44,8 @@ const filtered = computed(() =>
       </li>
     </ul>
     <div class="feed-line">
-      rss feed: <a href="/feed.xml">/feed.xml</a> · subscribe with the reader of your choice. no
-      email list. i'm not chasing you.
+      rss feed: <a href="/feed.xml">/feed.xml</a> · subscribe with the reader of your choice. no email list. i'm not
+      chasing you.
     </div>
   </div>
 </template>

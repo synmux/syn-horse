@@ -3,7 +3,7 @@ import { SITE } from "~/data/site"
 
 useSeoMeta({
   title: `now · ${SITE.name}`,
-  description: "what i'm actually doing this month.",
+  description: "what i'm actually doing this month."
 })
 </script>
 
@@ -11,27 +11,24 @@ useSeoMeta({
   <div class="container now">
     <div class="eyebrow">▶ /now · updated 2026.04.20</div>
     <h1>now<span class="dot">.</span></h1>
-    <p class="lede">
-      a /now page. what i'm actually doing this month, not what linkedin would have you believe.
-    </p>
+    <p class="lede">a /now page. what i'm actually doing this month, not what linkedin would have you believe.</p>
     <h2>building</h2>
     <ul>
       <li>
         <span>
-          <b>syn.horse</b> — this rewrite. nuxt 4 on cloudflare workers, content from markdown,
-          deployed via wrangler. mostly working. {{ SITE.status }}.
+          <b>syn.horse</b> — this rewrite. nuxt 4 on cloudflare workers, content from markdown, deployed via wrangler.
+          mostly working. {{ SITE.status }}.
         </span>
       </li>
       <li>
         <span>
-          <b>genderbase</b> — quarterly content review. removed 2 dead links, added 7 resources,
-          refreshed the FAQ.
+          <b>genderbase</b> — quarterly content review. removed 2 dead links, added 7 resources, refreshed the FAQ.
         </span>
       </li>
       <li>
         <span>
-          <b>meshtastic node FOXP1</b> — moved it to a higher ridge. range went from 8km to ~12km.
-          neighbours now relay my jokes.
+          <b>meshtastic node FOXP1</b> — moved it to a higher ridge. range went from 8km to ~12km. neighbours now relay
+          my jokes.
         </span>
       </li>
     </ul>
@@ -42,8 +39,7 @@ useSeoMeta({
       </li>
       <li>
         <span>
-          <b>the unaccountability machine</b>, dan davies. systems thinking for people who already
-          shout at git.
+          <b>the unaccountability machine</b>, dan davies. systems thinking for people who already shout at git.
         </span>
       </li>
       <li>
@@ -53,14 +49,10 @@ useSeoMeta({
     <h2>listening</h2>
     <ul>
       <li>
-        <span>
-          <b>the broadcast</b> — dub techno. it's april. that's enough excuse.
-        </span>
+        <span> <b>the broadcast</b> — dub techno. it's april. that's enough excuse. </span>
       </li>
       <li>
-        <span>
-          <b>look mum no computer</b> — tinkerer/musician. accidentally informative.
-        </span>
+        <span> <b>look mum no computer</b> — tinkerer/musician. accidentally informative. </span>
       </li>
     </ul>
     <h2>not doing</h2>

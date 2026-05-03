@@ -6,7 +6,7 @@ useSeoMeta({
   description: SITE.description,
   ogTitle: SITE.name,
   ogDescription: SITE.description,
-  themeColor: "#0d0221",
+  themeColor: "#0d0221"
 })
 </script>
 

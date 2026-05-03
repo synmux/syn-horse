@@ -26,11 +26,11 @@ const slug = computed(() => {
 
 <template>
   <div class="statusbar">
-    <span>
-      <span class="pulse-dot" />online
-    </span>
+    <span> <span class="pulse-dot" />online </span>
     <span class="sb-mid">
-      <span class="frag">◆ <span class="sb-route">/{{ slug }}</span></span>
+      <span class="frag"
+        >◆ <span class="sb-route">/{{ slug }}</span></span
+      >
       <span class="frag">tz <span style="color: var(--paper-2)">UTC</span></span>
     </span>
     <span>

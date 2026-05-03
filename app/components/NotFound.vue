@@ -16,9 +16,7 @@ onMounted(() => {
   <div class="notfound">
     <div class="eyebrow">▶ /this-page-does-not-exist · status 404</div>
     <div class="big">404</div>
-    <div class="yell">
-      this page <span class="accent">does not exist</span>. never did. go home.
-    </div>
+    <div class="yell">this page <span class="accent">does not exist</span>. never did. go home.</div>
     <div class="console">
       <div><span class="pr">syn@horse</span> <span class="mu">~/$</span> stat /this-route</div>
       <div class="mu">

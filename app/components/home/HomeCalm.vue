@@ -5,12 +5,10 @@ import { SITE } from "~/data/site"
 <template>
   <div class="container home">
     <div class="eyebrow">▶ syn · they/them · in the void</div>
-    <h1>
-      devops<br />and weird<br />things<span class="accent">.</span>
-    </h1>
+    <h1>devops<br />and weird<br />things<span class="accent">.</span></h1>
     <p class="sub">
-      i'm <b>syn</b>. devops engineer and general-purpose nerd. i write occasionally, ship
-      occasionally, and have a lot of opinions about prometheus.
+      i'm <b>syn</b>. devops engineer and general-purpose nerd. i write occasionally, ship occasionally, and have a lot
+      of opinions about prometheus.
     </p>
     <div class="now-bar">
       <span class="pulse" />
