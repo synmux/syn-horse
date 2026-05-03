@@ -50,16 +50,22 @@ export default defineNuxtConfig({
     },
     families: [
       {
-        name: "Sixtyfour Convergence",
-        provider: "bunny",
+        name: "VT323",
+        provider: "google",
+        styles: ["normal"],
+        weights: ["400"],
       },
       {
-        name: "Sono",
-        provider: "bunny",
+        name: "Inter",
+        provider: "google",
+        styles: ["normal", "italic"],
+        weights: ["100 900"],
       },
       {
-        name: "Victor Mono",
-        provider: "bunny",
+        name: "JetBrains Mono",
+        provider: "google",
+        styles: ["normal", "italic"],
+        weights: ["100 900"],
       },
     ],
   },
