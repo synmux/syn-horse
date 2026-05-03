@@ -9,7 +9,7 @@ const variant = useHomeVariant()
 const variantMap = {
   calm: HomeCalm,
   feral: HomeFeral,
-  unhinged: HomeUnhinged,
+  unhinged: HomeUnhinged
 } as const
 </script>
 
