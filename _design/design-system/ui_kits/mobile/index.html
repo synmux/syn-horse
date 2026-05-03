@@ -1,0 +1,674 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>syn.horse — mobile</title>
+    <link rel="stylesheet" href="../../colors_and_type.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        background: #0a0014;
+        min-height: 100vh;
+        font-family: var(--font-body);
+        color: var(--paper);
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+      .stage {
+        display: flex;
+        gap: 28px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .label {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: var(--fg-3);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-align: center;
+        margin-top: 8px;
+      }
+
+      .fx-scan {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9999;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.03) 0,
+          rgba(255, 255, 255, 0.03) 1px,
+          transparent 1px,
+          transparent 3px
+        );
+      }
+      .fx-grain {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9998;
+        opacity: 0.03;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      }
+
+      /* synth.horse mobile internals */
+      .m-screen {
+        background: var(--bg);
+        height: 100%;
+        color: var(--paper);
+        display: flex;
+        flex-direction: column;
+      }
+      .m-header {
+        padding: 14px 18px 6px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 1px solid var(--void-4);
+      }
+      .m-header h1 {
+        font-family: var(--font-display);
+        font-size: 32px;
+        line-height: 1;
+        flex: 1;
+      }
+      .m-header .icon-btn {
+        width: 32px;
+        height: 32px;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--void-4);
+        color: var(--paper-2);
+      }
+      .m-marquee {
+        background: var(--void-2);
+        padding: 6px 0;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: var(--hot);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        overflow: hidden;
+      }
+      .m-marquee div {
+        display: inline-flex;
+        gap: 28px;
+        white-space: nowrap;
+        padding-left: 100%;
+        animation: marq 28s linear infinite;
+      }
+      @keyframes marq {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-100%);
+        }
+      }
+
+      .m-feed {
+        flex: 1;
+        overflow-y: auto;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .m-tile {
+        background: var(--void-2);
+        border: 1px solid var(--void-4);
+        padding: 14px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        position: relative;
+      }
+      .m-tile .id {
+        position: absolute;
+        top: 6px;
+        right: 10px;
+        font-family: var(--font-mono);
+        font-size: 9px;
+        color: var(--fg-3);
+        letter-spacing: 0.08em;
+      }
+      .m-tile h3 {
+        font-family: var(--font-display);
+        font-size: 22px;
+        line-height: 1.15;
+        margin-bottom: 6px;
+        padding-right: 60px;
+      }
+      .m-tile p {
+        font-size: 12.5px;
+        color: var(--fg-2);
+        line-height: 1.45;
+      }
+      .m-tile .row {
+        display: flex;
+        gap: 6px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+      }
+      .tg {
+        display: inline-flex;
+        padding: 2px 7px;
+        font-family: var(--font-mono);
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border: 1px solid var(--paper-3);
+        color: var(--fg-3);
+      }
+      .tg.hot {
+        color: var(--hot);
+        border-color: var(--hot);
+      }
+      .tg.cool {
+        color: var(--cool);
+        border-color: var(--cool);
+      }
+
+      .m-tabbar {
+        display: flex;
+        gap: 0;
+        border-top: 1px solid var(--void-4);
+        background: rgba(13, 2, 33, 0.7);
+        backdrop-filter: blur(12px);
+      }
+      .m-tabbar button {
+        flex: 1;
+        padding: 10px 0 14px;
+        background: transparent;
+        border: 0;
+        color: var(--fg-3);
+        font-family: var(--font-mono);
+        font-size: 9px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+      }
+      .m-tabbar button.active {
+        color: var(--hot);
+      }
+      .m-tabbar button.active::before {
+        content: "";
+        width: 24px;
+        height: 2px;
+        background: var(--hot);
+        margin-bottom: 4px;
+        box-shadow: 0 0 8px var(--hot);
+      }
+      .m-tabbar button:not(.active)::before {
+        content: "";
+        width: 24px;
+        height: 2px;
+        background: transparent;
+        margin-bottom: 4px;
+      }
+
+      /* detail */
+      .m-detail {
+        flex: 1;
+        overflow-y: auto;
+        padding: 18px;
+      }
+      .m-detail .breadcrumb {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: var(--fg-3);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .m-detail h2 {
+        font-family: var(--font-display);
+        font-size: 36px;
+        line-height: 1.05;
+        margin-bottom: 12px;
+      }
+      .m-detail .meta {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-bottom: 16px;
+      }
+      .m-detail .body {
+        font-size: 13px;
+        color: var(--paper-2);
+        line-height: 1.55;
+        margin-bottom: 16px;
+      }
+      .m-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+      .m-grid div {
+        aspect-ratio: 1;
+        background: var(--void-2);
+        border: 1px solid var(--void-4);
+        display: grid;
+        place-items: center;
+        font-family: var(--font-mono);
+        font-size: 9px;
+        color: var(--fg-3);
+      }
+
+      /* compose */
+      .m-compose {
+        flex: 1;
+        padding: 14px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow: hidden;
+      }
+      .m-compose .field {
+        background: var(--void-2);
+        border: 1px solid var(--paper-3);
+        color: var(--paper);
+        padding: 10px 12px;
+        font-family: var(--font-body);
+        font-size: 14px;
+        border-radius: 0;
+      }
+      .m-compose textarea {
+        resize: none;
+        flex: 1;
+        min-height: 120px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .m-compose .row {
+        display: flex;
+        gap: 6px;
+      }
+      .m-compose .meta {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: var(--fg-3);
+        display: flex;
+        justify-content: space-between;
+      }
+
+      /* profile */
+      .m-profile {
+        flex: 1;
+        overflow-y: auto;
+        padding: 18px;
+      }
+      .m-avatar {
+        width: 80px;
+        height: 80px;
+        background: var(--void-2);
+        border: 2px solid var(--hot);
+        display: grid;
+        place-items: center;
+        margin-bottom: 12px;
+      }
+      .m-profile .handle {
+        font-family: var(--font-display);
+        font-size: 32px;
+        line-height: 1;
+      }
+      .m-profile .bio {
+        font-size: 13px;
+        color: var(--paper-2);
+        margin: 8px 0 16px;
+        line-height: 1.5;
+      }
+      .m-profile .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--void-4);
+        border: 1px solid var(--void-4);
+        margin-bottom: 18px;
+      }
+      .m-profile .stat {
+        background: var(--bg);
+        padding: 10px;
+        text-align: center;
+      }
+      .m-profile .stat .n {
+        font-family: var(--font-display);
+        font-size: 28px;
+        line-height: 1;
+        color: var(--hot);
+      }
+      .m-profile .stat .l {
+        font-family: var(--font-mono);
+        font-size: 9px;
+        color: var(--fg-3);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .m-section-h {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--fg-3);
+        margin: 18px 0 8px;
+      }
+      .m-row {
+        display: flex;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--void-4);
+        font-size: 13px;
+        gap: 10px;
+      }
+      .m-row .arrow {
+        margin-left: auto;
+        color: var(--fg-3);
+        font-family: var(--font-mono);
+      }
+      .danger {
+        color: var(--danger);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="fx-grain"></div>
+    <div class="fx-scan"></div>
+
+    <div id="root"></div>
+
+    <script
+      src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+      integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+      integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+      integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/babel" src="ios-frame.jsx"></script>
+
+    <script type="text/babel" data-presets="env,react">
+      const { useState } = React
+
+      const SYNTHS = [
+        {
+          id: "SY-0421",
+          title: "my entire posting history",
+          desc: "unhinged screenshots and drafts. updated whenever you press a wrong button.",
+          vis: "PUBLIC",
+          count: "421"
+        },
+        {
+          id: "SY-0188",
+          title: "thoughts at 3am",
+          desc: "do not open. if you opened it, do not read.",
+          vis: "PRIVATE",
+          count: "12"
+        },
+        {
+          id: "SY-0099",
+          title: "screenshots of error messages i found beautiful",
+          desc: "a curated gallery. yes, even the kernel panic.",
+          vis: "PUBLIC",
+          count: "88"
+        },
+        {
+          id: "SY-0042",
+          title: "the void ledger",
+          desc: "a running list of things i meant to post and didn't.",
+          vis: "DRAFT",
+          count: "42"
+        }
+      ]
+
+      function TabBar({ active, onChange }) {
+        const tabs = [
+          { id: "feed", l: "feed" },
+          { id: "detail", l: "read" },
+          { id: "compose", l: "new" },
+          { id: "profile", l: "me" }
+        ]
+        return (
+          <div className="m-tabbar">
+            {tabs.map((t) => (
+              <button key={t.id} className={active === t.id ? "active" : ""} onClick={() => onChange(t.id)}>
+                {t.l}
+              </button>
+            ))}
+          </div>
+        )
+      }
+
+      function FeedScreen({ onOpen }) {
+        return (
+          <div className="m-screen">
+            <div className="m-header">
+              <h1>your void</h1>
+              <button className="icon-btn">+</button>
+            </div>
+            <div className="m-marquee">
+              <div>
+                ◆ 421 synths · WARN: vibes nominal · ⌘K to summon · ◆ 421 synths · WARN: vibes nominal · ⌘K to summon ·
+              </div>
+            </div>
+            <div className="m-feed">
+              {SYNTHS.map((s) => (
+                <div className="m-tile" key={s.id} onClick={() => onOpen(s)}>
+                  <div className="id">◆ {s.id}</div>
+                  <h3>{s.title}</h3>
+                  <p>{s.desc}</p>
+                  <div className="row">
+                    <span className={"tg " + (s.vis === "PUBLIC" ? "hot" : s.vis === "PRIVATE" ? "cool" : "")}>
+                      {s.vis}
+                    </span>
+                    <span className="tg">{s.count} ITEMS</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      }
+
+      function DetailScreen({ synth }) {
+        const s = synth || SYNTHS[0]
+        return (
+          <div className="m-screen">
+            <div className="m-header">
+              <button className="icon-btn">←</button>
+              <h1 style={{ fontSize: 22 }}>{s.id}</h1>
+              <button className="icon-btn">⋯</button>
+            </div>
+            <div className="m-detail">
+              <div className="breadcrumb">/ void / {s.id}</div>
+              <h2>{s.title}</h2>
+              <div className="meta">
+                <span className={"tg " + (s.vis === "PUBLIC" ? "hot" : "cool")}>{s.vis}</span>
+                <span className="tg">{s.count} ITEMS</span>
+                <span className="tg">3M AGO</span>
+              </div>
+              <div className="body">{s.desc}</div>
+              <div className="m-grid">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <div key={i}>[ image: TODO ]</div>
+                ))}
+              </div>
+              <div className="body" style={{ borderTop: "1px solid var(--void-4)", paddingTop: 14 }}>
+                owned by <span style={{ color: "var(--hot)" }}>@horse.dril</span> · saved{" "}
+                <span style={{ color: "var(--cool)" }}>2024-08-11</span>
+              </div>
+            </div>
+          </div>
+        )
+      }
+
+      function ComposeScreen() {
+        return (
+          <div className="m-screen">
+            <div className="m-header">
+              <button className="icon-btn">×</button>
+              <h1 style={{ fontSize: 22 }}>new synth</h1>
+              <button className="icon-btn" style={{ borderColor: "var(--hot)", color: "var(--hot)" }}>
+                ▶
+              </button>
+            </div>
+            <div className="m-compose">
+              <input className="field" placeholder="title — say something cursed" defaultValue="" />
+              <textarea
+                className="field"
+                placeholder="thoughts at 3am go here. nobody is reading. that's the deal."
+                defaultValue=""
+              ></textarea>
+              <div className="row">
+                <span className="tg hot">PUBLIC</span>
+                <span className="tg">PRIVATE</span>
+                <span className="tg">FRIENDS</span>
+              </div>
+              <div className="meta">
+                <span>markdown ok. emoji are not.</span>
+                <span>0 / 4096</span>
+              </div>
+            </div>
+          </div>
+        )
+      }
+
+      function ProfileScreen() {
+        return (
+          <div className="m-screen">
+            <div className="m-header">
+              <h1>me</h1>
+              <button className="icon-btn">⚙</button>
+            </div>
+            <div className="m-profile">
+              <div className="m-avatar">
+                <svg width="48" height="48" style={{ color: "var(--hot)" }}>
+                  <use href="../../assets/icons/pixel-sprites.svg#px-horse" />
+                </svg>
+              </div>
+              <div className="handle">@horse.dril</div>
+              <div className="bio">i used to be normal. then i became a synth.</div>
+              <div className="stats">
+                <div className="stat">
+                  <div className="n">421</div>
+                  <div className="l">synths</div>
+                </div>
+                <div className="stat">
+                  <div className="n" style={{ color: "var(--cool)" }}>
+                    12.4k
+                  </div>
+                  <div className="l">seen</div>
+                </div>
+                <div className="stat">
+                  <div className="n" style={{ color: "var(--pop)" }}>
+                    3
+                  </div>
+                  <div className="l">drafts</div>
+                </div>
+              </div>
+              <div className="m-section-h">account</div>
+              <div className="m-row">
+                <span>edit handle</span>
+                <span className="arrow">›</span>
+              </div>
+              <div className="m-row">
+                <span>display name</span>
+                <span className="arrow">›</span>
+              </div>
+              <div className="m-row">
+                <span>bio</span>
+                <span className="arrow">›</span>
+              </div>
+              <div className="m-section-h" style={{ color: "var(--danger)" }}>
+                DANGER ZONE
+              </div>
+              <div className="m-row">
+                <span className="danger">EXPORT EVERYTHING</span>
+                <span className="arrow">›</span>
+              </div>
+              <div className="m-row" style={{ borderColor: "var(--danger)" }}>
+                <span className="danger">DELETE ACCOUNT</span>
+                <span className="arrow">›</span>
+              </div>
+              <div
+                style={{
+                  textAlign: "center",
+                  marginTop: 24,
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 10,
+                  color: "var(--fg-3)"
+                }}
+              >
+                you're still scrolling. it's fine.
+              </div>
+            </div>
+          </div>
+        )
+      }
+
+      function App() {
+        const [tab, setTab] = useState("feed")
+        const [synth, setSynth] = useState(null)
+        const open = (s) => {
+          setSynth(s)
+          setTab("detail")
+        }
+
+        const SCREENS = {
+          feed: <FeedScreen onOpen={open} />,
+          detail: <DetailScreen synth={synth} />,
+          compose: <ComposeScreen />,
+          profile: <ProfileScreen />
+        }
+        const LABELS = { feed: "01 Feed", detail: "02 Detail", compose: "03 Compose", profile: "04 Profile" }
+
+        return (
+          <div className="stage">
+            {Object.keys(SCREENS).map((k) => (
+              <div key={k} data-screen-label={LABELS[k]}>
+                <IOSDevice dark={true} width={340} height={720} keyboard={k === "compose"}>
+                  <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+                    <div style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column" }}>
+                      {SCREENS[k]}
+                    </div>
+                    <TabBar active={k} onChange={() => {}} />
+                  </div>
+                </IOSDevice>
+                <div className="label">{LABELS[k]}</div>
+              </div>
+            ))}
+          </div>
+        )
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />)
+    </script>
+  </body>
+</html>

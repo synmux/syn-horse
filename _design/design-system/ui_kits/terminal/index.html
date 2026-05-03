@@ -1,0 +1,298 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>syn.horse — terminal</title>
+    <link rel="stylesheet" href="../../colors_and_type.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        background: #08011a;
+        color: var(--paper);
+        font-family: var(--font-mono);
+        font-size: 14px;
+        line-height: 1.5;
+        overflow: hidden;
+      }
+      .term-wrap {
+        height: 100vh;
+        display: grid;
+        grid-template-rows: 28px 1fr;
+      }
+      .term-titlebar {
+        background: var(--void-2);
+        border-bottom: 1px solid var(--void-4);
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+        gap: 8px;
+        font-size: 11px;
+        color: var(--fg-3);
+        letter-spacing: 0.08em;
+      }
+      .term-titlebar .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+      }
+      .term-body {
+        padding: 16px 20px;
+        overflow-y: auto;
+        position: relative;
+      }
+      .term-body::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.05) 0,
+          rgba(255, 255, 255, 0.05) 1px,
+          transparent 1px,
+          transparent 3px
+        );
+        animation: flicker 4s ease-in-out infinite;
+        z-index: 1;
+      }
+      .term-body::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+        opacity: 0.05;
+        mix-blend-mode: overlay;
+        z-index: 1;
+      }
+      @keyframes flicker {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+      .lines {
+        position: relative;
+        z-index: 2;
+      }
+      .line {
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+      .prompt {
+        color: var(--hot);
+      }
+      .ok {
+        color: var(--ok);
+      }
+      .warn {
+        color: var(--pop);
+      }
+      .err {
+        color: var(--danger);
+        text-transform: uppercase;
+      }
+      .cool {
+        color: var(--cool);
+      }
+      .lilac {
+        color: var(--lilac);
+      }
+      .muted {
+        color: var(--fg-3);
+      }
+      .input-line {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .input-line input {
+        flex: 1;
+        background: transparent;
+        border: 0;
+        outline: 0;
+        color: var(--paper);
+        font-family: inherit;
+        font-size: inherit;
+        caret-color: var(--hot);
+      }
+      .cursor {
+        display: inline-block;
+        width: 9px;
+        height: 16px;
+        background: var(--hot);
+        animation: blink 1s steps(1) infinite;
+        vertical-align: middle;
+      }
+      @keyframes blink {
+        0%,
+        49% {
+          opacity: 1;
+        }
+        50%,
+        100% {
+          opacity: 0;
+        }
+      }
+      .ascii {
+        color: var(--hot);
+        font-size: 12px;
+        line-height: 1.1;
+      }
+      .banner {
+        color: var(--cool);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="term-wrap" data-screen-label="01 Terminal">
+      <div class="term-titlebar">
+        <span class="dot" style="background: var(--danger)"></span>
+        <span class="dot" style="background: var(--pop)"></span>
+        <span class="dot" style="background: var(--ok)"></span>
+        <span style="margin-left: 8px">syn.horse — synh — 80×24 — /home/horse</span>
+        <span style="margin-left: auto">build 0.4.2-cursed</span>
+      </div>
+      <div class="term-body" id="body">
+        <div class="lines" id="lines"></div>
+        <div class="input-line">
+          <span class="prompt">horse@void</span>
+          <span class="muted">~ %</span>
+          <input id="input" autofocus autocomplete="off" spellcheck="false" />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const $lines = document.getElementById("lines")
+      const $input = document.getElementById("input")
+      const $body = document.getElementById("body")
+
+      function out(html, cls = "") {
+        const div = document.createElement("div")
+        div.className = "line " + cls
+        div.innerHTML = html
+        $lines.appendChild(div)
+        $body.scrollTop = $body.scrollHeight
+      }
+
+      const BANNER = `
+  <span class="ascii">  ┌─ syn.horse · 0.4.2-cursed ──────────────────────────────────────┐
+  │  modem-era weirdness, rendered crisply.                          │
+  │  type <span class="cool">help</span> to see what works.                                  │
+  │  type <span class="cool">vibe</span> if you don't want to think.                          │
+  └──────────────────────────────────────────────────────────────────┘</span>`
+
+      const HELP = `<span class="muted">commands:</span>
+  <span class="cool">help</span>           show this. you are reading it.
+  <span class="cool">ls</span>             list synths
+  <span class="cool">cat &lt;id&gt;</span>       read a synth
+  <span class="cool">synth new</span>      compose. opens the void.
+  <span class="cool">vibe</span>           do not press unless you mean it
+  <span class="cool">clear</span>          forget what we said
+  <span class="cool">exit</span>           you can't, but try`
+
+      const SYNTHS = [
+        ["SY-0421", "my entire posting history", "PUBLIC", "421 items"],
+        ["SY-0188", "thoughts at 3am", "PRIVATE", "12 items"],
+        ["SY-0099", "screenshots of error messages i found beautiful", "PUBLIC", "88 items"],
+        ["SY-0042", "the void ledger", "DRAFT", "42 items"],
+        ["SY-0007", "cursed receipts", "ARCHIVE", "7 items"]
+      ]
+
+      function lsOut() {
+        let s = '<span class="muted">' + "ID".padEnd(10) + "TITLE".padEnd(48) + "VIS".padEnd(10) + "COUNT</span>\n"
+        for (const [id, title, vis, count] of SYNTHS) {
+          const visClass = vis === "PUBLIC" ? "ok" : vis === "PRIVATE" ? "cool" : "warn"
+          s += `<span class="lilac">${id.padEnd(10)}</span>${title.padEnd(48)}<span class="${visClass}">${vis.padEnd(10)}</span><span class="muted">${count}</span>\n`
+        }
+        return s
+      }
+
+      function catOut(id) {
+        const row = SYNTHS.find((s) => s[0].toLowerCase() === id.toLowerCase())
+        if (!row) return `<span class="err">NO SUCH SYNTH. you made it up.</span>`
+        return `<span class="lilac">◆ ${row[0]}</span> · <span>${row[1]}</span>
+<span class="muted">────────────────────────────────────────────────</span>
+<span class="cool">visibility:</span> ${row[2]}    <span class="cool">items:</span> ${row[3]}
+<span class="cool">created:</span>    2024-08-11 23:41
+<span class="cool">edited:</span>     3 minutes ago
+<span class="muted">────────────────────────────────────────────────</span>
+"a folder of unhinged screenshots and drafts. updated
+every time you press a wrong button."`
+      }
+
+      const VIBES = [
+        '<span class="warn">VIBE: ok</span>',
+        '<span class="cool">VIBE: cool but cursed</span>',
+        '<span class="err">VIBE: SCREAMING</span>',
+        '<span class="ok">VIBE: weirdly fine</span>',
+        '<span class="lilac">VIBE: longing</span>'
+      ]
+
+      function handle(cmd) {
+        const c = cmd.trim()
+        out(`<span class="prompt">horse@void</span> <span class="muted">~ %</span> ${c}`)
+        if (!c) return
+        const [head, ...rest] = c.split(/\s+/)
+        if (head === "help") return out(HELP)
+        if (head === "ls") return out(lsOut())
+        if (head === "cat") return out(catOut(rest[0] || ""))
+        if (head === "synth" && rest[0] === "new") {
+          out('<span class="muted">opening composer...</span>')
+          setTimeout(
+            () => out('<span class="warn">tip: in the real app this opens a modal. here, just imagine.</span>'),
+            200
+          )
+          return
+        }
+        if (head === "vibe") return out(VIBES[Math.floor(Math.random() * VIBES.length)])
+        if (head === "clear") {
+          $lines.innerHTML = ""
+          return
+        }
+        if (head === "exit") return out('<span class="err">YOU CAN\'T. THE TAB IS YOU NOW.</span>')
+        out(
+          `<span class="err">UNKNOWN COMMAND: ${head}.</span> <span class="muted">try <span class="cool">help</span>.</span>`
+        )
+      }
+
+      // boot
+      const boot = [
+        '<span class="banner">syn.horse 0.4.2-cursed (gnu/horse 6.6.0)</span>',
+        '<span class="muted">loading ./void  ▓▓▓▓▓▓▓▓ 100%</span>',
+        '<span class="muted">mounting /dev/feelings... </span><span class="ok">ok</span>',
+        '<span class="muted">checking vibes... </span><span class="warn">nominal</span>',
+        '<span class="muted">last login: tue apr 22 03:41:19 on /dev/null</span>',
+        "",
+        BANNER,
+        ""
+      ]
+      let i = 0
+      function step() {
+        if (i < boot.length) {
+          out(boot[i++])
+          setTimeout(step, 80)
+        }
+      }
+      step()
+
+      $input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          handle($input.value)
+          $input.value = ""
+        }
+      })
+      document.body.addEventListener("click", () => $input.focus())
+    </script>
+  </body>
+</html>

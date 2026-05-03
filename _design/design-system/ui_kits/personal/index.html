@@ -1,0 +1,957 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>horse.dril — personal site</title>
+    <link rel="stylesheet" href="../../colors_and_type.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        background: var(--bg);
+        color: var(--paper);
+        font-family: var(--font-body);
+        min-height: 100vh;
+      }
+      .fx-scan {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9999;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.04) 0,
+          rgba(255, 255, 255, 0.04) 1px,
+          transparent 1px,
+          transparent 3px
+        );
+        animation: flicker 4s ease-in-out infinite;
+      }
+      .fx-grain {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9998;
+        opacity: 0.04;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      }
+      @keyframes flicker {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(13, 2, 33, 0.7);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--void-4);
+        display: flex;
+        align-items: center;
+        padding: 14px 32px;
+        gap: 18px;
+        font-size: 14px;
+      }
+      .nav .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-display);
+        font-size: 24px;
+        cursor: pointer;
+      }
+      .nav .brand img {
+        width: 28px;
+        height: 28px;
+        image-rendering: pixelated;
+      }
+      .nav .spacer {
+        flex: 1;
+      }
+      .nav button {
+        background: transparent;
+        border: 0;
+        color: var(--paper-2);
+        font-family: var(--font-body);
+        font-size: 13px;
+        cursor: pointer;
+        padding: 6px 8px;
+        text-transform: lowercase;
+      }
+      .nav button:hover {
+        color: var(--hot);
+        text-shadow:
+          2px 0 0 var(--hot),
+          -2px 0 0 var(--cool);
+      }
+      .nav button.active {
+        color: var(--paper);
+      }
+      .nav button.active::before {
+        content: "◆ ";
+        color: var(--hot);
+      }
+
+      .container {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 56px 32px 80px;
+      }
+
+      .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--hot);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+      .muted-mono {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--fg-3);
+        letter-spacing: 0.08em;
+      }
+
+      /* HOME */
+      .home h1 {
+        font-family: var(--font-display);
+        font-size: 120px;
+        line-height: 1.18;
+        color: var(--paper);
+        padding-bottom: 14px;
+      }
+      .home .sub {
+        font-size: 19px;
+        color: var(--paper-2);
+        max-width: 620px;
+        line-height: 1.55;
+        margin-top: 18px;
+      }
+      .home .status-bar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 24px;
+        padding: 10px 14px;
+        border: 1px solid var(--void-4);
+        background: var(--void-2);
+      }
+      .home .pulse {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--ok);
+        box-shadow: 0 0 8px var(--ok);
+        animation: p 2s ease-in-out infinite;
+      }
+      @keyframes p {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+      .home .status-text {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--paper-2);
+        letter-spacing: 0.06em;
+      }
+      .home .status-text b {
+        color: var(--paper);
+        font-weight: 600;
+      }
+      .home .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-top: 48px;
+      }
+      .home .card {
+        background: var(--void-2);
+        border: 1px solid var(--void-4);
+        padding: 18px 20px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        transition: border-color 80ms var(--ease-snap);
+        cursor: pointer;
+      }
+      .home .card:hover {
+        border-color: var(--hot);
+      }
+      .home .card .h {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: var(--fg-3);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .home .card h3 {
+        font-family: var(--font-display);
+        font-size: 28px;
+        line-height: 1.22;
+        color: var(--paper);
+        padding-bottom: 10px;
+      }
+      .home .card p {
+        font-size: 13.5px;
+        color: var(--paper-2);
+        line-height: 1.5;
+        margin-top: 6px;
+      }
+      .home .card .arrow {
+        color: var(--cool);
+        font-family: var(--font-mono);
+        font-size: 12px;
+        margin-top: 10px;
+        display: inline-block;
+      }
+      .home .links {
+        margin-top: 36px;
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--fg-3);
+        letter-spacing: 0.06em;
+      }
+      .home .links a {
+        color: var(--paper-2);
+        text-decoration: none;
+        border-bottom: 1px solid var(--paper-3);
+        padding-bottom: 1px;
+      }
+      .home .links a:hover {
+        color: var(--hot);
+        border-color: var(--hot);
+      }
+      .home .footer-note {
+        margin-top: 80px;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--fg-3);
+        border-top: 1px solid var(--void-4);
+        padding-top: 14px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      /* NOW */
+      .now h1 {
+        font-family: var(--font-display);
+        font-size: 96px;
+        line-height: 1.18;
+        padding-bottom: 14px;
+      }
+      .now .lede {
+        font-size: 16px;
+        color: var(--paper-2);
+        margin-top: 4px;
+        max-width: 600px;
+        line-height: 1.55;
+      }
+      .now h2 {
+        font-family: var(--font-display);
+        font-size: 40px;
+        color: var(--paper);
+        margin: 40px 0 14px;
+      }
+      .now ul {
+        list-style: none;
+      }
+      .now li {
+        padding: 12px 0;
+        border-bottom: 1px solid var(--void-4);
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        font-size: 15px;
+        line-height: 1.55;
+      }
+      .now li::before {
+        content: "◆";
+        color: var(--hot);
+        margin-top: 2px;
+        flex-shrink: 0;
+      }
+      .now li b {
+        color: var(--paper);
+      }
+      .now .console {
+        background: #08011a;
+        border: 1px solid var(--void-4);
+        padding: 14px 18px;
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        color: var(--cool);
+        line-height: 1.7;
+        margin-top: 24px;
+      }
+      .now .console .pr {
+        color: var(--hot);
+      }
+      .now .console .mu {
+        color: var(--fg-3);
+      }
+
+      /* PROJECTS */
+      .projects h1 {
+        font-family: var(--font-display);
+        font-size: 96px;
+        line-height: 1.18;
+        padding-bottom: 14px;
+      }
+      .projects .lede {
+        font-size: 16px;
+        color: var(--paper-2);
+        margin-top: 4px;
+      }
+      .proj-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 36px;
+      }
+      .proj {
+        background: var(--void-2);
+        border: 1px solid var(--void-4);
+        padding: 22px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        position: relative;
+        cursor: pointer;
+        transition: border-color 80ms var(--ease-snap);
+      }
+      .proj:hover {
+        border-color: var(--hot);
+      }
+      .proj .yr {
+        position: absolute;
+        top: 14px;
+        right: 16px;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: var(--fg-3);
+        letter-spacing: 0.08em;
+      }
+      .proj h3 {
+        font-family: var(--font-display);
+        font-size: 32px;
+        line-height: 1.22;
+        padding-right: 60px;
+        padding-bottom: 10px;
+      }
+      .proj p {
+        font-size: 13.5px;
+        color: var(--paper-2);
+        line-height: 1.5;
+        margin-top: 4px;
+        min-height: 42px;
+      }
+      .proj .tags {
+        display: flex;
+        gap: 6px;
+        margin-top: 14px;
+        flex-wrap: wrap;
+      }
+      .tg {
+        display: inline-flex;
+        padding: 2px 8px;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border: 1px solid var(--paper-3);
+        color: var(--fg-3);
+        white-space: nowrap;
+      }
+      .tg.hot {
+        color: var(--hot);
+        border-color: var(--hot);
+      }
+      .tg.cool {
+        color: var(--cool);
+        border-color: var(--cool);
+      }
+      .tg.warn {
+        color: var(--pop);
+        border-color: var(--pop);
+      }
+
+      /* BLOG */
+      .blog h1 {
+        font-family: var(--font-display);
+        font-size: 96px;
+        line-height: 1.18;
+        padding-bottom: 14px;
+      }
+      .blog .lede {
+        font-size: 16px;
+        color: var(--paper-2);
+        margin-top: 4px;
+        max-width: 600px;
+        line-height: 1.55;
+      }
+      .blog .filter {
+        display: flex;
+        gap: 8px;
+        margin-top: 28px;
+        flex-wrap: wrap;
+      }
+      .blog ul {
+        list-style: none;
+        margin-top: 28px;
+      }
+      .blog li {
+        padding: 16px 0;
+        border-top: 1px solid var(--void-4);
+        display: grid;
+        grid-template-columns: 110px 1fr auto;
+        gap: 18px;
+        align-items: baseline;
+        cursor: pointer;
+      }
+      .blog li:hover h3 {
+        color: var(--hot);
+        text-shadow:
+          2px 0 0 var(--hot),
+          -2px 0 0 var(--cool);
+      }
+      .blog li:last-child {
+        border-bottom: 1px solid var(--void-4);
+      }
+      .blog li .date {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--fg-3);
+        letter-spacing: 0.06em;
+      }
+      .blog li h3 {
+        font-family: var(--font-display);
+        font-size: 26px;
+        line-height: 1.22;
+        color: var(--paper);
+        padding-bottom: 6px;
+        transition: all 80ms var(--ease-snap);
+      }
+      .blog li .desc {
+        font-size: 13px;
+        color: var(--paper-2);
+        margin-top: 4px;
+        line-height: 1.5;
+      }
+      .blog li .read {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--cool);
+        letter-spacing: 0.06em;
+      }
+
+      /* POST */
+      .post .crumb {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--fg-3);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .post h1 {
+        font-family: var(--font-display);
+        font-size: 80px;
+        line-height: 1.18;
+        color: var(--paper);
+        margin-top: 12px;
+        padding-bottom: 14px;
+        max-width: 760px;
+      }
+      .post .meta {
+        display: flex;
+        gap: 12px;
+        margin-top: 14px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--fg-3);
+        letter-spacing: 0.06em;
+      }
+      .post .meta span {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .post .body {
+        margin-top: 36px;
+        max-width: 680px;
+        font-size: 17px;
+        line-height: 1.65;
+        color: var(--paper-2);
+      }
+      .post .body p {
+        margin-bottom: 18px;
+      }
+      .post .body h2 {
+        font-family: var(--font-display);
+        font-size: 44px;
+        line-height: 1.22;
+        color: var(--paper);
+        margin: 32px 0 14px;
+        padding-bottom: 8px;
+      }
+      .post .body code {
+        font-family: var(--font-mono);
+        font-size: 14px;
+        color: var(--cool);
+        background: var(--void-2);
+        padding: 1px 6px;
+        border: 1px solid var(--void-4);
+      }
+      .post .body pre {
+        background: #08011a;
+        border: 1px solid var(--void-4);
+        padding: 16px 18px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--cool);
+        line-height: 1.6;
+        margin: 16px 0;
+        overflow-x: auto;
+      }
+      .post .body blockquote {
+        border-left: 2px solid var(--hot);
+        padding: 4px 0 4px 18px;
+        color: var(--paper);
+        font-family: var(--font-display);
+        font-size: 28px;
+        line-height: 1.2;
+        margin: 18px 0;
+      }
+      .post .body a {
+        color: var(--cool);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .post .body a:hover {
+        color: var(--hot);
+      }
+      .post .post-foot {
+        margin-top: 60px;
+        padding-top: 18px;
+        border-top: 1px solid var(--void-4);
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--fg-3);
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="fx-grain"></div>
+    <div class="fx-scan"></div>
+
+    <div id="root"></div>
+
+    <script
+      src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+      integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+      integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+      integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="text/babel" data-presets="env,react">
+      const { useState } = React
+
+      const POSTS = [
+        {
+          slug: "computers-got-too-polite",
+          date: "2026.04.18",
+          title: "computers got too polite",
+          desc: "a manifesto, lowercase. on why every interface now sounds like a flight attendant.",
+          tags: ["rant"],
+          read: "6 min"
+        },
+        {
+          slug: "the-void-ledger",
+          date: "2026.03.02",
+          title: "i kept a ledger of every error message i found beautiful",
+          desc: "one year of screenshots. a small museum of friendly catastrophes.",
+          tags: ["build"],
+          read: "4 min"
+        },
+        {
+          slug: "against-engagement",
+          date: "2026.02.11",
+          title: "against the engagement metric",
+          desc: "on running a personal site with one number that goes up sometimes.",
+          tags: ["rant", "meta"],
+          read: "5 min"
+        },
+        {
+          slug: "pixel-fonts-are-the-only",
+          date: "2025.12.04",
+          title: "pixel fonts are the only honest typography",
+          desc: "a love letter to VT323 and a complaint about everything else.",
+          tags: ["type"],
+          read: "3 min"
+        },
+        {
+          slug: "how-i-shipped",
+          date: "2025.10.22",
+          title: "how i shipped a thing in a weekend (and lied about it)",
+          desc: "a post-mortem of building syn.horse-the-app between two takeout meals.",
+          tags: ["build"],
+          read: "8 min"
+        }
+      ]
+
+      const PROJECTS = [
+        {
+          name: "syn.horse",
+          yr: "2026",
+          desc: "a place to keep your unposted thoughts. cyberpunk shitpost-friendly. WIP.",
+          tags: [{ l: "PRIMARY", k: "hot" }, { l: "WEB" }, { l: "OPEN BETA", k: "warn" }]
+        },
+        {
+          name: "void.ledger",
+          yr: "2025",
+          desc: "a static site that catalogs error messages i find beautiful. updated when i remember.",
+          tags: [{ l: "TINY", k: "cool" }, { l: "STATIC" }]
+        },
+        {
+          name: "crt.css",
+          yr: "2024",
+          desc: "a 2kb CSS file that makes any page look like a 1998 monitor. used by ~140 strangers.",
+          tags: [{ l: "OSS", k: "cool" }, { l: "CSS" }]
+        },
+        {
+          name: "horse.fm",
+          yr: "2024",
+          desc: "a personal radio station that only plays songs from the year i was 14.",
+          tags: [{ l: "WEIRD", k: "hot" }, { l: "AUDIO" }]
+        }
+      ]
+
+      function Header({ active, onChange }) {
+        const tabs = ["home", "now", "projects", "blog"]
+        return (
+          <nav className="nav">
+            <div className="brand" onClick={() => onChange("home")}>
+              <img src="../../assets/logo-mark.svg" /> horse.dril
+            </div>
+            <span className="spacer"></span>
+            {tabs.map((t) => (
+              <button
+                key={t}
+                className={active === t || (active === "post" && t === "blog") ? "active" : ""}
+                onClick={() => onChange(t)}
+              >
+                {t}
+              </button>
+            ))}
+            <button onClick={() => window.open("mailto:hi@horse.dril")}>email</button>
+          </nav>
+        )
+      }
+
+      function Home({ go }) {
+        return (
+          <div className="container home">
+            <div className="eyebrow">▶ horse.dril · he/him · in the void</div>
+            <h1>
+              i make
+              <br />
+              weird things
+              <br />
+              on purpose<span style={{ color: "var(--hot)" }}>.</span>
+            </h1>
+            <p className="sub">
+              software person. mostly building <b>syn.horse</b> right now. i write occasionally, ship occasionally, and
+              refuse to engage with the discourse.
+            </p>
+            <div className="status-bar">
+              <span className="pulse"></span>
+              <span className="status-text">
+                <b>NOW:</b> writing the syn.horse beta. it's mostly working. tomorrow i will hate it again.
+              </span>
+            </div>
+            <div className="grid">
+              <div className="card" onClick={() => go("now")}>
+                <div className="h">/ now</div>
+                <h3>what i'm doing this month</h3>
+                <p>updated whenever i remember. sometimes wrong on purpose.</p>
+                <span className="arrow">read now →</span>
+              </div>
+              <div className="card" onClick={() => go("projects")}>
+                <div className="h">/ projects</div>
+                <h3>things i made</h3>
+                <p>four of them are alive. two should be retired. you decide which.</p>
+                <span className="arrow">see projects →</span>
+              </div>
+              <div className="card" onClick={() => go("blog")}>
+                <div className="h">/ blog</div>
+                <h3>occasional words</h3>
+                <p>a few essays a year. mostly rants. nobody asked.</p>
+                <span className="arrow">read posts →</span>
+              </div>
+              <div className="card" onClick={() => window.open("mailto:hi@horse.dril")}>
+                <div className="h">/ contact</div>
+                <h3>say hi (or don't)</h3>
+                <p>email is open. dms are not. carrier pigeon ok if it's a small one.</p>
+                <span className="arrow">say hi →</span>
+              </div>
+            </div>
+            <div className="links">
+              <a href="#" onClick={(e) => e.preventDefault()}>
+                github
+              </a>
+              <a href="#" onClick={(e) => e.preventDefault()}>
+                are.na
+              </a>
+              <a href="#" onClick={(e) => e.preventDefault()}>
+                rss
+              </a>
+              <a href="#" onClick={(e) => e.preventDefault()}>
+                cv (lol)
+              </a>
+            </div>
+            <div className="footer-note">
+              <span>◆ horse.dril · 2026</span>
+              <span>built in the void · no analytics</span>
+            </div>
+          </div>
+        )
+      }
+
+      function Now() {
+        return (
+          <div className="container now">
+            <div className="eyebrow">▶ updated 2026.04.20</div>
+            <h1>now.</h1>
+            <p className="lede">
+              a /now page. what i'm actually doing this month, not what i pretend to be doing on linkedin.
+            </p>
+            <h2>building</h2>
+            <ul>
+              <li>
+                <span>
+                  <b>syn.horse</b> — closing in on public beta. UI is mostly there. signup is held together with vibes.
+                </span>
+              </li>
+              <li>
+                <span>
+                  <b>void.ledger</b> — added 14 new beautiful error messages this quarter. peak find: a postgres
+                  deadlock in haiku form.
+                </span>
+              </li>
+            </ul>
+            <h2>reading</h2>
+            <ul>
+              <li>
+                <span>
+                  working through <b>the dispossessed</b> for the third time. it gets weirder.
+                </span>
+              </li>
+              <li>
+                <span>
+                  too many <b>are.na blocks</b>. probably more than is healthy.
+                </span>
+              </li>
+            </ul>
+            <h2>not doing</h2>
+            <ul>
+              <li>
+                <span>twitter, x, threads, bluesky. quit them all. not bragging.</span>
+              </li>
+              <li>
+                <span>a side project i started in january. it can wait. it has to.</span>
+              </li>
+            </ul>
+            <div className="console">
+              <div>
+                <span className="pr">&gt;</span>{" "}
+                <span className="mu">last cron job ran 3h ago — yes the site is alive</span>
+              </div>
+              <div>
+                <span className="pr">&gt;</span>{" "}
+                <span className="mu">if you got here from hacker news: hi. don't comment. read.</span>
+              </div>
+            </div>
+          </div>
+        )
+      }
+
+      function Projects({ go }) {
+        return (
+          <div className="container projects">
+            <div className="eyebrow">▶ four of them are alive</div>
+            <h1>projects.</h1>
+            <p className="lede">things i made on purpose. things i regret are not on this list.</p>
+            <div className="proj-grid">
+              {PROJECTS.map((p) => (
+                <div className="proj" key={p.name}>
+                  <span className="yr">{p.yr}</span>
+                  <h3>{p.name}</h3>
+                  <p>{p.desc}</p>
+                  <div className="tags">
+                    {p.tags.map((t, i) => (
+                      <span key={i} className={"tg " + (t.k || "")}>
+                        {t.l}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      }
+
+      function Blog({ openPost }) {
+        return (
+          <div className="container blog">
+            <div className="eyebrow">▶ a few essays a year</div>
+            <h1>blog.</h1>
+            <p className="lede">
+              writing about software, taste, and the slow death of weird websites. infrequent. lowercase. unedited.
+            </p>
+            <div className="filter">
+              <span className="tg hot">ALL · 5</span>
+              <span className="tg">RANT · 2</span>
+              <span className="tg">BUILD · 2</span>
+              <span className="tg">TYPE · 1</span>
+              <span className="tg">META · 1</span>
+            </div>
+            <ul>
+              {POSTS.map((p) => (
+                <li key={p.slug} onClick={() => openPost(p)}>
+                  <span className="date">{p.date}</span>
+                  <div>
+                    <h3>{p.title}</h3>
+                    <div className="desc">{p.desc}</div>
+                  </div>
+                  <span className="read">{p.read} →</span>
+                </li>
+              ))}
+            </ul>
+            <div style={{ marginTop: 36, fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--fg-3)" }}>
+              rss feed:{" "}
+              <a href="#" style={{ color: "var(--cool)" }} onClick={(e) => e.preventDefault()}>
+                /feed.xml
+              </a>{" "}
+              · subscribe with the reader of your choice. no email list. i'm not chasing you.
+            </div>
+          </div>
+        )
+      }
+
+      function Post({ post, back }) {
+        const p = post || POSTS[0]
+        return (
+          <div className="container post">
+            <div className="crumb" onClick={back}>
+              ← / blog
+            </div>
+            <h1>{p.title}</h1>
+            <div className="meta">
+              <span>◆ {p.date}</span>
+              <span>· {p.read}</span>
+              <span>· tags: {p.tags.join(", ")}</span>
+            </div>
+            <div className="body">
+              <p>
+                i became a synth at 11:42pm on a tuesday. by which i mean: i opened a new text file and started writing
+                this. nobody asked. that's the deal with personal sites — you publish anyway.
+              </p>
+              <p>
+                here's the thesis. <b>computers got too polite.</b> every interface now sounds like a flight attendant
+                who has been instructed, in writing, to never say anything useful. "we're sorry for the inconvenience."
+                "please rate your experience." we're being managed.
+              </p>
+              <h2>what changed</h2>
+              <p>
+                somewhere between <code>winamp 2</code> and 2014, software stopped having opinions. it stopped being
+                weird. it stopped, in any meaningful way, being made by people. you can feel it.
+              </p>
+              <blockquote>"i lost the file. i'm not sorry."</blockquote>
+              <p>
+                that's an error message i would die for. instead i get "
+                <i>something went wrong, our team has been notified</i>." nothing went wrong. somebody wrote a bad query
+                and capitalism happened. say so.
+              </p>
+              <h2>what to do</h2>
+              <p>
+                build a personal site. make it weird. don't put your linkedin on it. don't optimize for the algorithm.
+                don't add a newsletter signup. write your own 404. swear, occasionally.{" "}
+                <a href="#" onClick={(e) => e.preventDefault()}>
+                  link to a friend
+                </a>
+                . link to a friend.
+              </p>
+              <pre>
+                &gt; the kernel panics, but romantically. &gt; we sharded your feelings into 12 partitions. &gt; you
+                have 0 unread messages. it's not your fault.
+              </pre>
+              <p>
+                that's it. that's the post. there's no call to action. there's no "if you liked this, consider
+                subscribing." you got here. you read it. that's the contract. thanks.
+              </p>
+            </div>
+            <div className="post-foot">
+              <span>◆ written in /var/notes/2026/</span>
+              <span>you're still scrolling. it's fine.</span>
+            </div>
+          </div>
+        )
+      }
+
+      function App() {
+        const [route, setRoute] = useState("home")
+        const [post, setPost] = useState(null)
+        const LABELS = { home: "01 Home", now: "02 Now", projects: "03 Projects", blog: "04 Blog", post: "05 Post" }
+
+        return (
+          <div data-screen-label={LABELS[route]}>
+            <Header active={route} onChange={setRoute} />
+            {route === "home" && <Home go={setRoute} />}
+            {route === "now" && <Now />}
+            {route === "projects" && <Projects />}
+            {route === "blog" && (
+              <Blog
+                openPost={(p) => {
+                  setPost(p)
+                  setRoute("post")
+                }}
+              />
+            )}
+            {route === "post" && <Post post={post} back={() => setRoute("blog")} />}
+          </div>
+        )
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />)
+    </script>
+  </body>
+</html>

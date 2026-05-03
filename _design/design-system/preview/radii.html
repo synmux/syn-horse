@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>radii</title>
+    <link rel="stylesheet" href="_card.css" />
+  </head>
+  <body>
+    <div class="card">
+      <div class="card-grain"></div>
+      <div class="row" style="gap: 16px; align-items: flex-end">
+        <div class="col" style="gap: 6px; align-items: center">
+          <div
+            style="
+              width: 64px;
+              height: 64px;
+              background: var(--void-2);
+              border: 1px solid var(--void-4);
+              border-radius: 0;
+            "
+          ></div>
+          <span class="tag">--radius-0</span>
+        </div>
+        <div class="col" style="gap: 6px; align-items: center">
+          <div
+            style="
+              width: 64px;
+              height: 64px;
+              background: var(--void-2);
+              border: 1px solid var(--void-4);
+              border-radius: 2px;
+            "
+          ></div>
+          <span class="tag">--radius-1</span>
+        </div>
+        <div class="col" style="gap: 6px; align-items: center">
+          <div
+            style="
+              width: 64px;
+              height: 64px;
+              background: var(--void-2);
+              border: 1px solid var(--void-4);
+              border-radius: 4px;
+            "
+          ></div>
+          <span class="tag">--radius-2</span>
+        </div>
+        <div class="col" style="gap: 6px; align-items: center">
+          <div style="width: 64px; height: 64px; background: var(--hot); border-radius: 999px"></div>
+          <span class="tag">--radius-pill</span>
+        </div>
+      </div>
+      <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 11px; color: var(--fg-3)">
+        no in-betweens. square, hairline-soft, or fully pill.
+      </div>
+    </div>
+  </body>
+</html>

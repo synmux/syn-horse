@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>iconography</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      .ic-row {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+      }
+      .ic-row .lab {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: var(--fg-3);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        min-width: 60px;
+      }
+      .uni {
+        font-family: var(--font-display);
+        font-size: 24px;
+        color: var(--lilac);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="card-grain"></div>
+      <div class="col" style="gap: 10px">
+        <div class="ic-row">
+          <span class="lab">pixel</span>
+          <svg width="20" height="20" style="color: var(--hot)">
+            <use href="../assets/icons/pixel-sprites.svg#px-horse" />
+          </svg>
+          <svg width="20" height="20" style="color: var(--cool)">
+            <use href="../assets/icons/pixel-sprites.svg#px-diamond" />
+          </svg>
+          <svg width="20" height="20" style="color: var(--pop)">
+            <use href="../assets/icons/pixel-sprites.svg#px-skull" />
+          </svg>
+          <svg width="20" height="20" style="color: var(--lilac)">
+            <use href="../assets/icons/pixel-sprites.svg#px-heart" />
+          </svg>
+          <svg width="20" height="20" style="color: var(--paper-2)">
+            <use href="../assets/icons/pixel-sprites.svg#px-save" />
+          </svg>
+          <svg width="20" height="20" style="color: var(--ok)">
+            <use href="../assets/icons/pixel-sprites.svg#px-power" />
+          </svg>
+        </div>
+        <div class="ic-row">
+          <span class="lab">line</span>
+          <i data-lucide="search" style="color: var(--paper-2)"></i>
+          <i data-lucide="settings" style="color: var(--paper-2)"></i>
+          <i data-lucide="trash-2" style="color: var(--paper-2)"></i>
+          <i data-lucide="zap" style="color: var(--paper-2)"></i>
+          <i data-lucide="bell" style="color: var(--paper-2)"></i>
+          <i data-lucide="terminal" style="color: var(--paper-2)"></i>
+        </div>
+        <div class="ic-row">
+          <span class="lab">unicode</span>
+          <span class="uni">◆</span><span class="uni">▶</span><span class="uni">✶</span><span class="uni">※</span
+          ><span class="uni">▓</span><span class="uni">←</span><span class="uni">→</span>
+        </div>
+      </div>
+    </div>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script>
+      lucide.createIcons()
+    </script>
+  </body>
+</html>

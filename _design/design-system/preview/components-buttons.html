@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>buttons</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      .btn {
+        font-family: var(--font-body);
+        font-size: 14px;
+        font-weight: 600;
+        padding: 10px 18px;
+        border: 2px solid var(--hot);
+        background: transparent;
+        color: var(--paper);
+        cursor: pointer;
+        text-transform: lowercase;
+        transition: all 80ms var(--ease-snap);
+        border-radius: 0;
+      }
+      .btn:hover {
+        color: var(--hot);
+        text-shadow:
+          2px 0 0 var(--hot),
+          -2px 0 0 var(--cool);
+      }
+      .btn-primary {
+        background: var(--hot);
+        color: var(--void);
+        border-color: var(--hot);
+      }
+      .btn-primary:hover {
+        background: var(--hot-2);
+        color: var(--void);
+        text-shadow: none;
+        box-shadow: 0 0 24px rgba(255, 113, 206, 0.5);
+      }
+      .btn-ghost {
+        border-color: var(--paper-3);
+      }
+      .btn-danger {
+        border-color: var(--danger);
+        color: var(--danger);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .btn-pill {
+        border-radius: 999px;
+        padding: 8px 16px;
+        font-size: 13px;
+      }
+      .btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="card-grain"></div>
+      <div class="col" style="gap: 14px">
+        <div class="row" style="gap: 10px; align-items: center">
+          <button class="btn btn-primary">become a synth</button>
+          <button class="btn">cancel</button>
+          <button class="btn btn-ghost">dismiss</button>
+        </div>
+        <div class="row" style="gap: 10px; align-items: center">
+          <button class="btn btn-danger">DELETE FOREVER</button>
+          <button class="btn btn-pill">filter</button>
+          <button class="btn" disabled>signed up (no.)</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

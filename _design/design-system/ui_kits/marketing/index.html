@@ -1,0 +1,706 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>syn.horse — computers got too polite.</title>
+    <link rel="stylesheet" href="../../colors_and_type.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        background: var(--bg);
+        color: var(--paper);
+        font-family: var(--font-body);
+      }
+      .fx-scan {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9999;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.04) 0,
+          rgba(255, 255, 255, 0.04) 1px,
+          transparent 1px,
+          transparent 3px
+        );
+        animation: flicker 4s ease-in-out infinite;
+      }
+      .fx-grain {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9998;
+        opacity: 0.04;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      }
+      @keyframes flicker {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(13, 2, 33, 0.7);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--void-4);
+        display: flex;
+        align-items: center;
+        padding: 14px 32px;
+        gap: 20px;
+        font-size: 14px;
+      }
+      .nav .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-display);
+        font-size: 24px;
+      }
+      .nav a {
+        color: var(--paper-2);
+        text-decoration: none;
+        font-size: 13px;
+      }
+      .nav a:hover {
+        color: var(--hot);
+        text-shadow:
+          2px 0 0 var(--hot),
+          -2px 0 0 var(--cool);
+      }
+      .nav .spacer {
+        flex: 1;
+      }
+
+      .marquee-bar {
+        background: var(--hot);
+        color: var(--void);
+        overflow: hidden;
+        padding: 6px 0;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .marquee-track {
+        display: inline-flex;
+        white-space: nowrap;
+        animation: marq 30s linear infinite;
+        padding-left: 100%;
+      }
+      .marquee-track > span {
+        padding: 0 24px;
+      }
+      @keyframes marq {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-100%);
+        }
+      }
+
+      .hero {
+        padding: 96px 32px 64px;
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .hero h1 {
+        font-family: var(--font-display);
+        font-size: 144px;
+        line-height: 0.9;
+        color: var(--paper);
+        text-shadow:
+          4px 0 0 var(--hot),
+          -4px 0 0 var(--cool);
+      }
+      .hero h1 .period {
+        color: var(--hot);
+      }
+      .hero .lede {
+        font-size: 20px;
+        color: var(--paper-2);
+        max-width: 640px;
+        margin-top: 28px;
+        line-height: 1.4;
+      }
+      .hero .ctas {
+        display: flex;
+        gap: 12px;
+        margin-top: 32px;
+      }
+      .btn {
+        font-family: var(--font-body);
+        font-size: 15px;
+        font-weight: 600;
+        padding: 12px 22px;
+        border: 2px solid var(--hot);
+        background: transparent;
+        color: var(--paper);
+        cursor: pointer;
+        text-transform: lowercase;
+        transition: all 80ms var(--ease-snap);
+        border-radius: 0;
+        text-decoration: none;
+        display: inline-block;
+        white-space: nowrap;
+        line-height: 1.2;
+      }
+      .btn:hover {
+        color: var(--hot);
+        text-shadow:
+          2px 0 0 var(--hot),
+          -2px 0 0 var(--cool);
+      }
+      .btn-primary {
+        background: var(--hot);
+        color: var(--void);
+        border-color: var(--hot);
+      }
+      .btn-primary:hover {
+        background: var(--hot-2);
+        color: var(--void);
+        text-shadow: none;
+        box-shadow: 0 0 24px rgba(255, 113, 206, 0.5);
+      }
+
+      .hero-sub {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--fg-3);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+      }
+      .hero-screenshot {
+        margin: 64px auto 0;
+        max-width: 1080px;
+        border: 2px solid var(--void-4);
+        background: var(--void-2);
+        padding: 12px;
+        box-shadow: 0 0 80px rgba(255, 113, 206, 0.2);
+        position: relative;
+      }
+      .hero-screenshot::before {
+        content: "";
+        position: absolute;
+        inset: 12px;
+        pointer-events: none;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.05) 0,
+          rgba(255, 255, 255, 0.05) 1px,
+          transparent 1px,
+          transparent 3px
+        );
+        z-index: 2;
+      }
+
+      .section {
+        padding: 80px 32px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .section-eyebrow {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--hot);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+      .section h2 {
+        font-family: var(--font-display);
+        font-size: 80px;
+        line-height: 1;
+        color: var(--paper);
+        margin-bottom: 32px;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--void-4);
+        border: 1px solid var(--void-4);
+      }
+      .feature {
+        background: var(--bg);
+        padding: 32px;
+      }
+      .feature .num {
+        font-family: var(--font-display);
+        font-size: 48px;
+        line-height: 1;
+        color: var(--cool);
+        margin-bottom: 12px;
+      }
+      .feature h3 {
+        font-family: var(--font-display);
+        font-size: 32px;
+        line-height: 1.1;
+        color: var(--paper);
+        margin-bottom: 10px;
+      }
+      .feature p {
+        font-size: 14px;
+        color: var(--paper-2);
+        line-height: 1.5;
+      }
+
+      .quote-section {
+        background: var(--void-2);
+        padding: 80px 32px;
+        border-top: 1px solid var(--void-4);
+        border-bottom: 1px solid var(--void-4);
+      }
+      .quotes {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .quote {
+        background: var(--bg);
+        border: 1px solid var(--void-4);
+        padding: 24px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+      .quote .q {
+        font-family: var(--font-display);
+        font-size: 28px;
+        line-height: 1.1;
+        color: var(--paper);
+        margin-bottom: 14px;
+      }
+      .quote .who {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--fg-3);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .quote .who .h {
+        color: var(--hot);
+      }
+
+      .pricing {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        max-width: 1080px;
+        margin: 0 auto;
+      }
+      .price-card {
+        background: var(--void-2);
+        border: 1px solid var(--void-4);
+        padding: 32px 24px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        position: relative;
+      }
+      .price-card.featured {
+        border: 2px solid var(--hot);
+        box-shadow: 0 0 40px rgba(255, 113, 206, 0.3);
+      }
+      .price-card .tier {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        color: var(--fg-3);
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+      .price-card .price {
+        font-family: var(--font-display);
+        font-size: 64px;
+        line-height: 1;
+        color: var(--paper);
+        margin-bottom: 4px;
+      }
+      .price-card .per {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--fg-3);
+        margin-bottom: 18px;
+      }
+      .price-card ul {
+        list-style: none;
+        margin-bottom: 24px;
+      }
+      .price-card li {
+        font-size: 13px;
+        color: var(--paper-2);
+        padding: 6px 0;
+        border-bottom: 1px solid var(--void-4);
+        display: flex;
+        gap: 8px;
+      }
+      .price-card li::before {
+        content: "◆";
+        color: var(--hot);
+      }
+      .price-card .ribbon {
+        position: absolute;
+        top: -12px;
+        right: 12px;
+        background: var(--hot);
+        color: var(--void);
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        padding: 4px 10px;
+      }
+
+      .footer {
+        background: var(--void-2);
+        border-top: 1px solid var(--void-4);
+        padding: 64px 32px 32px;
+      }
+      .footer-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 32px;
+      }
+      .footer h4 {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--fg-3);
+        margin-bottom: 12px;
+      }
+      .footer ul {
+        list-style: none;
+      }
+      .footer li {
+        font-size: 13px;
+        padding: 4px 0;
+      }
+      .footer a {
+        color: var(--paper-2);
+        text-decoration: none;
+      }
+      .footer a:hover {
+        color: var(--hot);
+      }
+      .footer-bottom {
+        max-width: 1200px;
+        margin: 32px auto 0;
+        padding-top: 20px;
+        border-top: 1px solid var(--void-4);
+        display: flex;
+        justify-content: space-between;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--fg-3);
+        letter-spacing: 0.08em;
+      }
+      .footer-tag {
+        color: var(--fg-3);
+        font-size: 13px;
+        max-width: 360px;
+        line-height: 1.5;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body data-screen-label="01 Marketing">
+    <div class="fx-grain"></div>
+    <div class="fx-scan"></div>
+
+    <nav class="nav">
+      <a href="#" class="brand"
+        ><img src="../../assets/logo-mark.svg" width="28" height="28" style="image-rendering: pixelated" /> syn.horse</a
+      >
+      <span class="spacer"></span>
+      <a href="#features">features</a>
+      <a href="#voices">voices</a>
+      <a href="#pricing">pricing</a>
+      <a href="#" style="color: var(--paper)">log in</a>
+      <a href="#" class="btn btn-primary" style="padding: 8px 16px; font-size: 13px">become a synth</a>
+    </nav>
+
+    <div class="marquee-bar">
+      <div class="marquee-track">
+        <span>◆ now in beta ◆ free while we figure out billing ◆ no ads. yet. ◆ not on the app store. ◆</span>
+        <span>◆ now in beta ◆ free while we figure out billing ◆ no ads. yet. ◆ not on the app store. ◆</span>
+        <span>◆ now in beta ◆ free while we figure out billing ◆ no ads. yet. ◆ not on the app store. ◆</span>
+      </div>
+    </div>
+
+    <header class="hero">
+      <div class="hero-sub">syn.horse — beta 0.4.2-cursed</div>
+      <h1>computers<br />got too<br />polite<span class="period">.</span></h1>
+      <p class="lede">
+        syn.horse is a place to keep your unposted thoughts, cursed screenshots, and the receipts you wish you'd kept.
+        it talks back. it doesn't apologize.
+      </p>
+      <div class="ctas">
+        <a href="#" class="btn btn-primary">become a synth →</a>
+        <a href="#" class="btn">read the manifesto</a>
+      </div>
+      <div class="hero-screenshot">
+        <div
+          style="
+            background: var(--bg);
+            padding: 40px;
+            min-height: 360px;
+            display: grid;
+            grid-template-columns: 56px 1fr;
+            gap: 16px;
+          "
+        >
+          <div style="background: var(--void-2); border-right: 1px solid var(--void-4); height: 320px"></div>
+          <div>
+            <div
+              style="
+                font-family: var(--font-mono);
+                font-size: 11px;
+                color: var(--fg-3);
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                margin-bottom: 8px;
+              "
+            >
+              / dashboard
+            </div>
+            <div
+              style="
+                font-family: var(--font-display);
+                font-size: 64px;
+                line-height: 1.1;
+                color: var(--paper);
+                margin-bottom: 24px;
+              "
+            >
+              your void
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1px;
+                background: var(--void-4);
+                border: 1px solid var(--void-4);
+                margin-bottom: 20px;
+              "
+            >
+              <div style="background: var(--bg); padding: 14px">
+                <div style="font-family: var(--font-display); font-size: 36px; color: var(--hot); line-height: 1">
+                  421
+                </div>
+                <div
+                  style="
+                    font-family: var(--font-mono);
+                    font-size: 10px;
+                    color: var(--fg-3);
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                  "
+                >
+                  synths
+                </div>
+              </div>
+              <div style="background: var(--bg); padding: 14px">
+                <div style="font-family: var(--font-display); font-size: 36px; color: var(--cool); line-height: 1">
+                  12.4k
+                </div>
+                <div
+                  style="
+                    font-family: var(--font-mono);
+                    font-size: 10px;
+                    color: var(--fg-3);
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                  "
+                >
+                  impressions
+                </div>
+              </div>
+              <div style="background: var(--bg); padding: 14px">
+                <div style="font-family: var(--font-display); font-size: 36px; color: var(--pop); line-height: 1">
+                  3
+                </div>
+                <div
+                  style="
+                    font-family: var(--font-mono);
+                    font-size: 10px;
+                    color: var(--fg-3);
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                  "
+                >
+                  drafts not posted
+                </div>
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px">
+              <div style="background: var(--void-2); border: 1px solid var(--void-4); padding: 12px">
+                <div style="font-family: var(--font-display); font-size: 20px; line-height: 1.1">
+                  my entire posting history
+                </div>
+              </div>
+              <div style="background: var(--void-2); border: 1px solid var(--void-4); padding: 12px">
+                <div style="font-family: var(--font-display); font-size: 20px; line-height: 1.1">thoughts at 3am</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" id="features">
+      <div class="section-eyebrow">▶ what it does</div>
+      <h2>three features.<br />that's it.</h2>
+      <div class="features">
+        <div class="feature">
+          <div class="num">01</div>
+          <h3>save anything</h3>
+          <p>a screenshot, a draft tweet, a regret. it goes in your void. nobody else sees it unless you say so.</p>
+        </div>
+        <div class="feature">
+          <div class="num">02</div>
+          <h3>publish if you mean it</h3>
+          <p>
+            flip a synth public and it gets a permalink. simple. no algorithm. no engagement metrics that aren't a
+            single integer.
+          </p>
+        </div>
+        <div class="feature">
+          <div class="num">03</div>
+          <h3>export when you leave</h3>
+          <p>tar.gz of everything. one click. we don't trap you. we don't even like you that much.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote-section" id="voices">
+      <div class="section-eyebrow" style="text-align: center">▶ voices in the void</div>
+      <h2
+        style="
+          font-family: var(--font-display);
+          font-size: 64px;
+          text-align: center;
+          color: var(--paper);
+          margin-bottom: 40px;
+        "
+      >
+        people who are using this somehow.
+      </h2>
+      <div class="quotes">
+        <div class="quote">
+          <div class="q">"i used to post on twitter. now i scream into syn.horse and nobody knows."</div>
+          <div class="who"><span class="h">@horse.dril</span> · synth since beta</div>
+        </div>
+        <div class="quote">
+          <div class="q">"the 404 page made me cry. five stars."</div>
+          <div class="who"><span class="h">@cursed.png</span> · pro tier</div>
+        </div>
+        <div class="quote">
+          <div class="q">"finally a tool that respects my refusal to be productive."</div>
+          <div class="who"><span class="h">@void.dad</span> · free forever</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="section-eyebrow">▶ pricing</div>
+      <h2>give us money.<br />or don't.</h2>
+      <div class="pricing">
+        <div class="price-card">
+          <div class="tier">free forever</div>
+          <div class="price">$0</div>
+          <div class="per">/ month / always</div>
+          <ul>
+            <li>unlimited synths</li>
+            <li>basic export</li>
+            <li>occasional unprompted threats</li>
+            <li>no support. ever.</li>
+          </ul>
+          <a href="#" class="btn" style="width: 100%; text-align: center">start (free)</a>
+        </div>
+        <div class="price-card featured">
+          <div class="ribbon">RECOMMENDED</div>
+          <div class="tier">synth pro</div>
+          <div class="price">$9</div>
+          <div class="per">/ month / cancel anytime</div>
+          <ul>
+            <li>everything in free</li>
+            <li>custom domain</li>
+            <li>fewer threats (configurable)</li>
+            <li>priority screaming</li>
+          </ul>
+          <a href="#" class="btn btn-primary" style="width: 100%; text-align: center">become pro</a>
+        </div>
+        <div class="price-card">
+          <div class="tier">enterprise (lol)</div>
+          <div class="price">$??</div>
+          <div class="per">/ month / call us</div>
+          <ul>
+            <li>SSO, SCIM, SAML, etc</li>
+            <li>your logo in our footer</li>
+            <li>a phone number that rings</li>
+            <li>we will pretend to care</li>
+          </ul>
+          <a href="#" class="btn" style="width: 100%; text-align: center">talk to sales</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 32px">
+            <img src="../../assets/logo-mark.svg" width="32" height="32" style="image-rendering: pixelated" /> syn.horse
+          </div>
+          <p class="footer-tag">a place to keep your unposted thoughts. computers got too polite.</p>
+        </div>
+        <div>
+          <h4>product</h4>
+          <ul>
+            <li><a href="#">features</a></li>
+            <li><a href="#">pricing</a></li>
+            <li><a href="#">changelog</a></li>
+            <li><a href="#">status</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>void</h4>
+          <ul>
+            <li><a href="#">manifesto</a></li>
+            <li><a href="#">about</a></li>
+            <li><a href="#">careers (none)</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>legal</h4>
+          <ul>
+            <li><a href="#">terms</a></li>
+            <li><a href="#">privacy</a></li>
+            <li><a href="#">disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 syn.horse — built in the void</span>
+        <span>you're still scrolling. it's fine.</span>
+      </div>
+    </footer>
+  </body>
+</html>

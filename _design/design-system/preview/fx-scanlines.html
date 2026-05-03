@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>fx — scanlines + grain</title>
+    <link rel="stylesheet" href="_card.css" />
+  </head>
+  <body>
+    <div class="card" style="overflow: hidden; height: 240px">
+      <div class="card-grain" style="opacity: 0.08"></div>
+      <div
+        style="
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: repeating-linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.08) 0px,
+            rgba(255, 255, 255, 0.08) 1px,
+            transparent 1px,
+            transparent 3px
+          );
+        "
+      ></div>
+      <div
+        style="
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.6) 100%);
+        "
+      ></div>
+      <div style="position: relative; z-index: 1; display: flex; flex-direction: column; gap: 10px">
+        <span class="tag">.fx-scanlines · .fx-grain · .fx-vignette</span>
+        <div
+          style="
+            font-family: var(--font-display);
+            font-size: 56px;
+            color: var(--paper);
+            text-shadow:
+              2px 0 0 var(--hot),
+              -2px 0 0 var(--cool);
+            line-height: 1;
+          "
+        >
+          CRT MODE
+        </div>
+        <div style="font-size: 13px; color: var(--paper-2); max-width: 520px">
+          apply these three classes (or stack as fixed pseudo-elements) on any full-bleed surface. they are the brand's
+          primary atmosphere.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

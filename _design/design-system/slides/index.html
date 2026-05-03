@@ -1,0 +1,574 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>syn.horse — deck template</title>
+    <link rel="stylesheet" href="../colors_and_type.css" />
+    <style>
+      body {
+        background: var(--bg);
+        margin: 0;
+      }
+      deck-stage {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+      }
+      section {
+        width: 1920px;
+        height: 1080px;
+        background: var(--bg);
+        color: var(--paper);
+        position: relative;
+        overflow: hidden;
+        padding: 80px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .fx-scan {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.04) 0,
+          rgba(255, 255, 255, 0.04) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+      }
+      .fx-grain {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 8;
+        opacity: 0.035;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      }
+      .fx-vignette {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 7;
+        background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.6) 100%);
+      }
+
+      .slide-content {
+        position: relative;
+        z-index: 10;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .topbar {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-family: var(--font-mono);
+        font-size: 22px;
+        color: var(--fg-3);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 60px;
+      }
+      .topbar img {
+        width: 40px;
+        height: 40px;
+        image-rendering: pixelated;
+      }
+      .topbar .pulse {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: var(--ok);
+        box-shadow: 0 0 12px var(--ok);
+        margin-left: auto;
+      }
+
+      .footer-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 56px;
+        background: var(--void-2);
+        border-top: 1px solid var(--void-4);
+        display: flex;
+        align-items: center;
+        padding: 0 80px;
+        font-family: var(--font-mono);
+        font-size: 18px;
+        color: var(--fg-3);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        z-index: 11;
+      }
+      .footer-bar .spacer {
+        flex: 1;
+      }
+
+      .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 24px;
+        color: var(--hot);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+      }
+
+      /* TITLE */
+      .s-title h1 {
+        font-family: var(--font-display);
+        font-size: 360px;
+        line-height: 0.85;
+        color: var(--paper);
+        text-shadow:
+          8px 0 0 var(--hot),
+          -8px 0 0 var(--cool);
+        margin: 0;
+      }
+      .s-title .period {
+        color: var(--hot);
+      }
+      .s-title .lede {
+        font-size: 36px;
+        color: var(--paper-2);
+        max-width: 1200px;
+        margin-top: 60px;
+        line-height: 1.4;
+      }
+
+      /* SECTION */
+      .s-section {
+        background: var(--void-2);
+      }
+      .s-section .num {
+        font-family: var(--font-display);
+        font-size: 280px;
+        line-height: 1;
+        color: var(--cool);
+      }
+      .s-section h2 {
+        font-family: var(--font-display);
+        font-size: 180px;
+        line-height: 1;
+        color: var(--paper);
+        margin-top: -40px;
+      }
+      .s-section .lede {
+        font-size: 32px;
+        color: var(--paper-2);
+        max-width: 1100px;
+        margin-top: 28px;
+        line-height: 1.4;
+      }
+
+      /* CONTENT */
+      .s-content h2 {
+        font-family: var(--font-display);
+        font-size: 140px;
+        line-height: 1;
+        color: var(--paper);
+        margin-bottom: 60px;
+      }
+      .s-content .points {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: var(--void-4);
+        border: 1px solid var(--void-4);
+        flex: 1;
+        max-height: 720px;
+      }
+      .s-content .point {
+        background: var(--bg);
+        padding: 48px;
+      }
+      .s-content .point .num {
+        font-family: var(--font-display);
+        font-size: 88px;
+        line-height: 1;
+        color: var(--hot);
+        margin-bottom: 16px;
+      }
+      .s-content .point h3 {
+        font-family: var(--font-display);
+        font-size: 64px;
+        line-height: 1.05;
+        color: var(--paper);
+        margin-bottom: 18px;
+      }
+      .s-content .point p {
+        font-size: 24px;
+        color: var(--paper-2);
+        line-height: 1.45;
+      }
+
+      /* QUOTE */
+      .s-quote {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .s-quote .mark {
+        font-family: var(--font-display);
+        font-size: 320px;
+        color: var(--hot);
+        line-height: 0.8;
+        margin-bottom: -60px;
+      }
+      .s-quote q {
+        display: block;
+        font-family: var(--font-display);
+        font-size: 140px;
+        line-height: 1;
+        color: var(--paper);
+        max-width: 1500px;
+        quotes: none;
+      }
+      .s-quote q::before,
+      .s-quote q::after {
+        content: none;
+      }
+      .s-quote .who {
+        font-family: var(--font-mono);
+        font-size: 28px;
+        color: var(--paper-3);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-top: 60px;
+      }
+      .s-quote .who span {
+        color: var(--hot);
+      }
+
+      /* COMPARE */
+      .s-compare h2 {
+        font-family: var(--font-display);
+        font-size: 120px;
+        line-height: 1;
+        color: var(--paper);
+        margin-bottom: 50px;
+      }
+      .s-compare .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        flex: 1;
+        max-height: 720px;
+      }
+      .s-compare .col {
+        padding: 40px;
+        border: 2px solid var(--void-4);
+        position: relative;
+      }
+      .s-compare .col.bad {
+        border-color: var(--paper-3);
+      }
+      .s-compare .col.good {
+        border-color: var(--hot);
+        box-shadow: 0 0 60px rgba(255, 113, 206, 0.2);
+      }
+      .s-compare .col h3 {
+        font-family: var(--font-mono);
+        font-size: 22px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--paper-3);
+        margin-bottom: 20px;
+      }
+      .s-compare .col.good h3 {
+        color: var(--hot);
+      }
+      .s-compare .col .big {
+        font-family: var(--font-display);
+        font-size: 110px;
+        line-height: 1;
+        color: var(--paper);
+        margin-bottom: 18px;
+      }
+      .s-compare .col ul {
+        list-style: none;
+        padding: 0;
+      }
+      .s-compare .col li {
+        font-size: 26px;
+        color: var(--paper-2);
+        padding: 8px 0;
+        line-height: 1.4;
+      }
+      .s-compare .col li::before {
+        content: "◆ ";
+        color: var(--hot);
+        margin-right: 4px;
+      }
+      .s-compare .col.bad li::before {
+        content: "✕ ";
+        color: var(--paper-3);
+      }
+
+      /* STAT */
+      .s-stat {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .s-stat .num {
+        font-family: var(--font-display);
+        font-size: 700px;
+        line-height: 0.85;
+        color: var(--paper);
+        text-shadow:
+          12px 0 0 var(--hot),
+          -12px 0 0 var(--cool);
+      }
+      .s-stat .lab {
+        font-family: var(--font-display);
+        font-size: 80px;
+        line-height: 1;
+        color: var(--paper-2);
+        margin-top: 30px;
+      }
+      .s-stat .sub {
+        font-size: 30px;
+        color: var(--fg-3);
+        margin-top: 30px;
+        max-width: 1100px;
+        line-height: 1.45;
+      }
+
+      /* CONSOLE */
+      .s-console h2 {
+        font-family: var(--font-display);
+        font-size: 120px;
+        line-height: 1;
+        color: var(--paper);
+        margin-bottom: 40px;
+      }
+      .s-console pre {
+        background: #08011a;
+        border: 2px solid var(--void-4);
+        padding: 40px 48px;
+        font-family: var(--font-mono);
+        font-size: 28px;
+        line-height: 1.65;
+        color: var(--cool);
+        white-space: pre-wrap;
+        flex: 1;
+      }
+      .s-console .prompt {
+        color: var(--hot);
+      }
+      .s-console .warn {
+        color: var(--pop);
+      }
+      .s-console .err {
+        color: var(--danger);
+      }
+      .s-console .muted {
+        color: var(--fg-3);
+      }
+
+      /* END */
+      .s-end {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .s-end .big {
+        font-family: var(--font-display);
+        font-size: 280px;
+        line-height: 1;
+        color: var(--paper);
+        text-shadow:
+          6px 0 0 var(--hot),
+          -6px 0 0 var(--cool);
+      }
+      .s-end .sub {
+        font-size: 30px;
+        color: var(--paper-2);
+        margin-top: 30px;
+      }
+      .s-end .url {
+        font-family: var(--font-mono);
+        font-size: 32px;
+        color: var(--cool);
+        letter-spacing: 0.12em;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <deck-stage>
+      <!-- 01 TITLE -->
+      <section class="s-title">
+        <div class="fx-grain"></div>
+        <div class="fx-scan"></div>
+        <div class="fx-vignette"></div>
+        <div class="slide-content">
+          <div class="topbar">
+            <img src="../assets/logo-mark.svg" /> syn.horse <span style="color: var(--paper)">/</span> all-hands
+            <span style="margin-left: auto; font-family: var(--font-mono)">Q2 · 2026</span>
+          </div>
+          <div class="eyebrow">▶ this is going to be a lot.</div>
+          <h1>computers<br />got too<br />polite<span class="period">.</span></h1>
+          <div class="lede">
+            an internal update from the void team. read at your own pace. or don't. nobody is checking.
+          </div>
+        </div>
+        <div class="footer-bar"><span>◆ syn.horse</span><span class="spacer"></span><span>01 / 08</span></div>
+      </section>
+
+      <!-- 02 SECTION DIVIDER -->
+      <section class="s-section">
+        <div class="fx-grain"></div>
+        <div class="fx-scan"></div>
+        <div class="slide-content" style="justify-content: center">
+          <div class="eyebrow">▶ chapter one</div>
+          <div class="num">01.</div>
+          <h2>the state of things.</h2>
+          <p class="lede">we shipped a lot. we broke a few. one of us cried. it's fine.</p>
+        </div>
+        <div class="footer-bar">
+          <span>◆ section · the state of things</span><span class="spacer"></span><span>02 / 08</span>
+        </div>
+      </section>
+
+      <!-- 03 CONTENT — 4 points -->
+      <section class="s-content">
+        <div class="fx-grain"></div>
+        <div class="fx-scan"></div>
+        <div class="slide-content">
+          <div class="eyebrow">▶ what shipped</div>
+          <h2>four things.<br />that's it.</h2>
+          <div class="points">
+            <div class="point">
+              <div class="num">01</div>
+              <h3>the void</h3>
+              <p>a place to keep your unposted thoughts. now with tags. now with regret.</p>
+            </div>
+            <div class="point">
+              <div class="num">02</div>
+              <h3>terminal</h3>
+              <p>a fake CLI that talks back. ships next week. or doesn't.</p>
+            </div>
+            <div class="point">
+              <div class="num">03</div>
+              <h3>mobile</h3>
+              <p>iOS only. android exists, we just refuse.</p>
+            </div>
+            <div class="point">
+              <div class="num">04</div>
+              <h3>404 page</h3>
+              <p>made one user cry. 5 stars on hacker news. shipping more like it.</p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bar"><span>◆ syn.horse</span><span class="spacer"></span><span>03 / 08</span></div>
+      </section>
+
+      <!-- 04 QUOTE -->
+      <section class="s-quote">
+        <div class="fx-grain"></div>
+        <div class="fx-scan"></div>
+        <div class="fx-vignette"></div>
+        <div class="slide-content">
+          <div class="mark">"</div>
+          <q>i used to post on twitter. now i scream into syn.horse and nobody knows.</q>
+          <div class="who"><span>@horse.dril</span> · synth since beta</div>
+        </div>
+        <div class="footer-bar"><span>◆ voices in the void</span><span class="spacer"></span><span>04 / 08</span></div>
+      </section>
+
+      <!-- 05 STAT -->
+      <section class="s-stat">
+        <div class="fx-grain"></div>
+        <div class="fx-scan"></div>
+        <div class="fx-vignette"></div>
+        <div class="slide-content" style="justify-content: center; align-items: center; text-align: center">
+          <div class="eyebrow">▶ growth</div>
+          <div class="num">12.4k</div>
+          <div class="lab">new synths this quarter</div>
+          <div class="sub">up 314% from last quarter. nobody knows why. we're not going to investigate.</div>
+        </div>
+        <div class="footer-bar">
+          <span>◆ metrics that don't matter</span><span class="spacer"></span><span>05 / 08</span>
+        </div>
+      </section>
+
+      <!-- 06 COMPARE -->
+      <section class="s-compare">
+        <div class="fx-grain"></div>
+        <div class="fx-scan"></div>
+        <div class="slide-content">
+          <div class="eyebrow">▶ the difference</div>
+          <h2>them vs us.</h2>
+          <div class="grid">
+            <div class="col bad">
+              <h3>them</h3>
+              <div class="big">polite</div>
+              <ul>
+                <li>"how can we help?"</li>
+                <li>"please rate this experience"</li>
+                <li>engagement metrics</li>
+                <li>quarterly review meetings</li>
+              </ul>
+            </div>
+            <div class="col good">
+              <h3>us</h3>
+              <div class="big">cursed</div>
+              <ul>
+                <li>"figure it out"</li>
+                <li>"do not rate. we will know"</li>
+                <li>one number. it goes up sometimes</li>
+                <li>screaming, occasionally</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bar"><span>◆ syn.horse</span><span class="spacer"></span><span>06 / 08</span></div>
+      </section>
+
+      <!-- 07 CONSOLE -->
+      <section class="s-console">
+        <div class="fx-grain"></div>
+        <div class="fx-scan"></div>
+        <div class="slide-content">
+          <div class="eyebrow">▶ the roadmap</div>
+          <h2>what's next.</h2>
+          <pre><span class="prompt">&gt;</span> Q3 · public beta
+<span class="muted">  ─ open signups, no waitlist, no invite codes</span>
+<span class="prompt">&gt;</span> Q3 · custom domains
+<span class="muted">  ─ point yourname.horse at your void</span>
+<span class="prompt">&gt;</span> Q4 · android (we said we wouldn't)
+<span class="muted">  ─ <span class="warn">WARN: we lied. it's coming.</span></span>
+<span class="prompt">&gt;</span> Q4 · paid tier
+<span class="muted">  ─ $9/mo · still no ads · still threatens you</span>
+<span class="prompt">&gt;</span> 2027
+<span class="err">  CRITICAL: nobody has thought about 2027.</span></pre>
+        </div>
+        <div class="footer-bar"><span>◆ roadmap</span><span class="spacer"></span><span>07 / 08</span></div>
+      </section>
+
+      <!-- 08 END -->
+      <section class="s-end">
+        <div class="fx-grain"></div>
+        <div class="fx-scan"></div>
+        <div class="fx-vignette"></div>
+        <div class="slide-content" style="justify-content: center; align-items: center; text-align: center">
+          <div class="eyebrow">▶ that's it.</div>
+          <div class="big">thanks.<br />now leave.</div>
+          <div class="sub">questions to #void. complaints to /dev/null.</div>
+          <div class="url">syn.horse / all-hands</div>
+        </div>
+        <div class="footer-bar"><span>◆ syn.horse</span><span class="spacer"></span><span>08 / 08</span></div>
+      </section>
+    </deck-stage>
+
+    <script src="deck-stage.js"></script>
+  </body>
+</html>
