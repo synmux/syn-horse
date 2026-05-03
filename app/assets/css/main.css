@@ -1,2 +1,52 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@theme {
+  /* Font Families */
+  --font-mono: "Victor Mono", monospace;
+  --font-subtitle: "Sono", sans-serif;
+  --font-display: "Victor Mono", sans-serif;
+
+  /* Catppuccin Mocha Color Palette */
+  --color-rosewater: #f5e0dc;
+  --color-flamingo: #f2cdcd;
+  --color-pink: #f5c2e7;
+  --color-mauve: #cba6f7;
+  --color-red: #f38ba8;
+  --color-maroon: #eba0ac;
+  --color-peach: #fab387;
+  --color-yellow: #f9e2af;
+  --color-green: #a6e3a1;
+  --color-teal: #94e2d5;
+  --color-sky: #89dceb;
+  --color-sapphire: #74c7ec;
+  --color-blue: #89b4fa;
+  --color-lavender: #b4befe;
+  --color-text: #cdd6f4;
+  --color-subtext1: #bac2de;
+  --color-subtext0: #a6adc8;
+  --color-overlay2: #9399b2;
+  --color-overlay1: #7f849c;
+  --color-overlay0: #6c7086;
+  --color-surface2: #585b70;
+  --color-surface1: #45475a;
+  --color-surface0: #313244;
+  --color-base: #1e1e2e;
+  --color-mantle: #181825;
+  --color-crust: #11111b;
+
+  /* Additional semantic colors */
+  --color-purple: #cba6f7;
+  --color-cyan: #89dceb;
+
+  /* Lime accent for syn.horse */
+  --color-lime: #bfff00;
+  --color-lime-dim: #88b300;
+}
+
+@layer components {
+  /* Custom utility classes */
+}
+
 @import "./colors_and_type.css";
 @import "./styles.css";
