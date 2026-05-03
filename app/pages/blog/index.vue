@@ -14,20 +14,20 @@ const filtered = computed(() => (filter.value === "all" ? POSTS : POSTS.filter((
 </script>
 
 <template>
-  <div class="container blog">
+  <div class="page-shell">
     <div class="eyebrow">▶ /blog · {{ POSTS.length }} posts · infrequent · lowercase</div>
-    <h1>blog<span class="dot">.</span></h1>
+    <h1 class="page-h1">blog<span class="dot">.</span></h1>
     <p class="lede">
       writing about devops, hardware, the slow death of weird websites, and occasionally my body. infrequent. unedited.
       no editor will ever fix that.
     </p>
-    <div class="filter">
+    <div class="blog-filter">
       <span :class="['tg', filter === 'all' && 'on']" @click="filter = 'all'"> ALL · {{ POSTS.length }} </span>
       <span v-for="[t, c] in TAG_COUNTS" :key="t" :class="['tg', filter === t && 'on']" @click="filter = t">
         {{ t.toUpperCase() }} · {{ c }}
       </span>
     </div>
-    <ul>
+    <ul class="mt-7">
       <li v-for="p in filtered" :key="p.slug" class="blog-row fx-glitch">
         <NuxtLink :to="`/blog/${p.slug}`" class="blog-row-link">
           <span class="date">{{ p.date }}</span>
@@ -43,7 +43,7 @@ const filtered = computed(() => (filter.value === "all" ? POSTS : POSTS.filter((
         </NuxtLink>
       </li>
     </ul>
-    <div class="feed-line">
+    <div class="blog-feed-line">
       rss feed: <a href="/feed.xml">/feed.xml</a> · subscribe with the reader of your choice. no email list. i'm not
       chasing you.
     </div>

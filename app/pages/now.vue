@@ -8,12 +8,15 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="container now">
+  <div class="relative mx-auto max-w-[920px] px-8 pt-14 pb-20">
     <div class="eyebrow">▶ /now · updated 2026.04.20</div>
-    <h1>now<span class="dot">.</span></h1>
-    <p class="lede">a /now page. what i'm actually doing this month, not what linkedin would have you believe.</p>
-    <h2>building</h2>
-    <ul>
+    <h1 class="page-h1">now<span class="dot">.</span></h1>
+    <p class="lede max-w-[600px]">
+      a /now page. what i'm actually doing this month, not what linkedin would have you believe.
+    </p>
+
+    <h2 class="page-h2">building</h2>
+    <ul class="diamond-list">
       <li>
         <span>
           <b>syn.horse</b> — this rewrite. nuxt 4 on cloudflare workers, content from markdown, deployed via wrangler.
@@ -32,8 +35,9 @@ useSeoMeta({
         </span>
       </li>
     </ul>
-    <h2>reading</h2>
-    <ul>
+
+    <h2 class="page-h2">reading</h2>
+    <ul class="diamond-list">
       <li>
         <span><b>the dispossessed</b>, le guin, third time round. somehow weirder.</span>
       </li>
@@ -46,8 +50,9 @@ useSeoMeta({
         <span>too many <b>are.na blocks</b>. probably more than is healthy.</span>
       </li>
     </ul>
-    <h2>listening</h2>
-    <ul>
+
+    <h2 class="page-h2">listening</h2>
+    <ul class="diamond-list">
       <li>
         <span> <b>the broadcast</b> — dub techno. it's april. that's enough excuse. </span>
       </li>
@@ -55,8 +60,9 @@ useSeoMeta({
         <span> <b>look mum no computer</b> — tinkerer/musician. accidentally informative. </span>
       </li>
     </ul>
-    <h2>not doing</h2>
-    <ul>
+
+    <h2 class="page-h2">not doing</h2>
+    <ul class="diamond-list">
       <li>
         <span><b>twitter / x</b> — quit it. not bragging.</span>
       </li>
@@ -67,20 +73,19 @@ useSeoMeta({
         <span><b>on-call</b> — ate it for a year in 2020. never again.</span>
       </li>
     </ul>
-    <div class="console">
+
+    <div class="console mt-7">
+      <div><span class="pr">&gt;</span> <span class="mu">last cron job ran 3h ago — yes the site is alive</span></div>
       <div>
-        <span class="pr">&gt;</span>
-        <span class="mu">last cron job ran 3h ago — yes the site is alive</span>
-      </div>
-      <div>
-        <span class="pr">&gt;</span>
-        <span class="mu">if you got here from hacker news: hi. don't comment. read.</span>
+        <span class="pr">&gt;</span> <span class="mu">if you got here from hacker news: hi. don't comment. read.</span>
       </div>
       <div>
         <span class="pr">&gt;</span>
         <span class="mu">if you got here from linkedin: i don't know how. close the tab.</span>
       </div>
     </div>
-    <div class="updated">last meaningful update: 2026.04.20 · next: when i remember</div>
+    <div class="mt-9 font-mono text-[11px] tracking-[0.08em] text-paper-3">
+      last meaningful update: 2026.04.20 · next: when i remember
+    </div>
   </div>
 </template>

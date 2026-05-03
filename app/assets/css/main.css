@@ -1,2 +1,1211 @@
-@import "./colors_and_type.css";
-@import "./styles.css";
+/* =====================================================================
+   syn.horse — global stylesheet
+   ---------------------------------------------------------------------
+   Tailwind CSS v4 + daisyUI 5 + the syn.horse design tokens.
+   ===================================================================== */
+
+@import "tailwindcss";
+
+/* daisyUI: ship a single bespoke theme. No prebuilt themes wanted. */
+@plugin "daisyui" {
+  themes: false;
+}
+
+/* The synhorse theme. Maps daisyUI's semantic roles to our palette so
+   `<button class="btn btn-primary">` etc. render in brand colours. */
+@plugin "daisyui/theme" {
+  name: "synhorse";
+  default: true;
+  prefersdark: true;
+  color-scheme: dark;
+
+  /* surfaces — the void scale */
+  --color-base-100: #0d0221;
+  --color-base-200: #14082e;
+  --color-base-300: #1d0d3d;
+  --color-base-content: #fff7ff;
+
+  /* brand */
+  --color-primary: #ff71ce;
+  --color-primary-content: #0d0221;
+  --color-secondary: #01cdfe;
+  --color-secondary-content: #0d0221;
+  --color-accent: #b967ff;
+  --color-accent-content: #0d0221;
+
+  /* neutral — paper-3 hairline grey for borders / muted ui */
+  --color-neutral: #8b7aa8;
+  --color-neutral-content: #fff7ff;
+
+  /* status */
+  --color-info: #01cdfe;
+  --color-info-content: #0d0221;
+  --color-success: #62ffaa;
+  --color-success-content: #0d0221;
+  --color-warning: #fffb96;
+  --color-warning-content: #0d0221;
+  --color-error: #ff003c;
+  --color-error-content: #fff7ff;
+
+  /* shape — square by default, 2px on cards, pills only where named */
+  --radius-selector: 0;
+  --radius-field: 0;
+  --radius-box: 0.125rem;
+
+  /* sizes */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  /* borders — 1px hairline */
+  --border: 1px;
+
+  /* effects: no soft drop shadows, no built-in noise (we add our own) */
+  --depth: 0;
+  --noise: 0;
+}
+
+/* =====================================================================
+   Tailwind v4 design tokens — generates the utility classes:
+   bg-void, text-hot, font-display, text-2xl, ease-snap, shadow-glow-hot
+   ===================================================================== */
+@theme {
+  /* fonts — Inter is the default body font */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --font-display: "VT323", "Courier New", monospace;
+
+  /* spacing — 4px base. `p-1` = 4px, `p-2` = 8px, … `p-32` = 128px */
+  --spacing: 4px;
+
+  /* type scale (1.25 modular, capped) */
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-md: 17px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+  --text-3xl: 44px;
+  --text-4xl: 64px;
+  --text-5xl: 96px;
+  --text-6xl: 144px;
+
+  /* line heights */
+  --leading-tight: 1.05;
+  --leading-snug: 1.2;
+  --leading-normal: 1.45;
+  --leading-loose: 1.7;
+
+  /* radii */
+  --radius-xs: 2px;
+
+  /* easings */
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.2, 1);
+  --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* core palette */
+  --color-void: #0d0221;
+  --color-void-2: #14082e;
+  --color-void-3: #1d0d3d;
+  --color-void-4: #2a1656;
+
+  --color-paper: #fff7ff;
+  --color-paper-2: #d9c8e8;
+  --color-paper-3: #8b7aa8;
+  --color-paper-4: #4a3d63;
+
+  --color-hot: #ff71ce;
+  --color-hot-2: #ff2bb5;
+  --color-cool: #01cdfe;
+  --color-cool-2: #00a3cc;
+  --color-lilac: #b967ff;
+  --color-lilac-2: #9333ea;
+  --color-pop: #fffb96;
+  --color-pop-2: #f5e441;
+  --color-danger: #ff003c;
+  --color-danger-2: #cc002e;
+  --color-ok: #62ffaa;
+
+  /* glow shadows — pink/cyan halo around interactive elements */
+  --shadow-glow-hot: 0 0 24px rgb(255 113 206 / 0.4);
+  --shadow-glow-hot-strong: 0 0 30px rgb(255 113 206 / 0.6);
+  --shadow-glow-cool: 0 0 24px rgb(1 205 254 / 0.4);
+  --shadow-glow-lilac: 0 0 24px rgb(185 103 255 / 0.4);
+  --shadow-glow-palette: 0 0 36px rgb(255 113 206 / 0.25);
+  --shadow-pulse-ok: 0 0 8px #62ffaa;
+  --shadow-inset-edge: inset 0 1px 0 rgb(255 255 255 / 0.06);
+
+  /* animations — keyframes defined below outside @theme */
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-scan-flicker: scan-flicker 4s ease-in-out infinite;
+  --animate-grain-shift: grain-shift 1.2s steps(6) infinite;
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-glitch-strong: glitch-strong 2.4s steps(8) infinite;
+  --animate-konami: konami-in 0.3s cubic-bezier(0.2, 0.9, 0.2, 1), konami-jitter 0.12s steps(2) infinite;
+}
+
+/* =====================================================================
+   Keyframes — top-level so they're always emitted regardless of which
+   utilities the build picks up.
+   ===================================================================== */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes scan-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.65;
+  }
+}
+
+@keyframes grain-shift {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-2%, 1%);
+  }
+  40% {
+    transform: translate(2%, -1%);
+  }
+  60% {
+    transform: translate(-1%, 2%);
+  }
+  80% {
+    transform: translate(1%, -2%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes glitch-jitter {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-1px, 1px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes glitch-strong {
+  0%,
+  92%,
+  100% {
+    transform: translate(0, 0);
+    text-shadow:
+      4px 0 0 var(--color-cool),
+      -4px 0 0 var(--accent-color, var(--color-hot));
+  }
+  93% {
+    transform: translate(2px, -1px);
+    text-shadow:
+      -6px 0 0 var(--color-cool),
+      6px 0 0 var(--accent-color, var(--color-hot));
+  }
+  95% {
+    transform: translate(-3px, 2px);
+    text-shadow:
+      8px 0 0 var(--color-lilac),
+      -4px 0 0 var(--color-cool);
+  }
+  97% {
+    transform: translate(1px, -2px);
+    text-shadow:
+      4px 0 0 var(--color-cool),
+      -4px 0 0 var(--accent-color, var(--color-hot));
+  }
+}
+
+@keyframes konami-in {
+  from {
+    transform: translate(-50%, 60px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes konami-jitter {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(calc(-50% + 1px), -1px);
+  }
+}
+
+/* =====================================================================
+   Root variables not modelled as Tailwind tokens.
+   These power the custom CSS effects and the legacy stylesheets.
+   ===================================================================== */
+:root {
+  /* layout chrome heights */
+  --statusbar-h: 24px;
+  --marquee-h: 28px;
+  --siderail-w: 56px;
+
+  /* effect compounds */
+  --rgb-split: 2px 0 0 var(--color-hot), -2px 0 0 var(--color-cool);
+  --inset-edge: inset 0 1px 0 rgb(255 255 255 / 0.06);
+
+  /* legacy aliases — keep partially-migrated components working until
+     the custom CSS files at the bottom are deleted. */
+  --void: var(--color-void);
+  --void-2: var(--color-void-2);
+  --void-3: var(--color-void-3);
+  --void-4: var(--color-void-4);
+  --paper: var(--color-paper);
+  --paper-2: var(--color-paper-2);
+  --paper-3: var(--color-paper-3);
+  --paper-4: var(--color-paper-4);
+  --hot: var(--color-hot);
+  --hot-2: var(--color-hot-2);
+  --cool: var(--color-cool);
+  --cool-2: var(--color-cool-2);
+  --lilac: var(--color-lilac);
+  --lilac-2: var(--color-lilac-2);
+  --pop: var(--color-pop);
+  --pop-2: var(--color-pop-2);
+  --danger: var(--color-danger);
+  --danger-2: var(--color-danger-2);
+  --ok: var(--color-ok);
+  --bg: var(--color-void);
+  --bg-elev-1: var(--color-void-2);
+  --bg-elev-2: var(--color-void-3);
+  --bg-elev-3: var(--color-void-4);
+  --fg-1: var(--color-paper);
+  --fg-2: var(--color-paper-2);
+  --fg-3: var(--color-paper-3);
+  --fg-4: var(--color-paper-4);
+  --accent: var(--color-hot);
+  --accent-2: var(--color-cool);
+  --accent-3: var(--color-lilac);
+  --warn: var(--color-pop);
+  --error: var(--color-danger);
+  --success: var(--color-ok);
+  --font-body: var(--font-sans);
+  --t-xs: 12px;
+  --t-sm: 13px;
+  --t-base: 15px;
+  --t-md: 17px;
+  --t-lg: 20px;
+  --t-xl: 24px;
+  --t-2xl: 32px;
+  --t-3xl: 44px;
+  --t-4xl: 64px;
+  --t-5xl: 96px;
+  --t-6xl: 144px;
+  --lh-tight: 1.05;
+  --lh-snug: 1.2;
+  --lh-normal: 1.45;
+  --lh-loose: 1.7;
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 128px;
+  --radius-0: 0;
+  --radius-1: 2px;
+  --radius-2: 4px;
+  --radius-pill: 999px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 80ms;
+  --dur-base: 160ms;
+  --dur-slow: 320ms;
+  --z-base: 1;
+  --z-elev: 10;
+  --z-sticky: 100;
+  --z-modal: 1000;
+  --z-toast: 2000;
+  --z-noise: 9999;
+  --glow-hot: var(--shadow-glow-hot);
+  --glow-cool: var(--shadow-glow-cool);
+  --glow-lilac: var(--shadow-glow-lilac);
+  --border-hair: 1px solid var(--color-void-4);
+  --border-soft: 1px solid var(--color-paper-3);
+  --border-hard: 2px solid var(--color-hot);
+  --border-focus: 2px solid var(--color-cool);
+}
+
+/* =====================================================================
+   Base styles — resets and element typography. Tailwind's preflight
+   handles most resets; this layer adds the project-specific defaults
+   (page background, link reset, list reset, base headline sizes).
+   ===================================================================== */
+@layer base {
+  html,
+  body {
+    background: var(--color-void);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  button {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+  ul {
+    list-style: none;
+  }
+
+  /* default headline / body type — pages override sizes via utilities */
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-5xl);
+    line-height: var(--leading-tight);
+    color: var(--color-paper);
+    font-weight: 400;
+    text-transform: lowercase;
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    line-height: var(--leading-tight);
+    font-weight: 400;
+    text-transform: lowercase;
+  }
+  h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    line-height: var(--leading-snug);
+    font-weight: 400;
+    text-transform: lowercase;
+  }
+  h4 {
+    font-family: var(--font-sans);
+    font-size: var(--text-md);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--color-paper-2);
+  }
+  p {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-paper);
+  }
+  code,
+  kbd,
+  pre {
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+    color: var(--color-cool);
+  }
+}
+
+/* =====================================================================
+   Reusable surface patterns — small named components that the design
+   uses everywhere. Each is built from Tailwind tokens so theme tweaks
+   propagate. Anything appearing only once stays inline in templates.
+   ===================================================================== */
+@layer components {
+  /* tags — mono uppercase pills used in projects, blog filters, cv stack */
+  .tg {
+    display: inline-flex;
+    padding: 2px 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid var(--color-paper-3);
+    color: var(--color-paper-3);
+    white-space: nowrap;
+  }
+  .tg.hot {
+    color: var(--accent-color, var(--color-hot));
+    border-color: var(--accent-color, var(--color-hot));
+  }
+  .tg.cool {
+    color: var(--color-cool);
+    border-color: var(--color-cool);
+  }
+  .tg.lilac {
+    color: var(--color-lilac);
+    border-color: var(--color-lilac);
+  }
+  .tg.warn {
+    color: var(--color-pop);
+    border-color: var(--color-pop);
+  }
+  .tg.solid,
+  .tg.on {
+    background: var(--accent-color, var(--color-hot));
+    color: var(--color-void);
+    border-color: var(--accent-color, var(--color-hot));
+  }
+
+  /* eyebrow — mono uppercase label above page headlines */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent-color, var(--color-hot));
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* lede — paragraph lead text directly below page h1 */
+  .lede {
+    font-size: 16px;
+    color: var(--color-paper-2);
+    margin-top: 4px;
+    max-width: 620px;
+    line-height: 1.55;
+  }
+
+  /* console — terminal-style code block, used on home/now/404/post */
+  .console {
+    background: #08011a;
+    border: 1px solid var(--color-void-4);
+    padding: 14px 18px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--color-cool);
+    line-height: 1.7;
+  }
+  .console .pr {
+    color: var(--accent-color, var(--color-hot));
+  }
+  .console .mu {
+    color: var(--color-paper-3);
+  }
+  .console .ok {
+    color: var(--color-ok);
+  }
+  .console .danger {
+    color: var(--color-danger);
+    text-transform: uppercase;
+  }
+
+  /* btn — outlined mono button used on cv and 404 pages */
+  .btn-syn {
+    display: inline-block;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    border: 1px solid var(--color-paper-3);
+    color: var(--color-paper-2);
+    cursor: pointer;
+    transition: all 80ms;
+    padding: 8px 12px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+  .btn-syn:hover {
+    border-color: var(--accent-color, var(--color-hot));
+    color: var(--accent-color, var(--color-hot));
+  }
+  .btn-syn.lg {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    padding: 10px 16px;
+    color: var(--color-paper);
+  }
+  .btn-syn.lg:hover {
+    background: var(--color-void-2);
+  }
+  .btn-syn.warn {
+    border-color: var(--color-pop);
+    color: var(--color-pop);
+  }
+  .btn-syn.warn:hover {
+    background: var(--color-pop);
+    color: var(--color-void);
+    border-color: var(--color-pop);
+  }
+
+  /* dot — accent period used after page titles (e.g. "now.") */
+  .dot {
+    color: var(--accent-color, var(--color-hot));
+  }
+
+  /* home-card — clickable card used 4-6× per home variant */
+  .home-card {
+    display: block;
+    background: var(--color-void-2);
+    border: 1px solid var(--color-void-4);
+    padding: 18px 22px;
+    box-shadow: var(--shadow-inset-edge);
+    cursor: pointer;
+    transition:
+      border-color 80ms var(--ease-snap),
+      background 80ms var(--ease-snap);
+  }
+  .home-card:hover {
+    border-color: var(--accent-color, var(--color-hot));
+    background: var(--color-void-3);
+  }
+  .home-card-head {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-paper-3);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .home-card-title {
+    font-family: var(--font-display);
+    font-size: 30px;
+    line-height: 1.1;
+    color: var(--color-paper);
+    padding-bottom: 8px;
+  }
+  .home-card-body {
+    font-size: 13.5px;
+    color: var(--color-paper-2);
+    line-height: 1.5;
+    margin-top: 4px;
+  }
+  .home-card-arrow {
+    color: var(--color-cool);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    margin-top: 12px;
+    display: inline-block;
+    letter-spacing: 0.08em;
+  }
+
+  /* dotted-link — bottom-dotted underline link used in home + post bodies */
+  .dotted-link {
+    color: var(--color-paper-2);
+    border-bottom: 1px dotted var(--color-paper-3);
+    padding-bottom: 1px;
+    transition: all 80ms;
+  }
+  .dotted-link:hover {
+    color: var(--accent-color, var(--color-hot));
+    border-color: var(--accent-color, var(--color-hot));
+  }
+
+  /* footer-note — bottom strip used on home, contact, domains */
+  .footer-note {
+    margin-top: 80px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-paper-3);
+    border-top: 1px solid var(--color-void-4);
+    padding-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    letter-spacing: 0.04em;
+  }
+
+  /* diamond-list — bulleted list with hot ◆ markers, used on /now and post bodies */
+  .diamond-list {
+    list-style: none;
+  }
+  .diamond-list > li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-void-4);
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--color-paper-2);
+  }
+  .diamond-list > li::before {
+    content: "◆";
+    color: var(--accent-color, var(--color-hot));
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .diamond-list > li b {
+    color: var(--color-paper);
+    font-weight: 600;
+  }
+
+  /* page-h2 — section heading on /now, /cv, /projects, /contact, /domains */
+  .page-h2 {
+    font-family: var(--font-display);
+    font-size: 44px;
+    line-height: 1.1;
+    color: var(--color-paper);
+    margin: 40px 0 14px;
+  }
+
+  /* page-h1 — large display headline used on every secondary page */
+  .page-h1 {
+    font-family: var(--font-display);
+    font-size: 112px;
+    line-height: 1.05;
+    color: var(--color-paper);
+    padding-bottom: 14px;
+  }
+
+  /* proj-* — project card used on /projects and inside /cv side-projects */
+  .proj-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 36px;
+  }
+  .proj {
+    background: var(--color-void-2);
+    border: 1px solid var(--color-void-4);
+    padding: 22px;
+    box-shadow: var(--shadow-inset-edge);
+    position: relative;
+    transition: border-color 80ms var(--ease-snap);
+  }
+  .proj:hover {
+    border-color: var(--accent-color, var(--color-hot));
+  }
+  .proj-year {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-paper-3);
+    letter-spacing: 0.1em;
+  }
+  .proj-title {
+    font-family: var(--font-display);
+    font-size: 36px;
+    line-height: 1.1;
+    padding-right: 60px;
+    padding-bottom: 8px;
+    color: var(--color-paper);
+  }
+  .proj-body {
+    font-size: 13.5px;
+    color: var(--color-paper-2);
+    line-height: 1.5;
+    min-height: 42px;
+    margin-top: 4px;
+  }
+  .proj-url {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-cool);
+    margin-top: 10px;
+    letter-spacing: 0.04em;
+  }
+  .proj-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+
+  /* page shell — fixed-width column wrapper used by every secondary page */
+  .page-shell {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 56px 32px 80px;
+    position: relative;
+  }
+  .page-shell.wide {
+    max-width: 1080px;
+  }
+
+  /* generic error (non-404) page */
+  .generic-error h1 {
+    font-family: var(--font-display);
+    font-size: 112px;
+    line-height: 1.05;
+    padding-bottom: 14px;
+  }
+
+  /* blog index */
+  .blog-filter {
+    display: flex;
+    gap: 8px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .blog-filter .tg {
+    cursor: pointer;
+    user-select: none;
+  }
+  .blog-row {
+    padding: 18px 0;
+    border-top: 1px solid var(--color-void-4);
+    display: grid;
+    grid-template-columns: 110px 1fr auto;
+    gap: 18px;
+    align-items: baseline;
+    cursor: pointer;
+  }
+  .blog-row:last-child {
+    border-bottom: 1px solid var(--color-void-4);
+  }
+  .blog-row .date {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-paper-3);
+    letter-spacing: 0.04em;
+  }
+  .blog-row h3 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    line-height: 1.15;
+    color: var(--color-paper);
+    padding-bottom: 6px;
+    transition: color 80ms;
+  }
+  .blog-row:hover h3 {
+    color: var(--accent-color, var(--color-hot));
+  }
+  .blog-row .desc {
+    font-size: 13px;
+    color: var(--color-paper-2);
+    line-height: 1.5;
+    margin-top: 2px;
+    max-width: 620px;
+  }
+  .blog-row .desc b {
+    color: var(--color-paper);
+  }
+  .blog-row .read {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-cool);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .blog-row .post-tags {
+    margin-top: 8px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .blog-feed-line {
+    margin-top: 36px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-paper-3);
+    letter-spacing: 0.04em;
+  }
+  .blog-feed-line a {
+    color: var(--color-cool);
+    border-bottom: 1px dotted var(--color-cool);
+    padding-bottom: 1px;
+  }
+
+  /* post — single blog entry */
+  .post-crumb {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-paper-3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .post-crumb:hover {
+    color: var(--accent-color, var(--color-hot));
+  }
+  .post-h1 {
+    font-family: var(--font-display);
+    font-size: 88px;
+    line-height: 1.05;
+    color: var(--color-paper);
+    margin-top: 14px;
+    padding-bottom: 14px;
+    max-width: 760px;
+  }
+  .post-meta {
+    display: flex;
+    gap: 14px;
+    margin-top: 14px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-paper-3);
+    letter-spacing: 0.04em;
+    flex-wrap: wrap;
+  }
+  .post-meta .pill {
+    color: var(--accent-color, var(--color-hot));
+  }
+  .post-body {
+    margin-top: 36px;
+    max-width: 680px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--color-paper-2);
+  }
+  .post-body p {
+    margin-bottom: 18px;
+  }
+  .post-body p b {
+    color: var(--color-paper);
+  }
+  .post-body h2 {
+    font-family: var(--font-display);
+    font-size: 48px;
+    line-height: 1.1;
+    color: var(--color-paper);
+    margin: 36px 0 14px;
+  }
+  .post-body h3 {
+    font-family: var(--font-display);
+    font-size: 32px;
+    line-height: 1.15;
+    color: var(--color-paper);
+    margin: 28px 0 12px;
+  }
+  .post-body code {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-cool);
+    background: var(--color-void-2);
+    padding: 1px 6px;
+    border: 1px solid var(--color-void-4);
+  }
+  .post-body pre {
+    background: #08011a;
+    border: 1px solid var(--color-void-4);
+    padding: 16px 18px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-cool);
+    line-height: 1.6;
+    margin: 16px 0;
+    overflow-x: auto;
+  }
+  .post-body pre code {
+    background: transparent;
+    padding: 0;
+    border: 0;
+    color: inherit;
+  }
+  .post-body blockquote {
+    border-left: 2px solid var(--accent-color, var(--color-hot));
+    padding: 6px 0 6px 18px;
+    color: var(--color-paper);
+    font-family: var(--font-display);
+    font-size: 30px;
+    line-height: 1.18;
+    margin: 22px 0;
+  }
+  .post-body a {
+    color: var(--color-cool);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .post-body a:hover {
+    color: var(--accent-color, var(--color-hot));
+  }
+  .post-body ul {
+    margin: 16px 0 16px 4px;
+  }
+  .post-body ul li {
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 6px;
+  }
+  .post-body ul li::before {
+    content: "◆";
+    position: absolute;
+    left: 0;
+    color: var(--accent-color, var(--color-hot));
+    font-size: 12px;
+    top: 5px;
+  }
+  .post-foot {
+    margin-top: 64px;
+    padding-top: 18px;
+    border-top: 1px solid var(--color-void-4);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-paper-3);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    letter-spacing: 0.04em;
+  }
+  .post-foot a {
+    color: var(--color-cool);
+  }
+
+  /* cv */
+  .cv-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+  }
+  .cv-h2 {
+    font-family: var(--font-display);
+    font-size: 56px;
+    line-height: 1.05;
+    color: var(--color-paper);
+    margin: 56px 0 18px;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-void-4);
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .cv-h2 .num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-paper-3);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .cv-role {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 28px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--color-void-4);
+  }
+  .cv-role .left {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-paper-3);
+    letter-spacing: 0.08em;
+    line-height: 1.7;
+    text-transform: uppercase;
+  }
+  .cv-role .left .dt {
+    color: var(--color-cool);
+  }
+  .cv-role .left .place {
+    color: var(--color-paper-2);
+    margin-top: 2px;
+  }
+  .cv-role .left .loc {
+    color: var(--color-paper-3);
+    margin-top: 2px;
+  }
+  .cv-role .right h3 {
+    font-family: var(--font-display);
+    font-size: 30px;
+    line-height: 1.1;
+    color: var(--color-paper);
+    padding-bottom: 6px;
+  }
+  .cv-role .right p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--color-paper-2);
+    margin-top: 4px;
+    max-width: 620px;
+  }
+  .cv-role .right .stack {
+    margin-top: 10px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .cv-talks {
+    display: grid;
+    gap: 0;
+  }
+  .cv-talk {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--color-void-4);
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 18px;
+    align-items: baseline;
+  }
+  .cv-talk .yr {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-paper-3);
+    letter-spacing: 0.08em;
+  }
+  .cv-talk h4 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--color-paper);
+    line-height: 1.15;
+  }
+  .cv-talk .venue {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-cool);
+    letter-spacing: 0.04em;
+    text-align: right;
+  }
+
+  /* 404 */
+  .notfound {
+    padding: 80px 32px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .notfound .big {
+    font-family: var(--font-display);
+    font-size: 280px;
+    line-height: 0.9;
+    color: var(--accent-color, var(--color-hot));
+    text-shadow:
+      4px 0 0 var(--color-cool),
+      -4px 0 0 var(--color-hot);
+    letter-spacing: -0.02em;
+    animation: glitch-strong 2.4s steps(8) infinite;
+  }
+  .notfound .yell {
+    font-family: var(--font-display);
+    font-size: 56px;
+    line-height: 1.05;
+    color: var(--color-paper);
+    margin-top: 18px;
+    max-width: 760px;
+    text-transform: uppercase;
+  }
+  .notfound .yell .accent {
+    color: var(--accent-color, var(--color-hot));
+  }
+  .notfound .console {
+    margin-top: 28px;
+    max-width: 760px;
+    padding: 18px 22px;
+    font-size: 13px;
+  }
+  .notfound .actions {
+    margin-top: 28px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+}
+
+/* =====================================================================
+   Effect components — fixed full-bleed overlays + chromatic aberration
+   on hover. Live in @layer components so they participate in the
+   Tailwind cascade and can be combined with `dark:`, `hover:`, etc.
+   ===================================================================== */
+@layer components {
+  .fx-scan {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgb(255 255 255 / var(--scan-strength, 0.05)) 0,
+      rgb(255 255 255 / var(--scan-strength, 0.05)) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    animation: scan-flicker 4s ease-in-out infinite;
+    mix-blend-mode: overlay;
+  }
+
+  .fx-grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    animation: grain-shift 1.2s steps(6) infinite;
+  }
+
+  .fx-vignette {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9997;
+    background: radial-gradient(ellipse at center, transparent 55%, rgb(0 0 0 / 0.55) 100%);
+  }
+
+  /* chromatic aberration on hover for any element marked .fx-glitch */
+  .fx-glitch:hover {
+    text-shadow:
+      2px 0 0 var(--accent-color, var(--color-hot)),
+      -2px 0 0 var(--color-cool);
+    animation: glitch-jitter 60ms steps(2) 1;
+  }
+}
+
+/* Focus ring — visible, ugly on purpose. Applies to every interactive
+   element so we don't have to remember to add a class. */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+.fx-focus:focus-visible {
+  outline: 2px solid var(--color-cool);
+  outline-offset: 2px;
+  box-shadow: var(--shadow-glow-cool);
+}
+
+/* Dialog inputs (e.g. command palette) get no extra ring — the dialog's
+   own border serves as the focus indicator for the contained context. */
+[role="dialog"] input:focus-visible {
+  outline: 0;
+  box-shadow: none;
+}
+
+/* =====================================================================
+   Reduced motion — kill the loud animations for users who've asked.
+   ===================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .fx-scan,
+  .fx-scanlines,
+  .fx-grain,
+  .marquee-track,
+  .marquee {
+    animation: none !important;
+  }
+  .notfound .big {
+    animation: none !important;
+  }
+  .konami,
+  .konami-toast {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
