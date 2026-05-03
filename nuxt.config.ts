@@ -1,8 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config]
 // trunk-ignore-all(trunk-toolbox/todo)
 
-import tailwindcss from "@tailwindcss/vite"
-
 const compatibilityDate = "2026-04-15"
 
 export default defineNuxtConfig({
@@ -290,6 +288,5 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include: ["@vue/devtools-core", "@vue/devtools-kit"],
     },
-    plugins: [tailwindcss()],
   },
 })

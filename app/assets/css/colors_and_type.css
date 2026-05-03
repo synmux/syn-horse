@@ -1,0 +1,297 @@
+/* =====================================================================
+   syn.horse — design tokens
+   colors, type, spacing, shadow, motion. import everywhere.
+   ---------------------------------------------------------------------
+   Note: brand fonts (VT323, Inter, JetBrains Mono) are loaded by
+   @nuxt/fonts via the Google provider; see fonts.families in
+   nuxt.config.ts. The original @font-face block from the design export
+   has been removed.
+   ===================================================================== */
+
+:root {
+  /* ── core palette ───────────────────────────────────────────────── */
+  --void: #0d0221; /* page background, never pure black */
+  --void-2: #14082e; /* one step lighter, card surface */
+  --void-3: #1d0d3d; /* two steps lighter, hover surface */
+  --void-4: #2a1656; /* borders on dark, dividers */
+
+  --paper: #fff7ff; /* primary fg, off-white with pink hue */
+  --paper-2: #d9c8e8; /* secondary fg, lavender-grey */
+  --paper-3: #8b7aa8; /* tertiary fg, hairlines */
+  --paper-4: #4a3d63; /* quaternary fg, disabled */
+
+  --hot: #ff71ce; /* primary brand pink */
+  --hot-2: #ff2bb5; /* hot pressed */
+  --cool: #01cdfe; /* secondary brand cyan */
+  --cool-2: #00a3cc; /* cool pressed */
+  --lilac: #b967ff; /* tertiary purple */
+  --lilac-2: #9333ea; /* lilac pressed */
+  --pop: #fffb96; /* lemon, warnings + "look here" */
+  --pop-2: #f5e441; /* pop pressed */
+  --danger: #ff003c; /* destructive only */
+  --danger-2: #cc002e; /* danger pressed */
+  --ok: #62ffaa; /* success — used sparingly */
+
+  /* ── semantic foreground ─────────────────────────────────────────── */
+  --fg-1: var(--paper); /* primary text */
+  --fg-2: var(--paper-2); /* secondary text */
+  --fg-3: var(--paper-3); /* tertiary text, hairline borders */
+  --fg-4: var(--paper-4); /* disabled */
+
+  /* ── semantic background ────────────────────────────────────────── */
+  --bg: var(--void);
+  --bg-elev-1: var(--void-2);
+  --bg-elev-2: var(--void-3);
+  --bg-elev-3: var(--void-4);
+
+  /* ── semantic accent ────────────────────────────────────────────── */
+  --accent: var(--hot);
+  --accent-2: var(--cool);
+  --accent-3: var(--lilac);
+  --warn: var(--pop);
+  --error: var(--danger);
+  --success: var(--ok);
+
+  /* ── borders ────────────────────────────────────────────────────── */
+  --border-hair: 1px solid var(--void-4);
+  --border-soft: 1px solid var(--paper-3);
+  --border-hard: 2px solid var(--hot);
+  --border-focus: 2px solid var(--cool);
+
+  /* ── radii ──────────────────────────────────────────────────────── */
+  --radius-0: 0; /* default, square */
+  --radius-1: 2px; /* cards */
+  --radius-2: 4px; /* small chips */
+  --radius-pill: 999px; /* pills only */
+
+  /* ── spacing (4px grid) ─────────────────────────────────────────── */
+  --s-0: 0;
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 128px;
+
+  /* ── type families ──────────────────────────────────────────────── */
+  --font-display: "VT323", "Courier New", monospace;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
+
+  /* ── type scale (1.25 modular, capped) ──────────────────────────── */
+  --t-xs: 12px;
+  --t-sm: 13px;
+  --t-base: 15px;
+  --t-md: 17px;
+  --t-lg: 20px;
+  --t-xl: 24px;
+  --t-2xl: 32px;
+  --t-3xl: 44px;
+  --t-4xl: 64px;
+  --t-5xl: 96px;
+  --t-6xl: 144px;
+
+  --lh-tight: 1.05;
+  --lh-snug: 1.2;
+  --lh-normal: 1.45;
+  --lh-loose: 1.7;
+
+  /* ── shadows / glows ────────────────────────────────────────────── */
+  --glow-hot: 0 0 24px rgba(255, 113, 206, 0.4);
+  --glow-cool: 0 0 24px rgba(1, 205, 254, 0.4);
+  --glow-lilac: 0 0 24px rgba(185, 103, 255, 0.4);
+  --inset-edge: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --rgb-split: 2px 0 0 var(--hot), -2px 0 0 var(--cool);
+
+  /* ── motion ─────────────────────────────────────────────────────── */
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 80ms;
+  --dur-base: 160ms;
+  --dur-slow: 320ms;
+
+  /* ── z-index ────────────────────────────────────────────────────── */
+  --z-base: 1;
+  --z-elev: 10;
+  --z-sticky: 100;
+  --z-modal: 1000;
+  --z-toast: 2000;
+  --z-noise: 9999; /* scanlines + grain go on top */
+
+  /* ── layout chrome ──────────────────────────────────────────────── */
+  --statusbar-h: 24px;
+  --marquee-h: 28px;
+  --siderail-w: 56px;
+}
+
+/* =====================================================================
+   semantic element styles (use as-is or extend)
+   ===================================================================== */
+
+html,
+body {
+  background: var(--bg);
+  color: var(--fg-1);
+  font-family: var(--font-body);
+  font-size: var(--t-base);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+.h1,
+h1 {
+  font-family: var(--font-display);
+  font-size: var(--t-5xl);
+  line-height: var(--lh-tight);
+  letter-spacing: 0;
+  color: var(--fg-1);
+  font-weight: 400; /* VT323 has only one weight */
+  text-transform: lowercase;
+}
+
+.h2,
+h2 {
+  font-family: var(--font-display);
+  font-size: var(--t-3xl);
+  line-height: var(--lh-tight);
+  font-weight: 400;
+  text-transform: lowercase;
+}
+
+.h3,
+h3 {
+  font-family: var(--font-display);
+  font-size: var(--t-2xl);
+  line-height: var(--lh-snug);
+  font-weight: 400;
+  text-transform: lowercase;
+}
+
+.h4,
+h4 {
+  font-family: var(--font-body);
+  font-size: var(--t-md);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase; /* small caps eyebrow style */
+  color: var(--fg-2);
+}
+
+.p,
+p {
+  font-family: var(--font-body);
+  font-size: var(--t-base);
+  line-height: var(--lh-normal);
+  color: var(--fg-1);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fg-3);
+}
+
+.code,
+code,
+kbd,
+pre,
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  color: var(--cool);
+}
+
+.danger-text {
+  color: var(--danger);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.warn-text {
+  color: var(--pop);
+}
+.muted {
+  color: var(--fg-3);
+}
+
+/* =====================================================================
+   scanline overlay — use as fixed-position pseudo or full-screen div
+   ===================================================================== */
+.fx-scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-noise);
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.05) 0px,
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  animation: scanline-flicker 4s var(--ease-out) infinite;
+}
+
+@keyframes scanline-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.fx-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: calc(var(--z-noise) - 1);
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+.fx-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: calc(var(--z-noise) - 2);
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+/* =====================================================================
+   glitch / hover effects
+   ===================================================================== */
+.fx-glitch:hover {
+  text-shadow: var(--rgb-split);
+  animation: glitch-jitter 60ms steps(2) 1;
+}
+@keyframes glitch-jitter {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-1px, 1px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* focus ring used everywhere */
+.fx-focus:focus-visible,
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: var(--border-focus);
+  outline-offset: 2px;
+  box-shadow: var(--glow-cool);
+}
