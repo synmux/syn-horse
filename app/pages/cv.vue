@@ -9,21 +9,21 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="container cv">
+  <div class="page-shell">
     <div class="eyebrow">▶ /cv · last revised 2026.03 · pdf available on request</div>
-    <h1>cv<span class="dot">.</span></h1>
+    <h1 class="page-h1">cv<span class="dot">.</span></h1>
     <p class="lede">
       10+ years in devops, sre, and sysadmin. terraform, nomad, kubernetes, prometheus, more bash than is strictly
       healthy. terse on purpose.
     </p>
     <div class="cv-actions">
-      <button type="button" class="btn fx-glitch">↓ download pdf</button>
-      <button type="button" class="btn fx-glitch">↗ linkedin (don't)</button>
-      <button type="button" class="btn fx-glitch">✉ email for full ref list</button>
+      <button type="button" class="btn-syn fx-glitch">↓ download pdf</button>
+      <button type="button" class="btn-syn fx-glitch">↗ linkedin (don't)</button>
+      <button type="button" class="btn-syn fx-glitch">✉ email for full ref list</button>
     </div>
 
-    <h2><span class="num">01 ·</span> work</h2>
-    <div v-for="(r, i) in CV_ROLES" :key="i" class="role">
+    <h2 class="cv-h2"><span class="num">01 ·</span> work</h2>
+    <div v-for="(r, i) in CV_ROLES" :key="i" class="cv-role">
       <div class="left">
         <div class="dt">{{ r.dt }}</div>
         <div class="place">{{ r.place }}</div>
@@ -38,26 +38,26 @@ useSeoMeta({
       </div>
     </div>
 
-    <h2><span class="num">02 ·</span> talks</h2>
-    <div class="talks">
-      <div v-for="(t, i) in TALKS" :key="i" class="talk">
+    <h2 class="cv-h2"><span class="num">02 ·</span> talks</h2>
+    <div class="cv-talks">
+      <div v-for="(t, i) in TALKS" :key="i" class="cv-talk">
         <span class="yr">{{ t.yr }}</span>
         <h4>{{ t.title }}</h4>
         <span class="venue">↗ {{ t.venue }}</span>
       </div>
     </div>
 
-    <h2><span class="num">03 ·</span> side projects</h2>
+    <h2 class="cv-h2"><span class="num">03 ·</span> side projects</h2>
     <div class="proj-grid">
       <div v-for="(s, i) in SIDE" :key="i" class="proj">
-        <span class="yr">{{ s.yr }}</span>
-        <h3>{{ s.name }}</h3>
-        <p>{{ s.desc }}</p>
+        <span class="proj-year">{{ s.yr }}</span>
+        <h3 class="proj-title">{{ s.name }}</h3>
+        <p class="proj-body">{{ s.desc }}</p>
       </div>
     </div>
 
-    <h2><span class="num">04 ·</span> elsewhere</h2>
-    <div class="role">
+    <h2 class="cv-h2"><span class="num">04 ·</span> elsewhere</h2>
+    <div class="cv-role">
       <div class="left">
         <div class="dt">refs</div>
         <div class="place">on request</div>

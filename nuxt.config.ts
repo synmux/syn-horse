@@ -8,6 +8,9 @@ const compatibilityDate = "2026-04-15"
 export default defineNuxtConfig({
   app: {
     head: {
+      htmlAttrs: {
+        "data-theme": "synhorse",
+      },
       link: [
         {
           href: "/images/icon.ico",

@@ -73,44 +73,73 @@ useEventListener("keydown", (e: KeyboardEvent) => {
 </script>
 
 <template>
-  <div v-if="palette.isOpen.value" class="palette-bg" @click.self="palette.hide()">
-    <div class="palette" role="dialog" aria-label="command palette">
-      <div class="input-wrap">
-        <span class="pr">▶</span>
+  <div
+    v-if="palette.isOpen.value"
+    class="fixed inset-0 z-[1000] flex items-start justify-center bg-void/85 pt-[12vh] backdrop-blur-[6px]"
+    @click.self="palette.hide()"
+  >
+    <div
+      class="w-[min(560px,90vw)] border border-hot bg-void-2 shadow-glow-palette"
+      role="dialog"
+      aria-label="command palette"
+    >
+      <div class="flex items-center gap-2.5 border-b border-void-4 px-4 py-3.5">
+        <span class="font-mono text-[14px] text-hot">▶</span>
         <input
           ref="inputEl"
           v-model="palette.query.value"
+          class="flex-1 border-0 bg-transparent font-mono text-[14px] text-paper caret-hot outline-0"
           placeholder="type to navigate. esc to dismiss."
           autocomplete="off"
           spellcheck="false"
         />
-        <span class="hint">{{ filtered.length }} results</span>
+        <span class="font-mono text-[10px] tracking-[0.14em] text-paper-3">{{ filtered.length }} results</span>
       </div>
-      <div class="results">
+      <div class="max-h-[50vh] overflow-y-auto">
         <div
           v-for="(c, i) in filtered"
           :key="c.id"
-          :class="['row', i === sel && 'sel']"
+          :class="[
+            'grid cursor-pointer grid-cols-[auto_1fr_auto] items-center gap-3.5 border-b border-void-3 py-2.5',
+            i === sel ? 'border-l-2 border-l-hot bg-void-3 pr-4 pl-3.5' : 'px-4'
+          ]"
           @mouseenter="sel = i"
           @click="dispatch(c)"
         >
-          <span class="ic">[{{ c.ic }}]</span>
+          <span
+            :class="[
+              'font-mono text-[11px] tracking-[0.14em]',
+              i === sel ? 'text-hot' : 'text-paper-3'
+            ]"
+            >[{{ c.ic }}]</span
+          >
           <div>
-            <div class="label">{{ c.label }}</div>
-            <div class="desc">{{ c.desc }}</div>
+            <div class="font-sans text-[14px] text-paper">{{ c.label }}</div>
+            <div class="font-mono text-[11px] tracking-[0.04em] text-paper-3">{{ c.desc }}</div>
           </div>
-          <span class="ic">↵</span>
+          <span
+            :class="[
+              'font-mono text-[11px] tracking-[0.14em]',
+              i === sel ? 'text-hot' : 'text-paper-3'
+            ]"
+            >↵</span
+          >
         </div>
-        <div v-if="filtered.length === 0" class="row" style="color: var(--paper-3)">
-          <span class="ic">—</span>
+        <div
+          v-if="filtered.length === 0"
+          class="grid grid-cols-[auto_1fr_auto] items-center gap-3.5 border-b border-void-3 px-4 py-2.5 text-paper-3"
+        >
+          <span class="font-mono text-[11px] tracking-[0.14em] text-paper-3">—</span>
           <div>
-            <div class="label">nothing matches.</div>
-            <div class="desc">try less.</div>
+            <div class="font-sans text-[14px] text-paper">nothing matches.</div>
+            <div class="font-mono text-[11px] tracking-[0.04em] text-paper-3">try less.</div>
           </div>
           <span />
         </div>
       </div>
-      <div class="footer">
+      <div
+        class="flex justify-between border-t border-void-4 px-4 py-2 font-mono text-[10px] tracking-[0.12em] text-paper-3"
+      >
         <span>↑↓ navigate · ↵ open · esc dismiss</span>
         <span>{{ SITE.name }} · {{ SITE.versionShort }}</span>
       </div>

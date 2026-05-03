@@ -32,16 +32,16 @@ const sourcePath = computed(() => `content/blog/${post.value!.date.replace(/\./g
 </script>
 
 <template>
-  <div class="container post">
-    <NuxtLink to="/blog" class="crumb fx-glitch">← / blog</NuxtLink>
-    <h1>{{ post!.title }}</h1>
-    <div class="meta">
+  <div class="page-shell">
+    <NuxtLink to="/blog" class="post-crumb fx-glitch">← / blog</NuxtLink>
+    <h1 class="post-h1">{{ post!.title }}</h1>
+    <div class="post-meta">
       <span><span class="pill">◆</span> {{ post!.date }}</span>
       <span>· {{ post!.read }}</span>
       <span>· tags: {{ post!.tags.join(", ") }}</span>
-      <span v-if="!post!.real" style="color: var(--pop)">· FROM THE FUTURE</span>
+      <span v-if="!post!.real" class="text-pop">· FROM THE FUTURE</span>
     </div>
-    <div class="body">
+    <div class="post-body">
       <p>
         {{ post!.desc }}
         <i>
