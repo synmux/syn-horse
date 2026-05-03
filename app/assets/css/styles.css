@@ -1513,7 +1513,7 @@ ul {
   box-shadow: 0 0 30px rgba(255, 113, 206, 0.6);
   animation:
     konami-in 0.3s var(--ease-snap),
-    glitch-jitter 0.12s steps(2) infinite;
+    konami-jitter 0.12s steps(2) infinite;
   letter-spacing: 0.02em;
   text-transform: uppercase;
 }
@@ -1527,7 +1527,7 @@ ul {
     opacity: 1;
   }
 }
-@keyframes glitch-jitter {
+@keyframes konami-jitter {
   0%,
   100% {
     transform: translate(-50%, 0);
