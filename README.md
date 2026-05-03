@@ -79,7 +79,7 @@ The home page ships three layouts; the default is the calm one. Switch with a qu
 - [@nuxthub/core](https://hub.nuxt.com) — provides the KV and R2 bindings
 - [nuxt-security](https://nuxt-security.com) — SRI, hashed scripts and styles, security headers
 - [Drizzle ORM](https://orm.drizzle.team) — schema scaffolded for redirects; D1 currently disabled
-- Hand-written CSS using design tokens from `_design/site/colors_and_type.css`. No Tailwind utility classes are used by the new design.
+- [Tailwind CSS v4](https://tailwindcss.com) and [daisyUI 5](https://daisyui.com), wired with a single bespoke `synhorse` theme — the design tokens (palette, type scale, spacing, glow shadows, animations) live in `app/assets/css/main.css` under `@theme`, and daisyUI's semantic roles (`primary`, `secondary`, `accent`, `base-100`, …) map onto them.
 
 ## Project layout
 
@@ -89,13 +89,11 @@ app/
   error.vue                    # 404/500 page (uses default layout)
   assets/
     css/
-      colors_and_type.css      # design tokens (palette, type, spacing, motion)
-      styles.css               # site styles (lifted verbatim from the design)
-      main.css                 # entry point
+      main.css                 # @theme tokens + daisyUI synhorse theme + component classes + FX overlays + reduced-motion overrides
   components/
     home/                      # HomeCalm, HomeFeral, HomeUnhinged
     layout/                    # StatusBar, NavBar, FxLayer, CommandPalette, KonamiToast
-    ui/                        # PageHeader, Tag, Console
+    ui/                        # Tag, Console
     NotFound.vue
   composables/                 # useTime, useHomeVariant, useCommandPalette, useKonamiCode
   data/                        # typed content modules (posts, projects, domains, ...)
@@ -113,7 +111,7 @@ content.config.ts              # @nuxt/content collection definition
 
 The full design system lives at `_design/design-system/` — colour swatches, type scale, component cards, brand voice. The candidate build that this repo implements is `_design/site/`. Both were exported from Claude Design and should be treated as a frozen reference.
 
-Tokens that drive every visual decision are in `app/assets/css/colors_and_type.css`. The pixel mark in the nav is `public/assets/logo-mark.svg`; the wordmark next to it is rendered as text.
+Tokens that drive every visual decision live in the `@theme` block at the top of `app/assets/css/main.css`. The pixel mark in the nav is `public/assets/logo-mark.svg`; the wordmark next to it is rendered as text.
 
 ## Deferred work
 

@@ -29,13 +29,13 @@ onMounted(() => {
       <div class="mu">→ kernel: type the url next time. don't trust shortcuts.</div>
       <div>
         <span class="pr">syn@horse</span> <span class="mu">~/$</span>
-        <span style="color: var(--paper)">_</span>
+        <span class="text-paper">_</span>
       </div>
     </div>
     <div class="actions">
-      <NuxtLink to="/" class="btn fx-glitch">← go home</NuxtLink>
-      <NuxtLink to="/blog" class="btn fx-glitch">read the blog instead</NuxtLink>
-      <NuxtLink to="/domains" class="btn warn fx-glitch">maybe it's on another domain</NuxtLink>
+      <NuxtLink to="/" class="btn-syn lg fx-glitch">← go home</NuxtLink>
+      <NuxtLink to="/blog" class="btn-syn lg fx-glitch">read the blog instead</NuxtLink>
+      <NuxtLink to="/domains" class="btn-syn lg warn fx-glitch">maybe it's on another domain</NuxtLink>
     </div>
   </div>
 </template>
