@@ -25,7 +25,6 @@ For each skill, determine YES/NO relevance and invoke all YES skills before proc
 | Default layout              | `app/layouts/default.vue` (status bar, nav, FX overlays, palette, konami)              |
 | Error page                  | `app/error.vue` (wraps content in `<NuxtLayout name="default">`)                       |
 | Layout components           | `app/components/layout/*.vue` (auto-import as `<LayoutStatusBar />` etc.)              |
-| Home variants               | `app/components/home/*.vue` (auto-import as `<HomeCalm />` etc.)                       |
 | UI primitives               | `app/components/ui/*.vue`                                                              |
 | 404 component               | `app/components/NotFound.vue` (used by `error.vue`)                                    |
 | Composables (auto-imported) | `app/composables/*.ts`                                                                 |
@@ -55,7 +54,7 @@ These are the project-specific tokens defined in `app/assets/css/main.css`. Ever
 - **Spacing.** `--spacing: 4px`, so `p-1` = 4px, `p-2` = 8px, `p-12` = 48px, etc. Matches the original `--s-*` design tokens exactly.
 - **Easings.** `ease-snap` (`cubic-bezier(0.2, 0.9, 0.2, 1)` — the design's hard snap), `ease-soft` (the gentler one).
 - **Shadows.** `shadow-glow-hot`, `shadow-glow-hot-strong`, `shadow-glow-cool`, `shadow-glow-lilac`, `shadow-glow-palette`, `shadow-pulse-ok`, `shadow-inset-edge`. No traditional drop shadows — the design forbids them.
-- **Animations.** `animate-pulse-glow` (status dots), `animate-scan-flicker` / `animate-grain-shift` (FX overlays), `animate-marquee` (HomeFeral band), `animate-glitch-strong` (404), `animate-konami` (toast).
+- **Animations.** `animate-pulse-glow` (status dots), `animate-scan-flicker` / `animate-grain-shift` (FX overlays), `animate-glitch-strong` (404), `animate-konami` (toast).
 
 ## Component classes (`@layer components` in `main.css`)
 
@@ -64,21 +63,20 @@ Repeated patterns get a named class instead of an inline utility soup. They all 
 - **Reusable UI:** `.tg` (+ `.hot/.cool/.lilac/.warn/.solid/.on` modifiers — small mono pills used in projects, blog filters, cv stack), `.eyebrow` (mono uppercase label above page headlines), `.lede` (paragraph lead text), `.console` (+ `.pr/.mu/.ok/.danger` inner spans — terminal-style code block), `.btn-syn` (+ `.lg/.warn` modifiers — outlined mono button), `.dot` (accent period after page titles).
 - **Page-level shell + headings:** `.page-shell` (+ `.wide` — fixed-width content column, replaces the legacy `.container`), `.page-h1` (112px display headline used on every secondary page), `.page-h2` (44px section heading), `.footer-note` (bottom strip on home / contact / domains).
 - **Lists:** `.diamond-list > li` (◆-bulleted list with hairline borders, used on `/now` and post bodies), `.dotted-link` (paper-2 link with hot pink dotted underline, used in the home links row).
-- **Home variants:** `.home-card` (+ `.home-card-head/.home-card-title/.home-card-body/.home-card-arrow` — clickable card used 4–6× per home variant).
+- **Home page:** `.home-card` (+ `.home-card-head/.home-card-title/.home-card-body/.home-card-arrow` — clickable card used on the home page).
 - **Page-specific:** `.proj-grid/.proj/.proj-year/.proj-title/.proj-body/.proj-url/.proj-tags` (project cards), `.blog-filter/.blog-row/.blog-feed-line` (blog index), `.post-crumb/.post-h1/.post-meta/.post-body/.post-foot` (single post — `.post-body` carries all the prose styling), `.cv-actions/.cv-h2/.cv-role/.cv-talks/.cv-talk` (cv layout), `.notfound` (+ `.big/.yell/.console/.actions` inner — 404 page, also used by `error.vue`'s 404 branch), `.generic-error` (non-404 error fallback).
 - **FX overlays:** `.fx-scan` (scanline gradient, 4s flicker), `.fx-grain` (low-opacity noise SVG with grain shift), `.fx-vignette` (corner darkening), `.fx-glitch` (chromatic aberration on hover, 60ms jitter — apply to `<NuxtLink>` / `<button>` for the rgb-split-on-hover effect).
 
 ## Things to know before changing things
 
-- **Three home variants.** `HomeCalm`, `HomeFeral`, `HomeUnhinged` live as siblings under `app/components/home/`. `app/pages/index.vue` reads `?v=<feral|unhinged>` via the `useHomeVariant` composable and switches with `<component :is>`. Default is `calm`. SSR sees the same query string the client does, so no `<ClientOnly>` wrapping is needed for the variant choice.
 - **Live status-bar clock.** `app/components/layout/StatusBar.vue` shows the current time and uptime; both spans are wrapped in `<ClientOnly>` with `--:--:--` placeholder fallbacks to avoid SSR/CSR drift. Never read `Date.now()` outside `onMounted` in components that render on the server.
 - **CSS keyframes are global.** Two animations sharing a name will collide silently; the later definition wins everywhere. We previously hit this when `glitch-jitter` was redefined for the konami toast (now renamed to `konami-jitter`). All keyframes live near the top of `main.css`. Be careful adding new ones.
 - **Tag variant classes are flat** (`.tg.hot`, `.tg.cool`, `.tg.warn`, `.tg.lilac`, `.tg.solid`, `.tg.on`). Don't invent new ones — extend the existing modifier set in `main.css` if you need another colour.
 - **`@nuxt/content` is configured but unused at runtime.** Treat `app/data/posts.ts` as the current source of truth for blog metadata. Migration shape is documented in the TODO comment at the top of `app/pages/blog/[slug].vue`.
 - **`security.sri: true`** is on, plus `ssg.hashScripts/Styles/meta`. Avoid inline `:style="{ ... }"` bindings on Vue templates where possible — bind a class and put the dynamic value in CSS instead.
 - **The `--accent-color` custom property** falls back to `--color-hot` everywhere via `var(--accent-color, var(--color-hot))`. The runtime tweaks panel that used to write it has been dropped, but the pattern is preserved for any future re-introduction.
-- **Reduced motion.** `app/assets/css/main.css` has a `@media (prefers-reduced-motion: reduce)` block at the bottom that mutes the loud animations (scanlines, marquee, 404 glitch, konami toast). Keep new decorative animations in scope of those overrides.
-- **Arbitrary properties for vendor prefixes.** Use Tailwind v4's `[<property>:<value>]` syntax for one-off CSS that doesn't have a utility — e.g. `[-webkit-text-stroke:1.5px_var(--color-paper-3)]` on the HomeUnhinged ghost wordmark. Underscores become spaces.
+- **Reduced motion.** `app/assets/css/main.css` has a `@media (prefers-reduced-motion: reduce)` block at the bottom that mutes the loud animations (scanlines, 404 glitch, konami toast). Keep new decorative animations in scope of those overrides.
+- **Arbitrary properties for vendor prefixes.** Use Tailwind v4's `[<property>:<value>]` syntax for one-off CSS that doesn't have a utility — e.g. `[-webkit-text-stroke:1.5px_var(--color-paper-3)]` for an outlined wordmark. Underscores become spaces.
 
 ## Do not modify
 

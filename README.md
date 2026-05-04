@@ -44,21 +44,11 @@ bun run lint:fix          # eslint --fix + trunk fix
 bun run format            # prettier --write + trunk fmt
 ```
 
-## Three home variants
-
-The home page ships three layouts; the default is the calm one. Switch with a query param:
-
-| URL            | Variant  | Vibe                                                   |
-| -------------- | -------- | ------------------------------------------------------ |
-| `/`            | calm     | minimal, two-by-two card grid, the production-safe one |
-| `/?v=feral`    | feral    | huge headline, scrolling marquee, six cards            |
-| `/?v=unhinged` | unhinged | overlapping wordmarks, ASCII art, terminal block       |
-
 ## Pages
 
 | Route          | What                                                                  |
 | -------------- | --------------------------------------------------------------------- |
-| `/`            | Home (variants above)                                                 |
+| `/`            | Home                                                                  |
 | `/now`         | What I'm doing this month                                             |
 | `/projects`    | Things I made                                                         |
 | `/blog`        | Blog index, tag filter                                                |
@@ -93,11 +83,10 @@ app/
     css/
       main.css                 # @theme tokens + daisyUI synhorse theme + component classes + FX overlays + reduced-motion overrides
   components/
-    home/                      # HomeCalm, HomeFeral, HomeUnhinged
     layout/                    # StatusBar, NavBar, FxLayer, CommandPalette, KonamiToast
     ui/                        # Tag, Console
     NotFound.vue
-  composables/                 # useTime, useHomeVariant, useCommandPalette, useKonamiCode
+  composables/                 # useTime, useCommandPalette, useKonamiCode
   data/                        # typed content modules (posts, projects, domains, ...)
   layouts/default.vue
   pages/                       # index, now, projects, cv, contact, domains, blog/
