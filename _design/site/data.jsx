@@ -282,7 +282,7 @@ const SOCIAL = [
 
 const IM = [
   { name: "signal", note: "preferred. ask for my number.", ok: true },
-  { name: "whatsapp", note: "works. ask for my number.", ok: true },
+  { name: "whatsapp", note: "wrks. ask for my number.", ok: true },
   { name: "telegram", note: "fine. ask for my number.", ok: true },
   { name: "messenger", note: "sigh. ask anyway.", ok: true }
 ]

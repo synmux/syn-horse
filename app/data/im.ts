@@ -5,8 +5,7 @@ export type IMEntry = {
 }
 
 export const IM: IMEntry[] = [
-  { name: "signal", note: "preferred. ask for my number.", ok: true },
-  { name: "whatsapp", note: "works. ask for my number.", ok: true },
-  { name: "telegram", note: "fine. ask for my number.", ok: true },
-  { name: "messenger", note: "sigh. ask anyway.", ok: true },
+  { name: "signal", note: "preferred. username syn.69", ok: true },
+  { name: "whatsapp", note: "fine. ask for my number", ok: true },
+  { name: "telegram", note: "no. shitty. use something else", ok: true },
 ]
