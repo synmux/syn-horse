@@ -7,7 +7,6 @@ const today = computed(() => new Date().toISOString().slice(0, 10))
 const marqueeItems = [
   "currently shouting at git",
   "◆ syn.horse v0.3.1",
-  "last build 3h ago",
   "◆ 17 posts",
   "8 projects",
   "◆ 5 domains",

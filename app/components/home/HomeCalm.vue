@@ -5,9 +5,18 @@ import { SITE } from "~/data/site"
 <template>
   <div class="relative mx-auto max-w-[920px] px-8 pt-14 pb-20">
     <div class="eyebrow">▶ syn · they/them · in the void</div>
-    <h1 class="pb-3.5 font-display text-[128px] leading-[1.05] text-paper">
-      devops<br />and weird<br />things<span class="text-hot">.</span>
-    </h1>
+    <div class="grid grid-cols-[1fr_auto] items-stretch gap-6">
+      <h1 class="pb-3.5 font-display text-[128px] leading-[1.05] text-paper">
+        devops<br />and bad<br />ideas<span class="text-hot">.</span>
+      </h1>
+      <NuxtImg
+        src="/images/self/self-small-transbg.webp"
+        alt="a portrait of syn"
+        width="420"
+        height="420"
+        class="aspect-square self-stretch h-full object-cover"
+      />
+    </div>
     <p class="mt-4.5 max-w-[620px] text-[19px] leading-[1.55] text-paper-2">
       i'm <b class="font-semibold text-paper">syn</b>. devops engineer and general-purpose nerd. i write occasionally,
       ship occasionally, and have a lot of opinions about prometheus.

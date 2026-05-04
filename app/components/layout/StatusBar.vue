@@ -5,16 +5,25 @@ import { useTime } from "~/composables/useTime"
 import { SITE } from "~/data/site"
 
 const route = useRoute()
-const { now, uptimeS } = useTime()
+const { now } = useTime()
+
+const buildTimeRaw = useRuntimeConfig().public.buildTime as string
+const buildTimeMs = (() => {
+  const parsed = new Date(buildTimeRaw).getTime()
+  return Number.isNaN(parsed) ? null : parsed
+})()
 
 const time = computed(() => (now.value ? now.value.toISOString().slice(11, 19) : ""))
 
-const uptime = computed(() => {
-  const s = uptimeS.value
-  const hh = String(Math.floor(s / 3600)).padStart(2, "0")
-  const mm = String(Math.floor((s % 3600) / 60)).padStart(2, "0")
-  const ss = String(s % 60).padStart(2, "0")
-  return `${hh}:${mm}:${ss}`
+const buildAge = computed(() => {
+  if (!now.value || buildTimeMs === null) return ""
+  const diffMs = now.value.getTime() - buildTimeMs
+  const minutes = Math.max(Math.floor(diffMs / 60_000), 0)
+  const hours = Math.floor(minutes / 60)
+  const days = Math.floor(hours / 24)
+  if (days >= 1) return `${days}d ago`
+  if (hours >= 1) return `${hours}h ago`
+  return `${minutes}m ago`
 })
 
 const slug = computed(() => {
@@ -41,11 +50,11 @@ const slug = computed(() => {
       <span class="inline-flex items-center gap-1.5">tz <span class="text-paper-2">UTC</span></span>
     </span>
     <span>
-      uptime
+      build
       <ClientOnly>
-        <span class="text-cool tabular-nums">{{ uptime }}</span>
+        <span class="text-cool tabular-nums">{{ buildAge }}</span>
         <template #fallback>
-          <span class="text-cool tabular-nums">--:--:--</span>
+          <span class="text-cool tabular-nums">—</span>
         </template>
       </ClientOnly>
     </span>

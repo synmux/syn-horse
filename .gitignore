@@ -28,6 +28,9 @@ logs
 # .dev.vars* # disabled due to symlink
 # !.dev.vars.example # disabled due to symlink
 
+# build-time stamp written by `bun run deploy`, baked into bundle via nuxt.config.ts
+.buildtime
+
 
 # Skilld references (recreated by `skilld install`)
 .skilld

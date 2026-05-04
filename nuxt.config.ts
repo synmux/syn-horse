@@ -1,9 +1,17 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config]
 // trunk-ignore-all(trunk-toolbox/todo)
 
+import { existsSync, readFileSync, writeFileSync } from "node:fs"
+
 import tailwindcss from "@tailwindcss/vite"
 
 const compatibilityDate = "2026-04-15"
+
+let buildTime = existsSync(".buildtime") ? readFileSync(".buildtime", "utf8").trim() : ""
+if (buildTime.length === 0) {
+  buildTime = new Date().toISOString()
+  writeFileSync(".buildtime", buildTime)
+}
 
 export default defineNuxtConfig({
   app: {
@@ -259,6 +267,7 @@ export default defineNuxtConfig({
     },
     public: {
       apiBase: "/api",
+      buildTime,
       cloudflare: {
         accountId: "def50674a738cee409235f71819973cf",
       },

@@ -8,6 +8,8 @@ Live at [syn.horse](https://syn.horse). Other domains in the family: [syn.as](ht
 
 ## Setup
 
+Make sure you mount the 1Password environment in `.env` and `.dev.vars`.
+
 Toolchain versions are pinned in `mise.toml` and `.tool-versions`. With [`mise`](https://mise.jdx.dev/) installed:
 
 ```bash

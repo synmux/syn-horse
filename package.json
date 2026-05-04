@@ -59,8 +59,11 @@
   "scripts": {
     "build": "bun run-s build:nuxt types",
     "build:nuxt": "bun run nuxt build",
-    "deploy": "bun run wrangler deploy",
-    "deploy:nonprod": "bun run wrangler versions upload",
+    "deploy": "bun run-s deploy:stamp build deploy:wrangler",
+    "deploy:nonprod": "bun run-s deploy:stamp build deploy:nonprod:wrangler",
+    "deploy:nonprod:wrangler": "bun run wrangler versions upload",
+    "deploy:stamp": "date -u +%FT%TZ > .buildtime",
+    "deploy:wrangler": "bun run wrangler deploy",
     "dev": "bun run nuxt dev",
     "format": "bun run run-s format:prettier format:trunk",
     "format:prettier": "bun run prettier --write .",
