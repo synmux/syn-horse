@@ -28,12 +28,12 @@
     "nuxt": "^4.4.4",
     "nuxt-gtag": "4.1.0",
     "nuxt-security": "2.5.1",
-    "openai": "^6.35.0",
+    "openai": "^6.36.0",
     "tailwindcss": "^4.2.4",
     "uuid": "^14.0.0",
     "vue": "^3.5.33",
     "vue-router": "^5.0.6",
-    "zod": "^4.4.2"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@anthropic-ai/claude-code": "^2.1.126",
@@ -76,10 +76,8 @@
     "lint:trunk": "bun run trunk check -a",
     "lint:trunk:fix": "bun run trunk check -a --fix",
     "lint:types": "bun run tsc --noEmit",
-    "postinstall": "bun run-s postinstall:prepare",
+    "postinstall": "bun run-s types format postinstall:prepare",
     "postinstall:prepare": "bun run nuxt prepare",
-    "postinstall:trunk:install": "bun run trunk install",
-    "postinstall:trunk:upgrade": "bun run trunk upgrade",
     "types": "bun run wrangler types --config .output/server/wrangler.json",
     "preview": "bun run-s build preview:wrangler",
     "preview:wrangler": "bun run wrangler dev",
