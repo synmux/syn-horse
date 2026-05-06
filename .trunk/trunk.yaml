@@ -61,6 +61,7 @@ lint:
         - "**/*.vsix"
         - "**/*.webp"
         - "**/*.zip"
+        - "**/*.mov"
         - .devcontainer/devcontainer.json
         - docs/**
         - sql/redirects.sql
