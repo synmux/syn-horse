@@ -25,7 +25,7 @@ If you would rather manage tools yourself: Node 24.15.0, Bun 1.3.13.
 bun run dev
 ```
 
-Boots the Nuxt dev server on `http://localhost:3000`. Cloudflare bindings (KV, R2, Cache, AI, Browser, Images, Analytics, version metadata) are wired through `nitro-cloudflare-dev`, so the runtime in dev is the same one you ship.
+Boots the Nuxt dev server on `http://localhost:3000`. Cloudflare bindings (D1, KV, Cache, R2, version metadata, vars) are wired through nitropack's built-in `cloudflare-dev` preset, which reads `wrangler.dev.jsonc` via `nitro.cloudflareDev.configPath` in `nuxt.config.ts`. AI, Browser, Images, and Analytics bindings exist in production but aren't emulated locally — they need an authenticated remote-bindings session, so they're left commented out in `wrangler.dev.jsonc` until dev code needs them.
 
 ## Production
 

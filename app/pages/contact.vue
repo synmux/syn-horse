@@ -11,7 +11,7 @@ useSeoMeta({
 
 <template>
   <div class="relative mx-auto max-w-[920px] px-8 pt-14 pb-20">
-    <div class="eyebrow">▶ /contact · email is open · dms are mostly</div>
+    <div class="eyebrow">▶ /contact · email is open · so are dms, mostly</div>
     <h1 class="page-h1">say hi<span class="dot">.</span></h1>
     <p class="lede">
       email works. signal works. the rest are listed because i feel obligated. tone is everything: lead with what you
@@ -19,7 +19,7 @@ useSeoMeta({
     </p>
     <div class="mt-10 grid grid-cols-2 gap-5">
       <div>
-        <h2 class="mb-3.5 border-b border-void-4 pb-1.5 font-display text-[36px] text-paper">the open ones</h2>
+        <h2 class="mb-3.5 border-b border-void-4 pb-1.5 font-display text-[36px] text-paper">socials</h2>
         <div class="grid gap-0">
           <a
             v-for="s in SOCIAL"

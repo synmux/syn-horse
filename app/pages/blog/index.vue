@@ -4,7 +4,7 @@ import { SITE } from "~/data/site"
 
 useSeoMeta({
   title: `blog · ${SITE.name}`,
-  description: "essays, notes, and shouts into the void.",
+  description: "essays, notes, and shouts into the void."
 })
 
 const { data: posts } = await useAsyncData("blog-index", () => {
@@ -39,15 +39,8 @@ const filtered = computed(() => {
       no editor will ever fix that.
     </p>
     <div class="blog-filter">
-      <span :class="['tg', filter === 'all' && 'on']" @click="filter = 'all'">
-        ALL · {{ posts?.length ?? 0 }}
-      </span>
-      <span
-        v-for="[tag, count] in tagCounts"
-        :key="tag"
-        :class="['tg', filter === tag && 'on']"
-        @click="filter = tag"
-      >
+      <span :class="['tg', filter === 'all' && 'on']" @click="filter = 'all'"> ALL · {{ posts?.length ?? 0 }} </span>
+      <span v-for="[tag, count] in tagCounts" :key="tag" :class="['tg', filter === tag && 'on']" @click="filter = tag">
         {{ tag.toUpperCase() }} · {{ count }}
       </span>
     </div>

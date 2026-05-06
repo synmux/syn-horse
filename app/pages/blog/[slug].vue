@@ -13,13 +13,13 @@ if (!page.value) {
   throw createError({
     statusCode: 404,
     statusMessage: "post not found",
-    fatal: true,
+    fatal: true
   })
 }
 
 useSeoMeta({
   title: () => `${page.value!.title} · ${SITE.name}`,
-  description: () => page.value!.description,
+  description: () => page.value!.description
 })
 </script>
 

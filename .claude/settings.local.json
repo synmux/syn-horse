@@ -1,30 +1,7 @@
 {
-  "skillOverrides": {
-    "better-sqlite3-skilld": "name-only",
-    "dotenv": "name-only",
-    "dotenvx": "name-only",
-    "libsql-client-skilld": "name-only",
-    "node-gyp-skilld": "name-only",
-    "npm-run-all2-skilld": "name-only",
-    "nuxi-skilld": "off",
-    "openai-skilld": "name-only",
-    "prettier-skilld": "name-only",
-    "tailwindcss-cli-skilld": "name-only",
-    "takumi-rs-core-skilld": "name-only",
-    "takumi-rs-wasm-skilld": "name-only",
-    "trunkio-launcher-skilld": "name-only",
-    "tsx-skilld": "name-only",
-    "types-node-skilld": "name-only",
-    "untun-skilld": "name-only",
-    "uuid-skilld": "name-only",
-    "vite-plugin-eslint2-skilld": "name-only",
-    "algorithmic-art": "name-only",
-    "analyze-codebase": "name-only",
-    "cloudflare-worker-builder": "name-only",
-    "gemini-peer-review": "name-only",
-    "hono-api-scaffolder": "name-only",
-    "image-enhancer": "name-only",
-    "lyra": "name-only",
-    "nuxt-ui": "off"
+  "skillOverrides": {},
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
   }
 }

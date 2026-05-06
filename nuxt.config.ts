@@ -119,7 +119,13 @@ export default defineNuxtConfig({
     },
   },
   modules: [
-    "nitro-cloudflare-dev",
+    // nitropack's built-in cloudflare-dev preset already provides the dev-time
+    // Miniflare proxy (configured via `nitro.cloudflareDev.configPath` below).
+    // Listing the legacy `nitro-cloudflare-dev` module here too produced two
+    // racing `getPlatformProxy()` plugins; the legacy one assigns
+    // `globalThis.__env__ = Promise<env>` initially, so NuxtHub's migrations
+    // plugin would observe `__env__` before it resolved and fail with
+    // "DB binding not found".
     "@nuxt/icon",
     "@nuxt/image",
     "@nuxt/fonts",
@@ -133,6 +139,15 @@ export default defineNuxtConfig({
     "@nuxtjs/seo",
   ],
   nitro: {
+    // `nitro-cloudflare-dev` reads this file (via `wrangler.getPlatformProxy()`)
+    // to expose Cloudflare bindings to the dev server. The filename intentionally
+    // avoids `wrangler.{json,jsonc,toml}` so nitropack's cloudflare preset (and
+    // the wrangler CLI) won't auto-discover and merge it into the generated deploy
+    // config in `.output/server/wrangler.json`. Without this, `globalThis.__env__.DB`
+    // is empty in dev and NuxtHub's migration runner fails with "DB binding not found".
+    cloudflareDev: {
+      configPath: "wrangler.dev.jsonc",
+    },
     cloudflare: {
       deployConfig: true,
       nodeCompat: true,
@@ -205,38 +220,6 @@ export default defineNuxtConfig({
           {
             custom_domain: true,
             pattern: "www.syn.horse",
-          },
-          {
-            custom_domain: true,
-            pattern: "syn.as",
-          },
-          {
-            custom_domain: true,
-            pattern: "www.syn.as",
-          },
-          {
-            custom_domain: true,
-            pattern: "syn.haus",
-          },
-          {
-            custom_domain: true,
-            pattern: "www.syn.haus",
-          },
-          {
-            custom_domain: true,
-            pattern: "syn.pink",
-          },
-          {
-            custom_domain: true,
-            pattern: "www.syn.pink",
-          },
-          {
-            custom_domain: true,
-            pattern: "dcw.soy",
-          },
-          {
-            custom_domain: true,
-            pattern: "www.dcw.soy",
           },
         ],
         send_metrics: true,

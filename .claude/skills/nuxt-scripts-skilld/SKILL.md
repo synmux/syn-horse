@@ -2,15 +2,15 @@
 name: nuxt-scripts-skilld
 description: 'Load third-party scripts with better performance, privacy and DX in Nuxt Apps. ALWAYS use when writing code importing "@nuxt/scripts". Consult for debugging, best practices, or modifying @nuxt/scripts, nuxt/scripts, nuxt scripts, scripts.'
 metadata:
-  version: 0.13.2
-  generated_at: 2026-04-11
+  version: 1.0.6
+  generated_at: 2026-05-06
 ---
 
-# nuxt/scripts `@nuxt/scripts@0.13.2`
+# nuxt/scripts `@nuxt/scripts@1.0.6`
 
-**Tags:** latest: 0.13.2, beta: 1.0.0-beta.32, rc: 1.0.0-rc.6
+**Tags:** beta: 1.0.0-beta.32, rc: 1.0.0-rc.11, latest: 1.0.6
 
-**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
+**References:** [package.json](./.skilld/pkg/package.json) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
 ## Search
 

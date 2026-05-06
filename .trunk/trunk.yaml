@@ -44,6 +44,7 @@ lint:
         - .claude/**
         - _DIO/**
         - _DSOY/**
+        - _design/**
     - linters:
         - yamllint
         - checkov
@@ -65,6 +66,8 @@ lint:
         - .devcontainer/devcontainer.json
         - docs/**
         - sql/redirects.sql
+        - AGENTS.md
+        - README.md
 actions:
   definitions:
     - id: bun-install
