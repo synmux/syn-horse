@@ -55,7 +55,10 @@ export default defineNuxtConfig({
     componentIslands: true,
     inlineRouteRules: true,
     lazyHydration: true,
-    payloadExtraction: true,
+    // payloadExtraction is for `nuxt generate` (static prerender); with dynamic SSR
+    // it makes client-side navigation fetch `/<route>/_payload.json`, which gets
+    // caught by `pages/blog/[slug].vue` as `slug = "_payload.json"` and 404s.
+    payloadExtraction: false,
     viewTransition: true,
   },
   fonts: {
@@ -296,6 +299,21 @@ export default defineNuxtConfig({
     },
   },
   security: {
+    headers: {
+      // @nuxt/content v3 ships an in-browser SQLite WASM module to run client-side
+      // queries during navigation. The default Strict CSP blocks WebAssembly compilation;
+      // adding 'wasm-unsafe-eval' allows just the WASM portion without re-enabling 'unsafe-eval'.
+      contentSecurityPolicy: {
+        "script-src": [
+          "'self'",
+          "https:",
+          "'unsafe-inline'",
+          "'strict-dynamic'",
+          "'nonce-{{nonce}}'",
+          "'wasm-unsafe-eval'",
+        ],
+      },
+    },
     sri: true,
     ssg: {
       hashScripts: true,
