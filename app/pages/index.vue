@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import { SITE } from "~/data/site"
+
+const { data: blogCount } = await useAsyncData(
+  "home-blog-count",
+  () => queryCollection("blog").count(),
+  { default: () => 0 },
+)
 </script>
 
 <template>
@@ -42,7 +48,7 @@ import { SITE } from "~/data/site"
       </NuxtLink>
       <NuxtLink to="/blog" class="home-card fx-glitch">
         <div class="home-card-head">/ blog</div>
-        <h3 class="home-card-title">17 posts</h3>
+        <h3 class="home-card-title">{{ blogCount }} posts</h3>
         <p class="home-card-body">shell tools, meshtastic, eeg, ms, sdam. infrequent. unedited.</p>
         <span class="home-card-arrow">read posts →</span>
       </NuxtLink>
