@@ -7,9 +7,10 @@ useSeoMeta({
   description: "essays, notes, and shouts into the void.",
 })
 
-const { data: posts } = await useAsyncData("blog-index", () =>
-  queryCollection("blog").order("date", "DESC").all(),
-)
+const { data: posts } = await useAsyncData("blog-index", () => {
+  const query = queryCollection("blog").order("date", "DESC")
+  return import.meta.dev ? query.all() : query.where("future", "=", false).all()
+})
 
 const filter = ref<string>("all")
 

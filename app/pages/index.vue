@@ -3,7 +3,10 @@ import { SITE } from "~/data/site"
 
 const { data: blogCount } = await useAsyncData(
   "home-blog-count",
-  () => queryCollection("blog").count(),
+  () => {
+    const query = queryCollection("blog")
+    return import.meta.dev ? query.count() : query.where("future", "=", false).count()
+  },
   { default: () => 0 },
 )
 </script>

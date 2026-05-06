@@ -4,9 +4,10 @@ import { SITE } from "~/data/site"
 
 const route = useRoute()
 
-const { data: page } = await useAsyncData(route.path, () =>
-  queryCollection("blog").path(route.path).first(),
-)
+const { data: page } = await useAsyncData(route.path, () => {
+  const query = queryCollection("blog").path(route.path)
+  return import.meta.dev ? query.first() : query.where("future", "=", false).first()
+})
 
 if (!page.value) {
   throw createError({
