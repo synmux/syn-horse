@@ -1,8 +1,10 @@
 ---
-title: AI Knows Just How To Manipulate You
+path: /blog/ai-knows-just-how-to-manipulate-you
 date: 2025-04-28
-slug: ai-knows-just-how-to-manipulate-you
-snippet: AI can analyze social media posts to derive deep insights about individuals, demonstrating capabilities that can be used for manipulation. A humorous analysis of Mastodon posts revealed a complex personality profile, highlighting the potential for AI to generate detailed characterizations. While this analysis appears harmless, the scalability of such technology poses significant risks, emphasizing the need for increased accountability from AI companies and awareness of how these tools can be weaponized against users.
+title: "ai knows just how to manipulate you"
+description: "on the slow normalisation of having a chatbot grade your homework / your therapist / your day."
+tags: ["rant"]
+read: "9 min"
 ---
 
 ## When the machine knows too much

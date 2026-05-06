@@ -1,8 +1,10 @@
 ---
-title: Neurakink
+path: /blog/neurakink
 date: 2025-08-26
-slug: neurakink
-snippet: The project, now called Neurakink, aims to create brain-controlled sex toys using EEG technology, initially inspired by a children's toy. The creator discusses the evolution of the project, the challenges of mapping pleasure responses, and the advancements in EEG hardware available today. The project is being revived with plans to explore innovative applications and seek volunteers for testing.
+title: "neurakink"
+description: "a survey of consumer eeg headsets and the people doing weird things with them. yes that includes me."
+tags: ["hardware", "nerd"]
+read: "15 min"
 ---
 
 ## The Prodigal Pervert Returns

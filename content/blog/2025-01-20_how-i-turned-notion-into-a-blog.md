@@ -1,8 +1,10 @@
 ---
-title: How I turned Notion into a blog
+path: /blog/how-i-turned-notion-into-a-blog
 date: 2025-01-20
-slug: how-i-turned-notion-into-a-blog
-snippet: Notion is a versatile note-taking app that allows real-time editing, supports various formats, and offers extensive customization through templates and widgets. It can be used for blogging by organizing content in databases with different views, such as galleries. The author transitioned from other platforms to Notion for its ease of use, integrating features like Google Analytics and a comments system, while noting areas for improvement such as the lack of RSS feeds and custom fonts.
+title: "how i turned notion into a blog"
+description: "the original sin. before this very rewrite. cron jobs and webhooks. would not recommend."
+tags: ["build"]
+read: "18 min"
 ---
 
 ## A quick summary of [**Notion**](https://notion.com)

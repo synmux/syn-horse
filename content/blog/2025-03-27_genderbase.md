@@ -1,8 +1,10 @@
 ---
-title: Genderbase
+path: /blog/genderbase
 date: 2025-03-27
-slug: genderbase
-snippet: Genderbase aims to create a safe space for asking questions about gender and sexuality without fear of offending. It will develop a searchable knowledge base from good-faith inquiries, supported by a team of domain experts who will respond to questions. Conversations will be summarized and voted on by peers to ensure accuracy and usefulness. The project seeks to engage Responders and is in its early stages, inviting interested individuals to participate.
+title: "genderbase"
+description: "why i built a directory of gender-affirming resources. the tech is the easy part."
+tags: ["build", "politics"]
+read: "6 min"
 ---
 
 ## The Problem

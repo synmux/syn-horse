@@ -33,6 +33,12 @@ export default defineNuxtConfig({
     },
   },
   compatibilityDate,
+  content: {
+    database: {
+      type: "d1",
+      bindingName: "DB",
+    },
+  },
   css: ["~/assets/css/main.css"],
   devtools: {
     enabled: true,
@@ -86,12 +92,12 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
   hub: {
-    // D1 database
-    // db: {
-    //   dialect: "sqlite",
-    //   driver: "d1",
-    //   connection: { databaseId: "2722c422-9352-45b5-9e7f-a4f6504e4f85" },
-    // },
+    // D1 database (binding defaults to 'DB')
+    db: {
+      dialect: "sqlite",
+      driver: "d1",
+      connection: { databaseId: "2722c422-9352-45b5-9e7f-a4f6504e4f85" },
+    },
     // KV namespace (binding defaults to 'KV')
     kv: {
       driver: "cloudflare-kv-binding",
@@ -147,6 +153,15 @@ export default defineNuxtConfig({
         },
         compatibility_date: compatibilityDate,
         compatibility_flags: ["nodejs_compat", "nodejs_compat_populate_process_env"],
+        // D1 binding for @nuxt/content. database_name must match the name registered in
+        // Cloudflare (verify with `wrangler d1 list`); database_id is authoritative for routing.
+        d1_databases: [
+          {
+            binding: "DB",
+            database_name: "syn-horse",
+            database_id: "2722c422-9352-45b5-9e7f-a4f6504e4f85",
+          },
+        ],
         dev: {
           host: "dave-mbp.manticore-minor.ts.net",
           inspector_port: 9229,
@@ -305,7 +320,7 @@ export default defineNuxtConfig({
       minify: "esbuild",
     },
     optimizeDeps: {
-      include: ["@vue/devtools-core", "@vue/devtools-kit"],
+      include: ["@vue/devtools-core", "@vue/devtools-kit", "@vueuse/core"],
     },
     plugins: [tailwindcss()],
   },

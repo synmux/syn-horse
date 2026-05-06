@@ -1,8 +1,10 @@
 ---
-title: Not Everyone Can Use A VPN
+path: /blog/not-everyone-can-use-a-vpn
 date: 2025-08-21
-slug: not-everyone-can-use-a-vpn
-snippet: Technical knowledge creates a privilege gap in accessing VPNs and information, particularly affecting non-technical users and marginalized communities. Many individuals lack the skills to bypass filtering systems, which can be dangerous and isolating. While helping others set up VPNs like Mullvad can make a difference, it is essential to recognize the broader structural issues that limit access to information and support.
+title: "not everyone can use a vpn"
+description: 'a reminder that the threat model behind "just use mullvad" is privileged on its face.'
+tags: ["rant", "politics"]
+read: "5 min"
 ---
 
 ## Here's the thing about VPNs

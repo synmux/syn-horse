@@ -1,45 +1,68 @@
 <script setup lang="ts">
 import { ref, computed } from "vue"
-import { POSTS, TAG_COUNTS } from "~/data/posts"
 import { SITE } from "~/data/site"
 
 useSeoMeta({
   title: `blog · ${SITE.name}`,
-  description: "essays, notes, and shouts into the void."
+  description: "essays, notes, and shouts into the void.",
 })
+
+const { data: posts } = await useAsyncData("blog-index", () =>
+  queryCollection("blog").order("date", "DESC").all(),
+)
 
 const filter = ref<string>("all")
 
-const filtered = computed(() => (filter.value === "all" ? POSTS : POSTS.filter((p) => p.tags.includes(filter.value))))
+const tagCounts = computed<Array<[string, number]>>(() => {
+  const counts = new Map<string, number>()
+  for (const post of posts.value ?? []) {
+    for (const tag of post.tags) {
+      counts.set(tag, (counts.get(tag) ?? 0) + 1)
+    }
+  }
+  return Array.from(counts.entries()).sort((left, right) => right[1] - left[1])
+})
+
+const filtered = computed(() => {
+  const all = posts.value ?? []
+  return filter.value === "all" ? all : all.filter((post) => post.tags.includes(filter.value))
+})
 </script>
 
 <template>
   <div class="page-shell">
-    <div class="eyebrow">▶ /blog · {{ POSTS.length }} posts · infrequent · lowercase</div>
+    <div class="eyebrow">▶ /blog · {{ posts?.length ?? 0 }} posts · infrequent · lowercase</div>
     <h1 class="page-h1">blog<span class="dot">.</span></h1>
     <p class="lede">
       writing about devops, hardware, the slow death of weird websites, and occasionally my body. infrequent. unedited.
       no editor will ever fix that.
     </p>
     <div class="blog-filter">
-      <span :class="['tg', filter === 'all' && 'on']" @click="filter = 'all'"> ALL · {{ POSTS.length }} </span>
-      <span v-for="[t, c] in TAG_COUNTS" :key="t" :class="['tg', filter === t && 'on']" @click="filter = t">
-        {{ t.toUpperCase() }} · {{ c }}
+      <span :class="['tg', filter === 'all' && 'on']" @click="filter = 'all'">
+        ALL · {{ posts?.length ?? 0 }}
+      </span>
+      <span
+        v-for="[tag, count] in tagCounts"
+        :key="tag"
+        :class="['tg', filter === tag && 'on']"
+        @click="filter = tag"
+      >
+        {{ tag.toUpperCase() }} · {{ count }}
       </span>
     </div>
     <ul class="mt-7">
-      <li v-for="p in filtered" :key="p.slug" class="blog-row fx-glitch">
-        <NuxtLink :to="`/blog/${p.slug}`" class="blog-row-link">
-          <span class="date">{{ p.date }}</span>
+      <li v-for="post in filtered" :key="post.path" class="blog-row fx-glitch">
+        <NuxtLink :to="post.path" class="blog-row-link">
+          <span class="date">{{ formatBlogDate(post.date) }}</span>
           <div>
-            <h3>{{ p.title }}</h3>
-            <div class="desc">{{ p.desc }}</div>
+            <h3>{{ post.title }}</h3>
+            <div class="desc">{{ post.description }}</div>
             <div class="post-tags">
-              <span v-for="t in p.tags" :key="t" class="tg">{{ t }}</span>
-              <span v-if="!p.real" class="tg warn">FUTURE</span>
+              <span v-for="tag in post.tags" :key="tag" class="tg">{{ tag }}</span>
+              <span v-if="post.future" class="tg warn">FUTURE</span>
             </div>
           </div>
-          <span class="read">{{ p.read }} →</span>
+          <span class="read">{{ post.read }} →</span>
         </NuxtLink>
       </li>
     </ul>

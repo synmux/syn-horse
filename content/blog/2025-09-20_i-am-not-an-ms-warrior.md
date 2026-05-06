@@ -1,8 +1,10 @@
 ---
-title: I Am Not An MS Warrior
+path: /blog/i-am-not-an-ms-warrior
 date: 2025-09-20
-slug: i-am-not-an-ms-warrior
-snippet: Living with multiple sclerosis (MS) is not a battle to be won; it is a condition that requires management and adaptation. The narrative of being an "MS warrior" promotes toxic positivity and overlooks the reality of living with an unpredictable illness. Those with MS need practical support, accessible environments, and understanding rather than inspirational labels. It's essential to acknowledge the complexities of their experiences without framing them as moral achievements or failures.
+title: "i am not an ms warrior"
+description: "on the language of chronic illness. i am not battling anything. i am just tired."
+tags: ["personal"]
+read: "11 min"
 ---
 
 ## Hi, I Fall Over A Lot

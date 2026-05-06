@@ -1,8 +1,10 @@
 ---
-title: Prometheus is Cool and Good
+path: /blog/prometheus-is-cool-and-good
 date: 2025-01-16
-slug: prometheus-is-cool-and-good
-snippet: Prometheus is a distributed monitoring system designed for containerized environments, offering a unified approach to metrics collection, alerting, and data storage. It consists of components like the Prometheus Server, Push Gateway, Alert Manager, and Exporters, each handling specific tasks. Prometheus simplifies monitoring by dynamically discovering targets and providing a basic web UI, while third-party tools like Grafana enhance data visualization and dashboard creation.
+title: "prometheus is cool and good"
+description: "metrics, dashboards, and the sweet sound of a homelab finally telling on itself."
+tags: ["ops"]
+read: "12 min"
 ---
 
 or, **_Monitoring Your Junk In The Age Of Containers_**

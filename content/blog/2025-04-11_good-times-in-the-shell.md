@@ -1,8 +1,10 @@
 ---
-title: Good Times in the Shell
+path: /blog/good-times-in-the-shell
 date: 2025-04-11
-slug: good-times-in-the-shell
-snippet: The author shares a collection of useful shell tools and functions, emphasizing the advantages of the fish shell over bash and zsh. Key tools include the fisher plugin manager, tide prompt, and various shell functions for convenience, alongside standalone utilities like ai-shell, atuin, and direnv. The document also highlights customization options for themes and provides a mise configuration for syncing tools across machines.
+title: "good times in the shell"
+description: "fish, fisher, tide, atuin, eza, fzf, mise, opencommit. the cull, the survivors. a long love letter."
+tags: ["shell", "nerd"]
+read: "20 min"
 ---
 
 ## Life in the Shell

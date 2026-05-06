@@ -1,8 +1,10 @@
 ---
-title: Getting Started with Meshtastic
+path: /blog/getting-started-with-meshtastic
 date: 2025-01-14
-slug: getting-started-with-meshtastic
-snippet: Meshtastic is a project utilizing LoRa technology to send short text messages over long distances with low-powered hardware. Recommended nodes include the Heltec V3 for affordability, the LILYGO T-Deck Plus for a fully loaded option, and the LILYGO T-Watch S3 as a wearable device. In the US, the frequency is 915 MHz, while in the UK and EU, 868 MHz is preferred. Users should start with the default "LongFast" modulation for optimal connectivity.
+title: "getting started with meshtastic"
+description: "lora radios, $40, and a small mesh of friends pretending the internet doesn't exist."
+tags: ["hardware"]
+read: "7 min"
 ---
 
 ## What is Meshtastic?

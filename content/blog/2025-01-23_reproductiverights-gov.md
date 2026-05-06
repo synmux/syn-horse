@@ -1,8 +1,10 @@
 ---
-title: reproductiverights.gov
+path: /blog/reproductiverights-gov
 date: 2025-01-23
-slug: reproductiverights-gov
-snippet: "The site is a mirror of https://reproductiverights.gov, which was shut down by the Trump Administration. It provides updates on reproductive rights, including the availability of medication abortion and emergency medical care for pregnant women. The Biden-Harris Administration emphasizes the importance of protecting reproductive rights and ensuring access to necessary health care, including abortion and birth control. It also outlines rights related to emergency care, medication access, and civil rights complaints, while offering resources for individuals seeking reproductive health services."
+title: "reproductiverights.gov"
+description: "a domain that became a battleground. on what disappears when an administration decides it should."
+tags: ["rant", "politics"]
+read: "14 min"
 ---
 
 _This is a mirror of the_ `reproductiverights.gov` _site, shut down by the Trump Administration on **January 22nd, 2025**. The information may become out of date as more horrible things are increasingly introduced, but this is the information available as of **January 14th, 2025**._

@@ -1,8 +1,10 @@
 ---
-title: Microcommissioning
+path: /blog/microcommissioning
 date: 2025-04-15
-slug: microcommissioning
-snippet: Exploring the idea of a microcommissioning platform to connect artists with clients for affordable, small-scale artwork, aiming to counter the impact of generative AI. The platform would focus on quick, clearly-defined art requests, benefiting both artists and clients. Feedback from artists is sought to refine the concept, including questions about viability, features, and potential payment structures.
+title: "microcommissioning"
+description: "paying $20 for a small weird thing that didn't exist yesterday. the best money i spend."
+tags: ["rant"]
+read: "4 min"
 ---
 
 ## What is Microcommissioning?

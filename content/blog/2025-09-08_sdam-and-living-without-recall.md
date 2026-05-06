@@ -1,8 +1,10 @@
 ---
-title: SDAM and Living Without Recall
+path: /blog/sdam-and-living-without-recall
 date: 2025-09-08
-slug: sdam-and-living-without-recall
-snippet: The author discusses living with Severely Deficient Autobiographical Memory (SDAM), explaining how they reconstruct memories rather than recall them. They describe their cleverness and the challenges of emotional processing, highlighting the absence of episodic memory and the reliance on factual descriptions. The narrative emphasizes the importance of externalizing truths, automating reminders, and trusting others to validate reconstructions. Ultimately, the author finds freedom in not being burdened by past memories, allowing for a present-focused life while acknowledging the complexities of their memory architecture.
+title: "sdam, and living without recall"
+description: "severely deficient autobiographical memory. what it's like to remember the facts but not the moment."
+tags: ["personal"]
+read: "21 min"
 ---
 
 ## The Discovery

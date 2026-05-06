@@ -1,8 +1,10 @@
 ---
-title: Taming MCP Madness with MetaMCP and Tailscale
+path: /blog/taming-mcp-madness-with-metamcp-and-tailscale
 date: 2025-09-06
-slug: taming-mcp-madness-with-metamcp-and-tailscale
-snippet: MetaMCP is a tool designed to simplify the configuration of multiple development tools, acting as an aggregator for MCP management. It requires PostgreSQL and can be deployed using Docker, with options for local or remote instances. Tailscale enhances accessibility by securely managing network connections, offering features like Tailscale Serve for HTTPS and Tailscale Funnel for broader internet exposure. MetaMCP allows for organized management of numerous tools through namespaces, and supports various communication protocols, including Streamable HTTP and OpenAPI. While still in development, it shows promise in alleviating configuration complexities for developers.
+title: "taming mcp madness with metamcp and tailscale"
+description: "one mcp server to rule them all. plus a tailnet. plus a bad mood."
+tags: ["ops", "build"]
+read: "17 min"
 ---
 
 ## Death by a Thousand Configurations

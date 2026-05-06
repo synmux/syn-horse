@@ -1,8 +1,10 @@
 ---
-title: "'We have to call the police': Flying with Flipper Zero"
+path: /blog/we-have-to-call-the-police-flying-with-flipper-zero
 date: 2025-01-15
-slug: we-have-to-call-the-police-flying-with-flipper-zero
-snippet: London Gatwick security is instructed to call the police if a Flipper Zero is found in passenger luggage. It is advised to pack the device in hold baggage rather than hand luggage to avoid complications. A traveler experienced a delay due to security concerns over the device, which was eventually returned without police involvement, highlighting the overreaction to its potential uses.
+title: "we have to call the police: flying with a flipper zero"
+description: "TSA does not have a sense of humour. neither do i, anymore."
+tags: ["rant"]
+read: "5 min"
 ---
 
 > TL;DR - London Gatwick security have been instructed to call police if a Flipper Zero is discovered in passenger luggage. If you plan to fly with your device, pack it in your hold baggage and not your hand luggage. I can't promise it'll fix the problem, but it'll make it less likely you get hassled.
