@@ -41,13 +41,12 @@ const slug = computed(() => {
       <span
         class="mr-1.5 inline-block h-1.75 w-1.75 rounded-full bg-ok align-middle shadow-pulse-ok animate-pulse-glow"
       />
-      online
+      light status: flashing
     </span>
     <span class="flex gap-4 overflow-hidden whitespace-nowrap text-paper-3">
       <span class="inline-flex items-center gap-1.5"
         >◆ <span class="text-hot">/{{ slug }}</span></span
       >
-      <span class="inline-flex items-center gap-1.5">tz <span class="text-paper-2">UTC</span></span>
     </span>
     <span>
       build

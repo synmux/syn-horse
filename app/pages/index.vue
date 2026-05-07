@@ -13,7 +13,7 @@ const { data: blogCount } = await useAsyncData(
 
 <template>
   <div class="relative mx-auto max-w-[920px] px-8 pt-14 pb-20">
-    <div class="eyebrow">▶ syn · they/them · in the void</div>
+    <div class="eyebrow">▶ syn · they/them · non-binary</div>
     <div class="grid grid-cols-[1fr_auto] items-stretch gap-6">
       <h1 class="pb-3.5 font-display text-[128px] leading-[1.05] text-paper">
         devops<br />and bad<br />ideas<span class="text-hot">.</span>
@@ -27,8 +27,8 @@ const { data: blogCount } = await useAsyncData(
       />
     </div>
     <p class="mt-4.5 max-w-[620px] text-[19px] leading-[1.55] text-paper-2">
-      i'm <b class="font-semibold text-paper">syn</b>. devops engineer and general-purpose nerd. i write occasionally,
-      ship occasionally, and have a lot of opinions about prometheus.
+      i'm <code class="font-semibold">syn</code>. queer, disabled devops engineer and general-purpose nerd. i write occasionally,
+      ship occasionally, and have a lot of opinions about prometheus and accessibility.
     </p>
     <div class="mt-6.5 flex items-center gap-3 border border-void-4 bg-void-2 px-4 py-3 shadow-inset-edge">
       <span class="h-2 w-2 shrink-0 rounded-full bg-ok shadow-pulse-ok animate-pulse-glow" />
@@ -40,19 +40,19 @@ const { data: blogCount } = await useAsyncData(
       <NuxtLink to="/now" class="home-card fx-glitch">
         <div class="home-card-head">/ now</div>
         <h3 class="home-card-title">this month</h3>
-        <p class="home-card-body">updated whenever i remember. sometimes wrong on purpose.</p>
+        <p class="home-card-body">updated whenever i remember.</p>
         <span class="home-card-arrow">read /now →</span>
       </NuxtLink>
       <NuxtLink to="/projects" class="home-card fx-glitch">
         <div class="home-card-head">/ projects</div>
         <h3 class="home-card-title">things i made</h3>
-        <p class="home-card-body">some live. some retired. one is a question about ducks.</p>
+        <p class="home-card-body">some live. some retired. some catch fire a lot.</p>
         <span class="home-card-arrow">see projects →</span>
       </NuxtLink>
       <NuxtLink to="/blog" class="home-card fx-glitch">
         <div class="home-card-head">/ blog</div>
         <h3 class="home-card-title">{{ blogCount }} posts</h3>
-        <p class="home-card-body">shell tools, meshtastic, eeg, ms, sdam. infrequent. unedited.</p>
+        <p class="home-card-body">cli, meshtastic, ms, sdam. infrequent. mostly coherent.</p>
         <span class="home-card-arrow">read posts →</span>
       </NuxtLink>
       <NuxtLink to="/cv" class="home-card fx-glitch">
@@ -67,7 +67,7 @@ const { data: blogCount } = await useAsyncData(
       <a href="https://basilisk.gallery/@dave" target="_blank" rel="noopener" class="dotted-link">mastodon</a>
       <a href="https://bsky.app/profile/syn.horse" target="_blank" rel="noopener" class="dotted-link">bluesky</a>
       <NuxtLink to="/contact" class="dotted-link">contact</NuxtLink>
-      <NuxtLink to="/domains" class="dotted-link">the syn.* domains</NuxtLink>
+      <NuxtLink to="/domains" class="dotted-link">domains</NuxtLink>
       <a href="/feed.xml" class="dotted-link">rss</a>
     </div>
     <div class="footer-note">
