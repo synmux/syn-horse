@@ -70,7 +70,7 @@
    ===================================================================== */
 @theme {
   /* fonts — Inter is the default body font */
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Helvetica", sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
   --font-display: "VT323", "Courier New", monospace;
 

@@ -321,7 +321,7 @@ export default defineNuxtConfig({
       minify: "esbuild",
     },
     optimizeDeps: {
-      include: ["@vue/devtools-core", "@vue/devtools-kit", "@vueuse/core"],
+      include: ["@vue/devtools-core", "@vue/devtools-kit", "@vueuse/core", "@unhead/schema-org/vue"],
     },
     plugins: [tailwindcss()],
   },
