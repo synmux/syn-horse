@@ -38,10 +38,9 @@ const slug = computed(() => {
     class="statusbar sticky top-0 z-[100] grid h-8 grid-cols-[auto_1fr_auto_auto_auto] items-center gap-4 border-b border-void-4 bg-void/85 px-4.5 py-1.5 font-mono text-[11px] tracking-[0.08em] uppercase text-paper-3 backdrop-blur-md"
   >
     <span>
-      <span
+      light status: <span
         class="mr-1.5 inline-block h-1.75 w-1.75 rounded-full bg-ok align-middle shadow-pulse-ok animate-pulse-glow"
-      />
-      light status: flashing
+      />flashing
     </span>
     <span class="flex gap-4 overflow-hidden whitespace-nowrap text-paper-3">
       <span class="inline-flex items-center gap-1.5"
