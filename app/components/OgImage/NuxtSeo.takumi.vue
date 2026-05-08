@@ -3,7 +3,7 @@ import { computed } from "vue"
 const props = defineProps({
   colorMode: { type: String, required: false, default: "light" },
   title: { type: String, required: false, default: "title" },
-  description: { type: String, required: false },
+  description: { type: String, required: false, default: "" },
   isPro: { type: Boolean, required: false },
   width: { type: Number, required: false, default: 1200 },
   height: { type: Number, required: false, default: 600 }

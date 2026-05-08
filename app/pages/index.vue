@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { SITE } from "~/data/site"
 
+defineOgImage('OgImageBlogPostTakumi')
+
 const { data: blogCount } = await useAsyncData(
   "home-blog-count",
   () => {
@@ -31,7 +33,7 @@ const { data: blogCount } = await useAsyncData(
       occasionally, ship occasionally, and have a lot of opinions about prometheus and accessibility.
     </p>
     <div class="mt-6.5 flex items-center gap-3 border border-void-4 bg-void-2 px-4 py-3 shadow-inset-edge">
-      <span class="h-2 w-2 shrink-0 rounded-full bg-ok shadow-pulse-ok animate-pulse-glow" />
+      <span class="h-2 w-2 shrink-0 rounded-full bg-lilac shadow-pulse-ok" />
       <span class="font-mono text-[12.5px] leading-[1.5] tracking-[0.04em] text-paper-2">
         <b class="font-bold text-paper">NOW:</b> {{ SITE.status }}
       </span>

@@ -1,6 +1,6 @@
 export const SITE = {
   name: "syn.horse",
-  status: "shouting at git",
+  status: "shouting a lot at git",
   version: "v0.3.1-syn",
   versionShort: "v0.3.1",
   description: "devops and weird things — syn.horse",

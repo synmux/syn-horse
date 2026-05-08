@@ -4,7 +4,7 @@ defineProps({
   productName: { type: String, required: false, default: "Product Name" },
   price: { type: String, required: false, default: "$99" },
   description: { type: String, required: false, default: "A fantastic product that solves your problems" },
-  image: { type: String, required: false },
+  image: { type: String, required: false, default: "/images/self/self.jpg" },
   brand: { type: String, required: false, default: "Brand" }
 })
 </script>

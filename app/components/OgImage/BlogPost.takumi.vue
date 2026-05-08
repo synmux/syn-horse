@@ -5,8 +5,8 @@ defineProps({
   author: { type: String, required: false, default: "Author Name" },
   date: { type: String, required: false, default: "Jan 1, 2025" },
   category: { type: String, required: false, default: "Technology" },
-  avatar: { type: String, required: false },
-  backgroundImage: { type: String, required: false }
+  avatar: { type: String, required: false, default: "/images/self/self.jpg" },
+  backgroundImage: { type: String, required: false, default: "" }
 })
 </script>
 

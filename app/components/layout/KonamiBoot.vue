@@ -4,19 +4,17 @@ import { ref, onMounted, onBeforeUnmount } from "vue"
 const emit = defineEmits<{ done: [] }>()
 
 const LINES = [
-  "synhorse bios v0.3.1 — copyright (c) syn industries",
+  "syn.horse bios v0.3.1 - look upon my ponies, ye mighty, and despair",
   "",
-  "memory test ............ 64k ok",
-  "cpu: pony-core (4 hooves) @ 4.20 ghz",
+  "cpu: risc architecture (4 hooves, 32 strands) @ 4.20 ghz",
   "",
-  "loading the horse ............ [ ok ]",
-  "mounting /dev/horse ............ [ ok ]",
-  "starting scanlines daemon ............ [ ok ]",
-  "starting grain daemon ............ [ ok ]",
-  "starting vibes ............ [WARN] vibes immaculate, continuing",
-  "fsck of /home/syn ............ clean",
+  "memory test ...................... 64k ok",
+  "mounting /dev/horse .............. [ ok ]",
+  "adding nonsense .................. [ ok ]",
+  "starting sugarlumpd .............. [ ok ]",
+  "examining vibes .................. immaculate",
   "",
-  "welcome to synhorse linux. press any key."
+  "welcome to synux. press any key."
 ] as const
 
 const FULL_TEXT = LINES.join("\n")
