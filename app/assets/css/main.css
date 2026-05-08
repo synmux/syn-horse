@@ -266,6 +266,16 @@
   }
 }
 
+@keyframes panic-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(255 0 60 / 0);
+  }
+  50% {
+    box-shadow: 0 0 24px 4px rgb(255 0 60 / 0.45);
+  }
+}
+
 /* =====================================================================
    Root variables not modelled as Tailwind tokens.
    These power the custom CSS effects and the legacy stylesheets.
@@ -560,6 +570,189 @@
     background: var(--color-pop);
     color: var(--color-void);
     border-color: var(--color-pop);
+  }
+
+  /* form primitives — ported from _design/design-system/preview/components-inputs.html
+     and re-tokenised onto the synhorse palette. The global focus-visible rule
+     near the bottom of this file covers focused state for all inputs. */
+  .field {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--color-void-2);
+    border: 1px solid var(--color-paper-3);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .field::placeholder {
+    color: var(--color-paper-4);
+  }
+  textarea.field {
+    resize: vertical;
+    min-height: 96px;
+  }
+
+  .label {
+    display: block;
+    margin-bottom: 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-paper-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* priority card — clickable label wrapping a visually-hidden radio.
+     Uses :has() to react to the input's checked / focused / disabled state. */
+  .priority-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--color-void-4);
+    background: var(--color-void-2);
+    cursor: pointer;
+    transition:
+      border-color 80ms var(--ease-snap),
+      background 80ms var(--ease-snap);
+  }
+  .priority-card:hover {
+    border-color: var(--color-paper-3);
+  }
+  .priority-card input[type="radio"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    border: 0;
+    white-space: nowrap;
+  }
+  .priority-card:has(input:checked) {
+    border-color: var(--accent-color, var(--color-hot));
+    background: var(--color-void-3);
+  }
+  .priority-card:has(input:focus-visible) {
+    outline: 2px solid var(--color-cool);
+    outline-offset: 2px;
+  }
+  .priority-card:has(input:disabled) {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .priority-card-code {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-paper-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    align-self: start;
+    padding-top: 1px;
+  }
+  .priority-card:has(input:checked) .priority-card-code {
+    color: var(--accent-color, var(--color-hot));
+  }
+  .priority-card-title {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    color: var(--color-paper);
+    line-height: 1.4;
+    font-weight: 500;
+  }
+  .priority-card-body {
+    grid-column: 2;
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--color-paper-2);
+    line-height: 1.5;
+  }
+
+  /* panic actions — flex column on small viewports, row above 720px.
+     Red button grows to fill, green stays compact. */
+  .panic-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+    margin-top: 24px;
+  }
+  @media (min-width: 720px) {
+    .panic-actions {
+      flex-direction: row;
+      gap: 18px;
+      align-items: stretch;
+    }
+  }
+
+  /* panic-btn — the BIG RED BUTTON. Solid danger fill, display font, idle pulse.
+     The .green modifier is the "small green button" — modest, mono, ok-coloured.
+     Class deliberately named .panic-btn (NOT .btn-…) to dodge daisyUI's .btn cascade. */
+  .panic-btn {
+    display: block;
+    width: 100%;
+    max-width: 720px;
+    padding: 32px 28px;
+    font-family: var(--font-display);
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--color-paper);
+    background: var(--color-danger);
+    border: 2px solid var(--color-danger-2);
+    cursor: pointer;
+    transition:
+      box-shadow 120ms var(--ease-snap),
+      transform 80ms var(--ease-snap),
+      border-width 80ms var(--ease-snap);
+    animation: panic-pulse 2.4s ease-in-out infinite;
+  }
+  .panic-btn:hover {
+    box-shadow: 0 0 30px rgb(255 0 60 / 0.6);
+    transform: translateY(-1px);
+  }
+  .panic-btn:active {
+    transform: translateY(0);
+    background: var(--color-danger-2);
+  }
+  .panic-btn.armed {
+    border-width: 3px;
+    letter-spacing: 0.05em;
+  }
+  .panic-btn:disabled {
+    opacity: 0.35;
+    animation: none;
+    cursor: not-allowed;
+  }
+
+  .panic-btn.green {
+    display: inline-block;
+    width: auto;
+    padding: 12px 18px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.2;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ok);
+    background: transparent;
+    border: 1px solid var(--color-ok);
+    animation: none;
+  }
+  .panic-btn.green:hover {
+    background: var(--color-ok);
+    color: var(--color-void);
+    box-shadow: none;
+    transform: none;
+  }
+  .panic-btn.green:active {
+    background: var(--color-ok);
+    color: var(--color-void);
   }
 
   /* dot — accent period used after page titles (e.g. "now.") */

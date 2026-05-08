@@ -68,6 +68,7 @@ const { data: blogCount } = await useAsyncData(
       <a href="https://bsky.app/profile/syn.horse" target="_blank" rel="noopener" class="dotted-link">bluesky</a>
       <NuxtLink to="/contact" class="dotted-link">contact</NuxtLink>
       <NuxtLink to="/domains" class="dotted-link">domains</NuxtLink>
+      <NuxtLink to="/panic" class="dotted-link">panic</NuxtLink>
       <a href="/feed.xml" class="dotted-link">rss</a>
     </div>
     <div class="footer-note">

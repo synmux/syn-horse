@@ -14,6 +14,7 @@ export const COMMANDS: Command[] = [
   { id: "cv", label: "cv", ic: ">", desc: "work history, talks, side projects" },
   { id: "contact", label: "contact", ic: ">", desc: "how to reach me. (politely.)" },
   { id: "domains", label: "domains", ic: ">", desc: "the syn.* family" },
+  { id: "panic", label: "panic", ic: "!", desc: "page syn. emergency or otherwise." },
   { id: "404", label: "404", ic: "!", desc: "the hostile one" },
   {
     id: "github",

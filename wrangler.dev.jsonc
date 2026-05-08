@@ -27,7 +27,8 @@
     {
       "binding": "DB",
       "database_name": "syn-horse",
-      "database_id": "2722c422-9352-45b5-9e7f-a4f6504e4f85"
+      "database_id": "2722c422-9352-45b5-9e7f-a4f6504e4f85",
+      "migrations_dir": "server/db/migrations/sqlite"
     }
   ],
   "kv_namespaces": [
