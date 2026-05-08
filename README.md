@@ -44,18 +44,30 @@ bun run lint:fix          # eslint --fix + trunk fix
 bun run format            # prettier --write + trunk fmt
 ```
 
+## Database (D1 + Drizzle)
+
+```bash
+bun run x:db:generate         # drizzle-kit generate → server/db/migrations/sqlite/
+bun run x:db:migrate:local    # apply migrations to local Miniflare D1
+bun run x:db:migrate:remote   # apply migrations to production D1
+bun run x:db:studio           # drizzle-kit studio (browse the schema)
+```
+
+Migrations live under `server/db/migrations/sqlite/` (configured via `drizzle.config.ts`). The migrate scripts pass `--config wrangler.dev.jsonc` so wrangler picks up the binding ID and migrations directory without a root `wrangler.{json,jsonc,toml}` getting auto-merged into the deploy config.
+
 ## Pages
 
-| Route          | What                                                                  |
-| -------------- | --------------------------------------------------------------------- |
-| `/`            | Home                                                                  |
-| `/now`         | What I'm doing this month                                             |
-| `/projects`    | Things I made                                                         |
-| `/blog`        | Blog index, tag filter                                                |
-| `/blog/<slug>` | Individual post (placeholder body for now — see [TODO.md](./TODO.md)) |
-| `/cv`          | Boring resume version                                                 |
-| `/contact`     | Email, signal, the rest                                               |
-| `/domains`     | The syn.\* family                                                     |
+| Route          | What                                                                    |
+| -------------- | ----------------------------------------------------------------------- |
+| `/`            | Home                                                                    |
+| `/now`         | What I'm doing this month                                               |
+| `/projects`    | Things I made                                                           |
+| `/blog`        | Blog index, tag filter                                                  |
+| `/blog/<slug>` | Individual post (placeholder body for now — see [TODO.md](./TODO.md))   |
+| `/cv`          | Boring resume version                                                   |
+| `/contact`     | Email, signal, the rest                                                 |
+| `/domains`     | The syn.\* family                                                       |
+| `/panic`       | Page syn — red button for emergencies, green button for everything else |
 
 ## Easter eggs
 
@@ -70,7 +82,8 @@ bun run format            # prettier --write + trunk fmt
 - [@nuxt/fonts](https://fonts.nuxt.com) — loads VT323, Inter and JetBrains Mono via the Google provider
 - [@nuxthub/core](https://hub.nuxt.com) — provides the KV and R2 bindings
 - [nuxt-security](https://nuxt-security.com) — SRI, hashed scripts and styles, security headers
-- [Drizzle ORM](https://orm.drizzle.team) — schema scaffolded for redirects; D1 currently disabled
+- [Drizzle ORM](https://orm.drizzle.team) — D1-backed; powers the `/panic` paging endpoint via a `panic_pages` table. Auto-imported `useDb(event)` helper lives in `server/utils/db.ts`.
+- [@nuxtjs/turnstile](https://github.com/nuxt-modules/turnstile) — Cloudflare Turnstile widget on `/panic`; `verifyTurnstileToken` runs on the server
 - [Tailwind CSS v4](https://tailwindcss.com) and [daisyUI 5](https://daisyui.com), wired with a single bespoke `synhorse` theme — the design tokens (palette, type scale, spacing, glow shadows, animations) live in `app/assets/css/main.css` under `@theme`, and daisyUI's semantic roles (`primary`, `secondary`, `accent`, `base-100`, …) map onto them.
 
 ## Project layout
@@ -92,7 +105,10 @@ app/
   pages/                       # index, now, projects, cv, contact, domains, blog/
 content/blog/                  # 15 markdown posts (dormant; future @nuxt/content source)
 public/                        # static assets, easter-egg config files
-server/db/                     # drizzle schema and migrations (dormant)
+server/
+  api/                         # Nitro API routes (panic.post.ts → POST /api/panic)
+  db/                          # drizzle schema + migrations (sqlite/)
+  utils/                       # auto-imported server helpers (useDb)
 _design/                       # design system + candidate site export — frozen reference
 nuxt.config.ts
 content.config.ts              # @nuxt/content collection definition
