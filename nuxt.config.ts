@@ -274,7 +274,7 @@ export default defineNuxtConfig({
       },
       siteUrl: "https://syn.horse",
       turnstile: {
-        siteKey: "0x4AAAAAAC2QY6ZikvZ4TAQq", // overridden by environment variable
+        siteKey: "0x4AAAAAAC2QY6ZikvZ4TAQq",
       },
     },
     turnstile: {

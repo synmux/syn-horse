@@ -9,6 +9,12 @@ useSeoMeta({
 type Channel = "red" | "green"
 type Status = "idle" | "pending" | "ok" | "error"
 
+// In dev we bypass Turnstile entirely (widget not rendered, server skips verify).
+// The dev .env file is a 1Password-piped FIFO that only yields the secret once,
+// so any nuxt.config.ts change that forces a restart leaves runtimeConfig.turnstile.secretKey
+// empty and verify fails with `missing-input-secret`. Bypass sidesteps that.
+const isDev = import.meta.dev
+
 const issue = ref("")
 const contact = ref("")
 const token = ref("")
@@ -20,12 +26,11 @@ const turnstileRef = ref<{ reset: () => void } | null>(null)
 
 let armTimer: ReturnType<typeof setTimeout> | null = null
 
+const issueOk = computed(() => issue.value.trim().length >= 10)
+const contactOk = computed(() => contact.value.trim().length >= 3)
+
 const canSubmit = computed(
-  () =>
-    issue.value.trim().length >= 10 &&
-    contact.value.trim().length >= 3 &&
-    token.value.length > 0 &&
-    status.value !== "pending"
+  () => issueOk.value && contactOk.value && (isDev || token.value.length > 0) && status.value !== "pending"
 )
 
 function disarmRed() {
@@ -109,29 +114,51 @@ function reset() {
     <template v-if="status !== 'ok'">
       <div class="mt-9">
         <label class="label" for="panic-issue">what's broken</label>
-        <textarea
-          id="panic-issue"
-          v-model="issue"
-          class="field"
-          rows="6"
-          placeholder="describe the fire. logs / urls / repro steps welcome."
-          maxlength="2000"
-        />
+        <div class="field-shell field-shell--textarea">
+          <textarea
+            id="panic-issue"
+            v-model="issue"
+            class="field"
+            rows="6"
+            placeholder="describe the fire. logs / urls / repro steps welcome."
+            maxlength="2000"
+            aria-describedby="panic-issue-counter"
+          />
+          <span
+            id="panic-issue-counter"
+            class="field-counter"
+            :class="{ ok: issueOk }"
+            aria-live="polite"
+          >
+            {{ issueOk ? "👍" : "TYPE MORE" }}
+          </span>
+        </div>
       </div>
 
       <div class="mt-5">
         <label class="label" for="panic-contact">how to reach you</label>
-        <input
-          id="panic-contact"
-          v-model="contact"
-          class="field"
-          type="text"
-          placeholder="name, email, slack handle, raven, whatever works"
-          maxlength="200"
-        />
+        <div class="field-shell field-shell--input">
+          <input
+            id="panic-contact"
+            v-model="contact"
+            class="field"
+            type="text"
+            placeholder="name, email, slack handle, raven, whatever works"
+            maxlength="200"
+            aria-describedby="panic-contact-counter"
+          />
+          <span
+            id="panic-contact-counter"
+            class="field-counter"
+            :class="{ ok: contactOk }"
+            aria-live="polite"
+          >
+            {{ contactOk ? "👍" : "TYPE MORE" }}
+          </span>
+        </div>
       </div>
 
-      <div class="mt-5">
+      <div v-if="!isDev" class="mt-5">
         <span class="label">prove you're not a bot</span>
         <ClientOnly>
           <NuxtTurnstile ref="turnstileRef" v-model="token" />
@@ -140,6 +167,7 @@ function reset() {
           </template>
         </ClientOnly>
       </div>
+      <div v-else class="mt-5 font-mono text-xs text-paper-3">◇ dev mode · turnstile bypassed</div>
 
       <div v-if="status === 'error'" class="console mt-5">
         <span class="danger">{{ errorMessage }}</span>

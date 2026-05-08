@@ -604,6 +604,52 @@
     letter-spacing: 0.08em;
   }
 
+  /* field-shell — wraps a .field with a relatively positioned parent so a small
+     status overlay (.field-counter) can sit at the bottom-right of a textarea
+     or the right-center of a single-line input. Reserves padding on the field
+     so the typed text never collides with the overlay. */
+  .field-shell {
+    position: relative;
+  }
+  .field-shell--input > .field {
+    padding-right: 88px;
+  }
+  .field-shell--textarea > .field {
+    padding-bottom: 34px;
+  }
+
+  .field-counter {
+    position: absolute;
+    pointer-events: none;
+    padding: 1px 6px;
+    background: var(--color-void-2);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-danger);
+  }
+  .field-counter.ok {
+    font-size: 14px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--color-ok);
+  }
+  .field-shell--input > .field-counter {
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+  }
+  /* aligned with the input variant's right offset for visual consistency, and
+     bottom offset matched to the input counter's centered breathing room
+     (~12px). The native resize handle still works through the counter
+     (pointer-events: none); it's just visually masked by the counter's
+     matching background. */
+  .field-shell--textarea > .field-counter {
+    bottom: 12px;
+    right: 8px;
+  }
+
   /* panic actions — flex column on small viewports, row above 720px.
      Red button grows to fill, green stays compact. */
   .panic-actions {

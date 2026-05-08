@@ -12,7 +12,9 @@ const PanicBody = z.object({
     .string({ error: "leave a way to reach you" })
     .min(3, { error: "we need at least 3 characters of contact info" })
     .max(200, { error: "less than 200 characters, please" }),
-  turnstileToken: z.string({ error: "captcha token missing" }).min(1, { error: "captcha token missing" }),
+  // Empty/undefined allowed at the schema level; we enforce non-empty in prod
+  // immediately after parse. In dev the value is ignored entirely.
+  turnstileToken: z.string().optional(),
 })
 
 export default defineEventHandler(async (event) => {
@@ -34,13 +36,24 @@ export default defineEventHandler(async (event) => {
 
   const { channel, issue, contact, turnstileToken } = parsed.data
 
-  const turnstileResult = await verifyTurnstileToken(turnstileToken)
-  if (!turnstileResult.success) {
-    throw createError({
-      statusCode: 403,
-      statusMessage: "turnstile verification failed",
-      data: { errorCodes: turnstileResult["error-codes"] ?? [] },
-    })
+  // Dev bypass: the page hides the widget and the server skips verify entirely.
+  // Avoids a `missing-input-secret` 400 when the 1Password .env FIFO has already
+  // been consumed and `runtimeConfig.turnstile.secretKey` is empty after a restart.
+  if (!import.meta.dev) {
+    if (!turnstileToken) {
+      throw createError({
+        statusCode: 422,
+        statusMessage: "captcha token missing",
+      })
+    }
+    const turnstileResult = await verifyTurnstileToken(turnstileToken)
+    if (!turnstileResult.success) {
+      throw createError({
+        statusCode: 403,
+        statusMessage: "turnstile verification failed",
+        data: { errorCodes: turnstileResult["error-codes"] ?? [] },
+      })
+    }
   }
 
   const id = crypto.randomUUID()

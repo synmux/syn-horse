@@ -50,7 +50,7 @@ const activeId = computed(() => {
     <button
       class="border border-void-4 bg-void-2 px-1.75 py-0.75 font-mono text-[10px] tracking-[0.08em] text-paper-3"
       type="button"
-      @click="palette.show()"
+      @click="palette.show('/')"
     >
       press <kbd class="text-cool">/</kbd>
     </button>

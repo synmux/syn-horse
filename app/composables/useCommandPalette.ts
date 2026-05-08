@@ -7,9 +7,9 @@ export function useCommandPalette() {
   return {
     isOpen,
     query,
-    show: () => {
+    show: (initialQuery = "") => {
       isOpen.value = true
-      query.value = ""
+      query.value = initialQuery
     },
     hide: () => {
       isOpen.value = false
