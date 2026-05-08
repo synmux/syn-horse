@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { SITE } from "~/data/site"
 
-defineOgImage('OgImageBlogPostTakumi')
-
 const { data: blogCount } = await useAsyncData(
   "home-blog-count",
   () => {
