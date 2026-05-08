@@ -22,7 +22,7 @@ There's intentionally no `wrangler.{json,jsonc,toml}` at the repo root: nitropac
 1. Edit `server/db/schema.ts` — add or modify tables.
 2. `bun run db:generate` — `drizzle-kit generate` writes a new `00NN_*.sql` under `server/db/migrations/sqlite/` and updates `meta/_journal.json`.
 3. Inspect the generated SQL. If it's a destructive change, sanity-check against the data you don't want to lose.
-4. `bun run db:migrate:local` — applies pending migrations to local Miniflare D1. Idempotent: wrangler tracks applied migrations in a `d1_migrations` table and only runs new ones.
+4. NuxtHub runs the new migration automatically in dev when you start the dev server, but it won't run in production until you apply it with wrangler. Apply to production with `bun run db:migrate:remote`.
 5. Test the route locally with `bun run dev`.
 6. `bun run db:migrate:remote` — applies pending migrations to production D1.
 7. `bun run deploy` if you also changed worker code.

@@ -7,6 +7,6 @@
       <slot />
     </main>
     <LayoutCommandPalette />
-    <LayoutKonamiToast />
+    <LayoutKonamiOrchestrator />
   </div>
 </template>

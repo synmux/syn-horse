@@ -124,12 +124,7 @@ function reset() {
             maxlength="2000"
             aria-describedby="panic-issue-counter"
           />
-          <span
-            id="panic-issue-counter"
-            class="field-counter"
-            :class="{ ok: issueOk }"
-            aria-live="polite"
-          >
+          <span id="panic-issue-counter" class="field-counter" :class="{ ok: issueOk }" aria-live="polite">
             {{ issueOk ? "👍" : "TYPE MORE" }}
           </span>
         </div>
@@ -147,12 +142,7 @@ function reset() {
             maxlength="200"
             aria-describedby="panic-contact-counter"
           />
-          <span
-            id="panic-contact-counter"
-            class="field-counter"
-            :class="{ ok: contactOk }"
-            aria-live="polite"
-          >
+          <span id="panic-contact-counter" class="field-counter" :class="{ ok: contactOk }" aria-live="polite">
             {{ contactOk ? "👍" : "TYPE MORE" }}
           </span>
         </div>

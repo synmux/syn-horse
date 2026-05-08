@@ -1,18 +1,25 @@
 <script setup lang="ts">
 import { ref, computed, watch, nextTick } from "vue"
 import { useMagicKeys, whenever, useEventListener } from "@vueuse/core"
-import { COMMANDS, type Command } from "~/data/commands"
+import { COMMANDS, KONAMI_COMMANDS, type Command } from "~/data/commands"
 import { useCommandPalette } from "~/composables/useCommandPalette"
+import { useKonamiState } from "~/composables/useKonamiState"
+import { useKonamiToast } from "~/composables/useKonamiToast"
 import { SITE } from "~/data/site"
 
 const palette = useCommandPalette()
+const { commandsEnabled } = useKonamiState()
+const { show: showKonamiToast } = useKonamiToast()
 const inputEl = ref<HTMLInputElement | null>(null)
+const listEl = ref<HTMLElement | null>(null)
 const sel = ref(0)
+
+const allCommands = computed<Command[]>(() => (commandsEnabled.value ? [...KONAMI_COMMANDS, ...COMMANDS] : COMMANDS))
 
 const filtered = computed<Command[]>(() => {
   const q = palette.query.value.trim().toLowerCase()
-  if (!q) return COMMANDS
-  return COMMANDS.filter(
+  if (!q) return allCommands.value
+  return allCommands.value.filter(
     (c) => c.label.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q) || c.id.toLowerCase().includes(q)
   )
 })
@@ -31,6 +38,13 @@ watch(
   }
 )
 
+watch(sel, async () => {
+  await nextTick()
+  if (!listEl.value) return
+  const row = listEl.value.children.item(sel.value) as HTMLElement | null
+  row?.scrollIntoView({ block: "nearest" })
+})
+
 const keys = useMagicKeys()
 whenever(keys["/"], () => {
   if (palette.isOpen.value) return
@@ -41,15 +55,29 @@ whenever(keys["/"], () => {
 
 const dispatch = (c: Command) => {
   palette.hide()
+  if (c.joke) {
+    handleJoke(c.joke)
+    return
+  }
   if (c.ext) {
     window.open(c.ext, "_blank", "noopener")
     return
   }
-  if (c.id === "404") {
-    navigateTo("/this-page-does-not-exist")
+  navigateTo(c.id === "home" ? "/" : `/${c.id}`)
+}
+
+function handleJoke(joke: NonNullable<Command["joke"]>) {
+  if (joke.kind === "descend") {
+    navigateTo("/void")
     return
   }
-  navigateTo(c.id === "home" ? "/" : `/${c.id}`)
+  if (joke.kind === "shake-toast") {
+    document.body.classList.add("pony-shake")
+    window.setTimeout(() => {
+      document.body.classList.remove("pony-shake")
+    }, 650)
+  }
+  showKonamiToast(joke.message)
 }
 
 useEventListener("keydown", (e: KeyboardEvent) => {
@@ -95,25 +123,20 @@ useEventListener("keydown", (e: KeyboardEvent) => {
         />
         <span class="font-mono text-[10px] tracking-[0.14em] text-paper-3">{{ filtered.length }} results</span>
       </div>
-      <div class="max-h-[50vh] overflow-y-auto">
+      <div ref="listEl" class="max-h-[50vh] overflow-y-auto">
         <div
           v-for="(c, i) in filtered"
           :key="c.id"
-          :class="[
-            'grid cursor-pointer grid-cols-[auto_1fr_auto] items-center gap-3.5 border-b border-void-3 py-2.5',
-            i === sel ? 'border-l-2 border-l-hot bg-void-3 pr-4 pl-3.5' : 'px-4'
-          ]"
+          :class="['palette-row', c.joke && 'palette-row-joke', i === sel && 'is-selected']"
           @mouseenter="sel = i"
           @click="dispatch(c)"
         >
-          <span :class="['font-mono text-[11px] tracking-[0.14em]', i === sel ? 'text-hot' : 'text-paper-3']"
-            >[{{ c.ic }}]</span
-          >
+          <span class="palette-row-icon">[{{ c.ic }}]</span>
           <div>
-            <div class="font-sans text-[14px] text-paper">{{ c.label }}</div>
-            <div class="font-mono text-[11px] tracking-[0.04em] text-paper-3">{{ c.desc }}</div>
+            <div class="palette-row-label">{{ c.label }}</div>
+            <div class="palette-row-desc">{{ c.desc }}</div>
           </div>
-          <span :class="['font-mono text-[11px] tracking-[0.14em]', i === sel ? 'text-hot' : 'text-paper-3']">↵</span>
+          <span class="palette-row-arrow">↵</span>
         </div>
         <div
           v-if="filtered.length === 0"

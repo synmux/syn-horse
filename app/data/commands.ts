@@ -4,6 +4,7 @@ export type Command = {
   ic: string
   desc: string
   ext?: string
+  joke?: { kind: "toast" | "shake-toast" | "descend"; message: string }
 }
 
 export const COMMANDS: Command[] = [
@@ -36,5 +37,36 @@ export const COMMANDS: Command[] = [
     ic: "↗",
     desc: "bsky.app/profile/syn.horse",
     ext: "https://bsky.app/profile/syn.horse",
+  },
+]
+
+export const KONAMI_COMMANDS: Command[] = [
+  {
+    id: "feed-horse",
+    label: "/feed-horse",
+    ic: "★",
+    desc: "the horse is hungry.",
+    joke: { kind: "toast", message: "horse fed. mood: smug." },
+  },
+  {
+    id: "kick-the-can",
+    label: "/kick-the-can",
+    ic: "★",
+    desc: "punt today's problem to next quarter.",
+    joke: { kind: "toast", message: "the can sails into the abyss." },
+  },
+  {
+    id: "rm-rf-feelings",
+    label: "/rm-rf-feelings",
+    ic: "★",
+    desc: "remove all emotional state.",
+    joke: { kind: "shake-toast", message: "operation not permitted: too late." },
+  },
+  {
+    id: "cd-null",
+    label: "/cd-null",
+    ic: "★",
+    desc: "descend into the void.",
+    joke: { kind: "descend", message: "" },
   },
 ]
