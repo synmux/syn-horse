@@ -118,6 +118,15 @@ export default defineNuxtConfig({
       binding: "BLOB",
     },
   },
+  i18n: {
+    defaultLocale: "en",
+    locales: [
+      {
+        code: "en",
+        language: "en-GB",
+      },
+    ],
+  },
   modules: [
     // nitropack's built-in cloudflare-dev preset already provides the dev-time
     // Miniflare proxy (configured via `nitro.cloudflareDev.configPath` below).
