@@ -47,10 +47,10 @@ bun run format            # prettier --write + trunk fmt
 ## Database (D1 + Drizzle)
 
 ```bash
-bun run x:db:generate         # drizzle-kit generate → server/db/migrations/sqlite/
-bun run x:db:migrate:local    # apply migrations to local Miniflare D1
-bun run x:db:migrate:remote   # apply migrations to production D1
-bun run x:db:studio           # drizzle-kit studio (browse the schema)
+bun run db:generate         # drizzle-kit generate → server/db/migrations/sqlite/
+bun run db:migrate:local    # apply migrations to local Miniflare D1
+bun run db:migrate:remote   # apply migrations to production D1
+bun run db:studio           # drizzle-kit studio (browse the schema)
 ```
 
 Migrations live under `server/db/migrations/sqlite/` (configured via `drizzle.config.ts`). The migrate scripts pass `--config wrangler.dev.jsonc` so wrangler picks up the binding ID and migrations directory without a root `wrangler.{json,jsonc,toml}` getting auto-merged into the deploy config.

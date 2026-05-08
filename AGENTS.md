@@ -34,7 +34,7 @@ For each skill, determine YES/NO relevance and invoke all YES skills before proc
 | Global CSS entry             | `app/assets/css/main.css` (theme tokens + daisyUI theme + component classes + effects) |
 | Cloudflare config            | `nuxt.config.ts` `nitro.cloudflare.wrangler`                                           |
 | Drizzle schema               | `server/db/schema.ts` (active — `redirects`, `panic_pages`)                            |
-| Drizzle migrations           | `server/db/migrations/sqlite/*.sql` (apply with `bun run x:db:migrate:{local,remote}`) |
+| Drizzle migrations           | `server/db/migrations/sqlite/*.sql` (apply with `bun run db:migrate:{local,remote}`)   |
 | Drizzle config               | `drizzle.config.ts` at repo root                                                       |
 | Server API routes            | `server/api/*.ts` (Nitro file routing — `panic.post.ts` → `POST /api/panic`)           |
 | Server utils (auto-imported) | `server/utils/*.ts` (`useDb(event)` returns a Drizzle client over D1)                  |
@@ -83,7 +83,7 @@ Repeated patterns get a named class instead of an inline utility soup. They all 
 - **Reduced motion.** `app/assets/css/main.css` has a `@media (prefers-reduced-motion: reduce)` block at the bottom that mutes the loud animations (scanlines, 404 glitch, konami toast). Keep new decorative animations in scope of those overrides.
 - **Arbitrary properties for vendor prefixes.** Use Tailwind v4's `[<property>:<value>]` syntax for one-off CSS that doesn't have a utility — e.g. `[-webkit-text-stroke:1.5px_var(--color-paper-3)]` for an outlined wordmark. Underscores become spaces.
 - **Server route conventions** (set by `server/api/panic.post.ts`, the project's first Nitro route). Use Zod 4 `safeParse` for body validation — note the v4 keyword change from `message` to `error`. `verifyTurnstileToken(token)` is **auto-imported** by `@nuxtjs/turnstile`; do **not** `import … from "#turnstile"` — that virtual alias is not exposed in this version and breaks the Nitro build with "externals are not allowed". DB access goes through `useDb(event).insert(…)` from `server/utils/db.ts`. Use `crypto.randomUUID()` for IDs (global on Workers; no `uuid` import needed). The `/api/**` route rules in `nuxt.config.ts` already attach CORS, `Cache-Control: no-cache`, and `X-Content-Type-Options: nosniff` — no per-route work required.
-- **Migrations are wrangler-applied, not NuxtHub-applied.** Migrations live at `server/db/migrations/sqlite/` (a non-default path), so NuxtHub's auto-runner doesn't see them — apply via `bun run x:db:migrate:local` (or `:remote`). The scripts pass `--config wrangler.dev.jsonc` because the deploy wrangler config is generated to `.output/server/wrangler.json` only at build time. The dev jsonc carries `migrations_dir` for both local and remote applies (same `database_id`, just `--local` vs `--remote`).
+- **Migrations are wrangler-applied, not NuxtHub-applied.** Migrations live at `server/db/migrations/sqlite/` (a non-default path), so NuxtHub's auto-runner doesn't see them — apply via `bun run db:migrate:local` (or `:remote`). The scripts pass `--config wrangler.dev.jsonc` because the deploy wrangler config is generated to `.output/server/wrangler.json` only at build time. The dev jsonc carries `migrations_dir` for both local and remote applies (same `database_id`, just `--local` vs `--remote`).
 
 ## Do not modify
 
@@ -102,9 +102,9 @@ Repeated patterns get a named class instead of an inline utility soup. They all 
 - `bun run build` — runs the Nuxt build then `wrangler types` to regenerate `worker-configuration.d.ts`.
 - `bun run preview` — local wrangler dev against the production build output.
 - `bun run deploy` — `wrangler deploy` to production. Do not run this without explicit user request.
-- `bun run x:db:generate` — `drizzle-kit generate` reads `drizzle.config.ts` and writes new SQL to `server/db/migrations/sqlite/`.
-- `bun run x:db:migrate:local` — apply pending migrations to local Miniflare D1 via wrangler. `:remote` variant for production.
-- `bun run x:db:studio` — `drizzle-kit studio` (browse + edit the schema).
+- `bun run db:generate` — `drizzle-kit generate` reads `drizzle.config.ts` and writes new SQL to `server/db/migrations/sqlite/`.
+- `bun run db:migrate:local` — apply pending migrations to local Miniflare D1 via wrangler. `:remote` variant for production.
+- `bun run db:studio` — `drizzle-kit studio` (browse + edit the schema).
 
 ## Useful reading
 
