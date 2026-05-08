@@ -3,7 +3,7 @@ import { SITE } from "~/data/site"
 
 useSeoMeta({
   title: `panic · ${SITE.name}`,
-  description: "page syn. red for emergencies, green for everything else.",
+  description: "page syn. red for emergencies, green for everything else."
 })
 
 type Channel = "red" | "green"
@@ -52,8 +52,8 @@ async function send(channel: Channel) {
         channel,
         issue: issue.value.trim(),
         contact: contact.value.trim(),
-        turnstileToken: token.value,
-      },
+        turnstileToken: token.value
+      }
     })
     submittedId.value = result.id
     status.value = "ok"
@@ -146,13 +146,7 @@ function reset() {
       </div>
 
       <div class="panic-actions">
-        <button
-          type="button"
-          class="panic-btn"
-          :class="{ armed: redArmed }"
-          :disabled="!canSubmit"
-          @click="clickRed"
-        >
+        <button type="button" class="panic-btn" :class="{ armed: redArmed }" :disabled="!canSubmit" @click="clickRed">
           {{ redArmed ? "← are you sure? click again to wake them up" : "← BIG RED BUTTON" }}
         </button>
         <button type="button" class="panic-btn green" :disabled="!canSubmit" @click="clickGreen">

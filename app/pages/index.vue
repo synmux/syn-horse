@@ -27,8 +27,8 @@ const { data: blogCount } = await useAsyncData(
       />
     </div>
     <p class="mt-4.5 max-w-[620px] text-[19px] leading-[1.55] text-paper-2">
-      i'm <code class="font-semibold">syn</code>. queer, disabled devops engineer and general-purpose nerd. i write occasionally,
-      ship occasionally, and have a lot of opinions about prometheus and accessibility.
+      i'm <code class="font-semibold">syn</code>. queer, disabled devops engineer and general-purpose nerd. i write
+      occasionally, ship occasionally, and have a lot of opinions about prometheus and accessibility.
     </p>
     <div class="mt-6.5 flex items-center gap-3 border border-void-4 bg-void-2 px-4 py-3 shadow-inset-edge">
       <span class="h-2 w-2 shrink-0 rounded-full bg-ok shadow-pulse-ok animate-pulse-glow" />
