@@ -1,11 +1,9 @@
 import { z } from "zod"
 
 import { panicPages } from "~~/server/db/schema"
-import { PRIORITY_CODES, priorityIsGreen, priorityIsRed } from "~~/app/data/priorities"
 
 const PanicBody = z.object({
   channel: z.enum(["red", "green"]),
-  priority: z.enum(PRIORITY_CODES),
   issue: z
     .string({ error: "tell me what's broken" })
     .min(10, { error: "say a bit more — at least 10 characters" })
@@ -34,17 +32,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const { channel, priority, issue, contact, turnstileToken } = parsed.data
-
-  const channelMatchesPriority =
-    (channel === "red" && priorityIsRed(priority)) || (channel === "green" && priorityIsGreen(priority))
-
-  if (!channelMatchesPriority) {
-    throw createError({
-      statusCode: 422,
-      statusMessage: `priority ${priority} is not allowed on the ${channel} channel`,
-    })
-  }
+  const { channel, issue, contact, turnstileToken } = parsed.data
 
   const turnstileResult = await verifyTurnstileToken(turnstileToken)
   if (!turnstileResult.success) {
@@ -60,7 +48,6 @@ export default defineEventHandler(async (event) => {
   await useDb(event).insert(panicPages).values({
     id,
     channel,
-    priority,
     issue,
     contact,
     createdAt: new Date(),
@@ -74,7 +61,6 @@ export default defineEventHandler(async (event) => {
   console.log("[panic]", {
     id,
     channel,
-    priority,
     issue: issue.slice(0, 80),
     contact: contact.slice(0, 40),
   })

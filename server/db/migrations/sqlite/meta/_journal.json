@@ -15,6 +15,20 @@
       "when": 1778237963582,
       "tag": "0001_gorgeous_boomer",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1778239818351,
+      "tag": "0002_fearless_warbound",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1778240091819,
+      "tag": "0003_legal_doctor_octopus",
+      "breakpoints": true
     }
   ]
 }

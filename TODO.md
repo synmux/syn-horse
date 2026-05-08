@@ -10,4 +10,3 @@
 - prune the `.lc-all` block (lowercase-mode toggle, ~30 lines at the bottom of `styles.css`) and `.ca-on` references — both were tweak-panel toggles that were dropped with the panel itself
 - shiki / `onig.wasm` warning during the Cloudflare Workers build ("Failed to load the WebAssembly module; falling back to module mode") — cosmetic, falls back fine, but worth understanding before it bites
 - the hardcoded "last meaningful update: 2026.04.20" line in `app/pages/now.vue` and the "updated 2026.04.20" eyebrow either need a dynamic source or an explicit manual-update workflow
-- the existing redirects schema in `server/db/schema.ts` and the seed in `sql/redirects.sql` are dormant — wire them up or remove

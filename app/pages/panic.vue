@@ -1,11 +1,4 @@
 <script setup lang="ts">
-import {
-  PRIORITIES,
-  priorityIsGreen,
-  priorityIsRed,
-  type Channel,
-  type PriorityCode,
-} from "~/data/priorities"
 import { SITE } from "~/data/site"
 
 useSeoMeta({
@@ -13,11 +6,11 @@ useSeoMeta({
   description: "page syn. red for emergencies, green for everything else.",
 })
 
+type Channel = "red" | "green"
 type Status = "idle" | "pending" | "ok" | "error"
 
 const issue = ref("")
 const contact = ref("")
-const priority = ref<PriorityCode | null>(null)
 const token = ref("")
 const status = ref<Status>("idle")
 const errorMessage = ref("")
@@ -27,20 +20,13 @@ const turnstileRef = ref<{ reset: () => void } | null>(null)
 
 let armTimer: ReturnType<typeof setTimeout> | null = null
 
-const isRed = computed(() => !!priority.value && priorityIsRed(priority.value))
-const isGreen = computed(() => !!priority.value && priorityIsGreen(priority.value))
-
-const baseFieldsValid = computed(
+const canSubmit = computed(
   () =>
     issue.value.trim().length >= 10 &&
     contact.value.trim().length >= 3 &&
-    !!priority.value &&
     token.value.length > 0 &&
     status.value !== "pending"
 )
-
-const canFireRed = computed(() => baseFieldsValid.value && isRed.value)
-const canFireGreen = computed(() => baseFieldsValid.value && isGreen.value)
 
 function disarmRed() {
   redArmed.value = false
@@ -56,10 +42,6 @@ function armRed() {
   armTimer = setTimeout(disarmRed, 4000)
 }
 
-watch(priority, () => {
-  disarmRed()
-})
-
 async function send(channel: Channel) {
   status.value = "pending"
   errorMessage.value = ""
@@ -68,7 +50,6 @@ async function send(channel: Channel) {
       method: "POST",
       body: {
         channel,
-        priority: priority.value,
         issue: issue.value.trim(),
         contact: contact.value.trim(),
         turnstileToken: token.value,
@@ -90,7 +71,7 @@ async function send(channel: Channel) {
 }
 
 function clickRed() {
-  if (!canFireRed.value) return
+  if (!canSubmit.value) return
   if (!redArmed.value) {
     armRed()
     return
@@ -100,7 +81,7 @@ function clickRed() {
 }
 
 function clickGreen() {
-  if (!canFireGreen.value) return
+  if (!canSubmit.value) return
   void send("green")
 }
 
@@ -110,7 +91,6 @@ function reset() {
   submittedId.value = ""
   issue.value = ""
   contact.value = ""
-  priority.value = null
   token.value = ""
   disarmRed()
   turnstileRef.value?.reset()
@@ -127,19 +107,7 @@ function reset() {
     </p>
 
     <template v-if="status !== 'ok'">
-      <fieldset class="mt-9 border-0 p-0">
-        <legend class="label">priority</legend>
-        <div class="mt-2 flex flex-col gap-2">
-          <label v-for="entry in PRIORITIES" :key="entry.code" class="priority-card">
-            <input v-model="priority" type="radio" name="priority" :value="entry.code" />
-            <span class="priority-card-code">{{ entry.code }}</span>
-            <span class="priority-card-title">{{ entry.title }}</span>
-            <span class="priority-card-body">{{ entry.body }}</span>
-          </label>
-        </div>
-      </fieldset>
-
-      <div class="mt-7">
+      <div class="mt-9">
         <label class="label" for="panic-issue">what's broken</label>
         <textarea
           id="panic-issue"
@@ -182,12 +150,12 @@ function reset() {
           type="button"
           class="panic-btn"
           :class="{ armed: redArmed }"
-          :disabled="!canFireRed"
+          :disabled="!canSubmit"
           @click="clickRed"
         >
           {{ redArmed ? "← are you sure? click again to wake them up" : "← BIG RED BUTTON" }}
         </button>
-        <button type="button" class="panic-btn green" :disabled="!canFireGreen" @click="clickGreen">
+        <button type="button" class="panic-btn green" :disabled="!canSubmit" @click="clickGreen">
           small green button →
         </button>
       </div>
