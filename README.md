@@ -55,6 +55,8 @@ bun run db:studio           # drizzle-kit studio (browse the schema)
 
 Migrations live under `server/db/migrations/sqlite/` (configured via `drizzle.config.ts`). The migrate scripts pass `--config wrangler.dev.jsonc` so wrangler picks up the binding ID and migrations directory without a root `wrangler.{json,jsonc,toml}` getting auto-merged into the deploy config.
 
+See [DB.md](./DB.md) for the full migration workflow, including how to bring a cold environment up to date when `d1_migrations` is missing.
+
 ## Pages
 
 | Route          | What                                                                    |

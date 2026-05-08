@@ -111,4 +111,5 @@ Repeated patterns get a named class instead of an inline utility soup. They all 
 - `app/data/site.ts` — single source of truth for the status string, version badge, urls.
 - `_design/design-system/README.md` — brand voice, colour rules, type rules, what is and is not allowed.
 - `_design/site/styles.css` — original design CSS (the canonical visual reference; the live site mirrors it via Tailwind tokens + component classes in `main.css`).
+- `DB.md` — D1 + Drizzle migration workflow and how to bring a cold environment up to date.
 - `TODO.md` — what has been intentionally deferred.
