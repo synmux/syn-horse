@@ -90,6 +90,7 @@ If the application uses Durable Objects or Workflows, refer to the relevant best
 - For navigation use `<NuxtLink>` (which renders an `<a>`). Programmatic navigation via `navigateTo()`. Buttons only for non-navigational interactions.
 - Component auto-imports use path-prefixed names: a file at `app/components/layout/StatusBar.vue` is imported as `<LayoutStatusBar />`. A file at `app/components/NotFound.vue` (no subdirectory) is `<NotFound />`.
 - Each commit follows Conventional Commits + GitMoji as per the global agent rules.
+- Track deferrals in `TODO.md`. Whenever you decide not to do something now — partial work, follow-ups, known issues you uncovered along the way — append a `- [ ]` checkbox line in the existing format (imperative phrasing, lowercase, one item per line, grouped under a sensible heading if a relevant section already exists). If `TODO.md` is empty (no unchecked items), tell the user at the end of the task so they know nothing is queued.
 
 ## Theme tokens (Tailwind v4 `@theme`)
 
