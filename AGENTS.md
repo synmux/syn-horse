@@ -155,3 +155,7 @@ Repeated patterns get a named class instead of an inline utility soup. They all 
 - `_design/site/styles.css` — original design CSS (the canonical visual reference; the live site mirrors it via Tailwind tokens + component classes in `main.css`).
 - `DB.md` — D1 + Drizzle migration workflow and how to bring a cold environment up to date.
 - `TODO.md` — what has been intentionally deferred.
+
+## Imported Claude Cowork project instructions
+
+This is a Nuxt 4 project.
