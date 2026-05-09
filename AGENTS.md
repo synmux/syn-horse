@@ -148,12 +148,75 @@ Repeated patterns get a named class instead of an inline utility soup. They all 
 - `bun run db:migrate:local` — apply pending migrations to local Miniflare D1 via wrangler. `:remote` variant for production.
 - `bun run db:studio` — `drizzle-kit studio` (browse + edit the schema).
 
+## Database (D1 + Drizzle)
+
+- **Schema:** `server/db/schema.ts` (`sqliteTable` from `drizzle-orm/sqlite-core`). Currently: `redirects`, `panic_pages`.
+- **Migrations:** `server/db/migrations/sqlite/00NN_*.sql` (drizzle-kit metadata under `meta/`).
+- **Drizzle config:** `drizzle.config.ts` at repo root.
+- **D1 binding:** `DB`. Declared in `nuxt.config.ts` (deploy) and `wrangler.dev.jsonc` (dev). Database name: `syn-horse`.
+- **Server access:** `useDb(event)` from `server/utils/db.ts` — auto-imported in server scope.
+- **Migration tooling:** wrangler CLI, not NuxtHub's auto-runner (non-default migrations path).
+
+### Why migrate scripts pass `--config wrangler.dev.jsonc`
+
+No `wrangler.{json,jsonc,toml}` at the repo root by design — both the wrangler CLI and nitropack auto-discover those names and would `defu`-merge with the inline `nitro.cloudflare.wrangler` block, duplicating every binding in `.output/server/wrangler.json`. `wrangler.dev.jsonc` is non-discoverable and carries the dev bindings AND `migrations_dir`. The same file drives both `--local` (Miniflare) and `--remote` (production D1) applies.
+
+### Day-to-day loop
+
+1. Edit `server/db/schema.ts`.
+2. `bun run db:generate` — writes `00NN_*.sql` and updates `meta/_journal.json`.
+3. Inspect the SQL; sanity-check destructive changes.
+4. `bun run db:migrate:local` then `bun run dev` to test.
+5. `bun run db:migrate:remote` — apply to production before deploy if new code references new tables, after if only adding indexes / non-required columns.
+6. `bun run deploy` if worker code also changed.
+
+### Cold environment recovery
+
+If `d1_migrations` is missing, wrangler re-runs migration 0000 and fails with `table already exists`.
+
+**Inspect:**
+
+```bash
+bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
+  --command "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"
+```
+
+**Decision table:**
+
+| State                                               | Action                                    |
+| --------------------------------------------------- | ----------------------------------------- |
+| Has `panic_pages`                                   | Nothing to do.                            |
+| Has `redirects` + `d1_migrations` row for 0000      | `bun run db:migrate:remote`.              |
+| Has `redirects` but no `d1_migrations` row for 0000 | Backfill then apply (see below).          |
+| Empty                                               | `bun run db:migrate:remote` — runs clean. |
+
+**Backfill tracking row:**
+
+```bash
+bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
+  --command "CREATE TABLE IF NOT EXISTS d1_migrations(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, applied_at DATETIME DEFAULT CURRENT_TIMESTAMP); INSERT OR IGNORE INTO d1_migrations(name) VALUES ('0000_curved_daimon_hellstrom.sql');"
+bun run db:migrate:remote
+```
+
+Swap `--remote`/`db:migrate:remote` for `--local`/`db:migrate:local` to target Miniflare.
+
+**Verify** (should list `d1_migrations`, `panic_pages`, `redirects`, `sqlite_sequence`):
+
+```bash
+bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
+  --command "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"
+```
+
+### Adjacent production requirements
+
+- **Turnstile secret:** `bun run wrangler secret put NUXT_TURNSTILE_SECRET_KEY` — without it every `/panic` submission 403s.
+- **Worker deploy is separate:** `db:migrate:remote` does not deploy code; run `bun run deploy` after migrations land.
+
 ## Useful reading
 
 - `app/data/site.ts` — single source of truth for the status string, version badge, urls.
 - `_design/design-system/README.md` — brand voice, colour rules, type rules, what is and is not allowed.
 - `_design/site/styles.css` — original design CSS (the canonical visual reference; the live site mirrors it via Tailwind tokens + component classes in `main.css`).
-- `DB.md` — D1 + Drizzle migration workflow and how to bring a cold environment up to date.
 - `TODO.md` — what has been intentionally deferred.
 
 ## Imported Claude Cowork project instructions

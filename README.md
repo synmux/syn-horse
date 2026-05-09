@@ -53,9 +53,88 @@ bun run db:migrate:remote   # apply migrations to production D1
 bun run db:studio           # drizzle-kit studio (browse the schema)
 ```
 
-Migrations live under `server/db/migrations/sqlite/` (configured via `drizzle.config.ts`). The migrate scripts pass `--config wrangler.dev.jsonc` so wrangler picks up the binding ID and migrations directory without a root `wrangler.{json,jsonc,toml}` getting auto-merged into the deploy config.
+### Setup at a glance
 
-See [DB.md](./DB.md) for the full migration workflow, including how to bring a cold environment up to date when `d1_migrations` is missing.
+- **Schema:** `server/db/schema.ts` (Drizzle, `sqliteTable` from `drizzle-orm/sqlite-core`). Currently: `redirects`, `panic_pages`.
+- **Migrations:** `server/db/migrations/sqlite/00NN_*.sql`, with drizzle-kit metadata under `meta/`.
+- **Drizzle config:** `drizzle.config.ts` at repo root (sqlite dialect, schema + out path wired).
+- **D1 binding:** `DB`. Declared in both `nuxt.config.ts` (deploy) and `wrangler.dev.jsonc` (dev). Database name is `syn-horse`.
+- **Server-side access:** `useDb(event)` from `server/utils/db.ts` returns a Drizzle client over `event.context.cloudflare.env.DB`. Auto-imported in server scope.
+- **Migration tooling:** the wrangler CLI, not NuxtHub's auto-runner — migrations live at a non-default path so NuxtHub's plugin doesn't see them.
+
+### Why migrate scripts pass `--config wrangler.dev.jsonc`
+
+There's intentionally no `wrangler.{json,jsonc,toml}` at the repo root: nitropack's cloudflare preset and the wrangler CLI both auto-discover those filenames and would `defu`-merge with the inline `nitro.cloudflare.wrangler` block in `nuxt.config.ts` — every binding would end up duplicated in `.output/server/wrangler.json`.
+
+`wrangler.dev.jsonc` is deliberately non-discoverable. It carries the dev binding subset for Miniflare AND the `migrations_dir` that wrangler's `d1 migrations apply` needs. The `db:migrate:{local,remote}` scripts pass `--config wrangler.dev.jsonc` so wrangler reads from there. Same file works for both `--local` (Miniflare) and `--remote` (production D1) because wrangler routes by flag, not by config.
+
+### Day-to-day loop
+
+1. Edit `server/db/schema.ts` — add or modify tables.
+2. `bun run db:generate` — `drizzle-kit generate` writes a new `00NN_*.sql` under `server/db/migrations/sqlite/` and updates `meta/_journal.json`.
+3. Inspect the generated SQL. If it's a destructive change, sanity-check against data you don't want to lose.
+4. Apply locally with `bun run db:migrate:local`. Test with `bun run dev`.
+5. Apply to production with `bun run db:migrate:remote` — before deploy if new code references new tables, after if only adding indexes / non-required columns.
+6. `bun run deploy` if you also changed worker code.
+
+### Bringing a cold environment up to date
+
+If you're applying to a database that has tables but no `d1_migrations` tracking table, wrangler will try to re-run migration 0000 and fail with `table already exists`. Detect and fix:
+
+**Step 1 — inspect the target database**
+
+```bash
+bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
+  --command "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"
+```
+
+If `d1_migrations` appears in the output, also run:
+
+```bash
+bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
+  --command "SELECT name FROM d1_migrations ORDER BY id"
+```
+
+Swap `--remote` for `--local` to inspect the local Miniflare database.
+
+**Step 2 — apply, depending on what you saw**
+
+| State                                                                                 | What to do                                                    |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Has `panic_pages` already                                                             | Nothing — skip to Step 3.                                     |
+| Has `redirects` AND `d1_migrations` populated with `0000_curved_daimon_hellstrom.sql` | `bun run db:migrate:remote` (or `:local`).                    |
+| Has `redirects` but no `d1_migrations` row for 0000                                   | Backfill the tracking row first (see below), then apply.      |
+| Empty                                                                                 | `bun run db:migrate:remote` — both migrations run from clean. |
+
+To backfill the tracking row:
+
+```bash
+bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
+  --command "CREATE TABLE IF NOT EXISTS d1_migrations(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, applied_at DATETIME DEFAULT CURRENT_TIMESTAMP); INSERT OR IGNORE INTO d1_migrations(name) VALUES ('0000_curved_daimon_hellstrom.sql');"
+
+bun run db:migrate:remote
+```
+
+Same recipe works for local — swap `--remote` for `--local` and use `db:migrate:local`.
+
+**Step 3 — verify**
+
+```bash
+bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
+  --command "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"
+```
+
+Should list at least `d1_migrations`, `panic_pages`, `redirects`, `sqlite_sequence`.
+
+### Adjacent production requirements
+
+- **Turnstile secret key.** `NUXT_TURNSTILE_SECRET_KEY` must be set as a Workers secret — without it, `verifyTurnstileToken` returns `{ success: false }` and every `/panic` submission 403s:
+
+  ```bash
+  bun run wrangler secret put NUXT_TURNSTILE_SECRET_KEY
+  ```
+
+- **Worker deploy.** `bun run db:migrate:remote` doesn't deploy code. Run `bun run deploy` after migrations land cleanly.
 
 ## Pages
 
