@@ -68,6 +68,7 @@ lint:
         - sql/redirects.sql
         - AGENTS.md
         - README.md
+        - TODO.md
 actions:
   definitions:
     - id: bun-install
