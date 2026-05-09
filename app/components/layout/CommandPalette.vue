@@ -10,6 +10,8 @@ import { SITE } from "~/data/site"
 const palette = useCommandPalette()
 const { commandsEnabled } = useKonamiState()
 const { show: showKonamiToast } = useKonamiToast()
+const commitHash = useRuntimeConfig().public.commitHash as string
+const commitUrl = `${SITE.github}/commit/${commitHash}`
 const inputEl = ref<HTMLInputElement | null>(null)
 const listEl = ref<HTMLElement | null>(null)
 const sel = ref(0)
@@ -154,7 +156,9 @@ useEventListener("keydown", (e: KeyboardEvent) => {
         class="flex justify-between border-t border-void-4 px-4 py-2 font-mono text-[10px] tracking-[0.12em] text-paper-3"
       >
         <span>↑↓ navigate · ↵ open · esc dismiss</span>
-        <span>{{ SITE.name }} · {{ SITE.versionShort }}</span>
+        <span
+          >{{ SITE.name }} · <a :href="commitUrl" class="hover:text-cool">{{ commitHash }}</a></span
+        >
       </div>
     </div>
   </div>

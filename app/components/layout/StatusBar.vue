@@ -1,19 +1,25 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { useRoute } from "vue-router"
+import { useClock } from "~/composables/useClock"
 import { useTime } from "~/composables/useTime"
 import { SITE } from "~/data/site"
 
 const route = useRoute()
 const { now } = useTime()
 
-const buildTimeRaw = useRuntimeConfig().public.buildTime as string
+const runtimeConfig = useRuntimeConfig()
+const buildTimeRaw = runtimeConfig.public.buildTime as string
+const commitHash = runtimeConfig.public.commitHash as string
+const commitUrl = `${SITE.github}/commit/${commitHash}`
 const buildTimeMs = (() => {
   const parsed = new Date(buildTimeRaw).getTime()
   return Number.isNaN(parsed) ? null : parsed
 })()
 
-const time = computed(() => (now.value ? now.value.toISOString().slice(11, 19) : ""))
+const utc = useClock(now, "UTC")
+const jfk = useClock(now, "America/New_York")
+const lhr = useClock(now, "Europe/London")
 
 const buildAge = computed(() => {
   if (!now.value || buildTimeMs === null) return ""
@@ -35,7 +41,7 @@ const slug = computed(() => {
 
 <template>
   <div
-    class="statusbar sticky top-0 z-[100] grid h-8 grid-cols-[auto_1fr_auto_auto_auto] items-center gap-4 border-b border-void-4 bg-void/85 px-4.5 py-1.5 font-mono text-[11px] tracking-[0.08em] uppercase text-paper-3 backdrop-blur-md"
+    class="statusbar sticky top-0 z-[100] grid h-8 grid-cols-[auto_1fr_auto_auto_auto_auto_auto] items-center gap-4 border-b border-void-4 bg-void/85 px-4.5 py-1.5 font-mono text-[11px] tracking-[0.08em] uppercase text-paper-3 backdrop-blur-md"
   >
     <span>
       light status:
@@ -58,14 +64,36 @@ const slug = computed(() => {
       </ClientOnly>
     </span>
     <span>
-      local
+      jfk
       <ClientOnly>
-        <span class="text-paper-2 tabular-nums">{{ time }}</span>
+        <span class="text-paper-2 tabular-nums">{{ jfk }}</span>
         <template #fallback>
           <span class="text-paper-2 tabular-nums">--:--:--</span>
         </template>
       </ClientOnly>
     </span>
-    <span>{{ SITE.version }}</span>
+    <span>
+      utc
+      <ClientOnly>
+        <span class="text-paper-2 tabular-nums">{{ utc }}</span>
+        <template #fallback>
+          <span class="text-paper-2 tabular-nums">--:--:--</span>
+        </template>
+      </ClientOnly>
+    </span>
+    <span>
+      lhr
+      <ClientOnly>
+        <span class="text-paper-2 tabular-nums">{{ lhr }}</span>
+        <template #fallback>
+          <span class="text-paper-2 tabular-nums">--:--:--</span>
+        </template>
+      </ClientOnly>
+    </span>
+    <span>
+      <a :href="commitUrl" target="_blank" rel="noopener" class="text-paper-2 tabular-nums hover:text-cool">{{
+        commitHash
+      }}</a>
+    </span>
   </div>
 </template>

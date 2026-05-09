@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config]
 // trunk-ignore-all(trunk-toolbox/todo)
 
+import { execFileSync } from "node:child_process"
 import { existsSync, readFileSync, writeFileSync } from "node:fs"
 
 import tailwindcss from "@tailwindcss/vite"
@@ -11,6 +12,15 @@ let buildTime = existsSync(".buildtime") ? readFileSync(".buildtime", "utf8").tr
 if (buildTime.length === 0) {
   buildTime = new Date().toISOString()
   writeFileSync(".buildtime", buildTime)
+}
+
+let commitHash = existsSync(".commithash") ? readFileSync(".commithash", "utf8").trim() : ""
+if (commitHash.length === 0) {
+  try {
+    commitHash = execFileSync("git", ["rev-parse", "--short", "HEAD"], { encoding: "utf8" }).trim()
+  } catch {
+    commitHash = "unknown"
+  }
 }
 
 export default defineNuxtConfig({
@@ -287,6 +297,7 @@ export default defineNuxtConfig({
       cloudflare: {
         accountId: "def50674a738cee409235f71819973cf",
       },
+      commitHash,
       siteUrl: "https://syn.horse",
       turnstile: {
         siteKey: "0x4AAAAAAC2QY6ZikvZ4TAQq",

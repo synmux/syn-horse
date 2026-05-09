@@ -31,6 +31,9 @@ logs
 # build-time stamp written by `bun run deploy`, baked into bundle via nuxt.config.ts
 .buildtime
 
+# short git commit hash written by `bun run deploy`, baked into bundle via nuxt.config.ts
+.commithash
+
 
 # Skilld references (recreated by `skilld install`)
 .skilld
