@@ -261,103 +261,6 @@
 }
 
 /* =====================================================================
-   Root variables not modelled as Tailwind tokens.
-   These power the custom CSS effects and the legacy stylesheets.
-   ===================================================================== */
-:root {
-  /* layout chrome heights */
-  --statusbar-h: 24px;
-  --siderail-w: 56px;
-
-  /* effect compounds */
-  --rgb-split: 2px 0 0 var(--color-hot), -2px 0 0 var(--color-cool);
-  --inset-edge: inset 0 1px 0 rgb(255 255 255 / 0.06);
-
-  /* legacy aliases — keep partially-migrated components working until
-     the custom CSS files at the bottom are deleted. */
-  --void: var(--color-void);
-  --void-2: var(--color-void-2);
-  --void-3: var(--color-void-3);
-  --void-4: var(--color-void-4);
-  --paper: var(--color-paper);
-  --paper-2: var(--color-paper-2);
-  --paper-3: var(--color-paper-3);
-  --paper-4: var(--color-paper-4);
-  --hot: var(--color-hot);
-  --hot-2: var(--color-hot-2);
-  --cool: var(--color-cool);
-  --cool-2: var(--color-cool-2);
-  --lilac: var(--color-lilac);
-  --lilac-2: var(--color-lilac-2);
-  --pop: var(--color-pop);
-  --pop-2: var(--color-pop-2);
-  --danger: var(--color-danger);
-  --danger-2: var(--color-danger-2);
-  --ok: var(--color-ok);
-  --bg: var(--color-void);
-  --bg-elev-1: var(--color-void-2);
-  --bg-elev-2: var(--color-void-3);
-  --bg-elev-3: var(--color-void-4);
-  --fg-1: var(--color-paper);
-  --fg-2: var(--color-paper-2);
-  --fg-3: var(--color-paper-3);
-  --fg-4: var(--color-paper-4);
-  --accent: var(--color-hot);
-  --accent-2: var(--color-cool);
-  --accent-3: var(--color-lilac);
-  --warn: var(--color-pop);
-  --error: var(--color-danger);
-  --success: var(--color-ok);
-  --font-body: var(--font-sans);
-  --t-xs: 12px;
-  --t-sm: 13px;
-  --t-base: 15px;
-  --t-md: 17px;
-  --t-lg: 20px;
-  --t-xl: 24px;
-  --t-2xl: 32px;
-  --t-3xl: 44px;
-  --t-4xl: 64px;
-  --t-5xl: 96px;
-  --t-6xl: 144px;
-  --lh-tight: 1.05;
-  --lh-snug: 1.2;
-  --lh-normal: 1.45;
-  --lh-loose: 1.7;
-  --s-1: 4px;
-  --s-2: 8px;
-  --s-3: 12px;
-  --s-4: 16px;
-  --s-5: 24px;
-  --s-6: 32px;
-  --s-7: 48px;
-  --s-8: 64px;
-  --s-9: 96px;
-  --s-10: 128px;
-  --radius-0: 0;
-  --radius-1: 2px;
-  --radius-2: 4px;
-  --radius-pill: 999px;
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --dur-fast: 80ms;
-  --dur-base: 160ms;
-  --dur-slow: 320ms;
-  --z-base: 1;
-  --z-elev: 10;
-  --z-sticky: 100;
-  --z-modal: 1000;
-  --z-toast: 2000;
-  --z-noise: 9999;
-  --glow-hot: var(--shadow-glow-hot);
-  --glow-cool: var(--shadow-glow-cool);
-  --glow-lilac: var(--shadow-glow-lilac);
-  --border-hair: 1px solid var(--color-void-4);
-  --border-soft: 1px solid var(--color-paper-3);
-  --border-hard: 2px solid var(--color-hot);
-  --border-focus: 2px solid var(--color-cool);
-}
-
-/* =====================================================================
    Base styles — resets and element typography. Tailwind's preflight
    handles most resets; this layer adds the project-specific defaults
    (page background, link reset, list reset, base headline sizes).
@@ -1480,14 +1383,13 @@ select:focus-visible,
    ===================================================================== */
 @media (prefers-reduced-motion: reduce) {
   .fx-scan,
-  .fx-scanlines,
   .fx-grain {
     animation: none !important;
   }
   .notfound .big {
     animation: none !important;
   }
-  .konami,
+  .animate-konami,
   .konami-toast {
     animation: none !important;
   }

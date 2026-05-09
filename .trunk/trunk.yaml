@@ -7,7 +7,7 @@ cli:
 plugins:
   sources:
     - id: trunk
-      ref: v1.8.0
+      ref: v1.9.0
       uri: https://github.com/trunk-io/plugins
 # Many linters and tools depend on runtimes - configure them here. (https://docs.trunk.io/runtimes)
 runtimes:
@@ -39,12 +39,15 @@ lint:
     - linters:
         - ALL
       paths:
-        - _cloudflare/env.d.ts
-        - worker-configuration.d.ts
+        - .agents/**
         - .claude/**
+        - .claude/**
+        - .codex/**
         - _DIO/**
         - _DSOY/**
+        - _cloudflare/env.d.ts
         - _design/**
+        - worker-configuration.d.ts
     - linters:
         - yamllint
         - checkov
@@ -64,6 +67,7 @@ lint:
         - "**/*.zip"
         - "**/*.mov"
         - .devcontainer/devcontainer.json
+        - .trunk/trunk.yaml
         - docs/**
         - sql/redirects.sql
         - AGENTS.md

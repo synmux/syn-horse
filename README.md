@@ -81,7 +81,7 @@ There's intentionally no `wrangler.{json,jsonc,toml}` at the repo root: nitropac
 
 If you're applying to a database that has tables but no `d1_migrations` tracking table, wrangler will try to re-run migration 0000 and fail with `table already exists`. Detect and fix:
 
-**Step 1 — inspect the target database**
+**Step 1** — inspect the target database
 
 ```bash
 bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
@@ -97,7 +97,7 @@ bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
 
 Swap `--remote` for `--local` to inspect the local Miniflare database.
 
-**Step 2 — apply, depending on what you saw**
+**Step 2** — apply, depending on what you saw
 
 | State                                                                                 | What to do                                                    |
 | ------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
@@ -117,7 +117,7 @@ bun run db:migrate:remote
 
 Same recipe works for local — swap `--remote` for `--local` and use `db:migrate:local`.
 
-**Step 3 — verify**
+**Step 3** — verify
 
 ```bash
 bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \

@@ -66,11 +66,7 @@ export default defineEventHandler(async (event) => {
     createdAt: new Date(),
   })
 
-  // TODO: integrate real paging.
-  //   red  → fire immediately via push / SMS / ntfy / pagerduty (any hour).
-  //   green → enqueue (KV / Queue) and dispatch when the working-hours
-  //           window opens, or batch-deliver on next wake.
-  // For now the row sits in panic_pages and the line below flows to Workers Logs.
+  // real paging logic goes here
   console.log("[panic]", {
     id,
     channel,
