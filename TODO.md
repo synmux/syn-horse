@@ -1,6 +1,6 @@
 # to-do list
 
-- [ ] integrate real paging.
+- [ ] integrate real paging for `/panic`.
   - we're going to start by using ntfy because it's easy.
     - publish to topic "syn.horse"
     - use the canonical `ntfy.sh` instance
