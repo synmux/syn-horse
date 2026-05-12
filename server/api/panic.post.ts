@@ -82,7 +82,7 @@ export default defineEventHandler(async (event) => {
     tags: [channel === "red" ? "rotating_light" : "green_circle"],
   }
 
-  const result = await usePager().send(notification)
+  const result = await usePager(event).send(notification)
 
   await db
     .update(panicPages)

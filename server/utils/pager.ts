@@ -1,3 +1,4 @@
+import type { H3Event } from "h3"
 import { publish, type MessagePriority } from "ntfy"
 
 export type PageNotification = {
@@ -14,15 +15,13 @@ export interface Pager {
 }
 
 const NTFY_SERVER = "https://ntfy.sh"
-// ntfy topic names must match /^[-_A-Za-z0-9]{1,64}$/ — dots are rejected as 404.
-const NTFY_TOPIC = "syn-horse"
 
-export const ntfyPager = (): Pager => ({
+export const ntfyPager = (topic: string): Pager => ({
   async send(notification) {
     try {
       const response = await publish({
         server: NTFY_SERVER,
-        topic: NTFY_TOPIC,
+        topic,
         title: notification.title,
         message: notification.body,
         priority: notification.priority as MessagePriority,
@@ -41,4 +40,7 @@ export const ntfyPager = (): Pager => ({
 // When the Workers Queue lands, swap to a queuePager() whose send() enqueues;
 // the consumer Worker will instantiate ntfyPager() directly and call .send()
 // with the same PageNotification shape.
-export const usePager = (): Pager => ntfyPager()
+export const usePager = (event: H3Event): Pager => {
+  const { ntfy } = useRuntimeConfig(event)
+  return ntfyPager(ntfy.topic)
+}
