@@ -62,6 +62,26 @@ bun run db:studio           # drizzle-kit studio (browse the schema)
 - **Server-side access:** `useDb(event)` from `server/utils/db.ts` returns a Drizzle client over `event.context.cloudflare.env.DB`. Auto-imported in server scope.
 - **Migration tooling:** the wrangler CLI, not NuxtHub's auto-runner — migrations live at a non-default path so NuxtHub's plugin doesn't see them.
 
+### Schema-driven enums (single source of truth)
+
+For columns with a fixed set of values, declare them once on the Drizzle column and derive everything else from that array. Today this is `panicPages.channel` (`"red"` or `"green"`):
+
+```typescript
+// server/db/schema.ts
+export const panicPages = sqliteTable("panic_pages", {
+  // …
+  channel: text({ enum: ["red", "green"] }).notNull()
+})
+
+export type Channel = (typeof panicPages.$inferSelect)["channel"]
+```
+
+- **Frontend types:** `import type { Channel } from "~~/server/db/schema"` in any `.vue` or `.ts` file. Type-only imports are erased at compile time, so the client bundle never pulls the schema module — only the union literal travels.
+- **Server-side runtime validation:** `z.enum(panicPages.channel.enumValues)` — `enumValues` is Drizzle's typed runtime tuple, so the Zod validator and TypeScript stay in lockstep.
+- **SQL:** Drizzle's SQLite `enum` option is a TypeScript-only constraint; the column stays plain `TEXT` and `bun run db:generate` won't emit a diff when you only touch the enum array. Add a manual `CHECK (col IN (...))` clause to a migration if you also want database-level enforcement.
+
+Adding or removing a value is a one-line edit to the schema array — TypeScript then surfaces every site that needs to handle it.
+
 ### Why migrate scripts pass `--config wrangler.dev.jsonc`
 
 There's intentionally no `wrangler.{json,jsonc,toml}` at the repo root: nitropack's cloudflare preset and the wrangler CLI both auto-discover those filenames and would `defu`-merge with the inline `nitro.cloudflare.wrangler` block in `nuxt.config.ts` — every binding would end up duplicated in `.output/server/wrangler.json`.

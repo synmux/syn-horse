@@ -1,17 +1,18 @@
 # to-do list
 
 - [ ] integrate real paging for `/panic`.
+  - support for notification platforms should be modular, with a unified interface.
   - we're going to start by using ntfy because it's easy.
     - publish to topic "syn.horse"
     - use the canonical `ntfy.sh` instance
     - no access control is required to publish there
     - the `ntfy` NPM package is installed. use it.
-  - red → fire immediately (any hour).
-  - green → enqueue (KV / Queue) and dispatch when the working-hours window opens, or batch-deliver on next wake.
+  - For now, fire the ntfy call immediately. Use ntfy priority to define priority.
   - For now the row sits in panic_pages and the line below flows to Workers Logs.
-  - when code exists to push to ntfy, do so, logging the results in D1 alongside the already captured data. make sure that if a call throws we capture the failure.
+  - when code exists to push to ntfy, do so, logging the results in D1 alongside the already captured data.
+    - Make sure that if a call throws we capture the failure.
   - long term plan for this; publish to a Workers Queue and have another Worker consume it, setting up a pattern which we might use later
-  - for now, just write to ntfy and log to the db.
+  - for now, just write to ntfy and log to the db, but implement with mind to how it'll work in future.
 - [ ] RSS feed at `/feed.xml` — currently linked from the home and blog footers but returns 404. Wants a `server/routes/feed.xml.ts` reading from a `queryCollection`.
 - [ ] mobile breakpoints — the source design ships no `@media` queries; some headings overflow narrow viewports
 

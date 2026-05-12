@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { SITE } from "~/data/site"
+import type { Channel } from "~~/server/db/schema"
 
 useSeoMeta({
   title: `panic · ${SITE.name}`,
   description: "page syn. red for emergencies, green for everything else."
 })
 
-type Channel = "red" | "green"
 type Status = "idle" | "pending" | "ok" | "error"
 
 // In dev we bypass Turnstile entirely (widget not rendered, server skips verify).

@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "0c09b5f2-c43b-4ddc-aecf-58961f213d92",
+  "id": "fbc648ab-838f-4f07-aa28-da7ae9b2080d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "panic_pages": {

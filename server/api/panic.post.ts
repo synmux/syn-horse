@@ -3,7 +3,7 @@ import { z } from "zod"
 import { panicPages } from "~~/server/db/schema"
 
 const PanicBody = z.object({
-  channel: z.enum(["red", "green"]),
+  channel: z.enum(panicPages.channel.enumValues),
   issue: z
     .string({ error: "tell me what's broken" })
     .min(10, { error: "say a bit more — at least 10 characters" })

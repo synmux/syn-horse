@@ -127,6 +127,7 @@ Repeated patterns get a named class instead of an inline utility soup. They all 
 - **Arbitrary properties for vendor prefixes.** Use Tailwind v4's `[<property>:<value>]` syntax for one-off CSS that doesn't have a utility — e.g. `[-webkit-text-stroke:1.5px_var(--color-paper-3)]` for an outlined wordmark. Underscores become spaces.
 - **Server route conventions** (set by `server/api/panic.post.ts`, the project's first Nitro route). Use Zod 4 `safeParse` for body validation — note the v4 keyword change from `message` to `error`. `verifyTurnstileToken(token)` is **auto-imported** by `@nuxtjs/turnstile`; do **not** `import … from "#turnstile"` — that virtual alias is not exposed in this version and breaks the Nitro build with "externals are not allowed". DB access goes through `useDb(event).insert(…)` from `server/utils/db.ts`. Use `crypto.randomUUID()` for IDs (global on Workers; no `uuid` import needed). The `/api/**` route rules in `nuxt.config.ts` already attach CORS, `Cache-Control: no-cache`, and `X-Content-Type-Options: nosniff` — no per-route work required.
 - **Migrations are wrangler-applied, not NuxtHub-applied.** Migrations live at `server/db/migrations/sqlite/` (a non-default path), so NuxtHub's auto-runner doesn't see them — apply via `bun run db:migrate:local` (or `:remote`). The scripts pass `--config wrangler.dev.jsonc` because the deploy wrangler config is generated to `.output/server/wrangler.json` only at build time. The dev jsonc carries `migrations_dir` for both local and remote applies (same `database_id`, just `--local` vs `--remote`).
+- **Schema-driven enums.** Columns with a fixed value set are declared as `text({ enum: [...] })` on the Drizzle column and consumed everywhere else through derivation — `$inferSelect`-based types in Vue, `enumValues` for Zod validators. Don't duplicate the literal union. See the "Schema-driven enums" subsection under [Database (D1 + Drizzle)](#database-d1--drizzle) below.
 
 ## Do not modify
 
@@ -157,6 +158,26 @@ Repeated patterns get a named class instead of an inline utility soup. They all 
 - **D1 binding:** `DB`. Declared in `nuxt.config.ts` (deploy) and `wrangler.dev.jsonc` (dev). Database name: `syn-horse`.
 - **Server access:** `useDb(event)` from `server/utils/db.ts` — auto-imported in server scope.
 - **Migration tooling:** wrangler CLI, not NuxtHub's auto-runner (non-default migrations path).
+
+### Schema-driven enums (single source of truth)
+
+For columns constrained to a fixed value set, declare the values once on the Drizzle column with `text({ enum: [...] })` and derive everything else from that array. Today this applies to `panicPages.channel`:
+
+```typescript
+// server/db/schema.ts
+export const panicPages = sqliteTable("panic_pages", {
+  // …
+  channel: text({ enum: ["red", "green"] }).notNull()
+})
+
+export type Channel = (typeof panicPages.$inferSelect)["channel"]
+```
+
+- **Frontend / Vue:** `import type { Channel } from "~~/server/db/schema"`. Type-only imports are erased at compile time, so reaching into the server tree from a `.vue` file carries no runtime cost.
+- **Runtime validation (Zod):** `z.enum(panicPages.channel.enumValues)` — `enumValues` is Drizzle's typed runtime tuple, so Zod and TypeScript stay in lockstep.
+- **SQL:** Drizzle's SQLite `enum` is a TypeScript-only constraint. The column stays plain `TEXT`, no `CHECK` clause is emitted, and `bun run db:generate` produces no diff when you only touch the enum array. Add a manual `CHECK (col IN (...))` clause to a migration if you also want database-level enforcement.
+
+Adding or removing a value only requires editing the schema array — TypeScript then surfaces every consumer that hasn't caught up.
 
 ### Why migrate scripts pass `--config wrangler.dev.jsonc`
 
