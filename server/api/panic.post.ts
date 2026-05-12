@@ -1,6 +1,13 @@
+import { eq } from "drizzle-orm"
 import { z } from "zod"
 
 import { panicPages } from "~~/server/db/schema"
+import { usePager, type PageNotification } from "~~/server/utils/pager"
+
+const PRIORITY_BY_CHANNEL: Record<(typeof panicPages.channel.enumValues)[number], PageNotification["priority"]> = {
+  red: 5,
+  green: 3,
+}
 
 const PanicBody = z.object({
   channel: z.enum(panicPages.channel.enumValues),
@@ -57,21 +64,42 @@ export default defineEventHandler(async (event) => {
   }
 
   const id = crypto.randomUUID()
+  const db = useDb(event)
 
-  await useDb(event).insert(panicPages).values({
+  await db.insert(panicPages).values({
     id,
     channel,
     issue,
     contact,
     createdAt: new Date(),
+    notificationStatus: "pending",
   })
 
-  // real paging logic goes here
+  const notification: PageNotification = {
+    title: `panic [${channel}]`,
+    body: `${issue}\n\n— ${contact}`,
+    priority: PRIORITY_BY_CHANNEL[channel],
+    tags: [channel === "red" ? "rotating_light" : "green_circle"],
+  }
+
+  const result = await usePager().send(notification)
+
+  await db
+    .update(panicPages)
+    .set({
+      notificationStatus: result.ok ? "sent" : "failed",
+      notificationError: result.ok ? null : result.error,
+      notificationMessageId: result.ok ? result.messageId : null,
+      notifiedAt: new Date(),
+    })
+    .where(eq(panicPages.id, id))
+
   console.log("[panic]", {
     id,
     channel,
-    issue: issue.slice(0, 80),
-    contact: contact.slice(0, 40),
+    status: result.ok ? "sent" : "failed",
+    messageId: result.ok ? result.messageId : undefined,
+    error: result.ok ? undefined : result.error,
   })
 
   return { ok: true, id }

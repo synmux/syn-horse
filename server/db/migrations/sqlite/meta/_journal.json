@@ -8,6 +8,13 @@
       "when": 1778612133598,
       "tag": "0000_stale_omega_sentinel",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1778613134919,
+      "tag": "0001_burly_kinsey_walden",
+      "breakpoints": true
     }
   ]
 }

@@ -1,18 +1,9 @@
 # to-do list
 
-- [ ] integrate real paging for `/panic`.
-  - support for notification platforms should be modular, with a unified interface.
-  - we're going to start by using ntfy because it's easy.
-    - publish to topic "syn.horse"
-    - use the canonical `ntfy.sh` instance
-    - no access control is required to publish there
-    - the `ntfy` NPM package is installed. use it.
-  - For now, fire the ntfy call immediately. Use ntfy priority to define priority.
-  - For now the row sits in panic_pages and the line below flows to Workers Logs.
-  - when code exists to push to ntfy, do so, logging the results in D1 alongside the already captured data.
-    - Make sure that if a call throws we capture the failure.
-  - long term plan for this; publish to a Workers Queue and have another Worker consume it, setting up a pattern which we might use later
-  - for now, just write to ntfy and log to the db, but implement with mind to how it'll work in future.
+- [ ] move the `/panic` ntfy call onto a Cloudflare Workers Queue + consumer Worker; the route handler enqueues `{ panicId, notification }` and the consumer calls `ntfyPager().send()` and runs the existing `panic_pages` update block.
+- [ ] add retry policy + dead-letter handling once the queue lands.
+- [ ] consider a second `Pager` implementation (slack, email, etc.) if/when needed — extend `usePager()` to choose based on channel or runtime config.
+- [ ] decide whether to keep `notificationStatus = "pending"` rows visible to any future admin UI as an "in-flight" state, vs treating them as failed after a TTL.
 - [ ] RSS feed at `/feed.xml` — currently linked from the home and blog footers but returns 404. Wants a `server/routes/feed.xml.ts` reading from a `queryCollection`.
 - [ ] mobile breakpoints — the source design ships no `@media` queries; some headings overflow narrow viewports
 
@@ -59,7 +50,6 @@
 - [ ] reduce PII in Workers logs for `/api/panic`. The route currently logs truncated `issue` and `contact`; consider logging only the id/channel and keeping sensitive details in D1.
 - [ ] add a `channel` constraint at the database layer for `panic_pages` so D1 enforces `red` / `green`, not just TypeScript and Zod.
 - [ ] decide on retention for `panic_pages` rows, since they contain contact details and incident descriptions.
-- [ ] implement the real paging path already sketched in `server/api/panic.post.ts`: red immediate notification, green deferred/batched notification, and a retry/dead-letter story.
 - [ ] review the CSP once Turnstile, gtag, and any future scripts are settled. The current `script-src` includes `https:`, `'unsafe-inline'`, `'strict-dynamic'`, a nonce, and `'wasm-unsafe-eval'`; some of that may be necessary, but it is worth documenting the minimum.
 - [ ] verify whether `public/_robots.txt` and `app/assets/robots.txt` are intentional. Neither is a plain `public/robots.txt`; confirm `@nuxtjs/seo` is serving the desired robots response and remove duplicates if not needed.
 - [ ] revisit production observability settings after launch. `head_sampling_rate: 1`, invocation logs, server source maps, and `upload_source_maps` are useful during bring-up but may be noisy or too revealing long-term.
