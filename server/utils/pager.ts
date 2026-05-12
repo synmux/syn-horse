@@ -14,7 +14,8 @@ export interface Pager {
 }
 
 const NTFY_SERVER = "https://ntfy.sh"
-const NTFY_TOPIC = "syn.horse"
+// ntfy topic names must match /^[-_A-Za-z0-9]{1,64}$/ — dots are rejected as 404.
+const NTFY_TOPIC = "syn-horse"
 
 export const ntfyPager = (): Pager => ({
   async send(notification) {
