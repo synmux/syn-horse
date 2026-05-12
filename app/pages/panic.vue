@@ -165,7 +165,7 @@ function reset() {
 
       <div class="panic-actions">
         <button type="button" class="panic-btn" :class="{ armed: redArmed }" :disabled="!canSubmit" @click="clickRed">
-          {{ redArmed ? "← are you sure? click again to wake them up" : "← BIG RED BUTTON" }}
+          {{ redArmed ? "← click again to wake me up" : "← BIG RED BUTTON" }}
         </button>
         <button type="button" class="panic-btn green" :disabled="!canSubmit" @click="clickGreen">
           small green button →
