@@ -1,1 +1,0 @@
-ALTER TABLE `panic_pages` DROP COLUMN `priority`;
