@@ -3,19 +3,20 @@ export default {
 	// 	return new Response('Hello!');
 	// },
 	// https://developers.cloudflare.com/queues/platform/javascript-apis/#messagebatch
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	async queue(batch, env): Promise<void> {
-		for (let message of batch.messages) {
-			if (typeof message.body != 'object') {
-				let errText = JSON.stringify({
+		for (const message of batch.messages) {
+			if (typeof message.body !== 'object') {
+				const errText = JSON.stringify({
 					messageId: message.id,
 					obj: message.body,
 					message: 'typeof message.body != object',
 				});
 				console.error(errText);
 			}
-			let body = message.body as Record<string, unknown> | Error;
+			const body = message.body as Record<string, unknown> | Error;
 			if (body instanceof Error) {
-				let errText = JSON.stringify({
+				const errText = JSON.stringify({
 					messageId: message.id,
 					obj: body,
 					message: 'message.body instanceof Error',

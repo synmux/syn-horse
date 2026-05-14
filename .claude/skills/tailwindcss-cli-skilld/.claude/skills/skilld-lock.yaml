@@ -1,8 +1,0 @@
-skills:
-  tailwindcss-cli-skilld:
-    packageName: "@tailwindcss/cli"
-    version: 4.2.4
-    repo: tailwindlabs/tailwindcss
-    source: "https://github.com/tailwindlabs/tailwindcss/tree/v4.2.4/docs"
-    syncedAt: 2026-05-06
-    generator: skilld

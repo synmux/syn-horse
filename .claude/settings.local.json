@@ -1,7 +1,0 @@
-{
-  "skillOverrides": {},
-  "sandbox": {
-    "enabled": true,
-    "autoAllowBashIfSandboxed": true
-  }
-}
