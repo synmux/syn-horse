@@ -1,5 +1,4 @@
 import type { H3Event } from "h3"
-import { publish, type MessagePriority } from "ntfy"
 
 export type PageNotification = {
   title: string
@@ -8,26 +7,22 @@ export type PageNotification = {
   tags?: string[]
 }
 
-export type PageResult = { ok: true; messageId: string } | { ok: false; error: string }
+export type PageResult = { ok: true } | { ok: false; error: string }
 
 export interface Pager {
   send(notification: PageNotification): Promise<PageResult>
 }
 
-const NTFY_SERVER = "https://ntfy.sh"
+export type NotificationQueueMessage = {
+  panicId: string
+  notification: PageNotification
+}
 
-export const ntfyPager = (topic: string): Pager => ({
+export const queuePager = (queue: Queue<NotificationQueueMessage>, panicId: string): Pager => ({
   async send(notification) {
     try {
-      const response = await publish({
-        server: NTFY_SERVER,
-        topic,
-        title: notification.title,
-        message: notification.body,
-        priority: notification.priority as MessagePriority,
-        tags: notification.tags,
-      })
-      return { ok: true, messageId: String(response.id) }
+      await queue.send({ panicId, notification }, { contentType: "json" })
+      return { ok: true }
     } catch (error) {
       return {
         ok: false,
@@ -37,10 +32,7 @@ export const ntfyPager = (topic: string): Pager => ({
   },
 })
 
-// When the Workers Queue lands, swap to a queuePager() whose send() enqueues;
-// the consumer Worker will instantiate ntfyPager() directly and call .send()
-// with the same PageNotification shape.
-export const usePager = (event: H3Event): Pager => {
-  const { ntfy } = useRuntimeConfig(event)
-  return ntfyPager(ntfy.topic)
+export const usePager = (event: H3Event, panicId: string): Pager => {
+  const queue = event.context.cloudflare.env.NOTIFICATIONS as Queue<NotificationQueueMessage>
+  return queuePager(queue, panicId)
 }

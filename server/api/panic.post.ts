@@ -82,14 +82,13 @@ export default defineEventHandler(async (event) => {
     tags: [channel === "red" ? "rotating_light" : "green_circle"],
   }
 
-  const result = await usePager(event).send(notification)
+  const result = await usePager(event, id).send(notification)
 
   await db
     .update(panicPages)
     .set({
-      notificationStatus: result.ok ? "sent" : "failed",
+      notificationStatus: result.ok ? "queued" : "failed",
       notificationError: result.ok ? null : result.error,
-      notificationMessageId: result.ok ? result.messageId : null,
       notifiedAt: new Date(),
     })
     .where(eq(panicPages.id, id))
@@ -97,8 +96,7 @@ export default defineEventHandler(async (event) => {
   console.log("[panic]", {
     id,
     channel,
-    status: result.ok ? "sent" : "failed",
-    messageId: result.ok ? result.messageId : undefined,
+    status: result.ok ? "queued" : "failed",
     error: result.ok ? undefined : result.error,
   })
 

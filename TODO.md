@@ -1,9 +1,9 @@
 # to-do list
 
-- [ ] move the `/panic` ntfy call onto a Cloudflare Workers Queue + consumer Worker; the route handler enqueues `{ panicId, notification }` and the consumer calls `ntfyPager().send()` and runs the existing `panic_pages` update block.
-- [ ] add retry policy + dead-letter handling once the queue lands.
-- [ ] consider a second `Pager` implementation (slack, email, etc.) if/when needed — extend `usePager()` to choose based on channel or runtime config.
-- [ ] decide whether to keep `notificationStatus = "pending"` rows visible to any future admin UI as an "in-flight" state, vs treating them as failed after a TTL.
+- [ ] build the consumer Worker for the `NOTIFICATIONS` queue: pull `{ panicId, notification }` envelopes off the queue, dispatch to a destination (ntfy/slack/email/etc.), and update the `panic_pages` row referenced by `panicId` with `notificationStatus = "sent"`/`"failed"`, `notificationMessageId`, and any error detail.
+- [ ] add retry policy + dead-letter handling on the consumer side once it lands.
+- [ ] consider a second `Pager` implementation on the producer side (e.g. a direct synchronous channel) if/when needed — extend `usePager()` to choose based on channel or runtime config.
+- [ ] decide whether to keep `notificationStatus = "pending"` / `"queued"` rows visible to any future admin UI as in-flight states, vs treating them as failed after a TTL.
 - [ ] RSS feed at `/feed.xml` — currently linked from the home and blog footers but returns 404. Wants a `server/routes/feed.xml.ts` reading from a `queryCollection`.
 - [ ] mobile breakpoints — the source design ships no `@media` queries; some headings overflow narrow viewports
 
@@ -16,7 +16,7 @@
 - [ ] decide whether the `x:test*` scripts are real project commands. They currently call `vitest` and `playwright`, but neither binary is installed as a direct dependency, so both version checks fail with `command not found`.
 - [ ] add a small smoke-test suite for core routes: `/`, `/blog`, one known `/blog/<slug>`, `/feed.xml`, `/robots.txt`, `/sitemap.xml`, and `/api/panic` validation failure/success paths.
 - [ ] add a content-asset check that scans Markdown image links and fails CI when the target is missing or accidentally relative to the wrong directory.
-- [ ] audit direct dependencies and move/remove packages that are only historical or optional peers: candidates include `openai`, `uuid`, `ntfy`, `pushover-js`, `dotenv`, `@dotenvx/dotenvx`, `node-gyp`, `untun`, `nuxi`, `@catppuccin/*`, and possibly `@libsql/client` / `better-sqlite3` if they are only present for local `@nuxt/content` support.
+- [ ] audit direct dependencies and move/remove packages that are only historical or optional peers: candidates include `openai`, `uuid`, `pushover-js`, `dotenv`, `@dotenvx/dotenvx`, `node-gyp`, `untun`, `nuxi`, `@catppuccin/*`, and possibly `@libsql/client` / `better-sqlite3` if they are only present for local `@nuxt/content` support.
 - [ ] consider gating `devtools.enabled` / timeline config to development only, unless the Nuxt production build is confirmed to tree-shake all devtools runtime.
 - [ ] avoid side effects in `nuxt.config.ts`: it writes `.buildtime` when imported if the file is missing. Prefer a build/deploy script, environment variable, or Nitro hook so config evaluation stays read-only.
 

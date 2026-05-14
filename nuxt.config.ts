@@ -299,11 +299,6 @@ export default defineNuxtConfig({
     cloudflare: {
       d1Token: "", // overridden by environment variable
     },
-    ntfy: {
-      // ntfy topic name; must match /^[-_A-Za-z0-9]{1,64}$/ (no dots).
-      // Override per environment with NUXT_NTFY_TOPIC.
-      topic: "syn-horse",
-    },
     public: {
       apiBase: "/api",
       buildTime,

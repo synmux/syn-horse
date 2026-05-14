@@ -6,7 +6,7 @@ export const panicPages = sqliteTable("panic_pages", {
   issue: text().notNull(),
   contact: text().notNull(),
   createdAt: integer({ mode: "timestamp" }).notNull(),
-  notificationStatus: text({ enum: ["pending", "sent", "failed"] })
+  notificationStatus: text({ enum: ["pending", "queued", "sent", "failed"] })
     .notNull()
     .default("pending"),
   notificationError: text(),
