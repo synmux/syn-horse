@@ -25,4 +25,6 @@
 	"placement": {
 		"mode": "smart",
 	},
+	"workers_dev": false,
+	"preview_urls": false,
 }
