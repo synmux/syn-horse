@@ -231,6 +231,14 @@ export default defineNuxtConfig({
           mode: "smart",
         },
         preview_urls: true,
+        queues: {
+          producers: [
+            {
+              binding: "NOTIFICATIONS",
+              queue: "syn-horse-notifications",
+            },
+          ],
+        },
         routes: [
           {
             custom_domain: true,
