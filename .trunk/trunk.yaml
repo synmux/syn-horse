@@ -7,7 +7,7 @@ cli:
 plugins:
   sources:
     - id: trunk
-      ref: v1.9.0
+      ref: v1.10.0
       uri: https://github.com/trunk-io/plugins
 # Many linters and tools depend on runtimes - configure them here. (https://docs.trunk.io/runtimes)
 runtimes:
@@ -27,7 +27,7 @@ lint:
     - trunk-toolbox@0.7.0
     - oxipng@10.1.1
     - actionlint@1.7.12
-    - checkov@3.2.528
+    - checkov@3.2.529
     - eslint@10.3.0
     - git-diff-check
     - markdownlint@0.48.0
@@ -56,16 +56,16 @@ lint:
     - linters:
         - trunk-toolbox
       paths:
-        - "**/*.gif"
-        - "**/*.ico"
-        - "**/*.jpg"
-        - "**/*.pdf"
-        - "**/*.png"
-        - "**/*.avif"
-        - "**/*.vsix"
-        - "**/*.webp"
-        - "**/*.zip"
-        - "**/*.mov"
+        - '**/*.gif'
+        - '**/*.ico'
+        - '**/*.jpg'
+        - '**/*.pdf'
+        - '**/*.png'
+        - '**/*.avif'
+        - '**/*.vsix'
+        - '**/*.webp'
+        - '**/*.zip'
+        - '**/*.mov'
         - .devcontainer/devcontainer.json
         - .trunk/trunk.yaml
         - docs/**
