@@ -1,10 +1,15 @@
 import { formatMessageSummary, safeParseMessage, type Message } from "./schema.ts"
 import getAdapter from "./adapters/index.ts"
 
+/* http get ability
+
+async fetch(req, env, ctx): Promise<Response> {
+  return new Response('Hello!');
+}
+
+*/
+
 export default {
-  // async fetch(req, env, ctx): Promise<Response> {
-  // 	return new Response('Hello!');
-  // },
   // https://developers.cloudflare.com/queues/platform/javascript-apis/#messagebatch
   async queue(batch, _env): Promise<void> {
     for (const message of batch.messages) {
