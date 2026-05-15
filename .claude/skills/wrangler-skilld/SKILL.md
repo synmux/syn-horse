@@ -2,13 +2,14 @@
 name: wrangler-skilld
 description: 'ALWAYS use when writing code importing "wrangler". Consult for debugging, best practices, or modifying wrangler, workers-sdk, workers sdk.'
 metadata:
-  version: 4.88.0
-  generated_at: 2026-05-06
+  version: 4.92.0
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-05-15
 ---
 
-# cloudflare/workers-sdk `wrangler@4.88.0`
+# cloudflare/workers-sdk `wrangler@4.92.0`
 
-**Tags:** wrangler@2.2.4: 2.2.4, legacy: 3.114.17, latest: 4.88.0
+**Tags:** wrangler@2.2.4: 2.2.4, legacy: 3.114.17, latest: 4.92.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
@@ -18,260 +19,83 @@ Use `skilld search "query" -p wrangler` instead of grepping `.skilld/` directori
 
 <!-- skilld:api-changes -->
 
-## Wrangler v4 API Changes
+## API Changes — wrangler v4.92.0
 
-Documentation of significant API additions, deprecations, removals, and signature changes in wrangler v4.76.0 through v4.80.0. Changes are scored by impact: silent breaking changes (10), removed APIs (8), new APIs (5), deprecated features (3), renames (2), and other modifications (1).
+This section documents version-specific API changes from recent v4.x releases. Focus on recent major/minor releases that introduce new commands, bindings, configuration properties, and breaking changes.
 
-## Score 5 — New APIs (14 changes)
+## API Changes
 
-### AI Search Binding Types
+- NEW: `wrangler ai-search` command namespace — v4.79.0 adds CLI commands for managing Cloudflare AI Search (open beta): `ai-search list`, `create`, `get`, `update`, `delete`, `search`, `stats` [source](./.skilld/releases/wrangler@4.79.0.md#minor-changes)
 
-**Source:** `releases/wrangler@4.78.0.md` § MINOR Changes (lines 2–3)
+- NEW: `wrangler tunnel` commands — v4.75.0 adds a full set of commands for managing remotely-managed Cloudflare Tunnels: `tunnel create`, `list`, `info`, `delete`, `run`, `quick-start`. All marked experimental [source](./.skilld/releases/wrangler@4.75.0.md#minor-changes)
 
-Added `ai_search_namespaces` and `ai_search` binding configuration types:
+- NEW: `--secrets-file` parameter for `wrangler deploy` and `wrangler versions upload` — v4.74.0 adds support for uploading secrets in a single operation alongside Worker code, supporting both JSON and .env file formats [source](./.skilld/releases/wrangler@4.74.0.md#minor-changes)
 
-- `ai_search_namespaces`: array of namespace bindings with auto-provisioning (binding + namespace name)
-- `ai_search`: array of instance bindings (binding + instance_name reference)
+- NEW: `--local` flag for all Workflows CLI commands — v4.79.0 adds `--local` flag targeting local dev server instead of Cloudflare API, used with `workflows list`, `trigger`, `instances describe`, `instances pause` [source](./.skilld/releases/wrangler@4.79.0.md#minor-changes)
 
-Enable AI Search API integration via configuration. Distinct from the command-line AI Search management interface.
+- NEW: `stream` binding type — v4.76.0 recognises `stream` binding in configuration, deployment metadata, and type generation [source](./.skilld/releases/wrangler@4.76.0.md#minor-changes)
 
-### AI Search Type Generation
+- NEW: `ai_search_namespaces` and `ai_search` binding types — v4.78.0 adds two new AI Search binding types: namespace binding (auto-provisioned) and instance binding (pre-existing). Both remote-only in local dev [source](./.skilld/releases/wrangler@4.78.0.md#minor-changes)
 
-**Source:** `releases/wrangler@4.80.0.md` § MINOR Changes (lines 11–33)
+- NEW: `vpc_networks` binding support — v4.80.0 adds binding for routing Worker traffic through Cloudflare Tunnel or network, configured with `tunnel_id` or `network_id` [source](./.skilld/releases/wrangler@4.80.0.md#minor-changes)
 
-`wrangler types` now generates TypeScript types for AI Search bindings:
+- NEW: `X_BROWSER_HEADFUL` environment variable for headful browser rendering — v4.80.0 (experimental) enables visible browser mode during local development when set to `true` [source](./.skilld/releases/wrangler@4.80.0.md#minor-changes)
 
-- `AiSearchNamespace` type for `ai_search_namespaces` bindings
-- `AiSearchInstance` type for `ai_search` bindings
+- BREAKING: `cf-requirements` support for Python workers removed — v4.77.0 removes support which "hasn't worked with the runtime for a while now" [source](./.skilld/releases/wrangler@4.77.0.md#patch-changes)
 
-Example usage:
+- NEW: Experimental `secrets` configuration property — v4.77.0, 4.70.0 add `secrets.required` array for declaring required secret names with validation during deploy and local dev [source](./.skilld/releases/wrangler@4.77.0.md#minor-changes)
 
-```typescript
-interface Env {
-  AI_SEARCH: AiSearchNamespace
-  BLOG_SEARCH: AiSearchInstance
-}
-```
+- NEW: `wrangler containers registries credentials` command — v4.70.0 generates short-lived push/pull credentials for Cloudflare managed registry with `--push`, `--pull`, `--expiration-minutes` flags [source](./.skilld/releases/wrangler@4.70.0.md#minor-changes)
 
-### AI Search Command Namespace
+- NEW: `wrangler containers instances <application_id>` command — v4.74.0 lists all container instances for a given application with pagination support [source](./.skilld/releases/wrangler@4.74.0.md#minor-changes)
 
-**Source:** `releases/wrangler@4.79.0.md` § MINOR Changes (lines 11–19)
+- NEW: `wrangler containers list` pagination and Dash API — v4.76.0 rewrites to use `/dash/applications` endpoint with paginated table output (ID, Name, State, Live Instances, Last Modified), supports `--per-page` and `--json` flags [source](./.skilld/releases/wrangler@4.76.0.md#minor-changes)
 
-Added `wrangler ai-search` command namespace for Cloudflare AI Search API management (open beta):
+- NEW: `wrangler pages deployment delete` command — v4.64.0 adds ability to delete Pages deployments via CLI with `--force` flag to skip confirmation [source](./.skilld/releases/wrangler@4.64.0.md#minor-changes)
 
-- `ai-search list`: list instances
-- `ai-search create`: create instance (interactive wizard)
-- `ai-search get`: retrieve instance details
-- `ai-search update`: modify instance
-- `ai-search delete`: remove instance
-- `ai-search search`: semantic search with repeatable `--filter key=value` flags
-- `ai-search stats`: fetch instance statistics
+- NEW: Type generation for AI Search bindings — v4.80.0 generates `AiSearchNamespace` and `AiSearchInstance` types when running `wrangler types` [source](./.skilld/releases/wrangler@4.80.0.md#minor-changes)
 
-Requires `wrangler login` authentication.
+- NEW: Type generation for Stream bindings — v4.76.0 generates Stream types in `wrangler types` output [source](./.skilld/releases/wrangler@4.76.0.md#minor-changes)
 
-### VPC Networks Binding
+- NEW: Schema-based type generation for Pipeline bindings — v4.67.0 generates typed `Pipeline<T>` bindings from stream schema when using `wrangler types` [source](./.skilld/releases/wrangler@4.67.0.md#minor-changes)
 
-**Source:** `releases/wrangler@4.80.0.md` § MINOR Changes (lines 48–59)
+- NEW: `escapeCodeTimeout` option for `onKeyPress` utility — v4.74.0 adds optional parameter controlling how long readline waits to disambiguate Esc from multi-byte escape sequences (default 500ms) [source](./.skilld/releases/wrangler@4.74.0.md#patch-changes)
 
-Added `vpc_networks` binding for routing Worker traffic through Cloudflare Tunnel or mesh network:
+- NEW: `WRANGLER_COMMAND` environment variable for custom build commands — v4.64.0 sets to `"dev"`, `"deploy"`, `"versions upload"`, or `"types"` based on invoked command [source](./.skilld/releases/wrangler@4.64.0.md#minor-changes)
 
-```jsonc
-{
-  "vpc_networks": [
-    { "binding": "MY_FIRST_VPC", "tunnel_id": "<tunnel-id>" },
-    { "binding": "MY_SECOND_VPC", "network_id": "cf1:network" }
-  ]
-}
-```
-
-Enables network-isolated Worker execution.
-
-### VPC TCP Services (Hyperdrive Origins)
-
-**Source:** `releases/wrangler@4.78.0.md` § MINOR Changes (lines 4–6)
-
-Added Workers VPC service support via `--service-id` option for Hyperdrive origins, enabling Hyperdrive to connect to databases through private VPC networks.
-
-### Stream Binding Support
-
-**Source:** `releases/wrangler@4.76.0.md` § MINOR Changes (lines 17–19)
-
-Wrangler and workers-utils now recognize `stream` binding in configuration, deployment metadata, and generated worker types. Enables Stream binding declaration in `wrangler.json`.
-
-### Stream Binding Local Mode
-
-**Source:** `releases/wrangler@4.78.0.md` § MINOR Changes (lines 5–7)
-
-Added local emulation support for Stream bindings, enabling:
-
-- Video upload and download operations
-- Video transcoding and format conversion
-- Caption management and generation
-- Watermark application
-
-Available during `wrangler dev` with full API compatibility.
-
-### Experimental Headful Browser Rendering
-
-**Source:** `releases/wrangler@4.80.0.md` § MINOR Changes (lines 35–46)
-
-Added experimental `X_BROWSER_HEADFUL` environment variable for headful (visible) browser rendering during local development:
-
-```sh
-X_BROWSER_HEADFUL=true wrangler dev
-X_BROWSER_HEADFUL=true vite dev
-```
-
-Allows debugging browser operations visually. Note: `@cloudflare/playwright` may spawn two Chrome windows (expected behavior).
-
-### Workflows --local Flag
-
-**Source:** `releases/wrangler@4.79.0.md` § MINOR Changes (lines 21–30)
-
-All Workflows CLI commands now support `--local` flag to target local `wrangler dev` session instead of production API:
-
-```sh
-wrangler workflows list --local
-wrangler workflows trigger my-workflow '{"key":"value"}' --local
-wrangler workflows instances describe my-workflow latest --local
-wrangler workflows instances pause my-workflow <id> --local --port 9000
-```
-
-Uses `/cdn-cgi/explorer/api/workflows` endpoint. Optional `--port` flag (default 8787) for custom dev server port.
-
-### Secrets Configuration Property
-
-**Source:** `releases/wrangler@4.77.0.md` § MINOR Changes (lines 11–23 and patch changes § 26–39)
-
-Added experimental `secrets` configuration property with required secrets validation for both `wrangler deploy` and `wrangler versions upload`:
-
-```jsonc
-{
-  "secrets": {
-    "required": ["API_KEY", "DB_PASSWORD"]
-  }
-}
-```
-
-Validates that all secrets declared in `secrets.required` are configured on the Worker before deployment. Fails with clear error listing missing secrets if validation fails.
-
-### VPC Cert-Verification Mode
-
-**Source:** `releases/wrangler@4.78.0.md` § MINOR Changes (lines 8–9)
-
-Added `--cert-verification-mode` option to VPC service `create` and `update` commands with three modes:
-
-- `verify_full`: full certificate verification (default)
-- `verify_ca`: CA certificate verification only
-- `disabled`: no verification
-
-Enables flexible TLS configuration for private network connections.
-
-### Local Explorer Enabled by Default
-
-**Source:** `releases/wrangler@4.76.0.md` § MINOR Changes (lines 21–25)
-
-Ungated local explorer UI enabled by default, accessible at `/cdn-cgi/explorer` during local development for inspecting:
-
-- D1 database state
-- Durable Objects state
-- KV namespace contents
-
-Can be disabled with `X_LOCAL_EXPLORER=false` environment variable. Feature remains experimental.
-
-### Access Service Token Authentication
-
-**Source:** `releases/wrangler@4.78.0.md` § MINOR Changes (lines 2–3)
-
-Added Cloudflare Access Service Token authentication via environment variables:
-
-- `CLOUDFLARE_ACCESS_CLIENT_ID`
-- `CLOUDFLARE_ACCESS_CLIENT_SECRET`
-
-Enables service-to-service authentication without user session requirements.
-
-### Containers List Paginated API
-
-**Source:** `releases/wrangler@4.76.0.md` § MINOR Changes (lines 11–15)
-
-Rewrote `wrangler containers list` command to use paginated Dash API endpoint (`/dash/applications`):
-
-- Fetches from Dash API instead of legacy `/applications` endpoint
-- Displays results in paginated table with columns: ID, Name, State, Live Instances, Last Modified
-- `--per-page` flag (default 25) for interactive pagination (Enter to load, q/Esc to quit)
-- `--json` flag for machine-readable output
-- Non-interactive environments load all results in single request
-
-## Score 3 — Deprecated Features (0 changes)
-
-No explicitly deprecated features identified in v4.76.0–v4.80.0 range.
-
-## Score 8 — Removed APIs (1 change)
-
-### Python cf-requirements Support Removal
-
-**Source:** `releases/wrangler@4.77.0.md` § Patch Changes (line 55)
-
-Removed `cf-requirements` support for Python workers. Feature has not worked with the runtime for an extended period. Python Workers should use alternative dependency management approaches.
-
-## Score 2 — Renames and Structural Changes (2 changes)
-
-### Qwik Adapter Command Selection
-
-**Source:** `releases/wrangler@4.77.0.md` § Patch Changes (lines 47–53)
-
-Fixed `qwik add` invocations in autoconfig to use `cloudflare-workers` instead of `cloudflare-pages` when targeting Cloudflare Workers. This corrects adapter directory structure generation and eliminates Pages-specific file cleanup requirements.
-
-Added `--skipConfirmation=true` to all `qwik add` invocations for automated contexts.
-
-### Containers List Endpoint Migration
-
-**Source:** `releases/wrangler@4.76.0.md` § MINOR Changes (lines 11–15)
-
-Migrated `wrangler containers list` from legacy `/applications` endpoint to `/dash/applications` paginated Dash API. Command signature and CLI behavior changed but output format remains compatible.
-
-## Score 1 — Other Modifications (10 changes)
-
-- **Remote preview API reliability (4.77.0):** Added automatic retry for transient 5xx errors (up to 3 attempts, linear backoff) and enforced 30-second per-request timeout to prevent indefinite dev session hangs.
-
-- **Framework version validation (4.79.0):** Added minimum and maximum version validation during auto-configuration. Exits with error if framework version is below minimum; emits warning if version exceeds maximum known major version.
-
-- **Asset configuration robustness (4.79.0):** Fixed `getPlatformProxy` and `unstable_getMiniflareWorkerOptions` crash when `assets` config block lacks `directory` property (external tools like `@cloudflare/vite-plugin` handle asset serving independently).
-
-- **Multi-framework detection (4.79.0):** Fixed autoconfig failure on Waku projects that also detect Hono by filtering out Hono when Waku is detected.
-
-- **Lock file warning suppression (4.79.0):** Suppressed misleading lock file warnings for static projects during autoconfig, since static projects don't require lock files.
-
-- **Versions deploy optimization (4.79.0):** Skipped unnecessary `GET /versions?deployable=true` API call when all version IDs are explicitly provided and `--yes` flag is passed.
-
-- **Asset directory validation (4.79.0):** Improved error message when `assets` directory path points to file instead of directory, replacing unhelpful `ENOTDIR` error with clear user-facing error.
-
-- **Angular SPA auto-configuration (4.78.0):** Added auto-configuration support for Angular SPA projects without SSR requirements.
-
-- **Build error visibility (4.80.0):** Fixed multi-worker mode (`-c` config flags) to display build errors from auxiliary/secondary workers at error level instead of debug level, preventing silent hangs on worker build failures.
-
-- **WebAssembly source phase imports (4.80.0):** Fixed source phase import preservation in both `--no-bundle` and bundled deployments for Workers importing WebAssembly.
-
-- **D1 migration file ordering (4.80.0):** Fixed inconsistent D1 migration file ordering across operating systems by sorting migration filenames alphabetically before returning, ensuring consistent chronological ordering.
-
-- **Astro framework compatibility (4.76.0):** Added backward-compatible autoconfig support for Astro 4.x and 5.x projects via manual adapter installation and configuration when native `astro add cloudflare` is incompatible.
-
-- **Vite 6.0.x support (4.80.0):** Polished `@cloudflare/vite-plugin` installation during autoconfig. Lowered minimum Vite version check from 6.1.0 to 6.0.0 and automatically upgraded Vite when project version is in range [6.0.0, 6.1.0).
-
-- **Compatibility date resolution (4.80.0):** Changed default compatibility date generation to use today's date instead of loading locally installed `workerd` via `miniflare`, improving reliability across package manager environments (notably `pnpm`).
-
-- **Container image digest matching (4.76.0):** Fixed container image digest matching when tags include registry ports (e.g., `localhost:5000/app:tag`) by properly stripping tags without breaking port information.
-
-## Also changed:
-
-Miniflare dependency updated to 4.20260401.0 (4.80.0); workerd updated to 1.20260401.1 (4.80.0); @cloudflare/unenv-preset updated to 2.16.0 (4.76.0); container registry port handling refined (4.76.0); secondary worker type resolution with environment overrides supported (4.78.0); dry-run asset validation added (4.78.0); interactive data catalog validation added to R2 commands with --force bypass (4.78.0); fetch() 401 response body issue patched (4.78.0); unexpected configuration field warnings now include upgrade hints when newer Wrangler version available (4.77.0); legacy nitro-cloudflare-dev module removed in favor of built-in nitropack 2.13+ cloudflare-dev preset (current architecture).
-
----
-
-**Total API Changes Documented:** 27 (14 new, 1 removed, 2 renames, 10 other modifications)
-
-**Version Range:** wrangler v4.76.0 (2026-03-20) through v4.80.0 (2026-04-02)
-
-**Note:** Requested wrangler v4.88.0 does not exist in available releases. Latest available release is v4.80.0. This document covers the 5 most recent releases tracked in the wrangler skillD repository.
+**Also changed:** `--json` flag for `wrangler whoami` (v4.65.0) · `wrangler kv namespace delete <name>` positional argument (v4.65.0) · `wrangler pages dev` CF_PAGES environment variables (v4.65.0) · `--json` flag for `wrangler pages project list` (v4.64.0) · `--cert-verification-mode` for VPC services (v4.78.0) · TCP service type support for Workers VPC (v4.78.0) · Local Stream binding support in Miniflare (v4.78.0) · Workflows step limit configuration via `limits.steps` (v4.70.0) · Access Service Token authentication via environment variables (v4.78.0) · Inheritable bindings in type generation for named environments (v4.72.0) · Container egress interception enabled by default (v4.72.0) · Local explorer enabled by default (v4.76.0) · Interactive data catalog validation for R2 operations (v4.78.0) · Framework version validation in autoconfig (v4.79.0) · Autoconfig enabled by default for `wrangler deploy` (v4.68.0)
 
 <!-- /skilld:api-changes -->
+
+<!-- skilld:best-practices -->
+
+## Best Practices
+
+- Keep `compatibility_date` current (within 30 days of today) to access latest runtime features and bug fixes without code changes — new projects benefit from automatic runtime updates [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#keep-your-compatibility-date-current)
+
+- Always run `wrangler types` after changing bindings in your config to regenerate TypeScript definitions — hand-written `Env` interfaces drift from actual config and cause deploy-time type mismatches [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#generate-binding-types-with-wrangler-types)
+
+- Store secrets with `wrangler secret put` only; never add them to config files or source code — config is version-controlled and often committed publicly [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#store-secrets-with-wrangler-secret-not-in-source)
+
+- Define bindings per environment (production, staging, development) — bindings are not inherited from root config, so missing them per-environment causes undefined binding errors at runtime [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#configure-environments-deliberately)
+
+- Use custom domains when your Worker is the origin, and routes when it sits in front of an existing origin — routes require a proxied DNS record first, otherwise requests never reach your Worker [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#set-up-custom-domains-or-routes-correctly)
+
+- Access Cloudflare services via bindings (R2, KV, D1, Queues) instead of REST API calls — bindings are in-process, require no auth, add no network latency, and avoid quota throttling [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-bindings-for-cloudflare-services-not-rest-apis)
+
+- Use Queues for single-step fan-out work and Workflows for multi-step processes that persist state across retries — mixing async patterns causes cascading failures if a single step fails [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-queues-and-workflows-for-async-and-background-work)
+
+- Use Hyperdrive for all remote PostgreSQL/MySQL connections — every connection without Hyperdrive pays 300–500ms per request for TCP handshake and TLS negotiation [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-hyperdrive-for-external-database-connections)
+
+- Enable `observability.enabled` with `head_sampling_rate` before production deployment — without logs and traces, intermittent errors become undebuggable black boxes [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#enable-workers-logs-and-traces)
+
+- Always `await` or pass Promises to `ctx.waitUntil()` — floating promises are silently terminated by the runtime, causing swallowed errors and lost work [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#always-await-or-waituntil-your-promises)
+
+- Use Durable Objects with the Hibernation API for WebSocket connections — Workers alone cannot persist connections across isolate eviction [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-durable-objects-for-websockets)
+
+- Pass request-scoped state as function arguments only; never store it in module-level variables — Workers reuse isolates across requests, causing cross-request data leaks [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#do-not-store-request-scoped-state-in-global-scope)
+
+- Use service bindings for Worker-to-Worker calls instead of HTTP to public URLs — service bindings are zero-cost, bypass the internet, and support type-safe RPC methods [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-service-bindings-for-worker-to-worker-communication)
+
+- Use `crypto.randomUUID()` and `crypto.getRandomValues()` for security-sensitive tokens and IDs — `Math.random()` is predictable and unsuitable for cryptography [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-web-crypto-for-secure-token-generation)
+<!-- /skilld:best-practices -->

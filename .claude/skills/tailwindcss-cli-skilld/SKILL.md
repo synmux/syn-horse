@@ -2,13 +2,14 @@
 name: tailwindcss-cli-skilld
 description: 'ALWAYS use when writing code importing "@tailwindcss/cli". Consult for debugging, best practices, or modifying @tailwindcss/cli, tailwindcss/cli, tailwindcss cli, tailwindcss.'
 metadata:
-  version: 4.2.4
-  generated_at: 2026-05-06
+  version: 4.3.0
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-05-15
 ---
 
-# tailwindlabs/tailwindcss `@tailwindcss/cli@4.2.4`
+# tailwindlabs/tailwindcss `@tailwindcss/cli@4.3.0`
 
-**Tags:** internal: 0.0.0-internal.b2586d4e, next: 4.0.0, latest: 4.2.4
+**Tags:** internal: 0.0.0-internal.b2586d4e, next: 4.0.0, latest: 4.3.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
@@ -18,46 +19,85 @@ Use `skilld search "query" -p @tailwindcss/cli` instead of grepping `.skilld/` d
 
 <!-- skilld:api-changes -->
 
-## API Changes for @tailwindcss/cli
+## API Changes
 
-## New APIs & Features (Score: 3)
+This section documents version-specific API changes — prioritize recent major/minor releases.
 
-1. **Logical block property utilities** — `pbs-*`, `pbe-*`, `mbs-*`, `mbe-*` for padding/margin-block-start/end; `scroll-pbs-*`, `scroll-pbe-*`, `scroll-mbs-*`, `scroll-mbe-*` for scroll variants (v4.2.0, #19601)
+### Deprecated & Removed
 
-2. **Border logical block utilities** — `border-bs-*` and `border-be-*` for border-block-start/end (v4.2.0, #19601)
+- DEPRECATED: `start-*` and `end-*` utilities — v4.2.0 deprecated these in favor of `inset-s-*` and `inset-e-*` for logical inset positioning [source](./.skilld/releases/v4.2.0.md#deprecated)
 
-3. **Logical inline sizing utilities** — `inline-*`, `min-inline-*`, `max-inline-*` utilities for inline-size, min-inline-size, max-inline-size properties (v4.2.0, #19612)
+- DEPRECATED: `break-words` utility — migrated to `wrap-break-word` in v4.1.15 [source](./.skilld/releases/v4.1.15.md:L19)
 
-4. **Logical block sizing utilities** — `block-*`, `min-block-*`, `max-block-*` utilities for block-size, min-block-size, max-block-size properties (v4.2.0, #19612)
+- DEPRECATED: `order-none` utility — migrated to `order-0` in v4.1.8 [source](./.skilld/releases/v4.1.8.md:L18)
 
-5. **Logical inset utilities** — `inset-s-*`, `inset-e-*`, `inset-bs-*`, `inset-be-*` for inset-inline-start/end and inset-block-start/end positioning (v4.2.0, #19613)
+### New Utilities (v4.2.0)
 
-6. **Font features utility** — `font-features-*` utility for font-feature-settings CSS property (v4.2.0, #19623)
+- NEW: Logical block spacing utilities — `pbs-*`, `pbe-*` for `padding-block-start` and `padding-block-end` [source](./.skilld/releases/v4.2.0.md:L13)
 
-7. **New color palettes** — `mauve`, `olive`, `mist`, and `taupe` added to default theme (v4.2.0, #19627)
+- NEW: Logical margin spacing utilities — `mbs-*`, `mbe-*` for `margin-block-start` and `margin-block-end` [source](./.skilld/releases/v4.2.0.md:L14)
 
-8. **@tailwindcss/webpack plugin** — New webpack plugin package for running Tailwind CSS as webpack plugin (v4.2.0, #19610)
+- NEW: Logical scroll spacing utilities — `scroll-pbs-*`, `scroll-pbe-*`, `scroll-mbs-*`, `scroll-mbe-*` for logical scroll padding and margin [source](./.skilld/releases/v4.2.0.md:L15-L16)
 
-9. **Vite 8 support** — Support for Vite 8 in @tailwindcss/vite plugin (v4.2.2, #19790)
+- NEW: Logical border spacing utilities — `border-bs-*`, `border-be-*` for `border-block-start` and `border-block-end` [source](./.skilld/releases/v4.2.0.md:L17)
 
-## Deprecated APIs (Score: 2)
+- NEW: Logical sizing utilities — `inline-*`, `min-inline-*`, `max-inline-*` for `inline-size`, `min-inline-size`, `max-inline-size` [source](./.skilld/releases/v4.2.0.md:L18)
 
-10. **start-_ and end-_ utilities deprecated** — Use `inset-s-*` and `inset-e-*` instead for logical inline positioning (v4.2.0, #19613)
+- NEW: Block sizing utilities — `block-*`, `min-block-*`, `max-block-*` for `block-size`, `min-block-size`, `max-block-size` [source](./.skilld/releases/v4.2.0.md:L19)
 
-11. **Trailing dash support in functional utilities** — Now allowed for backwards compatibility; utilities like `func-name-` no longer error (v4.2.1, #19696)
+- NEW: Logical inset utilities — `inset-s-*`, `inset-e-*`, `inset-bs-*`, `inset-be-*` for logical inset positioning (recommended replacement for `start-*`/`end-*`) [source](./.skilld/releases/v4.2.0.md:L20)
 
-12. **MDX class detection with dots** — Properly detect classes containing `.` characters within curly braces in MDX files (v4.2.1, #19711)
+- NEW: Font feature utilities — `font-features-*` for `font-feature-settings` CSS property [source](./.skilld/releases/v4.2.0.md:L21)
 
-## Bug Fixes & Improvements (Score: 1-2)
+### New Packages & Features
 
-13. **Canonicalization improvements** — Fixed double `@supports` wrapping for `color-mix` values; improved canonicalization for `calc(var(...))` expressions (v4.2.0, #19450; v4.2.2, #19769)
+- NEW: `@tailwindcss/webpack` package — v4.2.0 added webpack plugin support for running Tailwind CSS as a webpack plugin [source](./.skilld/releases/v4.2.0.md:L12)
 
-14. **Whitespace handling in @source** — Allow whitespace around `@source inline()` arguments (v4.2.0, #19461)
+- NEW: Color palettes — v4.2.0 added `mauve`, `olive`, `mist`, and `taupe` color palettes to the default theme [source](./.skilld/releases/v4.2.0.md:L11)
 
-15. **Performance optimization** — Reduced file system walks in Oxide scanner for better performance in larger projects (v4.2.0, #19632)
+- NEW: Source maps support — v4.1.6 added source map generation in development [source](./.skilld/releases/v4.1.6.md:L14)
 
-Also changed: Fixed capital letter detection in utilities (#19465), Rails strict locals support (#19525), @utility name validation alignment (#19524), @variant in @custom-variant infinite loop (#19633), aspect ratio fractions (#19688), external file change detection in Vite (#19670), Astro v5 import aliases (#19677), escape characters in @utility names (#19626), canonicalization multi-pass results (#19675), jj directory ignoring (#19687), prototype property crash prevention (#19725), empty canonicalization list fix (#19812), server-only module reload (#19745).
+### Experimental Features
+
+- NEW: `@container-size` utility (experimental) — upcoming feature for container queries (unreleased) [source](./.skilld/releases/CHANGELOG.md:L12)
+
+### Breaking Changes in v4.1.x
+
+- BREAKING: `aria`, `data`, `supports` theme keys migrated to `@custom-variant` — v4.1.13 moved these theme keys to the `@custom-variant` at-rule system [source](./.skilld/releases/v4.1.13.md:L25-L27)
+
+**Also changed:** `@source inline()` whitespace handling · `@apply` global important state behaviour · Canonicalization of arbitrary values to named values · Color-mix fallback generation · Arbitrary modifier shorthand fixes (`bg-red-500/(--my-opacity)`)
 
 <!-- /skilld:api-changes -->
+
+<!-- skilld:best-practices -->
+
+## Best Practices
+
+- Use `source(none)` when importing Tailwind core to prevent double-scanning — avoids redundant file watche and improves performance [source](./.skilld/releases/v4.2.0.md:L25)
+
+- Validate `@source` paths relative to the CSS file location, not the working directory — relative path resolution depends on file context [source](./.skilld/releases/v4.1.18.md:L11)
+
+- Enable source maps in watch mode by using the CLI with `--watch` flag; source map generation is now correctly handled during file changes [source](./.skilld/releases/v4.1.18.md:L16)
+
+- Avoid outputting to `/dev/stdout` with the CLI — the process will hang; use a file path instead [source](./.skilld/releases/v4.1.18.md:L25)
+
+- Ensure `.gitignore` does not ignore all files with broad patterns like `*` — the CLI file watcher relies on `.gitignore` for change detection and will fail to process CSS if all content is ignored [source](./.skilld/discussions/discussion-19765.md:L34-45)
+
+- Prevent duplicate CLI arguments by using distinct values — duplicate arguments (e.g., `-i input.css -i input.css`) are now validated and correctly deduplicated [source](./.skilld/releases/v4.1.18.md:L23)
+
+- Include filename and line numbers in error messages by using recent CLI versions (v4.1.18+) — parse errors now reference source location for faster debugging [source](./.skilld/releases/v4.1.18.md:L12)
+
+- For Docker bind mounts on macOS, use `fswatch` as a polling alternative since the CLI removed `--poll` support — `@parcel/watcher` does not support polling natively [source](./.skilld/issues/issue-18540.md:L80-121)
+
+- Specify explicit `@source` paths instead of relying on implicit scanning — reduces unnecessary directory watching and improves performance in large projects with many directories [source](./.skilld/issues/issue-15750.md:L38-61)
+
+- Use `--watch=always` to enable continuous file watching mode — ensures the CLI remains active and processes all changes without exiting [source](./.skilld/releases/CHANGELOG.md:L211)
+
+- Ensure input and output file paths are different — using the same file for both input and output will cause the CLI to error [source](./.skilld/releases/CHANGELOG.md:L417)
+
+- Allow sufficient time for file system watcher initialization — cleanup of watchers is guaranteed, but watchers created during watch mode may take time to fully establish before detecting changes [source](./.skilld/releases/CHANGELOG.md:L137)
+
+- Use PostCSS config with ESM and TypeScript support via `postcss-load-config` v4.0+ — older versions lack proper ES module and TypeScript config support required by the CLI [source](./.skilld/releases/CHANGELOG.md:L159)
+<!-- /skilld:best-practices -->
 
 Related: tailwindcss-skilld

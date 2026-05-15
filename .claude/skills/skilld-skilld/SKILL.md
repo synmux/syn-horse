@@ -2,13 +2,14 @@
 name: skilld-skilld
 description: 'ALWAYS use when writing code importing "skilld". Consult for debugging, best practices, or modifying skilld.'
 metadata:
-  version: 1.7.3
-  generated_at: 2026-05-06
+  version: 2.0.0
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-05-15
 ---
 
-# skilld-dev/skilld `skilld@1.7.3`
+# skilld-dev/skilld `skilld@2.0.0`
 
-**Tags:** latest: 1.7.3
+**Tags:** latest: 2.0.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
@@ -18,95 +19,69 @@ Use `skilld search "query" -p skilld` instead of grepping `.skilld/` directories
 
 <!-- skilld:api-changes -->
 
-## API Changes for skilld v1.6.2
+## API Changes
 
-Based on the release history from v1.1.0 through v1.6.2, here are the significant API changes and behavioural shifts that would affect LLM code generation and usage patterns:
+This section documents version-specific API changes — prioritize recent major/minor releases to understand what's new in v2.0.0.
 
-## High-Priority Changes (Score ≥4 — New Commands/Flags)
+- NEW: `skilld prepare` — new command (v1.5.0) for restoring references and syncing shipped skills in package.json hooks [source](./.skilld/releases/v1.5.0.md#features)
 
-1. **skilld prepare** command (v1.5.0) — new command for package.json hook integration
-   - Source: https://github.com/harlan-zw/skilld/issues/43
-   - Allows scripts to hook into the skills lifecycle via package.json
-   - Replaces manual postinstall handling patterns
+- NEW: `skilld author` — new command system (v1.5.0) for maintainers to generate and publish skills directly with their packages [source](./.skilld/releases/v1.5.0.md#features)
 
-2. **skilld author** command (v1.5.0) — new maintainer skill publishing workflow
-   - Source: https://github.com/harlan-zw/skilld/issues/45
-   - Enables skills to be published directly by maintainers
-   - Changes how credentials and publishing are managed
+- NEW: `skilld list --outdated` — flag added (v1.4.0) to filter and display only skills with available version updates [source](./.skilld/releases/v1.4.0.md#features)
 
-3. **search --filter, --limit, --guide** flags (v1.5.0) — full query API expansion
-   - Source: https://github.com/harlan-zw/skilld/issues/47
-   - Replaces simpler search interface with filtering and limit options
-   - --guide flag provides additional context in results
-   - Breaking change for scripts relying on fixed search output format
+- NEW: `skilld search --filter` — flag added (v1.5.0) for filtering search results by type (e.g., issue, discussion, release) using JSON syntax [source](./.skilld/releases/v1.5.0.md#features)
 
-4. **cache --stats, --clean** flags (v1.6.0) — cache introspection and maintenance
-   - Source: https://github.com/skilld-dev/skilld/issues/61
-   - New ability to inspect cache state and clean stale entries
-   - Previously no cache management tools available
+- NEW: `skilld search --limit` — flag added (v1.5.0) to cap the number of search results returned [source](./.skilld/releases/v1.5.0.md#features)
 
-5. **list --outdated** flag (v1.4.0) — filter skills by version mismatch
-   - Source: https://github.com/harlan-zw/skilld/issues/42
-   - Identifies skills with available updates
-   - Essential for automation and CI workflows
+- NEW: `skilld search --guide` — flag added (v1.5.0) to display full search syntax, filters, and operators for advanced queries [source](./.skilld/releases/v1.5.0.md#features)
 
-6. **AI oauth providers** system (v1.3.0) — expanded authentication backend
-   - Source: https://github.com/harlan-zw/skilld/issues/35
-   - Adds OAuth integration for multiple AI platforms (Claude, Gemini, etc.)
-   - Replaces simpler API key handling
-   - UX workflow significantly changed
+- NEW: `skilld cache --stats` — flag added (v1.6.0) to display cache statistics including size and age of LLM-generated sections [source](./.skilld/releases/v1.6.0.md#features)
 
-## Medium-Priority Changes (Score 3-4 — API Behaviour & Features)
+- NEW: `skilld cache --clean` — flag added (v1.6.0) to remove stale and expired cache entries [source](./.skilld/releases/v1.6.0.md#features)
 
-7. **jsonc-parser** dependency (v1.5.0) — surgical package.json editing
-   - Source: https://github.com/harlan-zw/skilld/issues/46
-   - Enables preservation of comments and formatting in package.json
-   - Changes how hook injection works internally
+- NEW: No agent mode — workflow added (v1.1.0) allowing skilld to run without an agent CLI, generating portable prompts for any LLM instead [source](./.skilld/releases/v1.1.0.md#features)
 
-8. **Incremental search index updates** (v1.3.0) — performance optimization
-   - Source: https://github.com/harlan-zw/skilld/issues/41
-   - Replaces all-or-nothing index rebuild with incremental updates
-   - Silent behaviour change; search results may differ on first-run
+- NEW: AI OAuth providers — authentication flow added (v1.3.0) with UX rework to support multiple LLM provider logins [source](./.skilld/releases/v1.3.0.md#features)
 
-9. **LLM prompt caching** for sections (v1.3.0) — caching strategy change
-   - Source: https://github.com/harlan-zw/skilld/issues/40
-   - Syncs cache state with LLM-specific prompt caching backends
-   - May affect response latency and API billing
+- NEW: Private GitHub repo fallback — feature added (v1.2.0) allowing skill docs and sync to resolve from private GitHub repositories [source](./.skilld/releases/v1.2.0.md#features)
 
-10. **Private GitHub repo fallback** (v1.2.0) — authentication fallback added
-    - Source: https://github.com/harlan-zw/skilld/issues/11
-    - Falls back to private repos when public docs unavailable
-    - Requires additional permissions in GitHub token
+- NEW: Incremental search index updates — search system improved (v1.3.0) to rebuild only changed docs instead of all-or-nothing rebuilds, reducing sync time [source](./.skilld/releases/v1.3.0.md#features)
 
-11. **No agent mode** (v1.1.0) — disable agent-based skill discovery
-    - Source: harlan-zw/skilld commit 85dc4
-    - New --no-agent flag to disable automatic skill agent usage
-    - Changes how skills are discovered in default mode
+- NEW: LLM-generated sections — skills now support optional sections for Best Practices, API Changes, and custom prompts curated by LLMs instead of raw docs [source](./.skilld/pkg/README.md:L34)
 
-12. **Dangling symlinks handling** (v1.6.0) — robustness fix for symlink restoration
-    - Source: https://github.com/skilld-dev/skilld/issues/57
-    - Previously would crash on broken symlinks; now gracefully handles them
-    - Silent behaviour change in error handling
-
-13. **Isolated copies from readLock cache** (v1.6.0) — mutation safety fix
-    - Source: https://github.com/skilld-dev/skilld/issues/58
-    - Cache now returns isolated copies instead of shared references
-    - Silent breaking change if code relied on mutation patterns
-
-14. **Prerelease version filtering** (v1.1.0) — version selection behavior
-    - Source: harlan-zw/skilld commit 8004f
-    - No longer shows old prerelease versions in listings
-    - Changes output of list and search commands
-
-15. **Gemini model version bumps** (v1.1.0) — OAuth provider model updates
-    - Source: harlan-zw/skilld commit c09c5
-    - Models specified in oauth provider config may be deprecated
-    - Requires validation of model IDs if hardcoded
-
----
-
-**Version Note:** Latest available is v1.6.2 (2026-04-08), not v1.7.3. The API changes above cover v1.1.0 through v1.6.2 inclusive.
-
-**Also changed:** Commit 37968 added private GitHub repo fallback for skills sync (v1.2.0); Commit 54757 cleaned up stale references (v1.5.0); Commits 2f3f3 and 462d2 improved error handling in symlink and cache operations (v1.6.0).
+**Also changed:** Dangling symlink handling · Isolated lockfile cache copies · Skip LLM on full cache hit · jsonc-parser for surgical edits
 
 <!-- /skilld:api-changes -->
+
+<!-- skilld:best-practices -->
+
+## Best Practices
+
+- Install curated skill collections rather than individual skills — @harlan-zw's stacks (Agent workflow, Architecture, Frontend Design, etc.) are vetted groups that work together cohesively [source](./.skilld/docs/collections.md)
+
+- Use `skilld search` with `--filter`, `--limit`, and `--guide` flags to navigate the registry programmatically instead of browsing without query context [source](./.skilld/releases/v1.5.0.md:L14)
+
+- Run `skilld list --outdated` regularly to identify skills that have newer versions available and require updates [source](./.skilld/releases/v1.4.0.md:L11)
+
+- Manage cache performance with `skilld cache --stats` to monitor cache size and `skilld cache --clean` to remove stale entries before they degrade lookup speed [source](./.skilld/releases/v1.6.0.md:L11)
+
+- Integrate skilld into your build process using `skilld prepare` hooks in package.json — enables skills to stay fresh during development and CI/CD workflows [source](./.skilld/releases/v1.5.0.md:L11)
+
+- Prioritise skill install counts and source reputation when selecting between similar skills — the registry displays install counts and contributor credentials to indicate production readiness [source](./.skilld/docs/index.md:L84)
+
+- Use `skilld author` as a maintainer to publish skills correctly — ensures your skills are indexed with proper metadata and discoverable across the ecosystem [source](./.skilld/releases/v1.5.0.md:L12)
+
+- Trust incremental search index updates introduced in v1.3.0 rather than forcing full rebuilds — the system now updates only changed sections, avoiding redundant embedding work [source](./.skilld/releases/v1.3.0.md:L12)
+
+- Validate skills before deploying by checking that shipped dependencies (from `node_modules`) are used before falling back to doc resolution — prevents loading incompatible or outdated skill versions [source](./.skilld/releases/v1.5.0.md:L18)
+
+- Watch collections for changes after authentication — GitHub sign-in enables weekly digests when curated stacks you depend on receive new skills or updated SKILL.md files [source](./.skilld/docs/collections.md:L106)
+
+- Avoid cherry-picking individual skills from disparate authors — instead, find a collection that matches your workflow and install the whole stack to ensure compatibility and coherent agent capability [source](./.skilld/docs/@harlan-zw/agent-workflow-stack.md)
+
+- Handle dangling symlinks when restoring package symlinks in multi-package setups — recent releases fixed edge cases where broken links caused restore operations to fail silently [source](./.skilld/releases/v1.6.0.md:L15)
+
+- Return isolated copies from the lockfile cache to prevent concurrent operations from mutating shared state — the internal cache now preserves immutability for safe parallel skill resolution [source](./.skilld/releases/v1.6.0.md:L16)
+
+- Skip LLM prompt execution when all sections are already cached during sync operations — conditional prompting reduces token usage and speeds up skill updates for unchanged content [source](./.skilld/releases/v1.3.0.md:L17)
+<!-- /skilld:best-practices -->

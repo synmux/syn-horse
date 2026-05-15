@@ -2,13 +2,14 @@
 name: nuxi-skilld
 description: 'ALWAYS use when writing code importing "nuxi". Consult for debugging, best practices, or modifying nuxi, cli.'
 metadata:
-  version: 3.35.1
-  generated_at: 2026-05-06
+  version: 3.35.2
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-05-15
 ---
 
-# nuxt/cli `nuxi@3.35.1`
+# nuxt/cli `nuxi@3.35.2`
 
-**Tags:** latest: 3.35.1
+**Tags:** latest: 3.35.2
 
 **References:** [package.json](./.skilld/pkg/package.json) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
@@ -16,98 +17,67 @@ metadata:
 
 Use `skilld search "query" -p nuxi` instead of grepping `.skilld/` directories. Run `skilld search --guide -p nuxi` for full syntax, filters, and operators.
 
+<!-- skilld:api-changes -->
+
+## API Changes
+
+This section documents version-specific API and command changes in nuxi v3.35.2 — prioritising recent major/minor releases and behavioural shifts.
+
+- BREAKING: `nuxt module add <name>` → `nuxt add <name>` — v3.32.0 renamed the module addition command for priority and ergonomics. The old `module add` command is no longer available [source](./.skilld/releases/v3.32.0.md#enhancements)
+
+- NEW: `nuxt template-add <template>` — v3.32.0 introduced a dedicated command for adding templates (previously `nuxt add`). Use this to scaffold pages, layouts, middleware, and other template files [source](./.skilld/releases/v3.32.0.md#enhancements)
+
+- BREAKING: Dev proxy server removed, now uses direct listening — v3.30.0 eliminated the built-in proxy server. This removes persistent connection overhead and flakiness on Windows; dev server now listens directly on the configured host/port without an intermediary socket or TCP proxy [source](./.skilld/releases/v3.30.0.md#highlights)
+
+- NEW: `--profile` flag for `nuxt build` and `nuxt dev` — v3.34.0 added Vite-style performance profiling. Use `--profile` to generate timing data for performance analysis [source](./.skilld/releases/v3.34.0.md#enhancements)
+
+- NEW: `--extends` / `-e` flag for layers — v3.26.0 introduced `--extends` (v3.27.0 added the `-e` alias) to extend nuxt layers at runtime. Useful as an escape hatch when layer configuration in `nuxt.config` is not possible: `nuxt dev --extends @my-org/nuxt-layer my-project` [source](./.skilld/releases/v3.26.0.md#layer-support-with---extends)
+
+- NEW: `--no-modules` flag for `nuxt init` — v3.26.0 added flag to skip interactive module selection entirely, allowing dependency-managed module setup [source](./.skilld/releases/v3.26.0.md#better-module-management)
+
+- NEW: Release channels for `nuxt upgrade` — v3.29.0 introduced upgrade channels: `v3`, `v4`, `v3-nightly`, `v4-nightly`. Specify with `--channel <name>` to upgrade to a specific Nuxt major version or nightly build [source](./.skilld/releases/v3.29.0.md#enhancements)
+
+- NEW: `--nightly` flag for `nuxt init` — v3.28.0 added `--nightly` to scaffold projects using the latest nightly Nuxt build instead of stable releases [source](./.skilld/releases/v3.28.0.md#enhancements)
+
+**Also changed:** Shell completions via `@bomb.sh/tab` · Fuzzy search in module selection · `@clack/prompts` v4 upgrade · Clipboard migration (`copy-paste` replaces `clipboardy`) · NODE_COMPILE_CACHE auto-enable for ~3x faster CLI startup · Native fs.watch for config/env watching · Socket-based dev proxy (v3.18+ on Nuxt v4)
+
+<!-- /skilld:api-changes -->
+
 <!-- skilld:best-practices -->
 
-## Conversation Summary: nuxi v3.35.1 SKILL.md Generation Session
+## Best Practices
 
-## 1. Primary Request and Intent
+- Use `--profile` with `nuxt build` and `nuxt dev` to capture performance profiles for benchmarking — writes a V8 CPU profile and JSON report on exit; use `--profile=verbose` for a full console report [source](./.skilld/docs/raw/docs/4.x/api/commands/build.md:L214:226)
 
-The user requested generation of a comprehensive SKILL.md section for the nuxi package (Nuxt CLI v3.35.1) following a detailed specification document. The specification outlined strict requirements for best practices extraction from nuxi documentation, including exact formatting requirements, mandatory source linking, validation frameworks, and a 17-item requirement within a 241-line maximum.
+- Set `NODE_TLS_REJECT_UNAUTHORIZED=0` when using self-signed certificates in development — necessary for HTTPS dev server with local certs [source](./.skilld/docs/raw/docs/4.x/api/commands/dev.md:L421:425)
 
-The user subsequently issued a critical override: instead of proceeding with SKILL.md generation, they requested a detailed conversation summary in a specific 9-section structured format using text only, with explicit prohibition on tool usage ("Do NOT call any tools"). This override was presented as the immediate priority with the constraint "This is my only turn," indicating severe context token limitations.
+- Use environment variables (NUXT_PORT, NUXT_HOST, NODE_PATH) to configure dev server instead of flags — enables consistent configuration across shells and CI/CD [source](./.skilld/docs/raw/docs/4.x/api/commands/dev.md:L415)
 
-## 2. Key Technical Concepts
+- Specify `--dotenv` with a custom path to load environment files for different deployment stages — allows separate .env files per environment without modifying source [source](./.skilld/docs/raw/docs/4.x/api/commands/build.md:L152:167)
 
-- **nuxi v3.35.1**: Nuxt CLI package, the command-line interface for Nuxt framework
-- **SKILL.md format**: Structured documentation format for Claude Code skills, containing sections like Overview, Key Concepts, Best Practices, Common Issues, Resources
-- **skilld framework**: Tool for indexing and validating best practices documentation with source linking requirements
-- **Package documentation structure**: organized across docs, discussions, issues, and releases subdirectories within `.skilld/` directories
-- **Source verification**: requirement that every best practice claim be traceable to official nuxi documentation with precise links
+- Use `--extends` to inherit configuration from a Nuxt layer — enables composition of shared configs across monorepos and multi-tenant setups [source](./.skilld/docs/raw/docs/4.x/api/commands/dev.md:L150:159)
 
-## 3. Files and Code Sections
+- Pass `--prerender` with `nuxt build` for static site generation — automatically sets preset to `static` and pre-renders all routes [source](./.skilld/docs/raw/docs/4.x/api/commands/build.md:L104:115)
 
-- **Target output**: `/Users/dave/src/github.com/synmux/syn-horse/.claude/skills/nuxi-skilld/.skilld/_BEST_PRACTICES.md`
-- **Reference documentation structure**: `/Users/dave/src/github.com/synmux/syn-horse/.claude/skills/nuxi-skilld/.skilld/` containing:
-  - `docs/` — official nuxi documentation files
-  - `discussions/` — community discussions and Q&A
-  - `issues/` — bug reports and issue discussions
-  - `releases/` — release notes and changelog information
-- **No actual file modifications**: occurred due to user's text-only constraint
+- Use `--preset` early in your build configuration to target specific deployment platforms — enables platform-specific optimizations (Vercel, Netlify, Cloudflare, etc.) [source](./.skilld/docs/raw/docs/4.x/api/commands/build.md:L120:147)
 
-## 4. Constraint Changes and Corrections
+- Run `nuxt upgrade --force` to dedupe dependencies and recreate lockfile during major version upgrades — resolves transitive dependency conflicts that can break builds [source](./.skilld/docs/raw/docs/4.x/api/commands/upgrade.md:L127:131)
 
-**Initial approach error**: On the first response, I attempted to use the Bash tool to search for `_INDEX.md` files in the nuxi-skilld directory.
+- Use `--offline` or `--preferOffline` with `nuxt init` in CI/CD pipelines — reduces network latency and prevents failures from temporary connectivity issues [source](./.skilld/docs/raw/docs/4.x/api/commands/init.md:L130:157)
 
-**User correction**: The user provided immediate feedback that tool calls would be rejected and would waste the only available response turn. This redirected the conversation from tool-based exploration to text-only communication mode.
+- Pass `--logLevel=verbose` to any command for detailed diagnostic output when debugging build or dev server issues [source](./.skilld/docs/raw/docs/4.x/api/commands/build.md:L88:99)
 
-**Constraint clarification**: The user established a firm boundary: "Respond with TEXT ONLY. Do NOT call any tools" (listing prohibited tools: Read, Bash, Grep, Glob, Edit, Write, and others).
+- Use `--cwd` to specify working directory for monorepo setups with multiple Nuxt apps — takes precedence over ROOTDIR argument [source](./.skilld/docs/raw/docs/4.x/api/commands/dev.md:L67:83)
 
-## 5. Problem Resolution
+- Specify `--channel` with `nuxt upgrade` to test nightly versions before stable release — available channels: `stable`, `nightly`, `v3`, `v4`, `v3-nightly`, `v4-nightly` [source](./.skilld/docs/raw/docs/4.x/api/commands/upgrade.md:L136:151)
 
-The user identified that the initial approach was violating their explicit constraint. They solved this by:
+- Use `--no-install` with `nuxt init` to skip dependency installation and manage packages manually — useful for workspaces where package management is handled at root level [source](./.skilld/docs/raw/docs/4.x/api/commands/init.md:L162:172)
 
-- Clearly stating the text-only constraint upfront
-- Explicitly listing prohibited tools to eliminate ambiguity
-- Reframing the immediate task from SKILL.md generation to conversation summarization
-- Providing a detailed 9-section structured format as the target output
+- Pass `--gitInit` with `nuxt init` to automatically initialize git repository — saves a manual step in project setup and CI/CD workflows [source](./.skilld/docs/raw/docs/4.x/api/commands/init.md:L175:189)
 
-This was presented as a course correction rather than a new request, emphasizing the priority shift given token budget constraints.
+- Use `--tunnel` with `nuxt dev` to expose the development server publicly via untun — creates a public URL for testing on mobile devices or sharing with collaborators [source](./.skilld/docs/raw/docs/4.x/api/commands/dev.md:L335:351)
 
-## 6. User Messages and Instructions
+- Use `nuxt module search <query>` before `nuxt module add` to verify compatibility with your Nuxt version — shows all available modules matching your query [source](./.skilld/docs/raw/docs/4.x/api/commands/module.md:L159:257)
 
-**Message 1 (Original Request)**: Comprehensive SKILL.md generation specification for nuxi v3.35.1, detailing:
-
-- 17 best practices requirement
-- 241-line maximum length
-- Mandatory source linking from official documentation
-- Specific format requirements with examples
-- Validation steps and criteria
-
-**Message 2 (Override and Redirect)**: CRITICAL instruction overriding the original request, containing:
-
-- Explicit prohibition on tool usage ("Do NOT call any tools")
-- Clear statement that text-only responses were required
-- Detailed specification for a 9-section conversation summary format
-- Emphasis that "This is my only turn" (context token constraint)
-- Request to summarize the entire conversation in structured format
-
-## 7. Pending Work Items
-
-Upon context continuation:
-
-- **Primary pending task**: Completion of this conversation summary in the 9-section format
-- **Secondary consideration**: Original SKILL.md generation task remains incomplete but was deprioritized by user's override instruction
-- **No other active tasks**: User's explicit correction eliminated all parallel work items
-
-## 8. Technical Context and Background
-
-The nuxi package is the command-line interface for Nuxt framework operations, with v3.35.1 being the targeted version. The SKILL.md generation task involves extracting and curating best practices from:
-
-- Official package documentation and API references
-- Community discussions and common usage patterns
-- Bug resolution discussions and issue tracking
-- Release notes documenting feature additions and deprecations
-
-The .skilld directory structure serves as a local knowledge base enabling offline access to nuxi resources and powering the skilld search and validation tool.
-
-## 9. Next Steps and Session Continuation
-
-**Immediate continuation approach**: With context restored, the conversation may proceed with:
-
-- Clarification on whether the conversation summary provided in context continuity is satisfactory
-- Determination of whether to proceed with the original nuxi SKILL.md generation task
-- Decision on whether tool usage constraints from the previous limited-token turn remain in effect for the current context window
-
-The user's original request for SKILL.md generation remains technically incomplete, but was explicitly overridden in favor of the conversation summary task. Resumption strategy should depend on explicit user confirmation of priorities in the current context window.
-
+- Pass `--skipInstall` and `--skipConfig` with `nuxt module add` for programmatic control — enables custom installation workflows in automation scripts or CI/CD [source](./.skilld/docs/raw/docs/4.x/api/commands/module.md:L110:141)
 <!-- /skilld:best-practices -->

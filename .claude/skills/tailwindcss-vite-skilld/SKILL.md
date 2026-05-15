@@ -2,13 +2,14 @@
 name: tailwindcss-vite-skilld
 description: 'ALWAYS use when writing code importing "@tailwindcss/vite". Consult for debugging, best practices, or modifying @tailwindcss/vite, tailwindcss/vite, tailwindcss vite, tailwindcss.'
 metadata:
-  version: 4.2.4
-  generated_at: 2026-05-06
+  version: 4.3.0
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-05-15
 ---
 
-# tailwindlabs/tailwindcss `@tailwindcss/vite@4.2.4`
+# tailwindlabs/tailwindcss `@tailwindcss/vite@4.3.0`
 
-**Tags:** internal: 0.0.0-internal.b2586d4e, next: 4.0.0, latest: 4.2.4
+**Tags:** internal: 0.0.0-internal.b2586d4e, next: 4.0.0, latest: 4.3.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
@@ -18,46 +19,63 @@ Use `skilld search "query" -p @tailwindcss/vite` instead of grepping `.skilld/` 
 
 <!-- skilld:api-changes -->
 
-## API Changes in @tailwindcss/vite v4.2.4
+## API Changes
 
-## New APIs
+This section documents version-specific API and utility changes in @tailwindcss/vite v4.2.x through unreleased features.
 
-1. **Logical sizing utilities** — `inline-*`, `min-inline-*`, `max-inline-*`, `block-*`, `min-block-*`, `max-block-*` provide CSS logical properties for `inline-size` and `block-size`, essential for bidirectional text and layout flexibility (v4.2.0 #19612). Score: 4/4.
+### New utilities and CSS properties (v4.2.0)
 
-2. **Logical inset positioning** — `inset-s-*`, `inset-e-*`, `inset-bs-*`, `inset-be-*` utilities for `inset-inline-start`, `inset-inline-end`, `inset-block-start`, and `inset-block-end` (v4.2.0 #19613). Score: 4/4.
+- NEW: Block-level logical property utilities — `pbs-*`, `pbe-*` for `padding-block-start` and `padding-block-end`; `mbs-*`, `mbe-*` for `margin-block-start` and `margin-block-end`; `scroll-pbs-*`, `scroll-pbe-*`, `scroll-mbs-*`, `scroll-mbe-*` for scroll variants; `border-bs-*`, `border-be-*` for border logical properties [source](./.skilld/releases/v4.2.0.md#added)
 
-3. **Block-direction spacing utilities** — `mbs-*`, `mbe-*` for `margin-block-start/end` and `pbs-*`, `pbe-*` for `padding-block-start/end` (v4.2.0 #19601). Score: 4/4.
+- NEW: Inline-size logical utilities — `inline-*`, `min-inline-*`, `max-inline-*` for `inline-size`, `min-inline-size`, and `max-inline-size`; `block-*`, `min-block-*`, `max-block-*` for `block-size`, `min-block-size`, and `max-block-size` [source](./.skilld/releases/v4.2.0.md#added)
 
-4. **Block scroll utilities** — `scroll-mbs-*`, `scroll-mbe-*`, `scroll-pbs-*`, `scroll-pbe-*` utilities for scroll-margin/padding in block direction (v4.2.0 #19601). Score: 3/4.
+- NEW: Inset logical property utilities — `inset-s-*`, `inset-e-*` for `inset-inline-start` and `inset-inline-end`; `inset-bs-*`, `inset-be-*` for `inset-block-start` and `inset-block-end` [source](./.skilld/releases/v4.2.0.md#added)
 
-5. **Border block utilities** — `border-bs-*`, `border-be-*` for `border-block-start/end` (v4.2.0 #19601). Score: 3/4.
+- NEW: `font-features-*` utility for `font-feature-settings` CSS property [source](./.skilld/releases/v4.2.0.md#added)
 
-6. **Font features utility** — `font-features-*` for `font-feature-settings` CSS property (v4.2.0 #19623). Score: 3/4.
+- NEW: Default theme color palettes — `mauve`, `olive`, `mist`, and `taupe` added to theme configuration [source](./.skilld/releases/v4.2.0.md#added)
 
-7. **Extended colour palettes** — mauve, olive, mist, and taupe colour palettes now available in default theme (v4.2.0 #19627). Score: 3/4.
+### Deprecated and removed
 
-8. **Webpack plugin** — `@tailwindcss/webpack` package provides Tailwind CSS as webpack plugin for alternative build systems (v4.2.0 #19610). Score: 4/4.
+- DEPRECATED: `start-*` and `end-*` utilities — use `inset-s-*` and `inset-e-*` instead for `inset-inline-start` and `inset-inline-end` properties [source](./.skilld/releases/v4.2.0.md#deprecated)
 
-9. **Vite 8 compatibility** — `@tailwindcss/vite` now supports Vite 8 with improved integration and compatibility (v4.2.2 #19790). Score: 3/4.
+### Plugin compatibility (v4.2.2)
 
-## Deprecated APIs
+- NEW: Vite 8 support — `@tailwindcss/vite` now supports Vite 8 alongside existing versions [source](./.skilld/releases/v4.2.2.md#added)
 
-10. **Legacy positioning utilities** — `start-*` and `end-*` utilities deprecated in favour of `inset-s-*` and `inset-e-*` logical properties (v4.2.0 #19613). Migrate before v5. Score: 4/4.
-
-## Breaking Changes
-
-11. **Strict validation of @utility names** — `@utility` name validation now aligns with Oxide scanner rules, rejecting previously accepted patterns (v4.2.0 #19524). Score: 3/4.
-
-12. **MDX class extraction** — Classes containing `.` characters within curly braces in MDX files now properly detected; previously ignored patterns may now be included (v4.2.1 #19711). Score: 3/4.
-
-13. **Canonicalization strictness** — `calc(var(--spacing)*…)` expressions now canonicalized into `--spacing(…)` form; multiple canonicalization passes produce different results (v4.2.2 #19769, #19675). Score: 3/4.
-
-14. **Bare value spacing suggestions** — Canonicalization improved for bare values exceeding default spacing scale; utilities like `w-1234 h-1234` now canonicalize to `size-1234` (v4.2.2 #19809). Score: 3/4.
-
-15. **Full reload triggers** — Changes to external files listed via `@source` now trigger full page reload when using `@tailwindcss/vite`; previous behaviour was cache-only (v4.2.0 #19670). Score: 3/4.
-
-Also changed: trailing dashes now permitted in functional utility names for backwards compatibility (v4.2.1 #19696); prototype pollution crash prevention when candidates contain prototype properties (v4.2.2 #19725); empty list canonicalization fixed (v4.2.2 #19812); Oxide scanner performance optimized via reduced file system walks (v4.2.0 #19632); Astro v5 import aliases supported without crashes (v4.2.0 #19677); escape characters in @utility names supported for formatter compatibility (v4.2.0 #19626); `.jj` added to default ignored content directories (v4.2.0 #19687).
+**Also changed:** Experimental `@container-size` utility (unreleased) · Various canonicalization and crash fixes in v4.2.x · Import alias support for Astro v5 · Improved Oxide scanner performance for larger projects
 
 <!-- /skilld:api-changes -->
+
+<!-- skilld:best-practices -->
+
+## Best Practices
+
+- Spread the plugin array in frameworks with type mismatch issues — @tailwindcss/vite returns a `Plugin[]` which can cause TypeScript errors in Nuxt and some other frameworks; spread it in the plugins array or cast to `any` [source](./.skilld/discussions/discussion-19753.md)
+
+- Use `optimize: false` to disable Lightning CSS when it causes minification warnings — particularly with `@apply` on pseudo-elements like `::before`, `::after`, or `::-webkit-scrollbar`, which generate invalid empty `:where()` selectors [source](./.skilld/issues/issue-16582.md)
+
+- Configure `optimize: { minify: false }` to keep Lightning CSS active but skip minification — useful when Lightning CSS itself works but minification creates CSS syntax errors [source](./.skilld/pkg/README.md#enabling-or-disabling-lightning-css)
+
+- Explicitly set `css.transformer: 'postcss'` and `build.cssMinify: 'esbuild'` in Vite config if you encounter color space issues with Lightning CSS — some projects require this fallback to traditional CSS processing [source](./.skilld/issues/issue-19789.md:L76:91)
+
+- Verify your Vite version is compatible — @tailwindcss/vite 4.3.0 supports `^5.2.0 || ^6 || ^7 || ^8`, and versions <5.2.0 will cause peer dependency warnings [source](./.skilld/discussions/discussion-19791.md:L24:37)
+
+- Avoid `@apply` directives directly on pseudo-elements in dark mode — they compile to invalid CSS with empty `:where()` when minified; refactor to wrapper elements or custom variants instead [source](./.skilld/issues/issue-16582.md:L85:131)
+
+- Use `...tailwindcss()` spread syntax in Nuxt `vite.plugins` array to match Vite's `PluginOption[]` type — Nuxt's type system requires this until the framework upgrades its Vite typings [source](./.skilld/discussions/discussion-19753.md:L76:86)
+
+- Ensure `type: "module"` is set in package.json when using @tailwindcss/vite with CommonJS-aware tools like Storybook — without it, module resolution fails with export path errors [source](./.skilld/issues/issue-16751.md:L44:46)
+
+- Pin @tailwindcss/vite to exact version when Vite major releases rapidly — the plugin's peer dependency range updates slowly relative to new Vite versions, so use `overrides` in package.json to force compatible pairs [source](./.skilld/discussions/discussion-19791.md:L24:37)
+
+- Hot reload works automatically for CSS files tracked by the Oxide scanner — no manual `addWatchFile` calls needed; ensure your content globs in `@source` directives are correct [source](./.skilld/.skilld/dist/index.mjs:L1)
+
+- The plugin supports Vite's multi-environment API (ssr, client, etc.) in v4.3+ — if using custom environments, ensure the environment name is accessible via `this.environment` in the plugin hooks [source](./.skilld/issues/issue-18002.md)
+
+- Keep `cssMinify` unset (default `'lightningcss'`) unless you specifically need esbuild — Lightning CSS is faster and handles modern CSS features better; override only if you hit a known incompatibility [source](./.skilld/issues/issue-19789.md:L75:90)
+
+- Configure module exports correctly when publishing packages using @tailwindcss/vite — ensure your `package.json` includes both `"import"` and `"default"` exports to avoid "No exports main defined" errors in tools like Storybook [source](./.skilld/issues/issue-16751.md:L73:86)
+<!-- /skilld:best-practices -->
 
 Related: tailwindcss-skilld

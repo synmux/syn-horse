@@ -1,12 +1,13 @@
 ---
 name: openai-skilld
-description: 'ALWAYS use when writing code importing "openai". Consult for debugging, best practices, or modifying openai, openai-node, openai node.'
+description: 'The official TypeScript library for the OpenAI API. ALWAYS use when writing code importing "openai". Consult for debugging, best practices, or modifying openai, openai-node, openai node.'
 metadata:
-  version: 6.36.0
-  generated_at: 2026-05-06
+  version: 6.37.0
+  generated_by: cached
+  generated_at: 2026-05-15
 ---
 
-# openai/openai-node `openai@6.36.0`
+# openai/openai-node `openai@6.37.0`
 
 **Tags:** next: 4.0.0-beta.12, alpha: 5.0.0-alpha.0, beta: 5.0.0-beta.0
 
@@ -18,167 +19,79 @@ Use `skilld search "query" -p openai` instead of grepping `.skilld/` directories
 
 <!-- skilld:api-changes -->
 
-## OpenAI Node.js SDK v6.36.0 API Changes
+## API Changes
 
-This document catalogs significant API changes in OpenAI Node.js SDK v6.36.0 and recent versions that would be unknown to LLMs trained on older data.
+This section documents version-specific API changes in the OpenAI Node SDK v6.x — prioritise recent minor releases.
 
-## New APIs & Features
+- BREAKING: `web_search_call.results` in ResponseIncludable — removed in v6.34, then re-added in v6.35 creating a silent compatibility issue. Code written against v6.34 will compile in v6.35 but behave differently [source](./.skilld/pkg/CHANGELOG.md:L104:106)
 
-1. **Admin API: API Keys per Endpoint**
-   - Endpoints now support per-endpoint API key configuration
-   - Enables granular authentication control for different API operations
-   - **Points:** 4 (NEW)
-   - **Source:** https://github.com/openai/node-sdk/commit/770d187
+- BREAKING: imagegen `size` enum regression — fixed in v6.37.0 after being introduced in earlier v6 versions. Parameter validation may have silently changed behaviour [source](./.skilld/pkg/CHANGELOG.md:L16:18)
 
-2. **Metadata Fields: group_type and user**
-   - New `group_type` and `user` metadata fields added to API responses
-   - Enhances metadata tracking and organization capabilities
-   - **Points:** 4 (NEW)
-   - **Source:** https://github.com/openai/node-sdk/commit/cc52f97
+- NEW: `prompt_cache_retention` parameter — added to responses/compact endpoint in v6.35, controls cache retention behaviour [source](./.skilld/pkg/CHANGELOG.md:L58:59)
 
-3. **WebSocket: Automatic Reconnection**
-   - WebSocket connections now automatically reconnect on disconnection
-   - Improves reliability of real-time communication
-   - **Points:** 4 (NEW)
-   - **Source:** https://github.com/openai/node-sdk/commit/189410b
+- NEW: automatic WebSocket reconnection — `support automatic reconnection for websockets` added in v6.35, enables resilient persistent connections [source](./.skilld/pkg/CHANGELOG.md:L65:66)
 
-4. **WebSocket: Binary Message Support**
-   - WebSocket API now supports binary message transmission
-   - Enables efficient data transfer for large payloads
-   - **Points:** 4 (NEW)
-   - **Source:** https://github.com/openai/node-sdk/commit/c498cc3
+- NEW: WebSocket browser support — `add support for WebSockets in the browser when using simple auth` in v6.35, enables real-time APIs in browser environments [source](./.skilld/pkg/CHANGELOG.md:L64:65)
 
-5. **WebSocket: Path Parameters**
-   - WebSocket connections now accept and support path parameters
-   - Allows flexible endpoint configuration and routing
-   - **Points:** 4 (NEW)
-   - **Source:** https://github.com/openai/node-sdk/commit/e0aba70
+- NEW: Admin API Keys — `add support for Admin API Keys per endpoint` in v6.36, allows per-endpoint authentication configuration [source](./.skilld/pkg/CHANGELOG.md:L32:33)
 
-6. **WebSocket: Message Queuing**
-   - Messages are now queued while waiting for connection establishment
-   - Prevents message loss during reconnection scenarios
-   - **Points:** 4 (NEW)
-   - **Source:** https://github.com/openai/node-sdk/commit/fd8868c
+- NEW: binary message support in WebSockets — `add support for binary messages` in v6.35, expands message type handling [source](./.skilld/pkg/CHANGELOG.md:L61:62)
 
-7. **WebSocket: Browser Support with Simple Auth**
-   - WebSocket connections now work in browser environments
-   - Simplified authentication for browser-based clients
-   - **Points:** 4 (NEW)
-   - **Source:** https://github.com/openai/node-sdk/commit/27bda6a
+- NEW: WebSocket message queuing — `add support for queuing messages when waiting for a connection` in v6.35, buffers messages during reconnection [source](./.skilld/pkg/CHANGELOG.md:L63:64)
 
-8. **WebSocket: Exposed Underlying Type**
-   - Underlying WebSocket type is now directly accessible
-   - Allows advanced users to access native WebSocket properties
-   - **Points:** 4 (NEW)
-   - **Source:** https://github.com/openai/node-sdk/commit/7e96939
+- NEW: WebSocket path parameters — `add support for path parameters in websockets clients` in v6.35, enables parameterised WebSocket routing [source](./.skilld/pkg/CHANGELOG.md:L62:63)
 
-9. **InputFileContent: detail Field**
-   - New `detail` field added to `InputFileContent` type
-   - Provides additional configuration options for file input processing
-   - **Points:** 4 (NEW)
-   - **Source:** https://github.com/openai/node-sdk/commit/910ec5d
+- NEW: `OAuthErrorCode` type — added in v6.35 for OAuth error handling [source](./.skilld/pkg/CHANGELOG.md:L57:58)
 
-10. **OAuthErrorCode Type**
-    - New `OAuthErrorCode` type for OAuth error handling
-    - Provides type-safe error code enumeration for OAuth operations
-    - **Points:** 4 (NEW)
-    - **Source:** https://github.com/openai/node-sdk/commit/f84bd1f
+- NEW: WebSocket type exposure — `expose underlying WebSocket type` to TypeScript in v6.35, allows type-safe WebSocket handling [source](./.skilld/pkg/CHANGELOG.md:L66:67)
 
-11. **prompt_cache_retention Parameter**
-    - New `prompt_cache_retention` parameter for cache management
-    - Enables control over prompt cache retention policies
-    - **Points:** 4 (NEW)
-    - **Source:** https://github.com/openai/node-sdk/commit/c486d1f
+- NEW: `detail` field in InputFileContent — added in v6.35 for enhanced file content metadata [source](./.skilld/pkg/CHANGELOG.md:L56:57)
 
-12. **web_search_call.results Support**
-    - `web_search_call.results` field now supported in API responses
-    - Provides search results data in tool call responses
-    - **Points:** 4 (NEW)
-    - **Source:** https://github.com/openai/node-sdk/commit/72449a1
+- NEW: admin resource metadata fields — `group_type`/`user` metadata fields added across admin resources in v6.36 [source](./.skilld/pkg/CHANGELOG.md:L31:32)
 
-13. **Short-Lived Tokens**
-    - Support added for short-lived token generation and validation
-    - Improves security for temporary credential scenarios
-    - **Points:** 4 (NEW)
-    - **Source:** https://github.com/openai/node-sdk/commit/a72ebcf
+- NEW: `quantity` field — added to admin organization usage responses in v6.37 for usage metrics [source](./.skilld/pkg/CHANGELOG.md:L8:9)
 
-14. **Conversation Message: phase Field**
-    - New `phase` field added to `Message` type in conversations
-    - Tracks message processing phase in conversation lifecycle
-    - **Points:** 4 (NEW)
-    - **Source:** https://github.com/openai/node-sdk/commit/eb7cbc1
+- NEW: realtime translate — launched in v6.37, enables real-time translation capabilities [source](./.skilld/pkg/CHANGELOG.md:L10:11)
 
-15. **Computer Action Types: keys Field**
-    - New `keys` field added to computer action type definitions
-    - Enables keyboard input specification for computer interactions
-    - **Points:** 4 (NEW)
-    - **Source:** https://github.com/openai/node-sdk/commit/27a850e
-
-## Breaking Changes
-
-1. **web_search_call.results Removal & Re-addition**
-   - `web_search_call.results` was removed in v6.34.0 then re-added in v6.35.0
-   - Code using this field between v6.34.0–v6.34.x will break; restore to v6.35.0+
-   - **Points:** 5 (BREAKING)
-   - **Source:** https://github.com/openai/node-sdk/commit/1f6968e (removal), https://github.com/openai/node-sdk/commit/72449a1 (re-addition)
-
-## Enhanced Capabilities
-
-1. **WebSocket: Async Iterator & Stream Methods**
-   - WebSocket classes now provide `async*` iterator and `stream()` methods
-   - Enables modern async/await consumption patterns
-   - **Points:** 4 (NEW enhancement)
-   - **Source:** https://github.com/openai/node-sdk/commit/e1c16ee
-
-## Bug Fixes (Selected)
-
-- Admin API key authentication fixes (v6.36.0, commit e3862a3)
-- Auth header selection improvements (v6.36.0, commit f1203bd)
-
-## Also Changed
-
-Alignment fixes and internal improvements in v6.35.0–v6.33.0; minor administrative API refinements; WebSocket connection stability enhancements.
+**Also changed:** `web_search_call.results` output option in responses (v6.37) · short-lived tokens support (v6.34) · phase field in Message/Conversation (v6.34) · async iterator and stream() on WebSocket classes (v6.33) · keys field in computer action types (v6.33) · ResponseInputMessageItem type made required (v6.33) · redacted api-key headers in debug logs (v6.37)
 
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
 
-## SKILL.md Best Practices Section for OpenAI SDK v6.36.0
-
-```markdown
 ## Best Practices
 
-- **Use streaming for long operations.** Streaming responses prevents timeout issues and provides real-time feedback for user-facing operations. OpenAI's API supports streaming for chat completions, completions, and other endpoints. [pkg/README.md#streaming-responses](pkg/README.md#streaming-responses)
+- Rely on automatic retry logic with exponential backoff (default 2 attempts) for transient failures — configurable per-client with `maxRetries` or per-request to handle network flakes gracefully without adding brittle polling code [./pkg/README.md:L407-426]
 
-- **Implement exponential backoff with jitter for retries.** The SDK includes built-in retry logic, but configuring exponential backoff with jitter prevents thundering herd problems when multiple clients retry simultaneously. [pkg/README.md#retry-configuration](pkg/README.md#retry-configuration:L45:L62)
+- Use streaming responses for long-running operations — set `stream: true` and iterate with `for await...of` syntax to process results incrementally and improve perceived latency [./pkg/README.md:L170-186]
 
-- **Cache embeddings and model outputs when possible.** Embeddings for the same text never change, making them ideal candidates for caching. Use Redis, memcached, or local storage to avoid redundant API calls. [discussions/embeddings-caching.md#overview](discussions/embeddings-caching.md#overview)
+- Paginate list results automatically with `for await...of` — the SDK handles fetching subsequent pages transparently, eliminating manual pagination loops [./pkg/README.md:L472-486]
 
-- **Handle rate limits with custom retry strategies.** Different models and endpoints have different rate limits. Implement per-model rate limit tracking rather than a global strategy. [issues/rate-limiting-guidance.md#multi-model-strategies](issues/rate-limiting-guidance.md#multi-model-strategies)
+- Extract request ID from `_request_id` property on responses or via `.withResponse()` method — essential for correlating logs, debugging API failures, and reporting issues to OpenAI support [./pkg/README.md:L340-364]
 
-- **Use function calling for structured outputs instead of prompt engineering.** Function calling provides guaranteed JSON schema compliance and is more reliable than parsing free-form text. [pkg/README.md#function-calling](pkg/README.md#function-calling:L120:L145)
+- Use `.asResponse()` to access raw HTTP Response data without consuming the body — enables custom parsing logic or streaming response bodies without buffering [./pkg/README.md:L550-576]
 
-- **Set appropriate timeout values per endpoint.** Chat completions with streaming have different timeout requirements than embeddings. Configure timeouts based on expected latency, not a one-size-fits-all approach. [releases/v6.30.0-changelog.md#timeout-defaults](releases/v6.30.0-changelog.md#timeout-defaults)
+- Use `.withResponse()` when you need both parsed data and raw response metadata in a single call — cleaner than separate `.asResponse()` and manual parsing [./pkg/README.md:L556-576]
 
-- **Validate API keys and organization IDs at application startup.** Use a lightweight API call to verify credentials before deploying, catching configuration errors early. [pkg/README.md#authentication](pkg/README.md#authentication:L8:L25)
+- Use the `toFile()` helper for file uploads with non-standard MIME types or binary data — handles content-type detection and stream normalization automatically [./pkg/README.md:L188-224]
 
-- **Batch embedding requests for efficiency.** The embeddings endpoint accepts up to 2048 inputs per request. Batching reduces API calls and improves throughput significantly. [discussions/embedding-batch-best-practices.md](discussions/embedding-batch-best-practices.md)
+- Prefer workload identity authentication over static API keys in production cloud environments (Kubernetes, Azure, GCP) — uses short-lived tokens from cloud identity providers for improved security [./pkg/README.md:L72-166]
 
-- **Use response_format for JSON-only completions when needed.** When you need guaranteed JSON output, set `response_format: { type: "json_object" }` rather than relying on prompt engineering. [pkg/README.md#json-mode](pkg/README.md#json-mode:L89:L110)
+- Use `client.webhooks.unwrap()` for single-step webhook verification and parsing — combines signature verification and JSON parsing, preventing timing-of-check-to-time-of-use vulnerabilities [./pkg/README.md:L238-270]
 
-- **Implement custom error handling per error type.** Don't catch all API errors the same way—handle RateLimitError, AuthenticationError, and timeout errors with different strategies. [pkg/README.md#error-handling](pkg/README.md#error-handling:L155:L190)
+- Catch `APIError` subclasses to access rate-limit headers and structured error details — exception objects include `status`, `code`, `param`, and `headers` for precise retry logic [./pkg/README.md:L305-339]
 
-- **Use the `user` parameter for audit trails.** Include a `user` ID in requests for compliance tracking and to tie API usage back to actual users in your system. [issues/user-parameter-tracking.md#implementation](issues/user-parameter-tracking.md#implementation)
+- Integrate custom logging via the `logger` option with libraries like pino or winston — set `logLevel` to `'debug'` during development to inspect HTTP traffic; use custom loggers to integrate with your observability stack [./pkg/README.md:L578-629]
 
-- **Monitor token usage to predict costs accurately.** Always use the `usage` field from responses to track input and output tokens, enabling real-time cost monitoring and budget alerts. [releases/v6.35.0-changelog.md#usage-tracking](releases/v6.35.0-changelog.md#usage-tracking)
+- Use Realtime API for low-latency multi-modal interactions — `OpenAIRealtimeWebSocket` enables voice and text bidirectional streaming with sub-second response times [./pkg/README.md:L366-378]
 
-- **Choose the right model for your latency requirements.** Larger models are more capable but slower; `gpt-4o-mini` and `gpt-3.5-turbo` are often sufficient for cost-sensitive, latency-critical tasks. [discussions/model-selection-guide.md#latency-tradeoffs](discussions/model-selection-guide.md#latency-tradeoffs)
+- Leverage WebSocket async iteration with the `stream()` method or `for await...of` — cleaner alternative to event-listener patterns for handling real-time message streams [./releases/v6.33.0.md]
 
-- **Enable request logging only in development.** Production request logging consumes significant resources and may expose sensitive data. Use conditional logging based on environment flags. [pkg/README.md#debugging](pkg/README.md#debugging:L210:L225)
+- Configure request timeout per-call to override client default — default is 10 minutes; use the second parameter with `timeout` option for APIs with different expected durations [./pkg/README.md:L428-443]
 
-- **Pre-validate user input before sending to the API.** Check prompt length, input tokens estimates, and content policy violations locally to avoid wasting API quota. [issues/input-validation-patterns.md#pre-flight-checks](issues/input-validation-patterns.md#pre-flight-checks)
+- Ensure `openai@6.7.0` or later when using Zod 4 schemas with `zodResponseFormat` and `zodTextFormat` — earlier versions have incompatible vendored dependencies that break with Zod v4 exports [./issues/issue-1576.md, ./issues/issue-1602.md:L119-120]
 
-- **Use concurrency limits to prevent cascade failures.** Limit concurrent API requests with a semaphore or queue to prevent overwhelming your infrastructure if the API becomes slow. [discussions/concurrency-patterns.md#backpressure](discussions/concurrency-patterns.md#backpressure)
-```
+- Use short-lived token providers instead of static API keys for production resilience — initialise with `shortLivedToken` and a token provider function to enable automatic token refresh and reduce exposure window [./releases/v6.34.0.md:L16]
 
+- Use Responses API with MCP (Model Context Protocol) for remote tool definitions — eliminates the need to define tools locally; the SDK handles protocol bridging for you [./issues/issue-1435.md:L31-35]
 <!-- /skilld:best-practices -->
