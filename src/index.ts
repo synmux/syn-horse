@@ -1,3 +1,5 @@
+import adapters from './adapters/index.ts';
+
 export default {
 	// async fetch(req, env, ctx): Promise<Response> {
 	// 	return new Response('Hello!');
@@ -23,7 +25,11 @@ export default {
 				});
 				console.error(errText);
 			}
-			console.info(JSON.stringify(message));
+			console.info({
+				adapters: JSON.stringify(adapters),
+				body: JSON.stringify(message),
+				message: JSON.stringify(message.body),
+			});
 		}
 	},
 } satisfies ExportedHandler<Env, Error>;
