@@ -12,7 +12,7 @@ export default {
       if (!result.success) {
         console.error({
           messageId: message.id,
-          msg: "invalid page message",
+          message: "invalid page message",
           issues: result.error.issues,
           body: message.body,
         })
@@ -22,7 +22,7 @@ export default {
       const adapter = getAdapter("ntfy")
       console.info({
         messageId: message.id,
-        summary: formatMessageSummary(result.data),
+        message: formatMessageSummary(result.data),
         adapter: adapter.name,
       })
       // TODO: implement database logging for all messages (DB binding available)

@@ -1,5 +1,20 @@
 import { z } from "zod"
 
+/* example message
+
+{
+  "contact": "alerts@example.com",
+  "message": "Disk usage has exceeded 85% on server node-12. Please investigate.",
+  "source": "monitoring.example.com",
+  "counter": {
+    "day": 3,
+    "hour": 42,
+    "lifetime": 127
+  }
+}
+
+*/
+
 const HOSTNAME_RE = /^(?=.{1,253}$)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
 
 export const counterSchema = z.strictObject({
