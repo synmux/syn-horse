@@ -30,6 +30,7 @@ export default {
         message: formatMessageSummary(result.data),
         adapter: adapter.name,
       })
+      // trunk-ignore-all(trunk-toolbox/todo): working on it
       // TODO: implement database logging for all messages (DB binding available)
       // TODO: validate rate limits; then pass to next stage if ok (KV binding available)
       // TODO: validate with AI; then pass to next stage if ok (AI binding available)

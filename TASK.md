@@ -29,6 +29,7 @@ From the message:
 - `contact` — from `messageSchema.contact`.
 - `message` — from `messageSchema.message`.
 - `source` — from `messageSchema.source` (nullable: IPv4, IPv6, hostname, or `NULL` when omitted).
+- `channel` — from `messageSchema.channel`.
 
 State columns (all `NULL` until the relevant stage sets them):
 

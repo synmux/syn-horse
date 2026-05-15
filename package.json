@@ -35,8 +35,8 @@
     "url": "https://github.com/synmux/syn-horse.git"
   },
   "scripts": {
-    "deploy": "wrangler deploy",
-    "dev": "wrangler dev",
+    "deploy": "bun run wrangler deploy",
+    "dev": "bwrangler dev",
     "format": "bun run run-s format:prettier format:trunk",
     "format:prettier": "bun run prettier --write .",
     "format:trunk": "bun run trunk fmt -a",
@@ -47,11 +47,14 @@
     "lint:trunk": "bun run trunk check -a",
     "lint:trunk:fix": "bun run trunk check -a --fix",
     "lint:types": "bun run tsc --noEmit",
-    "postinstall": "bun run-s postinstall:prepare postinstall:format",
+    "postinstall": "bun run run-s postinstall:prepare postinstall:format",
     "postinstall:prepare": "bun run types",
     "postinstall:format": "bun run format",
-    "start": "wrangler dev",
-    "types": "wrangler types",
+    "start": "bun run wrangler dev",
+    "types": "bun run run-s types:generate types:fix types:format",
+    "types:generate": "bun run wrangler types",
+    "types:fix": "bun run eslint --fix worker-configuration.d.ts",
+    "types:format": "bun run prettier --write worker-configuration.d.ts",
     "prepare": "skilld prepare || true"
   },
   "trustedDependencies": [

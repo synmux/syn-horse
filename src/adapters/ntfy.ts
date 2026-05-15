@@ -1,8 +1,8 @@
-import { Adapter } from "../types.ts"
+import { Adapter, Notification } from "../types.ts"
 
 const ntfy: Adapter = {
   name: "ntfy",
-  send: async (_message: Message): Promise<boolean> => {
+  send: async (_message: Notification): Promise<boolean> => {
     return true
   },
 }

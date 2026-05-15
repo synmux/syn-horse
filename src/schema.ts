@@ -3,6 +3,7 @@ import { z } from "zod"
 /* example message
 
 {
+  "channel": "red",
   "contact": "alerts@example.com",
   "message": "Disk usage has exceeded 85% on server node-12. Please investigate.",
   "source": "monitoring.example.com"
@@ -13,6 +14,7 @@ import { z } from "zod"
 const HOSTNAME_RE = /^(?=.{1,253}$)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
 
 export const messageSchema = z.strictObject({
+  channel: z.enum(["red", "green"]),
   contact: z.string().trim().min(1).max(256),
   message: z.string().trim().min(1).max(8192),
   source: z.union([z.ipv4(), z.ipv6(), z.string().regex(HOSTNAME_RE)]).optional(),
