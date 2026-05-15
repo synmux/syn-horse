@@ -24,7 +24,10 @@ export default {
         summary: formatMessageSummary(result.data),
         adapters: Object.keys(adapters),
       })
-      // TODO: dispatch to adapters[adapterName].send(result.data)
+      // TODO: implement database logging for all messages (DB binding available)
+      // TODO: validate rate limits; then pass to next stage if ok (KV binding available)
+      // TODO: validate with AI; then pass to next stage if ok (AI binding available)
+      // TODO: dispatch to adapter(s)
     }
   },
 } satisfies ExportedHandler<Env, Message>

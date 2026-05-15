@@ -1,8 +1,27 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "syn-horse-notifications",
-  "main": "src/index.ts",
+  "ai": {
+    "binding": "AI",
+  },
   "compatibility_date": "2026-05-13",
+  "compatibility_flags": ["nodejs_compat", "nodejs_compat_v2"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_id": "76e3c568-b166-42a0-be1d-d1b15d579c31",
+      "database_name": "syn-horse-notifications",
+      "preview_database_id": "9a527b97-8c60-46d2-a735-4605a6ad20c3",
+    },
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      "id": "72cc74d92ebd4abba9a6a69d80a23dbe",
+      "preview_id": "b9b5e186ef0b4f46bcc719445cf12b17",
+    },
+  ],
+  "main": "src/index.ts",
+  "name": "syn-horse-notifications",
   "observability": {
     "enabled": true,
     "logs": {
@@ -12,6 +31,10 @@
       "enabled": true,
     },
   },
+  "placement": {
+    "mode": "smart",
+  },
+  "preview_urls": false,
   "queues": {
     "consumers": [
       {
@@ -21,10 +44,5 @@
     "producers": [],
   },
   "upload_source_maps": true,
-  "compatibility_flags": ["nodejs_compat"],
-  "placement": {
-    "mode": "smart",
-  },
   "workers_dev": false,
-  "preview_urls": false,
 }
