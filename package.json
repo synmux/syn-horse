@@ -47,8 +47,9 @@
     "lint:trunk": "bun run trunk check -a",
     "lint:trunk:fix": "bun run trunk check -a --fix",
     "lint:types": "bun run tsc --noEmit",
-    "postinstall": "bun run postinstall:prepare",
+    "postinstall": "bun run-s postinstall:prepare postinstall:format",
     "postinstall:prepare": "bun run types",
+    "postinstall:format": "bun run format",
     "start": "wrangler dev",
     "types": "wrangler types",
     "prepare": "skilld prepare || true"
