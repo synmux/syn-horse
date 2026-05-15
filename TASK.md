@@ -32,15 +32,15 @@ From the message:
 
 State columns (all `NULL` until the relevant stage sets them):
 
-| Column                 | Values                                                         | Set by                               |
-| ---------------------- | -------------------------------------------------------------- | ------------------------------------ |
-| `rate_limit_decision`  | `accept` \| `drop`                                             | Stage 2                              |
-| `rate_limit_violation` | `none` \| `hour` \| `day` \| `lifetime` \| `kv_error`          | Stage 2                              |
-| `ai_decision`          | `accept` \| `drop`                                             | Stage 3                              |
-| `ai_violation`         | `none` \| `fun` \| `nonsense` \| `spam`                        | Stage 3                              |
-| `adapter`              | adapter name (e.g. `stub`, `ntfy`)                             | Stage 4                              |
-| `result`               | `dropped` \| `delivered` \| `failed`                           | Stage 2 on drop, Stage 4 on delivery |
-| `result_reason`        | only used when `result` is `failed`. why it failed. free text. | Stage 4                              |
+| Column                 | Values                                                         | Set by                                                     |
+| ---------------------- | -------------------------------------------------------------- | ---------------------------------------------------------- |
+| `rate_limit_decision`  | `accept` \| `drop`                                             | Stage 2                                                    |
+| `rate_limit_violation` | `none` \| `hour` \| `day` \| `lifetime` \| `kv_error`          | Stage 2                                                    |
+| `ai_decision`          | `accept` \| `drop`                                             | Stage 3                                                    |
+| `ai_violation`         | `none` \| `fun` \| `nonsense` \| `spam`                        | Stage 3                                                    |
+| `adapter`              | adapter name (e.g. `stub`, `ntfy`)                             | Stage 4                                                    |
+| `result`               | `dropped` \| `delivered` \| `failed`                           | Stage 2 or Stage 3 on drop; Stage 4 on delivery or failure |
+| `result_reason`        | only used when `result` is `failed`. why it failed. free text. | Stage 4 on failure                                         |
 
 We need to create the D1 migration in `migrations/0001_create_log_table.sql`. Remember it's SQLite behind the scenes.
 
@@ -136,15 +136,21 @@ Note for later: when we log to D1, for:
 - A real page
   - Set `ai_violation` to `none`.
   - Set `ai_decision` to `accept`.
+  - Continue to Stage 4.
 - Someone having fun
   - Set `ai_violation` to `fun`.
   - Set `ai_decision` to `accept`.
+  - Continue to Stage 4.
 - Nonsensical content
   - Set `ai_violation` to `nonsense`.
   - Set `ai_decision` to `drop`.
+  - Set `result` to `dropped`.
+  - Skip Stage 4.
 - Spam
   - Set `ai_violation` to `spam`.
   - Set `ai_decision` to `drop`.
+  - Set `result` to `dropped`.
+  - Skip Stage 4.
 
 ## Stage 4: Delivery
 
@@ -157,8 +163,9 @@ We will implement this later, delivering through the `Adapter` pattern.
 
 Note for later: when we log to D1:
 
+- Set `adapter` to the name of the adapter used to attempt delivery (e.g. `ntfy`, `pushover`).
 - Where delivery succeeds
   - Set `result` to `delivered`.
 - Where delivery fails
-  - Set `result` to `failed`
-  - Set `result_reason` to the reason it failed (free text)
+  - Set `result` to `failed`.
+  - Set `result_reason` to the reason it failed (free text).
