@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@anthropic-ai/claude-code": "^2.1.142",
+    "@cloudflare/vitest-pool-workers": "^0.9.0",
     "@eslint/js": "^10.0.1",
     "@trunkio/launcher": "^1.3.4",
     "@types/node": "^25.8.0",
@@ -25,6 +26,7 @@
     "tsx": "^4.22.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.3",
+    "vitest": "^3.2.4",
     "wrangler": "^4.92.0"
   },
   "name": "syn-horse-notifications",
@@ -35,8 +37,10 @@
     "url": "https://github.com/synmux/syn-horse.git"
   },
   "scripts": {
+    "db:migrate": "bun run wrangler d1 migrations apply syn-horse-notifications --remote",
+    "db:migrate:local": "bun run wrangler d1 migrations apply syn-horse-notifications --local",
     "deploy": "bun run wrangler deploy",
-    "dev": "bwrangler dev",
+    "dev": "bun run wrangler dev",
     "format": "bun run run-s format:prettier format:trunk",
     "format:prettier": "bun run prettier --write .",
     "format:trunk": "bun run trunk fmt -a",
@@ -51,6 +55,8 @@
     "postinstall:prepare": "bun run types",
     "postinstall:format": "bun run format",
     "start": "bun run wrangler dev",
+    "test": "bun run vitest",
+    "test:run": "bun run vitest run",
     "types": "bun run run-s types:generate types:fix types:format",
     "types:generate": "bun run wrangler types",
     "types:fix": "bun run eslint --fix worker-configuration.d.ts",
