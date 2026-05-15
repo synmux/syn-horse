@@ -4,7 +4,7 @@
     "binding": "AI",
   },
   "compatibility_date": "2026-05-13",
-  "compatibility_flags": ["nodejs_compat", "nodejs_compat_v2"],
+  "compatibility_flags": ["nodejs_compat_v2"],
   "media": {
     "binding": "MEDIA",
   },
