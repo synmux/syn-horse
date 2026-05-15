@@ -1,35 +1,30 @@
-import adapters from './adapters/index.ts';
+import adapters from "./adapters/index.ts"
+import { formatMessageSummary, safeParseMessage, type Message } from "./schema.ts"
 
 export default {
-	// async fetch(req, env, ctx): Promise<Response> {
-	// 	return new Response('Hello!');
-	// },
-	// https://developers.cloudflare.com/queues/platform/javascript-apis/#messagebatch
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	async queue(batch, env): Promise<void> {
-		for (const message of batch.messages) {
-			if (typeof message.body !== 'object') {
-				const errText = JSON.stringify({
-					messageId: message.id,
-					obj: message.body,
-					message: 'typeof message.body != object',
-				});
-				console.error(errText);
-			}
-			const body = message.body as Record<string, unknown> | Error;
-			if (body instanceof Error) {
-				const errText = JSON.stringify({
-					messageId: message.id,
-					obj: body,
-					message: 'message.body instanceof Error',
-				});
-				console.error(errText);
-			}
-			console.info({
-				adapters: JSON.stringify(adapters),
-				body: JSON.stringify(message),
-				message: JSON.stringify(message.body),
-			});
-		}
-	},
-} satisfies ExportedHandler<Env, Error>;
+  // async fetch(req, env, ctx): Promise<Response> {
+  // 	return new Response('Hello!');
+  // },
+  // https://developers.cloudflare.com/queues/platform/javascript-apis/#messagebatch
+  async queue(batch, _env): Promise<void> {
+    for (const message of batch.messages) {
+      const result = safeParseMessage(message.body)
+      if (!result.success) {
+        console.error({
+          messageId: message.id,
+          msg: "invalid page message",
+          issues: result.error.issues,
+          body: message.body,
+        })
+        message.ack()
+        continue
+      }
+      console.info({
+        messageId: message.id,
+        summary: formatMessageSummary(result.data),
+        adapters: Object.keys(adapters),
+      })
+      // TODO: dispatch to adapters[adapterName].send(result.data)
+    }
+  },
+} satisfies ExportedHandler<Env, Message>

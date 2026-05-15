@@ -1,4 +1,4 @@
-import ntfy from './ntfy.ts';
-import pushover from './pushover.ts';
+import ntfy from "./ntfy.ts"
+import pushover from "./pushover.ts"
 
-export default { ntfy, pushover };
+export default { ntfy, pushover }

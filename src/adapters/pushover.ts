@@ -1,3 +1,3 @@
-const adapterName = 'pushover';
+const adapterName = "pushover"
 
-export default { adapterName };
+export default { adapterName }

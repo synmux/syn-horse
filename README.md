@@ -68,12 +68,12 @@ For columns with a fixed set of values, declare them once on the Drizzle column 
 
 ```typescript
 // server/db/schema.ts
-export const panicPages = sqliteTable('panic_pages', {
-	// …
-	channel: text({ enum: ['red', 'green'] }).notNull(),
-});
+export const panicPages = sqliteTable("panic_pages", {
+  // …
+  channel: text({ enum: ["red", "green"] }).notNull(),
+})
 
-export type Channel = (typeof panicPages.$inferSelect)['channel'];
+export type Channel = (typeof panicPages.$inferSelect)["channel"]
 ```
 
 - **Frontend types:** `import type { Channel } from "~~/server/db/schema"` in any `.vue` or `.ts` file. Type-only imports are erased at compile time, so the client bundle never pulls the schema module — only the union literal travels.

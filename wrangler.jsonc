@@ -1,30 +1,30 @@
 {
-	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "syn-horse-notifications",
-	"main": "src/index.ts",
-	"compatibility_date": "2026-05-13",
-	"observability": {
-		"enabled": true,
-		"logs": {
-			"enabled": true,
-		},
-		"traces": {
-			"enabled": true,
-		},
-	},
-	"queues": {
-		"consumers": [
-			{
-				"queue": "syn-horse-notifications",
-			},
-		],
-		"producers": [],
-	},
-	"upload_source_maps": true,
-	"compatibility_flags": ["nodejs_compat"],
-	"placement": {
-		"mode": "smart",
-	},
-	"workers_dev": false,
-	"preview_urls": false,
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "syn-horse-notifications",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-05-13",
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "enabled": true,
+    },
+    "traces": {
+      "enabled": true,
+    },
+  },
+  "queues": {
+    "consumers": [
+      {
+        "queue": "syn-horse-notifications",
+      },
+    ],
+    "producers": [],
+  },
+  "upload_source_maps": true,
+  "compatibility_flags": ["nodejs_compat"],
+  "placement": {
+    "mode": "smart",
+  },
+  "workers_dev": false,
+  "preview_urls": false,
 }

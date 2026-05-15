@@ -1,70 +1,70 @@
 {
-	"author": {
-		"email": "syn@syn.as",
-		"name": "syn",
-		"url": "https://github.com/synmux"
-	},
-	"dependencies": {
-		"dotenv": "^17.4.2",
-		"node-gyp": "^12.3.0",
-		"ntfy": "^1.15.2",
-		"openai": "^6.37.0",
-		"pushover-js": "^1.3.2",
-		"zod": "^4.4.3"
-	},
-	"devDependencies": {
-		"@anthropic-ai/claude-code": "^2.1.142",
-		"@eslint/js": "^10.0.1",
-		"@trunkio/launcher": "^1.3.4",
-		"@types/node": "^25.8.0",
-		"ctx7": "^0.4.2",
-		"eslint": "^10.4.0",
-		"npm-run-all2": "^8.0.4",
-		"prettier": "^3.8.3",
-		"skilld": "^2.0.0",
-		"tsx": "^4.22.0",
-		"typescript": "^6.0.3",
-		"typescript-eslint": "^8.59.3",
-		"wrangler": "^4.92.0"
-	},
-	"name": "syn-horse-notifications",
-	"packageManager": "bun@1.3.14",
-	"private": true,
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/synmux/syn-horse.git"
-	},
-	"scripts": {
-		"deploy": "wrangler deploy",
-		"dev": "wrangler dev",
-		"format": "bun run run-s format:prettier format:trunk",
-		"format:prettier": "bun run prettier --write .",
-		"format:trunk": "bun run trunk fmt -a",
-		"lint": "bun run run-s lint:eslint lint:trunk lint:types",
-		"lint:eslint": "bun run eslint .",
-		"lint:eslint:fix": "bun run eslint . --fix",
-		"lint:fix": "bun run run-s lint:eslint:fix lint:trunk:fix",
-		"lint:trunk": "bun run trunk check -a",
-		"lint:trunk:fix": "bun run trunk check -a --fix",
-		"lint:types": "bun run tsc --noEmit",
-		"postinstall": "bun run postinstall:prepare",
-		"postinstall:prepare": "bun run types",
-		"start": "wrangler dev",
-		"types": "wrangler types",
-		"prepare": "skilld prepare || true"
-	},
-	"trustedDependencies": [
-		"@anthropic-ai/claude-code",
-		"@parcel/watcher",
-		"better-sqlite3",
-		"esbuild",
-		"onnxruntime-node",
-		"protobufjs",
-		"sharp",
-		"unrs-resolver",
-		"vue-demi",
-		"workerd"
-	],
-	"type": "module",
-	"version": "0.0.0-dev"
+  "author": {
+    "email": "syn@syn.as",
+    "name": "syn",
+    "url": "https://github.com/synmux"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "node-gyp": "^12.3.0",
+    "ntfy": "^1.15.2",
+    "openai": "^6.37.0",
+    "pushover-js": "^1.3.2",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@anthropic-ai/claude-code": "^2.1.142",
+    "@eslint/js": "^10.0.1",
+    "@trunkio/launcher": "^1.3.4",
+    "@types/node": "^25.8.0",
+    "ctx7": "^0.4.2",
+    "eslint": "^10.4.0",
+    "npm-run-all2": "^8.0.4",
+    "prettier": "^3.8.3",
+    "skilld": "^2.0.0",
+    "tsx": "^4.22.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.3",
+    "wrangler": "^4.92.0"
+  },
+  "name": "syn-horse-notifications",
+  "packageManager": "bun@1.3.14",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/synmux/syn-horse.git"
+  },
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "format": "bun run run-s format:prettier format:trunk",
+    "format:prettier": "bun run prettier --write .",
+    "format:trunk": "bun run trunk fmt -a",
+    "lint": "bun run run-s lint:eslint lint:trunk lint:types",
+    "lint:eslint": "bun run eslint .",
+    "lint:eslint:fix": "bun run eslint . --fix",
+    "lint:fix": "bun run run-s lint:eslint:fix lint:trunk:fix",
+    "lint:trunk": "bun run trunk check -a",
+    "lint:trunk:fix": "bun run trunk check -a --fix",
+    "lint:types": "bun run tsc --noEmit",
+    "postinstall": "bun run postinstall:prepare",
+    "postinstall:prepare": "bun run types",
+    "start": "wrangler dev",
+    "types": "wrangler types",
+    "prepare": "skilld prepare || true"
+  },
+  "trustedDependencies": [
+    "@anthropic-ai/claude-code",
+    "@parcel/watcher",
+    "better-sqlite3",
+    "esbuild",
+    "onnxruntime-node",
+    "protobufjs",
+    "sharp",
+    "unrs-resolver",
+    "vue-demi",
+    "workerd"
+  ],
+  "type": "module",
+  "version": "0.0.0-dev"
 }

@@ -1,3 +1,3 @@
-const adapterName = 'ntfy';
+const adapterName = "ntfy"
 
-export default { adapterName };
+export default { adapterName }

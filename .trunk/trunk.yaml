@@ -56,16 +56,16 @@ lint:
     - linters:
         - trunk-toolbox
       paths:
-        - '**/*.gif'
-        - '**/*.ico'
-        - '**/*.jpg'
-        - '**/*.pdf'
-        - '**/*.png'
-        - '**/*.avif'
-        - '**/*.vsix'
-        - '**/*.webp'
-        - '**/*.zip'
-        - '**/*.mov'
+        - "**/*.gif"
+        - "**/*.ico"
+        - "**/*.jpg"
+        - "**/*.pdf"
+        - "**/*.png"
+        - "**/*.avif"
+        - "**/*.vsix"
+        - "**/*.webp"
+        - "**/*.zip"
+        - "**/*.mov"
         - .devcontainer/devcontainer.json
         - .trunk/trunk.yaml
         - docs/**
