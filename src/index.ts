@@ -23,7 +23,7 @@ export default {
 				});
 				console.error(errText);
 			}
-			console.info(message);
+			console.info(JSON.stringify(message));
 		}
 	},
 } satisfies ExportedHandler<Env, Error>;
