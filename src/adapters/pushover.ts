@@ -1,3 +1,10 @@
-const adapterName = "pushover"
+import { Adapter } from "../types.ts"
 
-export default { adapterName }
+const pushover: Adapter = {
+  name: "pushover",
+  send: async (_message: Message): Promise<boolean> => {
+    return true
+  },
+}
+
+export default pushover

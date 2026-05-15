@@ -1,5 +1,5 @@
-import adapters from "./adapters/index.ts"
 import { formatMessageSummary, safeParseMessage, type Message } from "./schema.ts"
+import getAdapter from "./adapters/index.ts"
 
 export default {
   // async fetch(req, env, ctx): Promise<Response> {
@@ -19,15 +19,17 @@ export default {
         message.ack()
         continue
       }
+      const adapter = getAdapter("ntfy")
       console.info({
         messageId: message.id,
         summary: formatMessageSummary(result.data),
-        adapters: Object.keys(adapters),
+        adapter: adapter.name,
       })
       // TODO: implement database logging for all messages (DB binding available)
       // TODO: validate rate limits; then pass to next stage if ok (KV binding available)
       // TODO: validate with AI; then pass to next stage if ok (AI binding available)
       // TODO: dispatch to adapter(s)
+      message.ack()
     }
   },
 } satisfies ExportedHandler<Env, Message>

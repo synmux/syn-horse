@@ -1,3 +1,10 @@
-const adapterName = "ntfy"
+import { Adapter } from "../types.ts"
 
-export default { adapterName }
+const ntfy: Adapter = {
+  name: "ntfy",
+  send: async (_message: Message): Promise<boolean> => {
+    return true
+  },
+}
+
+export default ntfy
