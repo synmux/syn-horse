@@ -39,3 +39,10 @@ If the application uses Durable Objects or Workflows, refer to the relevant best
 
 - Durable Objects: <https://developers.cloudflare.com/durable-objects/best-practices/rules-of-durable-objects/>
 - Workflows: <https://developers.cloudflare.com/workflows/build/rules-of-workflows/>
+
+<!-- skilld -->
+
+Before modifying code, evaluate each installed skill against the current task.
+For each skill, determine YES/NO relevance and invoke all YES skills before proceeding.
+
+<!-- /skilld -->
