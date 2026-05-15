@@ -32,5 +32,6 @@
     "skipLibCheck": true,
     "types": ["./worker-configuration.d.ts", "node"],
     "noUnusedParameters": true
-  }
+  },
+  "exclude": ["test/**"]
 }
