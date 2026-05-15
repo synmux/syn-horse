@@ -1,6 +1,6 @@
 ---
 name: ctx7-skilld
-description: "ALWAYS use when writing code importing \"ctx7\". Consult for debugging, best practices, or modifying ctx7, context7."
+description: 'ALWAYS use when writing code importing "ctx7". Consult for debugging, best practices, or modifying ctx7, context7.'
 metadata:
   version: 0.4.2
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # upstash/context7 `ctx7@0.4.2`
+
 **Tags:** canary: 0.2.4-canary.0, latest: 0.4.2
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p ctx7` instead of grepping `.skilld/` directories. Run `skilld search --guide -p ctx7` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes in ctx7 — prioritizing recent major/minor releases that affect LLM usage patterns.
@@ -58,9 +60,11 @@ This section documents version-specific API changes in ctx7 — prioritizing rec
 - BEHAVIOR: MCP configuration file parsing made graceful in v0.4.2 during `ctx7 remove` — malformed JSON at agent config paths (e.g., hand-edited `~/.claude.json`) now logs a warning and continues instead of crashing with `SyntaxError` [source](./.skilld/releases/ctx7@0.4.2.md:L11)
 
 **Also changed:** Skill name/trust score display enhanced in v0.3.3 with categorical reputation labels · Skill search popularity enumerated as 4-star scale in v0.3.4 · Allow re-selecting agents in setup with overwrite behavior in v0.3.9 · Use GITHUB_TOKEN for skill downloads to avoid rate limits in v0.3.10 · Install rules alongside skills in setup for higher trigger rates in v0.3.8
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## ctx7 v0.4.2 Best Practices
 
 ## Overview
@@ -100,4 +104,5 @@ Non-obvious patterns and recommendations for using ctx7 to fetch library documen
 ## Experimental / Unstable
 
 None currently.
+
 <!-- /skilld:best-practices -->

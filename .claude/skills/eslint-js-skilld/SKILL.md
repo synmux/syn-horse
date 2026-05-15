@@ -1,6 +1,6 @@
 ---
 name: eslint-js-skilld
-description: "ALWAYS use when writing code importing \"@eslint/js\". Consult for debugging, best practices, or modifying @eslint/js, eslint/js, eslint js, eslint."
+description: 'ALWAYS use when writing code importing "@eslint/js". Consult for debugging, best practices, or modifying @eslint/js, eslint/js, eslint js, eslint.'
 metadata:
   version: 10.0.1
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # eslint/eslint `@eslint/js@10.0.1`
+
 **Tags:** next: 10.0.0-rc.0, latest: 10.0.1, maintenance: 9.39.4
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @eslint/js` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @eslint/js` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -60,9 +62,11 @@ This section documents version-specific API changes — prioritize recent major/
 - NEW: `meta.languages` support in rules — v10.2.0 rules can declare supported languages via `meta.languages` property [source](./.skilld/releases/v10.2.0.md:L10)
 
 **Also changed:** `no-shadow` improved for expression names · `no-invalid-regexp` schema requires unique items · `func-names` schema tightened · Program range spans entire source · `RuleTester` text assertion validation · `no-shadow-restricted-names` reports globalThis · Temporal added to `no-obj-calls` and ES2026 globals · `self` added to `no-implied-eval` · `require-yield` and `no-useless-constructor` error location improved
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Always include a `files` property when extending `js.configs` in a config object — prevents unintended configuration spreading to files it was never meant to apply to [source](./.skilld/issues/issue-20075.md)

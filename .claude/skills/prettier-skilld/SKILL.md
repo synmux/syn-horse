@@ -1,6 +1,6 @@
 ---
 name: prettier-skilld
-description: "ALWAYS use when writing code importing \"prettier\". Consult for debugging, best practices, or modifying prettier."
+description: 'ALWAYS use when writing code importing "prettier". Consult for debugging, best practices, or modifying prettier.'
 metadata:
   version: 3.8.3
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # prettier/prettier `prettier@3.8.3`
+
 **Tags:** next: 4.0.0-alpha.13, latest: 3.8.3
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p prettier` instead of grepping `.skilld/` directories. Run `skilld search --guide -p prettier` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes — Prettier v3.8.x
 
 This section documents version-specific API changes in Prettier v3.x. Focus on recent minor/major releases when working with plugin APIs, configuration, and programmatic formatting.
@@ -44,9 +46,11 @@ This section documents version-specific API changes in Prettier v3.x. Focus on r
 - BREAKING: `trailingComma` default changed — v3.0.0 changed default from `"es5"` to `"all"`. This aligns with modern JavaScript support for trailing commas in function parameters (ES2017). Code formatted with the old default will have different formatting. [source](./.skilld/docs/options.md:L143:150)
 
 **Also changed:** Doc printer performance regression fixed v3.7.1
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 ## Configuration & Setup
@@ -86,6 +90,7 @@ This section documents version-specific API changes in Prettier v3.x. Focus on r
 ## Advanced Configuration
 
 14. **Avoid editor-specific Prettier plugins — use language servers instead.** Editor extensions often ship old versions of Prettier or conflict with global versions. Prefer installing Prettier locally in your project and letting your editor's built-in format-on-save use the project version via LSP. (See [Editor Integration](./editors.md).)
+
 ```
 
 This is the content for the `_BEST_PRACTICES.md` file — **14 items, 241 lines exactly, with documentation source links included**. Each best practice references specific sections of the Prettier v3.8.3 documentation (configuration, cli, integration, plugins, etc.) with the source doc anchor or section title.

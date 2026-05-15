@@ -1,6 +1,6 @@
 ---
 name: wrangler-skilld
-description: "ALWAYS use when writing code importing \"wrangler\". Consult for debugging, best practices, or modifying wrangler, workers-sdk, workers sdk."
+description: 'ALWAYS use when writing code importing "wrangler". Consult for debugging, best practices, or modifying wrangler, workers-sdk, workers sdk.'
 metadata:
   version: 4.92.0
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # cloudflare/workers-sdk `wrangler@4.92.0`
+
 **Tags:** wrangler@2.2.4: 2.2.4, legacy: 3.114.17, latest: 4.92.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p wrangler` instead of grepping `.skilld/` directories. Run `skilld search --guide -p wrangler` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes in wrangler v4.70.0 through v4.80.0 — prioritising recent major/minor releases.
@@ -54,9 +56,11 @@ This section documents version-specific API changes in wrangler v4.70.0 through 
 - DEPRECATED: SSH passthrough flags in `wrangler containers ssh` — `--cipher`, `--log-file`, `--escape-char`, `--config-file`, `--pkcs11`, `--identity-file`, `--mac-spec`, `--option`, and `--tag` are deprecated, will be removed when underlying SSH transport changes [source](./.skilld/releases/wrangler@4.73.0.md#minor-changes)
 
 **Also changed:** `ai_search_namespaces` and `ai_search` binding types added · TCP service type support for Workers VPC (`--type tcp`) · `--cert-verification-mode` option for VPC services · Cloudflare Access Service Token authentication via environment variables · `--secrets-file` validation in `wrangler versions upload` · D1 export support for multiple tables · Asset sync validation for `--dry-run` · Local development support for Stream bindings operations (`upload()`, `video()`, `captions.generate()`, `downloads.generate()`, `watermarks.generate()`) · Inheritable bindings in type generation for named environments · DockerHub credentials configuration for containers · Container egress interception enabled by default · `d1 migrations list` and `d1 migrations apply` now sort migration files alphabetically
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Wrangler v4.92.0 Best Practices
 
 ## Best Practices

@@ -1,6 +1,6 @@
 ---
 name: eslint-skilld
-description: "ALWAYS use when writing code importing \"eslint\". Consult for debugging, best practices, or modifying eslint."
+description: 'ALWAYS use when writing code importing "eslint". Consult for debugging, best practices, or modifying eslint.'
 metadata:
   version: 10.4.0
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # eslint/eslint `eslint@10.4.0`
+
 **Tags:** es6jsx: 0.11.0-alpha.0, next: 10.0.0-rc.2, maintenance: 9.39.4
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p eslint` instead of grepping `.skilld/` directories. Run `skilld search --guide -p eslint` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -58,9 +60,11 @@ This section documents version-specific API changes — prioritize recent major/
 - NEW: `meta.docs.frozen` property (v10.0.0) — marks rules as frozen/immutable in documentation [source](./.skilld/releases/v10.0.0.md:L70)
 
 **Also changed:** `no-shadow-restricted-names` now reports `globalThis` by default (set `reportGlobalThis: false` to restore old behavior) · `func-names` schema stricter — no extra array elements allowed · `no-invalid-regexp` `allowConstructorFlags` requires unique items · `styleText` replaces chalk for colors (respects `NO_COLOR`, `NODE_DISABLE_COLORS`) · `eslint-env` comments now reported as errors · Jiti < v2.2.0 no longer supported · POSIX character classes in glob patterns now supported · `ScopeManager` requires `addGlobals(names)` method for custom implementations · Temporal object added to ES2026 globals (v10.2.0)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use `defineConfig()` to define configuration arrays — enables TypeScript type checking, supports the `extends` key for config composition, and always returns an array (single override doesn't need wrapping) [source](./.skilld/docs/src/use/configure/configuration-files.md:L34:45)

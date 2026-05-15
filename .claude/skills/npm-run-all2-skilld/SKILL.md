@@ -1,6 +1,6 @@
 ---
 name: npm-run-all2-skilld
-description: "ALWAYS use when writing code importing \"npm-run-all2\". Consult for debugging, best practices, or modifying npm-run-all2, npm run all2."
+description: 'ALWAYS use when writing code importing "npm-run-all2". Consult for debugging, best practices, or modifying npm-run-all2, npm run all2.'
 metadata:
   version: 8.0.4
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # bcomnes/npm-run-all2 `npm-run-all2@8.0.4`
+
 **Tags:** beta: 8.1.0-beta.0, latest: 8.0.4
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p npm-run-all2` instead of grepping `.skilld/` directories. Run `skilld search --guide -p npm-run-all2` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes for npm-run-all2 v8.0.4.
@@ -24,9 +26,11 @@ This section documents version-specific API changes for npm-run-all2 v8.0.4.
 BREAKING: Node engine requirement — v8.0.0 changed minimum Node version from `^18.17.0 || >=20.5.0` to `^20.5.0 || >=22.0.0`. This is a silent breaking change: code using the npm-run-all2 API will compile without error on Node 18, but execution will fail. Verify your Node.js version is >= 20.5.0 or >= 22.0.0 before upgrading. [source](./.skilld/releases/v8.0.0.md) · [package.json](./.skilld/pkg/package.json:L13:L16)
 
 Also changed: npm engine requirement raised to >= 10 in v8.0.0 · dependency updates (minimatch v10.0.1 in v8.0.1) · npm lifecycle improvements in v8.0.4-beta
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Prefer `run-s` and `run-p` shorthand commands for simple, focused tasks — more concise and self-documenting than `npm-run-all` with flags [source](./.skilld/pkg/docs/run-s.md) [source](./.skilld/pkg/docs/run-p.md)

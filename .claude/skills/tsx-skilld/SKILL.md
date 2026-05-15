@@ -1,6 +1,6 @@
 ---
 name: tsx-skilld
-description: "ALWAYS use when writing code importing \"tsx\". Consult for debugging, best practices, or modifying tsx."
+description: 'ALWAYS use when writing code importing "tsx". Consult for debugging, best practices, or modifying tsx.'
 metadata:
   version: 4.22.0
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # privatenumber/tsx `tsx@4.22.0`
+
 **Tags:** latest: 4.22.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p tsx` instead of grepping `.skilld/` directories. Run `skilld search --guide -p tsx` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 **Note:** v4.22.0 is not yet released. The latest stable version is v4.21.0. This document covers API changes through v4.21.0.
@@ -36,9 +38,11 @@ Use `skilld search "query" -p tsx` instead of grepping `.skilld/` directories. R
 Current stable Developer APIs (`tsImport()`, `tsx.require()`, `register()`) remain stable across v4.x releases with consistent signatures for scoped registration and callback hooks.
 
 **Also changed:** esbuild upgraded to v0.25.0+ · support for Node's `--jitless` flag · Node's native TS format overrides · ESM JSON attribute handling
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## tsx Best Practices
 
 ## Best Practices

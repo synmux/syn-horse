@@ -1,6 +1,6 @@
 ---
 name: openai-skilld
-description: "ALWAYS use when writing code importing \"openai\". Consult for debugging, best practices, or modifying openai, openai-node, openai node."
+description: 'ALWAYS use when writing code importing "openai". Consult for debugging, best practices, or modifying openai, openai-node, openai node.'
 metadata:
   version: 6.37.0
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # openai/openai-node `openai@6.37.0`
+
 **Tags:** next: 4.0.0-beta.12, alpha: 5.0.0-alpha.0, beta: 5.0.0-beta.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p openai` instead of grepping `.skilld/` directories. Run `skilld search --guide -p openai` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes in the OpenAI Node SDK v6.x — prioritise recent minor releases.
@@ -52,9 +54,11 @@ This section documents version-specific API changes in the OpenAI Node SDK v6.x 
 - NEW: realtime translate — launched in v6.37, enables real-time translation capabilities [source](./.skilld/pkg/CHANGELOG.md:L10:11)
 
 **Also changed:** `web_search_call.results` output option in responses (v6.37) · short-lived tokens support (v6.34) · phase field in Message/Conversation (v6.34) · async iterator and stream() on WebSocket classes (v6.33) · keys field in computer action types (v6.33) · ResponseInputMessageItem type made required (v6.33) · redacted api-key headers in debug logs (v6.37)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Rely on automatic retry logic with exponential backoff (default 2 attempts) for transient failures — configurable per-client with `maxRetries` or per-request to handle network flakes gracefully without adding brittle polling code [./pkg/README.md:L407-426]

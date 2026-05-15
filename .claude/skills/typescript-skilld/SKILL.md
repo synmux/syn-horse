@@ -1,6 +1,6 @@
 ---
 name: typescript-skilld
-description: "ALWAYS use when editing or working with *.ts, *.tsx, *.mts, *.cts files or code importing \"typescript\". Consult for debugging, best practices, or modifying typescript, TypeScript."
+description: 'ALWAYS use when editing or working with *.ts, *.tsx, *.mts, *.cts files or code importing "typescript". Consult for debugging, best practices, or modifying typescript, TypeScript.'
 metadata:
   version: 6.0.3
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # microsoft/TypeScript `typescript@6.0.3`
+
 **Tags:** dev: 3.9.4, tag-for-publishing-older-releases: 4.1.6, insiders: 4.6.2-insiders.20220225
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p typescript` instead of grepping `.skilld/` directories. Run `skilld search --guide -p typescript` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -52,9 +54,11 @@ This section documents version-specific API changes — prioritize recent major/
 - NEW: `RegExp.escape(string)` — escapes special regex characters, available in `es2025` lib; Stage 4 ECMAScript proposal for safe regex literal construction [source](./.skilld/releases/blog-6.0.md:L418:432)
 
 **Also changed:** `noUncheckedSideEffectImports` now defaults to `true` · `libReplacement` now defaults to `false` · `Temporal` API types (Stage 3) in `esnext` lib · `--baseUrl` deprecated for module resolution · `--outFile` option removed · `--downlevelIteration` deprecated (ES5-only) · `module Foo {}` legacy namespace syntax now errors (use `namespace`) · `/// <reference no-default-lib="true"/>` no longer supported · `--moduleResolution classic` removed · Method syntax functions less context-sensitive (improved type inference for untyped parameters) · Subpath imports now support `#/` prefix under `nodenext` and `bundler` resolution · `dom` lib now includes `dom.iterable` and `dom.asynciterable` by default · `ignoreDeprecations: "6.0"` suppresses v6.0 deprecation warnings until v7.0
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Avoid using `any` type; use `unknown` instead when the type is not known — `any` disables type checking and defeats TypeScript's main benefit, while `unknown` preserves type safety [source](./.skilld/docs/docs/handbook/declaration-files/do-s-and-don-ts.html.md#any)

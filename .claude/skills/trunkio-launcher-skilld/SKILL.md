@@ -1,6 +1,6 @@
 ---
 name: trunkio-launcher-skilld
-description: "ALWAYS use when writing code importing \"@trunkio/launcher\". Consult for debugging, best practices, or modifying @trunkio/launcher, trunkio/launcher, trunkio launcher."
+description: 'ALWAYS use when writing code importing "@trunkio/launcher". Consult for debugging, best practices, or modifying @trunkio/launcher, trunkio/launcher, trunkio launcher.'
 metadata:
   version: 1.3.4
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # @trunkio/launcher@1.3.4
+
 **Tags:** latest: 1.3.4
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @trunkio/launcher` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @trunkio/launcher` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 **Note:** `@trunkio/launcher` is a CLI launcher/bootstrapper package, not a library. It does not expose a JavaScript API for programmatic use. The package is invoked as a command-line tool via the `trunk` binary entry point defined in `package.json`.
@@ -24,6 +26,7 @@ Use `skilld search "query" -p @trunkio/launcher` instead of grepping `.skilld/` 
 ### About the Launcher
 
 The launcher's purpose is to:
+
 1. Detect the current platform (Linux, macOS, Windows)
 2. Download the appropriate Trunk CLI binary for that platform
 3. Cache the binary in `~/.cache/trunk`
@@ -65,9 +68,11 @@ The launcher respects these Node.js and system environment variables:
 ---
 
 **Source:** Package analysis of @trunkio/launcher v1.3.4 ([`package.json`](./.skilld/pkg-launcher/package.json) · [`README.md`](./.skilld/pkg-launcher/README.md))
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Pin Trunk CLI version in `.trunk/trunk.yaml` rather than relying on auto-detection — ensures reproducible runs across environments and explicit upgrade control [source](./.skilld/docs/index.md#versioning)

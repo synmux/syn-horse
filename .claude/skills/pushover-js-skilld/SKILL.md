@@ -1,6 +1,6 @@
 ---
 name: pushover-js-skilld
-description: "ALWAYS use when writing code importing \"pushover-js\". Consult for debugging, best practices, or modifying pushover-js, pushover js."
+description: 'ALWAYS use when writing code importing "pushover-js". Consult for debugging, best practices, or modifying pushover-js, pushover js.'
 metadata:
   version: 1.3.2
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # danitetus/pushover-js `pushover-js@1.3.2`
+
 **Tags:** latest: 1.3.2
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p pushover-js` instead of grepping `.skilld/` directories. Run `skilld search --guide -p pushover-js` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -32,9 +34,11 @@ This section documents version-specific API changes — prioritize recent major/
 - FIXED: Promise resolution bug — v1.1.1 fixed successful requests not resolving promise and returning response object [source](./.skilld/pkg/CHANGELOG.md:L19:20)
 
 **Also changed:** `Pushover` constructor expects `(user, token)` positional args · `send(title?, message?)` returns Promise<IResponse> · method chaining supported on all `set*()` methods
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use async/await with Pushover's promise-based API — preferred over .then/.catch chains for readability and error handling in modern applications [source](./.skilld/pkg/README.md#usage)

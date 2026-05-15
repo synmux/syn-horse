@@ -1,6 +1,6 @@
 ---
 name: node-gyp-skilld
-description: "ALWAYS use when writing code importing \"node-gyp\". Consult for debugging, best practices, or modifying node-gyp, node gyp."
+description: 'ALWAYS use when writing code importing "node-gyp". Consult for debugging, best practices, or modifying node-gyp, node gyp.'
 metadata:
   version: 12.3.0
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # nodejs/node-gyp `node-gyp@12.3.0`
+
 **Tags:** latest: 12.3.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p node-gyp` instead of grepping `.skilld/` directories. Run `skilld search --guide -p node-gyp` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes for node-gyp v12.x — focusing on breaking changes and new APIs that differ from earlier versions.
@@ -32,9 +34,11 @@ This section documents version-specific API changes for node-gyp v12.x — focus
 - NEW: Visual Studio 2026 (18.x) support — added in v12.1.0 for Windows native addon builds [source](./.skilld/releases/v12.1.0.md:L12:15)
 
 **Also changed:** Built package version in error logs · gyp-next updated to v0.22.1 (v12.3.0), v0.21.1 (v12.2.0), v0.21.0 (v12.0.0) · env-paths bumped to v3.0.0 (v12.0.0) · which bumped to v6.0.0 (v12.0.0) · nopt updated to v9.0.0 (v12.0.0)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Configure the build before running build commands — the configure step generates platform-specific project files that the build command depends on [source](./.skilld/pkg/README.md:L131:145)

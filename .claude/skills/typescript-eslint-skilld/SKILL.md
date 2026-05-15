@@ -1,6 +1,6 @@
 ---
 name: typescript-eslint-skilld
-description: "ALWAYS use when writing code importing \"typescript-eslint\". Consult for debugging, best practices, or modifying typescript-eslint, typescript eslint."
+description: 'ALWAYS use when writing code importing "typescript-eslint". Consult for debugging, best practices, or modifying typescript-eslint, typescript eslint.'
 metadata:
   version: 8.59.3
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # typescript-eslint/typescript-eslint `typescript-eslint@8.59.3`
+
 **Tags:** rc-v8: 8.0.0-alpha.62, canary: 8.59.4-alpha.0, latest: 8.59.3
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p typescript-eslint` instead of grepping `.skilld/` directories. Run `skilld search --guide -p typescript-eslint` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -50,9 +52,11 @@ This section documents version-specific API changes — prioritize recent major/
 - FEATURE: Project service now accepts `Partial<ts.server.ServerHost>` in v8.53.0 — simplifies custom host configuration [source](./.skilld/releases/v8.53.0.md#features)
 
 **Also changed:** `no-multiple-lines-of-errors` new rule v8.52.0 · `tsconfig-utils` improved error messages v8.51.0 · `prefer-optional-chain` handle MemberExpression v8.51.0 · `no-base-to-string` detect @@toPrimitive and valueOf v8.52.0 · `no-base-to-string` fix false positive for toString overloads v8.57.0 · `typescript-estree` use ts.getModifiers() v8.57.0 · `typescript-estree` template literal tagged cooked null handling v8.57.0 · template literal invalid escape sequences now return null cooked value in v8.57.0 · `RuleModule` interface changes in v8.51.0
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## typescript-eslint Best Practices (v8.59.3)
 
 ## Best Practices

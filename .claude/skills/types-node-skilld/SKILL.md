@@ -1,6 +1,6 @@
 ---
 name: types-node-skilld
-description: "ALWAYS use when writing code importing \"@types/node\". Consult for debugging, best practices, or modifying @types/node, types/node, types node, DefinitelyTyped."
+description: 'ALWAYS use when writing code importing "@types/node". Consult for debugging, best practices, or modifying @types/node, types/node, types node, DefinitelyTyped.'
 metadata:
   version: 25.8.0
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # DefinitelyTyped/DefinitelyTyped `@types/node@25.8.0`
+
 **Tags:** ts2.0: 12.12.6, ts2.1: 12.12.6, ts2.5: 12.12.6
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @types/node` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @types/node` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes in @types/node v25.8.0, prioritizing recent major/minor releases and migration notes from v24 → v25.
@@ -56,9 +58,11 @@ This section documents version-specific API changes in @types/node v25.8.0, prio
 - DEPRECATED: `ServerResponse.prototype.writeHeader()` — runtime deprecated in v25.0.0, use `ServerResponse.prototype.writeHead()` instead source
 
 **Also changed:** `http/2` priority signaling removed in v24 · `AsyncLocalStorage` uses `AsyncContextFrame` by default v24 · V8 upgraded to 14.1 v25 · npm upgraded to 11.0.0 v24
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Always use the `node:` prefix when importing Node.js built-in modules — this syntax is supported since Node.js v14.18.0 and v12.20.0 and is the recommended standard for all new code [source](./.skilld/pkg/timers/promises.d.ts:L1)

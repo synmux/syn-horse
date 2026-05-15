@@ -1,6 +1,6 @@
 ---
 name: ntfy-skilld
-description: "ALWAYS use when writing code importing \"ntfy\". Consult for debugging, best practices, or modifying ntfy, node-packages, node packages."
+description: 'ALWAYS use when writing code importing "ntfy". Consult for debugging, best practices, or modifying ntfy, node-packages, node packages.'
 metadata:
   version: 1.15.2
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # ffflorian/node-packages `ntfy@1.15.2`
+
 **Tags:** latest: 1.15.2
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p ntfy` instead of grepping `.skilld/` directories. Run `skilld search --guide -p ntfy` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritise recent major/minor releases.
@@ -34,9 +36,11 @@ This section documents version-specific API changes — prioritise recent major/
 - NEW: HTTPMethod type with string union for action buttons — `publish()` actions support HTTP POST/PUT/GET/DELETE/PATCH with `method` parameter (default POST) [source](./.skilld/pkg/dist/interfaces.d.ts:L246:250)
 
 **Also changed:** MessagePriority enum (MIN=1 through MAX=5) · BroadcastAction with Android intent extras · ViewAction for opening URLs/apps · TagsArray support (string or array of strings) · ResponseData generic with id and time fields · Delay parameter with Unix timestamp or duration format
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Instantiate `NtfyClient` once per server or custom endpoint to avoid redundant configuration — reuse across multiple publish calls rather than calling the standalone `publish()` function repeatedly [source](./.skilld/pkg/README.md:L83:91)
