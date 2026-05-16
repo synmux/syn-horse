@@ -159,6 +159,7 @@ skills:
   ejs-skilld:
     packageName: ejs
     version: 5.0.2
+    packages: "ejs@5.0.2"
     repo: mde/ejs
     source: "ungh://mde/ejs"
     syncedAt: 2026-05-16
@@ -166,6 +167,7 @@ skills:
   cloudflare-vitest-pool-workers-skilld:
     packageName: "@cloudflare/vitest-pool-workers"
     version: 0.16.6
+    packages: "@cloudflare/vitest-pool-workers@0.16.6"
     repo: cloudflare/workers-sdk
     source: "https://developers.cloudflare.com/workers/**"
     syncedAt: 2026-05-16
@@ -173,6 +175,7 @@ skills:
   types-ejs-skilld:
     packageName: "@types/ejs"
     version: 3.1.5
+    packages: "@types/ejs@3.1.5"
     repo: DefinitelyTyped/DefinitelyTyped
     source: "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/docs"
     syncedAt: 2026-05-16
@@ -180,6 +183,7 @@ skills:
   vitest-skilld:
     packageName: vitest
     version: 4.1.6
+    packages: "vitest@4.1.6"
     repo: vitest-dev/vitest
     source: "https://github.com/vitest-dev/vitest/tree/v4.1.6/docs"
     syncedAt: 2026-05-16

@@ -2,9 +2,10 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "ai": {
     "binding": "AI",
+    "remote": true,
   },
   "compatibility_date": "2026-05-13",
-  "compatibility_flags": ["nodejs_compat_v2"],
+  "compatibility_flags": ["nodejs_compat"],
   "send_email": [
     {
       "destination_address": "syn@syn.as",
