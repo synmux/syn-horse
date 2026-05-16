@@ -1,41 +1,48 @@
-import { formatMessageSummary, safeParseMessage, type Message } from "./schema.ts"
-import getAdapter from "./adapters/index.ts"
-
-/* http get ability
-
-async fetch(req, env, ctx): Promise<Response> {
-  return new Response('Hello!');
-}
-
-*/
+import { safeParseMessage } from "./schema.ts"
+import { runAi } from "./stages/ai.ts"
+import { runDelivery } from "./stages/delivery.ts"
+import { runLogging } from "./stages/logging.ts"
+import { runRateLimits } from "./stages/rate-limits.ts"
 
 export default {
   // https://developers.cloudflare.com/queues/platform/javascript-apis/#messagebatch
-  async queue(batch, _env): Promise<void> {
+  async queue(batch, env): Promise<void> {
     for (const message of batch.messages) {
-      const result = safeParseMessage(message.body)
-      if (!result.success) {
+      const parsed = safeParseMessage(message.body)
+      if (!parsed.success) {
         console.error({
           messageId: message.id,
           message: "invalid page message",
-          issues: result.error.issues,
+          issues: parsed.error.issues,
           body: message.body,
         })
         message.ack()
         continue
       }
-      const adapter = getAdapter("ntfy")
-      console.info({
-        messageId: message.id,
-        message: formatMessageSummary(result.data),
-        adapter: adapter.name,
-      })
-      // trunk-ignore-all(trunk-toolbox/todo): working on it
-      // TODO: implement database logging for all messages (DB binding available)
-      // TODO: validate rate limits; then pass to next stage if ok (KV binding available)
-      // TODO: validate with AI; then pass to next stage if ok (AI binding available)
-      // TODO: dispatch to adapter(s)
-      message.ack()
+      const msg = parsed.data
+      try {
+        if ((await runLogging(env, message.id, msg)).kind === "stop") {
+          message.ack()
+          continue
+        }
+        if ((await runRateLimits(env, message.id, msg)).kind === "stop") {
+          message.ack()
+          continue
+        }
+        if ((await runAi(env, message.id, msg)).kind === "stop") {
+          message.ack()
+          continue
+        }
+        await runDelivery(env, message.id, msg)
+        message.ack()
+      } catch (err) {
+        console.error({
+          messageId: message.id,
+          message: "pipeline failure",
+          error: err instanceof Error ? err.message : String(err),
+        })
+        message.retry()
+      }
     }
   },
-} satisfies ExportedHandler<Env, Message>
+} satisfies ExportedHandler<Env, unknown>
