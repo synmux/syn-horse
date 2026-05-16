@@ -1,6 +1,6 @@
 ---
 name: openai-skilld
-description: "ALWAYS use when writing code importing \"openai\". Consult for debugging, best practices, or modifying openai, openai-node, openai node."
+description: 'ALWAYS use when writing code importing "openai". Consult for debugging, best practices, or modifying openai, openai-node, openai node.'
 metadata:
   version: 6.38.0
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # openai/openai-node `openai@6.38.0`
+
 **Tags:** next: 4.0.0-beta.12, alpha: 5.0.0-alpha.0, beta: 5.0.0-beta.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p openai` instead of grepping `.skilld/` directories. Run `skilld search --guide -p openai` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes in the openai-node SDK v6.35.0+. Focus on these when using recent versions, as LLMs trained on older data will not know about them.
@@ -84,9 +86,11 @@ This section documents version-specific API changes in the openai-node SDK v6.35
 - BUG FIX: SDK response types aligned with expanded item schemas — v6.33.0 corrected response type definitions to match API schema changes [source](./.skilld/pkg/CHANGELOG.md:L138:L154)
 
 **Also changed:** Custom voices API v6.29.0 · Sora video extensions/edits/resolution v6.28.0 · GPT-5.4 model launch v6.26.0 · Computer tool search v6.26.0 · Realtime models gpt-realtime-1.5/gpt-audio-1.5 v6.24.0 · Phase field on conversations Message v6.34.0/v6.25.0 · TypeScript underlying WebSocket type exposed v6.35.0 · Debug log API-key redaction v6.37.0 · Multipart form array serialization v6.34.0
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## OpenAI SDK v6.38.0 — Best Practices
 
 ## Best Practices

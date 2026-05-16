@@ -1,6 +1,6 @@
 ---
 name: vitest-skilld
-description: "ALWAYS use when writing code importing \"vitest\". Consult for debugging, best practices, or modifying vitest."
+description: 'ALWAYS use when writing code importing "vitest". Consult for debugging, best practices, or modifying vitest.'
 metadata:
   version: 4.1.6
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # vitest-dev/vitest `vitest@4.1.6`
+
 **Tags:** latest: 4.1.6, beta: 5.0.0-beta.2
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p vitest` instead of grepping `.skilld/` directories. Run `skilld search --guide -p vitest` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## Vitest v4.1.6 — API Changes
 
 ## API Changes
@@ -105,9 +107,11 @@ This section documents version-specific API changes — prioritize recent major/
 
 **Also changed:**
 `expect.poll()` with fake timers · Coverage ignore hints updated · `vi.mock({ spy: true })` node v8 coverage · `--detect-async-leaks` flag · `--update "new"` or `--update "all"` options · `filterNode` option to prettyDOM · Playwright persistent context · `vi.defineHelper()` improvements · `expect(..., message)` consistency · `experimental.preParse` flag · `browser.locators.exact` option · `TestAttachment.bodyEncoding` · Custom snapshot matcher · `matchesTags()` exposure · `experimental.vcsProvider` · `aria snapshot` (experimental)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Vitest Best Practices
 
 ## Best Practices
@@ -122,13 +126,13 @@ This section documents version-specific API changes — prioritize recent major/
 
 ```ts
 // Prefer this for better IDE support and types
-vi.mock(import('./calculator.ts'), async (importOriginal) => {
+vi.mock(import("./calculator.ts"), async (importOriginal) => {
   const mod = await importOriginal()
   return { ...mod, calculate: vi.fn() }
 })
 
 // Over this (string paths)
-vi.mock('./calculator.ts', () => ({ calculate: vi.fn() }))
+vi.mock("./calculator.ts", () => ({ calculate: vi.fn() }))
 ```
 
 - Combine `beforeAll()` with cleanup function return instead of separate `afterAll()` — ensures cleanup always runs and pairs setup/teardown logic together in one place [source](./.skilld/docs/api/hooks.md#beforeall)
@@ -152,7 +156,7 @@ beforeAll(async () => {
 
 ```ts
 const mocks = vi.hoisted(() => ({ getValue: vi.fn() }))
-vi.mock('./module.ts', () => ({ getValue: mocks.getValue }))
+vi.mock("./module.ts", () => ({ getValue: mocks.getValue }))
 ```
 
 - Enable filesystem module caching with `experimental.fsModuleCache` for faster watch mode reruns — most noticeable when rerunning a single test file with a large module graph [source](./.skilld/docs/guide/improving-performance.md#caching-between-reruns)
@@ -162,15 +166,19 @@ vi.mock('./module.ts', () => ({ getValue: mocks.getValue }))
 - Use the `test.retry` object form (Vitest 4.1+) with a `condition` function to retry only on specific error patterns — prevents retrying tests that fail for structural reasons [source](./.skilld/docs/api/test.md#retry)
 
 ```ts
-test('flaky network call', {
-  retry: {
-    count: 3,
-    delay: 100,
-    condition: (error) => error.message.includes('ECONNRESET')
-  }
-}, async () => {
-  // only retries on connection errors, not assertion failures
-})
+test(
+  "flaky network call",
+  {
+    retry: {
+      count: 3,
+      delay: 100,
+      condition: (error) => error.message.includes("ECONNRESET"),
+    },
+  },
+  async () => {
+    // only retries on connection errors, not assertion failures
+  },
+)
 ```
 
 - Use `aroundEach()` hooks for resource management that needs to wrap entire test execution — allows safe access to fixtures in both setup and teardown phases [source](./.skilld/docs/api/hooks.md#aroundeach)
@@ -181,4 +189,5 @@ aroundEach(async (runTest) => {
   // transaction automatically rolls back after test
 })
 ```
+
 <!-- /skilld:best-practices -->

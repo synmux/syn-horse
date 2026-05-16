@@ -1,6 +1,6 @@
 ---
 name: types-ejs-skilld
-description: "ALWAYS use when writing code importing \"@types/ejs\". Consult for debugging, best practices, or modifying @types/ejs, types/ejs, types ejs, DefinitelyTyped."
+description: 'ALWAYS use when writing code importing "@types/ejs". Consult for debugging, best practices, or modifying @types/ejs, types/ejs, types ejs, DefinitelyTyped.'
 metadata:
   version: 3.1.5
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # DefinitelyTyped/DefinitelyTyped `@types/ejs@3.1.5`
+
 **Tags:** ts2.3: 2.3.33, ts2.0: 2.3.33, ts2.1: 2.3.33
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @types/ejs` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @types/ejs` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents the TypeScript interface surface for @types/ejs v3.1.5. Complete historical API change data from earlier versions is not available in local reference sources.
@@ -64,9 +66,11 @@ The following functions form the primary public API of EJS v3.1.5:
 The `Template` class provides lower-level access to template compilation and source inspection. [source](./.skilld/pkg/index.d.ts:L144:L162)
 
 **Note:** Release notes for @types/ejs v3.1.5 and detailed migration guides from v2.x to v3.x are not available in local skilld references. For breaking changes between EJS versions, consult the EJS GitHub repository release notes directly.
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Choose `compile()` overloads carefully: use `{ async: true }` when rendering within async contexts (Promises, Workers) to avoid blocking; only use synchronous `{ async: false | undefined }` for blocking contexts or when the renderer explicitly requires sync execution [source](./.skilld/pkg/index.d.ts:L26:36)

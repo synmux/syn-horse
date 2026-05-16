@@ -1,6 +1,6 @@
 ---
 name: ejs-skilld
-description: "ALWAYS use when editing or working with *.ejs files or code importing \"ejs\". Consult for debugging, best practices, or modifying ejs."
+description: 'ALWAYS use when editing or working with *.ejs files or code importing "ejs". Consult for debugging, best practices, or modifying ejs.'
 metadata:
   version: 5.0.2
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # mde/ejs `ejs@5.0.2`
+
 **Tags:** latest: 5.0.2
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p ejs` instead of grepping `.skilld/` directories. Run `skilld search --guide -p ejs` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -28,9 +30,11 @@ This section documents version-specific API changes — prioritize recent major/
 - DEPRECATED: `scope` option in `ejs.compile()` — deprecated in v5, use `context` option instead. The `scope` option maps to `context` internally and will be removed in a future version [source](./.skilld/pkg/lib/cjs/ejs.js:L268)
 
 **Also changed:** ESM/CJS dual exports via `package.json#exports` field (v5 feature)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use `<%-` (raw output tag) with includes to prevent double-escaping the HTML — the default `<%=` will escape already-rendered HTML from included templates, corrupting output [source](./.skilld/pkg/README.md:L162)

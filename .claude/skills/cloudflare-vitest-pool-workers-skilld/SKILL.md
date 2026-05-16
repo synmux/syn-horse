@@ -1,6 +1,6 @@
 ---
 name: cloudflare-vitest-pool-workers-skilld
-description: "ALWAYS use when writing code importing \"@cloudflare/vitest-pool-workers\". Consult for debugging, best practices, or modifying @cloudflare/vitest-pool-workers, cloudflare/vitest-pool-workers, cloudflare vitest-pool-workers, cloudflare vitest pool workers, workers-sdk, workers sdk."
+description: 'ALWAYS use when writing code importing "@cloudflare/vitest-pool-workers". Consult for debugging, best practices, or modifying @cloudflare/vitest-pool-workers, cloudflare/vitest-pool-workers, cloudflare vitest-pool-workers, cloudflare vitest pool workers, workers-sdk, workers sdk.'
 metadata:
   version: 0.16.6
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # cloudflare/workers-sdk `@cloudflare/vitest-pool-workers@0.16.6`
+
 **Tags:** latest: 0.16.6
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @cloudflare/vitest-pool-workers` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @cloudflare/vitest-pool-workers` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes for @cloudflare/vitest-pool-workers — prioritise recent major/minor releases and breaking changes.
@@ -119,14 +121,17 @@ This section documents version-specific API changes for @cloudflare/vitest-pool-
 ### Configuration & Export Handling
 
 The package supports three explicit export types in `additionalExports`:
+
 - `"WorkerEntrypoint"` — ES module Worker handler (default/fetch/scheduled/queue)
 - `"DurableObject"` — Durable Object class
 - `"WorkflowEntrypoint"` — Workflow handler (new in recent versions)
 
 Configuration accepts optional `wrangler` section with `configPath` and `environment` to load wrangler.toml settings into tests. `remoteBindings` (default `false`) enables access to remote resources.
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices — @cloudflare/vitest-pool-workers v0.16.6
 
 ## Best Practices
