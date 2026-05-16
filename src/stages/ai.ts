@@ -1,6 +1,7 @@
 import { updateAi } from "../db.ts"
 import type { Message } from "../schema.ts"
 import { CONTINUE, type StageResult } from "./types.ts"
+import ejs from "ejs"
 
 export const PROMPT = `
 - You are an AI assistant responsible for determining the nature of a message.
@@ -16,7 +17,20 @@ export const PROMPT = `
   - \`fun\`: The message is not serious and is likely intended for amusement.
   - \`nonsense\`: The message does not make sense or is incoherent.
   - \`spam\`: The message is advertising something or is a clear abuse of the system.
+
+---
+
+Channel: \`<%= channel %>\`
+
+Message:
+
+\`\`\`
+<%= content %>
+\`\`\`
+
 `
+
+export const rendered_prompt = ejs.render(PROMPT, { channel: "CHANNEL", content: "CONTENT" })
 
 export async function runAi(env: Env, id: string, _msg: Message): Promise<StageResult> {
   await updateAi(env, id, "accept", "none")
