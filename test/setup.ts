@@ -1,15 +1,11 @@
 import { applyD1Migrations, env } from "cloudflare:test"
-import { readdir, readFile } from "node:fs/promises"
-import { join } from "node:path"
+
+declare module "cloudflare:test" {
+  interface ProvidedEnv {
+    TEST_MIGRATIONS: D1Migration[]
+  }
+}
 
 export async function migrate(): Promise<void> {
-  const dir = "./migrations"
-  const files = (await readdir(dir)).filter((name) => name.endsWith(".sql")).sort()
-  const migrations = await Promise.all(
-    files.map(async (name) => ({
-      name,
-      queries: [await readFile(join(dir, name), "utf8")],
-    })),
-  )
-  await applyD1Migrations(env.DB, migrations)
+  await applyD1Migrations(env.DB, env.TEST_MIGRATIONS)
 }
