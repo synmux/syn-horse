@@ -23,11 +23,11 @@ skills:
     generator: skilld
   openai-skilld:
     packageName: openai
-    version: 6.37.0
-    packages: "openai@6.37.0"
+    version: 6.38.0
+    packages: "openai@6.38.0"
     repo: openai/openai-node
     source: "ungh://openai/openai-node"
-    syncedAt: 2026-05-15
+    syncedAt: 2026-05-16
     generator: skilld
   zod-skilld:
     packageName: zod
@@ -118,11 +118,11 @@ skills:
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.142
-    packages: "@anthropic-ai/claude-code@2.1.142"
+    version: 2.1.143
+    packages: "@anthropic-ai/claude-code@2.1.143"
     repo: Exhen/claude-code-2.1.88
     source: "ungh://Exhen/claude-code-2.1.88"
-    syncedAt: 2026-05-15
+    syncedAt: 2026-05-16
     generator: skilld
   typescript-skilld:
     packageName: typescript
@@ -155,4 +155,32 @@ skills:
     repo: skilld-dev/skilld
     source: "https://skilld.dev/**"
     syncedAt: 2026-05-15
+    generator: skilld
+  ejs-skilld:
+    packageName: ejs
+    version: 5.0.2
+    repo: mde/ejs
+    source: "ungh://mde/ejs"
+    syncedAt: 2026-05-16
+    generator: skilld
+  cloudflare-vitest-pool-workers-skilld:
+    packageName: "@cloudflare/vitest-pool-workers"
+    version: 0.16.6
+    repo: cloudflare/workers-sdk
+    source: "https://developers.cloudflare.com/workers/**"
+    syncedAt: 2026-05-16
+    generator: skilld
+  types-ejs-skilld:
+    packageName: "@types/ejs"
+    version: 3.1.5
+    repo: DefinitelyTyped/DefinitelyTyped
+    source: "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/docs"
+    syncedAt: 2026-05-16
+    generator: skilld
+  vitest-skilld:
+    packageName: vitest
+    version: 4.1.6
+    repo: vitest-dev/vitest
+    source: "https://github.com/vitest-dev/vitest/tree/v4.1.6/docs"
+    syncedAt: 2026-05-16
     generator: skilld
