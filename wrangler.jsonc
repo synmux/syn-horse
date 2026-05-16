@@ -5,19 +5,10 @@
   },
   "compatibility_date": "2026-05-13",
   "compatibility_flags": ["nodejs_compat_v2"],
-  "media": {
-    "binding": "MEDIA",
-  },
-  "images": {
-    "binding": "IMAGES",
-  },
-  "stream": {
-    "binding": "STREAM",
-  },
   "send_email": [
     {
       "destination_address": "syn@syn.as",
-      "name": "syn.horse notifications",
+      "name": "EMAIL",
       "remote": true,
     },
   ],
