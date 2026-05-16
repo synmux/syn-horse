@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "dotenv": "^17.4.2",
+    "ejs": "^5.0.2",
     "node-gyp": "^12.3.0",
     "ntfy": "^1.15.2",
     "openai": "^6.37.0",
