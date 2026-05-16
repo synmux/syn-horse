@@ -4,6 +4,27 @@ import { runDelivery } from "./stages/delivery.ts"
 import { runLogging } from "./stages/logging.ts"
 import { runRateLimits } from "./stages/rate-limits.ts"
 
+/**
+ * Cloudflare Workers queue consumer for paging messages.
+ *
+ * Each batch message is validated with {@link safeParseMessage} and then
+ * dispatched through the four-stage pipeline:
+ *
+ * 1. **logging** — insert the audit row.
+ * 2. **rate limits** — enforce per-source caps.
+ * 3. **AI moderation** — classify the message.
+ * 4. **delivery** — hand off to an {@link Adapter}.
+ *
+ * Stages 2 and 3 can short-circuit by returning `STOP`, in which case the
+ * message is `ack()`'d and the pipeline does not proceed. Any thrown
+ * exception causes the message to be `retry()`'d so transient failures
+ * (e.g. D1 unavailability) are eventually replayed.
+ *
+ * Malformed payloads are logged and `ack()`'d rather than retried, since
+ * no amount of retrying will make a bad schema valid.
+ *
+ * @see https://developers.cloudflare.com/queues/platform/javascript-apis/#messagebatch
+ */
 export default {
   // https://developers.cloudflare.com/queues/platform/javascript-apis/#messagebatch
   async queue(batch, env): Promise<void> {
