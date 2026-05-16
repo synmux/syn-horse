@@ -5,7 +5,7 @@ import { z } from "zod"
 {
   "channel": "red",
   "contact": "alerts@example.com",
-  "message": "Disk usage has exceeded 85% on server node-12. Please investigate.",
+  "message": "Need your help! Site is down.",
   "source": "monitoring.example.com"
 }
 

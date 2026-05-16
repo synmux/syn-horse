@@ -55,8 +55,6 @@
     "postinstall:prepare": "bun run types",
     "postinstall:format": "bun run format",
     "start": "bun run wrangler dev",
-    "test": "bun run vitest",
-    "test:run": "bun run vitest run",
     "types": "bun run run-s types:generate types:fix types:format",
     "types:generate": "bun run wrangler types",
     "types:fix": "bun run eslint --fix worker-configuration.d.ts",
