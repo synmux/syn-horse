@@ -1,9 +1,9 @@
 # to-do list
 
-- [ ] build the consumer Worker for the `NOTIFICATIONS` queue: pull `{ panicId, notification }` envelopes off the queue, dispatch to a destination (ntfy/slack/email/etc.), and update the `panic_pages` row referenced by `panicId` with `notificationStatus = "sent"`/`"failed"`, `notificationMessageId`, and any error detail.
+- [ ] build the consumer Worker for the `NOTIFICATIONS` queue: validate `{ channel, contact, message, source? }` envelopes (strict — unknown fields are dropped), run the moderation / rate-limit / delivery pipeline, retry / dead-letter on failure. Status feedback to syn.horse will land as a separate piece of work (likely adds a producer-side endpoint or second queue, plus a migration extending `panic_pages.status` with `delivered` / `delivery_failed` and adding `deliveredAt` / `deliveryError`).
 - [ ] add retry policy + dead-letter handling on the consumer side once it lands.
 - [ ] consider a second `Pager` implementation on the producer side (e.g. a direct synchronous channel) if/when needed — extend `usePager()` to choose based on channel or runtime config.
-- [ ] decide whether to keep `notificationStatus = "pending"` / `"queued"` rows visible to any future admin UI as in-flight states, vs treating them as failed after a TTL.
+- [ ] decide whether to keep `status = "queued"` rows visible to any future admin UI as in-flight states, vs treating them as failed after a TTL if no consumer-side `delivered` / `delivery_failed` update arrives.
 - [ ] RSS feed at `/feed.xml` — currently linked from the home and blog footers but returns 404. Wants a `server/routes/feed.xml.ts` reading from a `queryCollection`.
 - [ ] mobile breakpoints — the source design ships no `@media` queries; some headings overflow narrow viewports
 
@@ -16,7 +16,7 @@
 - [ ] decide whether the `x:test*` scripts are real project commands. They currently call `vitest` and `playwright`, but neither binary is installed as a direct dependency, so both version checks fail with `command not found`.
 - [ ] add a small smoke-test suite for core routes: `/`, `/blog`, one known `/blog/<slug>`, `/feed.xml`, `/robots.txt`, `/sitemap.xml`, and `/api/panic` validation failure/success paths.
 - [ ] add a content-asset check that scans Markdown image links and fails CI when the target is missing or accidentally relative to the wrong directory.
-- [ ] audit direct dependencies and move/remove packages that are only historical or optional peers: candidates include `openai`, `uuid`, `pushover-js`, `dotenv`, `@dotenvx/dotenvx`, `node-gyp`, `untun`, `nuxi`, `@catppuccin/*`, and possibly `@libsql/client` / `better-sqlite3` if they are only present for local `@nuxt/content` support.
+- [ ] audit direct dependencies and move/remove packages that are only historical or optional peers: candidates include `openai`, `uuid`, `dotenv`, `@dotenvx/dotenvx`, `node-gyp`, `untun`, `nuxi`, `@catppuccin/*`, and possibly `@libsql/client` / `better-sqlite3` if they are only present for local `@nuxt/content` support.
 - [ ] consider gating `devtools.enabled` / timeline config to development only, unless the Nuxt production build is confirmed to tree-shake all devtools runtime.
 - [ ] avoid side effects in `nuxt.config.ts`: it writes `.buildtime` when imported if the file is missing. Prefer a build/deploy script, environment variable, or Nitro hook so config evaluation stays read-only.
 
@@ -47,7 +47,6 @@
 - [ ] add abuse protection for `POST /api/panic` beyond Turnstile: a Cloudflare Rate Limiting binding or KV/D1-backed throttle keyed by IP/contact would keep valid-token spam from filling D1 or paging you.
 - [ ] cap `turnstileToken` length in the Zod schema. Cloudflare Turnstile tokens are documented with a 2048-character maximum, so rejecting oversized bodies before verification is cheap.
 - [ ] pass and/or validate more Turnstile context if `@nuxtjs/turnstile` exposes it: remote IP, expected hostname, expected action, and clearer logging of validation failure modes.
-- [ ] reduce PII in Workers logs for `/api/panic`. The route currently logs truncated `issue` and `contact`; consider logging only the id/channel and keeping sensitive details in D1.
 - [ ] add a `channel` constraint at the database layer for `panic_pages` so D1 enforces `red` / `green`, not just TypeScript and Zod.
 - [ ] decide on retention for `panic_pages` rows, since they contain contact details and incident descriptions.
 - [ ] review the CSP once Turnstile, gtag, and any future scripts are settled. The current `script-src` includes `https:`, `'unsafe-inline'`, `'strict-dynamic'`, a nonce, and `'wasm-unsafe-eval'`; some of that may be necessary, but it is worth documenting the minimum.
