@@ -1,17 +1,11 @@
-import { eq } from "drizzle-orm"
 import { z } from "zod"
 
 import { panicPages } from "~~/server/db/schema"
-import { usePager, type PageNotification } from "~~/server/utils/pager"
-
-const PRIORITY_BY_CHANNEL: Record<(typeof panicPages.channel.enumValues)[number], PageNotification["priority"]> = {
-  red: 5,
-  green: 3,
-}
+import { extractSource, usePager, type QueueMessage } from "~~/server/utils/pager"
 
 const PanicBody = z.object({
   channel: z.enum(panicPages.channel.enumValues),
-  issue: z
+  message: z
     .string({ error: "tell me what's broken" })
     .min(10, { error: "say a bit more — at least 10 characters" })
     .max(2000, { error: "less than 2000 characters, please" }),
@@ -41,7 +35,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const { channel, issue, contact, turnstileToken } = parsed.data
+  const { channel, message, contact, turnstileToken } = parsed.data
 
   // Dev bypass: the page hides the widget and the server skips verify entirely.
   // Avoids a `missing-input-secret` 400 when the 1Password .env FIFO has already
@@ -66,37 +60,27 @@ export default defineEventHandler(async (event) => {
   const id = crypto.randomUUID()
   const db = useDb(event)
 
+  const source = extractSource(event)
+  const payload: QueueMessage = source ? { channel, contact, message, source } : { channel, contact, message }
+
+  const result = await usePager(event).send(payload)
+  const now = new Date()
+
   await db.insert(panicPages).values({
     id,
     channel,
-    issue,
+    message,
     contact,
-    createdAt: new Date(),
-    notificationStatus: "pending",
+    createdAt: now,
+    status: result.ok ? "queued" : "send_failed",
+    queueError: result.ok ? null : result.error,
+    queuedAt: result.ok ? now : null,
   })
-
-  const notification: PageNotification = {
-    title: `panic [${channel}]`,
-    body: `${issue}\n\n— ${contact}`,
-    priority: PRIORITY_BY_CHANNEL[channel],
-    tags: [channel === "red" ? "rotating_light" : "green_circle"],
-  }
-
-  const result = await usePager(event, id).send(notification)
-
-  await db
-    .update(panicPages)
-    .set({
-      notificationStatus: result.ok ? "queued" : "failed",
-      notificationError: result.ok ? null : result.error,
-      notifiedAt: new Date(),
-    })
-    .where(eq(panicPages.id, id))
 
   console.log("[panic]", {
     id,
     channel,
-    status: result.ok ? "queued" : "failed",
+    status: result.ok ? "queued" : "send_failed",
     error: result.ok ? undefined : result.error,
   })
 

@@ -15,7 +15,7 @@ type Status = "idle" | "pending" | "ok" | "error"
 // empty and verify fails with `missing-input-secret`. Bypass sidesteps that.
 const isDev = import.meta.dev
 
-const issue = ref("")
+const message = ref("")
 const contact = ref("")
 const token = ref("")
 const status = ref<Status>("idle")
@@ -26,11 +26,11 @@ const turnstileRef = ref<{ reset: () => void } | null>(null)
 
 let armTimer: ReturnType<typeof setTimeout> | null = null
 
-const issueOk = computed(() => issue.value.trim().length >= 10)
+const messageOk = computed(() => message.value.trim().length >= 10)
 const contactOk = computed(() => contact.value.trim().length >= 3)
 
 const canSubmit = computed(
-  () => issueOk.value && contactOk.value && (isDev || token.value.length > 0) && status.value !== "pending"
+  () => messageOk.value && contactOk.value && (isDev || token.value.length > 0) && status.value !== "pending"
 )
 
 function disarmRed() {
@@ -55,7 +55,7 @@ async function send(channel: Channel) {
       method: "POST",
       body: {
         channel,
-        issue: issue.value.trim(),
+        message: message.value.trim(),
         contact: contact.value.trim(),
         turnstileToken: token.value
       }
@@ -94,7 +94,7 @@ function reset() {
   status.value = "idle"
   errorMessage.value = ""
   submittedId.value = ""
-  issue.value = ""
+  message.value = ""
   contact.value = ""
   token.value = ""
   disarmRed()
@@ -117,15 +117,15 @@ function reset() {
         <div class="field-shell field-shell--textarea">
           <textarea
             id="panic-issue"
-            v-model="issue"
+            v-model="message"
             class="field"
             rows="6"
             placeholder="describe the fire. logs / urls / repro steps welcome."
             maxlength="2000"
             aria-describedby="panic-issue-counter"
           />
-          <span id="panic-issue-counter" class="field-counter" :class="{ ok: issueOk }" aria-live="polite">
-            {{ issueOk ? "👍" : "TYPE MORE" }}
+          <span id="panic-issue-counter" class="field-counter" :class="{ ok: messageOk }" aria-live="polite">
+            {{ messageOk ? "👍" : "TYPE MORE" }}
           </span>
         </div>
       </div>
