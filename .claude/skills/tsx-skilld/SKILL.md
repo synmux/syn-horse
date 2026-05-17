@@ -2,14 +2,14 @@
 name: tsx-skilld
 description: 'ALWAYS use when writing code importing "tsx". Consult for debugging, best practices, or modifying tsx.'
 metadata:
-  version: 4.22.0
+  version: 4.22.1
   generated_by: Anthropic · Haiku 4.5
-  generated_at: 2026-05-15
+  generated_at: 2026-05-17
 ---
 
-# privatenumber/tsx `tsx@4.22.0`
+# privatenumber/tsx `tsx@4.22.1`
 
-**Tags:** latest: 4.22.0
+**Tags:** latest: 4.22.1
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
@@ -21,57 +21,79 @@ Use `skilld search "query" -p tsx` instead of grepping `.skilld/` directories. R
 
 ## API Changes
 
-**Note:** v4.22.0 is not yet released. The latest stable version is v4.21.0. This document covers API changes through v4.21.0.
+**Note:** This document covers API changes through v4.21.0 (2025-11-30). v4.22.1 and later may not be fully documented here.
 
-### Watch Mode
+### Watch Mode CLI
 
-- NEW: `--include` CLI flag to watch additional files — v4.18.0 added the ability to specify files or patterns to include in watch monitoring, complementing the exclusion mechanism [source](./.skilld/releases/v4.18.0.md#features)
+- NEW: `--include` flag — v4.18.0 added the ability to include specific files or glob patterns in watch monitoring. Use `tsx watch --include "./other-dep.txt" ./file.ts` to watch files outside the default dependency graph [source](./.skilld/releases/v4.18.0.md#features)
 
-- DEPRECATED: `--ignore` flag — v4.19.0 deprecated the `--ignore` flag in favour of the `--exclude` flag for consistency and clarity. The `--ignore` flag still functions but users should migrate to `--exclude` [source](./.skilld/releases/v4.19.0.md#features)
+- DEPRECATED: `--ignore` flag — v4.19.0 deprecated `--ignore` in favour of `--exclude`. The `--ignore` flag still functions but will not receive new features. Use `tsx watch --exclude "./data/**/*" ./file.ts` instead [source](./.skilld/releases/v4.19.0.md#features)
 
 ### Node.js CLI Integration
 
-- DEPRECATED: `node --loader tsx` — For Node.js v20.5.1 and older, the `--loader` flag is deprecated. Use `--import` instead for newer Node versions [source](./.skilld/docs/dev-api/node-cli.md#deprecated-nodejs-v2051-and-below)
+- DEPRECATED: `node --loader tsx` — Deprecated for Node.js v20.6+. The `--loader` flag uses the legacy custom loader API. Use `node --import tsx ./file.ts` instead, which supports Node.js v20.6 and later with the modern loader API [source](./.skilld/docs/dev-api/node-cli.md)
 
-### ESM / CommonJS APIs
+- NEW: `node --import tsx` — The modern way to run TypeScript with Node directly. Replaces the deprecated `--loader` approach and works with Node.js v20.6+ [source](./.skilld/docs/dev-api/node-cli.md)
 
-Current stable Developer APIs (`tsImport()`, `tsx.require()`, `register()`) remain stable across v4.x releases with consistent signatures for scoped registration and callback hooks.
+### ESM/CommonJS Module Registration
 
-**Also changed:** esbuild upgraded to v0.25.0+ · support for Node's `--jitless` flag · Node's native TS format overrides · ESM JSON attribute handling
+- STABLE: `register()` API from `tsx/esm/api` — Allows runtime registration of TypeScript enhancement for ESM modules. Accepts optional `namespace` parameter for scoped registration and `onImport` hook for tracking loaded files [source](./.skilld/docs/dev-api/register-esm.md)
+
+- STABLE: `tsx/cjs` entrypoint — CommonJS-only registration available via `node --require tsx/cjs ./file.ts` for projects that only need CommonJS support [source](./.skilld/docs/dev-api/node-cli.md#commonjs-mode-only)
+
+- STABLE: `tsx/esm` entrypoint — ESM-only registration available via `node --import tsx/esm ./file.ts` for projects that only need ESM support [source](./.skilld/docs/dev-api/node-cli.md#module-mode-only)
+
+### Developer APIs (Stable across v4.x)
+
+- STABLE: `tsImport()` — Load TypeScript files without module caching. Requires passing the caller's `import.meta.url` for proper resolution context. Useful for one-time imports where caching is not desired [source](./.skilld/docs/dev-api/ts-import.md)
+
+- STABLE: `tsx.require()` — CommonJS require variant for loading TypeScript files. Part of the stable CJS developer API [source](./.skilld/docs/dev-api/tsx-require.md)
+
+### JSON & ESM Attributes
+
+- FIXED: ESM JSON attribute handling — v4.20.0 fixed a bug where the JSON `import attribute` was not automatically set when missing. Ensures `import config from "./config.json" assert { type: "json" }` works correctly [source](./.skilld/releases/v4.20.0.md#bug-fixes)
+
+- IMPROVED: JSON key handling — v4.20.1 fixed handling of JSON keys with special characters, improving compatibility with complex JSON structures [source](./.skilld/releases/v4.20.1.md#bug-fixes)
+
+### esbuild Integration
+
+- ENHANCED: esbuild upgraded to v0.25.0+ — v4.19.3 upgraded esbuild to address vulnerability reports. v4.21.0 further upgraded esbuild for latest language support and performance improvements [source](./.skilld/releases/v4.19.3.md#bug-fixes)
+
+- ENHANCED: Latest Node versions support — v4.20.0 adds support for the latest Node.js versions, ensuring compatibility with recent Node releases [source](./.skilld/releases/v4.20.0.md#features)
+
+**Also changed:** Process signal relay improved v4.20.6 · TypeScript configuration path override via `TSX_TSCONFIG_PATH` env var · Watch mode glob pattern support · debugger sourceMap generation · CommonJS/ESM interop improvements
 
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
 
-## tsx Best Practices
-
 ## Best Practices
 
-- Separate type checking from execution — tsx doesn't type-check code on its own. Use `tsc --noEmit` in a separate step, treating type errors like linting rather than blocking compilation. This enables fast iteration during development while maintaining correctness through CI checks [source](./.skilld/docs/typescript.md#type-checking)
+- Separate type checking from execution using `tsc --noEmit` in pre-commit hooks or CI — tsx does not type check on its own, treating type errors as linting concerns rather than compilation blockers [source](./.skilld/docs/typescript.md#development-workflow)
 
-- Configure `tsconfig.json` with recommended compiler options — Use `moduleDetection: force`, `module: Preserve`, `resolveJsonModule: true`, `allowJs: true`, `esModuleInterop: true`, and `isolatedModules: true` to ensure consistent behaviour between tsx and TypeScript tooling [source](./.skilld/docs/typescript.md#recommendation)
+- Configure `tsconfig.json` with recommended settings (`moduleDetection: "force"`, `module: "Preserve"`, `esModuleInterop: true`, `isolatedModules: true`, `resolveJsonModule: true`, `allowJs: true`) — enables correct ESM behaviour and sensible defaults that match tsx's capabilities [source](./.skilld/docs/typescript.md#recommendation)
 
-- Add type checking to pre-commit hooks — Integrate `tsc --noEmit` into git pre-commit hooks using simple-git-hooks, catching type errors before code is committed while allowing fast local execution with tsx [source](./.skilld/docs/typescript.md#pre-commit-hook)
+- Use CLI approach (`node --import tsx` or `tsx` command) over `import 'tsx'` in source code — inline tsx registration is unexpected for collaborators and less visible than explicit command-line usage [source](./.skilld/docs/dev-api/entry-point.md#advanced-usage)
 
-- Use `--exclude` flag in watch mode instead of `--ignore` — The `--ignore` flag was deprecated in v4.19.0. Prefer `--exclude` for consistent glob pattern support and clarity of intent [source](./.skilld/docs/watch-mode.md#excluding-files-from-watch)
+- Use scoped registration with namespace in the register API — prevents affecting the entire runtime environment when only specific code paths need TypeScript support [source](./.skilld/docs/dev-api/register-cjs.md#scoped-registration)
 
-- Never publish uncompiled TypeScript in npm packages — Always compile TypeScript to JavaScript before publishing to npm. Source files require specific `tsconfig.json` configuration and cause performance degradation at runtime [source](./.skilld/docs/compilation.md#should-i-publish-typescript-files)
+- Use `tsImport()` for third-party packages loading TypeScript files — designed specifically for one-time loads without caching or adding TypeScript support to the entire runtime [source](./.skilld/docs/dev-api/ts-import.md)
 
-- Use pkgroll for npm package bundling — Recommended bundler for tsx projects, developed by the same author. Automatically infers build output based on `package.json` entry points, supporting CJS, ESM, and dual packages [source](./.skilld/docs/compilation.md#compiling-an-npm-package)
+- Never publish uncompiled TypeScript to npm packages — use pkgroll or similar bundlers to compile source files, as tsx's tsconfig requirements apply to development, not to package consumers [source](./.skilld/docs/compilation.md#should-i-publish-typescript-files)
 
-- Use `--import` flag or `node --import tsx` for TypeScript with node — More visible than importing tsx within source code. Use `node --import tsx ./file.ts` when needing direct node invocation or integrating with tools that specifically call node [source](./.skilld/docs/dev-api/index.md#directly-running-node)
+- Use watch mode for development iteration — tsx's watch mode is more robust than Node's `--watch` flag (introduced in v18.11.0) and predates Node's implementation [source](./.skilld/docs/watch-mode.md#overview)
 
-- Use scoped registration with namespace for isolated TypeScript loading — When third-party code needs to load TypeScript files without affecting the entire runtime, use `register({ namespace: ... })` to return a private `import()` function with no cache interactions [source](./.skilld/docs/dev-api/register-esm.md#scoped-registration)
+- Enable `verbatimModuleSyntax` in `tsconfig.json` — requires explicit `import type` / `export type` syntax to avoid surprising behaviour and reduce refactoring [source](./.skilld/docs/typescript.md#recommendation)
 
-- Use `tsImport()` for one-time TypeScript file imports — Load TypeScript files without module caching when the same file won't be imported multiple times. Requires passing the caller's `import.meta.url` for proper resolution context [source](./.skilld/docs/dev-api/ts-import.md#usage)
+- Use the register API's `onImport` hook to track loaded files for custom watchers — `register({ onImport: file => { ... } })` collects dependencies for custom file watching implementations [source](./.skilld/docs/dev-api/register-esm.md#tracking-loaded-files)
 
-- Position tsx flags and script arguments correctly — Place tsx flags immediately after `tsx`, and place script flags and arguments after the script path: `tsx [tsx flags] ./file.ts [script flags & arguments]`. Incorrect positioning can cause unexpected behaviour [source](./.skilld/docs/node-enhancement.md#flag--arguments-positioning)
+- Exclude large directories from watch mode using `--exclude` — tsx watches all imported files except `node_modules`, `bower_components`, `vendor`, `dist`, and hidden directories by default; exclude additional directories to improve performance [source](./.skilld/docs/watch-mode.md#watch-behavior)
 
-- Treat tsx as a drop-in replacement for node with full feature parity — All Node.js command-line flags are supported without modification. You can swap `node` for `tsx` directly in package.json scripts, shell commands, or CI/CD pipelines [source](./.skilld/docs/node-enhancement.md#swap-node-for-tsx)
+- Position tsx flags before the script path when running — correct syntax: `tsx [tsx flags] ./file.ts [flags & arguments for file.ts]`; flags after the script path are passed to the script, not tsx [source](./.skilld/docs/node-enhancement.md#flag--arguments-positioning)
 
-- Use tsx with Node's built-in test runner for TypeScript test support — Run `tsx --test` to execute tests with automatic detection of TypeScript test files matching standard patterns (`*.test.ts`, `*-test.ts`, `test/*.ts`, etc.) [source](./.skilld/docs/node-enhancement.md#test-runner)
+- Use `allowJs: true` in `tsconfig.json` for seamless JavaScript/TypeScript interop — eliminates `ERR_REQUIRE_ESM` errors when mixing CommonJS and ESM modules [source](./.skilld/docs/faq.md#seamless-cjs-esm-imports)
 
-- Use shell script hashbang with `-S` flag for package-managed tsx — Write executable TypeScript shell scripts using `#!/usr/bin/env -S npx tsx` (or pnpm/yarn equivalent), ensuring tsx is invoked through your package manager and resolving correctly across environments [source](./.skilld/docs/shell-scripts.md#project-scripts)
+- Use shell script hashbang `#!/usr/bin/env -S npx tsx` for project-local scripts — the `-S` flag allows npx to correctly invoke tsx with the script arguments [source](./.skilld/docs/shell-scripts.md#project-scripts)
 
-- Use `tsx/cli` as a workaround for worker threads — When using worker threads with TypeScript, load `tsx/cli` instead of the TypeScript file directly, passing the actual script as an `argv` entry. This works around Node's module resolution limitation with tsx-enhanced code [source](./.skilld/issues/issue-354.md)
+- Use `tsx --test` for running TypeScript test files — automatically recognises test patterns (`**/*.test.ts`, `**/*-test.ts`, `**/test-*.ts`, `**/test.ts`, `**/test/**/*.ts`) without configuration [source](./.skilld/docs/node-enhancement.md#test-runner)
 <!-- /skilld:best-practices -->
