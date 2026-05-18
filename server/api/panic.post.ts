@@ -7,7 +7,7 @@ const PanicBody = z.object({
   channel: z.enum(panicPages.channel.enumValues),
   message: z
     .string({ error: "tell me what's broken" })
-    .min(10, { error: "say a bit more — at least 10 characters" })
+    .min(10, { error: "say a bit more - at least 10 characters" })
     .max(2000, { error: "less than 2000 characters, please" }),
   contact: z
     .string({ error: "leave a way to reach you" })

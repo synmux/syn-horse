@@ -65,11 +65,11 @@ skills:
     generator: skilld
   nuxt-skilld:
     packageName: nuxt
-    version: 4.4.5
-    packages: "nuxt@4.4.5"
+    version: 4.4.6
+    packages: "nuxt@4.4.6"
     repo: nuxt/nuxt
-    source: "https://github.com/nuxt/nuxt/tree/v4.4.5/docs"
-    syncedAt: 2026-05-15
+    source: "https://github.com/nuxt/nuxt/tree/v4.4.6/docs"
+    syncedAt: 2026-05-18
     generator: skilld
   nuxthub-core-skilld:
     packageName: "@nuxthub/core"

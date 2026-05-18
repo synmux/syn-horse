@@ -9,6 +9,10 @@ For each skill, determine YES/NO relevance and invoke all YES skills before proc
 
 <!-- /skilld -->
 
+## Serena
+
+You have the `serena` MCP to help you navigate code; use it, it will make your life a lot easier. If other tooling is more appropriate, you don't HAVE to use Serena - it's just worth considering how it might help.
+
 ## Cloudflare Workers
 
 STOP. Your knowledge of Cloudflare Workers APIs and limits may be outdated. Always retrieve current documentation before any Workers, KV, R2, D1, Durable Objects, Queues, Vectorize, AI, or Agents SDK task.
