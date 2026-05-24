@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../_worktrees/syn-horse.notifications"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"wrangler.json": "jsonc"
+		}
+	}
+}
