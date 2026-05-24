@@ -17,7 +17,7 @@ mise install
 bun install
 ```
 
-If you would rather manage tools yourself: Node 24.15.0, Bun 1.3.13.
+If you would rather manage tools yourself: Node 24.15.0, Bun 1.3.14.
 
 ## Development
 
@@ -25,7 +25,7 @@ If you would rather manage tools yourself: Node 24.15.0, Bun 1.3.13.
 bun run dev
 ```
 
-Boots the Nuxt dev server on `http://localhost:3000`. Cloudflare bindings (D1, KV, Cache, R2, version metadata, vars) are wired through nitropack's built-in `cloudflare-dev` preset, which reads `wrangler.dev.jsonc` via `nitro.cloudflareDev.configPath` in `nuxt.config.ts`. AI, Browser, Images, and Analytics bindings exist in production but aren't emulated locally — they need an authenticated remote-bindings session, so they're left commented out in `wrangler.dev.jsonc` until dev code needs them.
+Boots the Nuxt dev server on `http://localhost:3000`. Cloudflare bindings (D1, KV, Cache, R2, the `NOTIFICATIONS` queue, version metadata, vars) are wired through nitropack's built-in `cloudflare-dev` preset, which reads `wrangler.dev.jsonc` via `nitro.cloudflareDev.configPath` in `nuxt.config.ts`. AI, Browser, Images, and Analytics bindings exist in production but aren't emulated locally — they need an authenticated remote-bindings session, so they're left commented out in `wrangler.dev.jsonc` until dev code needs them.
 
 ## Production
 
@@ -55,7 +55,7 @@ bun run db:studio           # drizzle-kit studio (browse the schema)
 
 ### Setup at a glance
 
-- **Schema:** `server/db/schema.ts` (Drizzle, `sqliteTable` from `drizzle-orm/sqlite-core`). Currently: `redirects`, `panic_pages`.
+- **Schema:** `server/db/schema.ts` (Drizzle, `sqliteTable` from `drizzle-orm/sqlite-core`). Currently just `panic_pages`. (`redirects` is a legacy hand-applied table in `sql/redirects.sql`, not part of the Drizzle schema.)
 - **Migrations:** `server/db/migrations/sqlite/00NN_*.sql`, with drizzle-kit metadata under `meta/`.
 - **Drizzle config:** `drizzle.config.ts` at repo root (sqlite dialect, schema + out path wired).
 - **D1 binding:** `DB`. Declared in both `nuxt.config.ts` (deploy) and `wrangler.dev.jsonc` (dev). Database name is `syn-horse`.
@@ -64,16 +64,18 @@ bun run db:studio           # drizzle-kit studio (browse the schema)
 
 ### Schema-driven enums (single source of truth)
 
-For columns with a fixed set of values, declare them once on the Drizzle column and derive everything else from that array. Today this is `panicPages.channel` (`"red"` or `"green"`):
+For columns with a fixed set of values, declare them once on the Drizzle column and derive everything else from that array. Today this is `panicPages.channel` (`"red"` / `"green"`) and `panicPages.status` (`"queued"` / `"send_failed"`):
 
 ```typescript
 // server/db/schema.ts
 export const panicPages = sqliteTable("panic_pages", {
   // …
-  channel: text({ enum: ["red", "green"] }).notNull()
+  channel: text({ enum: ["red", "green"] }).notNull(),
+  status: text({ enum: ["queued", "send_failed"] }).notNull()
 })
 
 export type Channel = (typeof panicPages.$inferSelect)["channel"]
+export type PageStatus = (typeof panicPages.$inferSelect)["status"]
 ```
 
 - **Frontend types:** `import type { Channel } from "~~/server/db/schema"` in any `.vue` or `.ts` file. Type-only imports are erased at compile time, so the client bundle never pulls the schema module — only the union literal travels.
@@ -119,18 +121,18 @@ Swap `--remote` for `--local` to inspect the local Miniflare database.
 
 **Step 2** — apply, depending on what you saw
 
-| State                                                                                 | What to do                                                    |
-| ------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| Has `panic_pages` already                                                             | Nothing — skip to Step 3.                                     |
-| Has `redirects` AND `d1_migrations` populated with `0000_curved_daimon_hellstrom.sql` | `bun run db:migrate:remote` (or `:local`).                    |
-| Has `redirects` but no `d1_migrations` row for 0000                                   | Backfill the tracking row first (see below), then apply.      |
-| Empty                                                                                 | `bun run db:migrate:remote` — both migrations run from clean. |
+| State                                                   | What to do                                               |
+| ------------------------------------------------------- | -------------------------------------------------------- |
+| `panic_pages` already has the queue-era columns         | Nothing — skip to Step 3.                                |
+| `panic_pages` present, `d1_migrations` has the 0000 row | `bun run db:migrate:remote` (or `:local`).               |
+| `panic_pages` present but no `d1_migrations` 0000 row   | Backfill the tracking row first (see below), then apply. |
+| Empty                                                   | `bun run db:migrate:remote` — all three run from clean.  |
 
 To backfill the tracking row:
 
 ```bash
 bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
-  --command "CREATE TABLE IF NOT EXISTS d1_migrations(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, applied_at DATETIME DEFAULT CURRENT_TIMESTAMP); INSERT OR IGNORE INTO d1_migrations(name) VALUES ('0000_curved_daimon_hellstrom.sql');"
+  --command "CREATE TABLE IF NOT EXISTS d1_migrations(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, applied_at DATETIME DEFAULT CURRENT_TIMESTAMP); INSERT OR IGNORE INTO d1_migrations(name) VALUES ('0000_stale_omega_sentinel.sql');"
 
 bun run db:migrate:remote
 ```
@@ -144,7 +146,7 @@ bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
   --command "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"
 ```
 
-Should list at least `d1_migrations`, `panic_pages`, `redirects`, `sqlite_sequence`.
+Should list at least `d1_migrations`, `panic_pages`, `sqlite_sequence`.
 
 ### Adjacent production requirements
 
@@ -164,11 +166,17 @@ Should list at least `d1_migrations`, `panic_pages`, `redirects`, `sqlite_sequen
 | `/now`         | What I'm doing this month                                               |
 | `/projects`    | Things I made                                                           |
 | `/blog`        | Blog index, tag filter                                                  |
-| `/blog/<slug>` | Individual post (placeholder body for now — see [TODO.md](./TODO.md))   |
+| `/blog/<slug>` | Individual post (markdown, rendered via @nuxt/content)                  |
 | `/cv`          | Boring resume version                                                   |
 | `/contact`     | Email, signal, the rest                                                 |
 | `/domains`     | The syn.\* family                                                       |
 | `/panic`       | Page syn — red button for emergencies, green button for everything else |
+
+## Paging
+
+`/panic` POSTs to `POST /api/panic`, which validates the form, checks Turnstile (production only), records the attempt in the `panic_pages` D1 table (`status`: `queued` or `send_failed`), and hands the message to a Cloudflare Queue (`NOTIFICATIONS` → `syn-horse-notifications`) via `usePager()` in `server/utils/pager.ts`.
+
+A separate Worker — the `syn-horse-notifications` queue consumer — runs each message through a four-stage pipeline: logging → per-source rate limits (KV) → AI moderation → delivery (email / ntfy / Pushover adapters). The wire format is a strict `{ channel, contact, message, source? }` envelope; moderation and the real delivery adapters are scaffolded but not yet live, so today delivery is an intentional no-op stub.
 
 ## Easter eggs
 
@@ -179,11 +187,11 @@ Should list at least `d1_migrations`, `panic_pages`, `redirects`, `sqlite_sequen
 ## Tech
 
 - [Nuxt 4](https://nuxt.com) with `compatibilityVersion: 4`
-- [@nuxt/content](https://content.nuxt.com) — installed; the blog content is currently hardcoded in `app/data/posts.ts` while a migration to markdown-driven posts is pending
+- [@nuxt/content](https://content.nuxt.com) — drives the blog: a `blog` collection (`content/blog/*.md`, schema in `content.config.ts`) queried at runtime with `queryCollection("blog")`
 - [@nuxt/fonts](https://fonts.nuxt.com) — loads VT323, Inter and JetBrains Mono via the Google provider
 - [@nuxthub/core](https://hub.nuxt.com) — provides the KV and R2 bindings
 - [nuxt-security](https://nuxt-security.com) — SRI, hashed scripts and styles, security headers
-- [Drizzle ORM](https://orm.drizzle.team) — D1-backed; powers the `/panic` paging endpoint via a `panic_pages` table. Auto-imported `useDb(event)` helper lives in `server/utils/db.ts`.
+- [Drizzle ORM](https://orm.drizzle.team) — D1-backed; the `/panic` endpoint validates, records to a `panic_pages` table, and enqueues to the `NOTIFICATIONS` queue (see [Paging](#paging)). Auto-imported `useDb(event)` helper lives in `server/utils/db.ts`.
 - [@nuxtjs/turnstile](https://github.com/nuxt-modules/turnstile) — Cloudflare Turnstile widget on `/panic`; `verifyTurnstileToken` runs on the server
 - [Tailwind CSS v4](https://tailwindcss.com) and [daisyUI 5](https://daisyui.com), wired with a single bespoke `synhorse` theme — the design tokens (palette, type scale, spacing, glow shadows, animations) live in `app/assets/css/main.css` under `@theme`, and daisyUI's semantic roles (`primary`, `secondary`, `accent`, `base-100`, …) map onto them.
 
@@ -199,12 +207,13 @@ app/
   components/
     layout/                    # StatusBar, NavBar, FxLayer, CommandPalette, KonamiToast
     ui/                        # Tag, Console
+    OgImage/                   # @takumi-rs OG-image card templates (*.takumi.vue)
     NotFound.vue
   composables/                 # useTime, useCommandPalette, useKonamiCode
-  data/                        # typed content modules (posts, projects, domains, ...)
+  data/                        # typed content modules (projects, cv, domains, social, im, commands)
   layouts/default.vue
   pages/                       # index, now, projects, cv, contact, domains, blog/
-content/blog/                  # 15 markdown posts (dormant; future @nuxt/content source)
+content/blog/                  # markdown posts — live @nuxt/content source
 public/                        # static assets, easter-egg config files
 server/
   api/                         # Nitro API routes (panic.post.ts → POST /api/panic)
@@ -223,7 +232,7 @@ Tokens that drive every visual decision live in the `@theme` block at the top of
 
 ## Deferred work
 
-See [TODO.md](./TODO.md) for the running list of intentional deferrals — chiefly: migrating the blog to `@nuxt/content`, an RSS feed, OG image generation, and mobile breakpoints.
+See [TODO.md](./TODO.md) for the running list of intentional deferrals — chiefly: an RSS feed, richer post-body styling, wiring the OG image templates, and mobile breakpoints.
 
 ## Licence
 
