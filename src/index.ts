@@ -44,17 +44,21 @@ export default {
       try {
         if ((await runLogging(env, message.id, msg)).kind === "stop") {
           message.ack()
+          console.info(`LOG: ${message.id} from source ${msg.source}`)
           continue
         }
         if ((await runRateLimits(env, message.id, msg)).kind === "stop") {
           message.ack()
+          console.info(`RATE-LIMITER: ${message.id} from source ${msg.source}`)
           continue
         }
         if ((await runAi(env, message.id, msg)).kind === "stop") {
           message.ack()
+          console.info(`AI: ${message.id} from source ${msg.source}`)
           continue
         }
         await runDelivery(env, message.id, msg)
+        console.info(`DELIVERY: ${message.id} from source ${msg.source}`)
         message.ack()
       } catch (err) {
         console.error({
