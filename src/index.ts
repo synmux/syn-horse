@@ -4,6 +4,10 @@ import { runDelivery } from "./stages/delivery.ts"
 import { runLogging } from "./stages/logging.ts"
 import { runRateLimits } from "./stages/rate-limits.ts"
 
+const STOP = "stop"
+const CONTINUE = "continue"
+const FINISHED = "finished"
+
 /**
  * Cloudflare Workers queue consumer for paging messages.
  *
@@ -40,28 +44,28 @@ export default {
         message.ack()
         continue
       }
-      const msg = parsed.data
+      const payload = parsed.data
       try {
-        if ((await runLogging(env, message.id, msg)).kind === "stop") {
-          console.info(`LOG: ${message.id} from source ${msg.source}`)
+        if ((await runLogging(env, message.id, payload)).kind === STOP) {
+          console.info({ stage: "logging", action: STOP, payload })
           message.ack()
           continue
         }
-        console.info("LOG: moving on")
-        if ((await runRateLimits(env, message.id, msg)).kind === "stop") {
-          console.info(`RATE-LIMITER: ${message.id} from source ${msg.source}`)
+        console.info({ stage: "logging", action: CONTINUE, payload })
+        if ((await runRateLimits(env, message.id, payload)).kind === STOP) {
+          console.info({ stage: "rate-limiting", action: STOP, payload })
           message.ack()
           continue
         }
-        console.info("RATE-LIMITER: moving on")
-        if ((await runAi(env, message.id, msg)).kind === "stop") {
-          console.info(`AI: ${message.id} from source ${msg.source}`)
+        console.info({ stage: "rate-limiting", action: CONTINUE, payload })
+        if ((await runAi(env, message.id, payload)).kind === STOP) {
+          console.info({ stage: "ai", action: STOP, payload })
           message.ack()
           continue
         }
-        console.info("AI: moving on")
-        await runDelivery(env, message.id, msg)
-        console.info(`DELIVERY: ${message.id} from source ${msg.source}`)
+        console.info({ stage: "ai", action: CONTINUE, payload })
+        await runDelivery(env, message.id, payload)
+        console.info({ stage: "delivery", action: FINISHED, payload })
         message.ack()
       } catch (err) {
         console.error({
