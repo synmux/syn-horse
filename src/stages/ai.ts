@@ -177,6 +177,8 @@ ${payload.message}
   const result = moderationResultSchema.parse(parsed)
   const { decision, violation } = mapLabelToVerdict(result.label)
 
+  console.info({ stage: "ai", action: decision, payload, result, message: `ai processed for message ${id}` })
+
   if (decision === "drop") {
     await updateAi(env, id, decision, violation, "dropped")
     return STOP
