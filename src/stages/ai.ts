@@ -127,9 +127,11 @@ export const rendered_prompt = ejs.render(PROMPT, { channel: "CHANNEL", content:
  */
 export async function runAi(env: Env, id: string, payload: Payload): Promise<StageResult> {
   const ai = env.AI
-  const response = await ai.run("@cf/openai/gpt-oss-20b", {
-    instructions: PROMPT,
-    input: payload.message,
+  const response = await ai.run("@cf/google/gemma-4-26b-a4b-it", {
+    messages: [
+      { role: "system", content: PROMPT },
+      { role: "user", content: payload.message },
+    ],
   })
   console.info({ stage: "ai", action: CONTINUE, payload, response, message: `ai processed for message ${id}` })
   await updateAi(env, id, "accept", "none")
