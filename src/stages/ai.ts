@@ -127,9 +127,9 @@ export const rendered_prompt = ejs.render(PROMPT, { channel: "CHANNEL", content:
  */
 export async function runAi(env: Env, id: string, payload: Payload): Promise<StageResult> {
   const ai = env.AI
-  const response = await ai.run("llama-guard-3-8b", {
+  const response = await ai.run("@cf/meta/llama-guard-3-8b", {
     messages: [
-      { role: "system", content: PROMPT },
+      { role: "assistant", content: PROMPT },
       { role: "user", content: payload.message },
     ],
   })
