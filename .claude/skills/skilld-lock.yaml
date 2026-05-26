@@ -23,11 +23,11 @@ skills:
     generator: skilld
   openai-skilld:
     packageName: openai
-    version: 6.38.0
-    packages: "openai@6.38.0"
+    version: 6.39.0
+    packages: "openai@6.39.0"
     repo: openai/openai-node
     source: "ungh://openai/openai-node"
-    syncedAt: 2026-05-16
+    syncedAt: 2026-05-26
     generator: skilld
   zod-skilld:
     packageName: zod
@@ -70,19 +70,19 @@ skills:
     generator: skilld
   ctx7-skilld:
     packageName: ctx7
-    version: 0.4.2
-    packages: "ctx7@0.4.2"
+    version: 0.4.4
+    packages: "ctx7@0.4.4"
     repo: upstash/context7
-    source: "ungh://upstash/context7/packages/cli@ctx7@0.4.2"
-    syncedAt: 2026-05-15
+    source: "https://github.com/upstash/context7/tree/ctx7@0.4.4/docs"
+    syncedAt: 2026-05-26
     generator: skilld
   npm-run-all2-skilld:
     packageName: npm-run-all2
-    version: 8.0.4
-    packages: "npm-run-all2@8.0.4"
+    version: 9.0.1
+    packages: "npm-run-all2@9.0.1"
     repo: bcomnes/npm-run-all2
-    source: "ungh://bcomnes/npm-run-all2@v8.0.4"
-    syncedAt: 2026-05-15
+    source: "https://github.com/bcomnes/npm-run-all2/tree/v9.0.1/docs"
+    syncedAt: 2026-05-26
     generator: skilld
   prettier-skilld:
     packageName: prettier
@@ -102,27 +102,19 @@ skills:
     generator: skilld
   tsx-skilld:
     packageName: tsx
-    version: 4.22.0
-    packages: "tsx@4.22.0"
+    version: 4.22.3
+    packages: "tsx@4.22.3"
     repo: privatenumber/tsx
-    source: "https://github.com/privatenumber/tsx/tree/v4.22.0/docs"
-    syncedAt: 2026-05-15
+    source: "https://github.com/privatenumber/tsx/tree/v4.22.3/docs"
+    syncedAt: 2026-05-26
     generator: skilld
   types-node-skilld:
     packageName: "@types/node"
-    version: 25.8.0
-    packages: "@types/node@25.8.0"
+    version: 25.9.1
+    packages: "@types/node@25.9.1"
     repo: DefinitelyTyped/DefinitelyTyped
-    source: readme
-    syncedAt: 2026-05-15
-    generator: skilld
-  anthropic-ai-claude-code-skilld:
-    packageName: "@anthropic-ai/claude-code"
-    version: 2.1.143
-    packages: "@anthropic-ai/claude-code@2.1.143"
-    repo: Exhen/claude-code-2.1.88
-    source: "ungh://Exhen/claude-code-2.1.88"
-    syncedAt: 2026-05-16
+    source: "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/docs"
+    syncedAt: 2026-05-26
     generator: skilld
   typescript-skilld:
     packageName: typescript
@@ -134,19 +126,19 @@ skills:
     generator: skilld
   wrangler-skilld:
     packageName: wrangler
-    version: 4.92.0
-    packages: "wrangler@4.92.0"
+    version: 4.95.0
+    packages: "wrangler@4.95.0"
     repo: cloudflare/workers-sdk
-    source: "https://github.com/cloudflare/workers-sdk/tree/v4.92.0/docs"
-    syncedAt: 2026-05-15
+    source: "https://developers.cloudflare.com/workers/**"
+    syncedAt: 2026-05-26
     generator: skilld
   typescript-eslint-skilld:
     packageName: typescript-eslint
-    version: 8.59.3
-    packages: "typescript-eslint@8.59.3"
+    version: 8.60.0
+    packages: "typescript-eslint@8.60.0"
     repo: typescript-eslint/typescript-eslint
-    source: "ungh://typescript-eslint/typescript-eslint/packages/typescript-eslint@v8.59.3"
-    syncedAt: 2026-05-15
+    source: "https://github.com/typescript-eslint/typescript-eslint/tree/v8.60.0/docs"
+    syncedAt: 2026-05-26
     generator: skilld
   skilld-skilld:
     packageName: skilld
@@ -158,19 +150,19 @@ skills:
     generator: skilld
   ejs-skilld:
     packageName: ejs
-    version: 5.0.2
-    packages: "ejs@5.0.2"
+    version: 6.0.1
+    packages: "ejs@6.0.1"
     repo: mde/ejs
     source: "ungh://mde/ejs"
-    syncedAt: 2026-05-16
+    syncedAt: 2026-05-26
     generator: skilld
   cloudflare-vitest-pool-workers-skilld:
     packageName: "@cloudflare/vitest-pool-workers"
-    version: 0.16.6
-    packages: "@cloudflare/vitest-pool-workers@0.16.6"
+    version: 0.16.10
+    packages: "@cloudflare/vitest-pool-workers@0.16.10"
     repo: cloudflare/workers-sdk
-    source: "https://developers.cloudflare.com/workers/**"
-    syncedAt: 2026-05-16
+    source: "https://github.com/cloudflare/workers-sdk/tree/v0.16.10/docs"
+    syncedAt: 2026-05-26
     generator: skilld
   types-ejs-skilld:
     packageName: "@types/ejs"
@@ -182,9 +174,16 @@ skills:
     generator: skilld
   vitest-skilld:
     packageName: vitest
-    version: 4.1.6
-    packages: "vitest@4.1.6"
+    version: 4.1.7
+    packages: "vitest@4.1.7"
     repo: vitest-dev/vitest
-    source: "https://github.com/vitest-dev/vitest/tree/v4.1.6/docs"
-    syncedAt: 2026-05-16
+    source: "https://github.com/vitest-dev/vitest/tree/v4.1.7/docs"
+    syncedAt: 2026-05-26
+    generator: skilld
+  anthropic-ai-claude-code-skilld:
+    packageName: "@anthropic-ai/claude-code"
+    version: 2.1.150
+    repo: Exhen/claude-code-2.1.88
+    source: "ungh://Exhen/claude-code-2.1.88"
+    syncedAt: 2026-05-26
     generator: skilld
