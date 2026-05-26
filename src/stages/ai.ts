@@ -1,5 +1,5 @@
 import { updateAi } from "../db.ts"
-import type { Message } from "../schema.ts"
+import type { Payload } from "../schema.ts"
 import { CONTINUE, type StageResult } from "./types.ts"
 import ejs from "ejs"
 
@@ -50,7 +50,7 @@ Channels:
 - \`red\` — the operator may be asleep. When in doubt, prefer \`nonsense\` or \`spam\` to avoid waking on garbage.
 - \`green\` — the operator is awake. When in doubt, prefer \`none\` or \`fun\`.
 
-Respond with only the label. No explanation, no punctuation, no quoting.
+Respond with ONLY the label. No explanation, no punctuation, no quoting.
 
 Examples:
 
@@ -87,7 +87,8 @@ Output: none
 ---
 
 Valid labels: \`none\`, \`fun\`, \`nonsense\`, \`spam\`.
-
+`
+const _foo = `
 Channel: \`<%= channel %>\`
 
 Message:
@@ -124,7 +125,15 @@ export const rendered_prompt = ejs.render(PROMPT, { channel: "CHANNEL", content:
  *   unused-parameter warning until then.
  * @returns A {@link StageResult}. Currently always {@link CONTINUE}.
  */
-export async function runAi(env: Env, id: string, _msg: Message): Promise<StageResult> {
+export async function runAi(env: Env, id: string, payload: Payload): Promise<StageResult> {
+  const ai = env.AI
+  const response = await ai.run("llama-guard-3-8b", {
+    messages: [
+      { role: "system", content: PROMPT },
+      { role: "user", content: payload.message },
+    ],
+  })
+  console.info({ stage: "ai", action: CONTINUE, payload, response, message: `ai processed for message ${id}` })
   await updateAi(env, id, "accept", "none")
   return CONTINUE
 }

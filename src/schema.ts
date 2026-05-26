@@ -35,7 +35,7 @@ export const messageSchema = z.strictObject({
 })
 
 /** A validated inbound page message. */
-export type Message = z.infer<typeof messageSchema>
+export type Payload = z.infer<typeof messageSchema>
 
 /**
  * Parse and validate a message payload, throwing on failure.
