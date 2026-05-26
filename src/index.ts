@@ -47,16 +47,19 @@ export default {
           console.info(`LOG: ${message.id} from source ${msg.source}`)
           continue
         }
+        console.info("LOG: moving on")
         if ((await runRateLimits(env, message.id, msg)).kind === "stop") {
           message.ack()
           console.info(`RATE-LIMITER: ${message.id} from source ${msg.source}`)
           continue
         }
+        console.info("RATE-LIMITER: moving on")
         if ((await runAi(env, message.id, msg)).kind === "stop") {
           message.ack()
           console.info(`AI: ${message.id} from source ${msg.source}`)
           continue
         }
+        console.info("AI: moving on")
         await runDelivery(env, message.id, msg)
         console.info(`DELIVERY: ${message.id} from source ${msg.source}`)
         message.ack()
