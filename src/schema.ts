@@ -41,10 +41,10 @@ export type Payload = z.infer<typeof messageSchema>
  * Parse and validate a message payload, throwing on failure.
  *
  * @param input - The raw payload as decoded from the queue message body.
- * @returns The validated {@link Message}.
+ * @returns The validated {@link Payload}.
  * @throws {z.ZodError} If the payload does not match {@link messageSchema}.
  */
-export function parseMessage(input: unknown): Message {
+export function parseMessage(input: unknown): Payload {
   return messageSchema.parse(input)
 }
 
@@ -64,12 +64,12 @@ export function safeParseMessage(input: unknown) {
 }
 
 /**
- * Type guard narrowing `unknown` to {@link Message}.
+ * Type guard narrowing `unknown` to {@link Payload}.
  *
  * @param input - Candidate payload.
  * @returns `true` when the payload satisfies {@link messageSchema}.
  */
-export function isMessage(input: unknown): input is Message {
+export function isMessage(input: unknown): input is Payload {
   return messageSchema.safeParse(input).success
 }
 
@@ -84,10 +84,10 @@ export function isMessage(input: unknown): input is Message {
  * @returns A human-readable summary including contact, optional source,
  *   and a truncated body.
  */
-export function formatMessageSummary(message: Message): string {
-  const truncated = message.message.length > 60 ? `${message.message.slice(0, 57)}...` : message.message
-  const via = message.source ? ` via ${message.source}` : ""
-  return `page from ${message.contact}${via}: ${truncated}`
+export function formatMessageSummary(payload: Payload): string {
+  const truncated = payload.message.length > 60 ? `${payload.message.slice(0, 57)}...` : payload.message
+  const via = payload.source ? ` via ${payload.source}` : ""
+  return `page from ${payload.contact}${via}: ${truncated}`
 }
 
 export default {

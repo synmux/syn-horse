@@ -1,6 +1,6 @@
 import getAdapter from "../adapters/index.ts"
 import { updateDelivery } from "../db.ts"
-import type { Message } from "../schema.ts"
+import type { Payload } from "../schema.ts"
 import { CONTINUE, type StageResult } from "./types.ts"
 
 /**
@@ -14,14 +14,14 @@ import { CONTINUE, type StageResult } from "./types.ts"
  *
  * @param env - Worker environment used to update the log row.
  * @param id - Message id (the log row primary key).
- * @param msg - The validated message to deliver.
+ * @param payload - The validated message to deliver.
  * @returns A {@link StageResult}. Always {@link CONTINUE} — there is no
  *   stage after delivery, but returning a uniform result keeps the stage
  *   signature consistent for the queue handler.
  */
-export async function runDelivery(env: Env, id: string, msg: Message): Promise<StageResult> {
+export async function runDelivery(env: Env, id: string, payload: Payload): Promise<StageResult> {
   const adapter = getAdapter("stub")
-  await adapter.send({ channel: msg.channel, content: msg.message })
+  await adapter.send({ channel: payload.channel, content: payload.message })
   await updateDelivery(env, id, adapter.name, "delivered")
   return CONTINUE
 }

@@ -1,7 +1,7 @@
 import { RATE_LIMITS, RATE_LIMIT_PERIODS } from "../constants.ts"
 import { updateRateLimit } from "../db.ts"
 import { incrementCounters, readCounters } from "../kv.ts"
-import type { Message } from "../schema.ts"
+import type { Payload } from "../schema.ts"
 import { CONTINUE, STOP, type StageResult } from "./types.ts"
 
 /**
@@ -20,21 +20,21 @@ import { CONTINUE, STOP, type StageResult } from "./types.ts"
  *
  * @param env - Worker environment exposing the `KV` and `DB` bindings.
  * @param id - Message id (the log row primary key).
- * @param msg - The validated message; `msg.source` selects the counter set.
+ * @param payload - The validated message; `payload.source` selects the counter set.
  * @returns {@link STOP} when the message was rate-limited and the
  *   `result = "dropped"` row has been written; otherwise {@link CONTINUE},
  *   including the KV-error fail-open path.
  */
-export async function runRateLimits(env: Env, id: string, msg: Message): Promise<StageResult> {
+export async function runRateLimits(env: Env, id: string, payload: Payload): Promise<StageResult> {
   try {
-    const counters = await readCounters(env, msg.source)
+    const counters = await readCounters(env, payload.source)
     for (const period of RATE_LIMIT_PERIODS) {
       if (counters[period].value >= RATE_LIMITS[period]) {
         await updateRateLimit(env, id, "drop", period, "dropped")
         return STOP
       }
     }
-    await incrementCounters(env, msg.source, counters)
+    await incrementCounters(env, payload.source, counters)
     await updateRateLimit(env, id, "accept", "none")
     return CONTINUE
   } catch (err) {

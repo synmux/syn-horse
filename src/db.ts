@@ -1,4 +1,4 @@
-import type { Message } from "./schema.ts"
+import type { Payload } from "./schema.ts"
 
 /** Outcome of the rate-limit stage for a single message. */
 export type RateLimitDecision = "accept" | "drop"
@@ -28,7 +28,7 @@ export type Result = "dropped" | "delivered" | "failed"
  * The `id` is the queue message id, which is reused as the log row's
  * primary key so later stages can update the same row.
  */
-export type InsertLogRow = Pick<Message, "contact" | "message" | "channel"> & {
+export type InsertLogRow = Pick<Payload, "contact" | "message" | "channel"> & {
   id: string
   source: string | undefined
 }
