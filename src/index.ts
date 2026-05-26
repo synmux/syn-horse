@@ -47,25 +47,25 @@ export default {
       const payload = parsed.data
       try {
         if ((await runLogging(env, message.id, payload)).kind === STOP) {
-          console.info({ stage: "logging", action: STOP, payload })
+          console.info({ stage: "logging", action: STOP, payload, message: `logging stopped for message ${message.id}` })
           message.ack()
           continue
         }
-        console.info({ stage: "logging", action: CONTINUE, payload })
+        console.info({ stage: "logging", action: CONTINUE, payload, message: `logging passed for message ${message.id}` })
         if ((await runRateLimits(env, message.id, payload)).kind === STOP) {
-          console.info({ stage: "rate-limiting", action: STOP, payload })
+          console.info({ stage: "rate-limiting", action: STOP, payload, message: `rate limiting stopped for message ${message.id}` })
           message.ack()
           continue
         }
-        console.info({ stage: "rate-limiting", action: CONTINUE, payload })
+        console.info({ stage: "rate-limiting", action: CONTINUE, payload, message: `rate limiting passed for message ${message.id}` })
         if ((await runAi(env, message.id, payload)).kind === STOP) {
-          console.info({ stage: "ai", action: STOP, payload })
+          console.info({ stage: "ai", action: STOP, payload, message: `ai stopped for message ${message.id}` })
           message.ack()
           continue
         }
-        console.info({ stage: "ai", action: CONTINUE, payload })
+        console.info({ stage: "ai", action: CONTINUE, payload, message: `ai passed for message ${message.id}` })
         await runDelivery(env, message.id, payload)
-        console.info({ stage: "delivery", action: FINISHED, payload })
+        console.info({ stage: "delivery", action: FINISHED, payload, message: `delivery finished for message ${message.id}` })
         message.ack()
       } catch (err) {
         console.error({
