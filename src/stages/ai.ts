@@ -2,7 +2,6 @@ import { updateAi } from "../db.ts"
 import type { AiDecision, AiViolation } from "../db.ts"
 import type { Payload } from "../schema.ts"
 import { CONTINUE, STOP, type StageResult } from "./types.ts"
-import ejs from "ejs"
 import { z } from "zod"
 
 /** Workers AI model used for paging-message moderation. */
@@ -42,7 +41,7 @@ const MODERATION_RESPONSE_JSON_SCHEMA = z.toJSONSchema(moderationResultSchema)
  *   than the abstract "strict / lenient" framing, which smaller models
  *   tend to ignore.
  *
- * @see {@link USER_PROMPT} for the per-message user turn (channel + body).
+ * @see {@link renderUserPrompt} for the per-message user turn (channel + body).
  * @see {@link rendered_user_prompt} for a placeholder-rendered sanity check.
  */
 export const PROMPT = `You are a content classifier for a paging system. Read the message below and classify it with exactly one label.
@@ -95,30 +94,50 @@ Valid labels: \`none\`, \`fun\`, \`nonsense\`, \`spam\`.
 `
 
 /**
- * EJS template for the per-message user turn.
+ * Escape dynamic prompt fragments the way EJS `<%= %>` would.
  *
- * Variables (HTML-escaped via `<%= %>`):
+ * Workers disallow `eval` / `new Function`, so EJS cannot compile templates
+ * at runtime; this helper preserves the same HTML-entity escaping for
+ * prompt-injection defence without dynamic code generation.
  *
- * - `channel` — the message's channel (`"red"` or `"green"`).
- * - `content` — the raw message body, wrapped in triple-backtick fences
- *   as a soft defence against prompt injection.
+ * @param value - Raw channel or message body text.
+ * @returns HTML-entity-escaped text safe to embed in the prompt.
  */
-export const USER_PROMPT = `Channel: \`<%= channel %>\`
+function escapePromptValue(value: string): string {
+  return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;")
+}
+
+/**
+ * Build the per-message user turn sent to the moderation LLM.
+ *
+ * Channel and body are HTML-entity escaped (see {@link escapePromptValue})
+ * and the body is wrapped in triple-backtick fences as a soft defence
+ * against prompt injection.
+ *
+ * @param channel - The message's channel (`"red"` or `"green"`).
+ * @param content - The raw message body.
+ * @returns The rendered user prompt string.
+ */
+export function renderUserPrompt(channel: Payload["channel"], content: string): string {
+  const escapedChannel = escapePromptValue(channel)
+  const escapedContent = escapePromptValue(content)
+  return `Channel: \`${escapedChannel}\`
 
 Message:
 
 \`\`\`
-<%= content %>
+${escapedContent}
 \`\`\`
 `
+}
 
 /**
- * {@link USER_PROMPT} pre-rendered with literal placeholder strings.
+ * {@link renderUserPrompt} pre-rendered with literal placeholder strings.
  *
- * Useful as a quick development sanity check that the template parses
- * without runtime data; not used by the production code path.
+ * Useful as a quick development sanity check of the prompt shape; not used
+ * by the production code path.
  */
-export const rendered_user_prompt = ejs.render(USER_PROMPT, { channel: "CHANNEL", content: "CONTENT" })
+export const rendered_user_prompt = renderUserPrompt("red", "CONTENT")
 
 /**
  * Map a moderation label to the D1 log columns written by {@link updateAi}.
@@ -143,7 +162,7 @@ function mapLabelToVerdict(label: ModerationResult["label"]): {
 /**
  * Run the AI moderation stage.
  *
- * Renders {@link USER_PROMPT} with the message channel and body, calls
+ * Renders the user prompt via {@link renderUserPrompt}, calls
  * Workers AI with {@link MODERATION_RESPONSE_JSON_SCHEMA} via
  * `response_format.type = "json_schema"`, validates the returned JSON
  * with {@link moderationResultSchema}, and maps the label to an
@@ -163,7 +182,7 @@ function mapLabelToVerdict(label: ModerationResult["label"]): {
  *   fails {@link moderationResultSchema}.
  */
 export async function runAi(env: Env, id: string, payload: Payload): Promise<StageResult> {
-  const userContent = ejs.render(USER_PROMPT, { channel: payload.channel, content: payload.message })
+  const userContent = renderUserPrompt(payload.channel, payload.message)
 
   const response = await env.AI.run(MODERATION_MODEL, {
     messages: [
