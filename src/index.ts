@@ -1,8 +1,8 @@
 import { safeParseMessage } from "./schema.ts"
-import { runAi } from "./stages/ai.ts"
+// import { runAi } from "./stages/ai.ts"
 import { runDelivery } from "./stages/delivery.ts"
 import { runLogging } from "./stages/logging.ts"
-import { runRateLimits } from "./stages/rate-limits.ts"
+// import { runRateLimits } from "./stages/rate-limits.ts"
 
 const STOP = "stop"
 const CONTINUE = "continue"
