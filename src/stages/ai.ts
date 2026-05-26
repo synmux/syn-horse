@@ -41,8 +41,9 @@ const MODERATION_RESPONSE_JSON_SCHEMA = z.toJSONSchema(moderationResultSchema)
  *   than the abstract "strict / lenient" framing, which smaller models
  *   tend to ignore.
  *
- * @see {@link renderUserPrompt} for the per-message user turn (channel + body).
- * @see {@link rendered_user_prompt} for a placeholder-rendered sanity check.
+ * The per-message user turn is built inline in {@link runAi} from the
+ * channel and message body, with the body wrapped in triple-backtick
+ * fences as a soft defence against prompt injection.
  */
 export const PROMPT = `You are a content classifier for a paging system. Read the message below and classify it with exactly one label.
 
@@ -94,52 +95,6 @@ Valid labels: \`none\`, \`fun\`, \`nonsense\`, \`spam\`.
 `
 
 /**
- * Escape dynamic prompt fragments the way EJS `<%= %>` would.
- *
- * Workers disallow `eval` / `new Function`, so EJS cannot compile templates
- * at runtime; this helper preserves the same HTML-entity escaping for
- * prompt-injection defence without dynamic code generation.
- *
- * @param value - Raw channel or message body text.
- * @returns HTML-entity-escaped text safe to embed in the prompt.
- */
-function escapePromptValue(value: string): string {
-  return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;")
-}
-
-/**
- * Build the per-message user turn sent to the moderation LLM.
- *
- * Channel and body are HTML-entity escaped (see {@link escapePromptValue})
- * and the body is wrapped in triple-backtick fences as a soft defence
- * against prompt injection.
- *
- * @param channel - The message's channel (`"red"` or `"green"`).
- * @param content - The raw message body.
- * @returns The rendered user prompt string.
- */
-export function renderUserPrompt(channel: Payload["channel"], content: string): string {
-  const escapedChannel = escapePromptValue(channel)
-  const escapedContent = escapePromptValue(content)
-  return `Channel: \`${escapedChannel}\`
-
-Message:
-
-\`\`\`
-${escapedContent}
-\`\`\`
-`
-}
-
-/**
- * {@link renderUserPrompt} pre-rendered with literal placeholder strings.
- *
- * Useful as a quick development sanity check of the prompt shape; not used
- * by the production code path.
- */
-export const rendered_user_prompt = renderUserPrompt("red", "CONTENT")
-
-/**
  * Map a moderation label to the D1 log columns written by {@link updateAi}.
  *
  * @param label - One of the four valid moderation labels.
@@ -162,7 +117,7 @@ function mapLabelToVerdict(label: ModerationResult["label"]): {
 /**
  * Run the AI moderation stage.
  *
- * Renders the user prompt via {@link renderUserPrompt}, calls
+ * Builds the user turn from the message channel and body, calls
  * Workers AI with {@link MODERATION_RESPONSE_JSON_SCHEMA} via
  * `response_format.type = "json_schema"`, validates the returned JSON
  * with {@link moderationResultSchema}, and maps the label to an
@@ -182,7 +137,14 @@ function mapLabelToVerdict(label: ModerationResult["label"]): {
  *   fails {@link moderationResultSchema}.
  */
 export async function runAi(env: Env, id: string, payload: Payload): Promise<StageResult> {
-  const userContent = renderUserPrompt(payload.channel, payload.message)
+  const userContent = `Channel: \`${payload.channel}\`
+
+Message:
+
+\`\`\`
+${payload.message}
+\`\`\`
+`
 
   const response = await env.AI.run(MODERATION_MODEL, {
     messages: [
