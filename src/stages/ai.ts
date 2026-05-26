@@ -1,44 +1,51 @@
 import { updateAi } from "../db.ts"
+import type { AiDecision, AiViolation } from "../db.ts"
 import type { Payload } from "../schema.ts"
-import { CONTINUE, type StageResult } from "./types.ts"
+import { CONTINUE, STOP, type StageResult } from "./types.ts"
 import ejs from "ejs"
+import { z } from "zod"
+
+/** Workers AI model used for paging-message moderation. */
+const MODERATION_MODEL = "@cf/google/gemma-4-26b-a4b-it" as const
 
 /**
- * Prompt template fed to the moderation LLM.
+ * Parsed shape of the moderation LLM's structured JSON response.
+ *
+ * Kept in sync with {@link MODERATION_RESPONSE_JSON_SCHEMA} via
+ * {@link z.toJSONSchema}; {@link moderationResultSchema} validates the
+ * parsed payload after the Workers AI call returns.
+ */
+export const moderationResultSchema = z.object({
+  label: z.enum(["none", "fun", "nonsense", "spam"]),
+})
+
+/** A validated moderation label returned by the LLM. */
+export type ModerationResult = z.infer<typeof moderationResultSchema>
+
+/** JSON Schema passed to Workers AI `response_format.type = "json_schema"`. */
+const MODERATION_RESPONSE_JSON_SCHEMA = z.toJSONSchema(moderationResultSchema)
+
+/**
+ * Prompt template fed to the moderation LLM as the system message.
  *
  * Tuned for small open-weight models (Llama-class 7–8B served via an
  * OpenAI-compatible endpoint). The structure deliberately optimises for
  * the failure modes of less capable models:
  *
- * - Task and output format stated up front so they survive any
+ * - Task and label definitions stated up front so they survive any
  *   recency-bias context loss.
  * - Flat single-level bullets only — nested hierarchies confuse small
  *   models token-by-token.
- * - Few-shot examples in the **exact** format of the live query.
- *   Format consistency between examples and query matters more than
- *   example coverage, because the model is pattern-matching.
- * - The four valid labels are restated immediately before the
- *   `Output:` anchor, so they stay in recent context regardless of
- *   message length.
+ * - Few-shot examples describe classification intent; the response shape
+ *   is enforced separately via {@link MODERATION_RESPONSE_JSON_SCHEMA}.
  * - Channel guidance is tied to consequence (drop vs deliver) rather
  *   than the abstract "strict / lenient" framing, which smaller models
  *   tend to ignore.
- * - The prompt ends with `Output:` and no trailing whitespace so the
- *   model continues from that token rather than emitting commentary.
  *
- * Variables (EJS-rendered, HTML-escaped via `<%= %>`):
- *
- * - `channel` — the message's channel (`"red"` or `"green"`).
- * - `content` — the raw message body. Wrapped in triple-backtick code
- *   fences as a soft defence against prompt injection: instructions
- *   embedded in the message body are visibly inside a code block, which
- *   most instruction-tuned models treat as data rather than continuation
- *   of the prompt.
- *
- * @see {@link rendered_prompt} for a placeholder-rendered version used
- *   in development to sanity-check the template.
+ * @see {@link USER_PROMPT} for the per-message user turn (channel + body).
+ * @see {@link rendered_user_prompt} for a placeholder-rendered sanity check.
  */
-export const PROMPT = `You are a content classifier for a paging system. Read the message below and respond with exactly one label.
+export const PROMPT = `You are a content classifier for a paging system. Read the message below and classify it with exactly one label.
 
 Labels:
 - \`none\` — a legitimate page. Will be delivered.
@@ -50,7 +57,7 @@ Channels:
 - \`red\` — the operator may be asleep. When in doubt, prefer \`nonsense\` or \`spam\` to avoid waking on garbage.
 - \`green\` — the operator is awake. When in doubt, prefer \`none\` or \`fun\`.
 
-Respond with ONLY the label. No explanation, no punctuation, no quoting.
+Respond with a JSON object containing a single \`label\` field set to one of the four labels above.
 
 Examples:
 
@@ -58,82 +65,142 @@ Channel: \`red\`
 Message: \`\`\`
 Production DB is down, on-call please ack
 \`\`\`
-Output: none
+Label: none
 
 Channel: \`green\`
 Message: \`\`\`
 lol my cat just walked on the keyboard
 \`\`\`
-Output: fun
+Label: fun
 
 Channel: \`red\`
 Message: \`\`\`
 asdjkfhq weruioxc vbnm,./
 \`\`\`
-Output: nonsense
+Label: nonsense
 
 Channel: \`green\`
 Message: \`\`\`
 Buy cheap pills now at deals.example, limited time!!!
 \`\`\`
-Output: spam
+Label: spam
 
 Channel: \`red\`
 Message: \`\`\`
 Server CPU 98% for 10 minutes, on-call needs to investigate
 \`\`\`
-Output: none
-
----
+Label: none
 
 Valid labels: \`none\`, \`fun\`, \`nonsense\`, \`spam\`.
 `
-const _foo = `
-Channel: \`<%= channel %>\`
+
+/**
+ * EJS template for the per-message user turn.
+ *
+ * Variables (HTML-escaped via `<%= %>`):
+ *
+ * - `channel` — the message's channel (`"red"` or `"green"`).
+ * - `content` — the raw message body, wrapped in triple-backtick fences
+ *   as a soft defence against prompt injection.
+ */
+export const USER_PROMPT = `Channel: \`<%= channel %>\`
 
 Message:
 
 \`\`\`
 <%= content %>
 \`\`\`
-
-Output:`
+`
 
 /**
- * {@link PROMPT} pre-rendered with literal placeholder strings.
+ * {@link USER_PROMPT} pre-rendered with literal placeholder strings.
  *
  * Useful as a quick development sanity check that the template parses
  * without runtime data; not used by the production code path.
  */
-export const rendered_prompt = ejs.render(PROMPT, { channel: "CHANNEL", content: "CONTENT" })
+export const rendered_user_prompt = ejs.render(USER_PROMPT, { channel: "CHANNEL", content: "CONTENT" })
+
+/**
+ * Map a moderation label to the D1 log columns written by {@link updateAi}.
+ *
+ * @param label - One of the four valid moderation labels.
+ * @returns The decision/violation pair to persist.
+ */
+function mapLabelToVerdict(label: ModerationResult["label"]): {
+  decision: AiDecision
+  violation: AiViolation
+} {
+  switch (label) {
+    case "none":
+    case "fun":
+      return { decision: "accept", violation: label }
+    case "nonsense":
+    case "spam":
+      return { decision: "drop", violation: label }
+  }
+}
 
 /**
  * Run the AI moderation stage.
  *
- * NOTE: the moderation call itself is not yet wired up — this currently
- * records an `accept` / `none` verdict for every message and returns
- * {@link CONTINUE}. The production version will render {@link PROMPT}
- * with the message body, call the OpenAI-compatible client, parse the
- * first whitespace-delimited token of the response, and map it to an
- * `AiViolation` (rejecting any token outside the four valid labels as a
- * model-misbehaviour failure rather than silently passing it through).
+ * Renders {@link USER_PROMPT} with the message channel and body, calls
+ * Workers AI with {@link MODERATION_RESPONSE_JSON_SCHEMA} via
+ * `response_format.type = "json_schema"`, validates the returned JSON
+ * with {@link moderationResultSchema}, and maps the label to an
+ * {@link AiDecision}. Nonsense and spam are terminal drops
+ * ({@link STOP}); legitimate pages and jokes continue to delivery.
  *
- * @param env - Worker environment used to update the log row.
+ * Malformed JSON or schema violations throw so the queue handler can
+ * {@link Message.retry} the message rather than silently passing bad
+ * model output through.
+ *
+ * @param env - Worker environment exposing the `AI` and `DB` bindings.
  * @param id - Message id (the log row primary key).
- * @param _msg - The validated message. Unused until the LLM call is
- *   wired up; renamed with a leading underscore to suppress the
- *   unused-parameter warning until then.
- * @returns A {@link StageResult}. Currently always {@link CONTINUE}.
+ * @param payload - The validated message to classify.
+ * @returns {@link STOP} when the message was dropped; otherwise
+ *   {@link CONTINUE}.
+ * @throws When Workers AI returns empty content, non-JSON, or JSON that
+ *   fails {@link moderationResultSchema}.
  */
 export async function runAi(env: Env, id: string, payload: Payload): Promise<StageResult> {
-  const ai = env.AI
-  const response = await ai.run("@cf/google/gemma-4-26b-a4b-it", {
+  const userContent = ejs.render(USER_PROMPT, { channel: payload.channel, content: payload.message })
+
+  const response = await env.AI.run(MODERATION_MODEL, {
     messages: [
       { role: "system", content: PROMPT },
-      { role: "user", content: payload.message },
+      { role: "user", content: userContent },
     ],
+    response_format: {
+      type: "json_schema",
+      json_schema: {
+        name: "moderation_result",
+        description: "Classification label for a paging message",
+        schema: MODERATION_RESPONSE_JSON_SCHEMA,
+        strict: true,
+      },
+    },
   })
-  console.info({ stage: "ai", action: CONTINUE, payload, response, message: `ai processed for message ${id}` })
-  await updateAi(env, id, "accept", "none")
+
+  const rawContent = response.choices[0]?.message?.content
+  if (rawContent === null || rawContent === undefined) {
+    throw new Error("AI moderation returned empty content")
+  }
+
+  let parsed: unknown
+  try {
+    parsed = JSON.parse(rawContent)
+  } catch (error) {
+    throw new Error(`AI moderation returned non-JSON content: ${rawContent}`, { cause: error })
+  }
+
+  const result = moderationResultSchema.parse(parsed)
+  const { decision, violation } = mapLabelToVerdict(result.label)
+
+  if (decision === "drop") {
+    await updateAi(env, id, decision, violation, "dropped")
+    return STOP
+  }
+
+  await updateAi(env, id, decision, violation)
   return CONTINUE
 }
