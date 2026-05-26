@@ -43,20 +43,20 @@ export default {
       const msg = parsed.data
       try {
         if ((await runLogging(env, message.id, msg)).kind === "stop") {
-          message.ack()
           console.info(`LOG: ${message.id} from source ${msg.source}`)
+          message.ack()
           continue
         }
         console.info("LOG: moving on")
         if ((await runRateLimits(env, message.id, msg)).kind === "stop") {
-          message.ack()
           console.info(`RATE-LIMITER: ${message.id} from source ${msg.source}`)
+          message.ack()
           continue
         }
         console.info("RATE-LIMITER: moving on")
         if ((await runAi(env, message.id, msg)).kind === "stop") {
-          message.ack()
           console.info(`AI: ${message.id} from source ${msg.source}`)
+          message.ack()
           continue
         }
         console.info("AI: moving on")
