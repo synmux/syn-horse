@@ -46,7 +46,7 @@ const ntfy: Adapter = {
     const token = env.NTFY_TOKEN.trim()
 
     try {
-      const body = message.id
+      // const body = message.id
 
       // JSON.stringify({
       //   message: message.content,
@@ -67,20 +67,21 @@ const ntfy: Adapter = {
             label: "ack",
             type: "http",
             url: "https://syn-horse-notifications.synmux.workers.dev/ack",
-            body,
+            headers: {
+              "X-Message-Id": message.id,
+              "X-Self-Token": env.SELF_TOKEN,
+            },
           },
         ],
       }
       console.info({
         message: "Preparing to publish",
-        body,
         publishable,
       })
       const res = await publish(publishable)
       console.info({
         message: "Notification published",
         res,
-        body,
         publishable,
       })
       return true
