@@ -3,6 +3,7 @@ import { runAi } from "./stages/ai.ts"
 import { runDelivery } from "./stages/delivery.ts"
 import { runLogging } from "./stages/logging.ts"
 import { runRateLimits } from "./stages/rate-limits.ts"
+import { handleAck } from "./http.ts"
 
 const STOP = "stop"
 const CONTINUE = "continue"
@@ -31,8 +32,8 @@ const FINISHED = "finished"
  */
 export default {
   // http for message acks
-  async fetch(_req, _env, _ctx): Promise<Response> {
-    return new Response("Ping? Pong!")
+  async fetch(req, env, ctx): Promise<Response> {
+    return handleAck(req, env, ctx)
   },
 
   // queue logic
