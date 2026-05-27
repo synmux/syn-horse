@@ -1,5 +1,6 @@
 import { publish } from "ntfy"
 import { Adapter, Notification } from "../types.ts"
+import type { Config } from "ntfy"
 
 const DEFAULT_NTFY_INSTANCE = "https://ntfy.sh"
 
@@ -57,11 +58,7 @@ const ntfy: Adapter = {
         channel: message.channel,
         id: message.id,
       })
-      console.info({
-        message: "Preparing to publish",
-        body,
-      })
-      const res = await publish({
+      const publishable: Config = {
         message: message.content,
         topic: resolveTopic(env, message.channel),
         server,
@@ -71,16 +68,22 @@ const ntfy: Adapter = {
         actions: [
           {
             label: "ack",
-            action: "http",
+            type: "view",
             url: "https://syn-horse-notifications.synmux.workers.dev/ack",
-            method: "POST",
-            body,
           },
         ],
+      }
+      console.info({
+        message: "Preparing to publish",
+        body,
+        publishable,
       })
+      const res = await publish(publishable)
       console.info({
         message: "Notification published",
         res,
+        body,
+        publishable,
       })
       return true
     } catch (error) {
