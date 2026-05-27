@@ -28,7 +28,8 @@
       "binding": "DB",
       "database_name": "syn-horse",
       "database_id": "2722c422-9352-45b5-9e7f-a4f6504e4f85",
-      "migrations_dir": "server/db/migrations/sqlite"
+      "migrations_dir": "server/db/migrations/sqlite",
+      "preview_database_id": "deab36c7-6839-4025-a9c2-16f61327abd7"
     }
   ],
   "kv_namespaces": [
@@ -43,7 +44,7 @@
       }
     ]
   },
-  "r2_buckets": [{ "binding": "BLOB", "bucket_name": "blob-syn-horse" }],
+  "r2_buckets": [{ "binding": "BLOB", "bucket_name": "syn-horse" }],
   "vars": {
     "NUXT_PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAC2QY6ZikvZ4TAQq"
   },
