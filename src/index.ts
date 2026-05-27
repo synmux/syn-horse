@@ -30,7 +30,12 @@ const FINISHED = "finished"
  * @see https://developers.cloudflare.com/queues/platform/javascript-apis/#messagebatch
  */
 export default {
-  // https://developers.cloudflare.com/queues/platform/javascript-apis/#messagebatch
+  // http for message acks
+  async fetch(_req, _env, _ctx): Promise<Response> {
+    return new Response("Ping? Pong!")
+  },
+
+  // queue logic
   async queue(batch, env): Promise<void> {
     for (const message of batch.messages) {
       const parsed = safeParseMessage(message.body)

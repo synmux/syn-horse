@@ -8,6 +8,7 @@
 export type Notification = {
   channel: string
   content: string
+  id: string
 }
 
 /**

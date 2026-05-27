@@ -59,6 +59,20 @@ const ntfy: Adapter = {
         ...(token ? { authorization: token } : {}),
         tags: [message.channel],
         title: formatChannelTitle(message.channel),
+        actions: [
+          {
+            label: "ack",
+            type: "http",
+            url: "https://syn-horse-notifications.synmux.workers.dev/ack",
+            method: "POST",
+            body: JSON.stringify({
+              message: message.content,
+              channel: message.channel,
+              id: message.id,
+            }),
+            clear: true,
+          },
+        ],
       })
       return true
     } catch (error) {
