@@ -19,10 +19,18 @@ function ackResponse(body: string, status: number): Response {
   return new Response(body, { status, headers: CORS_HEADERS })
 }
 
+function corsPreflightResponse(): Response {
+  return new Response(null, { status: 204, headers: CORS_HEADERS })
+}
+
 export const handleAck = (req: Request, env: Env, _ctx: ExecutionContext): Response => {
   const { pathname } = new URL(req.url)
   if (pathname !== "/ack") {
     return ackResponse("Not found", 404)
+  }
+
+  if (req.method === "OPTIONS") {
+    return corsPreflightResponse()
   }
 
   const messageId = req.headers.get(HEADER_MESSAGE_ID)?.trim()
