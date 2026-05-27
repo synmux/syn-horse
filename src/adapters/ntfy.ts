@@ -52,26 +52,30 @@ const ntfy: Adapter = {
     const token = env.NTFY_TOKEN.trim()
 
     try {
-      await publish({
+      const res = await publish({
         message: message.content,
         topic: resolveTopic(env, message.channel),
         server,
         ...(token ? { authorization: token } : {}),
         tags: [message.channel],
         title: formatChannelTitle(message.channel),
-        // actions: [
-        //   {
-        //     label: "ack",
-        //     type: "http",
-        //     url: "https://syn-horse-notifications.synmux.workers.dev/ack",
-        //     method: "POST",
-        //     body: JSON.stringify({
-        //       message: message.content,
-        //       channel: message.channel,
-        //       id: message.id,
-        //     }),
-        //   },
-        // ],
+        actions: [
+          {
+            label: "ack",
+            type: "http",
+            url: "https://syn-horse-notifications.synmux.workers.dev/ack",
+            method: "POST",
+            body: JSON.stringify({
+              message: message.content,
+              channel: message.channel,
+              id: message.id,
+            }),
+          },
+        ],
+      })
+      console.info({
+        message: "Notification published",
+        res,
       })
       return true
     } catch (error) {
