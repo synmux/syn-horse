@@ -1,6 +1,6 @@
 # to-do list
 
-- [ ] build the consumer Worker for the `NOTIFICATIONS` queue: validate `{ channel, contact, message, source? }` envelopes (strict — unknown fields are dropped), run the moderation / rate-limit / delivery pipeline, retry / dead-letter on failure. Status feedback to syn.horse will land as a separate piece of work (likely adds a producer-side endpoint or second queue, plus a migration extending `panic_pages.status` with `delivered` / `delivery_failed` and adding `deliveredAt` / `deliveryError`).
+- [ ] create API endpoint for the notification endpoint to write logs to the DB, so that we can remove the notification worker's DB binding and the underlying DB, and write to our primary DB.
 - [ ] add retry policy + dead-letter handling on the consumer side once it lands.
 - [ ] consider a second `Pager` implementation on the producer side (e.g. a direct synchronous channel) if/when needed — extend `usePager()` to choose based on channel or runtime config.
 - [ ] decide whether to keep `status = "queued"` rows visible to any future admin UI as in-flight states, vs treating them as failed after a TTL if no consumer-side `delivered` / `delivery_failed` update arrives.
