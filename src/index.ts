@@ -6,8 +6,6 @@ import { runRateLimits } from "./stages/rate-limits.ts"
 import { handleAck } from "./http.ts"
 
 const STOP = "stop"
-const CONTINUE = "continue"
-const FINISHED = "finished"
 
 /**
  * Cloudflare Workers queue consumer for paging messages.

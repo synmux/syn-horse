@@ -55,13 +55,5 @@ export const handleAck = (req: Request, env: Env, _ctx: ExecutionContext): Respo
     })
     return ackResponse("Unauthorized", 401)
   }
-
-  console.info({
-    message: `ack received for ${messageId}`,
-    messageId,
-    method: req.method,
-    pathname,
-  })
-
   return ackResponse(`Acknowledged message ${messageId}`, 200)
 }
