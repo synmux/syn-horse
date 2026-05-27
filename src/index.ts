@@ -43,7 +43,7 @@ export default {
       if (!parsed.success) {
         console.error({
           messageId: message.id,
-          message: "invalid page message",
+          message: "invalid queue message: does not match schema",
           issues: parsed.error.issues,
           body: message.body,
         })
@@ -53,25 +53,21 @@ export default {
       const payload = parsed.data
       try {
         if ((await runLogging(env, message.id, payload)).kind === STOP) {
-          console.info({ stage: "logging", action: STOP, payload, message: `logging stopped for message ${message.id}` })
+          console.info({ stage: "logging", action: STOP, payload, message: `STOP at logging for message ${message.id}` })
           message.ack()
           continue
         }
-        console.info({ stage: "logging", action: CONTINUE, payload, message: `logging passed for message ${message.id}` })
         if ((await runRateLimits(env, message.id, payload)).kind === STOP) {
-          console.info({ stage: "rate-limiting", action: STOP, payload, message: `rate limiting stopped for message ${message.id}` })
+          console.info({ stage: "rate-limiting", action: STOP, payload, message: `STOP at rate limiting for message ${message.id}` })
           message.ack()
           continue
         }
-        console.info({ stage: "rate-limiting", action: CONTINUE, payload, message: `rate limiting passed for message ${message.id}` })
         if ((await runAi(env, message.id, payload)).kind === STOP) {
-          console.info({ stage: "ai", action: STOP, payload, message: `ai stopped for message ${message.id}` })
+          console.info({ stage: "ai", action: STOP, payload, message: `STOP at ai for message ${message.id}` })
           message.ack()
           continue
         }
-        console.info({ stage: "ai", action: CONTINUE, payload, message: `ai passed for message ${message.id}` })
         await runDelivery(env, message.id, payload)
-        console.info({ stage: "delivery", action: FINISHED, payload, message: `delivery finished for message ${message.id}` })
         message.ack()
       } catch (err) {
         console.error({

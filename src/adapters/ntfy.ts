@@ -46,14 +46,6 @@ const ntfy: Adapter = {
     const token = env.NTFY_TOKEN.trim()
 
     try {
-      // const body = message.id
-
-      // JSON.stringify({
-      //   message: message.content,
-      //   channel: message.channel,
-      //   id: message.id,
-      // })
-
       const publishable: Config = {
         message: message.content,
         topic: resolveTopic(env, message.channel),
@@ -75,17 +67,11 @@ const ntfy: Adapter = {
           },
         ],
       }
-      console.info({
-        message: "Preparing to publish",
-        publishable,
-      })
-      const res = await publish(publishable)
-      console.info({
-        message: "Notification published",
-        res,
-        publishable,
-      })
-      return true
+      if (await publish(publishable)) {
+        return true
+      } else {
+        return false
+      }
     } catch (error) {
       if (error instanceof Error && error.message.startsWith("Error while publishing message:")) {
         console.error({
@@ -95,7 +81,7 @@ const ntfy: Adapter = {
         return false
       }
       console.error({
-        message: "Error publishing notification",
+        message: "Undefined error publishing notification",
         error,
       })
       throw error

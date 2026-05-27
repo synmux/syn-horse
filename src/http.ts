@@ -37,7 +37,7 @@ export const handleAck = (req: Request, env: Env, _ctx: ExecutionContext): Respo
   const selfToken = req.headers.get(HEADER_SELF_TOKEN)
 
   if (!messageId || !selfToken) {
-    console.info({
+    console.error({
       message: "ack rejected: missing headers",
       method: req.method,
       pathname,
@@ -47,8 +47,8 @@ export const handleAck = (req: Request, env: Env, _ctx: ExecutionContext): Respo
   }
 
   if (selfToken !== env.SELF_TOKEN) {
-    console.info({
-      message: "ack rejected: invalid token",
+    console.error({
+      message: `ack rejected: invalid token for ${messageId}`,
       messageId,
       method: req.method,
       pathname,
@@ -57,11 +57,10 @@ export const handleAck = (req: Request, env: Env, _ctx: ExecutionContext): Respo
   }
 
   console.info({
-    message: "ack received",
+    message: `ack received for ${messageId}`,
     messageId,
     method: req.method,
     pathname,
-    headers: Object.fromEntries(req.headers),
   })
 
   return ackResponse(`Acknowledged message ${messageId}`, 200)
