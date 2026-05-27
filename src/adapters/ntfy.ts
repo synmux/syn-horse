@@ -57,7 +57,7 @@ const ntfy: Adapter = {
         topic: resolveTopic(env, message.channel),
         server,
         ...(token ? { authorization: token } : {}),
-        priority: message.channel === "green" ? MessagePriority.DEFAULT : MessagePriority.MAX,
+        priority: message.channel === "red" ? MessagePriority.MAX : MessagePriority.DEFAULT,
         tags: [message.channel],
         title: message.channel,
         actions: [
