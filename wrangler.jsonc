@@ -6,13 +6,6 @@
   },
   "compatibility_date": "2026-05-13",
   "compatibility_flags": ["nodejs_compat_v2"],
-  "send_email": [
-    {
-      "destination_address": "syn@syn.as",
-      "name": "EMAIL",
-      "remote": true,
-    },
-  ],
   "d1_databases": [
     {
       "binding": "DB",
@@ -51,6 +44,20 @@
     ],
     "producers": [],
   },
+  "secrets": {
+    "required": ["NTFY_TOKEN"],
+  },
+  "send_email": [
+    {
+      "destination_address": "syn@syn.as",
+      "name": "EMAIL",
+      "remote": true,
+    },
+  ],
   "upload_source_maps": true,
+  "vars": {
+    "NTFY_SERVER": "https://ntfy.sh",
+    "NTFY_TOPIC": "syn-horse",
+  },
   "workers_dev": false,
 }

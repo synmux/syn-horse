@@ -27,10 +27,11 @@ export interface Adapter {
   /**
    * Deliver a notification through the underlying provider.
    *
+   * @param env - Worker environment used to access the provider's API.
    * @param message - The notification to deliver.
    * @returns `true` when the provider accepted the message, `false` when it
    *   refused. Network and protocol errors SHOULD be thrown so the caller
    *   can decide whether to retry the queue message.
    */
-  send(message: Notification): Promise<boolean>
+  send(env: Env, message: Notification): Promise<boolean>
 }
