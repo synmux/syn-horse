@@ -71,6 +71,7 @@ const ntfy: Adapter = {
               "X-Message-Id": message.id,
               "X-Self-Token": env.SELF_TOKEN,
             },
+            clear: true,
           },
         ],
       }
