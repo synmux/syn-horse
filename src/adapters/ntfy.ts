@@ -1,6 +1,6 @@
-import { MessagePriority, publish } from "ntfy"
-import { Adapter, Notification } from "../types.ts"
 import type { Config } from "ntfy"
+import { MessagePriority, publish } from "ntfy"
+import type { Adapter, Notification } from "../types.ts"
 
 const DEFAULT_NTFY_INSTANCE = "https://ntfy.sh"
 
