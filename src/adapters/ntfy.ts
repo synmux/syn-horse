@@ -65,11 +65,12 @@ const ntfy: Adapter = {
             type: "http",
             url: "https://syn-horse-notifications.synmux.workers.dev/ack",
             method: "POST",
-            body: JSON.stringify({
-              message: message.content,
-              channel: message.channel,
-              id: message.id,
-            }),
+            body: "foo",
+            // body: JSON.stringify({
+            //   message: message.content,
+            //   channel: message.channel,
+            //   id: message.id,
+            // }),
           },
         ],
       })
@@ -80,8 +81,16 @@ const ntfy: Adapter = {
       return true
     } catch (error) {
       if (error instanceof Error && error.message.startsWith("Error while publishing message:")) {
+        console.error({
+          message: "Error while publishing message",
+          error,
+        })
         return false
       }
+      console.error({
+        message: "Error publishing notification",
+        error,
+      })
       throw error
     }
   },
