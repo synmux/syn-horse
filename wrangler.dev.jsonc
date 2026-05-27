@@ -33,7 +33,7 @@
   ],
   "kv_namespaces": [
     { "binding": "KV", "id": "3fa198f1477f456c8d27eb9a72562a4bf" },
-    { "binding": "CACHE", "id": "6d108e06dbe144ff9752c63084e4bd85" }
+    { "binding": "CACHE", "id": "d7a8a6c935354a17a4c2d26bc1056710" }
   ],
   "queues": {
     "producers": [
