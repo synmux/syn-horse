@@ -21,7 +21,7 @@ import { CONTINUE, type StageResult } from "./types.ts"
  */
 export async function runDelivery(env: Env, id: string, payload: Payload): Promise<StageResult> {
   const adapter = getAdapter("ntfy")
-  await adapter.send(env, { channel: payload.channel, content: payload.message })
+  await adapter.send(env, { channel: payload.channel, content: payload.message, id })
   await updateDelivery(env, id, adapter.name, "delivered")
   return CONTINUE
 }
