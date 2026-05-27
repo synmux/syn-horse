@@ -52,6 +52,13 @@ const ntfy: Adapter = {
     const token = env.NTFY_TOKEN.trim()
 
     try {
+      const body = JSON.stringify({
+        id: message.id,
+      })
+      console.info({
+        message: "Preparing to publish",
+        body,
+      })
       const res = await publish({
         message: message.content,
         topic: resolveTopic(env, message.channel),
@@ -65,7 +72,7 @@ const ntfy: Adapter = {
             type: "http",
             url: "https://syn-horse-notifications.synmux.workers.dev/ack",
             method: "POST",
-            body: "foo",
+            body,
             // body: JSON.stringify({
             //   message: message.content,
             //   channel: message.channel,
