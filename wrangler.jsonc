@@ -17,8 +17,8 @@
   "kv_namespaces": [
     {
       "binding": "KV",
-      "id": "72cc74d92ebd4abba9a6a69d80a23dbe",
-      "preview_id": "b9b5e186ef0b4f46bcc719445cf12b17",
+      "id": "3fa198f1477f456c8d27eb9a72562a4b",
+      "preview_id": "1701a7bbd513472c951f323673c0d0ba",
     },
   ],
   "main": "src/index.ts",
