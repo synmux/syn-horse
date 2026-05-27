@@ -53,6 +53,8 @@ const ntfy: Adapter = {
 
     try {
       const body = JSON.stringify({
+        message: message.content,
+        channel: message.channel,
         id: message.id,
       })
       console.info({
@@ -69,15 +71,10 @@ const ntfy: Adapter = {
         actions: [
           {
             label: "ack",
-            type: "http",
+            action: "http",
             url: "https://syn-horse-notifications.synmux.workers.dev/ack",
             method: "POST",
             body,
-            // body: JSON.stringify({
-            //   message: message.content,
-            //   channel: message.channel,
-            //   id: message.id,
-            // }),
           },
         ],
       })
