@@ -70,7 +70,6 @@ const ntfy: Adapter = {
               channel: message.channel,
               id: message.id,
             }),
-            clear: true,
           },
         ],
       })
