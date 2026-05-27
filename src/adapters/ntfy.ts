@@ -65,6 +65,7 @@ const ntfy: Adapter = {
             label: "ack",
             type: "http",
             url: "https://syn-horse-notifications.synmux.workers.dev/ack",
+            body,
           },
         ],
       }
