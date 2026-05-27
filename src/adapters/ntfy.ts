@@ -46,11 +46,13 @@ const ntfy: Adapter = {
     const token = env.NTFY_TOKEN.trim()
 
     try {
-      const body = JSON.stringify({
-        message: message.content,
-        channel: message.channel,
-        id: message.id,
-      })
+      const body = message.id
+
+      // JSON.stringify({
+      //   message: message.content,
+      //   channel: message.channel,
+      //   id: message.id,
+      // })
 
       const publishable: Config = {
         message: message.content,
