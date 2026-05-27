@@ -1,15 +1,8 @@
-import { publish } from "ntfy"
+import { MessagePriority, publish } from "ntfy"
 import { Adapter, Notification } from "../types.ts"
 import type { Config } from "ntfy"
 
 const DEFAULT_NTFY_INSTANCE = "https://ntfy.sh"
-
-/**
- * Capitalise the paging channel for use as the ntfy notification title.
- */
-function formatChannelTitle(channel: string): string {
-  return channel.charAt(0).toUpperCase() + channel.slice(1)
-}
 
 /**
  * Resolve the ntfy topic for a notification.
@@ -58,17 +51,19 @@ const ntfy: Adapter = {
         channel: message.channel,
         id: message.id,
       })
+
       const publishable: Config = {
         message: message.content,
         topic: resolveTopic(env, message.channel),
         server,
         ...(token ? { authorization: token } : {}),
+        priority: message.channel === "green" ? MessagePriority.DEFAULT : MessagePriority.MAX,
         tags: [message.channel],
-        title: formatChannelTitle(message.channel),
+        title: message.channel,
         actions: [
           {
             label: "ack",
-            type: "view",
+            type: "http",
             url: "https://syn-horse-notifications.synmux.workers.dev/ack",
           },
         ],
