@@ -4,6 +4,7 @@ export const handleAck = (req: Request, _env: Env, ctx: ExecutionContext): Respo
     req,
     ctx,
     message,
+    headers: req.headers,
   })
   return new Response(message, {
     status: 200,
