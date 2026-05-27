@@ -27,8 +27,8 @@ const MODERATION_RESPONSE_JSON_SCHEMA = z.toJSONSchema(moderationResultSchema)
 /**
  * Prompt template fed to the moderation LLM as the system message.
  *
- * Tuned for small open-weight models (Llama-class 7–8B served via an
- * OpenAI-compatible endpoint). The structure deliberately optimises for
+ * Tuned for small open-weight models (Llama-class 7–8B served via
+ * Cloudflare Workers AI). The structure deliberately optimises for
  * the failure modes of less capable models:
  *
  * - Task and label definitions stated up front so they survive any

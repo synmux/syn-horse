@@ -7,8 +7,6 @@
   "dependencies": {
     "node-gyp": "^12.3.0",
     "ntfy": "^1.15.2",
-    "openai": "^6.39.0",
-    "pushover-js": "^1.3.2",
     "zod": "^4.4.3"
   },
   "devDependencies": {

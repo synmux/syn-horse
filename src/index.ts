@@ -1,8 +1,8 @@
 import { safeParseMessage } from "./schema.ts"
-// import { runAi } from "./stages/ai.ts"
+import { runAi } from "./stages/ai.ts"
 import { runDelivery } from "./stages/delivery.ts"
 import { runLogging } from "./stages/logging.ts"
-// import { runRateLimits } from "./stages/rate-limits.ts"
+import { runRateLimits } from "./stages/rate-limits.ts"
 
 const STOP = "stop"
 const CONTINUE = "continue"
@@ -52,18 +52,18 @@ export default {
           continue
         }
         console.info({ stage: "logging", action: CONTINUE, payload, message: `logging passed for message ${message.id}` })
-        // if ((await runRateLimits(env, message.id, payload)).kind === STOP) {
-        //   console.info({ stage: "rate-limiting", action: STOP, payload, message: `rate limiting stopped for message ${message.id}` })
-        //   message.ack()
-        //   continue
-        // }
-        // console.info({ stage: "rate-limiting", action: CONTINUE, payload, message: `rate limiting passed for message ${message.id}` })
-        // if ((await runAi(env, message.id, payload)).kind === STOP) {
-        //   console.info({ stage: "ai", action: STOP, payload, message: `ai stopped for message ${message.id}` })
-        //   message.ack()
-        //   continue
-        // }
-        // console.info({ stage: "ai", action: CONTINUE, payload, message: `ai passed for message ${message.id}` })
+        if ((await runRateLimits(env, message.id, payload)).kind === STOP) {
+          console.info({ stage: "rate-limiting", action: STOP, payload, message: `rate limiting stopped for message ${message.id}` })
+          message.ack()
+          continue
+        }
+        console.info({ stage: "rate-limiting", action: CONTINUE, payload, message: `rate limiting passed for message ${message.id}` })
+        if ((await runAi(env, message.id, payload)).kind === STOP) {
+          console.info({ stage: "ai", action: STOP, payload, message: `ai stopped for message ${message.id}` })
+          message.ack()
+          continue
+        }
+        console.info({ stage: "ai", action: CONTINUE, payload, message: `ai passed for message ${message.id}` })
         await runDelivery(env, message.id, payload)
         console.info({ stage: "delivery", action: FINISHED, payload, message: `delivery finished for message ${message.id}` })
         message.ack()
