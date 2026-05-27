@@ -10,7 +10,7 @@ import { Adapter, Notification } from "../types.ts"
  */
 const pushover: Adapter = {
   name: "pushover",
-  send: async (_message: Notification): Promise<boolean> => {
+  send: async (_env: Env, _message: Notification): Promise<boolean> => {
     return true
   },
 }
