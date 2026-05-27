@@ -187,14 +187,6 @@ in triple-backtick fences as a soft prompt-injection defence.
   `<`/`>`/`&` are escaped in the rendered prompt. Fine for LLM input; if
   switching to `<%- %>` for accuracy, harden the prompt-injection defence
   first (the user could otherwise close the `\`\`\`` fence and inject).
-- **`compatibility_flags` is `nodejs_compat`, not `nodejs_compat_v2`.** The
-  unprefixed flag is a superset: with our `2026-05-13` compat date it
-  enables v2's unenv polyfills _and_ exposes Workers' virtual `node:fs`
-  module (available since compat date `2025-09-01`). EJS imports
-  `node:fs` at module top-level even for in-memory `ejs.render(str, data)`
-  calls, so without the plain `nodejs_compat` flag the Worker fails to
-  load with `No such module "node:fs"`. Don't "tidy up" to the v2-suffixed
-  flag — it freezes the runtime surface and re-breaks EJS.
 - **Malformed payloads are `ack()`'d, not `retry()`'d.** Bad schema can't
   be made valid by retrying.
 
