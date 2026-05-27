@@ -1,19 +1,19 @@
 skills:
   nuxt-content-skilld:
     packageName: "@nuxt/content"
-    version: 3.13.0
-    packages: "@nuxt/content@3.13.0"
+    version: 3.14.0
+    packages: "@nuxt/content@3.14.0"
     repo: nuxt/content
-    source: "https://github.com/nuxt/content/tree/v3.13.0/docs"
-    syncedAt: 2026-05-06
+    source: "https://github.com/nuxt/content/tree/v3.14.0/docs"
+    syncedAt: 2026-05-27
     generator: skilld
   vue-skilld:
     packageName: vue
-    version: 3.5.34
-    packages: "vue@3.5.34"
+    version: 3.5.35
+    packages: "vue@3.5.35"
     repo: vuejs/core
     source: "https://github.com/vuejs/core/tree/main/docs"
-    syncedAt: 2026-05-06
+    syncedAt: 2026-05-27
     generator: skilld
   nuxt-fonts-skilld:
     packageName: "@nuxt/fonts"
@@ -49,11 +49,11 @@ skills:
     generator: skilld
   nuxt-scripts-skilld:
     packageName: "@nuxt/scripts"
-    version: 1.1.0
-    packages: "@nuxt/scripts@1.1.0"
+    version: 1.1.1
+    packages: "@nuxt/scripts@1.1.1"
     repo: nuxt/scripts
-    source: "https://github.com/nuxt/scripts/tree/v1.1.0/docs"
-    syncedAt: 2026-05-17
+    source: "https://github.com/nuxt/scripts/tree/v1.1.1/docs"
+    syncedAt: 2026-05-27
     generator: skilld
   libsql-client-skilld:
     packageName: "@libsql/client"
@@ -103,20 +103,6 @@ skills:
     source: "https://tailwindcss.com/**"
     syncedAt: 2026-05-15
     generator: skilld
-  dotenv:
-    packageName: dotenv
-    version: 17.4.2
-    packages: "dotenv@17.4.2"
-    source: shipped
-    syncedAt: 2026-05-06
-    generator: skilld
-  dotenvx:
-    packageName: dotenv
-    version: 17.4.2
-    packages: "dotenv@17.4.2"
-    source: shipped
-    syncedAt: 2026-05-06
-    generator: skilld
   better-sqlite3-skilld:
     packageName: better-sqlite3
     version: 12.10.0
@@ -127,27 +113,27 @@ skills:
     generator: skilld
   daisyui-skilld:
     packageName: daisyui
-    version: 5.5.19
-    packages: "daisyui@5.5.19"
+    version: 5.5.20
+    packages: "daisyui@5.5.20"
     repo: saadeghi/daisyui
-    source: "https://github.com/saadeghi/daisyui/tree/v5.5.19/docs"
-    syncedAt: 2026-04-11
+    source: "https://github.com/saadeghi/daisyui/tree/v5.5.20/docs"
+    syncedAt: 2026-05-27
     generator: skilld
   takumi-rs-core-skilld:
     packageName: "@takumi-rs/core"
-    version: 1.2.1
-    packages: "@takumi-rs/core@1.2.1"
+    version: 1.6.0
+    packages: "@takumi-rs/core@1.6.0"
     repo: kane50613/takumi
-    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/core@1.2.1/docs"
-    syncedAt: 2026-05-17
+    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/core@1.6.0/docs"
+    syncedAt: 2026-05-27
     generator: skilld
   takumi-rs-wasm-skilld:
     packageName: "@takumi-rs/wasm"
-    version: 1.2.1
-    packages: "@takumi-rs/wasm@1.2.1"
+    version: 1.6.0
+    packages: "@takumi-rs/wasm@1.6.0"
     repo: kane50613/takumi
-    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/wasm@1.2.1/docs"
-    syncedAt: 2026-05-17
+    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/wasm@1.6.0/docs"
+    syncedAt: 2026-05-27
     generator: skilld
   drizzle-kit-skilld:
     packageName: drizzle-kit
@@ -199,11 +185,11 @@ skills:
     generator: skilld
   openai-skilld:
     packageName: openai
-    version: 6.38.0
-    packages: "openai@6.38.0"
+    version: 6.39.0
+    packages: "openai@6.39.0"
     repo: openai/openai-node
     source: "ungh://openai/openai-node"
-    syncedAt: 2026-05-17
+    syncedAt: 2026-05-27
     generator: skilld
   tailwindcss-skilld:
     packageName: tailwindcss
@@ -239,11 +225,11 @@ skills:
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.143
-    packages: "@anthropic-ai/claude-code@2.1.143"
+    version: 2.1.152
+    packages: "@anthropic-ai/claude-code@2.1.152"
     repo: Exhen/claude-code-2.1.88
     source: "ungh://Exhen/claude-code-2.1.88"
-    syncedAt: 2026-05-17
+    syncedAt: 2026-05-27
     generator: skilld
   catppuccin-daisyui-skilld:
     packageName: "@catppuccin/daisyui"
@@ -287,11 +273,11 @@ skills:
     generator: skilld
   npm-run-all2-skilld:
     packageName: npm-run-all2
-    version: 8.0.4
-    packages: "npm-run-all2@8.0.4"
+    version: 9.0.1
+    packages: "npm-run-all2@9.0.1"
     repo: bcomnes/npm-run-all2
-    source: "https://github.com/bcomnes/npm-run-all2/tree/v8.0.4/docs"
-    syncedAt: 2026-04-11
+    source: "ungh://bcomnes/npm-run-all2@v9.0.1"
+    syncedAt: 2026-05-27
     generator: skilld
   trunkio-launcher-skilld:
     packageName: "@trunkio/launcher"
@@ -310,11 +296,11 @@ skills:
     generator: skilld
   types-node-skilld:
     packageName: "@types/node"
-    version: 25.8.0
-    packages: "@types/node@25.8.0"
+    version: 25.9.1
+    packages: "@types/node@25.9.1"
     repo: DefinitelyTyped/DefinitelyTyped
     source: readme
-    syncedAt: 2026-05-15
+    syncedAt: 2026-05-27
     generator: skilld
   skilld-skilld:
     packageName: skilld
@@ -334,11 +320,11 @@ skills:
     generator: skilld
   tsx-skilld:
     packageName: tsx
-    version: 4.22.1
-    packages: "tsx@4.22.1"
+    version: 4.22.3
+    packages: "tsx@4.22.3"
     repo: privatenumber/tsx
-    source: "https://github.com/privatenumber/tsx/tree/v4.22.1/docs"
-    syncedAt: 2026-05-17
+    source: "https://github.com/privatenumber/tsx/tree/v4.22.3/docs"
+    syncedAt: 2026-05-27
     generator: skilld
   untun-skilld:
     packageName: untun
@@ -358,25 +344,17 @@ skills:
     generator: skilld
   wrangler-skilld:
     packageName: wrangler
-    version: 4.92.0
-    packages: "wrangler@4.92.0"
+    version: 4.95.0
+    packages: "wrangler@4.95.0"
     repo: cloudflare/workers-sdk
-    source: "https://github.com/cloudflare/workers-sdk/tree/v4.92.0/docs"
-    syncedAt: 2026-05-15
+    source: "https://github.com/cloudflare/workers-sdk/tree/v4.95.0/docs"
+    syncedAt: 2026-05-27
     generator: skilld
   ctx7-skilld:
     packageName: ctx7
-    version: 0.4.2
-    packages: "ctx7@0.4.2"
+    version: 0.4.4
+    packages: "ctx7@0.4.4"
     repo: upstash/context7
-    source: "ungh://upstash/context7/packages/cli@ctx7@0.4.2"
-    syncedAt: 2026-05-15
-    generator: skilld
-  dotenvx-dotenvx-skilld:
-    packageName: "@dotenvx/dotenvx"
-    version: 1.66.0
-    packages: "@dotenvx/dotenvx@1.66.0"
-    repo: dotenvx/dotenvx
-    source: "https://dotenvx.com/docs/**"
-    syncedAt: 2026-05-15
+    source: "ungh://upstash/context7/packages/cli@ctx7@0.4.4"
+    syncedAt: 2026-05-27
     generator: skilld

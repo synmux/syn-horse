@@ -2,14 +2,14 @@
 name: anthropic-ai-claude-code-skilld
 description: 'Use Claude, Anthropic''s AI assistant, right from your terminal. Claude can understand your codebase, edit files, run terminal commands, and handle entire workflows for you. ALWAYS use when writing code importing "@anthropic-ai/claude-code". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88.'
 metadata:
-  version: 2.1.143
+  version: 2.1.152
   generated_by: cached
-  generated_at: 2026-05-17
+  generated_at: 2026-05-27
 ---
 
-# Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.143`
+# Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.152`
 
-**Tags:** stable: 2.1.133, latest: 2.1.143, next: 2.1.143
+**Tags:** stable: 2.1.144, next: 2.1.153, latest: 2.1.152
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md)
 
@@ -21,40 +21,37 @@ Use `skilld search "query" -p @anthropic-ai/claude-code` instead of grepping `.s
 
 ## API Changes
 
-This section documents version-specific API changes in @anthropic-ai/claude-code v2.1.143.
+(No version history / release notes content is available in the local `./.skilld/` reference set for `@anthropic-ai/claude-code@2.1.152`, so there are no verifiable new/deprecated/renamed/breaking API changes that can be cited with `./.skilld/...` source links.)
 
-- DEPRECATED: `TaskStopInput.shell_id` — deprecated in favour of `task_id` parameter; `shell_id` still functions but should be replaced with `task_id` in new code [source](./.skilld/pkg/sdk-tools.d.ts:L499-508)
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
 
-## Best Practices: @anthropic-ai/claude-code v2.1.143
-
 ## Best Practices
 
-- Omit `path` parameter in Glob to use current working directory — passing undefined or null causes errors; simply omit the field entirely for default directory behavior [source](./.skilld/pkg/sdk-tools.d.ts:L433:435)
+- Run Claude Code from your project's root directory to ensure it understands the entire codebase context for accurate assistance [source](./.skilld/pkg/README.md:L19)
 
-- Format Bash command descriptions as active voice with context — keep simple commands to 5-10 words (e.g. "Install package dependencies"); for complex piped or flag-heavy commands, explain what it does to clarify intent [source](./.skilld/pkg/sdk-tools.d.ts:L329:340)
+- Leverage natural language commands for efficient execution of routine tasks, complex code explanations, and git workflows [source](./.skilld/pkg/README.md:L10)
 
-- Use `type` parameter in Grep for standard file types instead of glob patterns — more efficient ripgrep filtering (e.g. `type: "js"` for JavaScript files) [source](./.skilld/pkg/sdk-tools.d.ts:L483:485)
+- Report issues directly within Claude Code using the `/bug` command to provide rich context to the developers [source](./.skilld/pkg/README.md:L24)
 
-- Include question mark and clear phrasing in AskUserQuestion prompts — phrase as "Which...?" for single-select or "Which features do you want...?" for multi-select; enables user clarity and accessibility [source](./.skilld/pkg/sdk-tools.d.ts:L595:597)
+- Familiarize yourself with Claude Code's data collection and usage policies to understand what usage and conversation data is collected [source](./.skilld/pkg/README.md:L34)
 
-- Limit AskUserQuestion options to 2-4 distinct choices per question — do not include an 'Other' option, as the system auto-provides one; this constraint simplifies decision trees and prevents option overload [source](./.skilld/pkg/sdk-tools.d.ts:L603:607)
+- Review the privacy safeguards implemented by Anthropic to protect your data, including retention periods and access restrictions [source](./.skilld/pkg/README.md:L39)
 
-- Use absolute file paths for all file operations — file_path must be absolute, not relative; prevents ambiguity about working directory context and ensures consistent tool behaviour [source](./.skilld/pkg/sdk-tools.d.ts:L382:385)
+- Stay informed about the legal aspects of using Claude Code by reviewing the Commercial Terms of Service and Privacy Policy [source](./.skilld/pkg/README.md:L42)
 
-- Apply offset and limit parameters when reading large files — use these to chunk large files into manageable pieces, improving responsiveness and memory efficiency; prevents loading entire files unnecessarily [source](./.skilld/pkg/sdk-tools.d.ts:L406:411)
+- Connect with other developers and access community support by joining the official Claude Developers Discord [source](./.skilld/pkg/README.md:L29)
 
-- Specify page ranges for PDF reading to avoid timeouts — use pages parameter (e.g. "1-5", "10-20") and stay within max 20 pages per request to prevent long blocking operations [source](./.skilld/pkg/sdk-tools.d.ts:L413:415)
+- Regularly update Claude Code to benefit from the latest features, bug fixes, and performance enhancements [source](./.skilld/pkg/README.md:L15:L16)
 
-- Enable multiline mode in Grep when patterns span multiple lines — set `multiline: true` to match across line boundaries using ripgrep's `-U --multiline-dotall` flags; essential for matching code blocks or structured content [source](./.skilld/pkg/sdk-tools.d.ts:L495:497)
+- Utilize Claude Code's capabilities for handling git workflows to streamline version control operations [source](./.skilld/pkg/README.md:L10)
 
-- Use `head_limit` parameter in Grep to avoid overwhelming output — defaults to 250 lines, preventing large result sets from consuming context; pass 0 only for truly unlimited scans [source](./.skilld/pkg/sdk-tools.d.ts:L487:489)
+- Employ Claude Code to explain complex sections of code, accelerating your understanding and learning process [source](./.skilld/pkg/README.md:L10)
 
-- Use `run_in_background: true` for long-running Bash commands — allows parallel execution and notification on completion without blocking; apply to builds, tests, or server processes that take >5 seconds [source](./.skilld/pkg/sdk-tools.d.ts:L343:345)
+- Delegate repetitive coding tasks to Claude Code to maximize efficiency and focus on more complex development challenges [source](./.skilld/pkg/README.md:L9)
 
-- Isolate independent agent work with `isolation: "worktree"` — creates temporary git worktree so spawned agent operates on isolated copy; prevents merge conflicts and allows safe experimentation on shared codebases [source](./.skilld/pkg/sdk-tools.d.ts:L315:317)
+- Exercise caution when providing feedback, as associated conversation data is collected and used for improving the tool [source](./.skilld/pkg/README.md:L34)
 
-- Override agent model granularly with `model: "sonnet" | "opus" | "haiku"` — allows task-specific model selection; use haiku for simple tasks to reduce latency and cost, opus for complex reasoning and analysis [source](./.skilld/pkg/sdk-tools.d.ts:L296:298)
+- Consult the detailed data usage policies, especially for sensitive projects, to ensure compliance with your organization's data governance [source](./.skilld/pkg/README.md:L36)
 <!-- /skilld:best-practices -->

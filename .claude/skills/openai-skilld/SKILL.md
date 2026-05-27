@@ -2,12 +2,12 @@
 name: openai-skilld
 description: 'The official TypeScript library for the OpenAI API. ALWAYS use when writing code importing "openai". Consult for debugging, best practices, or modifying openai, openai-node, openai node.'
 metadata:
-  version: 6.38.0
+  version: 6.39.0
   generated_by: cached
-  generated_at: 2026-05-17
+  generated_at: 2026-05-27
 ---
 
-# openai/openai-node `openai@6.38.0`
+# openai/openai-node `openai@6.39.0`
 
 **Tags:** next: 4.0.0-beta.12, alpha: 5.0.0-alpha.0, beta: 5.0.0-beta.0
 
@@ -21,113 +21,73 @@ Use `skilld search "query" -p openai` instead of grepping `.skilld/` directories
 
 ## API Changes
 
-This section documents version-specific API changes in the openai-node SDK v6.35.0+. Focus on these when using recent versions, as LLMs trained on older data will not know about them.
+This section documents version-specific API changes — prioritize recent major/minor releases.
 
-- NEW: `service_tier` parameter to `responses.compact()` — added in v6.38.0 to specify service tier for compact responses [source](./.skilld/pkg/CHANGELOG.md:L3:L9)
+- BREAKING: `ResponseFunctionToolCallOutputItem.output` and `ResponseCustomToolCallOutput.output` — v6.0.0 changed to `string | Array<ResponseInputText | ResponseInputImage | ResponseInputFile>` instead of `string` only. This may break existing callsites that assume `output` is always a string [source](./.skilld/pkg/CHANGELOG.md:L599:600)
+- BREAKING: `imagegen size enum` — v6.37.0 fixed `imagegen` `size` enum regression [source](./.skilld/pkg/CHANGELOG.md:L50)
+- BREAKING: `ResponseIncludable in responses: web_search_call.results` — v6.34.0 removed `web_search_call.results` from `ResponseIncludable` in responses [source](./.skilld/pkg/CHANGELOG.md:L119)
+- BREAKING: `SDK response types` — v6.33.0 aligned SDK response types with expanded item schemas [source](./.skilld/pkg/CHANGELOG.md:L139)
+- BREAKING: `ResponseInputMessageItem: type` — v6.33.0 made `type` required in `ResponseInputMessageItem` [source](./.skilld/pkg/CHANGELOG.md:L140)
+- BREAKING: `ResponseInputFile and ResponseInputFileContent: detail field` — v6.28.0 removed `detail` field from `ResponseInputFile` and `ResponseInputFileContent` [source](./.skilld/pkg/CHANGELOG.md:L210)
+- BREAKING: `message types: phase; responses: prompt_cache_key` — v6.26.0 removed `phase` from message types, `prompt_cache_key` param in responses [source](./.skilld/pkg/CHANGELOG.md:L243)
+- BREAKING: `find_in_page action type` — v6.18.0 updated type for `find_in_page` action [source](./.skilld/pkg/CHANGELOG.md:L357)
+- BREAKING: `responses/compact endpoint` — v6.11.0 made model required for the `responses/compact` endpoint [source](./.skilld/pkg/CHANGELOG.md:L442)
+- BREAKING: `ResponseInputContent: InputAudio` — v6.8.0 removed `InputAudio` from `ResponseInputContent` [source](./.skilld/pkg/CHANGELOG.md:L496)
+- BREAKING: `prompt_cache_retention enum` — v6.35.0 corrected `prompt_cache_retention` enum value in chat/completions and responses [source](./.skilld/pkg/CHANGELOG.md:L94)
+- NEW: `runtime fetch options` — v6.39.0 allowed runtime fetch options [source](./.skilld/pkg/CHANGELOG.md:L17)
+- NEW: `responses compact method: service_tier parameter` — v6.38.0 added `service_tier` parameter to responses compact method [source](./.skilld/pkg/CHANGELOG.md:L30)
+- NEW: `admin organization usage responses: quantity field` — v6.37.0 added `quantity` field to admin organization usage responses [source](./.skilld/pkg/CHANGELOG.md:L40)
+- NEW: `responses: web_search_call.results output option` — v6.37.0 added `web_search_call.results` output option to responses [source](./.skilld/pkg/CHANGELOG.md:L41)
+- NEW: `Realtime API: translate and image 2` — v6.37.0 launched realtime translate + update image 2 [source](./.skilld/pkg/CHANGELOG.md:L42)
+- NEW: `admin resources: group_type/user metadata fields` — v6.36.0 added `group_type/user` metadata fields, updated types across admin resources [source](./.skilld/pkg/CHANGELOG.md:L61)
+- NEW: `Admin API: support for API Keys per endpoint` — v6.36.0 added support for Admin API Keys per endpoint [source](./.skilld/pkg/CHANGELOG.md:L62)
+- NEW: `InputFileContent: detail field` — v6.35.0 added detail to `InputFileContent` [source](./.skilld/pkg/CHANGELOG.md:L77)
+- NEW: `OAuthErrorCode type` — v6.35.0 added `OAuthErrorCode` type [source](./.skilld/pkg/CHANGELOG.md:L78)
+- NEW: `responses compact method: prompt_cache_retention parameter` — v6.35.0 added `prompt_cache_retention` parameter to responses compact method [source](./.skilld/pkg/CHANGELOG.md:L79)
+- NEW: `ResponseIncludable: web_search_call.results` — v6.35.0 added `web_search_call.results` to `ResponseIncludable` [source](./.skilld/pkg/CHANGELOG.md:L80)
+- NEW: `Client: support for binary messages` — v6.35.0 added support for binary messages [source](./.skilld/pkg/CHANGELOG.md:L82)
+- NEW: `Client: support for path parameters in websockets clients` — v6.35.0 added support for path parameters in websockets clients [source](./.skilld/pkg/CHANGELOG.md:L83)
+- NEW: `Client: support for queuing messages when waiting for a connection` — v6.35.0 added support for queuing messages when waiting for a connection [source](./.skilld/pkg/CHANGELOG.md:L84)
 
-- NEW: `quantity` field in admin organization usage responses — added in v6.37.0 to track resource usage quantities [source](./.skilld/pkg/CHANGELOG.md:L11:L23)
-
-- NEW: `web_search_call.results` output option for responses — added in v6.37.0 to enable structured web search result retrieval [source](./.skilld/pkg/CHANGELOG.md:L11:L23)
-
-- NEW: Realtime API enhancements with translation support — v6.37.0 added realtime translate and updated image 2 features [source](./.skilld/pkg/CHANGELOG.md:L11:L23)
-
-- NEW: Admin API Keys authentication per endpoint — added in v6.36.0 to support endpoint-specific API key configuration [source](./.skilld/pkg/CHANGELOG.md:L34:L51)
-
-- NEW: `group_type` and `user` metadata fields — added in v6.36.0 across admin resources for resource organization [source](./.skilld/pkg/CHANGELOG.md:L34:L51)
-
-- NEW: `detail` field on `InputFileContent` — added in v6.35.0 to specify file input detail level for vision tasks [source](./.skilld/pkg/CHANGELOG.md:L59:L102)
-
-- NEW: `OAuthErrorCode` type — added in v6.35.0 for OAuth error handling and type safety [source](./.skilld/pkg/CHANGELOG.md:L59:L102)
-
-- NEW: `prompt_cache_retention` parameter to `responses.compact()` — added in v6.35.0 to control prompt cache retention duration [source](./.skilld/pkg/CHANGELOG.md:L59:L102)
-
-- NEW: Binary message support in WebSocket client — v6.35.0 added ability to send binary-encoded messages for real-time protocols [source](./.skilld/pkg/CHANGELOG.md:L59:L102)
-
-- NEW: Path parameters in WebSocket client connections — v6.35.0 added support for URL path parameters in WebSocket endpoints [source](./.skilld/pkg/CHANGELOG.md:L59:L102)
-
-- NEW: Message queuing when awaiting WebSocket connection — v6.35.0 queues outbound messages during reconnection [source](./.skilld/pkg/CHANGELOG.md:L59:L102)
-
-- NEW: Browser WebSocket support with simple auth — v6.35.0 added browser-compatible WebSocket client for simple authentication [source](./.skilld/pkg/CHANGELOG.md:L59:L102)
-
-- NEW: Automatic WebSocket reconnection — v6.35.0 added retry logic for WebSocket connection failures with exponential backoff [source](./.skilld/pkg/CHANGELOG.md:L59:L102)
-
-- NEW: `async` iterator and `.stream()` method on WebSocket classes — v6.33.0 added iterable protocol for event consumption [source](./.skilld/pkg/CHANGELOG.md:L138:L154)
-
-- NEW: Short-lived token authentication — v6.34.0 added support for time-limited API tokens via bearer token mechanism [source](./.skilld/pkg/CHANGELOG.md:L103:L128)
-
-- NEW: `keys` field on computer action types — v6.33.0 added keystroke input field for computer use interactions [source](./.skilld/pkg/CHANGELOG.md:L138:L154)
-
-- NEW: `defer_loading` field on `NamespaceTool` — v6.30.0 added lazy-loading toggle for tool definitions [source](./.skilld/pkg/CHANGELOG.md:L184:L197)
-
-- NEW: `/v1/videos` endpoint support in batches — v6.30.0 added batch processing capability for video generation [source](./.skilld/pkg/CHANGELOG.md:L184:L197)
-
-- NEW: WebSocket support for responses API — v6.23.0 added real-time streaming via WebSocket protocol [source](./.skilld/pkg/CHANGELOG.md:L293:L319)
-
-- NEW: Model slugs for GPT-5.4 nano and mini — v6.32.0 added compact model identifiers `gpt-5.4-nano` and `gpt-5.4-mini` [source](./.skilld/pkg/CHANGELOG.md:L160:L167)
-
-- NEW: `in` and `nin` comparison filter types — v6.31.0 added set-membership operators for vector store filtering [source](./.skilld/pkg/CHANGELOG.md:L168:L175)
-
-- BREAKING: `ComputerTool` GA — v6.27.0 migrated from `computer_use_preview` tool class to production `ComputerTool` class; tool name changed in chat completion tool definitions [source](./.skilld/pkg/CHANGELOG.md:L229:L241)
-
-- BREAKING: `ResponseFunctionToolCallOutputItem.output` type narrowed — v6.0.0 changed from `string` only to `string | Array<ResponseInputText | ResponseInputImage | ResponseInputFile>`, allowing multimodal outputs [source](./.skilld/pkg/CHANGELOG.md:L624:L640)
-
-- BREAKING: `web_search_call.results` removed from `ResponseIncludable` then re-added — v6.34.0 removed it, v6.35.0+ re-added it; check version when using this output option [source](./.skilld/pkg/CHANGELOG.md:L103:L128)
-
-- BREAKING: `detail` field removed from `ResponseInputFile` and `ResponseInputFileContent` — v6.28.0 removed this field, then v6.35.0 re-added it for `InputFileContent` only [source](./.skilld/pkg/CHANGELOG.md:L206:L228)
-
-- BUG FIX: `type` required in `ResponseInputMessageItem` — v6.33.0 made message item type mandatory to prevent silent failures [source](./.skilld/pkg/CHANGELOG.md:L138:L154)
-
-- BUG FIX: `prompt_cache_retention` enum value corrected — v6.35.0 fixed enum value mismatch between chat/completions and responses endpoints [source](./.skilld/pkg/CHANGELOG.md:L59:L102)
-
-- BUG FIX: ImageGen `size` enum regression fixed — v6.37.0 restored missing size options in image generation [source](./.skilld/pkg/CHANGELOG.md:L11:L33)
-
-- BUG FIX: Admin API Key authentication support — v6.36.0 fixed auth header selection to properly route admin credentials [source](./.skilld/pkg/CHANGELOG.md:L34:L51)
-
-- BUG FIX: SDK response types aligned with expanded item schemas — v6.33.0 corrected response type definitions to match API schema changes [source](./.skilld/pkg/CHANGELOG.md:L138:L154)
-
-**Also changed:** Custom voices API v6.29.0 · Sora video extensions/edits/resolution v6.28.0 · GPT-5.4 model launch v6.26.0 · Computer tool search v6.26.0 · Realtime models gpt-realtime-1.5/gpt-audio-1.5 v6.24.0 · Phase field on conversations Message v6.34.0/v6.25.0 · TypeScript underlying WebSocket type exposed v6.35.0 · Debug log API-key redaction v6.37.0 · Multipart form array serialization v6.34.0
+**Also changed:** `Client: support for WebSockets in the browser when using simple auth` new v6.35.0 · `Client: automatic reconnection for websockets` new v6.35.0 · `WebSocket type` new v6.35.0 · `Message in conversations: phase field` new v6.34.0 · `Client: support for short-lived tokens` new v6.34.0 · `computer action types: keys field` new v6.33.0 · `WebSocket classes: async iterator and stream()` new v6.33.0 · `models: 5.4 nano and mini` new v6.32.0 · `ComparisonFilter: in/nin filter types` new v6.31.0 · `batches: /v1/videos endpoint option` new v6.30.0 · `NamespaceTool: defer_loading field` new v6.30.0 · `custom voices` new v6.29.0 · `Sora API improvements` new v6.28.0 · `ComputerTool / computer_use_preview` renamed v6.27.0 · `models: gpt-5.4, tool search tool, new computer tool` new v6.26.0 · `phase field` new v6.25.0 · `realtime models: gpt-realtime-1.5 and gpt-audio-1.5` new v6.24.0 · `websockets for responses api` new v6.23.0 · `container network_policy and skills` new v6.22.0 · `batch api: support for images` new v6.21.0 · `skills and hosted shell` new v6.20.0 · `responses context_management` new v6.19.0 · `responses: image generation actions; ResponseFunctionCallArgumentsDoneEvent.name` new v6.18.0 · `shell_call_output status field` new v6.17.0 · `Assistants API` deprecated v6.17.0 · `Response.completed_at prop` new v6.16.0 · `model: gpt-image-1.5` new v6.14.0 · `model: sora-2 dated slugs` new v6.13.0 · `model: gpt 5.2` new v6.12.0 · `model: gpt-5.1-codex-max and responses/compact` new v6.10.0 · `model: gpt 5.1` new v6.9.0 · `Realtime API token_limits, Hybrid searching ranking options` new v6.8.0 · `support for zod@4 schemas` new v6.7.0 · `responses.input_tokens.count` new v6.6.0 · `audio/transcriptions endpoint: gpt-4o-transcribe-diarize` new v6.4.0 · `comparison filter in/not in` new v6.3.0 · `dev day 2025 launches` new v6.2.0 · `support for realtime calls` new v6.1.0 · `images and files for function call outputs in responses, BatchUsage` new v6.0.0
 
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
 
-## OpenAI SDK v6.38.0 — Best Practices
-
 ## Best Practices
 
-- Use an `ApiKeySetter` function to rotate short-lived tokens at runtime instead of storing static API keys — enables automatic token refresh and reduces credential exposure in long-running processes [source](./.skilld/pkg/client.d.ts:L40:L54)
+- Leverage automatic retries (default 2) in v4 of the SDK for improved resilience against transient network issues. [source](./.skilld/repos/openai/openai-node/discussions/discussion-182.md)
 
-- Configure workload identity authentication for secure cloud environments (Kubernetes, Azure, GCP) instead of API keys — avoids long-lived credentials and works with short-lived tokens from cloud identity providers [source](./.skilld/pkg/README.md:L72:L162)
+- Utilize the improved TypeScript types in v4 for enhanced type safety and better development experience. [source](./.skilld/repos/openai/openai-node/discussions/discussion-182.md)
 
-- Use `zodResponseFormat()` or `zodTextFormat()` from `openai/helpers/zod` for structured outputs instead of manually constructing JSON schemas — provides type inference, automatic parsing, and works with both Zod v3 and v4 [source](./.skilld/pkg/helpers/zod.d.ts:L8:L45)
+- Take advantage of v4's support for modern JavaScript environments like ESM, Cloudflare Workers, Vercel Edge Functions, and Deno for flexible deployments. [source](./.skilld/repos/openai/openai-node/discussions/discussion-182.md)
 
-- Use `zodFunction()` helper to define tool schemas with full type safety instead of writing raw function definitions — handles parameter validation, type inference, and integrates with `.parse()` and `.runTools()` methods [source](./.skilld/pkg/helpers/zod.d.ts:L52:L61)
+- Benefit from v4's internal optimizations, such as TCP connection re-use, for improved latency. [source](./.skilld/repos/openai/openai-node/discussions/discussion-182.md)
 
-- Use `.parse()` method on chat completions with a zodResponseFormat instead of calling `.create()` and parsing manually — returns a `.parsed` property with type-safe results after automatic validation [source](./.skilld/pkg/helpers/zod.d.ts:L17:L40)
+- Prefer the simplified client initialization logic in v4 by using `new OpenAI()` for clearer and more concise code. [source](./.skilld/repos/openai/openai-node/discussions/discussion-217.md#manual-migration)
 
-- Use `for await...of` syntax to auto-paginate list methods instead of manually calling `.getNextPage()` — automatically fetches all pages and is more concise [source](./.skilld/pkg/README.md:L474:L482)
+- When performing chat completions in v4, use the updated API path: `openai.chat.completions.create`. [source](./.skilld/repos/openai/openai-node/discussions/discussion-217.md#creating-a-chat-completion)
 
-- Call `.withResponse()` on API responses to access both parsed data and raw HTTP response (headers, status) together — allows access to rate-limit headers and other metadata without separate calls [source](./.skilld/pkg/README.md:L351:L361)
+- For migrating from v3 to v4, use the `npm exec openai migrate` command for an automated transition. [source](./.skilld/repos/openai/openai-node/discussions/discussion-217.md#automatic-migration)
 
-- Use `client.webhooks.unwrap()` to verify and parse webhook payloads in a single call instead of two separate steps — throws on invalid signatures and handles both verification and JSON parsing [source](./.skilld/pkg/README.md:L228:L234)
+- Always audit the changes made by the `npm exec openai migrate` tool to ensure correctness and prevent unintended side effects. [source](./.skilld/repos/openai/openai-node/discussions/discussion-217.md#automatic-migration)
 
-- Use `maxRetries` option to increase retry count for rate-limited or timeout-prone endpoints instead of relying on default retry behavior — default is 2, adjust per-request or client-wide based on workload [source](./.skilld/pkg/client.d.ts:L99:L104)
+- If using Zod 4, upgrade `openai-node` to version 6.7.0 or higher to ensure compatibility and avoid issues with `zod-to-json-schema` helpers. [source](./.skilld/repos/openai/openai-node/issues/issue-1576.md#top-comments)
 
-- Pass a custom logger (e.g., pino, winston) to the client constructor with `logLevel` control instead of relying on console output — enables structured logging and filters sensitive data before logging [source](./.skilld/pkg/README.md:L609:L626)
+- When implementing MCP (Multi-Modal Chat Protocol) features, leverage the Responses API, which now officially supports it. Consult the OpenAI cookbook and API reference for detailed examples. [source](./.skilld/repos/openai/openai-node/issues/issue-1435.md#top-comments)
 
-- Use the Responses API with `.create()` for modern features like streaming, tools, and web search instead of the older Chat Completions API — Responses API is the current standard and receives new capabilities first [source](./.skilld/pkg/README.md:L34:L50)
+- Follow multi-file ingestion recommendations when managing files and file-batches for vector stores to ensure efficient processing. [source](./.skilld/repos/openai/openai-node/releases/CHANGELOG.md:L30)
 
-- Use `toFile()` helper when converting buffers or byte arrays to files for uploads instead of raw File/Blob objects — ensures consistent MIME type handling and file name assignment [source](./.skilld/pkg/README.md:L212:L216)
+- Enhance security by utilizing the client's support for short-lived tokens, reducing the risk associated with long-lived credentials. [source](./.skilld/repos/openai/openai-node/releases/CHANGELOG.md:L25)
 
-- Access rate-limit information from caught `APIError` via the `.headers` property instead of trying to parse error responses — OpenAI includes `x-ratelimit-*` headers in both success and error responses [source](./.skilld/pkg/README.md:L302:L322)
+- For WebSocket classes, employ asynchronous iterators and the `stream()` method to effectively handle real-time data streams and improve application responsiveness. [source](./.skilld/repos/openai/openai-node/releases/CHANGELOG.md:L49)
 
-- Use the Realtime API with `OpenAIRealtimeWebSocket` or async iterators for low-latency conversational experiences instead of REST polling — supports streaming text, audio, function calling, and WebSocket-native event handling [source](./.skilld/pkg/README.md:L363:L375)
+- Stay updated with manual API updates for Sora, especially regarding character API, video extensions/edits, and higher resolution exports, to leverage the latest video generation capabilities. [source](./.skilld/repos/openai/openai-node/releases/CHANGELOG.md:L109)
 
-- Use `recordAudio()` and `playAudio()` helpers from `openai/helpers/audio` for audio device I/O instead of manual stream handling — automatically handles device enumeration, encoding, and abort signals [source](./.skilld/pkg/helpers/audio.d.ts:L2:L7)
+- Ensure proper usage of the GA ComputerTool by instantiating the `ComputerTool` class, as the `computer_use_preview` tool has been moved to `ComputerUsePreview`. [source](./.skilld/repos/openai/openai-node/releases/CHANGELOG.md:L128)
 
-- Pass `logLevel: 'debug'` to reveal request/response bodies and HTTP details when debugging API integration issues instead of guessing what was sent — enables inspection of all headers and payloads (redacts some auth headers) [source](./.skilld/pkg/README.md:L587:L604)
+- Integrate WebSockets with the Responses API for real-time, interactive applications, taking advantage of instant feedback and dynamic content updates. [source](./.skilld/repos/openai/openai-node/releases/CHANGELOG.md:L172)
 
-- Ensure Zod v3 is used, or upgrade to openai v6.7.0+ if using Zod v4 — earlier versions incompatible with Zod v4; v6.7.0 and later support both [source](./.skilld/issues/issue-1602.md:L90:L121)
-
-- Use the Responses API's `background: false` option (default) for request-response patterns and `background: true` only for fire-and-forget operations — background mode doesn't wait for completion and may not include full tool results [source](./.skilld/pkg/README.md:L52:L68)
+- Be mindful of the 2000 file limit when specifying parameters for file-batches creation to avoid unexpected errors or incomplete processing. [source](./.skilld/repos/openai/openai-node/releases/CHANGELOG.md:L186)
 <!-- /skilld:best-practices -->

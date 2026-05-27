@@ -197,6 +197,8 @@ export default defineNuxtConfig({
             binding: "DB",
             database_name: "syn-horse",
             database_id: "2722c422-9352-45b5-9e7f-a4f6504e4f85",
+            migrations_dir: "server/db/migrations/sqlite",
+            preview_database_id: "deab36c7-6839-4025-a9c2-16f61327abd7",
           },
         ],
         dev: {
@@ -208,6 +210,16 @@ export default defineNuxtConfig({
           binding: "IMAGES",
         },
         keep_names: true,
+        kv_namespaces: [
+          {
+            binding: "CACHE",
+            id: "d7a8a6c935354a17a4c2d26bc1056710",
+          },
+          {
+            binding: "KV",
+            id: "3fa198f1477f456c8d27eb9a72562a4b",
+          },
+        ],
         limits: {
           cpu_ms: 30000,
         },
@@ -239,6 +251,7 @@ export default defineNuxtConfig({
             },
           ],
         },
+        r2_buckets: [{ binding: "BLOB", bucket_name: "syn-horse" }],
         routes: [
           {
             custom_domain: true,
