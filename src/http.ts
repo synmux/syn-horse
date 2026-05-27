@@ -1,9 +1,9 @@
 export const handleAck = (req: Request, _env: Env, ctx: ExecutionContext): Response => {
-  const text = "Ping? Pong!"
+  const message = "HTTP request received"
   console.info({
     req,
     ctx,
-    message: "HTTP request received",
+    message,
   })
-  return new Response(text)
+  return new Response(message)
 }
