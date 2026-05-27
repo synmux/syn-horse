@@ -1,3 +1,3 @@
 # to-do list
 
-- [ ] use this syntax
+- [ ] use Cloudflare Workflow to orchestrate processing steps instead of homebrew

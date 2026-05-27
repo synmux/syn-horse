@@ -53,11 +53,4 @@
   },
   "upload_source_maps": true,
   "workers_dev": false,
-  "workflows": [
-    {
-      "name": "notify",
-      "binding": "NOTIFY",
-      "class_name": "Notify",
-    },
-  ],
 }
