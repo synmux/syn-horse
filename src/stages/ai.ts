@@ -145,7 +145,6 @@ Message:
 ${payload.message}
 \`\`\`
 `
-
   const response = await env.AI.run(MODERATION_MODEL, {
     messages: [
       { role: "system", content: PROMPT },
