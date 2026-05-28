@@ -65,7 +65,7 @@ export default {
           message.ack()
           continue
         }
-        await runDelivery(env, message.id, payload)
+        await runDelivery(env, message.id, payload, ["pushover"], "stop")
         message.ack()
       } catch (err) {
         console.error({
