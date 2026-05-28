@@ -23,11 +23,9 @@
     "drizzle-kit": "^0.31.10",
     "drizzle-orm": "^0.45.2",
     "eslint": "^10.4.0",
-    "node-gyp": "^12.3.0",
     "nuxt": "^4.4.6",
     "nuxt-gtag": "^4.1.0",
     "nuxt-security": "^2.6.0",
-    "openai": "^6.39.0",
     "tailwindcss": "^4.3.0",
     "uuid": "^14.0.0",
     "vue": "^3.5.35",
@@ -35,7 +33,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@anthropic-ai/claude-code": "^2.1.152",
+    "@anthropic-ai/claude-code": "^2.1.153",
     "@catppuccin/daisyui": "^2.1.1",
     "@catppuccin/tailwindcss": "^1.0.0",
     "@tailwindcss/cli": "^4.3.0",

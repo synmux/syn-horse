@@ -17,7 +17,7 @@ mise install
 bun install
 ```
 
-If you would rather manage tools yourself: Node 24.15.0, Bun 1.3.14.
+If you would rather manage tools yourself: Node 24.16.0, Bun 1.3.14.
 
 ## Development
 

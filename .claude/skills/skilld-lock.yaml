@@ -151,14 +151,6 @@ skills:
     source: "https://orm.drizzle.team/**"
     syncedAt: 2026-04-11
     generator: skilld
-  node-gyp-skilld:
-    packageName: node-gyp
-    version: 12.3.0
-    packages: "node-gyp@12.3.0"
-    repo: nodejs/node-gyp
-    source: "https://github.com/nodejs/node-gyp/tree/v12.3.0/docs"
-    syncedAt: 2026-05-06
-    generator: skilld
   eslint-skilld:
     packageName: eslint
     version: 10.4.0
@@ -182,14 +174,6 @@ skills:
     repo: Baroshem/nuxt-security
     source: "https://github.com/Baroshem/nuxt-security/tree/v2.6.0/docs"
     syncedAt: 2026-05-17
-    generator: skilld
-  openai-skilld:
-    packageName: openai
-    version: 6.39.0
-    packages: "openai@6.39.0"
-    repo: openai/openai-node
-    source: "ungh://openai/openai-node"
-    syncedAt: 2026-05-27
     generator: skilld
   tailwindcss-skilld:
     packageName: tailwindcss
@@ -225,11 +209,11 @@ skills:
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.152
-    packages: "@anthropic-ai/claude-code@2.1.152"
+    version: 2.1.153
+    packages: "@anthropic-ai/claude-code@2.1.153"
     repo: Exhen/claude-code-2.1.88
     source: "ungh://Exhen/claude-code-2.1.88"
-    syncedAt: 2026-05-27
+    syncedAt: 2026-05-28
     generator: skilld
   catppuccin-daisyui-skilld:
     packageName: "@catppuccin/daisyui"
