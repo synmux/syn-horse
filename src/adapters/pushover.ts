@@ -60,8 +60,8 @@ function configFor(channel: string): ChannelConfig {
  *
  * Required secrets:
  *
- * - `PUSHOVER_TOKEN` — Pushover application API token
- * - `PUSHOVER_USER` — Pushover user or group key
+ * - `PUSHOVER_APP_TOKEN` — Pushover application API token
+ * - `PUSHOVER_USER_TOKEN` — Pushover user or group key
  *
  * Message bodies longer than {@link PUSHOVER_MESSAGE_MAX_LENGTH} characters
  * are truncated with a trailing marker, because the Pushover API caps the
@@ -79,16 +79,16 @@ function configFor(channel: string): ChannelConfig {
 const pushover: Adapter = {
   name: "pushover",
   send: async (env: Env, message: Notification): Promise<boolean> => {
-    if (!env.PUSHOVER_TOKEN) {
-      throw new Error("PUSHOVER_TOKEN is required")
+    if (!env.PUSHOVER_APP_TOKEN) {
+      throw new Error("PUSHOVER_APP_TOKEN is required")
     }
-    if (!env.PUSHOVER_USER) {
-      throw new Error("PUSHOVER_USER is required")
+    if (!env.PUSHOVER_USER_TOKEN) {
+      throw new Error("PUSHOVER_USER_TOKEN is required")
     }
 
     const config = configFor(message.channel)
 
-    const client = new Pushover(env.PUSHOVER_USER.trim(), env.PUSHOVER_TOKEN.trim())
+    const client = new Pushover(env.PUSHOVER_USER_TOKEN.trim(), env.PUSHOVER_APP_TOKEN.trim())
       .setTitle(message.channel)
       .setMessage(truncateMessage(message.content))
       .setSound(config.sound)

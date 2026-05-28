@@ -45,7 +45,7 @@
     "producers": [],
   },
   "secrets": {
-    "required": ["NTFY_TOKEN", "SELF_TOKEN", "PUSHOVER_TOKEN", "PUSHOVER_USER"],
+    "required": ["NTFY_TOKEN", "SELF_TOKEN", "PUSHOVER_APP_TOKEN", "PUSHOVER_USER_TOKEN"],
   },
   "send_email": [
     {
