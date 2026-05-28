@@ -51,3 +51,24 @@ export const RATE_LIMIT_NAMESPACE = "rate-limits"
 export function rateLimitKey(source: string | undefined, period: RateLimitPeriod): string {
   return `${RATE_LIMIT_NAMESPACE}:${source ?? "unknown"}:${period}`
 }
+
+/**
+ * Pushover emergency-priority retry interval in seconds. Pushover's API
+ * minimum is 30s; the `pushover-js` default is 3600s, which is far too long
+ * for a real "emergency" notification, so we set this explicitly.
+ */
+export const PUSHOVER_EMERGENCY_RETRY_SECONDS = 30
+
+/**
+ * Pushover emergency-priority expiry in seconds. The notification keeps
+ * re-alerting until acknowledged or this expires. API max is 10800 (3h);
+ * 3600 (1h) is intrusive enough to be unmissable without being indefinite.
+ */
+export const PUSHOVER_EMERGENCY_EXPIRE_SECONDS = 3600
+
+/**
+ * Pushover message body maximum length in characters. The queue payload
+ * schema allows messages up to 8192 chars; the adapter truncates beyond
+ * this limit before calling the Pushover API.
+ */
+export const PUSHOVER_MESSAGE_MAX_LENGTH = 1024

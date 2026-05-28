@@ -77,7 +77,7 @@
 
 - Adapter interface in `src/types.ts`; registry is explicit switch in `src/adapters/index.ts`.
 - `runDelivery` is currently hardcoded to `getAdapter("stub")`.
-- `email`, `ntfy`, `pushover` adapters are placeholders returning `true`.
+- `email` adapter is a placeholder returning `true`; `ntfy` and `pushover` are real implementations.
 - `stub` is a no-op success adapter used by current pipeline.
 
 ## Conventions and Style
