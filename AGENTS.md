@@ -9,7 +9,7 @@
 ## Toolchain / Runtime
 
 - Bun package manager (`packageManager: bun@1.3.14`).
-- Node version pinned to 24.15.0 (`.node-version`, `.tool-versions`, `mise.toml`).
+- Node version pinned to 24.16.0 (`.node-version`, `.tool-versions`, `mise.toml`).
 - Wrangler 4.x for local dev/deploy/migrations.
 
 ## Commands (verified from `package.json`)

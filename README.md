@@ -55,7 +55,7 @@ Available adapters:
 ## Prerequisites
 
 - Bun `1.3.14`
-- Node `24.15.0`
+- Node `24.16.0`
 - Wrangler `4.x`
 
 Pinned versions are defined in `.node-version`, `.tool-versions`, and `mise.toml`.
