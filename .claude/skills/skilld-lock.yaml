@@ -2,6 +2,7 @@ skills:
   node-gyp-skilld:
     packageName: node-gyp
     version: 12.3.0
+    packages: "node-gyp@12.3.0"
     repo: nodejs/node-gyp
     source: "ungh://nodejs/node-gyp@v12.3.0"
     syncedAt: 2026-05-27
@@ -9,6 +10,7 @@ skills:
   openai-skilld:
     packageName: openai
     version: 6.39.0
+    packages: "openai@6.39.0"
     repo: openai/openai-node
     source: "ungh://openai/openai-node"
     syncedAt: 2026-05-27
@@ -16,6 +18,7 @@ skills:
   ntfy-skilld:
     packageName: ntfy
     version: 1.15.2
+    packages: "ntfy@1.15.2"
     repo: ffflorian/node-packages
     source: "ungh://ffflorian/node-packages"
     syncedAt: 2026-05-27
@@ -23,6 +26,7 @@ skills:
   zod-skilld:
     packageName: zod
     version: 4.4.3
+    packages: "zod@4.4.3"
     repo: colinhacks/zod
     source: "https://zod.dev/llms.txt"
     syncedAt: 2026-05-27
@@ -30,6 +34,7 @@ skills:
   eslint-js-skilld:
     packageName: "@eslint/js"
     version: 10.0.1
+    packages: "@eslint/js@10.0.1"
     repo: eslint/eslint
     source: "ungh://eslint/eslint/packages/js@v10.0.1"
     syncedAt: 2026-05-27
@@ -37,12 +42,14 @@ skills:
   trunkio-launcher-skilld:
     packageName: "@trunkio/launcher"
     version: 1.3.4
+    packages: "@trunkio/launcher@1.3.4"
     source: git
     syncedAt: 2026-05-27
     generator: skilld
   cloudflare-vitest-pool-workers-skilld:
     packageName: "@cloudflare/vitest-pool-workers"
     version: 0.16.10
+    packages: "@cloudflare/vitest-pool-workers@0.16.10"
     repo: cloudflare/workers-sdk
     source: "https://github.com/cloudflare/workers-sdk/tree/v0.16.10/docs"
     syncedAt: 2026-05-27
@@ -50,6 +57,7 @@ skills:
   pushover-js-skilld:
     packageName: pushover-js
     version: 1.3.2
+    packages: "pushover-js@1.3.2"
     repo: danitetus/pushover-js
     source: "ungh://danitetus/pushover-js@master"
     syncedAt: 2026-05-27
@@ -57,6 +65,7 @@ skills:
   ctx7-skilld:
     packageName: ctx7
     version: 0.4.4
+    packages: "ctx7@0.4.4"
     repo: upstash/context7
     source: "ungh://upstash/context7/packages/cli@ctx7@0.4.4"
     syncedAt: 2026-05-27
@@ -64,6 +73,7 @@ skills:
   eslint-skilld:
     packageName: eslint
     version: 10.4.0
+    packages: "eslint@10.4.0"
     repo: eslint/eslint
     source: "ungh://eslint/eslint@v10.4.0"
     syncedAt: 2026-05-27
@@ -71,20 +81,23 @@ skills:
   npm-run-all2-skilld:
     packageName: npm-run-all2
     version: 9.0.1
+    packages: "npm-run-all2@9.0.1"
     repo: bcomnes/npm-run-all2
     source: "ungh://bcomnes/npm-run-all2@v9.0.1"
     syncedAt: 2026-05-27
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.152
+    version: 2.1.153
+    packages: "@anthropic-ai/claude-code@2.1.153"
     repo: Exhen/claude-code-2.1.88
     source: "ungh://Exhen/claude-code-2.1.88"
-    syncedAt: 2026-05-27
+    syncedAt: 2026-05-28
     generator: skilld
   prettier-skilld:
     packageName: prettier
     version: 3.8.3
+    packages: "prettier@3.8.3"
     repo: prettier/prettier
     source: "https://github.com/prettier/prettier/tree/v3.8.3/docs"
     syncedAt: 2026-05-27
@@ -92,6 +105,7 @@ skills:
   skilld-skilld:
     packageName: skilld
     version: 2.0.0
+    packages: "skilld@2.0.0"
     repo: skilld-dev/skilld
     source: "https://github.com/skilld-dev/skilld/tree/v2.0.0/docs"
     syncedAt: 2026-05-27
@@ -99,6 +113,7 @@ skills:
   tsx-skilld:
     packageName: tsx
     version: 4.22.3
+    packages: "tsx@4.22.3"
     repo: privatenumber/tsx
     source: "https://github.com/privatenumber/tsx/tree/v4.22.3/docs"
     syncedAt: 2026-05-27
@@ -106,6 +121,7 @@ skills:
   vitest-skilld:
     packageName: vitest
     version: 4.1.7
+    packages: "vitest@4.1.7"
     repo: vitest-dev/vitest
     source: "https://github.com/vitest-dev/vitest/tree/v4.1.7/docs"
     syncedAt: 2026-05-27
@@ -113,6 +129,7 @@ skills:
   typescript-eslint-skilld:
     packageName: typescript-eslint
     version: 8.60.0
+    packages: "typescript-eslint@8.60.0"
     repo: typescript-eslint/typescript-eslint
     source: "ungh://typescript-eslint/typescript-eslint/packages/typescript-eslint@v8.60.0"
     syncedAt: 2026-05-27
@@ -120,6 +137,7 @@ skills:
   typescript-skilld:
     packageName: typescript
     version: 6.0.3
+    packages: "typescript@6.0.3"
     repo: microsoft/TypeScript
     source: "https://github.com/microsoft/TypeScript/tree/v6.0.3/docs"
     syncedAt: 2026-05-27
@@ -127,6 +145,7 @@ skills:
   types-node-skilld:
     packageName: "@types/node"
     version: 25.9.1
+    packages: "@types/node@25.9.1"
     repo: DefinitelyTyped/DefinitelyTyped
     source: readme
     syncedAt: 2026-05-27
@@ -134,6 +153,7 @@ skills:
   wrangler-skilld:
     packageName: wrangler
     version: 4.95.0
+    packages: "wrangler@4.95.0"
     repo: cloudflare/workers-sdk
     source: "https://github.com/cloudflare/workers-sdk/tree/v4.95.0/docs"
     syncedAt: 2026-05-27

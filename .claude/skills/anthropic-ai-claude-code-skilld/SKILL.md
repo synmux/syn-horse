@@ -2,14 +2,14 @@
 name: anthropic-ai-claude-code-skilld
 description: 'ALWAYS use when writing code importing "@anthropic-ai/claude-code". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88.'
 metadata:
-  version: 2.1.152
+  version: 2.1.153
   generated_by: Google · Gemini 2.5 Flash
-  generated_at: 2026-05-27
+  generated_at: 2026-05-28
 ---
 
-# Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.152`
+# Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.153`
 
-**Tags:** stable: 2.1.144, next: 2.1.152, latest: 2.1.152
+**Tags:** stable: 2.1.145, latest: 2.1.153, next: 2.1.153
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md)
 
@@ -21,7 +21,7 @@ Use `skilld search "query" -p @anthropic-ai/claude-code` instead of grepping `.s
 
 ## API Changes
 
-(No version history / release notes content is available in the local `./.skilld/` reference set for `@anthropic-ai/claude-code@2.1.152`, so there are no verifiable new/deprecated/renamed/breaking API changes that can be cited with `./.skilld/...` source links.)
+(No version history / release notes content is available in the local `./.skilld/` reference set for `@anthropic-ai/claude-code@2.1.153`, so there are no verifiable new/deprecated/renamed/breaking API changes that can be cited with `./.skilld/...` source links.)
 
 <!-- /skilld:api-changes -->
 
