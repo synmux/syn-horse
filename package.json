@@ -29,11 +29,11 @@
     "tailwindcss": "^4.3.0",
     "uuid": "^14.0.0",
     "vue": "^3.5.35",
-    "vue-router": "^5.0.7",
+    "vue-router": "^5.1.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@anthropic-ai/claude-code": "^2.1.153",
+    "@anthropic-ai/claude-code": "^2.1.154",
     "@catppuccin/daisyui": "^2.1.1",
     "@catppuccin/tailwindcss": "^1.0.0",
     "@tailwindcss/cli": "^4.3.0",
@@ -74,7 +74,7 @@
     "lint:trunk": "bun run trunk check -a",
     "lint:trunk:fix": "bun run trunk check -a --fix",
     "lint:types": "bun run tsc --noEmit",
-    "postinstall": "bun run postinstall:prepare",
+    "postinstall": "bun run run-s types postinstall:prepare format",
     "postinstall:prepare": "bun run nuxt prepare",
     "types": "bun run wrangler types --config .output/server/wrangler.json",
     "preview": "bun run-s build preview:wrangler",

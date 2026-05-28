@@ -1,15 +1,14 @@
 ---
 name: anthropic-ai-claude-code-skilld
-description: 'Use Claude, Anthropic''s AI assistant, right from your terminal. Claude can understand your codebase, edit files, run terminal commands, and handle entire workflows for you. ALWAYS use when writing code importing "@anthropic-ai/claude-code". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88.'
+description: "ALWAYS use when writing code importing \"@anthropic-ai/claude-code\". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88."
 metadata:
-  version: 2.1.153
-  generated_by: cached
+  version: 2.1.154
+  generated_by: Google · Gemini 2.5 Flash
   generated_at: 2026-05-28
 ---
 
-# Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.153`
-
-**Tags:** stable: 2.1.145, latest: 2.1.153, next: 2.1.153
+# Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.154`
+**Tags:** stable: 2.1.145, latest: 2.1.154, next: 2.1.154
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md)
 
@@ -18,40 +17,39 @@ metadata:
 Use `skilld search "query" -p @anthropic-ai/claude-code` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @anthropic-ai/claude-code` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
-
 ## API Changes
 
-(No version history / release notes content is available in the local `./.skilld/` reference set for `@anthropic-ai/claude-code@2.1.153`, so there are no verifiable new/deprecated/renamed/breaking API changes that can be cited with `./.skilld/...` source links.)
+This section documents version-specific API changes — prioritize recent major/minor releases.
 
+- DEPRECATED: `interface TaskStopInput.shell_id` — use `task_id` instead [source](./.skilld/pkg/sdk-tools.d.ts:L523-541)
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
-
 ## Best Practices
 
-- Run Claude Code from your project's root directory to ensure it understands the entire codebase context for accurate assistance [source](./.skilld/pkg/README.md:L19)
+- Use concise (3-5 word) descriptions for `AgentInput.description` to clearly define the agent's task without verbosity [source](./.skilld/pkg/sdk-tools.d.ts:L157)
 
-- Leverage natural language commands for efficient execution of routine tasks, complex code explanations, and git workflows [source](./.skilld/pkg/README.md:L10)
+- Provide clear, specific questions in `AskUserQuestionInput.question` that end with a question mark for unambiguous user interaction [source](./.skilld/pkg/sdk-tools.d.ts:L634)
 
-- Report issues directly within Claude Code using the `/bug` command to provide rich context to the developers [source](./.skilld/pkg/README.md:L24)
+- Limit `AskUserQuestionInput.questions` to 1-4 items and provide 2-4 distinct, mutually exclusive options per question to simplify user choices [source](./.skilld/pkg/sdk-tools.d.ts:L631)
 
-- Familiarize yourself with Claude Code's data collection and usage policies to understand what usage and conversation data is collected [source](./.skilld/pkg/README.md:L34)
+- Craft `AskUserQuestionInput.header` as a very short label (max 12 chars) for display as a concise chip or tag [source](./.skilld/pkg/sdk-tools.d.ts:L639)
 
-- Review the privacy safeguards implemented by Anthropic to protect your data, including retention periods and access restrictions [source](./.skilld/pkg/README.md:L39)
+- Use `AskUserQuestionInput.multiSelect` when choices are not mutually exclusive, allowing users to select multiple options [source](./.skilld/pkg/sdk-tools.d.ts:L2180)
 
-- Stay informed about the legal aspects of using Claude Code by reviewing the Commercial Terms of Service and Privacy Policy [source](./.skilld/pkg/README.md:L42)
+- Employ `FileReadInput.offset` and `FileReadInput.limit` when reading large files to manage content size and avoid truncation by token caps [source](./.skilld/pkg/sdk-tools.d.ts:L316)
 
-- Connect with other developers and access community support by joining the official Claude Developers Discord [source](./.skilld/pkg/README.md:L29)
+- Specify `FileReadInput.pages` for PDF files to limit processing to relevant page ranges, improving efficiency and relevance [source](./.skilld/pkg/sdk-tools.d.ts:L326)
 
-- Regularly update Claude Code to benefit from the latest features, bug fixes, and performance enhancements [source](./.skilld/pkg/README.md:L15:L16)
+- Omit `GlobInput.path` to use the default working directory for glob searches; avoid explicit `undefined` or `null` values [source](./.skilld/pkg/sdk-tools.d.ts:L356)
 
-- Utilize Claude Code's capabilities for handling git workflows to streamline version control operations [source](./.skilld/pkg/README.md:L10)
+- Control grep output size with `GrepInput.head_limit`, using `0` for unlimited results only when necessary to prevent excessive context waste [source](./.skilld/pkg/sdk-tools.d.ts:L446)
 
-- Employ Claude Code to explain complex sections of code, accelerating your understanding and learning process [source](./.skilld/pkg/README.md:L10)
+- Use `BashInput.timeout` to prevent long-running shell commands from blocking the agent indefinitely (max 600000ms) [source](./.skilld/pkg/sdk-tools.d.ts:L178)
 
-- Delegate repetitive coding tasks to Claude Code to maximize efficiency and focus on more complex development challenges [source](./.skilld/pkg/README.md:L9)
+- Provide a clear, concise `BashInput.description` in active voice, avoiding words like "complex" or "risk," to explain command purpose [source](./.skilld/pkg/sdk-tools.d.ts:L183)
 
-- Exercise caution when providing feedback, as associated conversation data is collected and used for improving the tool [source](./.skilld/pkg/README.md:L34)
+- Leverage `CronCreateInput.recurring=false` for one-shot scheduled tasks that should auto-delete after the next match, like reminders [source](./.skilld/pkg/sdk-tools.d.ts:L2453)
 
-- Consult the detailed data usage policies, especially for sensitive projects, to ensure compliance with your organization's data governance [source](./.skilld/pkg/README.md:L36)
+- Only set `CronCreateInput.durable=true` when the scheduled task explicitly needs to persist across Claude Code sessions [source](./.skilld/pkg/sdk-tools.d.ts:L2458)
 <!-- /skilld:best-practices -->

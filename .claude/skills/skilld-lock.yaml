@@ -193,11 +193,11 @@ skills:
     generator: skilld
   vue-router-skilld:
     packageName: vue-router
-    version: 5.0.7
-    packages: "vue-router@5.0.7"
+    version: 5.1.0
+    packages: "vue-router@5.1.0"
     repo: vuejs/router
-    source: "https://github.com/vuejs/router/tree/v5.0.7/docs"
-    syncedAt: 2026-05-15
+    source: "https://github.com/vuejs/router/tree/v5.1.0/docs"
+    syncedAt: 2026-05-28
     generator: skilld
   zod-skilld:
     packageName: zod
@@ -209,8 +209,8 @@ skills:
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.153
-    packages: "@anthropic-ai/claude-code@2.1.153"
+    version: 2.1.154
+    packages: "@anthropic-ai/claude-code@2.1.154"
     repo: Exhen/claude-code-2.1.88
     source: "ungh://Exhen/claude-code-2.1.88"
     syncedAt: 2026-05-28
