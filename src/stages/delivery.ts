@@ -7,9 +7,7 @@ import { CONTINUE, type StageResult } from "./types.ts"
  * Run the delivery stage: hand the message to an {@link Adapter} and record
  * the outcome on the log row.
  *
- * NOTE: the adapter is currently hard-wired to `"stub"`, which always
- * succeeds without performing network I/O. The production version will
- * choose the adapter based on the channel or per-source configuration, and
+ * Choose the adapter based on the channel or per-source configuration, and
  * map adapter failures to `result = "failed"` with a `result_reason`.
  *
  * @param env - Worker environment used to update the log row.
@@ -20,7 +18,7 @@ import { CONTINUE, type StageResult } from "./types.ts"
  *   signature consistent for the queue handler.
  */
 export async function runDelivery(env: Env, id: string, payload: Payload): Promise<StageResult> {
-  const adapter = getAdapter("ntfy")
+  const adapter = getAdapter("pushover")
   await adapter.send(env, { channel: payload.channel, content: payload.message, id })
   await updateDelivery(env, id, adapter.name, "delivered")
   return CONTINUE
