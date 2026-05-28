@@ -74,7 +74,7 @@
     "lint:trunk": "bun run trunk check -a",
     "lint:trunk:fix": "bun run trunk check -a --fix",
     "lint:types": "bun run tsc --noEmit",
-    "postinstall": "bun run run-s types postinstall:prepare format",
+    "postinstall": "bun run run-s postinstall:prepare format",
     "postinstall:prepare": "bun run nuxt prepare",
     "types": "bun run wrangler types --config .output/server/wrangler.json",
     "preview": "bun run-s build preview:wrangler",
