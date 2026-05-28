@@ -1,6 +1,6 @@
 ---
 name: anthropic-ai-claude-code-skilld
-description: "ALWAYS use when writing code importing \"@anthropic-ai/claude-code\". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88."
+description: 'ALWAYS use when writing code importing "@anthropic-ai/claude-code". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88.'
 metadata:
   version: 2.1.154
   generated_by: Google · Gemini 2.5 Flash
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.154`
+
 **Tags:** stable: 2.1.145, latest: 2.1.154, next: 2.1.154
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @anthropic-ai/claude-code` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @anthropic-ai/claude-code` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -25,6 +27,7 @@ This section documents version-specific API changes — prioritize recent major/
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use concise (3-5 word) descriptions for `AgentInput.description` to clearly define the agent's task without verbosity [source](./.skilld/pkg/sdk-tools.d.ts:L157)
