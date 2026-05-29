@@ -1,10 +1,10 @@
 <script setup lang="ts">
-type TagVariant = "hot" | "cool" | "lilac" | "warn" | "solid"
+  type TagVariant = "hot" | "cool" | "lilac" | "warn" | "solid";
 
-defineProps<{
-  variant?: TagVariant
-  on?: boolean
-}>()
+  defineProps<{
+    variant?: TagVariant;
+    on?: boolean;
+  }>();
 </script>
 
 <template>

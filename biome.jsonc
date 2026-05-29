@@ -1,0 +1,32 @@
+{
+  "files": {
+    "includes": [
+      "!.nuxt",
+      "!.output",
+      "!.wrangler",
+      "!_*",
+      "!worker-configuration.d.ts"
+    ]
+  },
+  "linter": {
+    "rules": {
+      "performance": {
+        "noNamespaceImport": "off",
+        "useTopLevelRegex": "off"
+      },
+      "style": {
+        "useFilenamingConvention": "off",
+        "noNonNullAssertion": "off",
+        "noRestrictedGlobals": "off"
+      },
+      "correctness": {
+        "noUndeclaredVariables": "off"
+      },
+      "complexity": {
+        "noVoid": "off"
+      }
+    }
+  },
+  "extends": ["ultracite/biome/core", "ultracite/biome/vue"],
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json"
+}

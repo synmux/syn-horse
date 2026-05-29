@@ -1,26 +1,26 @@
-import { onMounted, onUnmounted, ref } from "vue"
-import { useIntervalFn } from "@vueuse/core"
+import { useIntervalFn } from "@vueuse/core";
+import { onMounted, onUnmounted, ref } from "vue";
 
 export function useTime() {
-  const now = ref<Date | null>(null)
+  const now = ref<Date | null>(null);
 
-  let pauseFn: (() => void) | null = null
+  let pauseFn: (() => void) | null = null;
 
   onMounted(() => {
-    now.value = new Date()
+    now.value = new Date();
     const ctl = useIntervalFn(
       () => {
-        now.value = new Date()
+        now.value = new Date();
       },
       1000,
-      { immediate: true },
-    )
-    pauseFn = ctl.pause
-  })
+      { immediate: true }
+    );
+    pauseFn = ctl.pause;
+  });
 
   onUnmounted(() => {
-    pauseFn?.()
-  })
+    pauseFn?.();
+  });
 
-  return { now }
+  return { now };
 }

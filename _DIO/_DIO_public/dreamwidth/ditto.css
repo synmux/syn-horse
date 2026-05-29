@@ -721,7 +721,8 @@ img[src*="community.png"] {
   height: 0;
   padding: 16px 0 0 18px !important;
   margin: 0 auto;
-  background: transparent url("https://dave.io/dreamwidth/community.png") no-repeat !important;
+  background: transparent url("https://dave.io/dreamwidth/community.png")
+    no-repeat !important;
   vertical-align: middle;
 }
 
@@ -730,7 +731,8 @@ img[src*="collapse.svg"] {
   height: 0;
   padding: 16px 0 0 8px !important;
   margin: 0 auto;
-  background: transparent url("https://dave.io/dreamwidth/collapse.png") no-repeat !important;
+  background: transparent url("https://dave.io/dreamwidth/collapse.png")
+    no-repeat !important;
   vertical-align: middle !important;
 }
 
@@ -748,6 +750,7 @@ img[src*="collapse-end.svg"] {
   height: 0;
   padding: 16px 0 0 8px !important;
   margin: 0 auto;
-  background: transparent url("https://dave.io/dreamwidth/collapse-end.png") no-repeat !important;
+  background: transparent url("https://dave.io/dreamwidth/collapse-end.png")
+    no-repeat !important;
   vertical-align: middle !important;
 }

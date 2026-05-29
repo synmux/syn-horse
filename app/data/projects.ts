@@ -1,13 +1,16 @@
-export type ProjectTagKind = "hot" | "cool" | "lilac" | "warn"
+export type ProjectTagKind = "hot" | "cool" | "lilac" | "warn";
 
-export type ProjectTag = { l: string; k?: ProjectTagKind }
+export interface ProjectTag {
+  k?: ProjectTagKind;
+  l: string;
+}
 
-export type Project = {
-  name: string
-  yr: string
-  desc: string
-  url: string
-  tags: ProjectTag[]
+export interface Project {
+  desc: string;
+  name: string;
+  tags: ProjectTag[];
+  url: string;
+  yr: string;
 }
 
 export const PROJECTS: Project[] = [
@@ -67,4 +70,4 @@ export const PROJECTS: Project[] = [
     url: "github.com/synmux/tabby",
     tags: [{ l: "OSS" }, { l: "WEB" }],
   },
-]
+];

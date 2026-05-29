@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { SOCIAL } from "~/data/social"
-import { IM } from "~/data/im"
-import { SITE } from "~/data/site"
+  import { IM } from "~/data/im";
+  import { SITE } from "~/data/site";
+  import { SOCIAL } from "~/data/social";
 
-useSeoMeta({
-  title: `contact · ${SITE.name}`,
-  description: "email, signal, and a few obligated others."
-})
+  useSeoMeta({
+    title: `contact · ${SITE.name}`,
+    description: "email, signal, and a few obligated others.",
+  });
 </script>
 
 <template>
@@ -14,12 +14,16 @@ useSeoMeta({
     <div class="eyebrow">▶ /contact · email is open · so are dms, mostly</div>
     <h1 class="page-h1">say hi<span class="dot">.</span></h1>
     <p class="lede">
-      email works. signal works. the rest are listed because i feel obligated. tone is everything: lead with what you
-      want, not pleasantries.
+      email works. signal works. the rest are listed because i feel obligated.
+      tone is everything: lead with what you want, not pleasantries.
     </p>
     <div class="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-5">
       <div>
-        <h2 class="mb-3.5 border-b border-void-4 pb-1.5 font-display text-[36px] text-paper">socials</h2>
+        <h2
+          class="mb-3.5 border-b border-void-4 pb-1.5 font-display text-[36px] text-paper"
+        >
+          socials
+        </h2>
         <div class="grid gap-0">
           <a
             v-for="s in SOCIAL"
@@ -29,14 +33,21 @@ useSeoMeta({
             target="_blank"
             rel="noopener"
           >
-            <span class="font-mono text-[11px] tracking-[0.12em] uppercase text-paper-3">{{ s.k }}</span>
+            <span
+              class="font-mono text-[11px] tracking-[0.12em] uppercase text-paper-3"
+              >{{ s.k }}</span
+            >
             <span class="font-mono text-[13px] text-paper">{{ s.v }}</span>
             <span class="font-mono text-[11px] text-cool">↗</span>
           </a>
         </div>
       </div>
       <div>
-        <h2 class="mb-3.5 border-b border-void-4 pb-1.5 font-display text-[36px] text-paper">im / messengers</h2>
+        <h2
+          class="mb-3.5 border-b border-void-4 pb-1.5 font-display text-[36px] text-paper"
+        >
+          im / messengers
+        </h2>
         <div class="border border-void-4 bg-void-2 p-5.5 shadow-inset-edge">
           <div
             v-for="m in IM"
@@ -50,16 +61,23 @@ useSeoMeta({
         <div
           class="mt-4.5 border border-dashed border-paper-3 bg-[#08011a] p-3.5 font-mono text-[12px] leading-[1.55] text-paper-2"
         >
-          <b class="font-bold tracking-[0.12em] uppercase text-hot">ask for my number ◆</b>
-          <br />i don't list phone numbers in plaintext (scrapers gonna scrape). email me first, mention which
-          messenger, and i'll send you a number. signal preferred.
+          <b class="font-bold tracking-[0.12em] uppercase text-hot"
+            >ask for my number ◆</b
+          >
+          <br>i don't list phone numbers in plaintext (scrapers gonna scrape).
+          email me first, mention which messenger, and i'll send you a number.
+          signal preferred.
         </div>
       </div>
     </div>
 
     <div class="footer-note mt-16">
-      <span>◆ usually responds within 48h · sometimes 2 weeks · rarely never</span>
-      <span>do not pitch me web3, "ai-driven" anything, or recruitment for crypto</span>
+      <span
+        >◆ usually responds within 48h · sometimes 2 weeks · rarely never</span
+      >
+      <span
+        >do not pitch me web3, "ai-driven" anything, or recruitment for crypto</span
+      >
     </div>
   </div>
 </template>

@@ -13,7 +13,7 @@ function Tile({ id, title, desc, tags = [], onClick }) {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 function Stat({ n, label, color }) {
@@ -24,19 +24,23 @@ function Stat({ n, label, color }) {
       </div>
       <div className="lab">{label}</div>
     </div>
-  )
+  );
 }
 
 function Tabs({ items, active, onChange }) {
   return (
     <div className="tabs">
       {items.map((it) => (
-        <button key={it} className={"tab" + (active === it ? " active" : "")} onClick={() => onChange(it)}>
+        <button
+          key={it}
+          className={"tab" + (active === it ? " active" : "")}
+          onClick={() => onChange(it)}
+        >
           {it}
         </button>
       ))}
     </div>
-  )
+  );
 }
 
 function Console({ lines }) {
@@ -49,7 +53,7 @@ function Console({ lines }) {
         </div>
       ))}
     </div>
-  )
+  );
 }
 
-Object.assign(window, { Tile, Stat, Tabs, Console })
+Object.assign(window, { Tile, Stat, Tabs, Console });

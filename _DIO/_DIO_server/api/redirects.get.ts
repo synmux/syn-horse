@@ -1,7 +1,7 @@
-import { asc } from "drizzle-orm"
-import { redirects } from "~~/server/db/schema"
-import { getDB } from "~~/server/utils/cloudflare"
-import { ok } from "~~/server/utils/response"
+import { asc } from "drizzle-orm";
+import { redirects } from "~~/server/db/schema";
+import { getDB } from "~~/server/utils/cloudflare";
+import { ok } from "~~/server/utils/response";
 
 /**
  * Retrieves a list of all redirect slugs from the database. Returns the slugs in an HTTP OK response.
@@ -15,9 +15,12 @@ import { ok } from "~~/server/utils/response"
  *   An HTTP OK response containing an array of redirect slugs.
  */
 export default defineEventHandler(async (event) => {
-  const db = getDB(event)
-  const rows = await db.select({ slug: redirects.slug }).from(redirects).orderBy(asc(redirects.slug))
-  const slugs = rows.map(({ slug }) => slug)
+  const db = getDB(event);
+  const rows = await db
+    .select({ slug: redirects.slug })
+    .from(redirects)
+    .orderBy(asc(redirects.slug));
+  const slugs = rows.map(({ slug }) => slug);
 
-  return ok(event, slugs)
-})
+  return ok(event, slugs);
+});

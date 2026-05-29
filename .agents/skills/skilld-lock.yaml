@@ -1,0 +1,281 @@
+skills:
+  libsql-client-skilld:
+    packageName: "@libsql/client"
+    version: 0.17.3
+    repo: tursodatabase/libsql-client-ts
+    source: "https://docs.turso.tech/llms.txt"
+    syncedAt: 2026-05-29
+    generator: skilld
+  vue-skilld:
+    packageName: vue
+    version: 3.5.35
+    repo: vuejs/core
+    source: "https://github.com/vuejs/core/tree/v3.5.35/docs"
+    syncedAt: 2026-05-29
+    generator: skilld
+  nuxt-content-skilld:
+    packageName: "@nuxt/content"
+    version: 3.14.0
+    repo: nuxt/content
+    source: "https://content.nuxt.com/llms.txt"
+    syncedAt: 2026-05-29
+    generator: skilld
+  nuxt-fonts-skilld:
+    packageName: "@nuxt/fonts"
+    version: 0.14.0
+    repo: nuxt/fonts
+    source: "https://fonts.nuxt.com/llms.txt"
+    syncedAt: 2026-05-29
+    generator: skilld
+  nuxt-icon-skilld:
+    packageName: "@nuxt/icon"
+    version: 2.2.2
+    repo: nuxt/icon
+    source: "https://github.com/nuxt/icon/tree/v2.2.2/docs"
+    syncedAt: 2026-05-29
+    generator: skilld
+  nuxt-image-skilld:
+    packageName: "@nuxt/image"
+    version: 2.0.0
+    repo: nuxt/image
+    source: "https://image.nuxt.com/llms.txt"
+    syncedAt: 2026-05-29
+    generator: skilld
+  nuxtjs-seo-skilld:
+    packageName: "@nuxtjs/seo"
+    version: 5.1.3
+    repo: harlan-zw/nuxt-seo
+    source: "https://nuxtseo.com/llms.txt"
+    syncedAt: 2026-05-29
+    generator: skilld
+  nuxthub-core-skilld:
+    packageName: "@nuxthub/core"
+    version: 0.10.7
+    repo: nuxt-hub/core
+    source: "https://hub.nuxt.com/llms.txt"
+    syncedAt: 2026-05-29
+    generator: skilld
+  nuxt-scripts-skilld:
+    packageName: "@nuxt/scripts"
+    version: 1.1.1
+    repo: nuxt/scripts
+    source: "https://scripts.nuxt.com/llms.txt"
+    syncedAt: 2026-05-29
+    generator: skilld
+  tailwindcss-vite-skilld:
+    packageName: "@tailwindcss/vite"
+    version: 4.3.0
+    repo: tailwindlabs/tailwindcss
+    source: "https://github.com/tailwindlabs/tailwindcss/tree/v4.3.0/docs"
+    syncedAt: 2026-05-29
+    generator: skilld
+  nuxtjs-turnstile-skilld:
+    packageName: "@nuxtjs/turnstile"
+    version: 1.1.3
+    repo: nuxt-modules/turnstile
+    source: "https://github.com/nuxt-modules/turnstile/tree/v1.1.3/docs"
+    syncedAt: 2026-05-29
+    generator: skilld
+  better-sqlite3-skilld:
+    packageName: better-sqlite3
+    version: 12.10.0
+    repo: WiseLibs/better-sqlite3
+    source: "ungh://WiseLibs/better-sqlite3@v12.10.0"
+    syncedAt: 2026-05-29
+    generator: skilld
+  takumi-rs-core-skilld:
+    packageName: "@takumi-rs/core"
+    version: 1.6.0
+    repo: kane50613/takumi
+    source: "https://takumi.kane.tw/llms.txt"
+    syncedAt: 2026-05-29
+    generator: skilld
+  takumi-rs-wasm-skilld:
+    packageName: "@takumi-rs/wasm"
+    version: 1.6.0
+    repo: kane50613/takumi
+    source: "https://takumi.kane.tw/llms.txt"
+    syncedAt: 2026-05-29
+    generator: skilld
+  nuxt-security-skilld:
+    packageName: nuxt-security
+    version: 2.6.0
+    repo: Baroshem/nuxt-security
+    source: "ungh://Baroshem/nuxt-security@v2.6.0"
+    syncedAt: 2026-05-29
+    generator: skilld
+  nuxt-skilld:
+    packageName: nuxt
+    version: 4.4.6
+    repo: nuxt/nuxt
+    source: "https://nuxt.com/llms.txt"
+    syncedAt: 2026-05-29
+    generator: skilld
+  uuid-skilld:
+    packageName: uuid
+    version: 14.0.0
+    repo: uuidjs/uuid
+    source: "ungh://uuidjs/uuid"
+    syncedAt: 2026-05-29
+    generator: skilld
+  tailwindcss-skilld:
+    packageName: tailwindcss
+    version: 4.3.0
+    repo: tailwindlabs/tailwindcss
+    source: "ungh://tailwindlabs/tailwindcss/packages/tailwindcss@main"
+    syncedAt: 2026-05-29
+    generator: skilld
+  vue-router-skilld:
+    packageName: vue-router
+    version: 5.1.0
+    repo: vuejs/router
+    source: "https://github.com/vuejs/router/tree/v5.1.0/docs"
+    syncedAt: 2026-05-29
+    generator: skilld
+  zod-skilld:
+    packageName: zod
+    version: 4.4.3
+    repo: colinhacks/zod
+    source: "https://zod.dev/llms.txt"
+    syncedAt: 2026-05-29
+    generator: skilld
+  biomejs-biome-skilld:
+    packageName: "@biomejs/biome"
+    version: 2.4.15
+    repo: biomejs/biome
+    source: "https://raw.githubusercontent.com/biomejs/biome/@biomejs/biome@2.4.15/packages/@biomejs/biome/README.md"
+    syncedAt: 2026-05-29
+    generator: skilld
+  catppuccin-daisyui-skilld:
+    packageName: "@catppuccin/daisyui"
+    version: 2.1.1
+    repo: catppuccin/daisyui
+    source: "ungh://catppuccin/daisyui"
+    syncedAt: 2026-05-29
+    generator: skilld
+  catppuccin-tailwindcss-skilld:
+    packageName: "@catppuccin/tailwindcss"
+    version: 1.0.0
+    repo: catppuccin/tailwindcss
+    source: "ungh://catppuccin/tailwindcss/packages/catppuccin-tailwindcss"
+    syncedAt: 2026-05-29
+    generator: skilld
+  tailwindcss-cli-skilld:
+    packageName: "@tailwindcss/cli"
+    version: 4.3.0
+    repo: tailwindlabs/tailwindcss
+    source: "https://github.com/tailwindlabs/tailwindcss/tree/v4.3.0/docs"
+    syncedAt: 2026-05-29
+    generator: skilld
+  types-node-skilld:
+    packageName: "@types/node"
+    version: 25.9.1
+    repo: DefinitelyTyped/DefinitelyTyped
+    source: readme
+    syncedAt: 2026-05-29
+    generator: skilld
+  ctx7-skilld:
+    packageName: ctx7
+    version: 0.4.4
+    repo: upstash/context7
+    source: "ungh://upstash/context7/packages/cli@ctx7@0.4.4"
+    syncedAt: 2026-05-29
+    generator: skilld
+  nuxt-gtag-skilld:
+    packageName: nuxt-gtag
+    version: 4.1.0
+    repo: johannschopplich/nuxt-gtag
+    source: "https://github.com/johannschopplich/nuxt-gtag/tree/v4.1.0/docs"
+    syncedAt: 2026-05-29
+    generator: skilld
+  drizzle-kit-skilld:
+    packageName: drizzle-kit
+    version: 0.31.10
+    repo: drizzle-team/drizzle-orm
+    source: "https://github.com/drizzle-team/drizzle-orm/tree/v0.31.10/docs"
+    syncedAt: 2026-05-29
+    generator: skilld
+  npm-run-all2-skilld:
+    packageName: npm-run-all2
+    version: 9.0.1
+    repo: bcomnes/npm-run-all2
+    source: "ungh://bcomnes/npm-run-all2@v9.0.1"
+    syncedAt: 2026-05-29
+    generator: skilld
+  nitropack-skilld:
+    packageName: nitropack
+    version: 2.13.4
+    repo: nitrojs/nitro
+    source: "https://github.com/nitrojs/nitro/tree/v2.13.4/docs"
+    syncedAt: 2026-05-29
+    generator: skilld
+  nuxi-skilld:
+    packageName: nuxi
+    version: 3.35.2
+    repo: nuxt/cli
+    source: "https://nuxt.com/llms.txt"
+    syncedAt: 2026-05-29
+    generator: skilld
+  skilld-skilld:
+    packageName: skilld
+    version: 2.0.0
+    repo: skilld-dev/skilld
+    source: "https://github.com/skilld-dev/skilld/tree/v2.0.0/docs"
+    syncedAt: 2026-05-29
+    generator: skilld
+  tsx-skilld:
+    packageName: tsx
+    version: 4.22.3
+    repo: privatenumber/tsx
+    source: "https://github.com/privatenumber/tsx/tree/v4.22.3/docs"
+    syncedAt: 2026-05-29
+    generator: skilld
+  ultracite-skilld:
+    packageName: ultracite
+    version: 7.8.0
+    repo: haydenbleasel/ultracite
+    source: "ungh://haydenbleasel/ultracite@ultracite@7.8.0"
+    syncedAt: 2026-05-29
+    generator: skilld
+  untun-skilld:
+    packageName: untun
+    version: 0.1.3
+    repo: unjs/untun
+    source: "ungh://unjs/untun"
+    syncedAt: 2026-05-29
+    generator: skilld
+  wrangler-skilld:
+    packageName: wrangler
+    version: 4.95.0
+    repo: cloudflare/workers-sdk
+    source: "https://github.com/cloudflare/workers-sdk/tree/v4.95.0/docs"
+    syncedAt: 2026-05-29
+    generator: skilld
+  anthropic-ai-claude-code-skilld:
+    packageName: "@anthropic-ai/claude-code"
+    version: 2.1.157
+    repo: Exhen/claude-code-2.1.88
+    source: "ungh://Exhen/claude-code-2.1.88"
+    syncedAt: 2026-05-29
+    generator: skilld
+  drizzle-orm-skilld:
+    packageName: drizzle-orm
+    version: 0.45.2
+    repo: drizzle-team/drizzle-orm
+    source: "https://github.com/drizzle-team/drizzle-orm/tree/v0.45.2/docs"
+    syncedAt: 2026-05-29
+    generator: skilld
+  lefthook-skilld:
+    packageName: lefthook
+    version: 2.1.9
+    repo: evilmartians/lefthook
+    source: "https://github.com/evilmartians/lefthook/tree/v2.1.9/docs"
+    syncedAt: 2026-05-29
+    generator: skilld
+  daisyui-skilld:
+    packageName: daisyui
+    version: 5.5.20
+    repo: saadeghi/daisyui
+    source: "https://daisyui.com/llms.txt"
+    syncedAt: 2026-05-29
+    generator: skilld

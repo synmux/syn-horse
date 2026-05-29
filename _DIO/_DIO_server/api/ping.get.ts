@@ -1,4 +1,4 @@
-import { ok } from "~~/server/utils/response"
+import { ok } from "~~/server/utils/response";
 
 /**
  * Handles HTTP GET requests for the ping endpoint.
@@ -13,5 +13,5 @@ import { ok } from "~~/server/utils/response"
 export default defineEventHandler(async (event) => {
   return ok(event, {
     message: "pong!",
-  })
-})
+  });
+});

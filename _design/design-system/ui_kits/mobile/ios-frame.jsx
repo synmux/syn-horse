@@ -6,7 +6,7 @@
 // Status bar
 // ─────────────────────────────────────────────────────────────
 function IOSStatusBar({ dark = false, time = "9:41" }) {
-  const c = dark ? "#fff" : "#000"
+  const c = dark ? "#fff" : "#000";
   return (
     <div
       style={{
@@ -18,7 +18,7 @@ function IOSStatusBar({ dark = false, time = "9:41" }) {
         boxSizing: "border-box",
         position: "relative",
         zIndex: 20,
-        width: "100%"
+        width: "100%",
       }}
     >
       <div
@@ -28,7 +28,7 @@ function IOSStatusBar({ dark = false, time = "9:41" }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          paddingTop: 1.5
+          paddingTop: 1.5,
         }}
       >
         <span
@@ -37,7 +37,7 @@ function IOSStatusBar({ dark = false, time = "9:41" }) {
             fontWeight: 590,
             fontSize: 17,
             lineHeight: "22px",
-            color: c
+            color: c,
           }}
         >
           {time}
@@ -52,7 +52,7 @@ function IOSStatusBar({ dark = false, time = "9:41" }) {
           justifyContent: "center",
           gap: 7,
           paddingTop: 1,
-          paddingRight: 1
+          paddingRight: 1,
         }}
       >
         <svg width="19" height="12" viewBox="0 0 19 12">
@@ -73,13 +73,26 @@ function IOSStatusBar({ dark = false, time = "9:41" }) {
           <circle cx="8.5" cy="10.5" r="1.5" fill={c} />
         </svg>
         <svg width="27" height="13" viewBox="0 0 27 13">
-          <rect x="0.5" y="0.5" width="23" height="12" rx="3.5" stroke={c} strokeOpacity="0.35" fill="none" />
+          <rect
+            x="0.5"
+            y="0.5"
+            width="23"
+            height="12"
+            rx="3.5"
+            stroke={c}
+            strokeOpacity="0.35"
+            fill="none"
+          />
           <rect x="2" y="2" width="20" height="9" rx="2" fill={c} />
-          <path d="M25 4.5V8.5C25.8 8.2 26.5 7.2 26.5 6.5C26.5 5.8 25.8 4.8 25 4.5Z" fill={c} fillOpacity="0.4" />
+          <path
+            d="M25 4.5V8.5C25.8 8.2 26.5 7.2 26.5 6.5C26.5 5.8 25.8 4.8 25 4.5Z"
+            fill={c}
+            fillOpacity="0.4"
+          />
         </svg>
       </div>
     </div>
-  )
+  );
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -100,7 +113,7 @@ function IOSGlassPill({ children, dark = false, style = {} }) {
         boxShadow: dark
           ? "0 2px 6px rgba(0,0,0,0.35), 0 6px 16px rgba(0,0,0,0.2)"
           : "0 1px 3px rgba(0,0,0,0.07), 0 3px 10px rgba(0,0,0,0.06)",
-        ...style
+        ...style,
       }}
     >
       {/* blur + tint */}
@@ -111,7 +124,7 @@ function IOSGlassPill({ children, dark = false, style = {} }) {
           borderRadius: 9999,
           backdropFilter: "blur(12px) saturate(180%)",
           WebkitBackdropFilter: "blur(12px) saturate(180%)",
-          background: dark ? "rgba(120,120,128,0.28)" : "rgba(255,255,255,0.5)"
+          background: dark ? "rgba(120,120,128,0.28)" : "rgba(255,255,255,0.5)",
         }}
       />
       {/* shine */}
@@ -123,29 +136,47 @@ function IOSGlassPill({ children, dark = false, style = {} }) {
           boxShadow: dark
             ? "inset 1.5px 1.5px 1px rgba(255,255,255,0.15), inset -1px -1px 1px rgba(255,255,255,0.08)"
             : "inset 1.5px 1.5px 1px rgba(255,255,255,0.7), inset -1px -1px 1px rgba(255,255,255,0.4)",
-          border: dark ? "0.5px solid rgba(255,255,255,0.15)" : "0.5px solid rgba(0,0,0,0.06)"
+          border: dark
+            ? "0.5px solid rgba(255,255,255,0.15)"
+            : "0.5px solid rgba(0,0,0,0.06)",
         }}
       />
-      <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", padding: "0 4px" }}>
+      <div
+        style={{
+          position: "relative",
+          zIndex: 1,
+          display: "flex",
+          alignItems: "center",
+          padding: "0 4px",
+        }}
+      >
         {children}
       </div>
     </div>
-  )
+  );
 }
 
 // ─────────────────────────────────────────────────────────────
 // Navigation bar — glass pills + large title
 // ─────────────────────────────────────────────────────────────
 function IOSNavBar({ title = "Title", dark = false, trailingIcon = true }) {
-  const muted = dark ? "rgba(255,255,255,0.6)" : "#404040"
-  const text = dark ? "#fff" : "#000"
+  const muted = dark ? "rgba(255,255,255,0.6)" : "#404040";
+  const text = dark ? "#fff" : "#000";
   const pillIcon = (content) => (
     <IOSGlassPill dark={dark}>
-      <div style={{ width: 36, height: 36, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div
+        style={{
+          width: 36,
+          height: 36,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         {content}
       </div>
     </IOSGlassPill>
-  )
+  );
   return (
     <div
       style={{
@@ -155,7 +186,7 @@ function IOSNavBar({ title = "Title", dark = false, trailingIcon = true }) {
         paddingTop: 62,
         paddingBottom: 10,
         position: "relative",
-        zIndex: 5
+        zIndex: 5,
       }}
     >
       <div
@@ -163,13 +194,25 @@ function IOSNavBar({ title = "Title", dark = false, trailingIcon = true }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "0 16px"
+          padding: "0 16px",
         }}
       >
         {/* back chevron */}
         {pillIcon(
-          <svg width="12" height="20" viewBox="0 0 12 20" fill="none" style={{ marginLeft: -1 }}>
-            <path d="M10 2L2 10l8 8" stroke={muted} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          <svg
+            width="12"
+            height="20"
+            viewBox="0 0 12 20"
+            fill="none"
+            style={{ marginLeft: -1 }}
+          >
+            <path
+              d="M10 2L2 10l8 8"
+              stroke={muted}
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         )}
         {/* trailing ellipsis */}
@@ -191,23 +234,30 @@ function IOSNavBar({ title = "Title", dark = false, trailingIcon = true }) {
           fontWeight: 700,
           lineHeight: "41px",
           color: text,
-          letterSpacing: 0.4
+          letterSpacing: 0.4,
         }}
       >
         {title}
       </div>
     </div>
-  )
+  );
 }
 
 // ─────────────────────────────────────────────────────────────
 // Grouped list (inset card, r:26) + row (52px)
 // ─────────────────────────────────────────────────────────────
-function IOSListRow({ title, detail, icon, chevron = true, isLast = false, dark = false }) {
-  const text = dark ? "#fff" : "#000"
-  const sec = dark ? "rgba(235,235,245,0.6)" : "rgba(60,60,67,0.6)"
-  const ter = dark ? "rgba(235,235,245,0.3)" : "rgba(60,60,67,0.3)"
-  const sep = dark ? "rgba(84,84,88,0.65)" : "rgba(60,60,67,0.12)"
+function IOSListRow({
+  title,
+  detail,
+  icon,
+  chevron = true,
+  isLast = false,
+  dark = false,
+}) {
+  const text = dark ? "#fff" : "#000";
+  const sec = dark ? "rgba(235,235,245,0.6)" : "rgba(60,60,67,0.6)";
+  const ter = dark ? "rgba(235,235,245,0.3)" : "rgba(60,60,67,0.3)";
+  const sep = dark ? "rgba(84,84,88,0.65)" : "rgba(60,60,67,0.12)";
   return (
     <div
       style={{
@@ -218,7 +268,7 @@ function IOSListRow({ title, detail, icon, chevron = true, isLast = false, dark 
         position: "relative",
         fontFamily: "-apple-system, system-ui",
         fontSize: 17,
-        letterSpacing: -0.43
+        letterSpacing: -0.43,
       }}
     >
       {icon && (
@@ -229,7 +279,7 @@ function IOSListRow({ title, detail, icon, chevron = true, isLast = false, dark 
             borderRadius: 7,
             background: icon,
             marginRight: 12,
-            flexShrink: 0
+            flexShrink: 0,
           }}
         />
       )}
@@ -255,17 +305,17 @@ function IOSListRow({ title, detail, icon, chevron = true, isLast = false, dark 
             right: 0,
             left: icon ? 58 : 16,
             height: 0.5,
-            background: sep
+            background: sep,
           }}
         />
       )}
     </div>
-  )
+  );
 }
 
 function IOSList({ header, children, dark = false }) {
-  const hc = dark ? "rgba(235,235,245,0.6)" : "rgba(60,60,67,0.6)"
-  const bg = dark ? "#1C1C1E" : "#fff"
+  const hc = dark ? "rgba(235,235,245,0.6)" : "rgba(60,60,67,0.6)";
+  const bg = dark ? "#1C1C1E" : "#fff";
   return (
     <div>
       {header && (
@@ -276,7 +326,7 @@ function IOSList({ header, children, dark = false }) {
             color: hc,
             textTransform: "uppercase",
             padding: "8px 36px 6px",
-            letterSpacing: -0.08
+            letterSpacing: -0.08,
           }}
         >
           {header}
@@ -287,19 +337,26 @@ function IOSList({ header, children, dark = false }) {
           background: bg,
           borderRadius: 26,
           margin: "0 16px",
-          overflow: "hidden"
+          overflow: "hidden",
         }}
       >
         {children}
       </div>
     </div>
-  )
+  );
 }
 
 // ─────────────────────────────────────────────────────────────
 // Device frame
 // ─────────────────────────────────────────────────────────────
-function IOSDevice({ children, width = 402, height = 874, dark = false, title, keyboard = false }) {
+function IOSDevice({
+  children,
+  width = 402,
+  height = 874,
+  dark = false,
+  title,
+  keyboard = false,
+}) {
   return (
     <div
       style={{
@@ -311,7 +368,7 @@ function IOSDevice({ children, width = 402, height = 874, dark = false, title, k
         background: dark ? "#000" : "#F2F2F7",
         boxShadow: "0 40px 80px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.12)",
         fontFamily: "-apple-system, system-ui, sans-serif",
-        WebkitFontSmoothing: "antialiased"
+        WebkitFontSmoothing: "antialiased",
       }}
     >
       {/* dynamic island */}
@@ -325,11 +382,13 @@ function IOSDevice({ children, width = 402, height = 874, dark = false, title, k
           height: 37,
           borderRadius: 24,
           background: "#000",
-          zIndex: 50
+          zIndex: 50,
         }}
       />
       {/* status bar (absolute) */}
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 10 }}>
+      <div
+        style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 10 }}
+      >
         <IOSStatusBar dark={dark} />
       </div>
       {/* nav + content */}
@@ -351,7 +410,7 @@ function IOSDevice({ children, width = 402, height = 874, dark = false, title, k
           justifyContent: "center",
           alignItems: "flex-end",
           paddingBottom: 8,
-          pointerEvents: "none"
+          pointerEvents: "none",
         }}
       >
         <div
@@ -359,21 +418,21 @@ function IOSDevice({ children, width = 402, height = 874, dark = false, title, k
             width: 139,
             height: 5,
             borderRadius: 100,
-            background: dark ? "rgba(255,255,255,0.7)" : "rgba(0,0,0,0.25)"
+            background: dark ? "rgba(255,255,255,0.7)" : "rgba(0,0,0,0.25)",
           }}
         />
       </div>
     </div>
-  )
+  );
 }
 
 // ─────────────────────────────────────────────────────────────
 // Keyboard — iOS 26 liquid glass
 // ─────────────────────────────────────────────────────────────
 function IOSKeyboard({ dark = false }) {
-  const glyph = dark ? "rgba(255,255,255,0.7)" : "#595959"
-  const sugg = dark ? "rgba(255,255,255,0.6)" : "#333"
-  const keyBg = dark ? "rgba(255,255,255,0.22)" : "rgba(255,255,255,0.85)"
+  const glyph = dark ? "rgba(255,255,255,0.7)" : "#595959";
+  const sugg = dark ? "rgba(255,255,255,0.6)" : "#333";
+  const keyBg = dark ? "rgba(255,255,255,0.22)" : "rgba(255,255,255,0.85)";
 
   // special-key icons
   const icons = {
@@ -391,7 +450,12 @@ function IOSKeyboard({ dark = false }) {
           strokeWidth="1.6"
           strokeLinejoin="round"
         />
-        <path d="M10 5l7 7M17 5l-7 7" stroke={glyph} strokeWidth="1.6" strokeLinecap="round" />
+        <path
+          d="M10 5l7 7M17 5l-7 7"
+          stroke={glyph}
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
       </svg>
     ),
     ret: (
@@ -405,8 +469,8 @@ function IOSKeyboard({ dark = false }) {
           strokeLinejoin="round"
         />
       </svg>
-    )
-  }
+    ),
+  };
 
   const key = (content, { w, flex, ret, fs = 25, k } = {}) => (
     <div
@@ -425,18 +489,25 @@ function IOSKeyboard({ dark = false }) {
         fontFamily: '-apple-system, "SF Compact", system-ui',
         fontSize: fs,
         fontWeight: 458,
-        color: ret ? "#fff" : glyph
+        color: ret ? "#fff" : glyph,
       }}
     >
       {content}
     </div>
-  )
+  );
 
   const row = (keys, pad = 0) => (
-    <div style={{ display: "flex", gap: 6.5, justifyContent: "center", padding: `0 ${pad}px` }}>
+    <div
+      style={{
+        display: "flex",
+        gap: 6.5,
+        justifyContent: "center",
+        padding: `0 ${pad}px`,
+      }}
+    >
       {keys.map((l) => key(l, { flex: true, k: l }))}
     </div>
-  )
+  );
 
   return (
     <div
@@ -449,7 +520,9 @@ function IOSKeyboard({ dark = false }) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        boxShadow: dark ? "0 -2px 20px rgba(0,0,0,0.09)" : "0 -1px 6px rgba(0,0,0,0.018), 0 -3px 20px rgba(0,0,0,0.012)"
+        boxShadow: dark
+          ? "0 -2px 20px rgba(0,0,0,0.09)"
+          : "0 -1px 6px rgba(0,0,0,0.018), 0 -3px 20px rgba(0,0,0,0.012)",
       }}
     >
       {/* liquid glass bg — same recipe as nav pills */}
@@ -460,7 +533,9 @@ function IOSKeyboard({ dark = false }) {
           borderRadius: 27,
           backdropFilter: "blur(12px) saturate(180%)",
           WebkitBackdropFilter: "blur(12px) saturate(180%)",
-          background: dark ? "rgba(120,120,128,0.14)" : "rgba(255,255,255,0.25)"
+          background: dark
+            ? "rgba(120,120,128,0.14)"
+            : "rgba(255,255,255,0.25)",
         }}
       />
       <div
@@ -471,8 +546,10 @@ function IOSKeyboard({ dark = false }) {
           boxShadow: dark
             ? "inset 1.5px 1.5px 1px rgba(255,255,255,0.15)"
             : "inset 1.5px 1.5px 1px rgba(255,255,255,0.7), inset -1px -1px 1px rgba(255,255,255,0.4)",
-          border: dark ? "0.5px solid rgba(255,255,255,0.15)" : "0.5px solid rgba(0,0,0,0.06)",
-          pointerEvents: "none"
+          border: dark
+            ? "0.5px solid rgba(255,255,255,0.15)"
+            : "0.5px solid rgba(0,0,0,0.06)",
+          pointerEvents: "none",
         }}
       />
 
@@ -485,12 +562,21 @@ function IOSKeyboard({ dark = false }) {
           padding: "8px 22px 13px",
           width: "100%",
           boxSizing: "border-box",
-          position: "relative"
+          position: "relative",
         }}
       >
         {['"The"', "the", "to"].map((w, i) => (
           <React.Fragment key={i}>
-            {i > 0 && <div style={{ width: 1, height: 25, background: "#ccc", opacity: 0.3 }} />}
+            {i > 0 && (
+              <div
+                style={{
+                  width: 1,
+                  height: 25,
+                  background: "#ccc",
+                  opacity: 0.3,
+                }}
+              />
+            )}
             <div
               style={{
                 flex: 1,
@@ -499,7 +585,7 @@ function IOSKeyboard({ dark = false }) {
                 fontSize: 17,
                 color: sugg,
                 letterSpacing: -0.43,
-                lineHeight: "22px"
+                lineHeight: "22px",
               }}
             >
               {w}
@@ -517,7 +603,7 @@ function IOSKeyboard({ dark = false }) {
           padding: "0 6.5px",
           width: "100%",
           boxSizing: "border-box",
-          position: "relative"
+          position: "relative",
         }}
       >
         {row(["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"])}
@@ -525,7 +611,9 @@ function IOSKeyboard({ dark = false }) {
         <div style={{ display: "flex", gap: 14.25, alignItems: "center" }}>
           {key(icons.shift, { w: 45, k: "shift" })}
           <div style={{ display: "flex", gap: 6.5, flex: 1 }}>
-            {["z", "x", "c", "v", "b", "n", "m"].map((l) => key(l, { flex: true, k: l }))}
+            {["z", "x", "c", "v", "b", "n", "m"].map((l) =>
+              key(l, { flex: true, k: l })
+            )}
           </div>
           {key(icons.del, { w: 45, k: "del" })}
         </div>
@@ -539,7 +627,7 @@ function IOSKeyboard({ dark = false }) {
       {/* bottom spacer (emoji+mic area, icons omitted) */}
       <div style={{ height: 56, width: "100%", position: "relative" }} />
     </div>
-  )
+  );
 }
 
 Object.assign(window, {
@@ -549,5 +637,5 @@ Object.assign(window, {
   IOSGlassPill,
   IOSList,
   IOSListRow,
-  IOSKeyboard
-})
+  IOSKeyboard,
+});

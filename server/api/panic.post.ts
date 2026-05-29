@@ -1,7 +1,11 @@
-import { z } from "zod"
+import { z } from "zod";
 
-import { panicPages } from "~~/server/db/schema"
-import { extractSource, usePager, type QueueMessage } from "~~/server/utils/pager"
+import { panicPages } from "~~/server/db/schema";
+import {
+  extractSource,
+  type QueueMessage,
+  usePager,
+} from "~~/server/utils/pager";
 
 const PanicBody = z.object({
   channel: z.enum(panicPages.channel.enumValues),
@@ -16,11 +20,11 @@ const PanicBody = z.object({
   // Empty/undefined allowed at the schema level; we enforce non-empty in prod
   // immediately after parse. In dev the value is ignored entirely.
   turnstileToken: z.string().optional(),
-})
+});
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event)
-  const parsed = PanicBody.safeParse(body)
+  const body = await readBody(event);
+  const parsed = PanicBody.safeParse(body);
 
   if (!parsed.success) {
     throw createError({
@@ -32,10 +36,10 @@ export default defineEventHandler(async (event) => {
           message: issue.message,
         })),
       },
-    })
+    });
   }
 
-  const { channel, message, contact, turnstileToken } = parsed.data
+  const { channel, message, contact, turnstileToken } = parsed.data;
 
   // Dev bypass: the page hides the widget and the server skips verify entirely.
   // Avoids a `missing-input-secret` 400 when the 1Password .env FIFO has already
@@ -45,26 +49,28 @@ export default defineEventHandler(async (event) => {
       throw createError({
         statusCode: 422,
         statusMessage: "captcha token missing",
-      })
+      });
     }
-    const turnstileResult = await verifyTurnstileToken(turnstileToken)
+    const turnstileResult = await verifyTurnstileToken(turnstileToken);
     if (!turnstileResult.success) {
       throw createError({
         statusCode: 403,
         statusMessage: "turnstile verification failed",
         data: { errorCodes: turnstileResult["error-codes"] ?? [] },
-      })
+      });
     }
   }
 
-  const id = crypto.randomUUID()
-  const db = useDb(event)
+  const id = crypto.randomUUID();
+  const db = useDb(event);
 
-  const source = extractSource(event)
-  const payload: QueueMessage = source ? { channel, contact, message, source } : { channel, contact, message }
+  const source = extractSource(event);
+  const payload: QueueMessage = source
+    ? { channel, contact, message, source }
+    : { channel, contact, message };
 
-  const result = await usePager(event).send(payload)
-  const now = new Date()
+  const result = await usePager(event).send(payload);
+  const now = new Date();
 
   await db.insert(panicPages).values({
     id,
@@ -75,14 +81,14 @@ export default defineEventHandler(async (event) => {
     status: result.ok ? "queued" : "send_failed",
     queueError: result.ok ? null : result.error,
     queuedAt: result.ok ? now : null,
-  })
+  });
 
   console.log("[panic]", {
     id,
     channel,
     status: result.ok ? "queued" : "send_failed",
     error: result.ok ? undefined : result.error,
-  })
+  });
 
-  return { ok: true, id }
-})
+  return { ok: true, id };
+});

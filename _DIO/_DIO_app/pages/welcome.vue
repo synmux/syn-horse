@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-useRobotsRule("noindex, nofollow")
+  useRobotsRule("noindex, nofollow");
 </script>
 
 <style></style>

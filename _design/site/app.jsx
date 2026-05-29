@@ -1,43 +1,46 @@
 /* syn.horse — palette + konami + main app */
 
-const { useState: useS, useEffect: useE, useRef: useR, useMemo: useM } = React
+const { useState: useS, useEffect: useE, useRef: useR, useMemo: useM } = React;
 
 // ─── Command palette ──────────────────────────────────────────
 function Palette({ onClose, go }) {
-  const [q, setQ] = useS("")
-  const [sel, setSel] = useS(0)
-  const inputRef = useR(null)
+  const [q, setQ] = useS("");
+  const [sel, setSel] = useS(0);
+  const inputRef = useR(null);
   useE(() => {
-    inputRef.current && inputRef.current.focus()
-  }, [])
+    inputRef.current && inputRef.current.focus();
+  }, []);
   const filtered = useM(() => {
-    if (!q) return window.COMMANDS
-    const ql = q.toLowerCase()
-    return window.COMMANDS.filter((c) => c.label.toLowerCase().includes(ql) || c.desc.toLowerCase().includes(ql))
-  }, [q])
+    if (!q) return window.COMMANDS;
+    const ql = q.toLowerCase();
+    return window.COMMANDS.filter(
+      (c) =>
+        c.label.toLowerCase().includes(ql) || c.desc.toLowerCase().includes(ql)
+    );
+  }, [q]);
   useE(() => {
-    setSel(0)
-  }, [q])
+    setSel(0);
+  }, [q]);
 
   const exec = (c) => {
-    if (c.ext) window.open(c.ext, "_blank")
-    else go(c.id)
-    onClose()
-  }
+    if (c.ext) window.open(c.ext, "_blank");
+    else go(c.id);
+    onClose();
+  };
   const onKey = (e) => {
     if (e.key === "Escape") {
-      onClose()
+      onClose();
     } else if (e.key === "ArrowDown") {
-      e.preventDefault()
-      setSel((s) => Math.min(filtered.length - 1, s + 1))
+      e.preventDefault();
+      setSel((s) => Math.min(filtered.length - 1, s + 1));
     } else if (e.key === "ArrowUp") {
-      e.preventDefault()
-      setSel((s) => Math.max(0, s - 1))
+      e.preventDefault();
+      setSel((s) => Math.max(0, s - 1));
     } else if (e.key === "Enter") {
-      e.preventDefault()
-      filtered[sel] && exec(filtered[sel])
+      e.preventDefault();
+      filtered[sel] && exec(filtered[sel]);
     }
-  }
+  };
 
   return (
     <div className="palette-bg" onClick={onClose}>
@@ -86,16 +89,16 @@ function Palette({ onClose, go }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // ─── Konami ───────────────────────────────────────────────────
 function Konami({ onUntrigger }) {
   useE(() => {
-    const t = setTimeout(onUntrigger, 3200)
-    return () => clearTimeout(t)
-  }, [])
-  return <div className="konami">◆ THE HORSE IS LOOSE ◆</div>
+    const t = setTimeout(onUntrigger, 3200);
+    return () => clearTimeout(t);
+  }, []);
+  return <div className="konami">◆ THE HORSE IS LOOSE ◆</div>;
 }
 
 // ─── Main app ─────────────────────────────────────────────────
@@ -106,35 +109,39 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/ {
   grain: true,
   ca: true,
   lowercaseAll: false,
-  status: "shouting at git"
-} /*EDITMODE-END*/
+  status: "shouting at git",
+}; /*EDITMODE-END*/
 
 const ACCENT_MAP = {
   hot: "#ff71ce",
   cool: "#01cdfe",
   pop: "#fffb96",
-  lilac: "#b967ff"
-}
+  lilac: "#b967ff",
+};
 
 function App({ tweaks, setTweak }) {
-  const [route, setRoute] = useS("home")
-  const [post, setPost] = useS(null)
-  const [palette, setPalette] = useS(false)
-  const [konami, setKonami] = useS(false)
+  const [route, setRoute] = useS("home");
+  const [post, setPost] = useS(null);
+  const [palette, setPalette] = useS(false);
+  const [konami, setKonami] = useS(false);
 
   // global keys
   useE(() => {
     const onKey = (e) => {
-      if (e.key === "/" && !palette && !(e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")) {
-        e.preventDefault()
-        setPalette(true)
+      if (
+        e.key === "/" &&
+        !palette &&
+        !(e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
+      ) {
+        e.preventDefault();
+        setPalette(true);
       } else if (e.key === "Escape") {
-        setPalette(false)
+        setPalette(false);
       }
-    }
-    window.addEventListener("keydown", onKey)
-    return () => window.removeEventListener("keydown", onKey)
-  }, [palette])
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [palette]);
 
   // konami
   useE(() => {
@@ -148,38 +155,38 @@ function App({ tweaks, setTweak }) {
       "ArrowLeft",
       "ArrowRight",
       "b",
-      "a"
-    ]
-    let idx = 0
+      "a",
+    ];
+    let idx = 0;
     const onKey = (e) => {
-      const k = e.key
+      const k = e.key;
       if (k.toLowerCase() === seq[idx].toLowerCase()) {
-        idx++
+        idx++;
         if (idx === seq.length) {
-          setKonami(true)
-          idx = 0
+          setKonami(true);
+          idx = 0;
         }
       } else {
-        idx = k.toLowerCase() === seq[0].toLowerCase() ? 1 : 0
+        idx = k.toLowerCase() === seq[0].toLowerCase() ? 1 : 0;
       }
-    }
-    window.addEventListener("keydown", onKey)
-    return () => window.removeEventListener("keydown", onKey)
-  }, [])
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   const go = (r) => {
     if (r === "404") {
-      setRoute("404")
-      return
+      setRoute("404");
+      return;
     }
-    setRoute(r)
-    window.scrollTo({ top: 0, behavior: "instant" })
-  }
+    setRoute(r);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
   const openPost = (p) => {
-    setPost(p)
-    setRoute("post")
-    window.scrollTo({ top: 0, behavior: "instant" })
-  }
+    setPost(p);
+    setRoute("post");
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
 
   const labels = {
     home: "01 Home",
@@ -190,25 +197,32 @@ function App({ tweaks, setTweak }) {
     cv: "06 CV",
     contact: "07 Contact",
     domains: "08 Domains",
-    404: "09 404"
-  }
+    404: "09 404",
+  };
 
   // accent css var injection
   const rootStyle = {
     "--accent-color": ACCENT_MAP[tweaks.accent] || ACCENT_MAP.hot,
-    "--scan-strength": tweaks.scanStrength
-  }
+    "--scan-strength": tweaks.scanStrength,
+  };
 
-  const cls = [tweaks.ca ? "ca-on" : "ca-off", tweaks.lowercaseAll ? "lc-all" : ""].join(" ")
+  const cls = [
+    tweaks.ca ? "ca-on" : "ca-off",
+    tweaks.lowercaseAll ? "lc-all" : "",
+  ].join(" ");
 
-  let homeEl
-  if (tweaks.variant === "feral") homeEl = <window.HomeFeral go={go} status={tweaks.status} />
-  else if (tweaks.variant === "unhinged") homeEl = <window.HomeUnhinged go={go} status={tweaks.status} />
-  else homeEl = <window.HomeCalm go={go} status={tweaks.status} />
+  let homeEl;
+  if (tweaks.variant === "feral")
+    homeEl = <window.HomeFeral go={go} status={tweaks.status} />;
+  else if (tweaks.variant === "unhinged")
+    homeEl = <window.HomeUnhinged go={go} status={tweaks.status} />;
+  else homeEl = <window.HomeCalm go={go} status={tweaks.status} />;
 
   return (
     <div data-screen-label={labels[route]} style={rootStyle} className={cls}>
-      <window.StatusBar route={route === "post" ? `blog/${post?.slug || ""}` : route} />
+      <window.StatusBar
+        route={route === "post" ? `blog/${post?.slug || ""}` : route}
+      />
       <window.Nav active={route} go={go} />
 
       {route === "home" && homeEl}
@@ -232,7 +246,7 @@ function App({ tweaks, setTweak }) {
           options={[
             { value: "calm", label: "calm" },
             { value: "feral", label: "feral" },
-            { value: "unhinged", label: "unhinged" }
+            { value: "unhinged", label: "unhinged" },
           ]}
           onChange={(v) => setTweak("variant", v)}
         />
@@ -243,7 +257,7 @@ function App({ tweaks, setTweak }) {
             { value: "hot", label: "pink" },
             { value: "cool", label: "cyan" },
             { value: "pop", label: "lemon" },
-            { value: "lilac", label: "lilac" }
+            { value: "lilac", label: "lilac" },
           ]}
           onChange={(v) => setTweak("accent", v)}
         />
@@ -256,7 +270,11 @@ function App({ tweaks, setTweak }) {
           step={0.01}
           onChange={(v) => setTweak("scanStrength", v)}
         />
-        <window.TweakToggle label="grain" value={tweaks.grain} onChange={(v) => setTweak("grain", v)} />
+        <window.TweakToggle
+          label="grain"
+          value={tweaks.grain}
+          onChange={(v) => setTweak("grain", v)}
+        />
         <window.TweakToggle
           label="chromatic aberration on hover"
           value={tweaks.ca}
@@ -268,13 +286,20 @@ function App({ tweaks, setTweak }) {
           value={tweaks.lowercaseAll}
           onChange={(v) => setTweak("lowercaseAll", v)}
         />
-        <window.TweakText label="/now status string" value={tweaks.status} onChange={(v) => setTweak("status", v)} />
+        <window.TweakText
+          label="/now status string"
+          value={tweaks.status}
+          onChange={(v) => setTweak("status", v)}
+        />
         <window.TweakSection label="navigate" />
         <window.TweakButton label="show 404" onClick={() => go("404")} />
-        <window.TweakButton label="trigger konami toast" onClick={() => setKonami(true)} />
+        <window.TweakButton
+          label="trigger konami toast"
+          onClick={() => setKonami(true)}
+        />
       </window.TweaksPanel>
     </div>
-  )
+  );
 }
 
 // fx layers
@@ -285,17 +310,17 @@ function FX({ grainOn }) {
       {grainOn && <div className="fx-grain"></div>}
       <div className="fx-vignette"></div>
     </>
-  )
+  );
 }
 
 function Root() {
-  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS)
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
   return (
     <>
       <FX grainOn={tweaks.grain} />
       <App tweaks={tweaks} setTweak={setTweak} />
     </>
-  )
+  );
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(<Root />)
+ReactDOM.createRoot(document.getElementById("root")).render(<Root />);

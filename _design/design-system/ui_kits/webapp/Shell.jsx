@@ -1,13 +1,13 @@
 // Shell.jsx — webapp chrome: status bar, side rail, marquee, fx layer
-const { useState, useEffect } = React
+const { useState, useEffect } = React;
 
 function StatusBar({ route }) {
-  const [t, setT] = useState(new Date())
+  const [t, setT] = useState(new Date());
   useEffect(() => {
-    const i = setInterval(() => setT(new Date()), 1000)
-    return () => clearInterval(i)
-  }, [])
-  const time = t.toTimeString().slice(0, 8)
+    const i = setInterval(() => setT(new Date()), 1000);
+    return () => clearInterval(i);
+  }, []);
+  const time = t.toTimeString().slice(0, 8);
   return (
     <div className="statusbar">
       <span className="brand">◆ syn.horse</span>
@@ -20,7 +20,7 @@ function StatusBar({ route }) {
         ONLINE
       </span>
     </div>
-  )
+  );
 }
 
 function SideRail({ active, onNavigate }) {
@@ -29,11 +29,11 @@ function SideRail({ active, onNavigate }) {
     { id: "compose", icon: "plus-square" },
     { id: "detail", icon: "file-text" },
     { id: "settings", icon: "settings" },
-    { id: "404", icon: "skull" }
-  ]
+    { id: "404", icon: "skull" },
+  ];
   useEffect(() => {
-    if (window.lucide) window.lucide.createIcons()
-  })
+    if (window.lucide) window.lucide.createIcons();
+  });
   return (
     <div className="siderail">
       {items.map((it) => (
@@ -47,7 +47,7 @@ function SideRail({ active, onNavigate }) {
         </button>
       ))}
     </div>
-  )
+  );
 }
 
 function Marquee() {
@@ -58,9 +58,9 @@ function Marquee() {
     { t: "◆ build 0.4.2-cursed deployed", c: "cool" },
     { t: "TIP: ⌘K to summon the palette", c: "" },
     { t: ">> the kernel panics, but romantically", c: "hot" },
-    { t: "NOTICE: do not feed the synth after midnight", c: "pop" }
-  ]
-  const all = [...items, ...items, ...items]
+    { t: "NOTICE: do not feed the synth after midnight", c: "pop" },
+  ];
+  const all = [...items, ...items, ...items];
   return (
     <div className="marquee">
       <div className="marquee-track">
@@ -71,7 +71,7 @@ function Marquee() {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 function Shell({ route, active, onNavigate, children }) {
@@ -88,7 +88,7 @@ function Shell({ route, active, onNavigate, children }) {
         <div className="fx-scan"></div>
       </div>
     </div>
-  )
+  );
 }
 
-Object.assign(window, { Shell, StatusBar, SideRail, Marquee })
+Object.assign(window, { Shell, StatusBar, SideRail, Marquee });

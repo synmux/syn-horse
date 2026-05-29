@@ -20,5 +20,5 @@
 </template>
 
 <script setup lang="ts">
-// No props needed for this floating button
+  // No props needed for this floating button
 </script>

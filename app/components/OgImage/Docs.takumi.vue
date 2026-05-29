@@ -1,13 +1,25 @@
 <script setup>
-defineProps({
-  colorMode: { type: String, required: false, default: "dark" },
-  title: { type: String, required: false, default: "Documentation" },
-  description: { type: String, required: false, default: "Comprehensive documentation for your project" },
-  icon: { type: String, required: false, default: "/images/self/self.jpg" },
-  primaryColor: { type: String, required: false, default: "hsla(354, 90%, 54%, 0.3)" },
-  primaryTextColor: { type: String, required: false, default: "hsl(354, 90%, 60%)" },
-  site: { type: String, required: false, default: "Docs" }
-})
+  defineProps({
+    colorMode: { type: String, required: false, default: "dark" },
+    title: { type: String, required: false, default: "Documentation" },
+    description: {
+      type: String,
+      required: false,
+      default: "Comprehensive documentation for your project",
+    },
+    icon: { type: String, required: false, default: "/images/self/self.jpg" },
+    primaryColor: {
+      type: String,
+      required: false,
+      default: "hsla(354, 90%, 54%, 0.3)",
+    },
+    primaryTextColor: {
+      type: String,
+      required: false,
+      default: "hsl(354, 90%, 60%)",
+    },
+    site: { type: String, required: false, default: "Docs" },
+  });
 </script>
 
 <template>
@@ -19,8 +31,12 @@ defineProps({
   >
     <div class="flex flex-col w-full h-full p-[60px] relative justify-between">
       <div class="flex flex-col gap-8 mb-10" style="text-wrap: pretty">
-        <span class="text-[72px] font-extrabold" style="line-height: 1.1; letter-spacing: -0.04em">
-          {{ title }} - Ejected!
+        <span
+          class="text-[72px] font-extrabold"
+          style="line-height: 1.1; letter-spacing: -0.04em"
+        >
+          {{ title }}
+          - Ejected!
         </span>
         <span
           class="text-[44px] font-normal text-neutral-500 dark:text-neutral-400"
@@ -38,8 +54,17 @@ defineProps({
       </div>
 
       <div class="flex items-center gap-7">
-        <img v-if="icon" :src="icon" alt="Icon" class="w-16 h-16" style="object-fit: contain" />
-        <span class="text-[32px] font-bold" style="letter-spacing: -0.02em; opacity: 0.9">
+        <img
+          v-if="icon"
+          :src="icon"
+          alt="Icon"
+          class="w-16 h-16"
+          style="object-fit: contain"
+        >
+        <span
+          class="text-[32px] font-bold"
+          style="letter-spacing: -0.02em; opacity: 0.9"
+        >
           {{ site }}
         </span>
         <div style="flex-grow: 1" />

@@ -1,10 +1,10 @@
-export type Command = {
-  id: string
-  label: string
-  ic: string
-  desc: string
-  ext?: string
-  joke?: { kind: "toast" | "shake-toast" | "descend"; message: string }
+export interface Command {
+  desc: string;
+  ext?: string;
+  ic: string;
+  id: string;
+  joke?: { kind: "toast" | "shake-toast" | "descend"; message: string };
+  label: string;
 }
 
 export const COMMANDS: Command[] = [
@@ -12,10 +12,25 @@ export const COMMANDS: Command[] = [
   { id: "now", label: "/now", ic: ">", desc: "what i'm doing this month" },
   { id: "projects", label: "/projects", ic: ">", desc: "things i made" },
   { id: "blog", label: "/blog", ic: ">", desc: "all the words" },
-  { id: "cv", label: "/cv", ic: ">", desc: "work history, talks, side projects" },
-  { id: "contact", label: "/contact", ic: ">", desc: "how to reach me. (politely.)" },
+  {
+    id: "cv",
+    label: "/cv",
+    ic: ">",
+    desc: "work history, talks, side projects",
+  },
+  {
+    id: "contact",
+    label: "/contact",
+    ic: ">",
+    desc: "how to reach me. (politely.)",
+  },
   { id: "domains", label: "/domains", ic: ">", desc: "the syn.* family" },
-  { id: "panic", label: "/panic", ic: "!", desc: "page syn. emergency or otherwise." },
+  {
+    id: "panic",
+    label: "/panic",
+    ic: "!",
+    desc: "page syn. emergency or otherwise.",
+  },
   { id: "404", label: "/404", ic: "!", desc: "the hostile one" },
   {
     id: "github",
@@ -38,7 +53,7 @@ export const COMMANDS: Command[] = [
     desc: "bsky.app/profile/syn.horse",
     ext: "https://bsky.app/profile/syn.horse",
   },
-]
+];
 
 export const KONAMI_COMMANDS: Command[] = [
   {
@@ -60,7 +75,10 @@ export const KONAMI_COMMANDS: Command[] = [
     label: "/rm-rf-feelings",
     ic: "★",
     desc: "remove all emotional state.",
-    joke: { kind: "shake-toast", message: "operation not permitted: too late." },
+    joke: {
+      kind: "shake-toast",
+      message: "operation not permitted: too late.",
+    },
   },
   {
     id: "cd-null",
@@ -69,4 +87,4 @@ export const KONAMI_COMMANDS: Command[] = [
     desc: "descend into the void.",
     joke: { kind: "descend", message: "" },
   },
-]
+];

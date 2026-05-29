@@ -22,7 +22,10 @@
 // reuses persistent local state in `.wrangler/state/v3/...` across runs.
 {
   "compatibility_date": "2026-04-15",
-  "compatibility_flags": ["nodejs_compat", "nodejs_compat_populate_process_env"],
+  "compatibility_flags": [
+    "nodejs_compat",
+    "nodejs_compat_populate_process_env"
+  ],
   "d1_databases": [
     {
       "binding": "DB",

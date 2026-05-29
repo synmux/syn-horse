@@ -9,6 +9,6 @@
 </template>
 
 <script setup lang="ts">
-const route = useRoute()
-const layoutProps = computed(() => route.meta.layoutProps ?? {})
+  const route = useRoute();
+  const layoutProps = computed(() => route.meta.layoutProps ?? {});
 </script>

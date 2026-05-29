@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted } from "vue"
+import { onMounted, onUnmounted, ref } from "vue";
 
 const SEQUENCE = [
   "ArrowUp",
@@ -11,25 +11,28 @@ const SEQUENCE = [
   "ArrowRight",
   "b",
   "a",
-] as const
+] as const;
 
 export function useKonamiCode(onTrigger: () => void) {
-  const buffer = ref<string[]>([])
+  const buffer = ref<string[]>([]);
 
   const handler = (e: KeyboardEvent) => {
-    const next = [...buffer.value, e.key].slice(-SEQUENCE.length)
-    buffer.value = next
-    if (next.length === SEQUENCE.length && next.every((k, i) => k === SEQUENCE[i])) {
-      buffer.value = []
-      onTrigger()
+    const next = [...buffer.value, e.key].slice(-SEQUENCE.length);
+    buffer.value = next;
+    if (
+      next.length === SEQUENCE.length &&
+      next.every((k, i) => k === SEQUENCE[i])
+    ) {
+      buffer.value = [];
+      onTrigger();
     }
-  }
+  };
 
   onMounted(() => {
-    window.addEventListener("keydown", handler)
-  })
+    window.addEventListener("keydown", handler);
+  });
 
   onUnmounted(() => {
-    window.removeEventListener("keydown", handler)
-  })
+    window.removeEventListener("keydown", handler);
+  });
 }

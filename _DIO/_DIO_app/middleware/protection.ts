@@ -18,7 +18,7 @@
 
 export default defineNuxtRouteMiddleware((to, _from) => {
   // Simple conditional check - expand this logic as needed
-  const allowAccess = true
+  const allowAccess = true;
 
   if (!allowAccess) {
     // Access denied - redirect to access denied page or throw error
@@ -29,8 +29,8 @@ export default defineNuxtRouteMiddleware((to, _from) => {
         path: to.path,
         reason: "Access control check failed",
       },
-    })
+    });
   }
 
   // Allow the page to render
-})
+});
