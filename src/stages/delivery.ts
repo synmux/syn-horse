@@ -17,6 +17,12 @@ import { CONTINUE, type StageResult } from "./types.ts"
  */
 export type DeliveryFailureMode = "stop" | "skip"
 
+/** Paging channel → delivery adapter. */
+const ADAPTER_BY_CHANNEL: Record<Payload["channel"], string> = {
+  green: "ntfy",
+  red: "pushover",
+}
+
 /**
  * Run the delivery stage: hand the message to each requested
  * {@link Adapter} in order and record the outcome on the log row.
@@ -37,27 +43,18 @@ export type DeliveryFailureMode = "stop" | "skip"
  *
  * @param env - Worker environment used to update the log row.
  * @param id - Message id (the log row primary key).
- * @param payload - The validated message to deliver.
- * @param adapters - Ordered list of adapter names to attempt. Must
- *   contain at least one entry.
+ * @param payload - The validated message to deliver. The paging channel
+ *   selects the adapter: `green` → ntfy, `red` → pushover.
  * @param onFailure - How to react to an adapter failure (see
  *   {@link DeliveryFailureMode}).
  * @returns A {@link StageResult}. Always {@link CONTINUE} — there is no
  *   stage after delivery, but returning a uniform result keeps the stage
  *   signature consistent for the queue handler.
- * @throws If `adapters` is empty, or if an adapter throws while
- *   `onFailure` is `"stop"` (re-thrown so the queue retries the message).
+ * @throws If an adapter throws while `onFailure` is `"stop"` (re-thrown so
+ *   the queue retries the message).
  */
-export async function runDelivery(
-  env: Env,
-  id: string,
-  payload: Payload,
-  adapters: readonly string[],
-  onFailure: DeliveryFailureMode,
-): Promise<StageResult> {
-  if (adapters.length === 0) {
-    throw new Error("runDelivery requires at least one adapter")
-  }
+export async function runDelivery(env: Env, id: string, payload: Payload, onFailure: DeliveryFailureMode): Promise<StageResult> {
+  const adapters = [ADAPTER_BY_CHANNEL[payload.channel]]
 
   const attempted: string[] = []
   const failures: string[] = []
