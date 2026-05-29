@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "node-gyp": "^12.3.0",
     "ntfy": "^1.15.2",
     "pushover-js": "^1.3.2",
     "zod": "^4.4.3"
@@ -9,17 +8,14 @@
     "@anthropic-ai/claude-code": "^2.1.153",
     "@biomejs/biome": "2.4.15",
     "@cloudflare/vitest-pool-workers": "^0.16.10",
-    "@eslint/js": "^10.0.1",
     "@trunkio/launcher": "^1.3.4",
     "@types/node": "^25.9.1",
     "ctx7": "^0.4.4",
-    "eslint": "^10.4.0",
     "npm-run-all2": "^9.0.1",
     "skilld": "^2.0.0",
     "tsx": "^4.22.3",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.60.0",
-    "ultracite": "7.8.0",
+    "ultracite": "^7.8.0",
     "vitest": "^4.1.7",
     "wrangler": "^4.95.0"
   },

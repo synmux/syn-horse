@@ -22,7 +22,7 @@
 - Apply D1 migrations (local): `bun run db:migrate:local`
 - Generate env/runtime types: `bun run types`
 - Lint all: `bun run lint`
-  - ESLint only: `bun run lint:eslint`
+  - Biome via Ultracite only: `bun run lint:ultracite`
   - Typecheck only: `bun run lint:types`
   - Trunk checks: `bun run lint:trunk`
 - Auto-fix lint: `bun run lint:fix`
@@ -93,7 +93,7 @@
 ## Conventions and Style
 
 - Formatting: no semicolons, double quotes, 2-space indent, 120-char width (`.editorconfig`).
-- ESLint enforces no unused vars/args unless prefixed with `_`.
+- Biome enforces no unused vars/args unless prefixed with `_`.
 - TS config is strict, `noUnusedParameters: true`, `moduleResolution: nodenext`, explicit local types include `worker-configuration.d.ts`.
 - Prefer explicit docs/comments already used heavily in source for stage intent and failure semantics.
 

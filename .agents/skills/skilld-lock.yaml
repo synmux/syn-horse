@@ -1,20 +1,4 @@
 skills:
-  node-gyp-skilld:
-    packageName: node-gyp
-    version: 12.3.0
-    packages: "node-gyp@12.3.0"
-    repo: nodejs/node-gyp
-    source: "ungh://nodejs/node-gyp@v12.3.0"
-    syncedAt: 2026-05-27
-    generator: skilld
-  openai-skilld:
-    packageName: openai
-    version: 6.39.0
-    packages: "openai@6.39.0"
-    repo: openai/openai-node
-    source: "ungh://openai/openai-node"
-    syncedAt: 2026-05-27
-    generator: skilld
   ntfy-skilld:
     packageName: ntfy
     version: 1.15.2
@@ -29,14 +13,6 @@ skills:
     packages: "zod@4.4.3"
     repo: colinhacks/zod
     source: "https://zod.dev/llms.txt"
-    syncedAt: 2026-05-27
-    generator: skilld
-  eslint-js-skilld:
-    packageName: "@eslint/js"
-    version: 10.0.1
-    packages: "@eslint/js@10.0.1"
-    repo: eslint/eslint
-    source: "ungh://eslint/eslint/packages/js@v10.0.1"
     syncedAt: 2026-05-27
     generator: skilld
   trunkio-launcher-skilld:
@@ -70,14 +46,6 @@ skills:
     source: "ungh://upstash/context7/packages/cli@ctx7@0.4.4"
     syncedAt: 2026-05-27
     generator: skilld
-  eslint-skilld:
-    packageName: eslint
-    version: 10.4.0
-    packages: "eslint@10.4.0"
-    repo: eslint/eslint
-    source: "ungh://eslint/eslint@v10.4.0"
-    syncedAt: 2026-05-27
-    generator: skilld
   npm-run-all2-skilld:
     packageName: npm-run-all2
     version: 9.0.1
@@ -93,14 +61,6 @@ skills:
     repo: Exhen/claude-code-2.1.88
     source: "ungh://Exhen/claude-code-2.1.88"
     syncedAt: 2026-05-28
-    generator: skilld
-  prettier-skilld:
-    packageName: prettier
-    version: 3.8.3
-    packages: "prettier@3.8.3"
-    repo: prettier/prettier
-    source: "https://github.com/prettier/prettier/tree/v3.8.3/docs"
-    syncedAt: 2026-05-27
     generator: skilld
   skilld-skilld:
     packageName: skilld
@@ -126,14 +86,6 @@ skills:
     source: "https://github.com/vitest-dev/vitest/tree/v4.1.7/docs"
     syncedAt: 2026-05-27
     generator: skilld
-  typescript-eslint-skilld:
-    packageName: typescript-eslint
-    version: 8.60.0
-    packages: "typescript-eslint@8.60.0"
-    repo: typescript-eslint/typescript-eslint
-    source: "ungh://typescript-eslint/typescript-eslint/packages/typescript-eslint@v8.60.0"
-    syncedAt: 2026-05-27
-    generator: skilld
   typescript-skilld:
     packageName: typescript
     version: 6.0.3
@@ -157,4 +109,18 @@ skills:
     repo: cloudflare/workers-sdk
     source: "https://github.com/cloudflare/workers-sdk/tree/v4.95.0/docs"
     syncedAt: 2026-05-27
+    generator: skilld
+  biomejs-biome-skilld:
+    packageName: "@biomejs/biome"
+    version: 2.4.15
+    repo: biomejs/biome
+    source: "https://github.com/biomejs/biome/tree/@biomejs/biome@2.4.15/docs"
+    syncedAt: 2026-05-29
+    generator: skilld
+  ultracite-skilld:
+    packageName: ultracite
+    version: 7.8.0
+    repo: haydenbleasel/ultracite
+    source: "https://github.com/haydenbleasel/ultracite/tree/ultracite@7.8.0/docs"
+    syncedAt: 2026-05-29
     generator: skilld

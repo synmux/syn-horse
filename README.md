@@ -120,8 +120,7 @@ bun run lint
 Useful subsets:
 
 ```bash
-bun run lint:eslint
-bun run lint:trunk
+bun run lint:ultracite
 bun run lint:types
 ```
 
