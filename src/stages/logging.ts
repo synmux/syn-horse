@@ -1,6 +1,6 @@
-import { insertLogRow } from "../db.ts"
-import type { Payload } from "../schema.ts"
-import { CONTINUE, type StageResult } from "./types.ts"
+import { insertLogRow } from "../db.ts";
+import type { Payload } from "../schema.ts";
+import { CONTINUE, type StageResult } from "./types.ts";
 
 /**
  * Run the logging stage: insert the initial audit row for this message.
@@ -14,13 +14,17 @@ import { CONTINUE, type StageResult } from "./types.ts"
  * @param msg - The validated message to record.
  * @returns A {@link StageResult} — always {@link CONTINUE}.
  */
-export async function runLogging(env: Env, id: string, payload: Payload): Promise<StageResult> {
+export async function runLogging(
+  env: Env,
+  id: string,
+  payload: Payload
+): Promise<StageResult> {
   await insertLogRow(env, {
     id,
     contact: payload.contact,
     message: payload.message,
     channel: payload.channel,
     source: payload.source,
-  })
-  return CONTINUE
+  });
+  return CONTINUE;
 }

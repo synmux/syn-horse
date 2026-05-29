@@ -1,4 +1,4 @@
-import { Adapter, Notification } from "../types.ts"
+import type { Adapter, Notification } from "../types.ts";
 
 /**
  * No-op delivery adapter used in development and tests.
@@ -9,6 +9,6 @@ import { Adapter, Notification } from "../types.ts"
 const stub: Adapter = {
   name: "stub",
   send: async (_env: Env, _message: Notification): Promise<boolean> => true,
-}
+};
 
-export default stub
+export default stub;

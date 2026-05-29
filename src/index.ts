@@ -1,11 +1,11 @@
-import { safeParseMessage } from "./schema.ts"
-import { runAi } from "./stages/ai.ts"
-import { runDelivery } from "./stages/delivery.ts"
-import { runLogging } from "./stages/logging.ts"
-import { runRateLimits } from "./stages/rate-limits.ts"
-import { handleAck } from "./http.ts"
+import { handleAck } from "./http.ts";
+import { safeParseMessage } from "./schema.ts";
+import { runAi } from "./stages/ai.ts";
+import { runDelivery } from "./stages/delivery.ts";
+import { runLogging } from "./stages/logging.ts";
+import { runRateLimits } from "./stages/rate-limits.ts";
 
-const STOP = "stop"
+const STOP = "stop";
 
 /**
  * Cloudflare Workers queue consumer for paging messages.
@@ -31,50 +31,65 @@ const STOP = "stop"
 export default {
   // http for message acks
   async fetch(req, env, ctx): Promise<Response> {
-    return handleAck(req, env, ctx)
+    return handleAck(req, env, ctx);
   },
 
   // queue logic
   async queue(batch, env): Promise<void> {
     for (const message of batch.messages) {
-      const parsed = safeParseMessage(message.body)
+      const parsed = safeParseMessage(message.body);
       if (!parsed.success) {
         console.error({
           messageId: message.id,
           message: "invalid queue message: does not match schema",
           issues: parsed.error.issues,
           body: message.body,
-        })
-        message.ack()
-        continue
+        });
+        message.ack();
+        continue;
       }
-      const payload = parsed.data
+      const payload = parsed.data;
       try {
         if ((await runLogging(env, message.id, payload)).kind === STOP) {
-          console.info({ stage: "logging", action: STOP, payload, message: `STOP at logging for message ${message.id}` })
-          message.ack()
-          continue
+          console.info({
+            stage: "logging",
+            action: STOP,
+            payload,
+            message: `STOP at logging for message ${message.id}`,
+          });
+          message.ack();
+          continue;
         }
         if ((await runRateLimits(env, message.id, payload)).kind === STOP) {
-          console.info({ stage: "rate-limiting", action: STOP, payload, message: `STOP at rate limiting for message ${message.id}` })
-          message.ack()
-          continue
+          console.info({
+            stage: "rate-limiting",
+            action: STOP,
+            payload,
+            message: `STOP at rate limiting for message ${message.id}`,
+          });
+          message.ack();
+          continue;
         }
         if ((await runAi(env, message.id, payload)).kind === STOP) {
-          console.info({ stage: "ai", action: STOP, payload, message: `STOP at ai for message ${message.id}` })
-          message.ack()
-          continue
+          console.info({
+            stage: "ai",
+            action: STOP,
+            payload,
+            message: `STOP at ai for message ${message.id}`,
+          });
+          message.ack();
+          continue;
         }
-        await runDelivery(env, message.id, payload, "stop")
-        message.ack()
+        await runDelivery(env, message.id, payload, "stop");
+        message.ack();
       } catch (err) {
         console.error({
           messageId: message.id,
           message: "pipeline failure",
           error: err instanceof Error ? err.message : String(err),
-        })
-        message.retry()
+        });
+        message.retry();
       }
     }
   },
-} satisfies ExportedHandler<Env, unknown>
+} satisfies ExportedHandler<Env, unknown>;

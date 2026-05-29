@@ -1,8 +1,8 @@
-import { RATE_LIMITS, RATE_LIMIT_PERIODS } from "../constants.ts"
-import { updateRateLimit } from "../db.ts"
-import { incrementCounters, readCounters } from "../kv.ts"
-import type { Payload } from "../schema.ts"
-import { CONTINUE, STOP, type StageResult } from "./types.ts"
+import { RATE_LIMIT_PERIODS, RATE_LIMITS } from "../constants.ts";
+import { updateRateLimit } from "../db.ts";
+import { incrementCounters, readCounters } from "../kv.ts";
+import type { Payload } from "../schema.ts";
+import { CONTINUE, STOP, type StageResult } from "./types.ts";
 
 /**
  * Run the rate-limit stage.
@@ -25,25 +25,29 @@ import { CONTINUE, STOP, type StageResult } from "./types.ts"
  *   `result = "dropped"` row has been written; otherwise {@link CONTINUE},
  *   including the KV-error fail-open path.
  */
-export async function runRateLimits(env: Env, id: string, payload: Payload): Promise<StageResult> {
+export async function runRateLimits(
+  env: Env,
+  id: string,
+  payload: Payload
+): Promise<StageResult> {
   try {
-    const counters = await readCounters(env, payload.source)
+    const counters = await readCounters(env, payload.source);
     for (const period of RATE_LIMIT_PERIODS) {
       if (counters[period].value >= RATE_LIMITS[period]) {
-        await updateRateLimit(env, id, "drop", period, "dropped")
-        return STOP
+        await updateRateLimit(env, id, "drop", period, "dropped");
+        return STOP;
       }
     }
-    await incrementCounters(env, payload.source, counters)
-    await updateRateLimit(env, id, "accept", "none")
-    return CONTINUE
+    await incrementCounters(env, payload.source, counters);
+    await updateRateLimit(env, id, "accept", "none");
+    return CONTINUE;
   } catch (err) {
     console.error({
       messageId: id,
       message: "rate-limit KV error",
       error: err instanceof Error ? err.message : String(err),
-    })
-    await updateRateLimit(env, id, "accept", "kv_error")
-    return CONTINUE
+    });
+    await updateRateLimit(env, id, "accept", "kv_error");
+    return CONTINUE;
   }
 }

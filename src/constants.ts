@@ -9,10 +9,10 @@ export const RATE_LIMITS = {
   hour: 10,
   day: 100,
   lifetime: 1000,
-} as const
+} as const;
 
 /** Named rate-limit windows, derived from the keys of {@link RATE_LIMITS}. */
-export type RateLimitPeriod = keyof typeof RATE_LIMITS
+export type RateLimitPeriod = keyof typeof RATE_LIMITS;
 
 /**
  * Iteration order for rate-limit windows.
@@ -21,7 +21,11 @@ export type RateLimitPeriod = keyof typeof RATE_LIMITS
  * when several caps are breached at once (e.g. an attacker bursting through
  * the hourly cap will be logged as `"hour"` rather than `"lifetime"`).
  */
-export const RATE_LIMIT_PERIODS: readonly RateLimitPeriod[] = ["hour", "day", "lifetime"] as const
+export const RATE_LIMIT_PERIODS: readonly RateLimitPeriod[] = [
+  "hour",
+  "day",
+  "lifetime",
+] as const;
 
 /**
  * KV TTL (in seconds) applied when a counter is first written for a given
@@ -32,12 +36,12 @@ export const RATE_LIMIT_PERIODS: readonly RateLimitPeriod[] = ["hour", "day", "l
  */
 export const RATE_LIMIT_TTL_SECONDS: Record<RateLimitPeriod, number | null> = {
   hour: 3600,
-  day: 86400,
+  day: 86_400,
   lifetime: null,
-}
+};
 
 /** KV key prefix that namespaces all rate-limit counters. */
-export const RATE_LIMIT_NAMESPACE = "rate-limits"
+export const RATE_LIMIT_NAMESPACE = "rate-limits";
 
 /**
  * Build the KV key used to store the counter for a given source and window.
@@ -48,8 +52,11 @@ export const RATE_LIMIT_NAMESPACE = "rate-limits"
  * @param period - The rate-limit window the counter applies to.
  * @returns The fully-qualified KV key.
  */
-export function rateLimitKey(source: string | undefined, period: RateLimitPeriod): string {
-  return `${RATE_LIMIT_NAMESPACE}:${source ?? "unknown"}:${period}`
+export function rateLimitKey(
+  source: string | undefined,
+  period: RateLimitPeriod
+): string {
+  return `${RATE_LIMIT_NAMESPACE}:${source ?? "unknown"}:${period}`;
 }
 
 /**
@@ -57,18 +64,18 @@ export function rateLimitKey(source: string | undefined, period: RateLimitPeriod
  * minimum is 30s; the `pushover-js` default is 3600s, which is far too long
  * for a real "emergency" notification, so we set this explicitly.
  */
-export const PUSHOVER_EMERGENCY_RETRY_SECONDS = 30
+export const PUSHOVER_EMERGENCY_RETRY_SECONDS = 30;
 
 /**
  * Pushover emergency-priority expiry in seconds. The notification keeps
  * re-alerting until acknowledged or this expires. API max is 10800 (3h);
  * 3600 (1h) is intrusive enough to be unmissable without being indefinite.
  */
-export const PUSHOVER_EMERGENCY_EXPIRE_SECONDS = 3600
+export const PUSHOVER_EMERGENCY_EXPIRE_SECONDS = 3600;
 
 /**
  * Pushover message body maximum length in characters. The queue payload
  * schema allows messages up to 8192 chars; the adapter truncates beyond
  * this limit before calling the Pushover API.
  */
-export const PUSHOVER_MESSAGE_MAX_LENGTH = 1024
+export const PUSHOVER_MESSAGE_MAX_LENGTH = 1024;

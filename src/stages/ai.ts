@@ -1,11 +1,11 @@
-import { updateAi } from "../db.ts"
-import type { AiDecision, AiViolation } from "../db.ts"
-import type { Payload } from "../schema.ts"
-import { CONTINUE, STOP, type StageResult } from "./types.ts"
-import { z } from "zod"
+import { z } from "zod";
+import type { AiDecision, AiViolation } from "../db.ts";
+import { updateAi } from "../db.ts";
+import type { Payload } from "../schema.ts";
+import { CONTINUE, STOP, type StageResult } from "./types.ts";
 
 /** Workers AI model used for paging-message moderation. */
-const MODERATION_MODEL = "@cf/google/gemma-4-26b-a4b-it" as const
+const MODERATION_MODEL = "@cf/google/gemma-4-26b-a4b-it" as const;
 
 /**
  * Parsed shape of the moderation LLM's structured JSON response.
@@ -16,13 +16,13 @@ const MODERATION_MODEL = "@cf/google/gemma-4-26b-a4b-it" as const
  */
 export const moderationResultSchema = z.object({
   label: z.enum(["none", "fun", "nonsense", "spam"]),
-})
+});
 
 /** A validated moderation label returned by the LLM. */
-export type ModerationResult = z.infer<typeof moderationResultSchema>
+export type ModerationResult = z.infer<typeof moderationResultSchema>;
 
 /** JSON Schema passed to Workers AI `response_format.type = "json_schema"`. */
-const MODERATION_RESPONSE_JSON_SCHEMA = z.toJSONSchema(moderationResultSchema)
+const MODERATION_RESPONSE_JSON_SCHEMA = z.toJSONSchema(moderationResultSchema);
 
 /**
  * Prompt template fed to the moderation LLM as the system message.
@@ -92,7 +92,7 @@ Server CPU 98% for 10 minutes, on-call needs to investigate
 Label: none
 
 Valid labels: \`none\`, \`fun\`, \`nonsense\`, \`spam\`.
-`
+`;
 
 /**
  * Map a moderation label to the D1 log columns written by {@link updateAi}.
@@ -101,16 +101,16 @@ Valid labels: \`none\`, \`fun\`, \`nonsense\`, \`spam\`.
  * @returns The decision/violation pair to persist.
  */
 function mapLabelToVerdict(label: ModerationResult["label"]): {
-  decision: AiDecision
-  violation: AiViolation
+  decision: AiDecision;
+  violation: AiViolation;
 } {
   switch (label) {
     case "none":
     case "fun":
-      return { decision: "accept", violation: label }
+      return { decision: "accept", violation: label };
     case "nonsense":
     case "spam":
-      return { decision: "drop", violation: label }
+      return { decision: "drop", violation: label };
   }
 }
 
@@ -136,7 +136,11 @@ function mapLabelToVerdict(label: ModerationResult["label"]): {
  * @throws When Workers AI returns empty content, non-JSON, or JSON that
  *   fails {@link moderationResultSchema}.
  */
-export async function runAi(env: Env, id: string, payload: Payload): Promise<StageResult> {
+export async function runAi(
+  env: Env,
+  id: string,
+  payload: Payload
+): Promise<StageResult> {
   const userContent = `Channel: \`${payload.channel}\`
 
 Message:
@@ -144,7 +148,7 @@ Message:
 \`\`\`
 ${payload.message}
 \`\`\`
-`
+`;
   const response = await env.AI.run(MODERATION_MODEL, {
     messages: [
       { role: "system", content: PROMPT },
@@ -159,28 +163,30 @@ ${payload.message}
         strict: true,
       },
     },
-  })
+  });
 
-  const rawContent = response.choices[0]?.message?.content
+  const rawContent = response.choices[0]?.message?.content;
   if (rawContent === null || rawContent === undefined) {
-    throw new Error("AI moderation returned empty content")
+    throw new Error("AI moderation returned empty content");
   }
 
-  let parsed: unknown
+  let parsed: unknown;
   try {
-    parsed = JSON.parse(rawContent)
+    parsed = JSON.parse(rawContent);
   } catch (error) {
-    throw new Error(`AI moderation returned non-JSON content: ${rawContent}`, { cause: error })
+    throw new Error(`AI moderation returned non-JSON content: ${rawContent}`, {
+      cause: error,
+    });
   }
 
-  const result = moderationResultSchema.parse(parsed)
-  const { decision, violation } = mapLabelToVerdict(result.label)
+  const result = moderationResultSchema.parse(parsed);
+  const { decision, violation } = mapLabelToVerdict(result.label);
 
   if (decision === "drop") {
-    await updateAi(env, id, decision, violation, "dropped")
-    return STOP
+    await updateAi(env, id, decision, violation, "dropped");
+    return STOP;
   }
 
-  await updateAi(env, id, decision, violation)
-  return CONTINUE
+  await updateAi(env, id, decision, violation);
+  return CONTINUE;
 }

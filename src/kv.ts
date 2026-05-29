@@ -1,4 +1,9 @@
-import { RATE_LIMIT_PERIODS, RATE_LIMIT_TTL_SECONDS, rateLimitKey, type RateLimitPeriod } from "./constants.ts"
+import {
+  RATE_LIMIT_PERIODS,
+  RATE_LIMIT_TTL_SECONDS,
+  type RateLimitPeriod,
+  rateLimitKey,
+} from "./constants.ts";
 
 /**
  * In-memory view of a single counter read from KV.
@@ -8,10 +13,13 @@ import { RATE_LIMIT_PERIODS, RATE_LIMIT_TTL_SECONDS, rateLimitKey, type RateLimi
  * for the first time must be created with a fresh expiry, whereas a
  * subsequent increment must preserve the original window.
  */
-export type CounterState = { value: number; existed: boolean }
+export interface CounterState {
+  existed: boolean;
+  value: number;
+}
 
 /** The complete set of per-period counters for a single source. */
-export type Counters = Record<RateLimitPeriod, CounterState>
+export type Counters = Record<RateLimitPeriod, CounterState>;
 
 /**
  * Metadata persisted alongside each KV entry.
@@ -20,7 +28,9 @@ export type Counters = Record<RateLimitPeriod, CounterState>
  * `expiresAt` ourselves and use it to anchor subsequent `put` calls to the
  * window's original end.
  */
-type ExpirationMetadata = { expiresAt: number }
+interface ExpirationMetadata {
+  expiresAt: number;
+}
 
 /**
  * Fetch all rate-limit counters for `source` from KV in parallel.
@@ -36,22 +46,25 @@ type ExpirationMetadata = { expiresAt: number }
  * @throws If a KV value is present but cannot be parsed as a base-10 integer
  *   — indicates corruption that should not be silently masked.
  */
-export async function readCounters(env: Env, source: string | undefined): Promise<Counters> {
+export async function readCounters(
+  env: Env,
+  source: string | undefined
+): Promise<Counters> {
   const entries = await Promise.all(
     RATE_LIMIT_PERIODS.map(async (period) => {
-      const key = rateLimitKey(source, period)
-      const raw = await env.KV.get(key)
+      const key = rateLimitKey(source, period);
+      const raw = await env.KV.get(key);
       if (raw === null) {
-        return [period, { value: 0, existed: false }] as const
+        return [period, { value: 0, existed: false }] as const;
       }
-      const value = Number.parseInt(raw, 10)
+      const value = Number.parseInt(raw, 10);
       if (Number.isNaN(value)) {
-        throw new Error(`KV value for ${key} is not an integer: ${raw}`)
+        throw new Error(`KV value for ${key} is not an integer: ${raw}`);
       }
-      return [period, { value, existed: true }] as const
-    }),
-  )
-  return Object.fromEntries(entries) as Counters
+      return [period, { value, existed: true }] as const;
+    })
+  );
+  return Object.fromEntries(entries) as Counters;
 }
 
 /**
@@ -76,25 +89,32 @@ export async function incrementCounters(
   env: Env,
   source: string | undefined,
   current: Counters,
-  now: number = Math.floor(Date.now() / 1000),
+  now: number = Math.floor(Date.now() / 1000)
 ): Promise<void> {
   await Promise.all(
     RATE_LIMIT_PERIODS.map(async (period) => {
-      const next = String(current[period].value + 1)
-      const key = rateLimitKey(source, period)
-      const ttl = RATE_LIMIT_TTL_SECONDS[period]
+      const next = String(current[period].value + 1);
+      const key = rateLimitKey(source, period);
+      const ttl = RATE_LIMIT_TTL_SECONDS[period];
       if (ttl === null) {
-        await env.KV.put(key, next)
-        return
+        await env.KV.put(key, next);
+        return;
       }
       if (!current[period].existed) {
-        const expiresAt = now + ttl
-        await env.KV.put(key, next, { expiration: expiresAt, metadata: { expiresAt } })
-        return
+        const expiresAt = now + ttl;
+        await env.KV.put(key, next, {
+          expiration: expiresAt,
+          metadata: { expiresAt },
+        });
+        return;
       }
-      const { metadata } = await env.KV.getWithMetadata<ExpirationMetadata>(key)
-      const expiresAt = metadata?.expiresAt ?? now + ttl
-      await env.KV.put(key, next, { expiration: expiresAt, metadata: { expiresAt } })
-    }),
-  )
+      const { metadata } =
+        await env.KV.getWithMetadata<ExpirationMetadata>(key);
+      const expiresAt = metadata?.expiresAt ?? now + ttl;
+      await env.KV.put(key, next, {
+        expiration: expiresAt,
+        metadata: { expiresAt },
+      });
+    })
+  );
 }

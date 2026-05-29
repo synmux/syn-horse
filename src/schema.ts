@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from "zod";
 
 /* example message
 
@@ -18,7 +18,8 @@ import { z } from "zod"
  * leading/trailing hyphens. Used to validate `source` when it is neither
  * an IPv4 nor IPv6 literal.
  */
-const HOSTNAME_RE = /^(?=.{1,253}$)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+const HOSTNAME_RE =
+  /^(?=.{1,253}$)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 /**
  * Zod schema for an inbound page message arriving on the queue.
@@ -31,11 +32,13 @@ export const messageSchema = z.strictObject({
   channel: z.enum(["red", "green"]),
   contact: z.string().trim().min(1).max(256),
   message: z.string().trim().min(1).max(8192),
-  source: z.union([z.ipv4(), z.ipv6(), z.string().regex(HOSTNAME_RE)]).optional(),
-})
+  source: z
+    .union([z.ipv4(), z.ipv6(), z.string().regex(HOSTNAME_RE)])
+    .optional(),
+});
 
 /** A validated inbound page message. */
-export type Payload = z.infer<typeof messageSchema>
+export type Payload = z.infer<typeof messageSchema>;
 
 /**
  * Parse and validate a message payload, throwing on failure.
@@ -45,7 +48,7 @@ export type Payload = z.infer<typeof messageSchema>
  * @throws {z.ZodError} If the payload does not match {@link messageSchema}.
  */
 export function parseMessage(input: unknown): Payload {
-  return messageSchema.parse(input)
+  return messageSchema.parse(input);
 }
 
 /**
@@ -60,7 +63,7 @@ export function parseMessage(input: unknown): Payload {
  *   validation error.
  */
 export function safeParseMessage(input: unknown) {
-  return messageSchema.safeParse(input)
+  return messageSchema.safeParse(input);
 }
 
 /**
@@ -70,7 +73,7 @@ export function safeParseMessage(input: unknown) {
  * @returns `true` when the payload satisfies {@link messageSchema}.
  */
 export function isMessage(input: unknown): input is Payload {
-  return messageSchema.safeParse(input).success
+  return messageSchema.safeParse(input).success;
 }
 
 /**
@@ -85,9 +88,12 @@ export function isMessage(input: unknown): input is Payload {
  *   and a truncated body.
  */
 export function formatMessageSummary(payload: Payload): string {
-  const truncated = payload.message.length > 60 ? `${payload.message.slice(0, 57)}...` : payload.message
-  const via = payload.source ? ` via ${payload.source}` : ""
-  return `page from ${payload.contact}${via}: ${truncated}`
+  const truncated =
+    payload.message.length > 60
+      ? `${payload.message.slice(0, 57)}...`
+      : payload.message;
+  const via = payload.source ? ` via ${payload.source}` : "";
+  return `page from ${payload.contact}${via}: ${truncated}`;
 }
 
 export default {
@@ -96,4 +102,4 @@ export default {
   safeParseMessage,
   isMessage,
   formatMessageSummary,
-}
+};

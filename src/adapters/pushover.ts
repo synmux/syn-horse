@@ -1,9 +1,13 @@
-import { Pushover } from "pushover-js"
-import { PUSHOVER_EMERGENCY_EXPIRE_SECONDS, PUSHOVER_EMERGENCY_RETRY_SECONDS, PUSHOVER_MESSAGE_MAX_LENGTH } from "../constants.ts"
-import type { Adapter, Notification } from "../types.ts"
+import { Pushover } from "pushover-js";
+import {
+  PUSHOVER_EMERGENCY_EXPIRE_SECONDS,
+  PUSHOVER_EMERGENCY_RETRY_SECONDS,
+  PUSHOVER_MESSAGE_MAX_LENGTH,
+} from "../constants.ts";
+import type { Adapter, Notification } from "../types.ts";
 
-type Channel = "red" | "green"
-type PushoverPriority = -2 | -1 | 0 | 1 | 2
+type Channel = "red" | "green";
+type PushoverPriority = -2 | -1 | 0 | 1 | 2;
 
 /**
  * Subset of the `pushover-js` `Sound` union that this adapter uses. The
@@ -11,21 +15,21 @@ type PushoverPriority = -2 | -1 | 0 | 1 | 2
  * unexported internal type, so we re-declare the narrow subset we map
  * channels to. Add new literals here when wiring up new channels.
  */
-type Sound = "siren" | "pushover"
+type Sound = "siren" | "pushover";
 
 interface ChannelConfig {
-  priority: PushoverPriority
-  sound: Sound
+  priority: PushoverPriority;
+  sound: Sound;
 }
 
-const TRUNCATION_SUFFIX = "…[truncated]"
+const TRUNCATION_SUFFIX = "…[truncated]";
 
 const CHANNEL_CONFIG: Record<Channel, ChannelConfig> = {
   red: { priority: 2, sound: "siren" },
   green: { priority: 0, sound: "pushover" },
-}
+};
 
-const FALLBACK_CONFIG: ChannelConfig = CHANNEL_CONFIG.green
+const FALLBACK_CONFIG: ChannelConfig = CHANNEL_CONFIG.green;
 
 /**
  * Trim `content` to Pushover's per-message character limit and append a
@@ -34,14 +38,20 @@ const FALLBACK_CONFIG: ChannelConfig = CHANNEL_CONFIG.green
  */
 function truncateMessage(content: string): string {
   if (content.length <= PUSHOVER_MESSAGE_MAX_LENGTH) {
-    return content
+    return content;
   }
-  const head = content.slice(0, PUSHOVER_MESSAGE_MAX_LENGTH - TRUNCATION_SUFFIX.length)
-  return `${head}${TRUNCATION_SUFFIX}`
+  const head = content.slice(
+    0,
+    PUSHOVER_MESSAGE_MAX_LENGTH - TRUNCATION_SUFFIX.length
+  );
+  return `${head}${TRUNCATION_SUFFIX}`;
 }
 
 function configFor(channel: string): ChannelConfig {
-  return (CHANNEL_CONFIG as Record<string, ChannelConfig | undefined>)[channel] ?? FALLBACK_CONFIG
+  return (
+    (CHANNEL_CONFIG as Record<string, ChannelConfig | undefined>)[channel] ??
+    FALLBACK_CONFIG
+  );
 }
 
 /**
@@ -80,38 +90,45 @@ const pushover: Adapter = {
   name: "pushover",
   send: async (env: Env, message: Notification): Promise<boolean> => {
     if (!env.PUSHOVER_APP_TOKEN) {
-      throw new Error("PUSHOVER_APP_TOKEN is required")
+      throw new Error("PUSHOVER_APP_TOKEN is required");
     }
     if (!env.PUSHOVER_USER_TOKEN) {
-      throw new Error("PUSHOVER_USER_TOKEN is required")
+      throw new Error("PUSHOVER_USER_TOKEN is required");
     }
 
-    const config = configFor(message.channel)
+    const config = configFor(message.channel);
 
-    const client = new Pushover(env.PUSHOVER_USER_TOKEN.trim(), env.PUSHOVER_APP_TOKEN.trim())
+    const client = new Pushover(
+      env.PUSHOVER_USER_TOKEN.trim(),
+      env.PUSHOVER_APP_TOKEN.trim()
+    )
       .setTitle(message.channel)
       .setMessage(truncateMessage(message.content))
       .setSound(config.sound)
-      .setPriority(config.priority, PUSHOVER_EMERGENCY_EXPIRE_SECONDS, PUSHOVER_EMERGENCY_RETRY_SECONDS)
+      .setPriority(
+        config.priority,
+        PUSHOVER_EMERGENCY_EXPIRE_SECONDS,
+        PUSHOVER_EMERGENCY_RETRY_SECONDS
+      );
 
     try {
-      await client.send()
-      return true
+      await client.send();
+      return true;
     } catch (error) {
       if (error && typeof error === "object" && "statusCode" in error) {
         console.error({
           message: "Pushover refused the notification",
           error,
-        })
-        return false
+        });
+        return false;
       }
       console.error({
         message: "Undefined error publishing Pushover notification",
         error,
-      })
-      throw error
+      });
+      throw error;
     }
   },
-}
+};
 
-export default pushover
+export default pushover;

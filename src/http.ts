@@ -4,8 +4,8 @@
  * - `X-Message-Id` — queue message id for the notification being acknowledged.
  * - `X-Self-Token` — shared secret (`env.SELF_TOKEN`) so only our ntfy actions can call `/ack`.
  */
-const HEADER_MESSAGE_ID = "X-Message-Id"
-const HEADER_SELF_TOKEN = "X-Self-Token"
+const HEADER_MESSAGE_ID = "X-Message-Id";
+const HEADER_SELF_TOKEN = "X-Self-Token";
 
 const CORS_HEADERS: Record<string, string> = {
   "Access-Control-Allow-Origin": "*",
@@ -13,37 +13,41 @@ const CORS_HEADERS: Record<string, string> = {
   "Access-Control-Allow-Headers": "*",
   "Access-Control-Expose-Headers": "*",
   "Access-Control-Max-Age": "86400",
-}
+};
 
 function ackResponse(body: string, status: number): Response {
-  return new Response(body, { status, headers: CORS_HEADERS })
+  return new Response(body, { status, headers: CORS_HEADERS });
 }
 
 function corsPreflightResponse(): Response {
-  return new Response(null, { status: 204, headers: CORS_HEADERS })
+  return new Response(null, { status: 204, headers: CORS_HEADERS });
 }
 
-export const handleAck = (req: Request, env: Env, _ctx: ExecutionContext): Response => {
-  const { pathname } = new URL(req.url)
+export const handleAck = (
+  req: Request,
+  env: Env,
+  _ctx: ExecutionContext
+): Response => {
+  const { pathname } = new URL(req.url);
   if (pathname !== "/ack") {
-    return ackResponse("Not found", 404)
+    return ackResponse("Not found", 404);
   }
 
   if (req.method === "OPTIONS") {
-    return corsPreflightResponse()
+    return corsPreflightResponse();
   }
 
-  const messageId = req.headers.get(HEADER_MESSAGE_ID)?.trim()
-  const selfToken = req.headers.get(HEADER_SELF_TOKEN)
+  const messageId = req.headers.get(HEADER_MESSAGE_ID)?.trim();
+  const selfToken = req.headers.get(HEADER_SELF_TOKEN);
 
-  if (!messageId || !selfToken) {
+  if (!(messageId && selfToken)) {
     console.error({
       message: "ack rejected: missing headers",
       method: req.method,
       pathname,
       headers: Object.fromEntries(req.headers),
-    })
-    return ackResponse("Missing required headers", 400)
+    });
+    return ackResponse("Missing required headers", 400);
   }
 
   if (selfToken !== env.SELF_TOKEN) {
@@ -52,8 +56,8 @@ export const handleAck = (req: Request, env: Env, _ctx: ExecutionContext): Respo
       messageId,
       method: req.method,
       pathname,
-    })
-    return ackResponse("Unauthorized", 401)
+    });
+    return ackResponse("Unauthorized", 401);
   }
-  return ackResponse(`Acknowledged message ${messageId}`, 200)
-}
+  return ackResponse(`Acknowledged message ${messageId}`, 200);
+};

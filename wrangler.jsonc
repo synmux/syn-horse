@@ -2,7 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "ai": {
     "binding": "AI",
-    "remote": true,
+    "remote": true
   },
   "compatibility_date": "2026-05-13",
   "compatibility_flags": ["nodejs_compat"],
@@ -11,53 +11,58 @@
       "binding": "DB",
       "database_id": "76e3c568-b166-42a0-be1d-d1b15d579c31",
       "database_name": "syn-horse-notifications",
-      "preview_database_id": "9a527b97-8c60-46d2-a735-4605a6ad20c3",
-    },
+      "preview_database_id": "9a527b97-8c60-46d2-a735-4605a6ad20c3"
+    }
   ],
   "kv_namespaces": [
     {
       "binding": "KV",
       "id": "3fa198f1477f456c8d27eb9a72562a4b",
-      "preview_id": "1701a7bbd513472c951f323673c0d0ba",
-    },
+      "preview_id": "1701a7bbd513472c951f323673c0d0ba"
+    }
   ],
   "main": "src/index.ts",
   "name": "syn-horse-notifications",
   "observability": {
     "enabled": true,
     "logs": {
-      "enabled": true,
+      "enabled": true
     },
     "traces": {
-      "enabled": true,
-    },
+      "enabled": true
+    }
   },
   "placement": {
-    "mode": "smart",
+    "mode": "smart"
   },
   "preview_urls": false,
   "queues": {
     "consumers": [
       {
-        "queue": "syn-horse-notifications",
-      },
+        "queue": "syn-horse-notifications"
+      }
     ],
-    "producers": [],
+    "producers": []
   },
   "secrets": {
-    "required": ["NTFY_TOKEN", "SELF_TOKEN", "PUSHOVER_APP_TOKEN", "PUSHOVER_USER_TOKEN"],
+    "required": [
+      "NTFY_TOKEN",
+      "SELF_TOKEN",
+      "PUSHOVER_APP_TOKEN",
+      "PUSHOVER_USER_TOKEN"
+    ]
   },
   "send_email": [
     {
       "destination_address": "syn@syn.as",
       "name": "EMAIL",
-      "remote": true,
-    },
+      "remote": true
+    }
   ],
   "upload_source_maps": true,
   "vars": {
     "NTFY_SERVER": "https://ntfy.sh",
-    "NTFY_TOPIC": "syn-horse",
+    "NTFY_TOPIC": "syn-horse"
   },
-  "workers_dev": true,
+  "workers_dev": true
 }

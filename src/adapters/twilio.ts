@@ -1,4 +1,4 @@
-import { Adapter, Notification } from "../types.ts"
+import type { Adapter, Notification } from "../types.ts";
 
 /**
  * Twilio adapter.
@@ -11,9 +11,7 @@ import { Adapter, Notification } from "../types.ts"
  */
 const twilio: Adapter = {
   name: "twilio",
-  send: async (_env: Env, _message: Notification): Promise<boolean> => {
-    return true
-  },
-}
+  send: async (_env: Env, _message: Notification): Promise<boolean> => true,
+};
 
-export default twilio
+export default twilio;

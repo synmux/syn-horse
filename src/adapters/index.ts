@@ -1,8 +1,9 @@
-import { Adapter } from "../types.ts"
-import email from "./email.ts"
-import ntfy from "./ntfy.ts"
-import pushover from "./pushover.ts"
-import stub from "./stub.ts"
+import type { Adapter } from "../types.ts";
+import email from "./email.ts";
+import ntfy from "./ntfy.ts";
+import pushover from "./pushover.ts";
+import stub from "./stub.ts";
+import twilio from "./twilio.ts";
 
 /**
  * Look up a notification {@link Adapter} by name.
@@ -20,16 +21,18 @@ import stub from "./stub.ts"
 const getAdapter = (name: string): Adapter => {
   switch (name) {
     case "email":
-      return email
+      return email;
     case "ntfy":
-      return ntfy
+      return ntfy;
     case "pushover":
-      return pushover
+      return pushover;
     case "stub":
-      return stub
+      return stub;
+    case "twilio":
+      return twilio;
     default:
-      throw new Error(`Unknown adapter: ${name}`)
+      throw new Error(`Unknown adapter: ${name}`);
   }
-}
+};
 
-export default getAdapter
+export default getAdapter;

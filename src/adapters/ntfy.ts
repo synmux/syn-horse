@@ -1,8 +1,8 @@
-import type { Config } from "ntfy"
-import { MessagePriority, publish } from "ntfy"
-import type { Adapter, Notification } from "../types.ts"
+import type { Config } from "ntfy";
+import { MessagePriority, publish } from "ntfy";
+import type { Adapter, Notification } from "../types.ts";
 
-const DEFAULT_NTFY_INSTANCE = "https://ntfy.sh"
+const DEFAULT_NTFY_INSTANCE = "https://ntfy.sh";
 
 /**
  * Resolve the ntfy topic for a notification.
@@ -13,10 +13,12 @@ const DEFAULT_NTFY_INSTANCE = "https://ntfy.sh"
  */
 function resolveTopic(env: Env, channel: string): string {
   if (!env.NTFY_TOPIC) {
-    throw new Error("NTFY_TOPIC is required")
+    throw new Error("NTFY_TOPIC is required");
   }
-  const configuredTopic = env.NTFY_TOPIC.trim()
-  return configuredTopic && configuredTopic.length > 0 ? configuredTopic : channel
+  const configuredTopic = env.NTFY_TOPIC.trim();
+  return configuredTopic && configuredTopic.length > 0
+    ? configuredTopic
+    : channel;
 }
 
 /**
@@ -39,11 +41,11 @@ const ntfy: Adapter = {
   name: "ntfy",
   send: async (env: Env, message: Notification): Promise<boolean> => {
     if (!env.NTFY_TOKEN) {
-      throw new Error("NTFY_TOKEN is required")
+      throw new Error("NTFY_TOKEN is required");
     }
 
-    const server = env.NTFY_SERVER?.trim() || DEFAULT_NTFY_INSTANCE
-    const token = env.NTFY_TOKEN.trim()
+    const server = env.NTFY_SERVER?.trim() || DEFAULT_NTFY_INSTANCE;
+    const token = env.NTFY_TOKEN.trim();
 
     try {
       const publishable: Config = {
@@ -51,7 +53,10 @@ const ntfy: Adapter = {
         topic: resolveTopic(env, message.channel),
         server,
         ...(token ? { authorization: token } : {}),
-        priority: message.channel === "red" ? MessagePriority.MAX : MessagePriority.DEFAULT,
+        priority:
+          message.channel === "red"
+            ? MessagePriority.MAX
+            : MessagePriority.DEFAULT,
         tags: [message.channel],
         title: message.channel,
         actions: [
@@ -66,27 +71,29 @@ const ntfy: Adapter = {
             clear: true,
           },
         ],
-      }
+      };
       if (await publish(publishable)) {
-        return true
-      } else {
-        return false
+        return true;
       }
+      return false;
     } catch (error) {
-      if (error instanceof Error && error.message.startsWith("Error while publishing message:")) {
+      if (
+        error instanceof Error &&
+        error.message.startsWith("Error while publishing message:")
+      ) {
         console.error({
           message: "Error while publishing message",
           error,
-        })
-        return false
+        });
+        return false;
       }
       console.error({
         message: "Undefined error publishing notification",
         error,
-      })
-      throw error
+      });
+      throw error;
     }
   },
-}
+};
 
-export default ntfy
+export default ntfy;
