@@ -56,11 +56,6 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
-  eslint: {
-    checker: {
-      eslintPath: "eslint",
-    },
-  },
   experimental: {
     componentIslands: true,
     inlineRouteRules: true,
@@ -148,7 +143,6 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@nuxt/image",
     "@nuxt/fonts",
-    "@nuxt/eslint",
     "@nuxt/scripts",
     "nuxt-security",
     "nuxt-gtag",
