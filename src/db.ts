@@ -21,7 +21,7 @@ export type RateLimitViolation =
 export type AiDecision = "accept" | "drop";
 
 /** Reason recorded alongside an {@link AiDecision}. */
-export type AiViolation = "none" | "fun" | "nonsense" | "spam";
+export type AiViolation = "none" | "fun" | "nonsense" | "spam" | "default";
 
 /** Terminal disposition of a message after all pipeline stages have run. */
 export type Result = "dropped" | "delivered" | "failed";

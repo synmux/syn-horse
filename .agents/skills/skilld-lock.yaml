@@ -1,11 +1,11 @@
 skills:
   ntfy-skilld:
     packageName: ntfy
-    version: 1.15.2
-    packages: "ntfy@1.15.2"
+    version: 1.15.3
+    packages: "ntfy@1.15.3"
     repo: ffflorian/node-packages
     source: "ungh://ffflorian/node-packages"
-    syncedAt: 2026-05-27
+    syncedAt: 2026-05-29
     generator: skilld
   zod-skilld:
     packageName: zod
@@ -56,11 +56,11 @@ skills:
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.153
-    packages: "@anthropic-ai/claude-code@2.1.153"
+    version: 2.1.157
+    packages: "@anthropic-ai/claude-code@2.1.157"
     repo: Exhen/claude-code-2.1.88
     source: "ungh://Exhen/claude-code-2.1.88"
-    syncedAt: 2026-05-28
+    syncedAt: 2026-05-29
     generator: skilld
   skilld-skilld:
     packageName: skilld
@@ -112,9 +112,10 @@ skills:
     generator: skilld
   biomejs-biome-skilld:
     packageName: "@biomejs/biome"
-    version: 2.4.15
+    version: 2.4.16
+    packages: "@biomejs/biome@2.4.16"
     repo: biomejs/biome
-    source: "https://github.com/biomejs/biome/tree/@biomejs/biome@2.4.15/docs"
+    source: "https://raw.githubusercontent.com/biomejs/biome/@biomejs/biome@2.4.16/packages/@biomejs/biome/README.md"
     syncedAt: 2026-05-29
     generator: skilld
   ultracite-skilld:
