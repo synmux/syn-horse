@@ -209,11 +209,11 @@ skills:
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.154
-    packages: "@anthropic-ai/claude-code@2.1.154"
+    version: 2.1.156
+    packages: "@anthropic-ai/claude-code@2.1.156"
     repo: Exhen/claude-code-2.1.88
     source: "ungh://Exhen/claude-code-2.1.88"
-    syncedAt: 2026-05-28
+    syncedAt: 2026-05-29
     generator: skilld
   catppuccin-daisyui-skilld:
     packageName: "@catppuccin/daisyui"

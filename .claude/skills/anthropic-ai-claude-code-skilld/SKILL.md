@@ -1,15 +1,14 @@
 ---
 name: anthropic-ai-claude-code-skilld
-description: 'ALWAYS use when writing code importing "@anthropic-ai/claude-code". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88.'
+description: "ALWAYS use when writing code importing \"@anthropic-ai/claude-code\". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88."
 metadata:
-  version: 2.1.154
+  version: 2.1.156
   generated_by: Google · Gemini 2.5 Flash
-  generated_at: 2026-05-28
+  generated_at: 2026-05-29
 ---
 
-# Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.154`
-
-**Tags:** stable: 2.1.145, latest: 2.1.154, next: 2.1.154
+# Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.156`
+**Tags:** stable: 2.1.145, latest: 2.1.156, next: 2.1.157
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md)
 
@@ -18,41 +17,41 @@ metadata:
 Use `skilld search "query" -p @anthropic-ai/claude-code` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @anthropic-ai/claude-code` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
-
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
 
-- DEPRECATED: `interface TaskStopInput.shell_id` — use `task_id` instead [source](./.skilld/pkg/sdk-tools.d.ts:L523-541)
+- DEPRECATED: `TaskStopInput.shell_id` — use `task_id` instead [source](./.skilld/pkg/sdk-tools.d.ts:L529)
+
+(No further verifiable API changes from version history or release notes were found in the local `./.skilld/` reference set for `@anthropic-ai/claude-code@2.1.153` that could be cited with source links.)
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
-
 ## Best Practices
 
-- Use concise (3-5 word) descriptions for `AgentInput.description` to clearly define the agent's task without verbosity [source](./.skilld/pkg/sdk-tools.d.ts:L157)
+- Provide a concise (3-5 word) `description` for agent tasks to ensure clarity and proper agent functioning [source](./.skilld/pkg/sdk-tools.d.ts:L307-309)
 
-- Provide clear, specific questions in `AskUserQuestionInput.question` that end with a question mark for unambiguous user interaction [source](./.skilld/pkg/sdk-tools.d.ts:L634)
+- Clearly define the `prompt` for agent tasks, as a well-defined prompt is essential for successful agent execution [source](./.skilld/pkg/sdk-tools.d.ts:L311-313)
 
-- Limit `AskUserQuestionInput.questions` to 1-4 items and provide 2-4 distinct, mutually exclusive options per question to simplify user choices [source](./.skilld/pkg/sdk-tools.d.ts:L631)
+- Utilize `subagent_type` to specify specialized agents for optimal performance or specific task handling [source](./.skilld/pkg/sdk-tools.d.ts:L315-317)
 
-- Craft `AskUserQuestionInput.header` as a very short label (max 12 chars) for display as a concise chip or tag [source](./.skilld/pkg/sdk-tools.d.ts:L639)
+- Override agent `model` judiciously (e.g., "sonnet", "opus", "haiku") to select the appropriate model for the task's complexity and speed requirements [source](./.skilld/pkg/sdk-tools.d.ts:L319-322)
 
-- Use `AskUserQuestionInput.multiSelect` when choices are not mutually exclusive, allowing users to select multiple options [source](./.skilld/pkg/sdk-tools.d.ts:L2180)
+- Use `run_in_background: true` for long-running agent tasks to keep the main process responsive [source](./.skilld/pkg/sdk-tools.d.ts:L324-326)
 
-- Employ `FileReadInput.offset` and `FileReadInput.limit` when reading large files to manage content size and avoid truncation by token caps [source](./.skilld/pkg/sdk-tools.d.ts:L316)
+- Assign a `name` to agents for addressability, enabling inter-agent communication or management of multiple agents [source](./.skilld/pkg/sdk-tools.d.ts:L328-330)
 
-- Specify `FileReadInput.pages` for PDF files to limit processing to relevant page ranges, improving efficiency and relevance [source](./.skilld/pkg/sdk-tools.d.ts:L326)
+- Explicitly specify `team_name` for agents operating within a specific team's context to avoid ambiguity [source](./.skilld/pkg/sdk-tools.d.ts:L332-334)
 
-- Omit `GlobInput.path` to use the default working directory for glob searches; avoid explicit `undefined` or `null` values [source](./.skilld/pkg/sdk-tools.d.ts:L356)
+- Choose the appropriate `mode` (e.g., "acceptEdits", "auto", "plan") for agent permissions to control behavior and interaction with the user or system [source](./.skilld/pkg/sdk-tools.d.ts:L336-338)
 
-- Control grep output size with `GrepInput.head_limit`, using `0` for unlimited results only when necessary to prevent excessive context waste [source](./.skilld/pkg/sdk-tools.d.ts:L446)
+- Utilize `isolation: "worktree"` for agent tasks to create a temporary git worktree, preventing unintended side effects or conflicts [source](./.skilld/pkg/sdk-tools.d.ts:L340-342)
 
-- Use `BashInput.timeout` to prevent long-running shell commands from blocking the agent indefinitely (max 600000ms) [source](./.skilld/pkg/sdk-tools.d.ts:L178)
+- Provide a clear, concise `description` for Bash commands, especially for complex or piped commands, to improve readability and safety [source](./.skilld/pkg/sdk-tools.d.ts:L350-366)
 
-- Provide a clear, concise `BashInput.description` in active voice, avoiding words like "complex" or "risk," to explain command purpose [source](./.skilld/pkg/sdk-tools.d.ts:L183)
+- Set a `timeout` (max 600000ms) for potentially long-running Bash commands to prevent indefinite hanging [source](./.skilld/pkg/sdk-tools.d.ts:L347-349)
 
-- Leverage `CronCreateInput.recurring=false` for one-shot scheduled tasks that should auto-delete after the next match, like reminders [source](./.skilld/pkg/sdk-tools.d.ts:L2453)
+- Use `run_in_background: true` for long-running Bash commands to ensure non-blocking execution [source](./.skilld/pkg/sdk-tools.d.ts:L368-370)
 
-- Only set `CronCreateInput.durable=true` when the scheduled task explicitly needs to persist across Claude Code sessions [source](./.skilld/pkg/sdk-tools.d.ts:L2458)
+- Ensure `new_string` is different from `old_string` when performing file edits to avoid redundant or identity-preserving modifications [source](./.skilld/pkg/sdk-tools.d.ts:L430-432)
 <!-- /skilld:best-practices -->
