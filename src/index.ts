@@ -31,7 +31,8 @@ const STOP = "stop";
 export default {
   // http for message acks
   async fetch(req, env, ctx): Promise<Response> {
-    return handleAck(req, env, ctx);
+    const res = await handleAck(req, env, ctx);
+    return res;
   },
 
   // queue logic

@@ -111,6 +111,8 @@ function mapLabelToVerdict(label: ModerationResult["label"]): {
     case "nonsense":
     case "spam":
       return { decision: "drop", violation: label };
+    default:
+      return { decision: "accept", violation: "none" };
   }
 }
 
