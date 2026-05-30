@@ -11,8 +11,8 @@
 <template>
   <div class="void-page">
     <NuxtImg
-      src="/images/eyes.webp"
-      alt="eyes in the dark"
+      src="/images/void.webp"
+      alt="eyes. in the dark."
       class="void-image"
     />
     <button type="button" class="void-back" @click="goBack">← back</button>

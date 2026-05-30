@@ -106,8 +106,11 @@
       <a href="/feed.xml" class="dotted-link">rss</a>
     </div>
     <div class="footer-note">
-      <span>◆ syn · 2026 · built in the void</span>
-      <span>no analytics · no newsletter · no we</span>
+      <span
+        >◆ syn · 2026 · built in the
+        <NuxtLink to="/void" class="dotted-link">void</NuxtLink>
+      </span>
+      <span>no bullshit · no 'we'</span>
     </div>
   </div>
 </template>
