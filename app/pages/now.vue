@@ -8,7 +8,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="relative mx-auto max-w-[920px] px-8 pt-14 pb-20">
+  <div class="relative mx-auto max-w-[920px] px-5 pt-10 pb-20 md:px-8 md:pt-14">
     <div class="eyebrow">▶ /now · updated 2026.04.20</div>
     <h1 class="page-h1">now<span class="dot">.</span></h1>
     <p class="lede max-w-[600px]">
