@@ -27,7 +27,7 @@ const activeId = computed(() => {
 
 <template>
   <nav
-    class="nav sticky top-8 z-[99] flex items-center gap-4.5 border-b border-void-4 bg-void/70 px-8 py-3.5 font-sans text-[13px] backdrop-blur-md"
+    class="nav sticky top-8 z-[99] flex flex-wrap items-center gap-x-4 gap-y-1.5 border-b border-void-4 bg-void/70 px-4 py-3 font-sans text-[13px] backdrop-blur-md md:flex-nowrap md:gap-4.5 md:px-8 md:py-3.5"
   >
     <NuxtLink to="/" class="fx-glitch flex cursor-pointer items-center gap-2.5">
       <img class="h-7 w-7 [image-rendering:pixelated]" src="/assets/logo-mark.svg" alt="" />
@@ -48,7 +48,7 @@ const activeId = computed(() => {
       <span v-if="activeId === t.id" class="align-[1px] text-[10px] text-hot">◆ </span>{{ t.label }}
     </NuxtLink>
     <button
-      class="border border-void-4 bg-void-2 px-1.75 py-0.75 font-mono text-[10px] tracking-[0.08em] text-paper-3"
+      class="hidden border border-void-4 bg-void-2 px-1.75 py-0.75 font-mono text-[10px] tracking-[0.08em] text-paper-3 md:inline-block"
       type="button"
       @click="palette.show('/')"
     >

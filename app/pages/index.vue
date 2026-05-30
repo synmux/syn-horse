@@ -12,10 +12,10 @@ const { data: blogCount } = await useAsyncData(
 </script>
 
 <template>
-  <div class="relative mx-auto max-w-[920px] px-8 pt-14 pb-20">
+  <div class="relative mx-auto max-w-[920px] px-5 pt-10 pb-20 md:px-8 md:pt-14">
     <div class="eyebrow">▶ syn · they/them · non-binary</div>
-    <div class="grid grid-cols-[1fr_auto] items-stretch gap-6">
-      <h1 class="pb-3.5 font-display text-[128px] leading-[1.05] text-paper">
+    <div class="grid grid-cols-1 items-stretch gap-6 md:grid-cols-[1fr_auto]">
+      <h1 class="pb-3.5 font-display text-[clamp(64px,18vw,128px)] leading-[1.05] text-paper">
         devops<br />and bad<br />ideas<span class="text-hot">.</span>
       </h1>
       <NuxtImg
@@ -23,7 +23,7 @@ const { data: blogCount } = await useAsyncData(
         alt="a portrait of syn"
         width="420"
         height="420"
-        class="aspect-square self-stretch h-full object-cover"
+        class="aspect-square self-stretch h-full object-cover max-md:order-first max-md:mx-auto max-md:h-48 max-md:w-48"
       />
     </div>
     <p class="mt-4.5 max-w-[620px] text-[19px] leading-[1.55] text-paper-2">
@@ -36,7 +36,7 @@ const { data: blogCount } = await useAsyncData(
         <b class="font-bold text-paper">NOW:</b> {{ SITE.status }}
       </span>
     </div>
-    <div class="mt-12 grid grid-cols-2 gap-3.5">
+    <div class="mt-12 grid grid-cols-1 gap-3.5 md:grid-cols-2">
       <NuxtLink to="/now" class="home-card fx-glitch">
         <div class="home-card-head">/ now</div>
         <h3 class="home-card-title">this month</h3>
