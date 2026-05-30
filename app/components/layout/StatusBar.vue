@@ -41,7 +41,7 @@ const slug = computed(() => {
 
 <template>
   <div
-    class="statusbar sticky top-0 z-[100] grid h-8 grid-cols-[auto_1fr_auto_auto_auto_auto_auto] items-center gap-4 border-b border-void-4 bg-void/85 px-4.5 py-1.5 font-mono text-[11px] tracking-[0.08em] uppercase text-paper-3 backdrop-blur-md"
+    class="statusbar sticky top-0 z-[100] flex h-8 items-center justify-between gap-3 overflow-hidden border-b border-void-4 bg-void/85 px-4.5 py-1.5 font-mono text-[11px] tracking-[0.08em] uppercase text-paper-3 backdrop-blur-md md:grid md:grid-cols-[auto_1fr_auto_auto_auto_auto_auto] md:justify-normal md:gap-4"
   >
     <span>
       light status:
@@ -54,7 +54,7 @@ const slug = computed(() => {
         >◆ <span class="text-hot">/{{ slug }}</span></span
       >
     </span>
-    <span>
+    <span class="hidden md:block">
       build
       <ClientOnly>
         <span class="text-cool tabular-nums">{{ buildAge }}</span>
@@ -63,7 +63,7 @@ const slug = computed(() => {
         </template>
       </ClientOnly>
     </span>
-    <span>
+    <span class="hidden md:block">
       jfk
       <ClientOnly>
         <span class="text-paper-2 tabular-nums">{{ jfk }}</span>
@@ -72,7 +72,7 @@ const slug = computed(() => {
         </template>
       </ClientOnly>
     </span>
-    <span>
+    <span class="hidden md:block">
       utc
       <ClientOnly>
         <span class="text-paper-2 tabular-nums">{{ utc }}</span>
@@ -81,7 +81,7 @@ const slug = computed(() => {
         </template>
       </ClientOnly>
     </span>
-    <span>
+    <span class="hidden md:block">
       lhr
       <ClientOnly>
         <span class="text-paper-2 tabular-nums">{{ lhr }}</span>
@@ -90,7 +90,7 @@ const slug = computed(() => {
         </template>
       </ClientOnly>
     </span>
-    <span>
+    <span class="hidden md:block">
       <a :href="commitUrl" target="_blank" rel="noopener" class="text-paper-2 tabular-nums hover:text-cool">{{
         commitHash
       }}</a>

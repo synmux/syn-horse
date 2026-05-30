@@ -27,13 +27,13 @@ const TLD_COLOUR: Record<DomainCls, string> = {
       <div
         v-for="d in DOMAINS"
         :key="d.tld"
-        class="grid grid-cols-[1fr_2fr_auto] items-center gap-6 border-b border-void-4 py-5.5"
+        class="grid grid-cols-1 items-center gap-2 border-b border-void-4 py-5.5 md:grid-cols-[1fr_2fr_auto] md:gap-6"
       >
-        <div class="font-display text-[56px] leading-none text-paper">
+        <div class="font-display text-[clamp(40px,11vw,56px)] leading-none text-paper">
           {{ d.base }}<span class="text-paper-3">.</span><span :class="TLD_COLOUR[d.cls]">{{ d.tld }}</span>
         </div>
         <div class="max-w-[520px] font-sans text-[14px] leading-[1.55] text-paper-2">{{ d.desc }}</div>
-        <div class="text-right font-mono text-[11px] tracking-[0.12em] uppercase text-paper-3">
+        <div class="font-mono text-[11px] tracking-[0.12em] uppercase text-paper-3 md:text-right">
           <span v-if="d.status === 'ok'" class="text-ok">● {{ d.statusText }}</span>
           <span v-else-if="d.status === 'warn'" class="text-pop">● {{ d.statusText }}</span>
           <span v-else-if="d.status === 'park'" class="text-paper-3">○ {{ d.statusText }}</span>

@@ -1175,6 +1175,99 @@
     gap: 12px;
     flex-wrap: wrap;
   }
+
+  /* ---- mobile / narrow viewports --------------------------------------
+     The layout is authored desktop-first: fixed multi-column grids, the
+     112px display headline, 280px 404 numerals and generous gutters all
+     overflow a phone. These overrides collapse the grids to a single
+     column, shrink the oversized display type with clamp() so it scales
+     with the viewport, and tighten the page gutters. The 767.98px ceiling
+     sits one hairline below Tailwind's `md` breakpoint (min-width: 768px)
+     so the two never both match at exactly 768px — same fractional trick
+     Tailwind's own `max-md:` variant uses. Kept inside @layer components
+     so it composes with the component
+     classes above by source order (later wins) rather than fighting
+     specificity. */
+  @media (max-width: 767.98px) {
+    /* shell + headings */
+    .page-shell {
+      padding: 48px 20px 96px;
+    }
+    .page-h1,
+    .generic-error h1 {
+      font-size: clamp(56px, 15vw, 112px);
+      line-height: 0.94;
+    }
+    .page-h2 {
+      font-size: 34px;
+    }
+    .post-h1 {
+      font-size: clamp(40px, 12vw, 56px);
+    }
+    .cv-h2 {
+      font-size: 36px;
+    }
+    .post-body h2 {
+      font-size: 36px;
+    }
+
+    /* now — diamond lists already stack; nothing extra needed */
+
+    /* projects — two-up grid collapses; year / title / body / url stack */
+    .proj-grid {
+      grid-template-columns: 1fr;
+    }
+    .proj {
+      padding: 20px;
+    }
+    .proj-title {
+      font-size: 30px;
+      padding-right: 70px;
+    }
+
+    /* blog index — date / title / read stack */
+    .blog-row {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+    .blog-row .read {
+      white-space: normal;
+    }
+
+    /* cv — role meta sits above the body, talks single column */
+    .cv-role {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .cv-talk {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+    .cv-talk .venue {
+      text-align: left;
+    }
+
+    /* panic — the BIG RED BUTTON scales down to fit */
+    .panic-btn {
+      padding: 24px 20px;
+      font-size: clamp(30px, 9vw, 40px);
+    }
+
+    /* 404 — 280px numerals are far wider than a phone */
+    .notfound {
+      padding: 56px 20px;
+    }
+    .notfound .big {
+      font-size: clamp(96px, 38vw, 200px);
+    }
+    .notfound .yell {
+      font-size: 40px;
+    }
+    .notfound .actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
 }
 
 /* =====================================================================
