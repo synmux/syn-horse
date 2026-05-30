@@ -1181,19 +1181,21 @@
      112px display headline, 280px 404 numerals and generous gutters all
      overflow a phone. These overrides collapse the grids to a single
      column, shrink the oversized display type with clamp() so it scales
-     with the viewport, and tighten the page gutters. 768px matches
-     Tailwind's `md` breakpoint, which is what StatusBar / NavBar switch
-     on. Kept inside @layer components so it composes with the component
+     with the viewport, and tighten the page gutters. The 767.98px ceiling
+     sits one hairline below Tailwind's `md` breakpoint (min-width: 768px)
+     so the two never both match at exactly 768px — same fractional trick
+     Tailwind's own `max-md:` variant uses. Kept inside @layer components
+     so it composes with the component
      classes above by source order (later wins) rather than fighting
      specificity. */
-  @media (max-width: 768px) {
+  @media (max-width: 767.98px) {
     /* shell + headings */
     .page-shell {
       padding: 48px 20px 96px;
     }
     .page-h1,
     .generic-error h1 {
-      font-size: clamp(56px, 18vw, 88px);
+      font-size: clamp(56px, 15vw, 112px);
       line-height: 0.94;
     }
     .page-h2 {

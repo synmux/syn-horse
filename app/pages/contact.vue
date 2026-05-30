@@ -10,7 +10,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="relative mx-auto max-w-[920px] px-5 pt-10 pb-20 md:px-8 md:pt-14">
+  <div class="page-shell">
     <div class="eyebrow">▶ /contact · email is open · so are dms, mostly</div>
     <h1 class="page-h1">say hi<span class="dot">.</span></h1>
     <p class="lede">
