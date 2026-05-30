@@ -99,9 +99,13 @@
       </ClientOnly>
     </span>
     <span class="hidden md:block">
-      <a :href="commitUrl" target="_blank" rel="noopener" class="text-paper-2 tabular-nums hover:text-cool">{{
-        commitHash
-      }}</a>
+      <a
+        :href="commitUrl"
+        target="_blank"
+        rel="noopener"
+        class="text-paper-2 tabular-nums hover:text-cool"
+        >{{ commitHash }}</a
+      >
     </span>
   </div>
 </template>

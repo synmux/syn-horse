@@ -253,10 +253,11 @@ skills:
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.157
+    version: 2.1.158
+    packages: "@anthropic-ai/claude-code@2.1.158"
     repo: Exhen/claude-code-2.1.88
     source: "ungh://Exhen/claude-code-2.1.88"
-    syncedAt: 2026-05-29
+    syncedAt: 2026-05-30
     generator: skilld
   drizzle-orm-skilld:
     packageName: drizzle-orm

@@ -17,8 +17,10 @@
   <div class="relative mx-auto max-w-[920px] px-5 pt-10 pb-20 md:px-8 md:pt-14">
     <div class="eyebrow">▶ syn · they/them · non-binary</div>
     <div class="grid grid-cols-1 items-stretch gap-6 md:grid-cols-[1fr_auto]">
-      <h1 class="pb-3.5 font-display text-[clamp(64px,18vw,128px)] leading-[1.05] text-paper">
-        devops<br />and bad<br />ideas<span class="text-hot">.</span>
+      <h1
+        class="pb-3.5 font-display text-[clamp(64px,18vw,128px)] leading-[1.05] text-paper"
+      >
+        devops<br>and bad<br>ideas<span class="text-hot">.</span>
       </h1>
       <NuxtImg
         src="/images/self/self-small-transbg.webp"
