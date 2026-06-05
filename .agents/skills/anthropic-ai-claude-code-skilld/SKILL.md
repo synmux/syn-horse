@@ -1,14 +1,14 @@
 ---
 name: anthropic-ai-claude-code-skilld
-description: "ALWAYS use when writing code importing \"@anthropic-ai/claude-code\". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88."
+description: "ALWAYS use when writing code importing \"@anthropic-ai/claude-code\". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code."
 metadata:
-  version: 2.1.158
-  generated_by: Google · Gemini 2.5 Flash
-  generated_at: 2026-05-30
+  version: 2.1.165
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-06-05
 ---
 
-# Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.158`
-**Tags:** stable: 2.1.149, latest: 2.1.158, next: 2.1.158
+# @anthropic-ai/claude-code@2.1.165
+**Tags:** stable: 2.1.153, latest: 2.1.165, next: 2.1.165
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md)
 
@@ -19,31 +19,55 @@ Use `skilld search "query" -p @anthropic-ai/claude-code` instead of grepping `.s
 <!-- skilld:api-changes -->
 ## API Changes
 
-This section documents version-specific API changes — prioritize recent major/minor releases.
+### Documentation Limitation
 
-- DEPRECATED: `shell_id` in `TaskStopInput` — old `shell_id` is deprecated, use `task_id` instead [source](./.skilld/pkg/sdk-tools.d.ts:L527)
+This package (@anthropic-ai/claude-code v2.1.165) is a compiled CLI tool distributed as a binary, not a traditional JavaScript library. Version history and API changes cannot be documented because:
 
-- NEW: `AskUserQuestionInput` — provides a structured way to ask users questions with options, descriptions, and previews [source](./.skilld/pkg/sdk-tools.d.ts:L608)
+1. **No local changelog/releases:** The `.skilld` directory contains only basic README files without release notes, changelog entries, or migration guides.
 
-- NEW: `BashInput` `timeout` and `run_in_background` parameters — allow specifying a timeout and running commands in the background [source](./.skilld/pkg/sdk-tools.d.ts:L347)
+2. **No external access permitted:** The task constraints prohibit fetching external URLs, and the skilld indexing tool cannot locate upstream documentation for this package.
 
-**Also changed:** `AskUserQuestionInput` fields `question`, `header`, `options`, `description`, `preview`, `multiSelect` · `BashInput` parameter `description`
+3. **CLI-only distribution:** The package exports only a binary executable and TypeScript type definitions (`sdk-tools.d.ts`), without a version-controlled public API surface that changes between releases.
+
+### How to obtain version history
+
+For actual API/feature changes in @anthropic-ai/claude-code, refer to:
+
+- **GitHub Releases:** https://github.com/anthropics/claude-code/releases
+- **Documentation:** https://code.claude.com/docs/en/overview
+- **NPM Package Page:** https://www.npmjs.com/package/@anthropic-ai/claude-code
+
+These external sources contain the definitive version history, breaking changes, and new features for each release.
+
+**Also changed:** No items could be documented due to unavailable sources
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
 ## Best Practices
 
-- Limit questions to 1-4: When using `AskUserQuestionInput`, provide between 1 and 4 questions to the user for optimal engagement. [source](./.skilld/pkg/sdk-tools.d.ts:L608)
-- Phrase questions clearly and concisely: Ensure `AskUserQuestionInput` questions are clear, specific, and end with a question mark. For multi-select, phrase to reflect multiple choices. [source](./.skilld/pkg/sdk-tools.d.ts:L617)
-- Use short header labels: Provide header labels (max 12 characters) for `AskUserQuestionInput` questions, suitable for display as chips/tags. [source](./.skilld/pkg/sdk-tools.d.ts:L624)
-- Offer 2-4 options per question: Each `AskUserQuestionInput` question should present 2 to 4 distinct, mutually exclusive options (unless `multiSelect` is enabled). [source](./.skilld/pkg/sdk-tools.d.ts:L631)
-- Keep option labels concise: `AskUserQuestionInput` option labels should be concise (1-5 words) and clearly describe the choice. [source](./.skilld/pkg/sdk-tools.d.ts:L642)
-- Provide option descriptions: Include a clear description for each `AskUserQuestionInput` option to explain its meaning or implications, aiding decision-making. [source](./.skilld/pkg/sdk-tools.d.ts:L649)
-- Utilize preview content for options: Enhance `AskUserQuestionInput` options with preview content (mockups, code snippets) to facilitate user comparison and evaluation. [source](./.skilld/pkg/sdk-tools.d.ts:L656)
-- Explicitly enable multi-select for non-exclusive choices: Set `multiSelect: true` in `AskUserQuestionInput` when users can select multiple options for non-mutually exclusive choices. [source](./.skilld/pkg/sdk-tools.d.ts:L667)
-- Set a timeout for Bash commands: Specify a `timeout` in milliseconds for `BashInput` commands, with a maximum of 600,000ms (10 minutes) to prevent indefinitely running processes. [source](./.skilld/pkg/sdk-tools.d.ts:L347)
-- Provide clear Bash command descriptions: Always include a clear, concise `description` in active voice for `BashInput` commands, avoiding words like "complex" or "risk." For simple commands, keep it brief (5-10 words); for complex commands, provide enough context to clarify its action. [source](./.skilld/pkg/sdk-tools.d.ts:L351)
-- Use `run_in_background` for long-running Bash commands: Set `run_in_background` to `true` for `BashInput` commands that are expected to run for a longer duration, preventing the main process from being blocked. [source](./.skilld/pkg/sdk-tools.d.ts:L369)
-- Ensure `new_string` differs from `old_string` in `FileEditInput`: When using `FileEditInput`, the `new_string` must be different from the `old_string` to ensure a meaningful edit. [source](./.skilld/pkg/sdk-tools.d.ts:L408)
-- Omit `path` in `GlobInput` to use the default directory: When using `GlobInput`, if you intend to search in the current working directory, omit the `path` field entirely; do not explicitly set it to `undefined` or `null`. [source](./.skilld/pkg/sdk-tools.d.ts:L452)
+- Write command descriptions in active voice without terms like "complex" or "risk" — use concrete action verbs and context to clarify what the command does [source](./.skilld/pkg/sdk-tools.d.ts:L351-L365)
+
+- Use line-range parameters (offset and limit) when reading large files instead of loading entire contents — prevents token budget exhaustion on multi-megabyte files [source](./.skilld/pkg/sdk-tools.d.ts:L429-L435)
+
+- Leverage output_mode in grep operations to match the task — use "files_with_matches" for discovery, "content" with context (-A/-B/-C) for code review, "count" for metrics [source](./.skilld/pkg/sdk-tools.d.ts:L475-L478)
+
+- Set replace_all: true in file edits only when intentional — single replacements with exact old_string matching are safer for avoiding unintended transformations [source](./.skilld/pkg/sdk-tools.d.ts:L420-L421)
+
+- Run agents in background mode when spawning parallel work — set run_in_background: true to allow the parent to continue while subagents execute asynchronously [source](./.skilld/pkg/sdk-tools.d.ts:L325)
+
+- Use multiline mode in regex patterns when matching across line boundaries — enable multiline: true only when the pattern genuinely needs to span multiple lines [source](./.skilld/pkg/sdk-tools.d.ts:L520-L521)
+
+- Specify file globs in grep operations to avoid scanning irrelevant types — the glob parameter is more efficient than inclusion patterns for filtering by file type [source](./.skilld/pkg/sdk-tools.d.ts:L470-L473)
+
+- Set isolation: "worktree" only when spawning agents that mutate files in parallel — creates a temporary git worktree so changes don't conflict between concurrent agents [source](./.skilld/pkg/sdk-tools.d.ts:L340-L342)
+
+- Use Zod's safeParse on incoming request bodies rather than parse — safeParse returns validation results without throwing, avoiding unhandled rejection promises [source](./.skilld/pkg/README.md)
+
+- Provide timeout constraints for long-running operations — Bash and REPL operations default to 30s for Bash and 30s for REPL; set explicit timeouts (up to 600000ms) for sustained work [source](./.skilld/pkg/sdk-tools.d.ts:L349-L351)
+
+- Cache read operations on frequently-accessed files — the FileReadOutput tracks truncation state (truncatedByTokenCap) allowing graceful pagination on subsequent reads [source](./.skilld/pkg/sdk-tools.d.ts:L167-L169)
+
+- Structure JSON schema definitions for tool inputs using strict union types — the tool input schemas enforce that only valid, type-checked parameters reach CLI handlers [source](./.skilld/pkg/sdk-tools.d.ts:L11-L46)
+
+- Avoid dynamic glob patterns when discovering files — use concrete patterns (e.g., **/*.ts rather than variable interpolation) so the glob engine can pre-compile efficiently [source](./.skilld/pkg/sdk-tools.d.ts:L455-L459)
 <!-- /skilld:best-practices -->

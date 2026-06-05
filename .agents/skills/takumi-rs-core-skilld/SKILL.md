@@ -2,15 +2,15 @@
 name: takumi-rs-core-skilld
 description: "ALWAYS use when writing code importing \"@takumi-rs/core\". Consult for debugging, best practices, or modifying @takumi-rs/core, takumi-rs/core, takumi-rs core, takumi rs core, takumi."
 metadata:
-  version: 1.6.0
-  generated_by: Google · Gemini 2.5 Flash
-  generated_at: 2026-05-29
+  version: 1.7.0
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-06-05
 ---
 
-# kane50613/takumi `@takumi-rs/core@1.6.0`
-**Tags:** beta: 1.0.0-beta.20, rc: 1.0.0-rc.17, latest: 1.6.0
+# kane50613/takumi `@takumi-rs/core@1.7.0`
+**Tags:** beta: 1.0.0-beta.20, rc: 1.0.0-rc.17, latest: 1.7.0
 
-**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
+**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md)
 
 ## Search
 
@@ -19,41 +19,51 @@ Use `skilld search "query" -p @takumi-rs/core` instead of grepping `.skilld/` di
 <!-- skilld:api-changes -->
 ## API Changes
 
-**Note on Version Discrepancy:** The request was to generate API changes for `@takumi-rs/core` v1.6.0. However, the available release history in the `.skilld/releases/` directory only contains versions up to `0.73.1`. The following API changes are documented based on the latest available minor releases in the `0.x.x` range.
+This section documents API changes in @takumi-rs/core v1.x — focusing on breaking changes from the v0 → v1 migration that established the stable public API.
 
-- DEPRECATED: `AnyNode` — replaced with strict `Node` type [source](./@takumi-rs/core@0.73.0.md:L8)
+## Major Breaking Changes (v0 → v1)
 
-- BREAKING: `renderAnimation` — now takes "scenes" with keyframe animations instead of frames; original frame-by-frame encoding renamed to `encodeFrames` [source](./@takumi-rs/core@0.71.0.md:L8-L11)
+Since v1.0 is the first stable release with a locked API, all v1.x versions maintain backward compatibility. However, breaking changes from v0 remain significant for anyone upgrading or learning the API.
+
+- BREAKING: `display` property defaults to `inline` instead of `flex` — verify your templates and explicitly add `display: flex` (or the `flex` Tailwind class) to containers where flexbox layout is intended [source](./.skilld/docs/upgrade/v1.mdx#display-defaults-to-inline)
+
+- BREAKING: Image format strings must be lowercase — changed from `"WebP"` to `"webp"`, `"PNG"` to `"png"`, etc. to align with CSS ecosystem conventions [source](./.skilld/docs/upgrade/v1.mdx#lowercase-image-formats)
+
+- BREAKING: `renderer.putPersistentImage()` signature changed — no longer accepts raw `Buffer` as the second argument; now requires an `ImageSource` object with `{ src, data }` structure [source](./.skilld/docs/upgrade/v1.mdx#putPersistentImage-now-takes-ImageSource)
+
+- BREAKING: Runtime detection unified — `takumi-js` now automatically detects bindings for your environment (Node.js, Workers, Browser); import from `takumi-js/response` or `takumi-js/node` instead of manually choosing NAPI vs WASM [source](./.skilld/docs/upgrade/v1.mdx#unified-runtime-dectection--fallback)
+
+- BREAKING: Deprecated types and functions removed — all previously deprecated exports in `@takumi-rs/core` have been removed; no migration path for old APIs, must switch to non-deprecated alternatives [source](./.skilld/docs/upgrade/v1.mdx#deprecated-types--functions-removed-takumi-rs-core)
+
+**Also changed:** `emoji` option added (defaults to `twemoji`, can be set to `"from-font"` for custom emoji fonts) · Lowercase runtime imports (use `takumi-js/response` not old package paths)
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
 ## Best Practices
 
-- When animating with images, pass `persistedImages` to the `Renderer` constructor to make them available to `renderer.renderAnimation()` for optimized image handling during animation. [source](./.skilld/discussions/discussion-375.md#accepted-answer)
+- Use Nuxt OG Image as the integration layer for Nuxt apps — it handles Takumi renderer setup and Vue component rendering automatically, eliminating boilerplate [source](./.skilld/docs/content/docs/integration/nuxt.mdx:L6:22)
 
-- For Next.js projects on Cloudflare Workers, refer to the official documentation for Edge Runtime / Browser usage to correctly configure `@takumi-rs/core` or consider using `@takumi-rs/wasm`. [source](./.skilld/discussions/discussion-282.md#accepted-answer)
+- Reuse a single `Renderer` instance across multiple render calls — the renderer manages internal resource caches and avoiding re-instantiation prevents redundant font loading and initialization overhead [source](./.skilld/docs/content/docs/performance-and-optimization.mdx:L11:19)
 
-- To prevent Vercel deployment failures with Next.js due to WASM module duplication, ensure your build process avoids declaring the same WASM symbol multiple times. [source](./.skilld/issues/issue-332.md#top-comments)
+- For Cloudflare Workers, initialize the WASM module and Renderer instance outside the `fetch()` handler — prevents re-running initialization on every request, which is a severe performance bottleneck in edge environments [source](./.skilld/docs/content/docs/performance-and-optimization.mdx:L21:49)
 
-- When integrating Tailwind CSS v4 custom themes and variables, generate the CSS file using the Tailwind CLI and import it with `?raw` for proper parsing. [source](./.skilld/issues/issue-566.md#top-comments)
+- Preload frequently used images via the `persistentImages` option — registers images so they're cached in the renderer's store rather than fetched and decoded on every render, especially important for logos and backgrounds [source](./.skilld/docs/content/docs/load-images.mdx:L27:64)
 
-- Use the strict `Node` type instead of the deprecated `AnyNode` for improved type safety and adherence to modern API standards. [source](./.skilld/releases/@takumi-rs/core@0.73.0.md#takumi-rs/core@0.73.0)
+- Stack filters and blur effects into a single container node rather than multiple nodes — compositing layers are created per-effect, and consolidating reduces memory usage and rendering passes [source](./.skilld/docs/content/docs/performance-and-optimization.mdx:L60:64)
 
-- `renderAnimation` now uses a "scenes" approach with keyframe animations; for frame-by-frame rendering, use `encodeFrames`. [source](./.skilld/releases/@takumi-rs/core@0.71.0.md#takumi-rs/core@0.71.0)
+- Choose TTF fonts over WOFF2 for production rendering — WOFF2 requires decompression before use, while TTF can be used directly; only use WOFF2 if minimizing font file size is more critical than render performance [source](./.skilld/docs/content/docs/performance-and-optimization.mdx:L66:73)
 
-- Utilize lossy WebP animation rendering to optimize file sizes for animated outputs. [source](./.skilld/releases/@takumi-rs/core@0.71.0.md#takumi-rs/core@0.71.0)
+- For pnpm or yarn users with native binding errors, add `public-hoist-pattern[]` to `.npmrc` to allow hoisting of Takumi's native binaries — without this, the package manager's virtual store prevents the native binding from being discovered [source](./.skilld/docs/content/docs/troubleshooting.mdx:L37:41)
 
-- Be aware that secure `ArrayBuffer` memory accessing was implemented in v0.70.0, suggesting more robust memory handling for data operations. [source](./.skilld/releases/@takumi-rs/core@0.70.0.md#takumi-rs/core@0.70.0)
+- Use `stylesheets` + `?inline` query for Tailwind CSS in Vite-powered frameworks — bring your bundler-compiled stylesheet rather than relying on the native parser, which cannot cover all Tailwind features [source](./.skilld/docs/content/docs/tailwind-css.mdx:L9:44)
 
-- For advanced code block highlighting within generated images, `shiki-image` is a recommended integration tool. [source](./.skilld/discussions/discussion-369.md#accepted-answer)
+- Enable `drawDebugBorder` to visually diagnose layout issues — this option draws borders around nodes to help identify spacing, alignment, or sizing problems before filing issues [source](./.skilld/docs/content/docs/troubleshooting.mdx:L10:24)
 
-- To correctly display Unicode characters (e.g., Bengali), explicitly load a font that contains the required glyphs. [source](./.skilld/discussions/discussion-642.md#top-comments)
+- Use `resourcesOptions.cache` to add a custom caching layer for external images — pass a `Map<string, ArrayBuffer>` to avoid re-fetching and re-decoding the same image across multiple renders [source](./.skilld/docs/content/docs/load-images.mdx:L10:25)
 
-- Thoroughly test `mix-blend-mode` effects, especially `plus-lighter`, `plus-darker`, and text rendering with blending, due to potential rendering inconsistencies and bugs. [source](./.skilld/issues/issue-644.md#text-glyphs-become-cut-off-when-mix-blend-mode-is-applied)
+- Call `renderer.measure(node, options)` to calculate node dimensions without rendering — useful for dynamic layout decisions or text size estimation before committing to a full render [source](./.skilld/docs/content/docs/measure-api.mdx:L7:29)
 
-- When deploying to Cloudflare Workers, keep `@takumi-rs/core` up-to-date and be mindful of WebAssembly errors (e.g., "Wasm code generation disallowed by embedder") that can arise from version incompatibilities. [source](./.skilld/issues/issue-169.md#cloudflare-workers-webassembly-error-with-0.29)
+- Omit the `height` parameter in `ImageResponse` to enable auto-sizing — Takumi can calculate the final image height based on content flow, reducing the need for manual dimension guessing [source](./.skilld/docs/content/docs/layout-engine.mdx:L14:37)
 
-- When using `@takumi-rs/core` in a Next.js project, explicitly add `@takumi-rs/core` to `serverExternalPackages` in `next.config.ts` for proper server-side rendering. [source](./.skilld/references/@takumi-rs/core@1.6.0/docs/content/docs/integration/nextjs.mdx#mark-takumi-core-as-a-server-external-package)
-
-- For optimal performance when loading images and fonts, leverage the `Renderer` constructor for persistent images and `loadFonts` for bulk font loading, and `loadFontSync` when synchronous loading is feasible. [source](./.skilld/pkg/./dist/export.d.ts:L24:L27)
+- Use the `emoji: "twemoji"` option in `ImageResponse` for dynamic emoji rendering — this automatically extracts emoji segments from text and uses Twemoji glyphs instead of fallback fonts [source](./.skilld/docs/content/docs/typography-and-fonts.mdx:L51:65)
 <!-- /skilld:best-practices -->

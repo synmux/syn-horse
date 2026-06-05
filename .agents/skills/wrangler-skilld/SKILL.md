@@ -1,16 +1,16 @@
 ---
 name: wrangler-skilld
-description: "Command-line interface for all things Cloudflare Workers. ALWAYS use when writing code importing \"wrangler\". Consult for debugging, best practices, or modifying wrangler, workers-sdk, workers sdk."
+description: "ALWAYS use when writing code importing \"wrangler\". Consult for debugging, best practices, or modifying wrangler, workers-sdk, workers sdk."
 metadata:
-  version: 4.95.0
-  generated_by: cached
-  generated_at: 2026-05-29
+  version: 4.98.0
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-06-05
 ---
 
-# cloudflare/workers-sdk `wrangler@4.95.0`
-**Tags:** wrangler@2.2.4: 2.2.4, legacy: 3.114.17, latest: 4.95.0
+# cloudflare/workers-sdk `wrangler@4.98.0`
+**Tags:** wrangler@2.2.4: 2.2.4, legacy: 3.114.17, latest: 4.98.0
 
-**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
+**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md)
 
 ## Search
 
@@ -19,86 +19,67 @@ Use `skilld search "query" -p wrangler` instead of grepping `.skilld/` directori
 <!-- skilld:api-changes -->
 ## API Changes
 
-This section documents version-specific API changes for Wrangler v4.95.0.
+This section documents version-specific API changes for Wrangler v4.98.0, focusing on breaking changes from v3→v4 migrations and new APIs.
 
-- BREAKING: `ConfigFields["entry-point"]` — property in `site` configuration is deprecated; use top-level `main` or pass path as CLI argument [source](./src/_worktrees/syn-horse.notifications/node_modules/wrangler/wrangler-dist/cli.d.ts:2397-2402)
+- BREAKING: KV/R2 commands default to local mode — `wrangler kv key get`, `wrangler r2 object get`, and other subcommands now query locally by default and require `--remote` flag to access production data [source](./.skilld/docs/workers/wrangler/migration/update-v3-to-v4.md#commands-default-to-local-mode)
 
-- BREAKING: `EnvironmentInheritable.workers_dev` — change in default behavior/handling of `workers_dev` flag [source](./src/_worktrees/syn-horse.notifications/node_modules/wrangler/wrangler-dist/cli.d.ts:1256-1262)
+- BREAKING: `getBindingsProxy()` removed — replaced by `getPlatformProxy(options?)` which takes identical arguments and returns a proxy object for accessing Worker bindings [source](./.skilld/docs/workers/wrangler/migration/update-v3-to-v4.md#deprecated-commands-and-configurations-removed)
 
-- DEPRECATED: `unstable_getDevCompatibilityDate()` — use today's date for compatibility date [source](./src/_worktrees/syn-horse.notifications/node_modules/wrangler/wrangler-dist/cli.d.ts:2792-2794)
+- BREAKING: `legacy_assets` config and `--legacy-assets` flag removed — must migrate to Workers Static Assets or errors will occur during build [source](./.skilld/docs/workers/wrangler/migration/update-v3-to-v4.md#deprecated-commands-and-configurations-removed)
 
-- DEPRECATED: `ContainerApp.instances` — property for number of application instances [source](./src/_worktrees/syn-horse.notifications/node_modules/wrangler/wrangler-dist/cli.d.ts:928-931)
+- BREAKING: `node_compat` config and `--node-compat` flag removed — use `nodejs_compat` compatibility flag instead, which includes polyfills and native Node.js APIs [source](./.skilld/docs/workers/wrangler/migration/update-v3-to-v4.md#deprecated-commands-and-configurations-removed)
 
-- DEPRECATED: `ContainerApp.wrangler_ssh` — use `ssh` instead [source](./src/_worktrees/syn-horse.notifications/node_modules/wrangler/wrangler-dist/cli.d.ts:996-999)
+- BREAKING: `usage_model` config property no longer has any effect — after Workers Standard Pricing rollout, must configure via dashboard instead [source](./.skilld/docs/workers/wrangler/migration/update-v3-to-v4.md#deprecated-commands-and-configurations-removed)
 
-- DEPRECATED: `ContainerApp.configuration` — use top-level `containers` fields; `configuration.image` becomes `image`, `limits` becomes `instance_type` [source](./src/_worktrees/syn-horse.notifications/node_modules/wrangler/wrangler-dist/cli.d.ts:1018-1024)
+- BREAKING: esbuild upgraded from v0.17.19 to v0.24 — wildcard dynamic imports like `import('./data/' + kind + '.json')` now automatically bundle all matching files in the glob pattern instead of just explicitly referenced files [source](./.skilld/docs/workers/wrangler/migration/update-v3-to-v4.md#upgraded-esbuild-version)
 
-- DEPRECATED: `ContainerApp.durable_objects` — use `class_name` field instead [source](./src/_worktrees/syn-horse.notifications/node_modules/wrangler/wrangler-dist/cli.d.ts:1082-1085)
+- BREAKING: `wrangler version` command removed — use `wrangler --version` to check Wrangler version [source](./.skilld/docs/workers/wrangler/migration/update-v3-to-v4.md#deprecated-commands-and-configurations-removed)
 
-- DEPRECATED: `ContainerApp.instance_type` values (`"dev"`, `"standard"`) — use `"lite"` and `"standard-1"` respectively [source](./src/_worktrees/syn-horse.notifications/node_modules/wrangler/wrangler-dist/cli.d.ts:960-961)
+- BREAKING: `wrangler publish` command removed — use `wrangler deploy` to deploy Workers instead [source](./.skilld/docs/workers/wrangler/migration/update-v3-to-v4.md#deprecated-commands-and-configurations-removed)
 
-- DEPRECATED: `EnvironmentNonInheritable.services.environment` — use `service: <worker_name>-<environment_name>` instead [source](./src/_worktrees/syn-horse.notifications/node_modules/wrangler/wrangler-dist/cli.d.ts:1930-1934)
+- BREAKING: `wrangler generate` command removed — use `npm create cloudflare@latest` to scaffold new projects [source](./.skilld/docs/workers/wrangler/migration/update-v3-to-v4.md#deprecated-commands-and-configurations-removed)
 
-- NEW: `unstable_dev()` — programmatically start a Wrangler dev server [source](./src/_worktrees/syn-horse.notifications/node_modules/wrangler/wrangler-dist/cli.d.ts:105-107)
+- BREAKING: `wrangler pages publish` command removed — use `wrangler pages deploy` to deploy Pages projects [source](./.skilld/docs/workers/wrangler/migration/update-v3-to-v4.md#deprecated-commands-and-configurations-removed)
 
-- NEW: `deploy()` — programmatically deploy to Cloudflare Pages [source](./src/_worktrees/syn-horse.notifications/node_modules/wrangler/wrangler-dist/cli.d.ts:150-152)
+- BREAKING: Node.js v16 no longer supported — Wrangler v4 only supports Current, Active LTS, and Maintenance LTS versions; users on v16 (EOL 2022) must upgrade [source](./.skilld/docs/workers/wrangler/migration/update-v3-to-v4.md#updated-nodejs-support-policy)
 
-- NEW: `generateTypes()` — programmatically generate TypeScript type definitions [source](./src/_worktrees/syn-horse.notifications/node_modules/wrangler/wrangler-dist/cli.d.ts:290-292)
+- NEW: `experimental_generateTypes(options)` — programmatic API to generate TypeScript type definitions from Worker configuration, equivalent to `wrangler types` CLI command [source](./.skilld/pkg/wrangler-dist/cli.d.ts:L239:L300)
 
-- NEW: `unstable_generateASSETSBinding` (experimental) — function to generate ASSETS binding [source](./src/_worktrees/syn-horse.notifications/node_modules/wrangler/wrangler-dist/cli.d.ts:3335)
+- NEW: `unstable_startWorker(options)` — low-level API for starting a Worker in tests, returns a Worker instance for programmatic interaction [source](./.skilld/pkg/wrangler-dist/cli.d.ts:L1)
 
-- NEW: `experimental_getWranglerCommands()` (experimental) — get registered Wrangler commands for documentation generation [source](./src/_worktrees/syn-horse.notifications/node_modules/wrangler/wrangler-dist/cli.d.ts:3323-3329)
+- NEW: `unstable_generateASSETSBinding(opts)` — runtime assets binding generator that returns a request handler for serving static assets [source](./.skilld/pkg/wrangler-dist/cli.d.ts:L1)
 
-- NEW: `ContainerApp.rollout_step_percentage` · `ContainerApp.rollout_kind` · `ContainerApp.rollout_active_grace_period` — new container rollout configuration options [source](./src/_worktrees/syn-horse.notifications/node_modules/wrangler/wrangler-dist/cli.d.ts:1107)
-
-**Also changed:**
-NEW: `EnvironmentNonInheritable.vectorize` binding · NEW: `EnvironmentNonInheritable.ai_search_namespaces` binding · NEW: `EnvironmentNonInheritable.ai_search` binding · NEW: `EnvironmentNonInheritable.hyperdrive` binding · NEW: `EnvironmentNonInheritable.analytics_engine_datasets` binding · NEW: `EnvironmentNonInheritable.browser` binding · NEW: `EnvironmentNonInheritable.ai` binding · NEW: `EnvironmentNonInheritable.images` binding · NEW: `EnvironmentNonInheritable.media` binding · NEW: `EnvironmentNonInheritable.stream` binding · NEW: `EnvironmentNonInheritable.mtls_certificates` binding · NEW: `EnvironmentNonInheritable.tail_consumers` binding · NEW: `EnvironmentNonInheritable.streaming_tail_consumers` binding · NEW: `EnvironmentNonInheritable.dispatch_namespaces` binding · NEW: `EnvironmentNonInheritable.pipelines` binding · NEW: `EnvironmentNonInheritable.secrets_store_secrets` binding · NEW: `EnvironmentNonInheritable.artifacts` binding · NEW: `EnvironmentNonInheritable.flagship` binding · NEW: `EnvironmentNonInheritable.ratelimits` binding · NEW: `EnvironmentNonInheritable.worker_loaders` binding · NEW: `EnvironmentNonInheritable.vpc_services` binding · NEW: `EnvironmentNonInheritable.vpc_networks` binding.
-
-**Note:** This information is primarily derived from the `wrangler@4.95.0/wrangler-dist/cli.d.ts` type definition file, as detailed release notes for versions between `v4.80.0` and `v4.95.0` were not available in the provided resources.
+**Also changed:** `getPlatformProxy()` now the standard API for dev bindings · `unstable_getMiniflareWorkerOptions()` for Miniflare integration · `experimentalGetWranglerCommands()` to inspect CLI structure · `nodejs_compat_populate_process_env` compat flag for auto-populating `process.env` · WebSocket message size limit increased to 32 MiB in runtime · Float16Array and explicit resource context management support added
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
 ## Best Practices
 
-- Keep your compatibility date current — ensures access to latest features and bug fixes.
-  [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#keep-your-compatibility-date-current)
+- Use `wrangler.jsonc` as your configuration format — JSONC allows comments and is the recommended choice over raw JSON or TOML. Include `"$schema": "node_modules/wrangler/config-schema.json"` for IDE autocomplete and validation [source](./.skilld/pkg/README.md#configuration)
 
-- Generate binding types with wrangler types — catches config/code mismatches at compile time, not deploy time.
-  [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#generate-binding-types-with-wrangler-types)
+- Run `wrangler types` after adding or renaming bindings — generates type-safe `Env` interfaces that match your actual configuration, catching mismatches at compile time rather than deploy time [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#generate-binding-types-with-wrangler-types)
 
-- Store secrets with wrangler secret, not in source — securely handles sensitive information, preventing exposure in version control.
-  [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#store-secrets-with-wrangler-secret-not-in-source)
+- Keep `compatibility_date` current — set it to today on new projects and periodically update on existing ones to access new APIs and runtime fixes without code changes [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#keep-your-compatibility-date-current)
 
-- Configure environments deliberately — ensures distinct deployments for production, staging, and development with separate configurations.
-  [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#configure-environments-deliberately)
+- Stream request and response bodies instead of buffering — use `response.body` piping or `TransformStream` to avoid the 128 MB memory limit on large payloads. For concatenating multiple responses, pipe sequentially with `preventClose: true` to keep the writable stream open [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#stream-request-and-response-bodies)
 
-- Set up custom domains or routes correctly — avoids common `ERR_NAME_NOT_RESOLVED` issues by correctly configuring DNS records and understanding the difference between custom domains and routes.
-  [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#set-up-custom-domains-or-routes-correctly)
+- Use `ctx.waitUntil()` for non-blocking background work — use for analytics, cache writes, and logging after the response is sent. Avoid destructuring `ctx` (loses binding) and respect the 30-second time limit after the response [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-waituntil-for-work-after-the-response)
 
-- Stream request and response bodies — reduces memory usage and improves time-to-first-byte, crucial for large payloads within Workers' memory limits.
-  [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#stream-request-and-response-bodies)
+- Prefer bindings over REST API calls to Cloudflare services — bindings skip network hops and authentication, providing zero-latency access to KV, R2, D1, Queues, and Workflows [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-bindings-for-cloudflare-services-not-rest-apis)
 
-- Use waitUntil for work after the response — improves response time by offloading non-critical tasks like analytics or cache writes to background.
-  [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-waituntil-for-work-after-the-response)
+- Choose Queues for single-step async work and Workflows for multi-step durable processes — Queues handle fan-out and buffering (one message, many consumers); Workflows handle complex state where later steps depend on earlier results and can pause for external events [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-queues-and-workflows-for-async-and-background-work)
 
-- Use bindings for Cloudflare services, not REST APIs — eliminates network hops, authentication, and latency by using in-process references to Cloudflare services.
-  [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-bindings-for-cloudflare-services-not-rest-apis)
+- Use service bindings for Worker-to-Worker communication instead of HTTP requests — bindings are zero-cost, bypass the public internet, and enable type-safe RPC through `WorkerEntrypoint` classes [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-service-bindings-for-worker-to-worker-communication)
 
-- Use Queues and Workflows for async and background work — decouples producer/consumer, handles multi-step durable processes, and moves long-running tasks out of the critical path.
-  [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-queues-and-workflows-for-async-and-background-work)
+- Create a new Hyperdrive `Client` on each request — Hyperdrive manages the underlying connection pool, so per-request client creation is fast and maintains regional pooling close to your database [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-hyperdrive-for-external-database-connections)
 
-- Use service bindings for Worker-to-Worker communication — provides zero-cost, type-safe RPC for inter-Worker communication, bypassing the public internet.
-  [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-service-bindings-for-worker-to-worker-communication)
+- Use `this.ctx.acceptWebSocket()` with hibernation for reliable WebSocket connections in Durable Objects — enables the runtime to keep connections alive even while the object is evicted from memory. Use `setWebSocketAutoResponse()` for ping/pong heartbeats that do not wake the object [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-durable-objects-for-websockets)
 
-- Use Hyperdrive for external database connections — improves performance by maintaining a regional connection pool and caching query results for remote databases.
-  [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-hyperdrive-for-external-database-connections)
+- Never store request-scoped state in module-level variables — Workers reuse isolates across requests, causing data leaks and stale state. Pass request data through function arguments or access via `env` bindings only [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#do-not-store-request-scoped-state-in-global-scope)
 
-- Use Durable Objects for WebSockets — ensures persistent state and hibernation for reliable, long-lived WebSocket connections, unlike plain Workers.
-  [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-durable-objects-for-websockets)
+- Use `crypto.subtle.timingSafeEqual()` when comparing secret values — hash both values to fixed size first, then compare in constant time to prevent timing side-channel attacks. Never do direct string comparison on secrets or tokens [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-web-crypto-for-secure-token-generation)
 
-- Do not store request-scoped state in global scope — prevents cross-request data leaks, stale state, and "Illegal invocation" errors by isolating state per request.
-  [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#do-not-store-request-scoped-state-in-global-scope)
+- Enable structured JSON logging with `console.log` and `console.error` — use `console.log(JSON.stringify({ … }))` for searchable, filterable logs in the Workers dashboard. Set `observability.logs.head_sampling_rate` to tune volume on high-traffic Workers [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#enable-workers-logs-and-traces)
 
-- Always await or waitUntil your Promises — avoids silent bugs, dropped results, and swallowed errors by ensuring all promises are handled.
-  [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#always-await-or-waituntil-your-promises)
+- Explicitly handle errors with `try...catch` instead of `ctx.passThroughOnException()` — the fail-open mechanism hides bugs and makes debugging difficult; return structured error responses and log with context instead [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#do-not-use-passthroughonexception-as-error-handling)
 <!-- /skilld:best-practices -->

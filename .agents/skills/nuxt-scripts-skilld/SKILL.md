@@ -2,15 +2,15 @@
 name: nuxt-scripts-skilld
 description: "ALWAYS use when writing code importing \"@nuxt/scripts\". Consult for debugging, best practices, or modifying @nuxt/scripts, nuxt/scripts, nuxt scripts, scripts."
 metadata:
-  version: 1.1.1
-  generated_by: Google · Gemini 2.5 Flash
-  generated_at: 2026-05-29
+  version: 1.2.1
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-06-05
 ---
 
-# nuxt/scripts `@nuxt/scripts@1.1.1`
-**Tags:** beta: 1.0.0-beta.32, rc: 1.0.0-rc.11, latest: 1.1.1
+# nuxt/scripts `@nuxt/scripts@1.2.1`
+**Tags:** beta: 1.0.0-beta.32, rc: 1.0.0-rc.11, latest: 1.2.1
 
-**References:** [package.json](./.skilld/pkg/package.json) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
+**References:** [package.json](./.skilld/pkg/package.json) • [Docs](./.skilld/docs/_INDEX.md)
 
 ## Search
 
@@ -19,63 +19,67 @@ Use `skilld search "query" -p @nuxt/scripts` instead of grepping `.skilld/` dire
 <!-- skilld:api-changes -->
 ## API Changes
 
-This section documents version-specific API changes — prioritize recent major/minor releases.
+- BREAKING: Registry entries no longer auto-load without `trigger` — must explicitly set `trigger: 'onNuxtReady'` or `trigger: false` to silence build warning. In v0 all configured entries auto-loaded globally; v1 registers infrastructure (types, bundling, proxy) but blocks injection without an explicit trigger [source](./.skilld/docs/content/docs/4.migration-guide/1.v0-to-v1.md#scripts-no-longer-auto-load-without-a-trigger)
 
-- BREAKING: PayPal SDK v5 API removed — migrate to v6 which uses instance-based initialization (`createInstance()`), eligibility-first rendering, and session-based payment flows. Component API has changed significantly. [source](./.skilld/references/@nuxt/scripts@1.1.1/docs/content/docs/4.migration-guide/1.v0-to-v1.md#paypal-sdk-v6-628)
+- BREAKING: PayPal SDK v6 API — `ScriptPayPalButtons` component rewired to expose SDK instance via scoped slot, `PayPalOptions` reduced to `clientId?`, `clientToken?`, `sandbox?`, `ScriptPayPalMarks` removed, `PayPalNamespace` replaced with `PayPalV6Namespace`, payment flow uses `createPayPalOneTimePaymentSession()` instead of button callbacks [source](./.skilld/docs/content/docs/4.migration-guide/1.v0-to-v1.md#paypal-sdk-v6)
 
-- BREAKING: `ScriptPayPalMarks` removed — no v6 equivalent, use `sdkInstance.findEligibleMethods()` instead. [source](./.skilld/references/@nuxt/scripts@1.1.1/docs/content/docs/4.migration-guide/1.v0-to-v1.md#paypal-sdk-v6-628)
+- BREAKING: Google Maps components consolidated — `ScriptGoogleMapsAdvancedMarkerElement` and legacy `ScriptGoogleMapsMarker` unified into single `ScriptGoogleMapsMarker` (wrapping `google.maps.marker.AdvancedMarkerElement`), `ScriptGoogleMapsPinElement` removed, replaced by `#content` slot on markers [source](./.skilld/docs/content/docs/4.migration-guide/1.v0-to-v1.md#scriptgooglemapsadvancedmarkerelement---scriptgooglemapsmarker-deprecated)
 
-- BREAKING: `PayPalNamespace` type replaced with `PayPalV6Namespace` from `@paypal/paypal-js/sdk-v6`. [source](./.skilld/references/@nuxt/scripts@1.1.1/docs/content/docs/4.migration-guide/1.v0-to-v1.md#paypal-sdk-v6-628)
+- BREAKING: Google Maps `markers`/`centerMarker` props removed — use child `<ScriptGoogleMapsMarker>` components instead, `placeholderOptions`/`placeholderAttrs`/`aboveTheFold` props removed, use `<ScriptGoogleMapsStaticMap>` component in `#placeholder` slot [source](./.skilld/docs/content/docs/4.migration-guide/1.v0-to-v1.md#markers-and-centermarker-props-removed)
 
-- BREAKING: `ScriptGoogleMapsPinElement` removed — use `#content` slot on `ScriptGoogleMapsMarker` instead. [source](./.skilld/references/@nuxt/scripts@1.1.1/docs/content/docs/4.migration-guide/1.v0-to-v1.md#scriptgooglemapspinelement-removed)
+- DEPRECATED: Google Maps `:center`/`:zoom` props — use `:map-options="{ center, zoom }"` instead, old form still works with dev-mode warning [source](./.skilld/docs/content/docs/4.migration-guide/1.v0-to-v1.md#top-level-center--zoom-deprecated)
 
-- BREAKING: `ScriptGoogleMaps` `markers` and `centerMarker` props removed — use child `<ScriptGoogleMapsMarker>` components instead. [source](./.skilld/references/@nuxt/scripts@1.1.1/docs/content/docs/4.migration-guide/1.v0-to-v1.md#markers-and-centermarker-props-removed)
+- DEPRECATED: Google Maps `googleMaps` ref key — renamed to `mapsApi` to better reflect the `google.maps` API namespace it holds, old key still works with one-shot dev-mode warning [source](./.skilld/docs/content/docs/4.migration-guide/1.v0-to-v1.md#template-ref-googlemaps--mapsapi)
 
-- BREAKING: `ScriptGoogleMaps` `placeholderOptions`, `placeholderAttrs`, and `aboveTheFold` props removed — compose with new standalone `<ScriptGoogleMapsStaticMap>` component inside the `#placeholder` slot. [source](./.skilld/references/@nuxt/scripts@1.1.1/docs/content/docs/4.migration-guide/1.v0-to-v1.md#static-placeholder-props-removed-673)
+- BREAKING: YouTube Player aspect ratio — use `ratio` prop instead of deriving from `width`/`height`, default changed from `contain` to `cover` for placeholder `object-fit`, `width` and `height` props still control iframe dimensions only [source](./.skilld/docs/content/docs/4.migration-guide/1.v0-to-v1.md#aspect-ratio)
 
-- NEW: `<ScriptGoogleMapsStaticMap>` component introduced — provides static map capabilities, replacing `placeholderOptions`, `placeholderAttrs`, and `aboveTheFold` props on `<ScriptGoogleMaps>`. [source](./.skilld/references/@nuxt/scripts@1.1.1/docs/content/docs/4.migration-guide/1.v0-to-v1.md#static-placeholder-props-removed-673)
+- BREAKING: GTM `onBeforeGtmStart` callback timing — now fires for cached/pre-initialized scripts, guard with `if (initialized) return` to prevent multiple invocations [source](./.skilld/docs/content/docs/4.migration-guide/1.v0-to-v1.md#onbeforegtmstart-callback)
 
-- DEPRECATED: Registry entries no longer auto-load without a `trigger` — add `trigger: 'onNuxtReady'` or `trigger: false` to avoid build warnings. [source](./.skilld/references/@nuxt/scripts@1.1.1/docs/content/docs/4.migration-guide/1.v0-to-v1.md#scripts-no-longer-auto-load-without-a-trigger)
+- NEW: `useScript().reload()` — function to remove and re-execute a script, useful for third-party DOM scanners after SPA navigation [source](./.skilld/docs/content/docs/3.api/1.use-script.md#reload)
 
-- DEPRECATED: `true` shorthand for registry config emits a deprecation warning — use `{ trigger: 'onNuxtReady' }` instead. [source](./.skilld/references/@nuxt/scripts@1.1.1/docs/content/docs/4.migration-guide/1.v0-to-v1.md#legacy-shorthand-still-works)
+- NEW: First-party mode privacy proxy — reverse proxy bundled scripts at build time, routes runtime requests through server with anonymization (IPs, user agents, languages), auto-enabled per-script [source](./.skilld/docs/content/docs/5.releases/1.v1.md#first-party-mode-privacy-focused-proxy)
 
-- DEPRECATED: `ScriptGoogleMapsAdvancedMarkerElement` replaced by `ScriptGoogleMapsMarker` — old component still works via shim with dev deprecation warning. [source](./.skilld/references/@nuxt/scripts@1.1.1/docs/content/docs/4.migration-guide/1.v0-to-v1.md#scriptgooglemapsadvancedmarkerelement--scriptgooglemapsmarker-deprecated)
+- NEW: Partytown web worker support — set `partytown: true` per-script to load off main thread, auto-forwards configured for analytics scripts, incompatible with DOM-access scripts (GTM, Hotjar, chat widgets) [source](./.skilld/docs/content/docs/5.releases/1.v1.md#partytown-web-worker-support)
 
-- DEPRECATED: `ScriptGoogleMaps` top-level `:center` and `:zoom` props — pass them via `:map-options="{ center, zoom }"` instead. Legacy form emits dev-mode warning. [source](./.skilld/references/@nuxt/scripts@1.1.1/docs/content/docs/4.migration-guide/1.v0-to-v1.md#top-level-center--zoom-deprecated-694)
+- NEW: SSR social embeds — `ScriptXEmbed`, `ScriptInstagramEmbed`, `ScriptBlueskyEmbed` components fetch embed data server-side and proxy assets through your domain with full slot control [source](./.skilld/docs/content/docs/5.releases/1.v1.md#ssr-social-embeds)
 
-- RENAMED/DEPRECATED: `ScriptGoogleMaps` `googleMaps` template ref key renamed to `mapsApi` — old key still works as deprecated alias. [source](./.skilld/references/@nuxt/scripts@1.1.1/docs/content/docs/4.migration-guide/1.v0-to-v1.md#template-ref-googlemaps--mapsapi-695)
+- NEW: `useScriptTriggerConsent()` composable with revoke support — `accept()` and `revoke()` methods plus `consented` ref, replaces promise-only v0 API, gates script loading based on consent state [source](./.skilld/docs/content/docs/5.releases/1.v1.md#first-class-consent-controls)
 
-- RENAMED/DEPRECATED: `ScriptGoogleMapsOverlayView` `overlay` key renamed to `overlayView` — old key still works as deprecated alias. [source](./.skilld/references/@nuxt/scripts@1.1.1/docs/content/docs/4.migration-guide/1.v0-to-v1.md#template-ref-googlemaps--mapsapi-695)
+- NEW: Vendor-native consent objects — registry scripts expose `consent` object with vendor-specific API (GCMv2 for Google/Bing, `grant`/`revoke` for Meta, `opt_in`/`opt_out` for Mixpanel/PostHog), plus `defaultConsent` option applied before first tracking call [source](./.skilld/docs/content/docs/5.releases/1.v1.md#first-class-consent-controls)
 
-**Also changed:** YouTube Player `width`/`height` no longer drive aspect ratio (use `ratio` prop) · YouTube Player placeholder `object-fit` default changed from `contain` to `cover` · GTM `onBeforeGtmStart` callback now fires for cached scripts, guard with `if (initialized) return`
+- NEW: `@nuxt/scripts/stats` export — `getScriptStats()` function for auditing privacy ratings, performance, CWV estimates, cookie analysis, and tracked data types [source](./.skilld/docs/content/docs/5.releases/1.v1.md#script-stats-export)
+
+- NEW: Google Maps components — 11 new declarative components (`ScriptGoogleMapsMarker`, `ScriptGoogleMapsCircle`, `ScriptGoogleMapsPolygon`, `ScriptGoogleMapsPolyline`, `ScriptGoogleMapsRectangle`, `ScriptGoogleMapsMarkerClusterer`, `ScriptGoogleMapsHeatmapLayer`, `ScriptGoogleMapsOverlayView`, `ScriptGoogleMapsGeoJson`, `ScriptGoogleMapsStaticMap`) with Vue injection system and automatic cleanup [source](./.skilld/docs/content/docs/5.releases/1.v1.md#google-maps-overhaul)
+
+**Also changed:** YouTube Player `ratio` prop · Vimeo Player `ratio` prop · Automatic SRI integrity hashes via `scripts.assets.integrity` config · Environment variable config via `NUXT_PUBLIC_SCRIPTS_*` vars · New registry scripts: PostHog, Google reCAPTCHA v3, TikTok Pixel, Google Sign-In, Rybbit Analytics, Databuddy Analytics, Bing UET, Mixpanel Analytics, Vercel Analytics, Gravatar · Google Maps color mode support via `mapIds` prop · Google Maps geocode proxy for server-side geocoding · Type augmentation reorganization (run `nuxi prepare` after upgrade)
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
 ## Best Practices
 
-- Use a unique script ID for Plausible Analytics (new format as of October 2025) for site identification. [source](./.skilld/pkg/dist/runtime/registry/plausible-analytics.d.ts:L20)
+- Wrap `useScript()` calls in composables when you reference them across multiple components — scripts load as global singletons, and wrapper composables make instantiation consistent and easier to maintain [source](./.skilld/docs/content/docs/1.guides/0.key-concepts.md:L19:33)
 
-- Wrap `useScript()` calls in custom composables to manage singleton behavior and provide easier instantiation. [source](./.skilld/docs/content/docs/1.guides/0.key-concepts.md#script-singleton)
+- Use `onNuxtReady` trigger by default for analytics, tracking, and non-critical scripts — it ensures Nuxt hydration completes and the browser main thread is idle before loading, minimizing impact on Core Web Vitals [source](./.skilld/docs/content/docs/1.guides/1.script-triggers.md:L43:65)
 
-- Leverage `proxy` for SSR-safe function calls without awaiting script load, especially when direct return values are not immediately needed. [source](./.skilld/docs/content/docs/1.guides/0.key-concepts.md#understanding-proxied-functions)
+- Lazy-load non-critical content scripts via `useScriptTriggerInteraction()` with click/touchstart events instead of scroll — scroll handlers cause excessive script loading and lost click events; explicit user interaction is more predictable [source](./.skilld/docs/content/docs/1.guides/5.facade-components.md:L64:69)
 
-- Explicitly await script load using `onLoaded` when direct access to the script instance and its return values is required. [source](./.skilld/docs/content/docs/1.guides/0.key-concepts.md#understanding-proxied-functions)
+- Combine `useScriptTriggerConsent()` as a load gate with the script's `defaultConsent` option for vendor-native consent APIs — this ensures both the script load is gated and the vendor receives the correct initial consent state [source](./.skilld/docs/content/docs/1.guides/3.consent.md:L90:124)
 
-- Configure registry scripts via `.env` and `runtimeConfig` to manage environment-specific options without hardcoding. [source](./.skilld/docs/content/docs/1.guides/1.registry-scripts.md#runtime-config-integration)
+- Enable first-party mode by default for privacy-critical scripts; override global `privacy` tier only for scripts where analytics/fingerprinting is necessary (e.g. session replay tools preserve screen + user agent) [source](./.skilld/docs/content/docs/1.guides/2.first-party.md:L58:116)
 
-- Use `mock: 'mock'` for registry scripts in development to prevent actual script loading while still enabling testing of exposed APIs. [source](./.skilld/docs/content/docs/1.guides/1.registry-scripts.md#disabling-in-development)
+- Initialize registry scripts in `nuxt.config.ts` or `app.vue` to enforce the singleton pattern — subsequent calls in other components return the same cached instance without re-initializing [source](./.skilld/docs/content/docs/1.guides/1.registry-scripts.md:L178:222)
 
-- Provide a unique `key` when intentionally loading multiple instances of the same registry script to avoid deduping. [source](./.skilld/docs/content/docs/1.guides/1.registry-scripts.md#loading-multiple-of-the-same-script)
+- Set `assets.integrity: 'sha256'` for bundled scripts to enable Subresource Integrity verification — prevents tampered or stale bundled assets from loading [source](./.skilld/docs/content/docs/3.api/5.nuxt-config.md:L241:248)
 
-- Initialize registry scripts in `app.vue` or `nuxt.config.ts` for consistent, single-instance loading and better performance across components. [source](./.skilld/docs/content/docs/1.guides/1.registry-scripts.md#loading-best-practices)
+- Use `onLoaded()` callback instead of awaiting proxied functions when you need the real script API — awaiting blocks rendering; `onLoaded` executes the callback once the script loads without stalling the component [source](./.skilld/docs/content/docs/1.guides/0.key-concepts.md:L70:78)
 
-- Leverage `onNuxtReady` as the default trigger for idle loading, minimizing impact on Core Web Vitals and user experience. [source](./.skilld/docs/content/docs/1.guides/1.script-triggers.md#default-onnuxtready)
+- Call `useScriptEventPage()` instead of manually tracking page changes to ensure the page title is fully resolved before sending analytics events [source](./.skilld/docs/content/docs/1.guides/3.page-events.md:L22:33)
 
-- Employ `warmupStrategy: 'preload'` for immediate script loads and `'preconnect'` for scripts loaded within 10 seconds from different origins to optimize network requests. [source](./.skilld/docs/content/docs/1.guides/1.warmup.md#warmupstrategy)
+- Customize `warmupStrategy` per-script: use `'preload'` for scripts that load within 2 seconds, `'preconnect'` for later-loading third-party scripts, `'dns-prefetch'` for conditional loads, and `false` for bundled/same-origin scripts [source](./.skilld/docs/content/docs/1.guides/1.warmup.md:L27:56)
 
-- Implement cookie consent using `useScriptTriggerConsent()` as a binary load gate and manage vendor-native consent via per-script `consent` objects. [source](./.skilld/docs/content/docs/1.guides/3.consent.md#two-complementary-primitives)
+- Provide error fallbacks and loading states when using Facade Components — at minimum use `<template #error>` with user-friendly messaging and `<template #loading>` with `<ScriptLoadingIndicator />` for accessibility [source](./.skilld/docs/content/docs/1.guides/5.facade-components.md:L36:62)
 
-- Bundle scripts as assets (`bundle: true`) to avoid extra DNS lookups and reduce requests, improving performance. [source](./.skilld/pkg/dist/runtime/types.d.ts:L95)
+- Use environment variables via `runtimeConfig.public.scripts.*` for registry script credentials — this separates secrets from build-time config and allows per-deployment overrides without rebuilding [source](./.skilld/docs/content/docs/1.guides/1.registry-scripts.md:L57:87)
 
-- When resolving Google Maps locations, use `ScriptGoogleMapsExpose.resolveQueryToLatLng` to leverage caching and server-side proxies, avoiding unnecessary client-side API calls. [source](./.skilld/pkg/dist/runtime/components/GoogleMaps/ScriptGoogleMaps.vue.d.ts:L77-80)
+- Provide a unique `key` when loading the same registry script multiple times with different configs — without a key, both calls return the first cached instance, silently ignoring the second config [source](./.skilld/docs/content/docs/1.guides/1.registry-scripts.md:L118:150)
 <!-- /skilld:best-practices -->

@@ -29,10 +29,11 @@ skills:
     generator: skilld
   nuxt-icon-skilld:
     packageName: "@nuxt/icon"
-    version: 2.2.2
+    version: 2.2.3
+    packages: "@nuxt/icon@2.2.3"
     repo: nuxt/icon
-    source: "https://github.com/nuxt/icon/tree/v2.2.2/docs"
-    syncedAt: 2026-05-29
+    source: "https://stackblitz.com/edit/nuxt-icon-playground?file=app.vue/**"
+    syncedAt: 2026-06-05
     generator: skilld
   nuxt-image-skilld:
     packageName: "@nuxt/image"
@@ -57,10 +58,11 @@ skills:
     generator: skilld
   nuxt-scripts-skilld:
     packageName: "@nuxt/scripts"
-    version: 1.1.1
+    version: 1.2.1
+    packages: "@nuxt/scripts@1.2.1"
     repo: nuxt/scripts
-    source: "https://scripts.nuxt.com/llms.txt"
-    syncedAt: 2026-05-29
+    source: "https://github.com/nuxt/scripts/tree/v1.2.1/docs"
+    syncedAt: 2026-06-05
     generator: skilld
   tailwindcss-vite-skilld:
     packageName: "@tailwindcss/vite"
@@ -85,17 +87,19 @@ skills:
     generator: skilld
   takumi-rs-core-skilld:
     packageName: "@takumi-rs/core"
-    version: 1.6.0
+    version: 1.7.0
+    packages: "@takumi-rs/core@1.7.0"
     repo: kane50613/takumi
-    source: "https://takumi.kane.tw/llms.txt"
-    syncedAt: 2026-05-29
+    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/core@1.7.0/docs"
+    syncedAt: 2026-06-05
     generator: skilld
   takumi-rs-wasm-skilld:
     packageName: "@takumi-rs/wasm"
-    version: 1.6.0
+    version: 1.7.0
+    packages: "@takumi-rs/wasm@1.7.0"
     repo: kane50613/takumi
-    source: "https://takumi.kane.tw/llms.txt"
-    syncedAt: 2026-05-29
+    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/wasm@1.7.0/docs"
+    syncedAt: 2026-06-05
     generator: skilld
   nuxt-security-skilld:
     packageName: nuxt-security
@@ -106,10 +110,11 @@ skills:
     generator: skilld
   nuxt-skilld:
     packageName: nuxt
-    version: 4.4.6
+    version: 4.4.7
+    packages: "nuxt@4.4.7"
     repo: nuxt/nuxt
-    source: "https://nuxt.com/llms.txt"
-    syncedAt: 2026-05-29
+    source: "https://github.com/nuxt/nuxt/tree/v4.4.7/docs"
+    syncedAt: 2026-06-05
     generator: skilld
   uuid-skilld:
     packageName: uuid
@@ -176,10 +181,11 @@ skills:
     generator: skilld
   ctx7-skilld:
     packageName: ctx7
-    version: 0.4.4
+    version: 0.5.1
+    packages: "ctx7@0.5.1"
     repo: upstash/context7
-    source: "ungh://upstash/context7/packages/cli@ctx7@0.4.4"
-    syncedAt: 2026-05-29
+    source: "https://github.com/upstash/context7/tree/ctx7@0.5.1/docs"
+    syncedAt: 2026-06-05
     generator: skilld
   nuxt-gtag-skilld:
     packageName: nuxt-gtag
@@ -225,10 +231,11 @@ skills:
     generator: skilld
   tsx-skilld:
     packageName: tsx
-    version: 4.22.3
+    version: 4.22.4
+    packages: "tsx@4.22.4"
     repo: privatenumber/tsx
-    source: "https://github.com/privatenumber/tsx/tree/v4.22.3/docs"
-    syncedAt: 2026-05-29
+    source: "https://github.com/privatenumber/tsx/tree/v4.22.4/docs"
+    syncedAt: 2026-06-05
     generator: skilld
   ultracite-skilld:
     packageName: ultracite
@@ -246,18 +253,19 @@ skills:
     generator: skilld
   wrangler-skilld:
     packageName: wrangler
-    version: 4.95.0
+    version: 4.98.0
+    packages: "wrangler@4.98.0"
     repo: cloudflare/workers-sdk
-    source: "https://github.com/cloudflare/workers-sdk/tree/v4.95.0/docs"
-    syncedAt: 2026-05-29
+    source: "https://developers.cloudflare.com/workers/**"
+    syncedAt: 2026-06-05
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.158
-    packages: "@anthropic-ai/claude-code@2.1.158"
+    version: 2.1.165
+    packages: "@anthropic-ai/claude-code@2.1.165"
     repo: Exhen/claude-code-2.1.88
-    source: "ungh://Exhen/claude-code-2.1.88"
-    syncedAt: 2026-05-30
+    source: "file:///Users/syn/src/github.com/synmux/syn-horse/node_modules/@anthropic-ai/claude-code/README.md"
+    syncedAt: 2026-06-05
     generator: skilld
   drizzle-orm-skilld:
     packageName: drizzle-orm

@@ -1,155 +1,171 @@
 ---
 name: nuxt-skilld
-description: "Nuxt is a free and open-source framework with an intuitive and extendable way to create type-safe, performant and production-grade full-stack web applications and websites with Vue.js. ALWAYS use when writing code importing \"nuxt\". Consult for debugging, best practices, or modifying nuxt."
+description: "ALWAYS use when writing code importing \"nuxt\". Consult for debugging, best practices, or modifying nuxt."
 metadata:
-  version: 4.4.6
-  generated_by: cached
-  generated_at: 2026-05-29
+  version: 4.4.7
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-06-05
 ---
 
-# nuxt/nuxt `nuxt@4.4.6`
+# nuxt/nuxt `nuxt@4.4.7`
 **Tags:** 1x: 1.4.5, 2x: 2.18.1, alpha: 4.0.0-alpha.4
 
-**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
+**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md)
 
 ## Search
 
 Use `skilld search "query" -p nuxt` instead of grepping `.skilld/` directories. Run `skilld search --guide -p nuxt` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
-## API Changes — Nuxt v4.4.6
+## API Changes
 
-This section documents significant version-specific API changes introduced in Nuxt v4.x. Focus on recent MINOR releases (v4.4, v4.3, v4.2, v4.1) and the v4.0 MAJOR release.
+This section documents version-specific API changes — prioritize recent major/minor releases.
 
-## Breaking Changes & Deprecations
+### Breaking Changes (v3 → v4 Migration)
 
-- BREAKING: `statusCode` → `status`, `statusMessage` → `statusText` — Web API alignment for error responses; old properties still work but deprecated in v4.3.0, will remove in v5 [source](./.skilld/releases/v4.3.0.md:L197:204)
+- BREAKING: `window.__NUXT__` object removed — access via `useNuxtApp().payload` instead [source](./.skilld/docs/1.getting-started/18.upgrade.md:L1148:L1165)
 
-- BREAKING: `#app/components/layout` → `#app/components/nuxt-layout` — Alias renamed in v4.0 for clarity [source](./.skilld/releases/v4.0.0.md:L218)
+- BREAKING: Route metadata deduplicated — `route.meta.name` no longer available, use `route.name` instead (experimental.scanPageMeta now default true) [source](./.skilld/docs/1.getting-started/18.upgrade.md:L576:L599)
 
-- BREAKING: Removed `public` and `assets` aliases — Use explicit paths instead; removed in v4.0 [source](./.skilld/releases/v4.0.0.md:L200)
+- BREAKING: `srcDir` now defaults to `app/` directory by default, with `serverDir`, `layers/`, `modules/`, `public/`, `content/` resolved from root [source](./.skilld/docs/1.getting-started/18.upgrade.md:L350:L442)
 
-- BREAKING: Removed top-level `generate` option — Migrate route rules and prerendering config to `nuxt.config.ts`; removed in v4.0 [source](./.skilld/releases/v4.0.0.md:L202)
+- BREAKING: Component names normalized to match route names instead of filenames — update `<KeepAlive>` include/exclude filters [source](./.skilld/docs/1.getting-started/18.upgrade.md:L603:L636)
 
-- BREAKING: `useAsyncData` no longer reruns if data already cached — Previous behavior silently ignored cached state; v4.0 avoids double renders [source](./.skilld/releases/v4.0.0.md:L197)
+- BREAKING: `data` and `error` now default to `undefined` instead of `null` in useAsyncData/useFetch [source](./.skilld/docs/1.getting-started/18.upgrade.md:L865:L883)
 
-- BREAKING: Dropped Nuxt 2 support from `@nuxt/kit` — Module authors must target Nuxt 3+; affects `resolveModule`, require utilities, and template compilation [source](./.skilld/releases/v4.0.0.md:L166)
+- BREAKING: `dedupe` option no longer accepts boolean values — use `'cancel'` or `'defer'` strings instead [source](./.skilld/docs/1.getting-started/18.upgrade.md:L885:L928)
 
-## New Features (v4.4 → v4.1)
+- BREAKING: `data` from useAsyncData/useFetch is now shallowRef instead of ref — no deep reactivity by default [source](./.skilld/docs/1.getting-started/18.upgrade.md:L1077:L1115)
 
-- NEW: `createUseFetch()` and `createUseAsyncData()` — Factory functions for custom data-fetching composables with merged defaults; replaces manual wrapping patterns [source](./.skilld/releases/v4.4.0.md:L14:51)
+- BREAKING: `builder:watch` hook now emits absolute paths instead of relative to srcDir [source](./.skilld/docs/1.getting-started/18.upgrade.md:L1117:L1146)
 
-- NEW: `useAnnouncer()` composable and `<NuxtAnnouncer>` component — Announce dynamic in-page changes to screen readers (form submissions, loading states, search results); complements `useRouteAnnouncer()` [source](./.skilld/releases/v4.4.0.md:L94:128)
+- BREAKING: Unhead v2 upgrade — removed props `vmid`, `hid`, `children`, `body` from head tags [source](./.skilld/docs/1.getting-started/18.upgrade.md:L638:L699)
 
-- NEW: Typed layout props in `definePageMeta()` — Pass props directly to layouts via `layout: { name: 'panel', props: { sidebar: true } }`; fully typed if layout defines props [source](./.skilld/releases/v4.4.0.md:L63:80)
+- BREAKING: Top-level `generate` config removed — migrate to `nitro.prerender` instead [source](./.skilld/docs/1.getting-started/18.upgrade.md:L1428:L1464)
 
-- NEW: `appLayout` in route rules — Set layouts per route pattern without touching individual pages: `routeRules: { '/admin/**': { appLayout: 'admin' } }` [source](./.skilld/releases/v4.3.0.md:L33:46)
+- BREAKING: SPA loading template now renders outside `#__nuxt__` div by default — update CSS/DOM selectors [source](./.skilld/docs/1.getting-started/18.upgrade.md:L701:L738)
 
-- NEW: Route groups in page meta — Access route groups in `useRoute().meta.groups`; enables convention-based auth without per-page meta [source](./.skilld/releases/v4.3.0.md:L96:114)
+- BREAKING: Global styles no longer inlined by default — only component styles inlined [source](./.skilld/docs/1.getting-started/18.upgrade.md:L763:L783)
 
-- NEW: `setPageLayout()` now accepts props — Update layout and pass props at runtime: `setPageLayout('admin', { sidebar: true })` [source](./.skilld/releases/v4.3.0.md:L116:137)
+### Breaking Changes (v4-specific)
 
-- NEW: `#server` alias — Clean server-side imports: `import { helper } from '#server/utils/helper'`; includes import protection [source](./.skilld/releases/v4.3.0.md:L138:151)
+- BREAKING: `getCachedData` function signature changed — now receives context object with `cause: 'initial' | 'refresh:hook' | 'refresh:manual' | 'watch'` [source](./.skilld/docs/1.getting-started/18.upgrade.md:L489:L505)
 
-- NEW: `AbortController` signal in `useAsyncData` — Cancel requests with `useAsyncData('key', (_nuxtApp, { signal }) => $fetch('/api/users', { signal }))` [source](./.skilld/releases/v4.2.0.md:L15:35)
+- BREAKING: `pending` property alignment — `pending` is now `false` with `immediate: false` until request made, true only when `status === 'pending'` [source](./.skilld/docs/1.getting-started/18.upgrade.md:L991:L1035)
 
-- NEW: `onInstall` and `onUpgrade` module hooks — Execute setup wizards when module first installed or upgraded; requires `name` and `version` in module metadata [source](./.skilld/releases/v4.1.0.md:L164:186)
+- BREAKING: Module loading order corrected — layer modules load before project modules (was reversed in v3) [source](./.skilld/docs/1.getting-started/18.upgrade.md:L518:L574)
 
-- NEW: `moduleDependencies` for modules — Declare and configure dependent modules with version constraints: `moduleDependencies: { 'some-module': { version: '>=2' } }` [source](./.skilld/releases/v4.1.0.md:L135:165)
+- BREAKING: Child folders in `app/middleware/` now scanned for `index` files (consistent with plugins behavior) [source](./.skilld/docs/1.getting-started/18.upgrade.md:L1167:L1193)
 
-- NEW: `getLayerDirectories()` utility — Access layer directories without private APIs: `getLayerDirectories(nuxt)` returns `{ app, appPages, server, public }` [source](./.skilld/releases/v4.1.0.md:L205:218)
+- BREAKING: Template compilation — lodash/template removed, use `getContents()` function instead [source](./.skilld/docs/1.getting-started/18.upgrade.md:L1195:L1257)
 
-- NEW: `<NuxtTime>` component — Render relative timestamps: `<NuxtTime :time="date" />` renders "2 minutes ago" [source](./.skilld/releases/v4.0.0.md:L152)
+- BREAKING: TypeScript config split — separate `tsconfig.app.json`, `tsconfig.server.json`, `tsconfig.node.json`, `tsconfig.shared.json` [source](./.skilld/docs/1.getting-started/18.upgrade.md:L1293:L1401)
 
-- NEW: `onWatcherCleanup` lifecycle hook — Register cleanup logic when file watchers reset; auto-imported [source](./.skilld/releases/v4.0.0.md:L149)
+- BREAKING: `noUncheckedIndexedAccess` TypeScript compiler option now `true` by default [source](./.skilld/docs/1.getting-started/18.upgrade.md:L1259:L1291)
 
-- EXPERIMENTAL (v4.4): `normalizeComponentNames` — Match page component names to route names in devtools; enable via `experimental: { normalizeComponentNames: true }` [source](./.skilld/releases/v4.4.0.md:L210:223)
+### New Components (v4.x+)
 
-- EXPERIMENTAL (v4.4): `payloadExtraction: 'client'` — Inline full payload in initial HTML for cached routes; reduces `_payload.json` requests [source](./.skilld/releases/v4.4.0.md:L136:156)
+- NEW: `<NuxtAnnouncer>` — accessibility component for announcing dynamic content changes to screen readers, new in v4.4.2 [source](./.skilld/docs/4.api/1.components/14.nuxt-announcer.md:L11:L27)
 
-- EXPERIMENTAL (v4.2): `extractAsyncDataHandlers` — Extract `useAsyncData` handlers into separate chunks; reduced bundle by 39% in testing [source](./.skilld/releases/v4.2.0.md:L107:145)
+### New Composables (v4.x+)
 
-- EXPERIMENTAL (v4.2): TypeScript plugin support — Enable via `experimental: { typescriptPlugin: true }` for smart component renaming, go-to-definition for globs, and enhanced auto-imports [source](./.skilld/releases/v4.2.0.md:L147:172)
+- NEW: `useAnnouncer()` — composable for manual screen reader announcements with `polite()` and `assertive()` methods, new in v4.4.2 [source](./.skilld/docs/4.api/2.composables/use-announcer.md:L11:L50)
 
-- EXPERIMENTAL (v4.2): `viteEnvironmentApi` — Opt-in Vite 6 Environment API: `experimental: { viteEnvironmentApi: true }`; closes dev/prod gap [source](./.skilld/releases/v4.2.0.md:L58:74)
+### Data Fetching Changes (v4.0+)
 
-- EXPERIMENTAL (v4.1): `rolldown-vite` support — Rust-powered bundling via package.json override; auto-detected by Nuxt [source](./.skilld/releases/v4.1.0.md:L45:90)
+- BREAKING: Singleton data fetching layer — all `useAsyncData`/`useFetch` calls with same key must have consistent `deep`, `transform`, `pick`, `getCachedData`, `default` options [source](./.skilld/docs/1.getting-started/18.upgrade.md:L444:L516)
 
-- EXPERIMENTAL (v4.1): `entryImportMap` — Use import maps for chunk stability; enabled by default, disable with `experimental: { entryImportMap: false }` [source](./.skilld/releases/v4.1.0.md:L12:43)
+- BREAKING: Reactive key support — `useAsyncData`/`useFetch` now accept computed refs, plain refs, or getter functions as keys with automatic refetching [source](./.skilld/docs/1.getting-started/18.upgrade.md:L444:L516)
 
-## Enhanced Behavior
+- BREAKING: Data cleanup on unmount — when last component using data from `useAsyncData` unmounts, Nuxt removes that data [source](./.skilld/docs/1.getting-started/18.upgrade.md:L444:L516)
 
-- ENHANCED: `useCookie` now has `refresh` option — Extend expiration without changing value: `useCookie('id', { maxAge: 60*60, refresh: true })` [source](./.skilld/releases/v4.4.0.md:L158:172)
+- BREAKING: Key change behavior in non-immediate mode — `useFetch` and `useAsyncData` now only fetch on key change if data already fetched once [source](./.skilld/docs/1.getting-started/18.upgrade.md:L1037:L1075)
 
-- ENHANCED: `useState` and `clearNuxtState` reset to initial value — No longer reset to `undefined`; aligns with `useAsyncData` behavior [source](./.skilld/releases/v4.4.0.md:L174:186)
+### Features & Configuration Changes
 
-- ENHANCED: Import protection now shows traces and suggestions — Debugger displays import chain, exact line, and fix options [source](./.skilld/releases/v4.4.0.md:L188:197)
+- NEW: `features.devLogs` — enable/disable server logs streaming to client in development [source](./.skilld/docs/3.guide/6.going-further/1.features.md:L9:L24)
 
-- ENHANCED: `defineLazyHydrationComponent` works without auto-imports — Explicitly import the macro without relying on auto-discovery [source](./.skilld/releases/v4.1.0.md:L97:109)
+- NEW: `features.inlineStyles` — control CSS inlining behavior, accepts boolean or function [source](./.skilld/docs/3.guide/6.going-further/1.features.md:L26:L40)
 
-- ENHANCED: Module disabling by setting options to `false` — Disable layer modules: `image: false` [source](./.skilld/releases/v4.3.0.md:L85:92)
+- NEW: `features.noScripts` — disable JavaScript rendering, supports `true | 'production' | 'all' | false` [source](./.skilld/docs/3.guide/6.going-further/1.features.md:L42:L56)
 
-- ENHANCED: Draggable error overlay in dev — Minimize to pill, snap to edges, position persists across reloads [source](./.skilld/releases/v4.3.0.md:L152:160)
+- NEW: `future.compatibilityVersion: 5` — opt-in to Nuxt 5 breaking changes for early testing [source](./.skilld/docs/3.guide/6.going-further/1.features.md:L62:L78)
 
-- ENHANCED: ISR/SWR payload extraction — Cached pages now generate `_payload.json` for client-side navigation without additional API calls [source](./.skilld/releases/v4.3.0.md:L57:73)
+- NEW: `future.multiApp` — experimental multi-app support (issue #21635) [source](./.skilld/docs/3.guide/6.going-further/1.features.md:L80:L90)
 
-- ENHANCED: Better error pages in development — Show both custom error page and technical overlay simultaneously [source](./.skilld/releases/v4.2.0.md:L50:56)
+- NEW: `future.typescriptBundlerResolution` — enable TypeScript 'Bundler' module resolution mode [source](./.skilld/docs/3.guide/6.going-further/1.features.md:L92:L108)
 
-- ENHANCED: Async plugin constructors — Build plugins now support lazy loading: `addVitePlugin(() => import('plugin').then(r => r.default()))` [source](./.skilld/releases/v4.3.0.md:L165:180)
+### Removal of Deprecated Features (v4.0+)
 
-## Vue Router & Dependencies
+- BREAKING: `experimental.treeshakeClientOnly` no longer configurable — always `true` [source](./.skilld/docs/1.getting-started/18.upgrade.md:L1404:L1426)
 
-- BREAKING: Upgraded to **vue-router v5** — Removes dependency on `unplugin-vue-router`; typed routes still experimental; transparent for most apps [source](./.skilld/releases/v4.4.0.md:L55:61)
+- BREAKING: `experimental.configSchema` no longer configurable — always `true` [source](./.skilld/docs/1.getting-started/18.upgrade.md:L1404:L1426)
 
-- BREAKING: Separate TypeScript projects for app/server/shared — One `tsconfig.json` at root; improved type inference per context [source](./.skilld/releases/v4.0.0.md:L64:71)
+- BREAKING: `experimental.polyfillVueUseHead` no longer configurable — always `false` [source](./.skilld/docs/1.getting-started/18.upgrade.md:L1404:L1426)
 
-## Migration Patterns
+- BREAKING: `experimental.respectNoSSRHeader` no longer configurable — always `false` [source](./.skilld/docs/1.getting-started/18.upgrade.md:L1404:L1426)
 
-- NEW: `nuxt.config.ts` structure — Optional: move code to `app/` directory for faster file watching; auto-detects legacy structure [source](./.skilld/releases/v4.0.0.md:L32:52)
+- BREAKING: `vite.devBundler` no longer configurable — hardcoded to `vite-node` [source](./.skilld/docs/1.getting-started/18.upgrade.md:L1404:L1426)
 
-- REMOVED: `installModule` (deprecated) → use `moduleDependencies` instead [source](./.skilld/releases/v4.1.0.md:L164)
+### Optional Backward Compatibility Flags (v4.0+)
 
-- REMOVED: `requireModule` and `tryRequireModule` from older Nuxt 2 support (restored in v4.0.1) [source](./.skilld/releases/v4.0.0.md:L173)
+These experimental flags allow reverting v4 breaking changes where necessary:
 
-## Also changed:
+- `experimental.granularCachedData: false` — disable singleton data fetching layer [source](./.skilld/docs/1.getting-started/18.upgrade.md:L507:L516)
 
-NEW in v4.x: `resolveFiles` now has `ignore` option · `setGlobalHead` utility for kit · `declarationPath` for component registration · `resolveModule` `extensions` option · payload extraction in dev mode · ISR/SWR caching · `nuxt build --profile` for build profiling · `unrouting` migration for 15% faster route changes · better `optimizeDeps` hints · reset to default for `useState`
+- `experimental.purgeCachedData: false` — disable automatic data cleanup on unmount [source](./.skilld/docs/1.getting-started/18.upgrade.md:L507:L516)
 
-PERFORMANCE: 14,000x faster module ID parsing · disabled NuxtLink prefetching in dev · precomputed renderer dependencies at build time · hook filters to skip unnecessary runs · SSR styles optimization · route rules compilation into client chunk
+- `experimental.normalizeComponentNames: false` — revert component names to filename-based [source](./.skilld/docs/1.getting-started/18.upgrade.md:L630:L636)
 
-DEPRECATED: `statusCode`/`statusMessage` in error objects (v4.3+)
+- `experimental.spaLoadingTemplateLocation: 'within'` — place SPA loading template inside `#__nuxt__` div [source](./.skilld/docs/1.getting-started/18.upgrade.md:L730:L738)
+
+- `experimental.sharedPrerenderData: false` — disable shared prerender data caching [source](./.skilld/docs/1.getting-started/18.upgrade.md:L855:L863)
+
+- `experimental.alwaysRunFetchOnKeyChange: true` — always refetch on key change regardless of immediate setting [source](./.skilld/docs/1.getting-started/18.upgrade.md:L1066:L1075)
+
+- `experimental.pendingWhenIdle: true` — revert pending behavior to be true on idle [source](./.skilld/docs/1.getting-started/18.upgrade.md:L1027:L1035)
+
+- `unhead.legacy: true` — revert to Unhead v1 behavior [source](./.skilld/docs/1.getting-started/18.upgrade.md:L691:L699)
+
+- `features.inlineStyles: true` — inline global CSS as well as component CSS [source](./.skilld/docs/1.getting-started/18.upgrade.md:L775:L783)
+
+- `experimental.scanPageMeta: true` — scan page metadata before pages:extend hook [source](./.skilld/docs/1.getting-started/18.upgrade.md:L814:L822)
+
+**Also changed:** Vite Environment API migration · Relative prerender data · Parsed error.data support · Client-only comment placeholders · Non-async callHook (hookable v6) · pages:resolved hook addition · setResponseStatus usage · TypeScript project references support · refreshCookie utility · setPageLayout utility
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+## Nuxt Best Practices
+
 ## Best Practices
 
-- Use `useFetch` or `useAsyncData` for all data fetching to prevent double-fetching during SSR hydration — both composables transmit server-rendered data to the client payload, avoiding redundant requests on hydration [source](./.skilld/docs/4.api/2.composables/use-fetch.md#usage)
+- Use `useFetch` or `useAsyncData` for data fetching in component setup functions — these ensure data fetched on the server is forwarded to the client in the payload, avoiding double-fetches and hydration issues [source](./.skilld/docs/1.getting-started/10.data-fetching.md:L17:23)
 
-- Create custom fetch composables with `createUseFetch` instead of wrapping `$fetch` directly — this generates type hints, auto-deduplicates keys based on URL and options, and provides a consistent API across your application [source](./.skilld/docs/3.guide/5.recipes/3.custom-usefetch.md#recipe-api-client-with-auth)
+- Always provide an explicit key to `useAsyncData` to cache responses and enable data sharing between components — auto-generated keys can cause unwanted behavior in custom composables wrapping `useAsyncData` [source](./.skilld/docs/1.getting-started/10.data-fetching.md:L175:181)
 
-- Use `useState` with only serializable data (objects, arrays, primitives) — non-serializable values like classes or functions will cause hydration errors when the state is passed from server to client [source](./.skilld/docs/4.api/2.composables/use-state.md#usage)
+- Define global state with `useState` wrapped in composables rather than as module-level `ref()` — module-level state causes cross-request pollution on the server and memory leaks [source](./.skilld/docs/1.getting-started/11.state-management.md:L23:30)
 
-- Prefix components with `Lazy` to dynamically import them only when needed — this reduces initial bundle size and defers parsing and execution until the component is actually used [source](./.skilld/docs/3.guide/2.best-practices/performance.md#lazy-loading-components)
+- Wrap client-only code in `onMounted` or use `<ClientOnly>` component — browser-only libraries with side effects imported at setup time cause hydration mismatches [source](./.skilld/docs/3.guide/2.best-practices/hydration.md:L108:130)
 
-- Use `hydrate-on-visible` on lazy components to defer hydration until they scroll into the viewport — this prioritises hydration of above-the-fold content and improves time-to-interactive [source](./.skilld/docs/3.guide/2.best-practices/performance.md#lazy-hydration)
+- Use `useCookie` instead of `localStorage` for persistent user preferences — `localStorage` doesn't exist during server rendering and causes hydration mismatches [source](./.skilld/docs/3.guide/2.best-practices/hydration.md:L34:61)
 
-- Use `ClientOnly` wrapper for browser-only code rather than checking `import.meta.client` in setup — this prevents hydration mismatches by explicitly marking content that should only render on the client side [source](./.skilld/docs/3.guide/2.best-practices/hydration.md#third-party-libraries-with-side-effects)
+- Enable `parallel: true` for asynchronous plugins to allow concurrent loading — by default all plugins load synchronously, which blocks rendering during hydration [source](./.skilld/docs/3.guide/2.best-practices/plugins.md:L18:21)
 
-- Use `useCookie` instead of `localStorage` for persistent state — cookies are automatically synced between server and client during SSR, avoiding hydration mismatches from browser-only APIs [source](./.skilld/docs/3.guide/2.best-practices/hydration.md#browser-only-apis-in-server-context)
+- Call Nuxt composables only from within components, plugins, and route middleware — composables require the Nuxt instance context and will throw 'Nuxt instance is unavailable' if called outside the correct lifecycle [source](./.skilld/docs/3.guide/1.concepts/3.auto-imports.md:L54:76)
 
-- Call Nuxt composables (`useState`, `useFetch`, `useRouter`, etc.) only within `<script setup>`, route middleware, or plugins — calling them elsewhere (async functions, event handlers) causes "Nuxt instance unavailable" errors because the composable context is lost [source](./.skilld/docs/3.guide/1.concepts/3.auto-imports.md#vue-and-nuxt-composables)
+- Prefer composition patterns with composables over plugins for utilities and helpers — plugins run during hydration and can cause performance bottlenecks with expensive setup logic [source](./.skilld/docs/3.guide/2.best-practices/plugins.md:L9:15)
 
-- Combine `useState` with `shallowRef` for large objects or arrays — shallow reactivity avoids expensive deep tracking and improves performance when large data structures don't need fine-grained reactivity [source](./.skilld/docs/4.api/2.composables/use-state.md#using-shallowref)
+- Use lazy-loaded components with the `Lazy` prefix for non-critical UI — this delays loading component code until needed, optimizing initial JavaScript bundle size [source](./.skilld/docs/3.guide/2.best-practices/performance.md:L76:96)
 
-- Avoid large or costly plugin initialization logic — plugins run during hydration and block rendering, so defer expensive setup to Nuxt hooks or lazy-load initialization until `onMounted` [source](./.skilld/docs/3.guide/2.best-practices/plugins.md#avoid-costly-plugin-setup)
+- Implement hybrid rendering with `routeRules` for different caching strategies per route — this allows pages to be generated at build time, cached, or rendered on-demand based on the route [source](./.skilld/docs/3.guide/2.best-practices/performance.md:L47:74)
 
-- Set `parallel: true` on asynchronous plugins to allow multiple plugins to load concurrently — by default plugins load sequentially, which delays the dev server and build process [source](./.skilld/docs/3.guide/2.best-practices/plugins.md#if-async-enable-parallel)
+- Prefix module exports (components, composables, routes) with the module name to avoid conflicts — for example, a `nuxt-foo` module should provide `<FooButton>` not `<Button>` [source](./.skilld/docs/3.guide/4.modules/7.best-practices.md:L18:32)
 
-- Use `watch: false` on `useFetch` when reactive fetch options should not trigger refetches — this prevents unintended requests when refs used in query parameters or headers change [source](./.skilld/docs/4.api/2.composables/use-fetch.md#reactive-fetch-options)
+- Use lifecycle hooks (`onInstall`, `onUpgrade`) for module setup tasks instead of the main `setup` function — this prevents unnecessary work on every build and improves developer experience [source](./.skilld/docs/3.guide/4.modules/7.best-practices.md:L38:68)
 
-- Use `routeRules` with hybrid rendering to apply different caching strategies per route — this allows building static pages at runtime (ISR), caching with revalidation (SWR), or client-side rendering (CSR) on the same app [source](./.skilld/docs/3.guide/1.concepts/1.rendering.md#hybrid-rendering)
+- Return helper functions (not raw values) from middleware — use `navigateTo()` and `abortNavigation()` to control navigation flow instead of relying on Vue Router patterns [source](./.skilld/docs/2.directory-structure/1.app/1.middleware.md:L43:65)
 
-- Prefix all module exports with the module name (e.g. `useFooData`, `<FooButton>`, `/api/_foo/...`) — this prevents naming conflicts with other modules, Nuxt internals, or user-defined code, especially important for server routes that commonly use `/api/auth` or `/api/user` [source](./.skilld/docs/3.guide/4.modules/6.best-practices.md#prefix-your-exports)
+- Use `$fetch` for client-side interactions and event-based requests — `useFetch` and `useAsyncData` are only needed for component initialization where SSR-safety and Suspense blocking matter [source](./.skilld/docs/1.getting-started/10.data-fetching.md:L65:89)
 <!-- /skilld:best-practices -->
 
-Related: vue-skilld
+Related: vue-skilld, vue-router-skilld
