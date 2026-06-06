@@ -5,18 +5,18 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@anthropic-ai/claude-code": "^2.1.157",
+    "@anthropic-ai/claude-code": "^2.1.167",
     "@biomejs/biome": "^2.4.16",
-    "@cloudflare/vitest-pool-workers": "^0.16.10",
-    "@types/node": "^25.9.1",
-    "ctx7": "^0.4.4",
+    "@cloudflare/vitest-pool-workers": "^0.16.13",
+    "@types/node": "^25.9.2",
+    "ctx7": "^0.4.5",
     "npm-run-all2": "^9.0.1",
     "skilld": "^2.0.0",
-    "tsx": "^4.22.3",
+    "tsx": "^4.22.4",
     "typescript": "^6.0.3",
-    "ultracite": "^7.8.0",
-    "vitest": "^4.1.7",
-    "wrangler": "^4.95.0"
+    "ultracite": "^7.8.1",
+    "vitest": "^4.1.8",
+    "wrangler": "^4.98.0"
   },
   "name": "syn-horse-notifications",
   "scripts": {
