@@ -26,12 +26,12 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@anthropic-ai/claude-code": "^2.1.165",
+    "@anthropic-ai/claude-code": "^2.1.167",
     "@biomejs/biome": "2.4.15",
     "@catppuccin/daisyui": "^2.1.1",
     "@catppuccin/tailwindcss": "^1.0.0",
     "@tailwindcss/cli": "^4.3.0",
-    "@types/node": "^25.9.1",
+    "@types/node": "^25.9.2",
     "ctx7": "^0.5.1",
     "lefthook": "^2.1.9",
     "nitropack": "^2.13.4",
