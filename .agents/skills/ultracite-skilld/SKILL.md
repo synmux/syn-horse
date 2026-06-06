@@ -2,86 +2,102 @@
 name: ultracite-skilld
 description: "ALWAYS use when writing code importing \"ultracite\". Consult for debugging, best practices, or modifying ultracite."
 metadata:
-  version: 7.8.0
-  generated_by: Google · Gemini 2.5 Flash
-  generated_at: 2026-05-29
+  version: 7.8.1
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-06-06
 ---
 
-# haydenbleasel/ultracite `ultracite@7.8.0`
-**Tags:** canary: 5.0.0--canary.162.3c1836f.0, latest: 7.8.0
+# haydenbleasel/ultracite `ultracite@7.8.1`
+**Tags:** canary: 5.0.0--canary.162.3c1836f.0, latest: 7.8.1
 
-**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
+**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md)
 
 ## Search
 
 Use `skilld search "query" -p ultracite` instead of grepping `.skilld/` directories. Run `skilld search --guide -p ultracite` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+## Ultracite v7.8.1 API Changes
+
 ## API Changes
 
-This section documents version-specific API changes — prioritize recent major/minor releases.
+This section documents version-specific API changes in ultracite v7 — prioritizing recent major/minor releases.
 
-- BREAKING: TanStack Query rules moved from `react` preset to `tanstack` preset. Projects relying on Query rules must now opt into `tanstack`. [source](./ultracite@7.8.0.md#minor-changes)
+- BREAKING: Preset paths changed from `ultracite/{framework}` to `ultracite/{linter}/{framework}` in v7 — e.g., `ultracite/core` → `ultracite/biome/core`, `ultracite/react` → `ultracite/biome/react` [source](./.skilld/docs/upgrade/v7.mdx#updated-preset-paths)
 
-- BREAKING: TanStack Router projects now resolve to `tanstack` preset instead of `remix`. [source](./ultracite@7.8.0.md#minor-changes)
+- NEW: Multi-provider support — v7 adds ESLint + Prettier + Stylelint and Oxlint + Oxfmt alongside Biome; you can now choose which toolchain to use [source](./.skilld/docs/upgrade/v7.mdx#multi-provider-support)
 
-- NEW: `tanstack` framework preset for Biome, ESLint, and Oxlint. [source](./ultracite@7.8.0.md#minor-changes)
+- NEW: `--linter` flag for `ultracite init` — specify which provider to use: `biome`, `eslint`, or `oxlint` [source](./.skilld/docs/upgrade/v7.mdx#new-cli-flag)
 
-- NEW: `.biome.json` and `.biome.jsonc` recognized as valid Biome config files. [source](./ultracite@7.8.0.md#patch-changes)
+- NEW: `--type-aware` flag enables type-aware linting — for Biome it adds the `ultracite/biome/type-aware` preset; for Oxlint it installs `oxlint-tsgolint` dependency [source](./.skilld/docs/usage.mdx#type-aware-linting)
 
-- BREAKING: `nestjs` ESLint preset now enforces rules using `@darraghor/eslint-plugin-nestjs-typed`. Users who previously imported the empty preset may see new violations. [source](./ultracite@7.7.0.md#minor-changes)
+- NEW: `--type-check` flag (Oxlint only) enables TypeScript compiler diagnostics to catch type-based bugs like floating promises and misused promises [source](./.skilld/docs/usage.mdx#oxlint)
 
-- BREAKING: ESLint presets aligned with Oxlint configs, tightening rules across core, next, remix, react, jest, vitest.
-  - core: `complexity`, `no-unused-private-class-members`, `sort-keys`, `sort-vars`, `prefer-destructuring`, `no-confusing-void-expression`, `no-misused-promises`, `prefer-readonly`, `strict-boolean-expressions`, `return-await: ["error", "always"]`, `consistent-type-specifier-style: ["error", "prefer-top-level"]`.
-  - next: `next-env.d.ts` override disables `import-x/no-unassigned-import`.
-  - remix: `routeTree.gen.ts` override disables `unicorn/filename-case` and `unicorn/no-abusive-eslint-disable`.
-  - react: Disabled `react/jsx-boolean-value`, `react/no-unknown-property`, `react/only-export-components`.
-  - jest: Broadened test globs. Disabled `no-empty-function`, `promise/prefer-await-to-then`, `jest/require-hook`, `jest/no-conditional-in-test`, `jest/no-hooks`, `jest/prefer-expect-assertions`.
-  - vitest: Broadened test globs. Disabled `no-empty-function`, `promise/prefer-await-to-then`. Removed `prefer-importing-vitest-globals`, `prefer-to-have-been-called-times` disables. Added `prefer-lowercase-title: off`, `valid-title: off`.
-  [source](./ultracite@7.7.0.md#patch-changes)
+- NEW: Editor hooks via `--hooks` flag configure automatic `ultracite fix` after AI agent edits in Cursor, Windsurf, CodeBuddy, and Claude Code [source](./.skilld/docs/hooks.mdx#setup)
 
-- NEW Rules: Biome core config adds `suspicious/noDuplicateDependencies` (error) and `suspicious/useDeprecatedDate` (off). [source](./ultracite@7.7.0.md#patch-changes)
+- NEW: `--agents` flag to configure AI agent files for Claude, Cursor, Gemini, and 40+ other agents; generates AGENTS.md, .claude/CLAUDE.md, and provider-specific files [source](./.skilld/docs/setup.mdx#flags)
 
-- BREAKING: Oxlint and Oxfmt configurations migrated from JSON (`.oxlintrc.json`, `.oxfmtrc.jsonc`) to TypeScript (`oxlint.config.ts`, `oxfmt.config.ts`) using `defineConfig`. [source](./ultracite@7.5.0.md#minor-changes)
+- NEW: `--editors` flag configures editor settings for VS Code, Cursor, Windsurf, Zed, and other VS Code-based editors, or `universal` for all [source](./.skilld/docs/setup.mdx#flags)
 
-**Also changed:**
-ultracite@7.8.0: Oxlint rules added to core, React, Vitest presets (id-match, no-implicit-globals, etc.) [source](./ultracite@7.8.0.md#patch-changes) ·
-ultracite@7.7.0: Removed redundant `react-hooks/exhaustive-deps: "error"` override [source](./ultracite@7.7.0.md#patch-changes) ·
-ultracite@7.7.0: Cleaned up `config/eslint/core/rules/typescript.mjs` (removed 22 stale overrides) [source](./ultracite@7.7.0.md#patch-changes) ·
-ultracite@7.6.0: New Biome rules [source](./ultracite@7.6.0.md#minor-changes) ·
-ultracite@7.6.0: New oxlint 1.160.0 rules [source](./ultracite@7.6.0.md#minor-changes)
+- NEW: `--frameworks` flag adds framework-specific presets during init — supports `react`, `next`, `solid`, `vue`, `svelte`, `qwik`, `remix`, `tanstack`, `angular`, `astro`, `nestjs` [source](./.skilld/docs/setup.mdx#flags)
+
+- NEW: `--integrations` flag configures git hooks with Husky, lefthook, lint-staged, or pre-commit to auto-fix before commits [source](./.skilld/docs/setup.mdx#flags)
+
+- NEW: `--install-skill` flag installs the reusable Ultracite skill bundle so compatible AI tools can load it as a shared capability [source](./.skilld/docs/setup.mdx#flags)
+
+- NEW: `--pm` flag specifies package manager — choose from `pnpm`, `bun`, `yarn`, `npm` [source](./.skilld/docs/setup.mdx#flags)
+
+- NEW: `--quiet` flag suppresses all interactive prompts and visual output; auto-enabled when `CI=true` — useful for CI/CD pipelines [source](./.skilld/docs/setup.mdx#programmatic-usage)
+
+- NEW: `--skip-install` flag — configure files without installing dependencies [source](./.skilld/docs/setup.mdx#flags)
+
+- NEW: `ultracite fix --unsafe` — applies unsafe auto-fixes that may change code behavior, e.g., rewriting `substring()` to `slice()` when `noSubstr` rule is enabled [source](./.skilld/docs/usage.mdx#fixing-code)
+
+- NEW: Safe auto-fix rules in v7 — `noUnusedImports`, `useBlockStatements`, `useSortedClasses` automatically apply when running `ultracite fix` (no `--unsafe` needed) [source](./.skilld/docs/configuration.mdx#safe-fixes)
+
+- NEW: `ultracite doctor` command validates setup and provides recommendations for common configuration issues [source](./.skilld/docs/usage.mdx#validating-setup)
+
+- NEW: Hooks configuration for Cursor (`.cursor/hooks.json`), Windsurf (`.windsurf/hooks.json`), CodeBuddy (`.codebuddy/settings.json`), and Claude Code (`.claude/settings.json`) to auto-run `ultracite fix` after AI edits [source](./.skilld/docs/hooks.mdx#automatic-setup)
+
+- NEW: Git hooks support — Ultracite can configure Husky, lefthook, lint-staged, and pre-commit to run `npx ultracite fix` before committing [source](./.skilld/docs/git-hooks.mdx#supported-tools)
+
+- NEW: Type-aware preset `ultracite/biome/type-aware` for Biome enables project/scanner rules like `noPrivateImports`, `noUndeclaredDependencies`, `noUnresolvedImports`, `noImportCycles` [source](./.skilld/docs/usage.mdx#biome)
+
+- NEW: ESLint configuration exports changed from `.extends` to `defineConfig()` with module imports; Ultracite generates `eslint.config.mjs`, `prettier.config.mjs`, `stylelint.config.mjs` [source](./.skilld/docs/provider/eslint.mdx#usage)
+
+**Also changed:** Oxlint preset imports now use `defineConfig()` · Oxlint supports third-party plugins for extended rule coverage · Files exclusion pattern now requires `"**"` as first entry in Biome · Default line width is 80 characters (not 120) · Safe fixes configuration can be disabled per-rule · Agent skills separate from repo-local agent rules · `--quiet` mode uses sensible defaults when no flags specified
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
 ## Best Practices
 
-- Remove ESLint/Prettier configs when using Ultracite to avoid conflicts and leverage Biome's unified functionality. [source](docs/faq.mdx#q-do-i-still-need-eslint-or-prettier-if-i-use-ultracite)
+- **Choose Biome as the default linter** — It combines single-binary simplicity with modern features and is the fastest option for most JavaScript/TypeScript projects. The performance benefits from Rust implementation enable formatting on every save without lag [source](./.skilld/docs/index.mdx#goals)
 
-- Embrace Ultracite's stylistic conventions for project consistency, rather than extensively overriding default rules. [source](docs/faq.mdx#q-if-i-disagree-with-a-rule-ultracite-enforces-what-should-i-do)
+- **Always enable TypeScript strict mode in your project** — Ultracite's rules assume strict null checking; without it, you'll see warnings about potential undefined values that TypeScript isn't catching due to loose settings. Enable `strictNullChecks` in `tsconfig.json` to align with Ultracite's philosophy [source](./.skilld/docs/troubleshooting.mdx:L56:L60)
 
-- Always review Ultracite release notes before upgrading to anticipate new rules or changes that may introduce warnings. [source](docs/faq.mdx#q-how-often-is-ultracite-updated)
+- **Extend the core preset first, then add framework-specific presets** — The framework presets are designed to layer on top of the core config without bloating your base configuration. Always include `ultracite/{linter}/core` first, then add framework-specific presets like `react`, `next`, or `vue` [source](./.skilld/docs/configuration.mdx:L8:L29)
 
-- Employ `ultracite fix --unsafe` cautiously for specific Biome rules (e.g., `noSubstr`) that provide behavioral-changing but often beneficial fixes. [source](docs/faq.mdx#q-can-ultracite-fix-all-issues-it-finds)
+- **Include `"**"` as the first entry when using negated glob patterns in file includes** — Biome matches zero files if you override `files.includes` with only negated patterns. Always lead with `"**"` to include everything, then negate what you want to exclude, especially for third-party code like `components/ui/**` [source](./.skilld/docs/troubleshooting.mdx:L28:L36)
 
-- To resolve corepack installation errors with `pnpm dlx ultracite init`, update corepack to v0.34.0+ or upgrade Node.js to v22+. [source](docs/faq.mdx#q-im-getting-a-corepack-error-during-installation--what-should-i-do)
+- **Use `npx ultracite fix --unsafe` only for intentional behavior-changing rewrites** — The `--unsafe` flag applies fixes like rewriting `substring()` and `substr()` to `slice()`, which can change runtime behavior. Use this deliberately and review the changes carefully [source](./.skilld/docs/usage.mdx:L55:L64)
 
-- Utilize framework-specific presets (e.g., `ultracite/biome/react`) alongside the `core` configuration to apply targeted linting rules without unnecessary overhead. [source](docs/configuration.mdx#framework-presets)
+- **Enable `formatOnPaste` in your IDE settings** — Ultracite configures this automatically, ensuring code pasted from external sources is instantly reformatted to match your project style without manual intervention [source](./.skilld/docs/usage.mdx:L20)
 
-- Rely on Ultracite's default TypeScript strictness to enforce robust typing, discourage `any` usage, and ensure proper `null`/`undefined` handling. [source](docs/configuration.mdx#default-configuration)
+- **Set up editor hooks to automatically format AI-generated code** — Configure hooks for Cursor, Windsurf, CodeBuddy, or Claude Code to run `npx ultracite fix` after AI edits, ensuring all generated code adheres to project standards before you review it [source](./.skilld/docs/hooks.mdx:L1:L10)
 
-- Be aware that `ultracite fix` will safely auto-fix issues like `noUnusedImports`, `useBlockStatements`, and `useSortedClasses` without altering code behavior. [source](docs/configuration.mdx#safe-fixes)
+- **Use Git hooks or lint-staged for pre-commit formatting** — Running `npx ultracite fix` before every commit keeps your repository history clean and ensures consistency across contributors. Combine with Husky, lefthook, or lint-staged for automated enforcement [source](./.skilld/docs/git-hooks.mdx:L1:L10)
 
-- Generate editor-specific rule files via `npx ultracite init` to guide AI coding assistants in generating consistent, high-quality code. [source](docs/rules.mdx#setup)
+- **Pass `--quiet` and `CI=true` when running Ultracite in CI/CD pipelines** — These flags suppress interactive prompts and visual output, use sensible defaults, and exit cleanly for non-interactive environments. The `CI` variable is automatically detected for standard CI platforms [source](./.skilld/docs/setup.mdx:L32:L58)
 
-- Recognize that Ultracite's editor rules for AI focus on code quality and implementation guidance, leaving formatting concerns to the project's configured formatter for portability. [source](docs/rules.mdx#rules)
+- **Remove conflicting linter configs when switching to Ultracite** — If you have leftover `.eslintrc`, `.prettierrc`, or old `biome.jsonc` files, VS Code extensions may still pick them up and cause double diagnostics. Remove or explicitly disable the corresponding extensions to avoid confusion [source](./.skilld/docs/troubleshooting.mdx:L16:L21)
 
-- When available, leverage the global Ultracite skill for AI tools to establish consistent baseline coding guidance across repositories, deferring formatting to project-level configurations. [source](docs/rules.mdx#reusable-skills)
+- **Enable type-aware linting for deeper static analysis** — For Biome, pass `--type-aware` during init to add rules like `noPrivateImports`, `noImportCycles`, and `noUndeclaredDependencies` that catch import structure bugs. For Oxlint, pass the flag at runtime [source](./.skilld/docs/usage.mdx:L66:L102)
 
-- Integrate Ultracite with your IDE (e.g., VS Code) to receive instant formatting and linting feedback on save, leveraging `codeActionsOnSave` and `formatOnPaste`. [source](docs/usage.mdx#ide-integration)
+- **Run `ultracite doctor` after setup to validate your configuration** — This command checks for common issues like missing extensions, conflicting formatters, and misconfigured settings, providing recommendations for each problem found [source](./.skilld/docs/usage.mdx:L110:L116)
 
-- Run `npx ultracite doctor` after installation to validate your setup and receive recommendations for correct configuration. [source](docs/usage.mdx#validating-setup)
+- **Use a single root-level lint script in monorepos** — Because Rust-based tools like Biome are fast, a single `npx ultracite check` or `npx ultracite fix` at the root covers all packages efficiently without needing per-package scripts [source](./.skilld/docs/monorepos.mdx:L9:L27)
 
-- Enable type-aware linting (via `--type-aware` flag during `ultracite init` for Biome or at runtime for Oxlint) for deeper analysis and bug detection using TypeScript's type system. [source](docs/usage.mdx#type-aware-linting)
+- **Install the global Ultracite skill alongside repo-local rules** — The skill provides a shared baseline across projects while keeping formatting decisions and project-specific rules in each repository's config. Separates portable guidance from repository-local configuration [source](./.skilld/docs/skills.mdx:L43:L76)
 <!-- /skilld:best-practices -->
 
 Related: zod-skilld

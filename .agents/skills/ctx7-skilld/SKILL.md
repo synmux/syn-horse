@@ -1,72 +1,63 @@
 ---
 name: ctx7-skilld
-description: 'ALWAYS use when writing code importing "ctx7". Consult for debugging, best practices, or modifying ctx7, context7.'
+description: "ALWAYS use when writing code importing \"ctx7\". Consult for debugging, best practices, or modifying ctx7, context7."
 metadata:
-  version: 0.4.4
-  generated_by: Google · Gemini 2.5 Flash
-  generated_at: 2026-05-27
+  version: 0.4.5
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-06-06
 ---
 
-# upstash/context7 `ctx7@0.4.4`
+# upstash/context7 `ctx7@0.4.5`
+**Tags:** canary: 0.2.4-canary.0, latest: 0.5.1
 
-**Tags:** canary: 0.2.4-canary.0, latest: 0.4.4
-
-**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
+**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md)
 
 ## Search
 
 Use `skilld search "query" -p ctx7` instead of grepping `.skilld/` directories. Run `skilld search --guide -p ctx7` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
-
 ## API Changes
 
-This section documents version-specific API changes — prioritize recent major/minor releases.
+## Stability Notice
 
-- BREAKING: `researchMode` tool and `docs --research` flag — removed from MCP server and CLI [source](./.skilld/releases/ctx7@0.4.1.md:L8)
+- **UNSTABLE:** `@upstash/context7-sdk` TypeScript SDK — Explicitly marked "Work in Progress" with warning that "The API is subject to change and may introduce breaking changes in future releases." [source](./.skilld/docs/sdks/ts/getting-started.mdx:L7:L8) Use with caution in production; expect breaking changes in minor version updates.
 
-- NEW: `researchMode` tool and `docs --research` flag — exposed through MCP and CLI [source](./.skilld/releases/ctx7@0.4.0.md:L8)
+- **STABLE:** CLI commands (`ctx7 library`, `ctx7 docs`, `ctx7 setup`, `ctx7 login`) — Well-established and documented with consistent command signatures; recommended for scripting and stable integrations. [source](./.skilld/docs/clients/cli.mdx#query-library-documentation)
 
-- NEW: `ctx7 upgrade` command — adds CLI update notifications and upgrade functionality [source](./.skilld/releases/ctx7@0.4.0.md:L11)
+- **STABLE:** AI SDK Tools (`resolveLibraryId`, `queryDocs`) — Part of `@upstash/context7-tools-ai-sdk` with mature integration patterns for Vercel AI SDK. [source](./.skilld/docs/agentic-tools/ai-sdk/getting-started.mdx#quick-start)
 
-- NEW: `ctx7 remove` command — cleanup counterpart to `ctx7 setup` [source](./.skilld/releases/ctx7@0.4.0.md:L14)
-
-- NEW: `ctx7 remove` graceful config handling — handles malformed MCP config files during agent detection [source](./.skilld/releases/ctx7@0.4.2.md:L8)
-
-- NEW: `CLAUDE_CONFIG_DIR` env var support — respects environment variable for resolving Claude Code's global config [source](./.skilld/releases/ctx7@0.4.2.md:L11)
-
-- NEW: `ctx7 setup` command — configures Context7 MCP and rules across Claude Code, Cursor, and OpenCode [source](./.skilld/releases/ctx7@0.3.0.md:L8)
+**Note:** Explicit release notes, changelogs, and version-to-version migration documentation are not available in the current documentation set. For detailed version history, consult the GitHub repository (https://github.com/upstash/context7).
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
-
 ## Best Practices
 
-- Prefer `npx ctx7` for ephemeral tasks — avoids global installation and ensures usage of the latest version without manual updates. [source](./.skilld/pkg/README.md:L10-13)
+- Be specific with queries using natural language and context about your goal rather than single keywords or vague terms — Context7's semantic search ranks results by relevance, so "How to implement authentication with JWT in Express.js" yields much better results than "auth" [source](./.skilld/docs/api-guide.mdx#be-specific-with-queries)
 
-- Specify target agents during setup — use flags like `--claude`, `--cursor`, or `--opencode` with `ctx7 setup` for precise configuration, avoiding interactive prompts for automation. [source](./.skilld/pkg/README.md:L25-27)
+- Cache documentation responses for several hours or days since library documentation updates are relatively infrequent — this reduces API calls, improves performance, and respects rate limits [source](./.skilld/docs/api-guide.mdx#cache-responses)
 
-- Always use `/owner/repo` format for library IDs — when querying documentation or libraries, use the `/owner/repo` or `/owner/repo/version` format to prevent misinterpretation, especially in environments like Git Bash on Windows. [source](./.skilld/pkg/README.md:L36-39)
+- Implement exponential backoff for rate limit errors using the `Retry-After` header to determine wait time — this prevents hammering the API and enables graceful recovery from transient limits [source](./.skilld/docs/api-guide.mdx#handle-rate-limits)
 
-- Use `--json` for programmatic output — when scripting or integrating `ctx7` into other tools, use the `--json` flag to receive structured output for easier parsing. [source](./.skilld/pkg/README.md:L42)
+- Pin to specific library versions using either `/owner/repo/version` or `/owner/repo@version` syntax for consistent, reproducible results across multiple queries [source](./.skilld/docs/api-guide.mdx#use-specific-versions)
 
-- Use precise `ctx7 remove` flags for cleanup — leverage `--cursor`, `--claude`, `--project`, `--cli`, or `--mcp` to target specific components and avoid unintended removals. [source](./.skilld/pkg/README.md:L72-78)
+- Add a Context7 rule to your MCP client configuration (CLAUDE.md, Cursor Rules, etc.) to automatically invoke documentation lookups without typing "use context7" in every prompt [source](./.skilld/docs/tips.mdx#add-a-rule)
 
-- Authenticate via `ctx7 login` before skill generation — ensure you are logged in before attempting to `ctx7 skills generate` to access authenticated features and track usage correctly. [source](./.skilld/pkg/README.md:L86)
+- Pass the library ID directly in your prompt when you already know which library to use — this skips the library-matching resolution step and fetches documentation immediately [source](./.skilld/docs/tips.mdx#use-library-id)
 
-- Target skill installation to specific agents/scopes — install skills with `--cursor`, `--claude`, `--universal`, `--global`, or `--all-agents` to ensure they are available where intended. [source](./.skilld/pkg/README.md:L116-121)
+- Specify version numbers in your prompt when asking about a specific library version — Context7 automatically matches and resolves to the appropriate version's documentation [source](./.skilld/docs/tips.mdx#specify-a-version)
 
-- Disable telemetry for privacy/compliance — set the `CTX7_TELEMETRY_DISABLED=1` environment variable if you need to opt out of anonymous usage data collection. [source](./.skilld/pkg/README.md:L157-162)
+- Use `type: "txt"` when calling `getContext()` to receive plain text formatted for direct insertion into LLM prompts, rather than the default JSON format [source](./.skilld/docs/sdks/ts/commands/get-context.mdx#text-format-type-txt)
 
-- Implement external freshness verification for critical data — do not rely solely on `ctx7` for real-time critical data freshness; establish external checks for rapidly changing API versions or health. [source](./.skilld/discussions/discussion-2510.md:L23-38)
+- Sort search results by `benchmarkScore` descending to identify the highest-quality library documentation when multiple matches exist [source](./.skilld/docs/sdks/ts/commands/search-library.mdx#finding-libraries-by-score)
 
-- Avoid `ctx7 setup` on Git Bash for Windows for skill installation (Workaround for bug) — if encountering "Skill file path resolves outside the target directory" errors, consider using WSL or ensuring Windows path normalization for skill installations until the bug is resolved. [source](./.skilld/issues/issue-2361.md:L33-35)
+- Catch `Context7Error` specifically for API errors rather than catching generic errors — this distinguishes legitimate failures from unexpected runtime exceptions [source](./.skilld/docs/sdks/ts/getting-started.mdx#error-handling)
 
-- Implement retry logic with exponential backoff for API calls — to gracefully handle rate-limiting (`too many requests`) when making frequent `ctx7` API calls programmatically. [source](./.skilld/issues/issue-808.md:L16)
+- Store API keys exclusively in environment variables (`CONTEXT7_API_KEY`) and never hardcode them in configuration files or commit them to version control [source](./.skilld/docs/sdks/ts/getting-started.mdx#using-environment-variables)
 
-- Explicitly configure `CONTEXT7_API_KEY` in plugin's `.mcp.json` — for plugin-based installations, ensure the API key is set directly in the plugin configuration, as environment variables may not be honored. [source](./.skilld/issues/issue-1713.md:L19-21)
+- Use the CLI's `ctx7 library` command first to search and identify available libraries, then pass the returned library ID to `ctx7 docs` to query documentation — don't construct library IDs manually [source](./.skilld/docs/clients/cli.mdx#step-1--ctx7-library)
 
-- Do not use `folders` attribute in `context7.json` for content filtering — the `folders` attribute is currently not respected, and the entire repository is scanned, which may lead to unintentional context inclusion. [source](./.skilld/issues/issue-1020.md:L15-18)
+- Spawn the `docs-researcher` agent when working on long tasks with substantial context to fetch documentation in a separate context, keeping your main conversation lean and focused [source](./.skilld/docs/clients/claude-code.mdx#docs-researcher-agent)
 
-- Utilize `ctx7 docs --research` for in-depth queries — for complex questions requiring deeper analysis beyond standard documentation retrieval, use the `--research` flag (experimental). [source](./.skilld/releases/ctx7@0.4.0.md:L5-6)
+- Use the `/context7:docs` command with a library ID when you need a quick, focused lookup without explaining full task context — this is fastest when you already know the exact library and topic [source](./.skilld/docs/clients/claude-code.mdx#context7docs)
 <!-- /skilld:best-practices -->

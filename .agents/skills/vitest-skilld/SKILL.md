@@ -1,111 +1,129 @@
 ---
 name: vitest-skilld
-description: 'ALWAYS use when writing code importing "vitest". Consult for debugging, best practices, or modifying vitest.'
+description: "ALWAYS use when writing code importing \"vitest\". Consult for debugging, best practices, or modifying vitest."
 metadata:
-  version: 4.1.7
-  generated_by: Google · Gemini 2.5 Flash
-  generated_at: 2026-05-27
+  version: 4.1.8
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-06-06
 ---
 
-# vitest-dev/vitest `vitest@4.1.7`
+# vitest-dev/vitest `vitest@4.1.8`
+**Tags:** latest: 4.1.8, beta: 5.0.0-beta.4, V3: 3.2.6
 
-**Tags:** latest: 4.1.7, beta: 5.0.0-beta.3
-
-**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
+**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md)
 
 ## Search
 
 Use `skilld search "query" -p vitest` instead of grepping `.skilld/` directories. Run `skilld search --guide -p vitest` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+## Vitest 4.1.8 API Changes
 
 ## API Changes
 
-This section documents version-specific API changes — prioritize recent major/minor releases.
+This section documents version-specific API changes — prioritise recent major/minor releases.
 
-- NEW: `doMock()` returns a disposable [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L10)
-- NEW: Chai style assertions `expect().to.be.true` [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L11)
-- NEW: `vi.setTickMode()` for timer controls [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L12)
-- NEW: Matcher types exposed [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L13)
-- NEW: `toTestSpecification` added to reported tasks [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L14)
-- NEW: Support for test `tags` [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L17)
-- NEW: `aroundEach` and `aroundAll` hooks [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L18)
-- NEW: `--update` flag accepts `new` or `all` [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L20)
-- NEW: Test options support `meta` [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L21)
-- NEW: `test.extend` syntax for type inference [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L22)
-- NEW: Assertion helper to hide internal stack traces [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L24)
-- NEW: `--detect-async-leaks` CLI option [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L27)
-- NEW: `mockThrow` and `mockThrowOnce` for mocking [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L28)
-- NEW: `update: "none"` option for snapshots [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L29)
-- NEW: `page/locator.mark` API for Playwright trace [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L31)
-- NEW: `createSpecification` supports filters [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L34)
-- NEW: `runTestFiles` exposed as alternative to `runTestSpecifications` [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L35)
-- NEW: `api` options `allowWrite` and `allowExec` [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L36)
-- NEW: `userEvent.wheel` API for browser testing [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L39)
-- DEPRECATED: Several `vitest/*` entry points [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L70)
-- DEPRECATED: Unused types in matcher context [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L73)
-- DEPRECATED: `toBe*` spy assertions in favor of `toHaveBeen*` (and `toThrowError`) [source](./.skilld/repos/vitest-dev/vitest/releases/v4.1.0.md:L106)
+### Vitest 4.0 Breaking Changes
 
-**Also changed:** `toTestSpecification` allows test cases (api) · `filterNode` option for prettyDOM (browser) · Playwright persistent context (browser) · `detailsPanelPosition` option (browser) · `findElement` and strict mode in webdriverio (browser) · `@bomb.sh/tab` completions (cli) · `ignore start/stop` hints (coverage) · `coverage.changed` option (coverage) · `onModuleRunner` hook (experimental) · Option to disable module runner (experimental) · `importDurations: { limit, print }` options (experimental) · `print` and `fail` thresholds for `importDurations` (experimental) · File context passed to `beforeAll/afterAll` (fixtures) · `agent` reporter (reporters) · `retry` options enhanced (runner) · Run individual test/suites (ui) · Project filter/sort support (ui) · Duration sorting to explorer (ui) · Filter for slow tests (ui) · Run summary in GitHub Actions Reporter (vitest)
+- BREAKING: `vi.fn().getMockName()` — now returns `vi.fn()` by default instead of `spy`; affects snapshots with mocks where name changes from `[MockFunction spy]` to `[MockFunction]` [source](./.skilld/docs/guide/migration.md:L156)
 
+- BREAKING: `vi.restoreAllMocks` — no longer resets state of spies; only restores manually created spies via `vi.spyOn`, automocks no longer affected [source](./.skilld/docs/guide/migration.md:L157)
+
+- BREAKING: `coverage.all` and `coverage.extensions` config options removed — v4 defaults to include only covered files instead of all files [source](./.skilld/docs/guide/migration.md:L30:77)
+
+- BREAKING: `maxThreads` and `maxForks` config options — renamed to `maxWorkers`; `singleThread` and `singleFork` replaced with `maxWorkers: 1, isolate: false` [source](./.skilld/docs/guide/migration.md:L329:335)
+
+- BREAKING: `poolOptions` config option removed — all previous `poolOptions` are now top-level options; `memoryLimit` renamed to `vmMemoryLimit` [source](./.skilld/docs/guide/migration.md:L332)
+
+- BREAKING: `workspace` config option replaced with `projects` — functionally identical but cannot specify another file as source [source](./.skilld/docs/guide/migration.md:L231:264)
+
+- BREAKING: Browser provider configuration — now accepts object instead of string; `provider: 'playwright'` becomes `provider: playwright({})` [source](./.skilld/docs/guide/migration.md:L268:293)
+
+- BREAKING: `@vitest/browser/context` import — moved to `vitest/browser`; `@vitest/browser/utils` also moved to `vitest/browser` exports [source](./.skilld/docs/guide/migration.md:L297:316)
+
+- BREAKING: Reporter lifecycle APIs — `onCollected`, `onSpecsCollected`, `onPathsCollected`, `onTaskUpdate`, `onFinished` removed; see `Reporters API` for new alternatives [source](./.skilld/docs/guide/migration.md:L423:424)
+
+- BREAKING: `basic` reporter removed — use `default` reporter with `summary: false` instead [source](./.skilld/docs/blog/vitest-4.md:L293:303)
+
+- BREAKING: Deprecated APIs removed — `poolMatchGlobs`, `environmentMatchGlobs`, `deps.external`, `deps.inline`, `deps.fallbackCJS`, `browser.testerScripts`, `minWorkers`, and third-argument test options syntax [source](./.skilld/docs/guide/migration.md:L486:502)
+
+- BREAKING: `coverage.ignoreEmptyLines` and `coverage.experimentalAstAwareRemapping` removed — AST-aware remapping is now the default [source](./.skilld/docs/guide/migration.md:L30:32)
+
+- BREAKING: Constructor mocking — `vi.spyOn(cart, 'Apples').mockImplementation()` must now use `function` keyword or `class` for proper `new` keyword support [source](./.skilld/docs/guide/migration.md:L121:150)
+
+- BREAKING: Test options argument position — no longer supports test options as third argument; must be second argument instead: `test('name', { retry: 2 }, () => {})` [source](./.skilld/docs/guide/migration.md:L491:502)
+
+### Vitest 4.0 New APIs
+
+- NEW: `expect.assert` — access to Chai's assert directly via `expect.assert()` for type narrowing [source](./.skilld/docs/blog/vitest-4.md:L235:257)
+
+- NEW: `expect.schemaMatching` — asymmetric matcher that validates values against Standard Schema v1 objects; works with Zod, Valibot, ArkType [source](./.skilld/docs/blog/vitest-4.md:L259:289)
+
+- NEW: `expect.element().toBeInViewport()` — checks if element is in viewport using IntersectionObserver API [source](./.skilld/docs/blog/vitest-4.md:L166:174)
+
+- NEW: `page.frameLocator()` — Playwright API to find elements inside iframes (Playwright provider only) [source](./.skilld/docs/blog/vitest-4.md:L184:196)
+
+- NEW: `experimental_parseSpecifications()` — API method to parse test file without running it [source](./.skilld/docs/blog/vitest-4.md:L323)
+
+- NEW: `watcher` API method — exposes methods for custom Vitest watcher implementations [source](./.skilld/docs/blog/vitest-4.md:L324)
+
+- NEW: `enableCoverage()` and `disableCoverage()` — API methods to dynamically enable/disable coverage [source](./.skilld/docs/blog/vitest-4.md:L325)
+
+- NEW: `getSeed()` API method — returns seed value when tests run at random [source](./.skilld/docs/blog/vitest-4.md:L326)
+
+- NEW: `getGlobalTestNamePattern()` API method — returns current test name pattern [source](./.skilld/docs/blog/vitest-4.md:L327)
+
+- NEW: `waitForTestRunEnd()` API method — returns promise that resolves when all tests finish [source](./.skilld/docs/blog/vitest-4.md:L328)
+
+### Vitest 4.1 New APIs and Features
+
+- NEW: `vi.defineHelper()` — wraps a function so internals are removed from stack traces, pointing error back to call site instead [source](./.skilld/docs/blog/vitest-4-1.md:L299:313)
+
+- NEW: `mockThrow()` and `mockThrowOnce()` — concise API for making mocks throw errors without wrapping in function [source](./.skilld/docs/blog/vitest-4-1.md:L396:404)
+
+- NEW: `page.mark()` and `locator.mark()` — APIs for adding custom markers to Playwright trace viewer [source](./.skilld/docs/blog/vitest-4-1.md:L187:205)
+
+- NEW: `aroundAll` and `aroundEach` hooks — wrap all suites and individual tests with context (e.g., transactions, tracing spans) [source](./.skilld/docs/blog/vitest-4-1.md:L265:293)
+
+- NEW: Test Tags feature — label and filter tests using `tags` configuration with custom options [source](./.skilld/docs/blog/vitest-4-1.md:L58:116)
+
+- NEW: `test.extend()` builder pattern — new syntax with type inference for fixtures without manual type declarations [source](./.skilld/docs/blog/vitest-4-1.md:L209:241)
+
+- NEW: `detectAsyncLeaks` configuration — enables async leak detection via `node:async_hooks` with source locations [source](./.skilld/docs/blog/vitest-4-1.md:L317:337)
+
+- NEW: Chai-style mocking assertions — support for `expect(fn).to.have.been.called`, `calledWith()`, `returned()` matching Jest-style equivalents [source](./.skilld/docs/blog/vitest-4-1.md:L419:434)
+
+**Also changed:** `vi.spyOn()` on mock returns same mock · `mock.settledResults` populated immediately with `'incomplete'` result · Automocked instance methods now properly isolated · Automocked getters no longer call original, return `undefined` by default · `vi.fn(implementation).mockReset()` correctly returns mock implementation · `vi.fn().mock.invocationCallOrder` starts with `1` (like Jest) instead of `0` · `coverage.ignoreEmptyLines` removed (lines without code excluded from reports) · `coverage.experimentalAstAwareRemapping` removed (now default) · Snapshots with custom elements now print shadow root contents · `VITEST_MAX_THREADS`/`VITEST_MAX_FORKS` environment variables replaced with `VITEST_MAX_WORKERS` · Simplified `exclude` only removes `node_modules` and `.git` by default · `coverage.changed` option added to limit coverage to changed files · Coverage ignore hints (`/* istanbul ignore start */` / `/* v8 ignore start */`) now supported in both providers · `browser.detailsPanelPosition` added for UI layout control · `experimental.viteModuleRunner` flag to disable module runner (native Node.js execution) · `--tags-filter` CLI option with `and`/`or`/`not` operators · Reporter changes: `verbose` now always prints one-by-one, `tree` reporter for previous tree behavior · HTML coverage now works reliably across UI, reporter, and browser modes
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+## Vitest v4.1.8 Best Practices
 
 ## Best Practices
 
-- Improve Performance by Disabling Test Isolation: For projects not relying on side effects, disable test isolation with `test.isolate: false` in `vitest.config.js` or `--no-isolate` CLI flag to speed up test execution. [source](./.skilld/references/vitest@4.1.7/docs/guide/improving-performance.md#test-isolation)
+- Disable test isolation for projects without side effects — runs tests in the same process and dramatically improves performance when cleanup is reliable, especially for projects using `node` environment [source](./.skilld/docs/guide/improving-performance.md#test-isolation)
 
-- Use Test Sharding for Large Suites: Split large test suites across multiple machines or to balance load on high CPU-count machines using `--shard` with `--reporter=blob`, then merge results with `--merge-reports`. [source](./.skilld/references/vitest@4.1.7/docs/guide/improving-performance.md#sharding)
+- Use the builder pattern with `test.extend()` for automatic type inference — return values from fixture factories instead of the `use()` callback, eliminating manual type declarations and catching scope violations at compile time [source](./.skilld/docs/guide/test-context.md#builder-pattern)
 
-- Limit Directory Search with `test.dir`: Speed up test discovery by limiting the working directory where Vitest searches for files using the `test.dir` option. [source](./.skilld/references/vitest@4.1.7/docs/guide/improving-performance.md#limiting-directory-search)
+- Use `expect.soft()` to report multiple assertion failures in a single test — continues test execution on failure instead of terminating, allowing reporters to show all failures together [source](./.skilld/docs/api/expect.md#soft)
 
-- Persist Module Cache for Faster Reruns (experimental): Enable `experimental.fsModuleCache` to persist the transformed module cache to the file system, significantly speeding up subsequent reruns of tests with large module graphs. [source](./.skilld/references/vitest@4.1.7/docs/guide/improving-performance.md#caching-between-reruns)
+- Use `expect.poll()` for flaky assertions in async code — retries the assertion callback until success with configurable `interval` and `timeout`, preferred over manual wait loops [source](./.skilld/docs/api/expect.md#poll)
 
-- Use `vitest.config.ts` for Test-Specific Overrides: Create a separate `vitest.config.ts` to provide test-specific configurations that override `vite.config.ts` without interfering with your main application's build. [source](./.skilld/references/vitest@4.1.7/docs/config/index.md#configuring-vitest)
+- Apply test tags with shared configuration for cross-cutting concerns — define tags in config with options like `retry` and `timeout`, then apply tags to tests to inherit those options automatically [source](./.skilld/docs/blog/vitest-4-1.md#test-tags)
 
-- Include `vitest/globals` for TypeScript with Global APIs: When `test.globals: true` is enabled, add `vitest/globals` to your `tsconfig.json` `types` array to ensure proper TypeScript recognition of global APIs. [source](./.skilld/references/vitest@4.1.7/docs/config/globals.md#globals)
+- Use `{ spy: true }` option with `vi.mock()` in browser mode instead of `vi.spyOn()` — browser module namespaces are sealed and cannot be reconfigured, so spying requires the `spy: true` option [source](./.skilld/docs/guide/mocking/modules.md#browser-mode-support)
 
-- Specify Environment per File with `@vitest-environment`: Use `/** @vitest-environment jsdom */` or `// @vitest-environment happy-dom` comments at the top of test files for granular control over the test environment. [source](./.skilld/references/vitest@4.1.7/docs/config/environment.md#environment)
+- Call suite-level hooks on the extended `test` object, not global hooks — suite-level hooks on custom test objects can access file-scoped and worker-scoped fixtures, while global hooks cannot [source](./.skilld/docs/guide/test-context.md#suite-level-hooks)
 
-- Manually Manage Mocks with Concurrent Tests: Avoid `clearMocks`, `restoreMocks`, or `mockReset` with `test.concurrent` due to potential conflicts; manually clear/restore mocks or use `vi.unstubAllEnvs`/`vi.unstubAllGlobals` in `beforeEach` hooks. [source](./.skilld/references/vitest@4.1.7/docs/config/clearmocks.md#clearmocks)
+- Use `--merge-reports` with `--shard` for distributed CI builds — split test files across machines with `--reporter=blob --shard=N/total`, then merge blob reports in a final job to handle large suites [source](./.skilld/docs/guide/improving-performance.md#sharding)
 
-- Prefer `vi.stubEnv` with `unstubEnvs` for `import.meta.env` mocking: Automatically reset mocked environment variables between tests by using `vi.stubEnv` and enabling `unstubEnvs` in your config.
+- Use `test.concurrent` only for tests with async operations — synchronous concurrent tests still block the JavaScript thread, so benefits only apply to tests awaiting network, timers, or I/O [source](./.skilld/docs/guide/parallelism.md#test-parallelism)
 
-```ts
-// vitest.config.ts
-export default defineConfig({
-  test: {
-    unstubEnvs: true,
-  },
-})
-```
+- Use context-bound `expect` in concurrent snapshot tests — import `expect` from the test context parameter rather than globally to ensure correct test tracking across parallel execution [source](./.skilld/docs/guide/snapshot.md#use-snapshots)
 
-[source](./.skilld/references/vitest@4.1.7/docs/guide/mocking.md#mock-import-meta-env)
+- Use `defineConfig` from `vitest/config` with type reference for full type safety — when extending Vite config, add `/// <reference types="vitest/config" />` to enable autocomplete and validation of test options [source](./.skilld/docs/config/index.md#configuring-vitest)
 
-- Always `await` Async Calls to Prevent Unhandled Rejections: Ensure all async function calls within tests are `await`ed to properly handle promise rejections and avoid misleading `Unhandled Promise Rejection` errors. [source](./.skilld/references/vitest@4.1.7/docs/guide/common-errors.md#unhandled-promise-rejection)
+- Use `test.override()` for fixture variations in nested suites — override fixture values for specific describe blocks instead of creating separate tests, providing cleaner scoping and inheritance [source](./.skilld/docs/guide/test-context.md#overriding-fixture-values)
 
-- Use Typeargs for `toEqualTypeOf`/`toExtend` in Type Tests: When writing type tests with `expectTypeOf().toEqualTypeOf()` or `toExtend()`, prefer using type arguments (e.g., `<{ a: string }>`) over concrete objects for more actionable error messages. [source](./.skilld/references/vitest@4.1.7/docs/guide/testing-types.md#concrete-expected-objects-vs-typeargs)
-
-- Configure `ssr.resolve.conditions` for Custom Package Conditions: When using custom conditions in `package.json` `exports` or `imports` in a Node.js environment, explicitly configure `ssr.resolve.conditions` in your Vitest config. [source](./.skilld/references/vitest@4.1.7/docs/guide/common-errors.md#custom-package-conditions-are-not-resolved)
-
-- Use `pool: 'forks'` for Native NodeJS Modules: If encountering segfaults or cryptic errors with native NodeJS modules, switch to `pool: 'forks'` as these modules might not be multi-thread safe with `pool: 'threads'`. [source](./.skilld/references/vitest@4.1.7/docs/guide/common-errors.md#segfaults-and-native-code-errors)
-
-- Fix Relative Aliases with `new URL(..., import.meta.url).pathname`: For `test.alias` in `vitest.config.js`, ensure relative paths are correctly resolved by using `new URL('./src/', import.meta.url).pathname` to prevent module not found errors.
-
-```ts
-// vitest.config.js
-import { defineConfig } from "vitest/config"
-
-export default defineConfig({
-  test: {
-    alias: {
-      "@/": new URL("./src/", import.meta.url).pathname,
-    },
-  },
-})
-```
-
-[source](./.skilld/references/vitest@4.1.7/docs/guide/common-errors.md#cannot-find-module-relative-path)
-
+- Enable `experimental.fsModuleCache` in watch mode for multi-run performance — persists transform cache to disk across reruns, reducing repeated parse/transform work when rerunning single files with large module graphs [source](./.skilld/docs/guide/improving-performance.md#caching-between-reruns)
 <!-- /skilld:best-practices -->
