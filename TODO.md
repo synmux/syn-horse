@@ -19,6 +19,7 @@
 - [ ] audit direct dependencies and move/remove packages that are only historical or optional peers: candidates include `openai`, `uuid`, `dotenv`, `@dotenvx/dotenvx`, `node-gyp`, `untun`, `nuxi`, `@catppuccin/*`, and possibly `@libsql/client` / `better-sqlite3` if they are only present for local `@nuxt/content` support.
 - [ ] consider gating `devtools.enabled` / timeline config to development only, unless the Nuxt production build is confirmed to tree-shake all devtools runtime.
 - [ ] avoid side effects in `nuxt.config.ts`: it writes `.buildtime` when imported if the file is missing. Prefer a build/deploy script, environment variable, or Nitro hook so config evaluation stays read-only.
+- [ ] revisit the `TMPDIR=/tmp` prefix on the `dev` script once `@nuxt/vite-builder` shortens its vite-node IPC socket name. On macOS the default `$TMPDIR` (`/var/folders/.../T/`, ~49 bytes) plus the builder's `nuxt-vite-node-<rand>/nuxt-vite-node-<pid>-<ts>.sock` path totals ~110 bytes, over the 104-byte `sun_path` limit, so vite-node IPC fails with `connect EINVAL` and the dev server dies on first request; `/tmp` shortens the path to ~66 bytes. Latest `@nuxt/vite-builder` (4.4.7) still constructs it this way.
 
 ### content and blog
 

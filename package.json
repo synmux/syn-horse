@@ -53,7 +53,7 @@
     "deploy:nonprod:wrangler": "bun run wrangler versions upload",
     "deploy:stamp": "date -u +%FT%TZ > .buildtime",
     "deploy:wrangler": "bun run wrangler deploy",
-    "dev": "bun run nuxt dev",
+    "dev": "TMPDIR=/tmp bun run nuxt dev",
     "format": "bun run biome format --write .",
     "generate": "bun run nuxt generate",
     "lint": "bun run run-s lint:ultracite lint:types",

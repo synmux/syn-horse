@@ -2,6 +2,7 @@
 SYN_HORSE_MISE_ACTIVE = 'true'
 V0_API_KEY = ''
 NUXT_OG_IMAGE_SECRET = 'slartibartfast'
+TMPDIR='/tmp'
 
 [settings]
 env_file = '.env'
