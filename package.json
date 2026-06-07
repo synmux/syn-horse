@@ -13,7 +13,7 @@
     "@takumi-rs/core": "^1.7.0",
     "@takumi-rs/wasm": "^1.7.0",
     "better-sqlite3": "^12.10.0",
-    "daisyui": "^5.5.20",
+    "daisyui": "^5.5.23",
     "drizzle-kit": "^0.31.10",
     "drizzle-orm": "^0.45.2",
     "nuxt": "^4.4.7",
@@ -26,7 +26,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@anthropic-ai/claude-code": "^2.1.167",
+    "@anthropic-ai/claude-code": "^2.1.168",
     "@biomejs/biome": "2.4.15",
     "@catppuccin/daisyui": "^2.1.1",
     "@catppuccin/tailwindcss": "^1.0.0",
