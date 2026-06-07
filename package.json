@@ -5,7 +5,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@anthropic-ai/claude-code": "^2.1.167",
+    "@anthropic-ai/claude-code": "^2.1.168",
     "@biomejs/biome": "^2.4.16",
     "@cloudflare/vitest-pool-workers": "^0.16.13",
     "@types/node": "^25.9.2",
@@ -14,7 +14,7 @@
     "skilld": "^2.0.0",
     "tsx": "^4.22.4",
     "typescript": "^6.0.3",
-    "ultracite": "^7.8.1",
+    "ultracite": "^7.8.2",
     "vitest": "^4.1.8",
     "wrangler": "^4.98.0"
   },
