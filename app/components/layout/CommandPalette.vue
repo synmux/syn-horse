@@ -161,6 +161,12 @@
           <div>
             <div class="palette-row-label">{{ c.label }}</div>
             <div class="palette-row-desc">{{ c.desc }}</div>
+            <div
+              v-if="commandsEnabled && c.konamiNote"
+              class="mt-0.5 font-mono text-[11px] tracking-[0.04em] text-hot"
+            >
+              ★ {{ c.konamiNote }}
+            </div>
           </div>
           <span class="palette-row-arrow">↵</span>
         </div>

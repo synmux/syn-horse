@@ -4,13 +4,20 @@ export interface Command {
   ic: string;
   id: string;
   joke?: { kind: "toast" | "shake-toast" | "descend"; message: string };
+  konamiNote?: string;
   label: string;
 }
 
 export const COMMANDS: Command[] = [
   { id: "home", label: "/home", ic: "~", desc: "/ index" },
   { id: "now", label: "/now", ic: ">", desc: "what i'm doing this month" },
-  { id: "projects", label: "/projects", ic: ">", desc: "things i made" },
+  {
+    id: "projects",
+    label: "/projects",
+    ic: ">",
+    desc: "things i made",
+    konamiNote: "hidden secrets revealed",
+  },
   { id: "blog", label: "/blog", ic: ">", desc: "all the words" },
   {
     id: "cv",

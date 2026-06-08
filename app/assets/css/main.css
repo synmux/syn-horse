@@ -104,6 +104,7 @@
   --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* core palette */
+  --color-void-0: #070011; /* deepest void — backdrop for abandoned project cards */
   --color-void: #0d0221;
   --color-void-2: #14082e;
   --color-void-3: #1d0d3d;
@@ -799,6 +800,61 @@
     flex-wrap: wrap;
     gap: 6px;
     margin-top: 14px;
+  }
+
+  /* abandoned project cards — appended to /projects only while konami mode is
+     active (commandsEnabled). darker backdrop, faint pixel skull watermark and
+     an epitaph in place of a url. these cards link nowhere. */
+  .proj.abandoned {
+    background: var(--color-void-0);
+    isolation: isolate;
+  }
+  .proj.abandoned::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1; /* above the card backdrop, behind the text */
+    pointer-events: none;
+    content: "";
+    image-rendering: pixelated;
+    background-image: url("/assets/skull.svg");
+    background-repeat: no-repeat;
+    background-position: right -6px center;
+    background-size: 112px;
+    opacity: 0.18;
+  }
+  .proj.abandoned .proj-title {
+    color: var(--color-paper-2);
+  }
+  .proj.abandoned .proj-body {
+    color: var(--color-paper-3);
+  }
+  .proj-epitaph {
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-paper-3);
+    letter-spacing: 0.04em;
+  }
+
+  /* graveyard reveal — TransitionGroup enter/leave for the abandoned cards,
+     plus a move transition so the live cards slide as the dead ones fold into
+     the year-sorted grid. translate + fade in the konami-in spirit. */
+  .grave-enter-active,
+  .grave-leave-active {
+    transition:
+      opacity 300ms var(--ease-snap),
+      transform 300ms var(--ease-snap);
+  }
+  .grave-leave-active {
+    transition-duration: 220ms;
+  }
+  .grave-enter-from,
+  .grave-leave-to {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  .grave-move {
+    transition: transform 300ms var(--ease-snap);
   }
 
   /* page shell — fixed-width column wrapper used by every secondary page */

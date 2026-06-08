@@ -2,7 +2,7 @@
 
 ## features
 
-- [ ] abandoned projects which appear when in konami code mode and disappear otherwise
+- [x] abandoned projects which appear when in konami code mode and disappear otherwise (folded into the year-sorted project grid, animated in/out)
 
 ## moar
 
@@ -47,6 +47,7 @@
 - [ ] show the actual requested path in the 404 console instead of the placeholder `/this-route` / `/this-page-does-not-exist`.
 - [ ] review nav/statusbar behaviour at narrow widths. The sticky status bar and full nav tab row may need horizontal collapse before the larger page heading fixes are done.
 - [ ] add responsive rules for the main two-column layouts: home portrait grid, contact grid, project grid, blog row grid, domain rows, and CV role/talk rows.
+- [ ] the konami-revealed abandoned project cards do not play their entrance animation when `/projects` is reached via in-app navigation while konami mode is already active (the `<TransitionGroup>` has no `appear`, intentionally, so live cards never animate on load). Toggling konami while on the page always animates. Revisit only if it matters.
 
 ### security, privacy, and cloudflare
 
