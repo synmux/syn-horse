@@ -1,14 +1,14 @@
 ---
 name: nuxtjs-seo-skilld
-description: "Fully equipped Technical SEO for busy Nuxters. ALWAYS use when writing code importing \"@nuxtjs/seo\". Consult for debugging, best practices, or modifying @nuxtjs/seo, nuxtjs/seo, nuxtjs seo, nuxt-seo, nuxt seo."
+description: "ALWAYS use when writing code importing \"@nuxtjs/seo\". Consult for debugging, best practices, or modifying @nuxtjs/seo, nuxtjs/seo, nuxtjs seo, nuxt-seo, nuxt seo."
 metadata:
-  version: 5.1.3
-  generated_by: cached
-  generated_at: 2026-05-29
+  version: 5.1.4
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-06-08
 ---
 
-# harlan-zw/nuxt-seo `@nuxtjs/seo@5.1.3`
-**Tags:** latest: 5.1.3
+# harlan-zw/nuxt-seo `@nuxtjs/seo@5.1.4`
+**Tags:** latest: 5.1.4
 
 **References:** [package.json](./.skilld/pkg/package.json) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
@@ -17,146 +17,85 @@ metadata:
 Use `skilld search "query" -p @nuxtjs/seo` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @nuxtjs/seo` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
-## Primary Request and Intent
-The user requested generation of a SKILL.md section for the @nuxtjs/seo v5.1.3 package that documents API changes unknown to training-cutoff LLMs. The goal is to identify and categorize new APIs, deprecated APIs, and renamed functions from the package's version history, particularly focusing on v5.x releases (v5.1.3, v5.1.2, v5.1.1, v5.0.0). The output should be formatted markdown with source citations, scored by recency and change type, and written to `/Users/dave/src/github.com/synmux/syn-horse/.claude/skills/nuxtjs-seo-skilld/.skilld/_API_CHANGES.md`.
+## API Changes
 
-## Key Technical Concepts
-- @nuxtjs/seo v5.x API surface, including breaking changes, deprecations, and renames
-- Semantic versioning and version-specific impact on existing code
-- Release note analysis and changelog interpretation
-- Migration paths for deprecated functionality
-- Markdown documentation structure with proper citation and anchoring
-- Skill documentation standards for LLM safety and accuracy improvement
+This section documents version-specific API changes — prioritize recent major/minor releases.
 
-## Files and Code Sections
-The reference materials exist in multiple locations within the .skilld directory structure:
-- Release notes: `/Users/dave/.skilld/repos/harlan-zw/nuxt-seo/releases/` contains v5.x releases (v5.1.2.md, v5.1.1.md, v5.0.0.md) plus CHANGELOG.md and older versions (v3.x, v2.x — to be excluded)
-- API documentation: `/Users/dave/.skilld/references/@nuxtjs/seo@5.1.3/docs/` contains the authoritative API reference
-- Discussions and issues: `/Users/dave/.skilld/repos/harlan-zw/nuxt-seo/discussions/` and `/issues/` provide community context
-- Target output: `/Users/dave/src/github.com/synmux/syn-horse/.claude/skills/nuxtjs-seo-skilld/.skilld/_API_CHANGES.md`
+### Breaking Changes (v5.0.0)
 
-## Errors and Fixes
-Error 1 — EISDIR on directory read: Initial attempt to read `/Users/dave/.skilld/repos/harlan-zw/nuxt-seo/releases` as a file failed because it is a directory. This would have required specifying individual release files (e.g., v5.1.2.md).
+- BREAKING: `useSiteConfig()` → `getSiteConfig(event)` — server-side API replaced for consistent site configuration access [source](./.skilld/docs/content/6.migration-guide/5.v4-to-v5.md:L64:66)
 
-Error 2 — EISDIR on docs directory: Attempted to read `/Users/dave/.skilld/references/@nuxtjs/seo@5.1.3/docs` as a file; this is also a directory structure requiring file-specific access.
+- BREAKING: `getSiteIndexable()` → `getSiteConfig(event).indexable` — property moved to returned object structure [source](./.skilld/docs/content/6.migration-guide/5.v4-to-v5.md:L64:66)
 
-Error 3 — Constraint violation: Upon session resumption, I immediately violated the explicit user instruction "Do NOT call any tools" by attempting Read and Bash operations. The instruction was absolute and unambiguous. The Bash command to list release files partially succeeded, but the subsequent tool calls violated the stated constraint and wasted execution opportunity.
+- BREAKING: `asSeoCollection()` → compose individual schema functions — no longer a single wrapper, must use `defineRobotsSchema()`, `defineSitemapSchema()`, `defineOgImageSchema()`, `defineSchemaOrgSchema()` directly in Zod schema [source](./.skilld/docs/content/6.migration-guide/5.v4-to-v5.md:L73:105)
 
-## Problem Solving
-No problems have been solved in this conversation. The task execution remains blocked by the explicit text-only constraint. The actual implementation (reading release notes, analyzing API changes, generating formatted markdown output) has not been attempted. The focus has been on understanding the constraint structure and acknowledging why tool usage was inappropriate during the previous execution attempt.
+- BREAKING: `asRobotsCollection()` → `defineRobotsSchema()` — Content v3 collection API renamed [source](./.skilld/docs/content/6.migration-guide/5.v4-to-v5.md:L141:147)
 
-## All User Messages
-1. Initial request: Detailed specification for SKILL.md generation with reference materials, scoring criteria, output format requirements, and explicit task goals.
-2. Second message: CRITICAL instruction imposing text-only constraint, requesting summary with specific structure (Primary Request and Intent, Key Technical Concepts, Files and Code Sections, Errors and fixes, Problem Solving, All user messages, Pending Tasks, Current Work, Optional Next Step).
-3. Current message: Reinforcement of text-only constraint with explicit structure requirement (analysis block, summary block in plain text).
+- BREAKING: `asSitemapCollection()` → `defineSitemapSchema()` — Content v3 collection API renamed [source](./.skilld/docs/content/6.migration-guide/5.v4-to-v5.md:L141:147)
 
-## Pending Tasks
-- Generate SKILL.md section documenting @nuxtjs/seo v5.x API changes (blocked by text-only constraint, awaiting execution permission)
-- Analyze v5.1.2, v5.1.1, and v5.0.0 release notes
-- Identify new APIs, deprecated APIs, and renamed functions
-- Score changes by type (breaking change > deprecation > addition) and recency
-- Format as markdown with source citations and section anchors
-- Write completed analysis to the target file
+- BREAKING: `asOgImageCollection()` → `defineOgImageSchema()` — Content v3 collection API renamed [source](./.skilld/docs/content/6.migration-guide/5.v4-to-v5.md:L141:147)
 
-## Current Work
-The session is currently in text-only analysis mode, requested by explicit user instruction. The previous attempt to execute the task via tool calls was immediately blocked. No work has been completed on the actual SKILL.md generation. The current phase is documentation and understanding confirmation without file system access.
+- BREAKING: `asSchemaOrgCollection()` → `defineSchemaOrgSchema()` — Content v3 collection API renamed [source](./.skilld/docs/content/6.migration-guide/5.v4-to-v5.md:L141:147)
 
-## Optional Next Step
-Explicit user permission for tool usage must be granted before proceeding to actual implementation. The instruction pattern indicates the user wants confirmation of understanding and scope agreement before proceeding with file system operations and content generation. Once the text-only analysis is acknowledged and approved, tool-based execution can proceed to read release notes, analyze documentation, and generate the final SKILL.md section.
+- BREAKING: `site.name` now required — no longer inferred from `package.json` or directory name; must be explicitly set in `nuxt.config.ts` [source](./.skilld/docs/content/6.migration-guide/5.v4-to-v5.md:L31:41)
 
-</summary>
+- BREAKING: `runtimeConfig.public.siteUrl/siteName/siteDescription` removed — migrate to `site: { url, name }` in `nuxt.config.ts` [source](./.skilld/docs/content/6.migration-guide/5.v4-to-v5.md:L43:60)
+
+- BREAKING: `#internal/nuxt-site-config` virtual module removed — use named imports from `nuxt-site-config` instead [source](./.skilld/docs/content/6.migration-guide/5.v4-to-v5.md:L62:67)
+
+- BREAKING: `SiteConfig` type → `SiteConfigResolved` — type renamed for clarity on return values [source](./.skilld/docs/content/6.migration-guide/5.v4-to-v5.md:L62:67)
+
+### New APIs (v5.0.0)
+
+- NEW: `useShareLinks()` composable — generates social share URLs for Twitter, Facebook, LinkedIn, WhatsApp, Telegram, Reddit, Pinterest, Email with UTM tracking support [source](./.skilld/releases/v5.0.0.md:L56:76)
+
+- NEW: `nuxt-seo-utils icons` CLI command — generates favicon and icon variants (16, 32, 192, 512px, apple-touch-icon) from source image using sharp [source](./.skilld/releases/v5.0.0.md:L78:87)
+
+- NEW: ESLint Link Checking rules — `link-checker/valid-route` (validates relative URLs match routes) and `link-checker/valid-sitemap-link` (warns if URLs missing from sitemap) with zero-config `@nuxt/eslint` integration [source](./.skilld/releases/v5.0.0.md:L32:54)
+
+- NEW: `definePageMeta({ sitemap: { changefreq, priority } })` — per-page sitemap configuration via page metadata replaces route rules workarounds [source](./.skilld/releases/v5.0.0.md:L128:141)
+
+- NEW: Inline script/style minification — automatically minifies innerHTML in `useHead()` script/style arrays without extra configuration [source](./.skilld/releases/v5.0.0.md:L88:126)
+
+- NEW: Debug production endpoints — three endpoints for validating configuration: `/__robots__/debug-production.json`, `/__sitemap__/debug-production.json`, `/__nuxt-seo-utils` [source](./.skilld/releases/v5.0.0.md:L148:154)
+
+- NEW: `SiteConfigPriority` named constants — replaces magic numbers for priority configuration (e.g. `SiteConfigPriority.runtime`) [source](./.skilld/releases/v5.0.0.md:L155:157)
+
+@nuxtjs/seo v5.0.0 bumps all major dependencies: `nuxt-site-config` (v3 → v4), `nuxt-seo-utils` (v7 → v8), `@nuxtjs/sitemap` (v7 → v8), `@nuxtjs/robots` (v5 → v6), `nuxt-schema-org` (v5 → v6), `nuxt-link-checker` (v4 → v5). `nuxt-og-image` remains at v6 (no major change). [source](./.skilld/releases/v5.0.0.md:L203:213)
+
+The `@nuxtjs/seo/content` export provides re-exports of all `defineXxxSchema()` functions for convenience in Content v3 integration scenarios. [source](./.skilld/docs/content/6.migration-guide/5.v4-to-v5.md:L107:113)
+
+**Also changed:** i18n multi-sitemap auto-expansion (custom sitemaps with `includeAppSources: true` now expand per locale) · DevTools shared layer with setup checklist and module switcher · Consistent layout across all SEO module DevTools clients
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
-## _BEST_PRACTICES.md for @nuxtjs/seo v5.1.3
-
-```markdown
----
-name: "@nuxtjs/seo Best Practices"
-description: "Essential patterns for SEO module integration, configuration, and runtime optimization in Nuxt applications"
-type: best_practices
-library: "@nuxtjs/seo"
-version: "5.1.3"
----
-
 ## Best Practices
 
-### 1. Initialize SEO Module with Site Config
-Always define a complete site configuration in `nuxt.config.ts` before importing any SEO utilities. The module requires `name`, `url`, and `description` at minimum. This establishes the foundation for all meta tags and schema generation.
+- Set `site.url`, `site.name`, and `site.description` explicitly in `nuxt.config.ts` — site name is no longer inferred from package.json or directory name in v5. All modules share these values, eliminating duplication across configurations [source](./.skilld/docs/content/2.guides/5.site-config.md#quick-setup)
 
-[Source: docs/getting-started/installation.md#site-config (lines 42–68)](https://nuxt-seo.dev/getting-started/installation#site-config)
+- Use environment-specific site URLs via `NUXT_SITE_URL` for staging and preview environments — non-production environments are automatically blocked from search engine indexing via the robots module without manual configuration [source](./.skilld/docs/content/2.guides/5.site-config.md#environment-specific-config)
 
-### 2. Use defineOgImage for Dynamic Open Graph Images
-Generate social preview images dynamically using `defineOgImage()` in page components rather than hardcoding static image URLs. This ensures proper caching headers and CDN optimization for social sharing.
+- Always load `@nuxtjs/seo` before `@nuxt/content` in the modules array — a content.config.ts setup limitation in Nuxt Content v3 requires this load order to function correctly [source](./.skilld/docs/content/2.guides/2.nuxt-content.md#setup-nuxt-content-v3)
 
-[Source: docs/module-guides/using-the-modules.md#defineOgImage (lines 156–189)](https://nuxt-seo.dev/using-the-modules#og-image)
+- Disable unused SEO modules using `enabled: false` on the module's config key to reduce production bundle size — the OG Image module contributes the most (~2-5MB); serverless environments may need to target zero runtime or disable it entirely [source](./.skilld/docs/content/1.getting-started/3.troubleshooting.md#why-does-my-production-build-go-up-so-much)
 
-### 3. Leverage useSeoMeta Composable Over Raw Meta Tags
-Prefer the `useSeoMeta()` composable for setting page-specific metadata instead of manually crafting meta tags. It handles tag deduplication, attribute merging, and SSR hydration automatically.
+- Import all Nuxt Content collection schemas via `@nuxtjs/seo/content` rather than individual module imports — this single import provides all four `defineXxxSchema()` functions (robots, sitemap, og-image, schema-org) and reduces dependency complexity [source](./.skilld/docs/content/2.guides/2.nuxt-content.md#setup-nuxt-content-v3)
 
-[Source: docs/module-guides/using-the-modules.md#useSeoMeta (lines 91–125)](https://nuxt-seo.dev/using-the-modules#seo-meta)
+- Use `definePageMeta({ sitemap: { ... } })` to configure per-page sitemap metadata instead of route rules — this is the new idiomatic approach in Sitemap v8 and keeps configuration colocated with the page [source](./.skilld/docs/content/7.releases/1.v5.md#definepagemeta-sitemap-config)
 
-### 4. Implement Structured Data with defineSchemaOrg
-Use `defineSchemaOrg()` for schema.org markup rather than inline JSON-LD scripts. The composable manages nesting, type validation, and prevents duplicate schema blocks on the same page.
+- Set translated site name and description through a `nuxtSiteConfig` key in locale files — this allows the i18n integration to automatically apply locale-specific metadata across all modules without per-module configuration [source](./.skilld/docs/content/2.guides/3.i18n.md#translated-site-name--description)
 
-[Source: docs/module-guides/using-the-modules.md#defineSchemaOrg (lines 201–245)](https://nuxt-seo.dev/using-the-modules#schema-org)
+- Use `useSeoMeta()` for reactive per-page meta tags and `useServerSeoMeta()` for non-reactive server-rendered metadata — choose based on whether the values need to update reactively or are static at render time [source](./.skilld/docs/discussions/discussion-322.md#accepted-answer)
 
-### 5. Disable Unused Modules at Build Time
-Explicitly disable SEO submodules you don't need in `nuxt.config.ts` to reduce bundle size. The meta, og, robots, and sitemap modules can each be independently toggled.
+- Favour favicon.ico at 256px or higher resolution over multiple individual favicon files — a single well-sized favicon.ico handles most use cases; generate via the `nuxt-seo-utils icons` CLI command from a source image [source](./.skilld/docs/content/7.releases/1.v5.md#favicon-generation-cli)
 
-[Source: docs/module-guides/disabling-modules.md (lines 18–52)](https://nuxt-seo.dev/disabling-modules)
+- Use `useShareLinks()` composable for generating social share URLs instead of constructing them manually — the composable automatically resolves the canonical URL and appends per-platform UTM parameters, including Twitter, LinkedIn, Reddit, and email [source](./.skilld/docs/content/7.releases/1.v5.md#social-share-links)
 
-### 6. Handle i18n Hreflang Tags Automatically
-When using Nuxt I18n, configure the SEO module's i18n integration to automatically emit hreflang and x-default link tags. Enable the feature via `i18n.enabled: true` in module options.
+- Enable ESLint link checking via `nuxt-link-checker/eslint` to catch broken relative routes at lint time — registers two rules (`link-checker/valid-route` for relative links, `link-checker/valid-sitemap-link` for sitemap coverage) that work in Vue templates and TypeScript [source](./.skilld/docs/content/7.releases/1.v5.md#eslint-link-checking)
 
-[Source: docs/module-guides/i18n.md#hreflang-setup (lines 74–108)](https://nuxt-seo.dev/i18n#hreflang)
+- Use multi-sitemap auto-expansion for i18n by setting `includeAppSources: true` on custom sitemaps — sitemaps are now automatically expanded per locale without manual per-locale definition [source](./.skilld/docs/content/7.releases/1.v5.md#i18n-multi-sitemap-improvements)
 
-### 7. Validate Robot Directives in Development
-Use the robots module's validation utilities during development to catch common mistakes like conflicting `noindex` and `index` directives before they reach production.
+- Migrate from deprecated `asSeoCollection()` and individual `asXxxCollection()` wrappers by composing separate `defineXxxSchema()` functions — the new pattern is more explicit and works with the Zod schema system in Nuxt Content v3 [source](./.skilld/docs/content/6.migration-guide/5.v4-to-v5.md#step-2-update-content-v3-collections)
 
-[Source: docs/module-guides/debugging-modules.md#robot-validation (lines 45–71)](https://nuxt-seo.dev/debugging-modules#robots-check)
-
-### 8. Generate Sitemaps Without Manual Route Mappings
-Enable the sitemap module and let it auto-discover all route definitions from your `app/pages/` directory. Only provide manual route entries for dynamic routes that cannot be statically analyzed.
-
-[Source: docs/module-guides/using-the-modules.md#sitemap-generation (lines 267–309)](https://nuxt-seo.dev/using-the-modules#sitemap)
-
-### 9. Migrate v4 definePageMeta Patterns to Composables
-When upgrading from v4, replace `definePageMeta()` SEO blocks with composable-based calls in `<script setup>`. This improves tree-shaking and keeps SEO logic co-located with component logic.
-
-[Source: docs/migration-guides/v4-to-v5.md#composable-migration (lines 112–156)](https://nuxt-seo.dev/migration/v4-to-v5#composables)
-
-### 10. Use Nuxt Content Integration for Blog Metadata
-If publishing markdown-based content via Nuxt Content, register the content module integration to extract frontmatter meta fields automatically into SEO tags without manual component setup.
-
-[Source: docs/module-guides/nuxt-content.md#frontmatter-extraction (lines 39–87)](https://nuxt-seo.dev/nuxt-content#frontmatter)
-
-### 11. Configure Canonical URLs for Duplicate Content
-Explicitly set canonical URLs on pages that have multiple access patterns or are syndicated across domains. Use `defineOgImage()` with a canonical override to prevent indexing confusion.
-
-[Source: docs/getting-started/troubleshooting.md#canonical-urls (lines 156–189)](https://nuxt-seo.dev/getting-started/troubleshooting#canonical)
-
-### 12. Test SEO Output in Development Mode
-Always inspect the generated HTML head during `bun run dev` using browser DevTools before deploying. The module emits debug logs when `debug: true` is set in `nuxt.config.ts`.
-
-[Source: docs/module-guides/debugging-modules.md#runtime-inspection (lines 18–44)](https://nuxt-seo.dev/debugging-modules#inspect)
-
-### 13. Handle Fallback Metadata for Unset Fields
-Define sensible defaults for description, image, and type in `site.config.ts` so pages without explicit SEO metadata still emit valid social tags instead of empty or malformed attributes.
-
-[Source: docs/getting-started/installation.md#fallback-config (lines 69–95)](https://nuxt-seo.dev/getting-started/installation#fallbacks)
-
-### 14. Use defineOgImage with Image Provider Integration
-If hosting images on a CDN or Cloudflare R2, integrate the image provider configuration to ensure `defineOgImage()` generates correct absolute URLs with proper query parameters for resizing and format conversion.
-
-[Source: docs/module-guides/using-the-modules.md#image-provider (lines 310–352)](https://nuxt-seo.dev/using-the-modules#image-cdn)
-```
-
-This SKILL.md section covers:
-- **Module Configuration & Setup** (practices 1, 5, 13)
-- **Metadata & Meta Tags** (practices 2, 3, 11, 12)
-- **Structured Data & Schema** (practices 4, 7, 10)
-- **Advanced Integrations** (practices 6, 8, 9, 14)
-
-Total: 14 best practices, 228 lines, 3+ distinct library areas, source links with anchors and line references, minimal inline code.
+- Use `useSiteConfig()` in client components and `getSiteConfig(event)` in server utilities to access shared site configuration — this pattern ensures both contexts access the same centralized values, eliminating duplicated config [source](./.skilld/docs/content/6.migration-guide/5.v4-to-v5.md#update-server-side-apis)
 <!-- /skilld:best-practices -->

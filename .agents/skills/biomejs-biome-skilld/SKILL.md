@@ -1,16 +1,16 @@
 ---
 name: biomejs-biome-skilld
-description: "Biome is a toolchain for the web: formatter, linter and more. ALWAYS use when writing code importing \"@biomejs/biome\". Consult for debugging, best practices, or modifying @biomejs/biome, biomejs/biome, biomejs biome, biome."
+description: "ALWAYS use when writing code importing \"@biomejs/biome\". Consult for debugging, best practices, or modifying @biomejs/biome, biomejs/biome, biomejs biome, biome."
 metadata:
-  version: 2.4.15
-  generated_by: cached
-  generated_at: 2026-05-29
+  version: 2.4.16
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-06-08
 ---
 
-# biomejs/biome `@biomejs/biome@2.4.15`
+# biomejs/biome `@biomejs/biome@2.4.16`
 **Tags:** nightly: 1.9.5-nightly.81fdedb, beta: 2.0.0-beta.6, latest: 2.4.16
 
-**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
+**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
 ## Search
 
@@ -21,74 +21,177 @@ Use `skilld search "query" -p @biomejs/biome` instead of grepping `.skilld/` dir
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
 
-- BREAKING: HTML formatter overhaul — in v2.4.0, the experimental HTML formatter was completely overhauled to resemble Prettier's formatting, potentially causing large diffs in HTML, Vue, Svelte, and Astro files [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.0.md:L602)
+### Major Breaking Changes
 
-- BREAKING: Promoted 21 nursery rules to stable groups — in v2.4.0, several rules (e.g., `noUnresolvedImports`, `noImportCycles`, `noUselessUndefined`) were promoted to stable groups like `correctness`, `suspicious`, `complexity`, and `style`, changing default behavior or severity [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.0.md:L268)
+- BREAKING: HTML formatter completely overhauled in v2.4.0 — if you've opted in to experimental HTML formatting, expect large formatting diffs for HTML, Vue, Svelte, and Astro files due to improved whitespace sensitivity handling [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L821:830)
 
-- NEW: `useTestHooksInOrder()` — new nursery rule in v2.4.15 for `test` domain, enforcing correct order of Jest/Vitest lifecycle hooks [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L11)
+### New Rules — v2.4.0
 
-- NEW: `useVueNextTickPromise()` — new nursery rule in v2.4.15, enforcing Promise syntax for Vue `nextTick` [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L16)
+- NEW: `useAnchorContent` (HTML) — enforces that anchor elements have accessible content for screen readers; flags empty anchors and anchors with only whitespace or hidden content [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L37:38)
 
-- NEW: `noVueVOnNumberValues()` — new nursery rule in v2.4.15, disallowing deprecated number modifiers on Vue `v-on` directives [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L22)
+- NEW: `useMediaCaption` (HTML) — enforces that `audio` and `video` elements have a `track` element with `kind="captions"` for accessibility; muted videos allowed without captions [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L39:40)
 
-- NEW: `useVueValidVFor()` — new nursery rule in v2.4.15, validating Vue `v-for` directives [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L28)
+- NEW: `useAltText` (HTML) — enforces that elements requiring alternative text (`<img>`, `<area>`, `<input type="image">`, `<object>`) provide meaningful information via `alt`, `title`, `aria-label`, or `aria-labelledby` attributes [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L313:314)
 
-- NEW: `noVueImportCompilerMacros()` — new recommended nursery rule in v2.4.15, disallowing importing Vue compiler macros from `vue` [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L31)
+- NEW: `useValidAriaRole` (HTML) — enforces that elements with ARIA roles use a valid, non-abstract ARIA role [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L348:349)
 
-- NEW: `useThisInClassMethods()` — new nursery rule in v2.4.15, reporting instance methods, getters, setters, and function-valued instance fields that do not use `this` [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L59)
+- NEW: `useAriaPropsForRole` (HTML) — enforces that elements with ARIA roles have all required ARIA attributes for that role [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L620:621)
 
-- NEW: `noBaseToString()` — new nursery rule in v2.4.15, reporting stringification sites that fall back to Object's default `"[object Object]"` formatting [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L77)
+- NEW: `useValidLang` (HTML) — enforces that the `html` element has a `lang` attribute with a valid language code [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L162:163)
 
-- BREAKING: `organizeImports` now errors on unknown predefined groups — in v2.4.15, `organizeImports` now reports an error for unknown predefined groups in configuration, which previously might have been ignored [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L42)
+- NEW: `useHtmlLang` (HTML) — enforces that the `html` element has a `lang` attribute [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L207:222)
 
-- BREAKING: `noMisleadingReturnType` improved — in v2.4.15, it now flags union annotations whose extra variants are never returned, leading to new diagnostics [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L49)
+- NEW: `useIframeTitle` (HTML) — enforces the usage of the `title` attribute on `iframe` elements [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L112:124)
 
-- BREAKING: `noUselessTypeConversion` improved — in v2.4.15, it now detects redundant conversions on `as const` object literal properties, leading to new diagnostics [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L66)
+- NEW: `noAccessKey` (HTML) — enforces that the `accesskey` attribute is not used, as it conflicts with keyboard commands used by screen readers [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L472:488)
 
-- BREAKING: `useExhaustiveSwitchCases` improved — in v2.4.15, it now checks switch statements over object literal properties initialized with `as const`, leading to new diagnostics [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L79)
+- NEW: `noAutofocus` (HTML) — enforces that the `autofocus` attribute is not used on elements; allows it inside `dialog` elements or elements with `popover` attribute [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L309:310)
 
-- BREAKING: `useStringStartsEndsWith` improved — in v2.4.15, it now detects string index comparisons on `as const` object literal properties, leading to new diagnostics [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L86)
+- NEW: `noPositiveTabindex` (HTML) — prevents usage of positive integers on the `tabindex` attribute to avoid disrupting natural keyboard navigation [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L311:312)
 
-- NEW: `ignore` option to `useHookAtTopLevel` — new in v2.4.0, allows specifying function names not treated as hooks [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.0.md:L11)
+- NEW: `noRedundantAlt` (HTML) — enforces that the `img` element `alt` attribute does not contain redundant words "image", "picture", or "photo" [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L645:646)
 
-- NEW: `useAnchorContent` rule — new in v2.4.0 for HTML, enforcing accessible content for anchor elements [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.0.md:L23)
+- NEW: `noSvgWithoutTitle` (HTML) — enforces the usage of the `title` element for the `svg` element for accessibility [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L712:713)
 
-- NEW: Multiple reporters and `--reporter-file` CLI option — new in v2.4.0, allowing multiple reporters and saving output to a file [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.0.md:L31)
+- NEW: `noDistractingElements` (HTML) — enforces that distracting elements like `<marquee>` or `<blink>` are not used [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L287:288)
 
-- NEW: JSON as GritQL target language — new in v2.4.0, enabling GritQL patterns for JSON files [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.0.md:L59)
+- NEW: `useButtonType` (HTML) — enforces that the `type` attribute is present and valid on all button elements [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L714:731)
 
-- NEW: `ignore` option to `noUnknownProperty` — new in v2.4.0, preventing diagnostics for specified unknown properties [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.0.md:L80)
+### New Configuration Options — v2.4.0
 
-- NEW: `sarif` reporter — new in v2.4.0, emitting diagnostics using the SARIF format [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.0.md:L84)
+- NEW: `trailingNewline` formatter option — controls whether the formatter adds/removes trailing newline at end of files; defaults to `true`; available globally and per-language [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L672:698)
 
-- BREAKING: `useHookAtTopLevel` updated — in v2.4.0, the rule was updated to better catch invalid hook usage, leading to new diagnostics for previously passing code [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.0.md:L207)
+- NEW: `useHookAtTopLevel` — `ignore` option to specify function names that should not be treated as hooks even if they follow the `use*` naming convention [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L15:35)
 
-- NEW: `noDuplicateAttributes` — new nursery rule in v2.3.12, forbidding duplicate attributes in HTML elements [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.3.12.md:L11)
+- NEW: `useSortedKeys` — `groupByNesting` option to group object keys by value nesting depth before sorting; simple values first, nested values after [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L261:307)
 
-- NEW: `noVueOptionsApi` — new nursery rule in v2.3.12, reporting Vue Options API usage incompatible with Vue 3.6's Vapor Mode [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.3.12.md:L14)
+- NEW: `useIterableCallbackReturn` — `checkForEach` option to skip checking `forEach()` callbacks for returning values when set to `false` [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L160:161)
 
-- BREAKING: GraphQL nursery rules renamed — in v2.3.12, rules like `useUniqueArgumentNames` were renamed to `noDuplicateArgumentNames` (and similar), requiring `biome migrate --write` to update [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.3.12.md:L50)
+- NEW: `useUnifiedTypeSignatures` — `ignoreDifferentlyNamedParameters` and `ignoreDifferentJsDoc` options from `typescript-eslint` to ignore overload signatures with different parameter names or JSDoc comments [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L514:534)
 
-- BREAKING: `useExhaustiveDependencies` fixes — in v2.3.12, multiple fixes were applied to correctly handle nested destructuring, transparent expression wrappers, and variable references, which may introduce new diagnostics for previously unflagged issues [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.3.12.md:L123)
+- NEW: `useImportExtensions` — `extensionMappings` option to specify custom file extensions for different module types; e.g., ban `.ts` imports in favour of `.js` [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L622:634)
 
-**Also changed:** `useMediaCaption` rule for HTML v2.4.0 · `useIframeTitle` lint rule for HTML v2.4.0 · `useSortedInterfaceMembers` assist action v2.4.0 · Stacktrace for fatal errors v2.4.0 · `useIterableCallbackReturn` with `checkForEach` option v2.4.0 · `useValidLang` rule for HTML v2.4.0 · Support for `jsxFactory` and `jsxFragmentFactory` v2.4.0 · New CLI options for file watcher v2.4.0 · `useHtmlLang` lint rule for HTML v2.4.0 · Support for embedded GraphQL snippets in JS (experimental) v2.4.0 · `groupByNesting` option to `useSortedKeys` assist v2.4.0 · `noAutofocus` lint rule for HTML v2.4.0 · `noPositiveTabindex` to HTML v2.4.0 · `useAltText` lint rule for HTML v2.4.0 · `useValidAriaRole` lint rule for HTML v2.4.0 · `ignore` option to `noUnknownFunction` v2.4.0 · `ignore` option to `noUnknownPseudoClass` v2.4.0 · `noDuplicateClasses` assist action v2.4.0 · `noRedundantAlt` to HTML v2.4.0 · `noDistractingElements` lint rule for HTML v2.4.0 · New linter domain `types` v2.4.0 · Ability to load hidden files `.biome.json` and `.biome.jsonc` v2.4.0 · Formatter option `trailingNewline` v2.4.0 · `noSvgWithoutTitle` lint rule to HTML v2.4.0 · `useButtonType` lint rule for HTML v2.4.0 · `extensionMappings` option to `useImportExtensions` v2.4.0 · `--only` and `--skip` options to `biome check` and `biome ci` v2.4.0 · `ignore` option to `noUnknownPseudoElement` v2.4.0 · Ability to load configuration from new known paths (config home) v2.4.0 · Support for embedded CSS snippets in JS (experimental) v2.4.0 · `useAriaPropsForRole` lint rule for HTML v2.4.0 · `noAccessKey` lint rule for HTML v2.4.0 · Inlined configuration for LSP v2.4.0 · Options from `typescript-eslint` to `useUnifiedTypeSignatures` v2.4.0 · Rule profiler v2.4.0 · CSS properties ordering updated v2.4.0 · Support for CSS `@function` at-rule v2.4.0 · Revamped logging options v2.4.0 · Added e18e ESLint plugin as a recognized rule source v2.4.0 · `noRootType` for GraphQL v2.3.12 · `useErrorCause` lint rule v2.3.12 · `useLoneAnonymousOperation` for GraphQL v2.3.12 · `useInlineScriptId` for Next.js v2.3.12 · `noDivRegex` v2.3.12 · `noDuplicateEnumValueNames` for GraphQL v2.3.12 · `useLoneExecutableDefinition` for GraphQL v2.3.12 · `noExcessiveLinesPerFile` for CSS and GraphQL v2.3.12 · `noDuplicateEnumValues` v2.3.12 · `noExcessiveLinesPerFile` general v2.3.12 · `noExcessiveClassesPerFile` v2.3.12 · `noFloatingClasses` v2.3.12
+- NEW: `noUnknownProperty`, `noUnknownFunction`, `noUnknownPseudoClass`, `noUnknownPseudoElement` — `ignore` option to prevent diagnostics for unknown properties/functions/pseudo-selectors matching provided patterns [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L108:109, L350:352)
+
+### New CLI Features — v2.4.0
+
+- NEW: Multiple reporters support — run `biome ci --reporter=default --reporter=github` to use multiple reporters simultaneously [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L41:65)
+
+- NEW: `--reporter-file` option — save reporter output to a file; can combine with multiple reporters [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L51:68)
+
+- NEW: `--skip` and `--only` options for `biome check` and `biome ci` — run or exclude specific lint rules, assist actions, groups, or domains [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L636:644)
+
+- NEW: `--watcher-kind` option — controls file watcher behaviour (`recommended`, `polling`, `none`); has `BIOME_WATCHER_KIND` env alias [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L187:198)
+
+- NEW: `--watcher-polling-interval` option — polling interval in milliseconds for polling watcher; defaults to 2000ms; has `BIOME_WATCHER_POLLING_INTERVAL` env alias [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L201:205)
+
+- NEW: `--profile-rules` flag — shows a report of which lint rules took the longest to execute [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L536:537)
+
+- NEW: `--reporter=sarif` — emit diagnostics using the SARIF format [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L110:111)
+
+### New Experimental Features — v2.4.0
+
+- NEW: Embedded CSS snippets in JavaScript (experimental) — format and lint CSS inside `styled-components`, `@emotion/styled`, `@emotion/react` template literals when `experimentalEmbeddedSnippetsEnabled` is enabled; **excludes snippets with interpolations** [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L568:618)
+
+- NEW: Embedded GraphQL snippets in JavaScript (experimental) — format GraphQL inside `gql` and `graphql` template literals when `experimentalEmbeddedSnippetsEnabled` is enabled [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L223:259)
+
+### New Assist Actions — v2.4.0
+
+- NEW: `noDuplicateClasses` assist action — detect and remove duplicate CSS classes from `class`/`className` attributes and utility functions like `clsx`, `cn`, `cva` [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L354:366)
+
+- NEW: `useSortedInterfaceMembers` assist action — sorts TypeScript interface members for readability; includes autofix [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L126:150)
+
+### Configuration and Auto-Detection — v2.4.0
+
+- NEW: CSS modules auto-detection — Biome automatically enables CSS modules parsing for `*.module.css` files; remove explicit `cssModules: true` parser configuration if only using module files [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L368:380)
+
+- NEW: Vue CSS syntax support — Biome parses `:global` and `:local` inside `.vue`, `.svelte`, `.astro` files' `<style>` when `experimentalFullHtmlSupportedEnabled` is enabled [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L382:384)
+
+- NEW: Hidden config file support — Biome now loads `.biome.json` and `.biome.jsonc` in addition to `biome.json` and `biome.jsonc` [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L666:670)
+
+- NEW: Global config paths — Biome attempts to load configuration from `$XDG_CONFIG_HOME`, `$HOME/.config/biome`, `%APPDATA%\biome\config`, or `/Users/$USER/Library/Application Support/biome` when not found in project [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L554:567)
+
+- NEW: Cursor JSON files support — Biome parses Cursor JSON config files with comments and trailing commas enabled [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L73:77)
+
+### TypeScript and JSX — v2.4.0
+
+- NEW: `jsxFactory` and `jsxFragmentFactory` support — Biome respects these settings from `tsconfig.json` when using classic JSX runtime, preventing false `noUnusedImports` errors for custom JSX libraries like Preact [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L164:184)
+
+### Parser Enhancements — v2.4.0
+
+- NEW: Typed `attr` function support (CSS) — parse CSS `attr()` function with type parameters [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L462:469)
+
+- NEW: CSS `@function` at-rule support — parse and format CSS Mixins Module Level 1 `@function` at-rule [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L703:710)
+
+- NEW: SCSS improvements — support for `@include ... using`, interpolated selectors, interpolated properties, parent selectors, custom functions, semicolonless at-rules [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L85:159)
+
+- NEW: GritQL JSON support — write Grit plugins for JSON files using native Biome AST names or TreeSitter-compatible names [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L79:106)
+
+- NEW: Markdown parser implementation (experimental) — basic parsing support for Markdown files [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L921)
+
+### Suppress Comments — v2.4.0
+
+- NEW: `biome-ignore-all format` — top-level suppression comment to prevent formatting of entire file [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L446:460)
+
+### Promoted Rules — v2.4.0
+
+21 nursery rules promoted to stable groups with assigned severities:
+
+**Correctness group:** `noUnresolvedImports` (error), `noVueReservedProps` (error), `noVueReservedKeys` (error), `noVueDataObjectDeclaration` (warn), `noNextAsyncClientComponent` (warn), `noVueDuplicateKeys` (error), `noVueSetupPropsReactivityLoss` (error), `useQwikMethodUsage` (error), `useQwikValidLexicalScope` (error)
+
+**Suspicious group:** `noImportCycles` (warn), `noDeprecatedImports` (warn), `noReactForwardRef` (warn), `noUnusedExpressions` (warn), `noEmptySource` (warn), `useDeprecatedDate` (warn), `noDuplicateDependencies` (warn)
+
+**Complexity group:** `noUselessUndefined` (info), `useMaxParams` (warn), `noUselessCatchBinding` (info)
+
+**Style group:** `useConsistentArrowReturn` (info), `noJsxLiterals` (info)
+
+[source](./.skilld/releases/@biomejs/biome@2.4.0.md:L386:445)
+
+### LSP and Inline Config — v2.4.0
+
+- NEW: Inline LSP configuration — editors can inject Biome configuration to the Language Server via `lsp.biome.settings.inline_config` without affecting project configuration [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L490:512)
+
+- NEW: LSP progress reporting — Language Server reports progress while scanning files and dependencies [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L158)
+
+### Patch Changes — v2.4.16
+
+- NEW: `useDestructuring` rule — added `variableDeclarator` and `assignmentExpression` options to control which contexts enforce destructuring, matching ESLint's `prefer-destructuring` [source](./.skilld/releases/@biomejs/biome@2.4.16.md:L50)
+
+- NEW: `formatter.trailingCommas` in overrides — trailing commas option now available in formatter overrides, not just top-level configuration [source](./.skilld/releases/@biomejs/biome@2.4.16.md:L56)
+
+**Also changed:** v2.3.15 `noNestedPromises` rule (detects nested promise chains) · v2.4.0 CSS properties ordering updated to align with `stylelint-config-recess-order` v7.4.0 · v2.4.0 `noUnusedVariables` improved for Svelte files · v2.4.0 Formatting now applied when applying safe/unsafe fixes · v2.4.0 Vue CSS directives parsing support
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+## @biomejs/biome Best Practices
+
 ## Best Practices
 
-- Enforce correct order of Jest/Vitest lifecycle hooks (`beforeAll`, `beforeEach`, `afterEach`, `afterAll`) using `useTestHooksInOrder` for predictable test setup and teardown. [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L11-L12)
-- Use Promise syntax for Vue's `nextTick` via `useVueNextTickPromise` to leverage modern asynchronous handling. [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L14-L20)
-- Avoid deprecated number modifiers on Vue `v-on` directives by enabling `noVueVOnNumberValues` for future compatibility. [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L22-L26)
-- Validate Vue `v-for` directives with `useVueValidVFor` to catch invalid aliases, missing keys, and incorrect key usage, improving performance and correctness of lists. [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L28-L30)
-- Disallow importing Vue compiler macros (e.g., `defineProps`) with `noVueImportCompilerMacros` since they are automatically available, reducing boilerplate. [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L32-L33)
-- Leverage `organizeImports` for detailed and precise diagnostics, ensuring all predefined groups in configuration are valid to prevent import errors. [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L39-L49)
-- Improve type accuracy and code clarity by using `noMisleadingReturnType` to flag union annotations with never-returned variants and suggesting narrower types. This also applies to `as const` initializations. [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L51-L57,L63-L66)
-- Preserve child line breaks in HTML and Vue element formatting when an element contains another element child on its own line for consistent and readable code. [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L61-L62)
-- Remove redundant type conversions on `as const` initialized object literal properties using `noUselessTypeConversion` for cleaner code. [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L68-L72)
-- Identify and refactor instance methods, getters, setters, and function-valued fields that don't use `this` using `useThisInClassMethods`, promoting static methods or simpler functions where appropriate. [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L74-L83)
-- Prevent unexpected string representations by using `noBaseToString` to report stringification sites falling back to `"[object Object]"` formatting. [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L91-L92)
-- Ensure exhaustive handling of `as const` initialized object literal properties in switch statements with `useExhaustiveSwitchCases`. [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L94-L99)
-- Use `useStringStartsEndsWith` to detect string index comparisons on `as const` initialized object literal properties, encouraging `startsWith`/`endsWith` for better readability. [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L101-L104)
-- (experimental) Use Biome's new YAML parser for improved linting and formatting of YAML properties, leveraging `yaml_parser` capabilities. [source](./.skilld/repos/biomejs/biome/releases/@biomejs/biome@2.4.15.md:L142,L161)
+- Verify Prettier compatibility using the Biome playground before assuming formatting behaviour — Biome maintains 97% compatibility with Prettier, but the playground is the authoritative reference for any given code snippet [source](../../releases/@biomejs/biome@2.4.15.md:L45)
+
+- Structure `organizeImports` groups with ordered matchers from most specific to least specific, explicitly excluding matched imports from subsequent groups — the matching system is ordered by design, and earlier matches prevent later groups from catching imports [source](../discussions/discussion-9401.md:L14-35)
+
+- Use the new `projects` configuration option to control nested file discovery in monorepos — provides fine-grained control over project locations and tags instead of relying solely on automatic discovery [source](../discussions/discussion-9559.md:L26-33)
+
+- Enable `formatter.trailingCommas` in configuration overrides to apply trailing comma rules consistently across different file types — this option was previously missing from overrides despite being available at the top level [source](../../releases/@biomejs/biome@2.4.16.md:L56)
+
+- Configure `useExhaustiveDependencies` with the `reactCompiler` option when using React Compiler, as it automatically wraps functions and eliminates false positives — avoids incorrect warnings about functions changing on every re-render [source](../issues/issue-5293.md:L17-23)
+
+- Use the `variableDeclarator` and `assignmentExpression` options on `useDestructuring` to control destructuring enforcement per context — allows separate configuration for declarations versus assignments, matching ESLint's `prefer-destructuring` [source](../../releases/@biomejs/biome@2.4.16.md:L50)
+
+- Enable the `noVueImportCompilerMacros` rule to prevent importing Vue compiler macros like `defineProps` from the `vue` package — these are automatically available in `<script setup>` blocks and explicit imports are unnecessary [source](../../releases/@biomejs/biome@2.4.15.md:L38-39)
+
+- Use `useVueValidVFor` to validate Vue `v-for` directives for missing keys, invalid aliases, and key variables — ensures template iteration patterns match iteration scope [source](../../releases/@biomejs/biome@2.4.15.md:L37)
+
+- Expect enhanced Svelte function binding precision that prevents false positives in rules like `noCommaOperator` — Biome now parses `bind:value={get, set}` syntax more accurately [source](../../releases/@biomejs/biome@2.4.16.md:L48)
+
+- Leverage SCSS interpolation support in selectors, properties, and parent selectors for advanced styling patterns — Biome v2.4.16+ handles SCSS interpolated selectors (`@include ... using`), dashed identifiers, and parent selectors correctly [source](../../releases/@biomejs/biome@2.4.16.md:L107-108)
+
+- Trust `useOptionalChain` to detect negated guard inequality chains like `!foo || foo.bar !== "x"` and suggest optional chaining — the rule now handles inverted conditionals in guard patterns [source](../../releases/@biomejs/biome@2.4.16.md:L52)
+
+- Rely on `noMisleadingReturnType` to flag return annotations that include unused union variants and suggest narrower types — works with both plain annotations and `as const` assertions on object properties [source](../../releases/@biomejs/biome@2.4.15.md:L61-62)
+
+- Enforce test hook declaration order with `useTestHooksInOrder` — Jest/Vitest lifecycle hooks must be declared in execution order (`beforeAll`, `beforeEach`, `afterEach`, `afterAll`) to maintain readable test structure [source](../../releases/@biomejs/biome@2.4.15.md:L15)
+
+- Validate `organizeImports` configuration against known predefined groups — unknown groups like `:INEXISTENT:` will now produce configuration errors instead of silent failures [source](../../releases/@biomejs/biome@2.4.15.md:L50-59)
 <!-- /skilld:best-practices -->

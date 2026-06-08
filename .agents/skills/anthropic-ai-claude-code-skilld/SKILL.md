@@ -1,14 +1,14 @@
 ---
 name: anthropic-ai-claude-code-skilld
-description: "ALWAYS use when writing code importing \"@anthropic-ai/claude-code\". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code."
+description: "ALWAYS use when writing code importing \"@anthropic-ai/claude-code\". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88."
 metadata:
-  version: 2.1.165
+  version: 2.1.168
   generated_by: Anthropic · Haiku 4.5
-  generated_at: 2026-06-05
+  generated_at: 2026-06-08
 ---
 
-# @anthropic-ai/claude-code@2.1.165
-**Tags:** stable: 2.1.153, latest: 2.1.165, next: 2.1.165
+# Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.168`
+**Tags:** stable: 2.1.153, latest: 2.1.168, next: 2.1.169
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md)
 
@@ -19,55 +19,69 @@ Use `skilld search "query" -p @anthropic-ai/claude-code` instead of grepping `.s
 <!-- skilld:api-changes -->
 ## API Changes
 
-### Documentation Limitation
+@anthropic-ai/claude-code v2.1.168 is a CLI tool that provides agentic coding capabilities. This document covers the stable tool schema APIs available in the current version.
 
-This package (@anthropic-ai/claude-code v2.1.165) is a compiled CLI tool distributed as a binary, not a traditional JavaScript library. Version history and API changes cannot be documented because:
+### Core Tool APIs (Stable in v2.1.x)
 
-1. **No local changelog/releases:** The `.skilld` directory contains only basic README files without release notes, changelog entries, or migration guides.
+- `Agent` — Spawn subagents with optional model override, background execution, and worktree isolation support. Supports specialized agent types and team context [source](./.skilld/sdk-tools.d.ts:L305:342)
 
-2. **No external access permitted:** The task constraints prohibit fetching external URLs, and the skilld indexing tool cannot locate upstream documentation for this package.
+- `Bash` — Execute shell commands with optional timeout and sandbox bypass. Supports background execution and descriptive command documentation [source](./.skilld/sdk-tools.d.ts:L343:374)
 
-3. **CLI-only distribution:** The package exports only a binary executable and TypeScript type definitions (`sdk-tools.d.ts`), without a version-controlled public API surface that changes between releases.
+- `FileRead` — Read text, images, notebooks, PDFs with pagination support. Returns file metadata including token cap truncation signals [source](./.skilld/sdk-tools.d.ts:L142:269)
 
-### How to obtain version history
+- `FileEdit` — Edit files with old_string/new_string matching and replace_all flag. Supports atomic text replacements [source](./.skilld/sdk-tools.d.ts:L405:422)
 
-For actual API/feature changes in @anthropic-ai/claude-code, refer to:
+- `FileWrite` — Write new files with absolute paths. Complete file replacement operation [source](./.skilld/sdk-tools.d.ts:L441:450)
 
-- **GitHub Releases:** https://github.com/anthropics/claude-code/releases
-- **Documentation:** https://code.claude.com/docs/en/overview
-- **NPM Package Page:** https://www.npmjs.com/package/@anthropic-ai/claude-code
+- `Glob` — Match files by pattern across directories. Optional path parameter defaults to current directory [source](./.skilld/sdk-tools.d.ts:L451:460)
 
-These external sources contain the definitive version history, breaking changes, and new features for each release.
+- `Grep` — Search files with ripgrep regex support. Supports output modes (content, files_with_matches, count), context windows, case-insensitive, multiline matching [source](./.skilld/sdk-tools.d.ts:L461:522)
 
-**Also changed:** No items could be documented due to unavailable sources
+- `TaskCreate` — Create tracked background tasks with subject, description, and optional activeForm spinner text [source](./.skilld/sdk-tools.d.ts:L2186:2205)
+
+- `TaskUpdate` — Update task status, metadata, and blocking relationships. Supports status transitions and owner assignment [source](./.skilld/sdk-tools.d.ts:L2212:2251)
+
+- `Workflow` — Execute deterministic multi-agent orchestration scripts with phase tracking and budget management [source](./.skilld/sdk-tools.d.ts:L2267:2285)
+
+- `EnterPlanMode` — Enter structured planning mode with permission-based allowed prompts for Bash operations [source](./.skilld/sdk-tools.d.ts:L389:404)
+
+- `ExitPlanMode` — Exit plan mode with optional prompt-based permission specifications [source](./.skilld/sdk-tools.d.ts:L389:404)
+
+- `MCP` — Access Model Context Protocol resources with dynamic schema discovery and server filtering [source](./.skilld/sdk-tools.d.ts:L539:541)
+
+- `AskUserQuestion` — Present 1-4 multiple-choice questions with optional multi-select, previews, and annotations support [source](./.skilld/sdk-tools.d.ts:L608:2184)
+
+- `NotebookEdit` — Edit Jupyter notebooks with cell insertion, deletion, and type specification. Supports code and markdown cells [source](./.skilld/sdk-tools.d.ts:L542:563)
+
+**Also changed:** `WebFetch` supports prompt-based content extraction · `WebSearch` supports domain allow/block lists · `EnterWorktree` creates isolated git worktree environments · `Monitor` streams background task output · `ScheduleWakeup` enables interval-based task loops
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
 ## Best Practices
 
-- Write command descriptions in active voice without terms like "complex" or "risk" — use concrete action verbs and context to clarify what the command does [source](./.skilld/pkg/sdk-tools.d.ts:L351-L365)
+- Use Claude Code in your terminal, IDE, or GitHub (@claude mentions) depending on your workflow — each environment provides different integration advantages and keeps your coding context consistent [source](./.skilld/pkg/README.md:L7)
 
-- Use line-range parameters (offset and limit) when reading large files instead of loading entire contents — prevents token budget exhaustion on multi-megabyte files [source](./.skilld/pkg/sdk-tools.d.ts:L429-L435)
+- Report issues via the `/bug` command within Claude Code rather than creating separate GitHub issues — this captures context automatically and gets routed to the development team [source](./.skilld/pkg/README.md:L25)
 
-- Leverage output_mode in grep operations to match the task — use "files_with_matches" for discovery, "content" with context (-A/-B/-C) for code review, "count" for metrics [source](./.skilld/pkg/sdk-tools.d.ts:L475-L478)
+- Ensure your Node.js version is 18.0.0 or higher before installing — older versions are not supported and will cause installation failures [source](./.skilld/pkg/package.json:L12)
 
-- Set replace_all: true in file edits only when intentional — single replacements with exact old_string matching are safer for avoiding unintended transformations [source](./.skilld/pkg/sdk-tools.d.ts:L420-L421)
+- Accept feedback and monitor code acceptance/rejection data — Claude Code collects this usage data to improve suggestions, and understanding your acceptance patterns helps refine future interactions [source](./.skilld/pkg/README.md:L31:32)
 
-- Run agents in background mode when spawning parallel work — set run_in_background: true to allow the parent to continue while subagents execute asynchronously [source](./.skilld/pkg/sdk-tools.d.ts:L325)
+- Run the postinstall script during installation without using `--ignore-scripts` flags — the postinstall copies the native binary which is faster than the Node.js fallback wrapper [source](./.skilld/pkg/cli-wrapper.cjs:L2:7)
 
-- Use multiline mode in regex patterns when matching across line boundaries — enable multiline: true only when the pattern genuinely needs to span multiple lines [source](./.skilld/pkg/sdk-tools.d.ts:L520-L521)
+- Let platform detection happen automatically — Claude Code detects your OS and architecture and selects the optimized binary, including handling Rosetta 2 emulation on Apple Silicon [source](./.skilld/pkg/cli-wrapper.cjs:L73:81)
 
-- Specify file globs in grep operations to avoid scanning irrelevant types — the glob parameter is more efficient than inclusion patterns for filtering by file type [source](./.skilld/pkg/sdk-tools.d.ts:L470-L473)
+- Join the Claude Developers Discord community for help and feedback — you'll connect with other developers using Claude Code and get real-time assistance with issues [source](./.skilld/pkg/README.md:L29)
 
-- Set isolation: "worktree" only when spawning agents that mutate files in parallel — creates a temporary git worktree so changes don't conflict between concurrent agents [source](./.skilld/pkg/sdk-tools.d.ts:L340-L342)
+- Review the Commercial Terms of Service and Privacy Policy before using in production — Claude Code collects and retains certain data, and understanding the safeguards matters for enterprise or sensitive projects [source](./.skilld/pkg/README.md:L43:44)
 
-- Use Zod's safeParse on incoming request bodies rather than parse — safeParse returns validation results without throwing, avoiding unhandled rejection promises [source](./.skilld/pkg/README.md)
+- Use Claude Code to understand codebases before making changes — it can explain complex code and provide context about what components do and how they interact [source](./.skilld/pkg/README.md:L7)
 
-- Provide timeout constraints for long-running operations — Bash and REPL operations default to 30s for Bash and 30s for REPL; set explicit timeouts (up to 600000ms) for sustained work [source](./.skilld/pkg/sdk-tools.d.ts:L349-L351)
+- Leverage the git workflow features for routine tasks — Claude Code handles commit creation, branching, and pull request workflows through natural language, reducing manual git operations [source](./.skilld/pkg/README.md:L7)
 
-- Cache read operations on frequently-accessed files — the FileReadOutput tracks truncation state (truncatedByTokenCap) allowing graceful pagination on subsequent reads [source](./.skilld/pkg/sdk-tools.d.ts:L167-L169)
+- Start with natural language commands in your project directory — after navigating to your project and running `claude`, use conversational prompts to describe what you want to accomplish [source](./.skilld/pkg/README.md:L21:22)
 
-- Structure JSON schema definitions for tool inputs using strict union types — the tool input schemas enforce that only valid, type-checked parameters reach CLI handlers [source](./.skilld/pkg/sdk-tools.d.ts:L11-L46)
+- Check data usage policies to understand what happens to your code and feedback — Anthropic uses this data to improve Claude Code, and knowing the details helps you decide what projects to use it on [source](./.skilld/pkg/README.md:L37)
 
-- Avoid dynamic glob patterns when discovering files — use concrete patterns (e.g., **/*.ts rather than variable interpolation) so the glob engine can pre-compile efficiently [source](./.skilld/pkg/sdk-tools.d.ts:L455-L459)
+- Trust the SDK type definitions for tool input/output contracts — if building tools that integrate with Claude Code, the exported types in `sdk-tools.d.ts` are the authoritative API surface [source](./.skilld/pkg/package.json:L33)
 <!-- /skilld:best-practices -->
