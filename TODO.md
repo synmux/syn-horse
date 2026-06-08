@@ -1,5 +1,11 @@
 # to-do list
 
+## features
+
+- [ ] abandoned projects which appear when in konami code mode and disappear otherwise
+
+## moar
+
 - [ ] create API endpoint for the notification endpoint to write logs to the DB, so that we can remove the notification worker's DB binding and the underlying DB, and write to our primary DB.
 - [ ] add retry policy + dead-letter handling on the consumer side once it lands.
 - [ ] consider a second `Pager` implementation on the producer side (e.g. a direct synchronous channel) if/when needed — extend `usePager()` to choose based on channel or runtime config.

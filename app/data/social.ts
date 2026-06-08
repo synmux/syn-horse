@@ -23,6 +23,6 @@ export const SOCIAL: Social[] = [
   },
   { k: "threads", v: "@synmux", href: "https://threads.com/@synmux" },
   { k: "instagram", v: "@synmux", href: "https://instagram.com/synmux" },
-  { k: "email", v: "hi@syn.horse", href: "mailto:hi@syn.horse" },
+  { k: "email", v: "[pending]", href: "#" },
   { k: "rss", v: "/feed.xml", href: "/feed.xml" },
 ];

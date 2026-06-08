@@ -64,9 +64,9 @@
           <b class="font-bold tracking-[0.12em] uppercase text-hot"
             >ask for my number ◆</b
           >
-          <br>i don't list phone numbers in plaintext (scrapers gonna scrape).
-          email me first, mention which messenger, and i'll send you a number.
-          signal preferred.
+          <br>i don't list phone numbers in plaintext. scrapers gonna scrape.
+          use signal with my username, or email me first and i'll send you a
+          number.
         </div>
       </div>
     </div>
@@ -76,8 +76,12 @@
         >◆ usually responds within 48h · sometimes 2 weeks · rarely never</span
       >
       <span
-        >do not pitch me web3, "ai-driven" anything, or recruitment for crypto</span
+        >◆ do not pitch me web3, crypto, or mass surveillance.
+        <strong
+          >that means you, palantir. did you not learn from the last time?</strong
+        ></span
       >
+      <span></span>
     </div>
   </div>
 </template>

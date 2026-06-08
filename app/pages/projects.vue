@@ -13,7 +13,8 @@
     <div class="eyebrow">▶ /projects · {{ PROJECTS.length }} things</div>
     <h1 class="page-h1">projects<span class="dot">.</span></h1>
     <p class="lede">
-      things i made on purpose. things i regret are not on this list.
+      things i made on purpose. things i got bored with are not on this list,
+      but may appear with the correct invocation.
     </p>
     <div class="proj-grid">
       <div v-for="p in PROJECTS" :key="p.name" class="proj fx-glitch">
