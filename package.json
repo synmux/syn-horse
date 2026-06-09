@@ -96,6 +96,7 @@
     "@parcel/watcher",
     "better-sqlite3",
     "esbuild",
+    "lefthook",
     "onnxruntime-node",
     "protobufjs",
     "sharp",

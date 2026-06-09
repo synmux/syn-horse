@@ -58,6 +58,7 @@
     "protobufjs",
     "better-sqlite3",
     "onnxruntime-node",
+    "lefthook",
     "@parcel/watcher",
   ],
   "packages": {
