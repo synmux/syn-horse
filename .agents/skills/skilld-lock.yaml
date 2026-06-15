@@ -8,10 +8,11 @@ skills:
     generator: skilld
   vue-skilld:
     packageName: vue
-    version: 3.5.35
+    version: 3.5.38
+    packages: "vue@3.5.38"
     repo: vuejs/core
-    source: "https://github.com/vuejs/core/tree/v3.5.35/docs"
-    syncedAt: 2026-05-29
+    source: "https://github.com/vuejs/core/tree/main/docs"
+    syncedAt: 2026-06-13
     generator: skilld
   nuxt-content-skilld:
     packageName: "@nuxt/content"
@@ -44,11 +45,11 @@ skills:
     generator: skilld
   nuxtjs-seo-skilld:
     packageName: "@nuxtjs/seo"
-    version: 5.1.4
-    packages: "@nuxtjs/seo@5.1.4"
+    version: 5.3.0
+    packages: "@nuxtjs/seo@5.3.0"
     repo: harlan-zw/nuxt-seo
-    source: "https://github.com/harlan-zw/nuxt-seo/tree/v5.1.4/docs"
-    syncedAt: 2026-06-08
+    source: "https://github.com/harlan-zw/nuxt-seo/tree/v5.3.0/docs"
+    syncedAt: 2026-06-13
     generator: skilld
   nuxthub-core-skilld:
     packageName: "@nuxthub/core"
@@ -67,10 +68,11 @@ skills:
     generator: skilld
   tailwindcss-vite-skilld:
     packageName: "@tailwindcss/vite"
-    version: 4.3.0
+    version: 4.3.1
+    packages: "@tailwindcss/vite@4.3.1"
     repo: tailwindlabs/tailwindcss
-    source: "https://github.com/tailwindlabs/tailwindcss/tree/v4.3.0/docs"
-    syncedAt: 2026-05-29
+    source: "https://tailwindcss.com/**"
+    syncedAt: 2026-06-13
     generator: skilld
   nuxtjs-turnstile-skilld:
     packageName: "@nuxtjs/turnstile"
@@ -88,19 +90,19 @@ skills:
     generator: skilld
   takumi-rs-core-skilld:
     packageName: "@takumi-rs/core"
-    version: 1.7.0
-    packages: "@takumi-rs/core@1.7.0"
+    version: 1.8.4
+    packages: "@takumi-rs/core@1.8.4"
     repo: kane50613/takumi
-    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/core@1.7.0/docs"
-    syncedAt: 2026-06-05
+    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/core@1.8.4/docs"
+    syncedAt: 2026-06-13
     generator: skilld
   takumi-rs-wasm-skilld:
     packageName: "@takumi-rs/wasm"
-    version: 1.7.0
-    packages: "@takumi-rs/wasm@1.7.0"
+    version: 1.8.4
+    packages: "@takumi-rs/wasm@1.8.4"
     repo: kane50613/takumi
-    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/wasm@1.7.0/docs"
-    syncedAt: 2026-06-05
+    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/wasm@1.8.4/docs"
+    syncedAt: 2026-06-13
     generator: skilld
   nuxt-security-skilld:
     packageName: nuxt-security
@@ -126,10 +128,11 @@ skills:
     generator: skilld
   tailwindcss-skilld:
     packageName: tailwindcss
-    version: 4.3.0
+    version: 4.3.1
+    packages: "tailwindcss@4.3.1"
     repo: tailwindlabs/tailwindcss
-    source: "ungh://tailwindlabs/tailwindcss/packages/tailwindcss@main"
-    syncedAt: 2026-05-29
+    source: "https://github.com/tailwindlabs/tailwindcss/tree/main/docs"
+    syncedAt: 2026-06-13
     generator: skilld
   vue-router-skilld:
     packageName: vue-router
@@ -169,26 +172,27 @@ skills:
     generator: skilld
   tailwindcss-cli-skilld:
     packageName: "@tailwindcss/cli"
-    version: 4.3.0
+    version: 4.3.1
+    packages: "@tailwindcss/cli@4.3.1"
     repo: tailwindlabs/tailwindcss
-    source: "https://github.com/tailwindlabs/tailwindcss/tree/v4.3.0/docs"
-    syncedAt: 2026-05-29
+    source: "https://tailwindcss.com/**"
+    syncedAt: 2026-06-13
     generator: skilld
   types-node-skilld:
     packageName: "@types/node"
-    version: 25.9.2
-    packages: "@types/node@25.9.2"
+    version: 25.9.3
+    packages: "@types/node@25.9.3"
     repo: DefinitelyTyped/DefinitelyTyped
     source: "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/docs"
-    syncedAt: 2026-06-08
+    syncedAt: 2026-06-13
     generator: skilld
   ctx7-skilld:
     packageName: ctx7
-    version: 0.5.1
-    packages: "ctx7@0.5.1"
+    version: 0.5.2
+    packages: "ctx7@0.5.2"
     repo: upstash/context7
-    source: "https://github.com/upstash/context7/tree/ctx7@0.5.1/docs"
-    syncedAt: 2026-06-05
+    source: "https://github.com/upstash/context7/tree/ctx7@0.5.2/docs"
+    syncedAt: 2026-06-13
     generator: skilld
   nuxt-gtag-skilld:
     packageName: nuxt-gtag
@@ -206,10 +210,11 @@ skills:
     generator: skilld
   npm-run-all2-skilld:
     packageName: npm-run-all2
-    version: 9.0.1
+    version: 9.0.2
+    packages: "npm-run-all2@9.0.2"
     repo: bcomnes/npm-run-all2
-    source: "ungh://bcomnes/npm-run-all2@v9.0.1"
-    syncedAt: 2026-05-29
+    source: "https://github.com/bcomnes/npm-run-all2/tree/v9.0.2/docs"
+    syncedAt: 2026-06-13
     generator: skilld
   nitropack-skilld:
     packageName: nitropack
@@ -257,19 +262,19 @@ skills:
     generator: skilld
   wrangler-skilld:
     packageName: wrangler
-    version: 4.98.0
-    packages: "wrangler@4.98.0"
+    version: 4.100.0
+    packages: "wrangler@4.100.0"
     repo: cloudflare/workers-sdk
     source: "https://developers.cloudflare.com/workers/**"
-    syncedAt: 2026-06-05
+    syncedAt: 2026-06-13
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.168
-    packages: "@anthropic-ai/claude-code@2.1.168"
+    version: 2.1.177
+    packages: "@anthropic-ai/claude-code@2.1.177"
     repo: Exhen/claude-code-2.1.88
     source: "ungh://Exhen/claude-code-2.1.88"
-    syncedAt: 2026-06-08
+    syncedAt: 2026-06-13
     generator: skilld
   drizzle-orm-skilld:
     packageName: drizzle-orm

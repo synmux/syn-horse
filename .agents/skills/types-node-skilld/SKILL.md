@@ -2,13 +2,13 @@
 name: types-node-skilld
 description: "ALWAYS use when writing code importing \"@types/node\". Consult for debugging, best practices, or modifying @types/node, types/node, types node, DefinitelyTyped."
 metadata:
-  version: 25.9.2
+  version: 25.9.3
   generated_by: Anthropic · Haiku 4.5
-  generated_at: 2026-06-08
+  generated_at: 2026-06-13
 ---
 
-# DefinitelyTyped/DefinitelyTyped `@types/node@25.9.2`
-**Tags:** ts2.1: 12.12.6, ts2.6: 12.12.6, ts2.0: 12.12.6
+# DefinitelyTyped/DefinitelyTyped `@types/node@25.9.3`
+**Tags:** ts2.6: 12.12.6, ts2.2: 12.12.6, ts2.4: 12.12.6
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
@@ -19,77 +19,85 @@ Use `skilld search "query" -p @types/node` instead of grepping `.skilld/` direct
 <!-- skilld:api-changes -->
 ## API Changes
 
-This section documents version-specific API changes — prioritize recent major/minor releases.
+This section documents version-specific API changes in @types/node v25.9.3, prioritizing recent major/minor releases.
 
-- NEW: `AsyncLocalStorage.withScope()` — v25.9.0, returns an `AsyncLocalStorageScope` for Explicit Resource Management (using syntax support) [source](./../../../node_modules/@types/node/async_hooks.d.ts:L25)
+### New APIs Added in v25.x
 
-- NEW: `crypto.argon2()` — v24.7.0 (experimental), async password hashing function using Argon2 [source](./../../../node_modules/@types/node/crypto.d.ts:L3672)
+- NEW: `AsyncLocalStorage.withScope(store)` — experimental method added in v25.9.0 enabling automatic restoration of previous store value when disposed [source](./.skilld/pkg/async_hooks.d.ts:L562)
 
-- NEW: `crypto.argon2Sync()` — v24.7.0 (experimental), synchronous password hashing using Argon2 [source](./../../../node_modules/@types/node/crypto.d.ts:L3712)
+- NEW: `RunScope` interface (experimental) — added in v25.9.0 as the return type from `AsyncLocalStorage.withScope()`, extends `Disposable` [source](./.skilld/pkg/async_hooks.d.ts:L616)
 
-- NEW: `crypto.encapsulate()` — v24.7.0, KEM encapsulation for key exchange (supports RSA, EC, X25519, X448, ML-KEM algorithms) [source](./../../../node_modules/@types/node/crypto.d.ts:L2923)
+- NEW: `RunScope.dispose()` — experimental method added in v25.9.0, explicitly ends scope and restores previous store value, idempotent [source](./.skilld/pkg/async_hooks.d.ts:L642)
 
-- NEW: `crypto.decapsulate()` — v24.7.0, KEM decapsulation for shared secret recovery [source](./../../../node_modules/@types/node/crypto.d.ts:L2882)
+- NEW: `http.setGlobalProxyFromEnv(proxyEnv?)` — function added in v25.4.0 to configure proxy settings from environment, returns restore function [source](./.skilld/pkg/http.d.ts:L2111)
 
-- NEW: `fs.Utf8StreamWriter` — v24.6.0, optimized UTF-8 stream writer for efficient buffered writes [source](./../../../node_modules/@types/node/fs.d.ts:L24)
+- NEW: `Socket.getTypeOfService()` — method added in v25.6.0 to retrieve TOS value for IPv4 or Traffic Class for IPv6 [source](./.skilld/pkg/net.d.ts:L3134)
 
-- NEW: `fs.open()` with `using` syntax support — v24.4.0, explicit resource management for file handles [source](./../../../node_modules/@types/node/fs.d.ts:L24)
+- NEW: `Socket.setTypeOfService(tos)` — method added in v25.6.0 to set Type of Service field for packet prioritization [source](./.skilld/pkg/net.d.ts:L3149)
 
-- NEW: `fs.Dir[Symbol.asyncDispose]` — v24.1.0, async disposal protocol for directory handles [source](./../../../node_modules/@types/node/fs.d.ts:L24)
+- NEW: `perf_hooks.eventLoopUtilization(utilization1?, utilization2?)` — new overload added in v25.2.0 supporting difference calculation between two measurements [source](./.skilld/pkg/perf_hooks.d.ts:L4372)
 
-- NEW: `SQLiteDatabase.prepare()` options `readBigInts`, `returnArrays`, `allowBareNamedParameters` — v25.5.0, control result formatting and parameter binding [source](./../../../node_modules/@types/node/sqlite.d.ts:L25)
+- NEW: `perf_hooks.timerify(fn, options?)` — enhanced in v25.2.0 with new `TimerifyOptions` parameter for wrapping functions [source](./.skilld/pkg/perf_hooks.d.ts:L4451)
 
-- NEW: `SQLiteDatabase` options `defensive` flag — v25.1.0, enable defensive SQL mode to prevent database corruption [source](./../../../node_modules/@types/node/sqlite.d.ts:L25)
+- NEW: `http.ServerOptions.optimizeEmptyRequests` — boolean option added in v25.1.0 to optimize handling of empty requests [source](./.skilld/pkg/http.d.ts:L324)
 
-- NEW: SQLite limits configuration — v25.8.0, `limits` option on database creation to control resource consumption [source](./../../../node_modules/@types/node/sqlite.d.ts:L25)
+- NEW: `DatabaseLimits` interface — added in v25.8.0 for SQLite database limit configuration [source](./.skilld/pkg/sqlite.d.ts:L97)
 
-- NEW: `http.globalAgent` reset function — v25.4.0, proxy configuration management for HTTP requests [source](./../../../node_modules/@types/node/http.d.ts:L25)
+- NEW: `Database.limits` property — readonly property added in v25.8.0 providing access to database limits [source](./.skilld/pkg/sqlite.d.ts:L439)
 
-- NEW: HTTP request `rejectNonStandardBodyWrites` option — v25.1.0, requests without Content-Length/Transfer-Encoding initialize with ended body stream [source](./../../../node_modules/@types/node/http.d.ts:L25)
+- NEW: module compile cache options `directory` and `portable` — added in v25.0.0 for `module.enableCompileCache()` [source](./.skilld/pkg/module.d.ts:L2215)
 
-- NEW: `test()` option `skip` as value for test isolation — v25.5.0, allows skipping nested tests with isolation control [source](./../../../node_modules/@types/node/test.d.ts:L25)
+- NEW: `v8.SyncCPUProfileHandle` interface — added in v25.0.0 for synchronous CPU profiling [source](./.skilld/pkg/v8.d.ts:L4)
 
-- NEW: `test()` option `todo` for expected failures — v25.5.0, flag test as expected to fail with optional reason and match validation [source](./../../../node_modules/@types/node/test.d.ts:L25)
+- NEW: inspector `DOMStorage` namespace functions — `domStorageItemAdded()`, `domStorageItemRemoved()`, `domStorageItemUpdated()`, `domStorageItemsCleared()` added in v25.5.0 [source](./.skilld/pkg/inspector.d.ts:L25)
 
-- NEW: test environment variable `NODE_TEST_WORKER_ID` — v25.8.0, exposes worker ID for parallel test coordination [source](./../../../node_modules/@types/node/test.d.ts:L25)
+### Deprecated APIs
 
-- DEPRECATED: `util.types.isNativeError()` — use `Error.isError()` instead (replacement is in global scope) [source](./../../../node_modules/@types/node/util/types.d.ts:L25)
+- DEPRECATED: `util.types.isNativeError()` — use `Error.isError()` instead (native Node.js API, not @types/node specific) [source](./.skilld/pkg/util/types.d.ts:L4)
 
-- DEPRECATED: `BlobOptions` interface — renamed to `BlobPropertyBag`, old alias will be removed in future major version [source](./../../../node_modules/@types/node/buffer.d.ts:L25)
+- DEPRECATED: `worker_threads.TransferListItem` type alias — prefer direct import of `Transferable` from `"node:worker_threads"` instead (removal planned in future major version) [source](./.skilld/pkg/worker_threads.d.ts:L24)
 
-- DEPRECATED: `FileOptions` interface — renamed to `FilePropertyBag`, old alias will be removed in future major version [source](./../../../node_modules/@types/node/buffer.d.ts:L25)
+- DEPRECATED: TLS options `clientCertEngine`, `privateKeyEngine`, `privateKeyIdentifier` — engine-based certificate handling is deprecated, no replacement documented [source](./.skilld/pkg/tls.d.ts:L1)
 
-**Also changed:** `crypto.fips` deprecated · `crypto.createCipher()` deprecated (SPKAC functions) · `TransferListItem` type deprecated for `Transferable` · `assert` options `skipProtoAndConstructor` new v24.9.0 · `process.signal()` alias new v25.4.0 · `util.isDeepStrictEqual()` new options v25.2.0 · `module.enableCompileCache()` constants new v25.x
+- DEPRECATED: `punycode` module — deprecated since Node.js v7.0.0, all exported functions marked for removal [source](./.skilld/pkg/punycode.d.ts:L4)
+
+- DEPRECATED: buffer constructor functions — `Buffer.from(string[, encoding])` replaces earlier patterns (deprecated since v10.0.0) [source](./.skilld/pkg/buffer.buffer.d.ts:L4)
+
+- DEPRECATED: `dns.lookup()` `sort` option — use `order` option instead [source](./.skilld/pkg/dns.d.ts:L4)
+
+- DEPRECATED: `BlobPropertyBag` and `FilePropertyBag` aliases — use canonical class-based definitions instead, removal planned for future versions [source](./.skilld/pkg/buffer.d.ts:L4)
+
+**Also changed:** `util.deprecate()` options parameter added v25.2.0 · v25.5.0 SQLite PrepareOptions enhancements · v25.5.0 test coverage APIs · v25.9.0 process and REPL APIs · DOMStorage debugger protocol v25.5.0
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
 ## Best Practices
 
-- **Enable appropriate TypeScript libs for modern Node.js features** — Use `"lib": ["ESNext"]` or specific lib entries like `"es2025.iterator"` to access async iterators and modern builtins; @types/node does not provide ES builtin definitions, TypeScript does [source](./.skilld/discussions/discussion-74504.md)
+- Avoid checking file existence before operations like `fs.open()` or `fs.readFile()` — handle errors directly instead, or use `fs.access()` to check existence without manipulation [source](./.skilld/pkg/fs.d.ts:L1066)
 
-- **Use `node:` module prefix for explicit Node.js core modules** — Always import from `node:fs`, `node:path`, `node:stream` rather than bare names to ensure clarity and avoid shadowing from node_modules packages [source](./.skilld/pkg/index.d.ts:L1)
+- Use the `KeyObject` API for cryptographic operations instead of passing keys as strings or buffers — provides improved security features and handles key management properly [source](./.skilld/pkg/crypto.d.ts:L2480)
 
-- **Prefer `Readable.from()` for converting iterables to streams** — Use `Readable.from(iterable)` to create streams from async iterables or arrays; this handles both sync and async iteration automatically [source](./.skilld/pkg/stream.d.ts:L76:85)
+- Use `pipe()` for stream data transfer instead of calling `write()` directly — respect backpressure by handling the `'drain'` event to avoid memory issues [source](./.skilld/pkg/stream.d.ts:L425)
 
-- **Handle callback-style errors with discriminated unions** — Node.js callback patterns often use `(error: Error | null, result?: T)` signature; check `error === null` first before accessing the result to ensure type safety [source](./.skilld/discussions/discussion-74823.md)
+- Configure appropriate TypeScript lib settings in `tsconfig.json` (e.g., `ESNext`, `es2025.iterator`) to enable type definitions for modern ES APIs — @types/node doesn't define these, they come from TypeScript [source](./.skilld/discussions/discussion-74956.md:L34)
 
-- **Check for null streams in child_process** — Properties like `subprocess.stdin`, `subprocess.stdout`, and `subprocess.stderr` may be `null` if the process was spawned without `stdio: 'pipe'`; always guard with null checks before using [source](./.skilld/pkg/child_process.d.ts:L42:78)
+- Keep HMAC key size within the block size of the underlying hash function — oversized keys reduce security and increase computation [source](./.skilld/pkg/crypto.d.ts:L2682)
 
-- **Use `Error.captureStackTrace()` only when hiding implementation details** — Call it inside error-handling utilities to exclude internal frames from the stack trace; set `Error.stackTraceLimit` before throwing to control stack depth [source](./.skilld/pkg/globals.d.ts:L51:68)
+- Generate initialization vectors (IVs) as unpredictable, unique, and cryptographically random values — they don't need to be secret, but their uniqueness is critical for cipher security [source](./.skilld/pkg/crypto.d.ts:L2635)
 
-- **Validate encoding compatibility with execSync/spawn** — Functions like `execSync` with `{ encoding: 'utf8' }` return strings, but the error's `stdout`/`stderr` property types may not reflect this; cast or use type guards for safety [source](./.skilld/discussions/discussion-75040.md)
+- Use `Buffer.byteLength()` to calculate `Content-Length` header values for HTTP responses — header must reflect byte count, not character count [source](./.skilld/pkg/http.d.ts:L1170)
 
-- **Leverage Web API stream converters in modern Node.js** — Use `Readable.toWeb()` and `Readable.fromWeb()` to bridge Node streams with Web Streams API for better interoperability [source](./.skilld/pkg/stream.d.ts:L91:102)
+- Call global agent setup functions like `setGlobalDispatcher()` before making HTTP requests — invoking them during active requests can cause unexpected behavior [source](./.skilld/pkg/http.d.ts:L1605)
 
-- **Use `buffer.isUtf8()` and `buffer.isAscii()` for safe encoding validation** — Before assuming a buffer is valid UTF-8 or ASCII, call these validators (available since v19.4.0) to prevent downstream decoding errors [source](./.skilld/pkg/buffer.d.ts:L11:20)
+- Use cryptographically random, unique salt values of at least 16 bytes for key derivation functions — follows NIST SP 800-132 recommendations for password-based encryption [source](./.skilld/pkg/crypto.d.ts:L2771)
 
-- **Set `end: false` in `pipe()` options only when chaining streams** — By default `pipe()` ends the destination when the source ends; set `{ end: false }` when the destination will receive data from multiple sources [source](./.skilld/pkg/stream.d.ts:L23:27)
+- Set `process.exitCode` instead of calling `process.exit()` directly — allows graceful shutdown and proper cleanup of pending event loop work [source](./.skilld/pkg/process.d.ts:L665)
 
-- **Reference lib entries in tsconfig for Node.js compatibility** — @types/node uses `/// <reference lib="...">` directives; ensure your tsconfig includes at least `"lib": ["es2020"]` to pull in required DOM/Web APIs used by Node.js globals [source](./.skilld/pkg/index.d.ts:L28:32)
+- Prefer `require()` over `process.dlopen()` for loading native modules — use `dlopen()` only when custom flags or ES module loading is specifically required [source](./.skilld/pkg/process.d.ts:L584)
 
-- **Use `NodeJS.ErrnoException` for file system error types** — Catch blocks from fs operations throw errors with `errno`, `code`, `path`, and `syscall` properties; type as `ErrnoException` to access these safely [source](./.skilld/pkg/globals.d.ts:L100:105)
+- Avoid enabling the insecure HTTP parser — the flag bypasses RFC compliance checks and should only be used for legacy system compatibility [source](./.skilld/pkg/http.d.ts:L231)
 
-- **Constrain signal types with `NodeJS.Signals`** — When handling process signals or spawning with specific signals, use the `NodeJS.Signals` union type instead of raw strings to catch typos at compile time [source](./.skilld/pkg/globals.d.ts:L1:10)
+- Use `EventEmitter.prototype.setMaxListeners()` to manage listener limits and prevent spurious memory leak warnings — configure appropriate limits per instance [source](./.skilld/pkg/events.d.ts:L475)
 
-- **Prefer promise-based APIs for async operations** — Use `fs/promises`, `readline/promises`, `stream/promises` modules instead of callback variants; they integrate better with modern async/await code and provide clearer type inference [source](./.skilld/pkg/index.d.ts:L61:71)
+- Be aware of type-runtime mismatches when catching exceptions from `child_process.execSync()` — the `ExecException` type signature may not exactly reflect runtime error properties like `stdout` [source](./.skilld/discussions/discussion-75040.md:L16)
 <!-- /skilld:best-practices -->

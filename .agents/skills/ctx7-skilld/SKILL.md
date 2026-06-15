@@ -2,15 +2,15 @@
 name: ctx7-skilld
 description: "ALWAYS use when writing code importing \"ctx7\". Consult for debugging, best practices, or modifying ctx7, context7."
 metadata:
-  version: 0.5.1
+  version: 0.5.2
   generated_by: Anthropic · Haiku 4.5
-  generated_at: 2026-06-05
+  generated_at: 2026-06-13
 ---
 
-# upstash/context7 `ctx7@0.5.1`
-**Tags:** canary: 0.2.4-canary.0, latest: 0.5.1
+# upstash/context7 `ctx7@0.5.2`
+**Tags:** canary: 0.2.4-canary.0, latest: 0.5.2
 
-**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md)
+**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
 ## Search
 
@@ -19,69 +19,73 @@ Use `skilld search "query" -p ctx7` instead of grepping `.skilld/` directories. 
 <!-- skilld:api-changes -->
 ## API Changes
 
-This section documents version-specific API changes and stability notes for ctx7 v0.5.1.
+This section documents version-specific API changes — prioritize recent major/minor releases.
 
-### TypeScript SDK (`@upstash/context7-sdk`)
+### Breaking Changes (v0.5.x and Migration from v0.4.x)
 
-- EXPERIMENTAL: `@upstash/context7-sdk` — The TypeScript SDK is currently under active development and the API is subject to change with potential breaking changes in future releases. Do not rely on current signatures for long-term stability; check release notes before upgrading [source](./.skilld/docs/sdks/ts/getting-started.mdx#getting-started)
+- BREAKING: `ctx7 login` — v0.5.1 always uses OAuth 2.0 device-code flow; localhost-callback flow and `--device` flag removed. Every install (laptop, SSH, Codespace, Docker, CI) now uses the same device flow. Older CLI versions (≤ 0.5.0) still work against unchanged auth endpoints [source](./.skilld/releases/ctx7@0.5.1.md:L10)
 
-- NEW: `searchLibrary(query, libraryName)` — Searches Context7's library database and returns matching results with metadata including trust scores, benchmark scores, and available versions [source](./.skilld/docs/sdks/ts/commands/search-library.mdx)
+- BREAKING: `researchMode` MCP parameter removed — v0.4.1 removed the `researchMode` parameter from the MCP server's `query-docs` tool and the CLI's `--research` flag on `ctx7 docs`. Research mode was briefly exposed in v0.4.0 but deprecated immediately [source](./.skilld/releases/ctx7@0.4.1.md:L11)
 
-- NEW: `getContext(query, libraryId, options?)` — Retrieves documentation for a specific library; supports both JSON (default, returns `Documentation[]`) and plain text (`txt`) output formats [source](./.skilld/docs/sdks/ts/commands/get-context.mdx)
+- BREAKING: `--universal` flag removed — v0.4.5 removes the `--universal` flag from `ctx7 setup`, which was advertised but silently ignored and never propagated through agent selection [source](./.skilld/releases/ctx7@0.4.5.md:L11)
 
-- NEW: `Context7Error` — Error class thrown by the SDK for API-layer failures; must be caught separately from generic `Error` to distinguish API errors from network or parsing failures [source](./.skilld/docs/sdks/ts/getting-started.mdx#error-handling)
+### New Commands and Flags (v0.4.0 onwards)
 
-### AI SDK Integration (`@upstash/context7-tools-ai-sdk`)
+- NEW: `ctx7 upgrade` command — v0.4.0 adds upgrade notifications and a new `ctx7 upgrade` command with safer guidance across npm, pnpm, bun, and ephemeral runner setups [source](./.skilld/releases/ctx7@0.4.0.md:L15)
 
-- NEW: `resolveLibraryId(config?)` — Tool for Vercel AI SDK that searches Context7's database and returns matching libraries with Context7-compatible library IDs; accepts optional `apiKey` configuration [source](./.skilld/docs/agentic-tools/ai-sdk/tools/resolve-library-id.mdx)
+- NEW: `ctx7 remove` command — v0.4.0 adds cleanup counterpart to `ctx7 setup`. Safely detects and removes Context7 artifacts, preserves non-Context7 MCP configuration when removing entries [source](./.skilld/releases/ctx7@0.4.0.md:L16)
 
-- NEW: `queryDocs(config?)` — Tool for Vercel AI SDK that fetches documentation for a library using its Context7 ID and a query string; supports both code snippets and prose documentation [source](./.skilld/docs/agentic-tools/ai-sdk/tools/query-docs.mdx)
+- NEW: `--stdio` flag for `ctx7 setup` — v0.4.3 adds `--stdio` flag to configure Context7 as a local stdio MCP server [source](./.skilld/releases/ctx7@0.4.3.md:L12)
 
-- NEW: `Context7Agent` — Pre-configured AI agent that combines `resolveLibraryId` and `queryDocs` tools with an optimized system prompt; simplifies documentation lookup workflows by handling the two-step process automatically [source](./.skilld/docs/agentic-tools/ai-sdk/agents/context7-agent.mdx)
+- NEW: `--json` flag for `ctx7 skills list` — v0.4.4 adds machine-parseable JSON output emitting `{ skills: [{ name, path, source }] }` where `path` is absolute and `source` is agent type (`universal`, `claude`, `cursor`, `antigravity`) [source](./.skilld/releases/ctx7@0.4.4.md:L11)
 
-- NEW: `AGENT_PROMPT` export — Exportable default system prompt used by `Context7Agent`; can be imported and extended when creating custom agents with modified instructions [source](./.skilld/docs/agentic-tools/ai-sdk/agents/context7-agent.mdx#custom-system-prompt)
+- NEW: OAuth 2.0 device authorization flow (`--device` flag) — v0.5.0 adds device flow for headless/remote hosts (SSH, Codespaces, Docker, CI). Prints verification URL and short code, then polls token endpoint. Device flow is automatically selected when `SSH_CONNECTION` is set or `$DISPLAY` is missing on Linux, and can be forced with `--device` [source](./.skilld/releases/ctx7@0.5.0.md:L11)
 
-### CLI Commands
+### Configuration and File Paths (v0.5.2)
 
-- NEW: `ctx7 skills` command family — Manage AI coding assistant skills from the Context7 registry; includes `skills search`, `skills info`, `skills install`, `skills suggest`, `skills list`, `skills remove`, and `skills generate` subcommands [source](./.skilld/docs/skills.mdx#cli)
+- BREAKING: XDG Base Directory compliance — v0.5.2 moves CLI files from `~/.context7` to XDG-compliant locations: credentials to `$XDG_CONFIG_HOME/context7` (default `~/.config/context7`), updater state to `$XDG_STATE_HOME/context7` (default `~/.local/state/context7`), and `generate` previews to `$XDG_CACHE_HOME/context7` (default `~/.cache/context7`). Existing `~/.context7` files are migrated automatically on first use; migration is best-effort with fallback to reading legacy file. Credentials file re-asserted to `0o600` after migration/write [source](./.skilld/releases/ctx7@0.5.2.md:L11)
 
-- NEW: `ctx7 setup --cli` mode — Configure Context7 with CLI + Skills mode instead of MCP server mode; installs a `docs` skill that guides the agent to use `ctx7 library` and `ctx7 docs` commands [source](./.skilld/docs/clients/cli.mdx#setup)
+- FIXED: Windows Git Bash path handling — v0.5.2 recovers Context7 library IDs that Git Bash mangles (e.g., `/facebook/react` → `C:/Program Files/Git/facebook/react`). CLI detects and undoes conversion before validation, accepts `//owner/repo` escape, and points users at workaround for undetectable layouts [source](./.skilld/releases/ctx7@0.5.2.md:L12)
 
-- NEW: `ctx7 setup --oauth` flag — Use OAuth endpoint during setup where the IDE handles the auth flow on behalf of the user; available only for MCP mode [source](./.skilld/docs/clients/cli.mdx#setup)
+### Enhanced Agent Support and Setup Modes
 
-- NEW: `ctx7 remove` command — Remove both MCP setup and CLI setup written by `ctx7 setup`; supports `--cli` and `--mcp` flags to remove only one setup mode [source](./.skilld/docs/clients/cli.mdx#ctx7-remove)
+- ENHANCED: `ctx7 setup --antigravity` — v0.4.5 expands Antigravity support, installing skills to `.agent/skills`, adding `GEMINI.md` rule section, and writing MCP config to Antigravity 2.0's documented global path `~/.gemini/config/mcp_config.json` (with `httpUrl` for HTTP, matching Gemini convention). Since Antigravity lacks project-level MCP file, `--project --mcp` writes to global location [source](./.skilld/releases/ctx7@0.4.5.md:L11)
 
-**Also changed:** Library ID version pinning syntax (`/owner/repo/v15.1.8` and `/owner/repo@v15.1.8` both supported) · CLI telemetry via `CTX7_TELEMETRY_DISABLED` environment variable · Setup target flags `--claude`, `--cursor`, `--opencode`, `--universal` · Error handling with `Context7Error` class
+- ENHANCED: `ctx7 setup --api-key` behavior — v0.4.5 adds prompt to choose between MCP server and CLI + Skills modes when passing `--api-key` without explicit mode flag. Explicit `--mcp` / `--cli` / `--stdio` / `--oauth` / `-y` still skip the prompt [source](./.skilld/releases/ctx7@0.4.5.md:L12)
+
+**Also changed:** Skill command deprecation warning added v0.4.5 · `@inquirer/core` declared as direct dependency v0.4.3 · MCP config parse error handling v0.4.2 · `CLAUDE_CONFIG_DIR` env var respected v0.4.2 · Skill name character set restricted v0.4.3 · Dependency bumps: `commander` 13→15, `ora` 9.0→9.4 in v0.5.2
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+## Context7 Best Practices
+
 ## Best Practices
 
-- Ask specific, detailed questions in natural language rather than single keywords — `"How to implement authentication with middleware"` returns much better results than `"auth"` [source](./.skilld/docs/clients/cli.mdx#step-2--ctx7-docs)
+- Add MCP client rules to avoid repeated `use context7` directives in every prompt — set once and Context7 activates automatically for all code-related queries [source](./.skilld/docs/tips.mdx#add-a-rule)
 
-- Pass library IDs directly in prompts to skip the library-matching step — use the `/owner/repo` format from `ctx7 library` results to let Context7 MCP fetch documentation directly without resolving [source](./.skilld/docs/tips.mdx#use-library-id)
+- Specify the library ID directly in prompts when you already know which library to use — skips the search step and retrieves docs immediately [source](./.skilld/docs/tips.mdx#use-library-id)
 
-- Pin queries to specific library versions for consistent, reproducible results — both `/owner/repo/v15.1.8` and `/owner/repo@v15.1.8` syntax are supported and ensure stable documentation snapshots [source](./.skilld/docs/api-guide.mdx#use-specific-versions)
+- Mention the target version in your prompt to retrieve documentation for specific library versions — Context7 automatically matches the appropriate version identifier [source](./.skilld/docs/tips.mdx#specify-a-version)
 
-- Cache documentation responses locally for several hours or days — since library docs update infrequently, caching dramatically reduces API calls and improves response latency [source](./.skilld/docs/api-guide.mdx#cache-responses)
+- Use detailed, natural-language queries instead of single keywords for better relevance ranking — `"How to implement authentication with middleware"` returns much better results than `"auth"` [source](./.skilld/docs/api-guide.mdx#be-specific-with-queries)
 
-- Implement exponential backoff when handling `429 Too Many Requests` — read the `Retry-After` header and wait before retrying to avoid thundering herd under rate limit pressure [source](./.skilld/docs/api-guide.mdx#handle-rate-limits)
+- Cache documentation responses for several hours or days rather than fetching fresh docs on every request — documentation updates are infrequent and caching reduces API calls and improves performance [source](./.skilld/docs/api-guide.mdx#cache-responses)
 
-- Use `type: "txt"` format when feeding documentation to LLMs — the plain-text format is pre-formatted for model consumption, whereas JSON requires manual serialisation [source](./.skilld/docs/sdks/ts/commands/get-context.mdx#text-format-type-txt)
+- Implement exponential backoff when handling rate limit errors (429 status) — use the `Retry-After` header value to delay before retrying, avoiding thundering herd [source](./.skilld/docs/api-guide.mdx#handle-rate-limits)
 
-- Sort search results by `benchmarkScore` then `trustScore` to select the highest-quality library — higher scores correlate with better documentation coverage and source reputation [source](./.skilld/docs/sdks/ts/commands/search-library.mdx#selecting-best-library)
+- Pin to specific library versions for consistent results across requests — use both `/owner/repo/v15.1.8` and `/owner/repo@v15.1.8` syntax interchangeably [source](./.skilld/docs/api-guide.mdx#use-specific-versions)
 
-- Store Context7 API keys in environment variables (`CONTEXT7_API_KEY`) rather than hardcoding — the SDK and CLI auto-detect this variable, and environment isolation prevents accidental leaks [source](./.skilld/docs/sdks/ts/getting-started.mdx#using-environment-variables)
+- Use `context7.json` in your repository root to control which folders and files Context7 parses — exclude test directories, node_modules, and language-specific docs via `excludeFolders` and `excludeFiles` fields [source](./.skilld/docs/adding-libraries.mdx#advanced-configuration-with-context7json)
 
-- Add a rule or instruction to your MCP client to automatically invoke Context7 for documentation queries — avoids typing `use context7` in every prompt and makes Context7 a transparent fallback [source](./.skilld/docs/tips.mdx#add-a-rule)
+- Trigger manual refreshes through the Context7 dashboard or API immediately after releasing new versions — don't wait for automatic refresh thresholds [source](./.skilld/docs/library-updates.mdx#manual-refresh)
 
-- Use `Context7Agent` for automatic documentation lookup workflows instead of managing `resolveLibraryId` and `queryDocs` tools separately — the pre-built agent handles the two-step lookup transparently [source](./.skilld/docs/agentic-tools/ai-sdk/getting-started.mdx#using-the-context7-agent)
+- Use GitHub Actions to automatically refresh Context7 docs on every push to your default branch — store your API key as a repository secret and curl the refresh endpoint [source](./.skilld/docs/integrations/github-actions.mdx#setup)
 
-- Respect `Retry-After` response headers when hitting rate limits — treat this value as the authoritative wait time before the next request, rather than guessing exponential delays [source](./.skilld/docs/api-guide.mdx#rate-limits)
+- Select libraries by sorting results on `benchmarkScore` or `trustScore` — higher scores indicate better documentation coverage and source reliability [source](./.skilld/docs/sdks/ts/commands/search-library.mdx#selecting-best-library)
 
-- Always catch `Context7Error` separately from generic errors when using the TypeScript SDK — this class signals API-layer failures and should be handled differently from network or parsing errors [source](./.skilld/docs/sdks/ts/getting-started.mdx#error-handling)
+- Use `type: "txt"` when retrieving context for LLM prompts instead of the default JSON format — produces clean, ready-to-use text without needing manual formatting [source](./.skilld/docs/sdks/ts/commands/get-context.mdx#use-cases)
 
-- Check `library.versions` array after search results to confirm version availability — not all libraries have fine-grained version tracking, so availability must be verified before pinning [source](./.skilld/docs/sdks/ts/commands/search-library.mdx#checking-available-versions)
+- Never commit API keys to version control — store keys in environment variables (`CONTEXT7_API_KEY`) and rotate them regularly for security [source](./.skilld/docs/security/best-practices.mdx#secure-your-api-keys)
 
-- Log in or provide an API key to unlock higher rate limits — unauthenticated requests get throttled; providing credentials enables production-scale usage [source](./.skilld/docs/clients/cli.mdx#authentication)
+- Use the device authorization flow (`ctx7 login --device`) for headless environments (SSH, Codespaces, Docker, CI) instead of the localhost callback flow — device flow prints a verification URL and short code that works from any browser [source](./.skilld/releases/ctx7@0.5.0.md)
 <!-- /skilld:best-practices -->
