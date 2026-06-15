@@ -1,10 +1,11 @@
 skills:
   libsql-client-skilld:
     packageName: "@libsql/client"
-    version: 0.17.3
+    version: 0.17.4
+    packages: "@libsql/client@0.17.4"
     repo: tursodatabase/libsql-client-ts
     source: "https://docs.turso.tech/llms.txt"
-    syncedAt: 2026-05-29
+    syncedAt: 2026-06-15
     generator: skilld
   vue-skilld:
     packageName: vue
@@ -83,26 +84,27 @@ skills:
     generator: skilld
   better-sqlite3-skilld:
     packageName: better-sqlite3
-    version: 12.10.0
+    version: 12.11.1
+    packages: "better-sqlite3@12.11.1"
     repo: WiseLibs/better-sqlite3
-    source: "ungh://WiseLibs/better-sqlite3@v12.10.0"
-    syncedAt: 2026-05-29
+    source: "https://github.com/WiseLibs/better-sqlite3/tree/v12.11.1/docs"
+    syncedAt: 2026-06-15
     generator: skilld
   takumi-rs-core-skilld:
     packageName: "@takumi-rs/core"
-    version: 1.8.4
-    packages: "@takumi-rs/core@1.8.4"
+    version: 1.8.5
+    packages: "@takumi-rs/core@1.8.5"
     repo: kane50613/takumi
-    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/core@1.8.4/docs"
-    syncedAt: 2026-06-13
+    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/core@1.8.5/docs"
+    syncedAt: 2026-06-15
     generator: skilld
   takumi-rs-wasm-skilld:
     packageName: "@takumi-rs/wasm"
-    version: 1.8.4
-    packages: "@takumi-rs/wasm@1.8.4"
+    version: 1.8.5
+    packages: "@takumi-rs/wasm@1.8.5"
     repo: kane50613/takumi
-    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/wasm@1.8.4/docs"
-    syncedAt: 2026-06-13
+    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/wasm@1.8.5/docs"
+    syncedAt: 2026-06-15
     generator: skilld
   nuxt-security-skilld:
     packageName: nuxt-security
@@ -297,4 +299,11 @@ skills:
     repo: saadeghi/daisyui
     source: "https://github.com/saadeghi/daisyui/tree/v5.5.23/docs"
     syncedAt: 2026-06-08
+    generator: skilld
+  storybloq-storybloq-skilld:
+    packageName: "@storybloq/storybloq"
+    version: 1.4.4
+    repo: Storybloq/storybloq
+    source: "https://github.com/Storybloq/storybloq/tree/v1.4.4/docs"
+    syncedAt: 2026-06-15
     generator: skilld

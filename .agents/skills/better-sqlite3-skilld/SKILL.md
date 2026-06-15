@@ -1,16 +1,16 @@
 ---
 name: better-sqlite3-skilld
-description: "The fastest and simplest library for SQLite in Node.js. ALWAYS use when writing code importing \"better-sqlite3\". Consult for debugging, best practices, or modifying better-sqlite3, better sqlite3."
+description: "ALWAYS use when writing code importing \"better-sqlite3\". Consult for debugging, best practices, or modifying better-sqlite3, better sqlite3."
 metadata:
-  version: 12.10.0
-  generated_by: cached
-  generated_at: 2026-05-29
+  version: 12.11.1
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-06-15
 ---
 
-# WiseLibs/better-sqlite3 `better-sqlite3@12.10.0`
-**Tags:** latest: 12.10.0
+# WiseLibs/better-sqlite3 `better-sqlite3@12.11.1`
+**Tags:** latest: 12.11.1
 
-**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
+**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
 ## Search
 
@@ -19,53 +19,51 @@ Use `skilld search "query" -p better-sqlite3` instead of grepping `.skilld/` dir
 <!-- skilld:api-changes -->
 ## API Changes
 
-better-sqlite3 v12.x maintains exceptional API stability. The library's core API surface (`.run()`, `.all()`, `.get()`, `.iterate()`, `.prepare()`, `.transaction()`, etc.) is unchanged from v11.x. Recent versions focus on platform compatibility, bundled SQLite updates, and Node.js/Electron version support changes rather than user-facing API modifications.
+This section documents version-specific API changes — prioritize recent major/minor releases.
 
-### Breaking Changes from v11 → v12
+better-sqlite3 v12.11.1 maintains API stability. No breaking, deprecated, or renamed APIs were found in the v12.x release history. Recent releases focus on infrastructure updates: bundled SQLite version upgrades (v3.50.2 → v3.53.2), prebuilt binary support for new Node.js and Electron versions, and internal V8 compatibility fixes.
 
-- BREAKING: `Database#transaction()` — now explicitly rejects functions that return Promises, including `async` functions. Transactions must be synchronous; attempting to use async code will throw an error. This was enforced in v11.10.0 and remains in effect in v12.x [source](./.skilld/releases/v11.10.0.md:L11)
+**SQLite capability update:** v12.10.0+ includes SQLite compiled with `SQLITE_ENABLE_PERCENTILE`, enabling window aggregate functions (PERCENT_RANK, CUME_DIST, NTILE) for analytical queries [source](./.skilld/docs/compilation.md:L72).
 
-### Runtime / Platform Changes (v12.x)
+**Node.js support:** v12.8.0+ requires Node.js v20 or later [source](./.skilld/releases/v12.8.0.md:L10).
 
-These are not API changes but affect which Node.js and Electron versions can use the library:
-
-- BREAKING: Node.js v18 no longer supported — dropped in v12.0.0, further restricted to v20+ in v12.8.0 [source](./.skilld/releases/v12.0.0.md:L10) [source](./.skilld/releases/v12.8.0.md:L10)
-
-- BREAKING: Electron v26, v27, v28 no longer supported in v12.0.0 [source](./.skilld/releases/v12.0.0.md:L10)
-
-**Also unchanged:** `.backup()` · `.serialize()` · `.pragma()` · `.function()` · `.aggregate()` · `.table()` · `.loadExtension()` · `.bind()` · `.pluck()` · `.expand()` · `.raw()` · `.columns()` · Statement methods · Database properties (`.open`, `.inTransaction`, `.readonly`, `.memory`, `.name`)
+No user-facing API migrations required for upgrading within v12.x.
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
-## better-sqlite3 Best Practices
-
 ## Best Practices
 
-- Enable WAL mode immediately in production applications to dramatically improve concurrent read/write performance — without WAL, concurrent access can be extremely slow due to SQLite's locking behaviour [source](./.skilld/docs/performance.md#a-note-about-durability)
+- Use `.transaction()` for grouped operations rather than manual `BEGIN`/`COMMIT` — automatic rollback on error, nested savepoint support, and deferred/immediate/exclusive variants prevent deadlocks under concurrent load [source](./.skilld/docs/api.md:L55:96)
 
-- Monitor and manage WAL file size using `wal_checkpoint(RESTART)` when accessed from multiple processes or threads — otherwise the WAL file grows unbounded, causing disk bloat and degraded performance [source](./.skilld/docs/performance.md#checkpoint-starvation)
+- Enable WAL mode on database open to dramatically improve concurrent read/write performance in multi-process or multi-thread scenarios — default journal mode has poor concurrent throughput [source](./.skilld/docs/performance.md#checkpoint-starvation)
 
-- Wrap multi-statement operations in `.transaction()` functions rather than manual `BEGIN`/`COMMIT` for automatic ACID guarantees and automatic rollback on exceptions [source](./.skilld/docs/api.md#transactionfunction---function)
+- Create a single prepared statement per distinct dynamic column/table and reuse it — SQLite only binds data values, not identifiers, so prepared statements with dynamic columns must be predetermined and selected at runtime [source](./.skilld/discussions/discussion-1132.md)
 
-- Nest transaction functions to create savepoints automatically — inner transactions become savepoints that roll back independently without affecting the outer transaction [source](./.skilld/docs/api.md#transactionfunction---function)
+- Prefer `.iterate()` when processing large result sets to stream results one row at a time, avoiding memory bloat from loading entire result arrays into RAM [source](./.skilld/docs/api.md:L478:497)
 
-- Use `.pragma()` method instead of raw prepared statements for PRAGMA execution — this normalizes odd behaviour and returns consistent results [source](./.skilld/docs/api.md#pragmastring-options---results)
+- Use `json_each()` for dynamic `IN` clauses instead of generating parameter placeholders — avoids SQLite's hardcoded parameter limits and allows reusing prepared statements across variable-length lists [source](./.skilld/discussions/discussion-1256.md)
 
-- Call `.bind()` permanently on statements executed repeatedly with identical parameters — this is faster than binding at execution time and simplifies code [source](./.skilld/docs/api.md#bindbindparameters---this)
+- Apply `INTEGER PRIMARY KEY AUTOINCREMENT` to ID columns to reuse SQLite's native `rowid` and prevent ID reuse after deletion [source](./.skilld/docs/tips.md:L5:12)
 
-- Use `.iterate()` instead of `.all()` when processing large result sets — this streams rows one-by-one instead of materialising the entire result set in memory [source](./.skilld/docs/api.md#iteratebindparameters---iterator)
+- Call `.safeIntegers()` on statements that return 64-bit integers to receive `BigInt` instead of lossy JavaScript numbers — database state is corrupted silently if large IDs overflow [source](./.skilld/docs/integer.md:L24:42)
 
-- Use `.raw().iterate()` for extremely high-row-count queries — raw mode returns arrays instead of objects, reducing memory overhead and improving performance [source](./.skilld/docs/api.md#rawtogglestate---this)
+- Use `.raw()` mode with `.columns()` when retrieving very high row counts for performance — arrays are faster to construct than objects, and column metadata is recovered separately [source](./.skilld/docs/api.md:L531:578)
 
-- Use `INTEGER PRIMARY KEY AUTOINCREMENT` as the primary key — this reuses SQLite's built-in `rowid` for performance and ensures deleted row IDs are never reused [source](./.skilld/docs/tips.md#creating-good-tables)
+- Register user-defined functions deterministically where possible — set `options.deterministic = true` to let SQLite cache results and optimise execution [source](./.skilld/docs/api.md:L176:201)
 
-- Remember that `DEFAULT` values only apply when no value is specified — explicitly passing `NULL` bypasses the default, which is often unexpected [source](./.skilld/docs/tips.md#default-values)
+- Store dates as millisecond timestamps (JavaScript convention) or ISO-8601 strings, not seconds — SQLite has no native date type and its date functions favour string formats; choose consistency with your application's time representation [source](./.skilld/discussions/discussion-1129.md)
 
-- Add `NOT NULL` to foreign key columns to enforce referential constraints — without it, the foreign key constraint is silently bypassed when the child column is `NULL` [source](./.skilld/docs/tips.md#foreign-keys)
+- Enable `PRAGMA foreign_keys = ON` explicitly — foreign key constraints are disabled by default in SQLite for backwards compatibility, even after declaration [source](./.skilld/docs/tips.md:L20:35)
 
-- Use worker threads for very slow CPU-bound queries to avoid blocking the main thread — spawn a thread pool and queue queries asynchronously for background execution [source](./.skilld/docs/threads.md)
+- Avoid mixing manual transactions with `.transaction()` — never run raw `COMMIT` or `ROLLBACK` inside a transaction function, as SQLite can rollback silently on `ON CONFLICT` or certain errors and subsequent statements will execute outside the transaction [source](./.skilld/docs/api.md:L97:112)
 
-- Enable `.safeIntegers()` on the database or individual statements when handling 64-bit integers — by default integers are returned as JavaScript numbers, which lose precision beyond `2^53 - 1` [source](./.skilld/docs/integer.md#getting-bigints-from-the-database)
+- Use `.bind()` to permanently bind parameters when executing the same statement many times with identical values — improves performance by skipping parameter rebinding on each execution [source](./.skilld/docs/api.md:L582:595)
 
-- Use millisecond timestamps (JavaScript's native `Date.now()` format) as the canonical timestamp storage — if mixing timezones, adopt an "_ms" suffix convention to distinguish millisecond values from other timestamp formats [source](./.skilld/repos/WiseLibs/better-sqlite3/discussions/discussion-1129.md)
+- Configure `timeout` appropriately (default 5000ms) when opening the database in multi-process scenarios — prevents long hangs on `SQLITE_BUSY` errors when other processes hold locks [source](./.skilld/docs/api.md:L24:45)
+
+- Use virtual tables (`.table()`) for computed, read-only result sets like filesystem views or regex matches — computed dynamically without storing, and support table-valued functions with parameters [source](./.skilld/docs/api.md:L256:365)
+
+- Defer long-running queries to worker threads to avoid blocking the main event loop — use the pool pattern from the docs with message-passing to SQLite instances in dedicated threads [source](./.skilld/docs/threads.md:L1:97)
+
+- Call `.close()` on database handles before process exit to flush WAL checkpoints and release file locks — prevents data loss and allows clean reconnection on restart [source](./.skilld/docs/api.md:L386:395)
 <!-- /skilld:best-practices -->

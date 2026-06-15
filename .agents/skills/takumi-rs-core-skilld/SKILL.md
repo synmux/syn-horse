@@ -2,13 +2,13 @@
 name: takumi-rs-core-skilld
 description: "ALWAYS use when writing code importing \"@takumi-rs/core\". Consult for debugging, best practices, or modifying @takumi-rs/core, takumi-rs/core, takumi-rs core, takumi rs core, takumi."
 metadata:
-  version: 1.8.4
+  version: 1.8.5
   generated_by: Anthropic · Haiku 4.5
-  generated_at: 2026-06-13
+  generated_at: 2026-06-15
 ---
 
-# kane50613/takumi `@takumi-rs/core@1.8.4`
-**Tags:** beta: 1.0.0-beta.20, rc: 1.0.0-rc.17, latest: 1.8.4
+# kane50613/takumi `@takumi-rs/core@1.8.5`
+**Tags:** beta: 1.0.0-beta.20, rc: 1.0.0-rc.17, latest: 1.8.5
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
@@ -19,71 +19,69 @@ Use `skilld search "query" -p @takumi-rs/core` instead of grepping `.skilld/` di
 <!-- skilld:api-changes -->
 ## API Changes
 
-@takumi-rs/core v1.8.4 maintains a stable API with no documented breaking changes, deprecations, or removals in recent releases. The v1.x line has focused on implementation improvements and bug fixes rather than API surface changes.
+This section documents version-specific API changes — v1.8.x is a stable minor release line with no breaking changes or API renames from v1.0.
 
-### Implementation Changes
+- NEW: `loadFonts()` — async bulk font loading with optional `AbortSignal` cancellation [source](./.skilld/pkg/./dist/export.d.ts#L25)
 
-- INTERNAL: v1.8.3 — fixed Windows crash when Node exits after rendering due to rayon worker thread management in N-API teardown [source](./.skilld/releases/@takumi-rs/core@1.8.3.md:L11)
+- NEW: `loadFontSync()` — synchronous font loading variant for blocking contexts [source](./.skilld/pkg/./dist/export.d.ts#L27)
 
-- INTERNAL: v1.8.0 — compiler optimization using nightly Rust toolchain with `panic=immediate-abort` to reduce binary size [source](./.skilld/releases/@takumi-rs/core@1.8.0.md:L11)
+- NEW: `putPersistentImage()` — persistent image storage with async loader support and cancellation [source](./.skilld/pkg/./dist/export.d.ts#L24)
 
-### Stable APIs (v1.0+)
+- NEW: `clearImageStore()` — clears the persistent image storage [source](./.skilld/pkg/./dist/export.d.ts#L28)
 
-The current stable API includes:
+- NEW: `ImageSourceLoader` type — async-capable variant allowing `data` to be a function returning a promise [source](./.skilld/pkg/./dist/export.d.ts#L5)
 
-- `Renderer` class: core image rendering with `render()`, `measure()`, `renderAnimation()`, and `encodeFrames()` methods
-- Font management: `loadFont()`, `loadFontSync()`, `loadFonts()` for font registration
-- Image handling: `putPersistentImage()`, `clearImageStore()` for persistent asset storage
-- Animation support: `renderAnimation()` for scene-based animations, `encodeFrames()` for precomputed frame sequences
-- Output formats: WebP, PNG, JPEG, ICO, raw pixels for static images; WebP, APNG, GIF for animated images
+- NEW: `FontLoader` type — async-capable font definition with optional `key` property for font deduplication [source](./.skilld/pkg/./dist/export.d.ts#L8)
 
-### Future v2 Planned Changes (Not Yet Released)
+**Build improvements:** v1.8.0 built with nightly Rust toolchain and `panic=immediate-abort` to reduce binary size [source](./.skilld/releases/@takumi-rs/core@1.8.0.md#L11)
 
-Issue #728 outlines planned breaking changes for v2.0.0, including:
+**Stable APIs (unchanged since v1.0):** `Renderer` class, core `render()` method, font/image handling
 
-- Return type for `render()` — will return a `Uint8Array` subclass with `.toResponse()` / `.toBuffer()` methods instead of plain `Buffer`
-- Direct JSX/HTML input support — `Renderer.render()` will accept React elements or HTML strings directly
-- Unified Renderer contract — consistent async/sync behavior and method signatures across platforms
-
-Note: These are planned changes not yet released. Code written for v1.x will continue to work without modification.
-
----
-
-## Source Notes
-
-- Release notes: minimal API change documentation in v1.0.13 through v1.8.4 releases
-- Type definitions: `/Users/syn/src/github.com/synmux/syn-horse/node_modules/@takumi-rs/core/index.d.ts` (stable since v1.0.13)
-- External documentation: https://takumi.kane.tw/docs/ (not indexed locally; see package README)
+**Also changed:** `extractResourceUrls()` re-exported from `@takumi-rs/helpers` [source](./.skilld/pkg/./dist/export.d.ts#L4)
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
-## Best Practices
+## Best Practices for @takumi-rs/core v1.8.5
 
-- Reuse Renderer instances across multiple rendering operations to avoid repeated initialization overhead — the Renderer is the core resource management component, and reinitializing it for each render call wastes performance [source](/Users/syn/.skilld/references/@takumi-rs/core@1.8.4/docs/content/docs/performance-and-optimization.mdx#the-renderer)
+- Reuse the Renderer instance across multiple renderings — creating a new Renderer for each render call incurs unnecessary initialization overhead and resource allocation [source](./.skilld/docs/content/docs/performance-and-optimization.mdx:L11)
 
-- Preload frequently used images like logos and backgrounds as persistent images to avoid redundant decoding — use `putPersistentImage()` during initialization and reference them by key in `src` or CSS properties [source](/Users/syn/.skilld/references/@takumi-rs/core@1.8.4/docs/content/docs/load-images.mdx#persistent-images)
+- Initialize the WASM module and Renderer instance **outside** the fetch() handler in Cloudflare Workers — this prevents re-initialization on every request [source](./.skilld/docs/content/docs/performance-and-optimization.mdx:L21:49)
 
-- Pass your own Renderer instance to ImageResponse via the `renderer` option rather than relying on auto-managed instances — enables renderer reuse and consistent resource management across requests [source](/Users/syn/.skilld/references/@takumi-rs/core@1.8.4/docs/content/docs/performance-and-optimization.mdx#for-imagresponse)
+```tsx
+import { initSync, Renderer } from "takumi-js/wasm";
+import module from "takumi-js/wasm/takumi_wasm_bg.wasm";
 
-- Prefer TTF font files over WOFF2 — TTF is a raw format that can be used directly without decompression, while WOFF2 requires decompression overhead; only use WOFF2 if file size is the primary concern [source](/Users/syn/.skilld/references/@takumi-rs/core@1.8.4/docs/content/docs/performance-and-optimization.mdx#prefer-ttf-over-woff2)
+initSync(module);
+const renderer = new Renderer();
 
-- Use `ImageSourceLoader` and `FontLoader` types with async functions for lazy-loading resources — avoid loading large assets until render time, improving application startup performance [source](/Users/syn/src/github.com/synmux/syn-horse/node_modules/@takumi-rs/core/dist/export.d.ts:L5-L17)
+export default {
+  fetch(request) {
+    // Use renderer here, not inside fetch
+  }
+};
+```
 
-- Bring compiled Tailwind stylesheets via the `?inline` query parameter instead of relying on the native Tailwind parser — the native parser has limitations and won't cover advanced Tailwind features; paired stylesheets support the full Tailwind v4 syntax including @theme blocks [source](/Users/syn/.skilld/references/@takumi-rs/core@1.8.4/docs/content/docs/tailwind-css.mdx#bring-your-stylesheet)
+- Preload frequently used images like logos and backgrounds via `persistentImages` to avoid redundant image decoding during rendering [source](./.skilld/docs/content/docs/load-images.mdx:L27:64)
 
-- Stack all filters and blur effects in a single node to minimize composition layers — each filter creates a full-viewport-sized composition layer which incurs memory overhead; grouping them reduces this cost [source](/Users/syn/.skilld/references/@takumi-rs/core@1.8.4/docs/content/docs/performance-and-optimization.mdx#stack-filters-in-a-single-node)
+- Prefer TTF fonts over WOFF2 when possible — TTF is a raw format usable directly, while WOFF2 requires decompression before use [source](./.skilld/docs/content/docs/performance-and-optimization.mdx:L68:72)
 
-- Set `loadDefaultFonts: false` explicitly when providing custom fonts to avoid embedding unused default fonts — defaults to false when `fonts` are provided, but be explicit for clarity [source](/Users/syn/src/github.com/synmux/syn-horse/node_modules/@takumi-rs/core/index.d.ts:L98)
+- Stack filters (blur, drop-shadow) in a single node rather than splitting them across multiple nodes — composition layers created for filters consume additional memory [source](./.skilld/docs/content/docs/performance-and-optimization.mdx:L62:64)
 
-- Use the `measure()` API before rendering to calculate node dimensions for layout decisions — enables responsive OG image generation based on content size without full rendering overhead [source](/Users/syn/.skilld/references/@takumi-rs/core@1.8.4/docs/content/docs/measure-api.mdx)
+- Add a custom `resourcesOptions.cache` Map when rendering multiple images with the same URLs to avoid re-fetching and re-decoding [source](./.skilld/docs/content/docs/load-images.mdx:L10:25)
 
-- Use `renderAnimation()` for animated image output (WebP, APNG, GIF) with simple scene timelines — provides minimal configuration for common use cases; only use `render()` + `timeMs` when you need full frame-by-frame control or external encoding [source](/Users/syn/.skilld/references/@takumi-rs/core@1.8.4/docs/content/docs/keyframe-animation.mdx#renderanimation)
+- Always prefer `@takumi-rs/core` over `@takumi-rs/wasm` for rendering tasks that benefit from multiple threads — the native N-API binary uses Rayon multithreading [source](./.skilld/docs/content/docs/performance-and-optimization.mdx:L56:58)
 
-- Use COLR/bitmap font formats for emoji rendering instead of rasterized fonts like Noto Color Emoji — COLR fonts (e.g., Twemoji-COLR) significantly reduce file size while maintaining quality [source](/Users/syn/.skilld/references/@takumi-rs/core@1.8.4/docs/content/docs/typography-and-fonts.mdx#colrbitmap-font-file)
+- Add `@takumi-rs/core` to `serverExternalPackages` in Next.js config to prevent bundling the native binding and ensure correct module resolution [source](./.skilld/docs/content/docs/integration/nextjs.mdx:L16:28)
 
-- Pass `AbortSignal` to async Renderer methods (`loadFont`, `loadFonts`, `putPersistentImage`, `render`, `measure`, `renderAnimation`) to enable cancellation — useful for request timeouts or cleanup on request abort in serverless environments [source](/Users/syn/src/github.com/synmux/syn-horse/node_modules/@takumi-rs/core/index.d.ts:L44-L61)
+- In pnpm or yarn, add `public-hoist-pattern[]=@takumi-rs/core-*` to `.npmrc` when encountering "Cannot find native binding" errors — this enables hoisting of the native binary [source](./.skilld/docs/content/docs/troubleshooting.mdx:L37:42)
 
-- Use structured `keyframes` objects with `render()` and `timeMs` for complex sequential animations with ffmpeg integration — enables frame-by-frame control and compatibility with external video encoding pipelines [source](/Users/syn/.skilld/references/@takumi-rs/core@1.8.4/docs/content/docs/keyframe-animation.mdx#structured-keyframes-objects)
+- Pass `persistedImages` to the Renderer **constructor**, not just to ImageResponse — this makes them available to `renderAnimation()` [source](./.skilld/discussions/discussion-375.md)
 
-- Call `clearImageStore()` after rendering when persistent images are no longer needed — prevents memory accumulation in long-running processes or when switching to different image sets [source](/Users/syn/src/github.com/synmux/syn-horse/node_modules/@takumi-rs/core/index.d.ts:L52)
+- Use structured `keyframes` objects with `render()` and `timeMs` for frame-by-frame control, or `renderAnimation()` for simple animated output — choose based on whether you need per-frame control or simple encoding [source](./.skilld/docs/content/docs/keyframe-animation.mdx:L7:10)
+
+- Use `render()` with ffmpeg when targeting video output or requiring complete control over the rendering pipeline — pipe raw RGBA frames directly instead of relying on built-in GIF/APNG encoding [source](./.skilld/docs/content/docs/keyframe-animation.mdx:L208:266)
+
+- Set `text-overflow: ellipsis` with `line-clamp` to automatically handle multiline text truncation — `white-space: nowrap` is not required and would prevent multiline handling [source](./.skilld/docs/content/docs/typography-and-fonts.mdx:L96:111)
+
+- Use compiled Tailwind stylesheets via the `?inline` query in Vite-powered frameworks rather than the native `tw` prop parser — the parser has limitations and does not support all Tailwind features [source](./.skilld/docs/content/docs/tailwind-css.mdx:L10:44)
 <!-- /skilld:best-practices -->

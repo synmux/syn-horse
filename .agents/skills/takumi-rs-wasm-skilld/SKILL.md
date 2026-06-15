@@ -2,13 +2,13 @@
 name: takumi-rs-wasm-skilld
 description: "ALWAYS use when writing code importing \"@takumi-rs/wasm\". Consult for debugging, best practices, or modifying @takumi-rs/wasm, takumi-rs/wasm, takumi-rs wasm, takumi rs wasm, takumi."
 metadata:
-  version: 1.8.4
+  version: 1.8.5
   generated_by: Anthropic · Haiku 4.5
-  generated_at: 2026-06-13
+  generated_at: 2026-06-15
 ---
 
-# kane50613/takumi `@takumi-rs/wasm@1.8.4`
-**Tags:** beta: 1.0.0-beta.20, rc: 1.0.0-rc.17, latest: 1.8.4
+# kane50613/takumi `@takumi-rs/wasm@1.8.5`
+**Tags:** beta: 1.0.0-beta.20, rc: 1.0.0-rc.17, latest: 1.8.5
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
@@ -19,109 +19,57 @@ Use `skilld search "query" -p @takumi-rs/wasm` instead of grepping `.skilld/` di
 <!-- skilld:api-changes -->
 ## API Changes
 
-This section documents version-specific API changes — prioritise recent major/minor releases.
+This section documents version-specific API changes for @takumi-rs/wasm — prioritise recent major/minor releases.
 
-**BREAKING: `display` property defaults to `inline` instead of `flex`** — v1 changed default to align with CSS spec; explicitly add `display: flex` or `flex` Tailwind class to containers requiring flexbox [source](./.skilld/docs/upgrade/v1.mdx:L18:36)
+- INTERNAL: `Renderer` — v1.8.1 holds renderer state behind a lock so all methods take `&self`, preventing a panic from permanently breaking the wasm-bindgen borrow flag [source](./.skilld/releases/@takumi-rs/wasm@1.8.1.md:L13)
 
-**BREAKING: Import path for `ImageResponse` changed to `takumi-js/response`** — v1 unified runtime detection and fallback; no longer import from `@takumi-rs/image-response` [source](./.skilld/docs/upgrade/v1.mdx:L40:48)
+- OPTIMIZATION: Binary size reduction — v1.8.0 built with nightly Rust toolchain with `panic=immediate-abort` to reduce WASM binary size [source](./.skilld/releases/@takumi-rs/wasm@1.8.0.md:L11)
 
-**NEW: `emoji` option added to `ImageResponse` and render options** — v1 introduces `emoji` option supporting `"twemoji"` (default) or `"from-font"` for dynamic emoji loading; when using `"from-font"`, ensure emoji font is included in `fonts` array [source](./.skilld/docs/upgrade/v1.mdx:L50:72)
-
-**BREAKING: Image format strings must be lowercase** — v1 changed format options to lowercase only (`"png"`, `"jpeg"`, `"webp"`, `"ico"`, `"raw"`); uppercase formats like `"WebP"` no longer work [source](./.skilld/docs/upgrade/v1.mdx:L74:83)
-
-**BREAKING: `putPersistentImage()` signature changed** — v1 changed second argument from raw `Buffer` to `ImageSource` object with shape `{ src: string, data: Buffer }` [source](./.skilld/docs/upgrade/v1.mdx:L85:94)
-
-**BREAKING (Rust): `RenderOptionsBuilder` removed, use `RenderOptions::builder()`** — v1 switched to typed-builder for compile-time validation without `.unwrap()` calls [source](./.skilld/docs/upgrade/v1.mdx:L102:109)
-
-**BREAKING (Rust): `FetchTaskCollection` removed** — v1 removed automatic task collection; use `Node::resource_urls` and `Style::resource_urls` directly to retrieve URLs, then fetch and pass resources to renderer [source](./.skilld/docs/upgrade/v1.mdx:L111:113)
-
-**BREAKING (Rust): `parse_svg_str()` free function removed, use `SvgSource::from_str()`** — v1 consolidated SVG parsing to associated method [source](./.skilld/docs/upgrade/v1.mdx:L115:122)
-
-**BREAKING (Rust): `SpacePair::from_reversed_pair()` constructor removed** — v1 removed; construct `SpacePair` directly with values in correct order [source](./.skilld/docs/upgrade/v1.mdx:L124:126)
-
-**BREAKING (Rust): `TakumiError` type alias removed, use `takumi::error::Error`** — v1 removed re-export; import directly from `takumi::error` module [source](./.skilld/docs/upgrade/v1.mdx:L128:135)
-
-**BREAKING (Rust): `Viewport` constructor signature changed** — v1 removed `From<(u32, u32)>` impl; use explicit `Viewport::new((width, height))` instead of tuple conversion [source](./.skilld/docs/upgrade/v1.mdx:L137:144)
-
-**BREAKING (Rust): `ImageSource::size()` made private** — v1 made this internal helper private; it was not intended as public API [source](./.skilld/docs/upgrade/v1.mdx:L146:148)
-
-**BREAKING (Rust): `detailed_css_error` Cargo feature removed** — v1 removed feature gate; detailed CSS error reporting is now always enabled [source](./.skilld/docs/upgrade/v1.mdx:L150:152)
-
-**Also changed:** `extractResourceUrls` helper moved to `@takumi-rs/helpers` · deprecated exports in `@takumi-rs/core` removed
+**Also changed:** SIMD configuration fixes (v1.8.2)
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
-## Best Practices
+## Best Practices for @takumi-rs/wasm v1.8.5
 
-- Reuse the `Renderer` instance across multiple renderings instead of creating a new instance per render — the renderer manages fonts, image caches, and other resources that should be amortized across calls [source](./.skilld/docs/content/docs/performance-and-optimization.mdx#the-renderer)
+## Performance & Optimization
 
-- Preload frequently used images via `persistentImages` to avoid redundant image decoding on each render — register logos, backgrounds, and other assets used across multiple renders [source](./.skilld/docs/content/docs/performance-and-optimization.mdx#preload-frequently-used-images)
+- Reuse the Renderer instance across multiple render calls rather than creating a new instance for each rendering operation. The Renderer is the heart of Takumi's resource management — creating multiple instances wastes memory and CPU cycles. For Cloudflare Workers, initialize the WASM module and Renderer instance outside the `fetch()` handler so they are only instantiated once per Worker activation, not on every request [source](./.skilld/docs/content/docs/performance-and-optimization.mdx:L11:50)
 
-- Initialize the WASM module and `Renderer` instance outside the `fetch()` handler in Cloudflare Workers to avoid re-initialization overhead on every request [source](./.skilld/docs/content/docs/performance-and-optimization.mdx#for-cloudflare-workers)
+- Preload frequently used images like logos and backgrounds using `persistentImages` to avoid redundant image decoding during rendering. Register images at Renderer or ImageResponse initialization time; the key can then be used in any `src` attribute or CSS properties like `background-image` and `mask-image` [source](./.skilld/docs/content/docs/load-images.mdx:L27:64)
 
-```tsx
-import { initSync, Renderer } from "takumi-js/wasm";
-import module from "takumi-js/wasm/takumi_wasm_bg.wasm";
+- Prefer TTF font format over WOFF2 for performance — WOFF2 is compressed and requires decompression before use, while TTF is raw and can be used directly. Use WOFF2 only if file size is a critical concern [source](./.skilld/docs/content/docs/performance-and-optimization.mdx:L67:73)
 
-initSync(module);
-const renderer = new Renderer();
+- Stack multiple filters (blur, drop-shadow, etc.) in a single node to reduce composition layers. Applying filters on separate nodes creates additional composition layers equal to the viewport size, incurring memory overhead [source](./.skilld/docs/content/docs/performance-and-optimization.mdx:L60:65)
 
-export default {
-  fetch(request) {
-    // renderer and WASM are already initialized
-  },
-};
-```
+- Always prefer `@takumi-rs/core` (Node.js bindings) over `@takumi-rs/wasm` when parallel rendering and multithreading are available. The Node.js runtime with Rayon multithreading significantly outperforms WASM for CPU-intensive rendering tasks [source](./.skilld/docs/content/docs/performance-and-optimization.mdx:L56:58)
 
-- Prefer TTF font files over WOFF2 for rendering performance — WOFF2 requires decompression before use, while TTF can be used directly; only use WOFF2 if file size is critical [source](./.skilld/docs/content/docs/performance-and-optimization.mdx#prefer-ttf-over-woff2)
+## Animation & Rendering
 
-- Stack filters and blur effects on a single node rather than splitting across multiple elements — applying filters creates composition layers that consume additional memory [source](./.skilld/docs/content/docs/performance-and-optimization.mdx#stack-filters-in-a-single-node)
+- Choose between `renderAnimation()` and `render()` with `timeMs` based on animation complexity. Use `renderAnimation()` for simple animated WebP, APNG, or GIF output; use `render()` with `timeMs` and structured `keyframes` when you need full control over frame rendering or external encoding tools like ffmpeg [source](./.skilld/docs/content/docs/keyframe-animation.mdx:L7:10)
 
-- Use `@takumi-rs/core` (napi-rs) for Node.js environments where multithreading is available; use `@takumi-rs/wasm` only for edge runtimes or browser environments [source](./.skilld/docs/content/docs/architecture.mdx#for-edge-runtime--browser)
+- Define animations as CSS stylesheets with `@keyframes` when the animation should travel with the JSX tree and be reusable. This approach pairs well with `renderAnimation()` — parse the JSX component to get `stylesheets`, then pass them to `renderAnimation()` with your scenes [source](./.skilld/docs/content/docs/keyframe-animation.mdx:L51:93)
 
-- Import compiled stylesheets with the `?inline` query parameter and pass to `stylesheets` option in `ImageResponse` for full Tailwind CSS support — the native `tw` prop parser has limitations compared to compiled CSS [source](./.skilld/docs/content/docs/tailwind-css.mdx#bring-your-stylesheet)
+- Use structured `keyframes` objects when rendering specific animation frames with `render()` and `timeMs`, giving you precise control over animation timing and progress calculation without requiring a stylesheet [source](./.skilld/docs/content/docs/keyframe-animation.mdx:L21:50)
 
-```tsx
-import stylesheet from "~/styles/global.css?inline";
+## Typography & Text Rendering
 
-return new ImageResponse(<div className="bg-background" />, {
-  stylesheets: [stylesheet],
-});
-```
+- Understand font availability differences between runtimes — `@takumi-rs/core` (Node.js) includes full Geist and Geist Mono by default; `@takumi-rs/wasm` only includes Manrope as a single variable Latin font. In WASM, WOFF font loading is not supported; always provide TTF or other natively-supported formats [source](./.skilld/docs/content/docs/typography-and-fonts.mdx:L7:13)
 
-- Use static imports instead of dynamic `import()` calls for WASM modules to avoid duplicate symbol declarations in the middleware manifest — dynamic imports can cause the bundler to include the same WASM file multiple times [source](./.skilld/issues/issue-332.md)
+- Use `extractEmojis()` helper for dynamic emoji rendering when the emoji content is only known at runtime. The helper separates emoji segments from text nodes and fetches emoji images on demand, then pass the modified node to the renderer [source](./.skilld/docs/content/docs/typography-and-fonts.mdx:L69:86)
 
-- Use the `measure()` API to calculate node dimensions before rendering — this allows you to get layout information without generating an image, useful for sizing dynamic content [source](./.skilld/docs/content/docs/measure-api.mdx)
+- Combine `text-overflow: ellipsis` with `lineClamp` to handle multiline text truncation without requiring `white-space: nowrap`, allowing proper multiline ellipsis handling [source](./.skilld/docs/content/docs/typography-and-fonts.mdx:L94:111)
 
-```tsx
-const { width, height } = await renderer.measure(node, { stylesheets });
-```
+## Integration & Setup
 
-- Pass `persistentImages` to the `Renderer` constructor when using `renderAnimation()` to make preloaded images available to the animation renderer [source](./.skilld/discussions/discussion-375.md)
+- In Nuxt projects, use Nuxt OG Image module with Takumi as the renderer instead of calling Takumi directly. Set `ogImage.defaults.renderer: "takumi"` in `nuxt.config.ts` and create `.takumi.vue` templates — this is the recommended and simplest integration path [source](./.skilld/docs/content/docs/integration/nuxt.mdx:L1:83)
 
-```tsx
-const renderer = new Renderer({
-  persistentImages: [
-    { src: "logo", data: () => fetch("/logo.png").then(r => r.arrayBuffer()) },
-  ],
-});
-```
+- In Next.js, always add `@takumi-rs/core` to `serverExternalPackages` in your Next.js config to prevent bundling issues and ensure the native binding is correctly resolved at runtime [source](./.skilld/docs/content/docs/integration/nextjs.mdx:L16:28)
 
-- Download custom fonts and store them locally instead of using `next/font` for proper Unicode character rendering — frameworks like `next/font` provide CSS sheets which don't work for image rendering [source](./.skilld/discussions/discussion-642.md)
+- Use the `measure()` API to calculate node layout without rendering when you need dimensions for further calculations — pass a node and optional stylesheets, and get back `{ width, height }` for layout-dependent operations [source](./.skilld/docs/content/docs/measure-api.mdx:L9:29)
 
-- Use `renderAnimation()` for straightforward animated output formats (GIF, WebP, APNG) with a single scene; use `render()` with `timeMs` for frame-by-frame control or when composing multiple scenes [source](./.skilld/docs/content/docs/keyframe-animation.mdx#ways-to-render)
+- Import stylesheet assets with the `?inline` query parameter (e.g. `import stylesheet from "~/styles/global.css?inline"`) in Vite-powered frameworks and pass via the `stylesheets` option to ImageResponse. This is the recommended approach for bringing compiled Tailwind and custom stylesheets into Takumi rendering [source](./.skilld/docs/content/docs/tailwind-css.mdx:L13:34)
 
-- Define animations in JSX with stylesheet `@keyframes` for workflows that support both `renderAnimation()` and `render()` — this approach keeps the animation definition portable with the component [source](./.skilld/docs/content/docs/keyframe-animation.mdx#css-stylesheets)
+## Debugging & Troubleshooting
 
-- Control font variations (weight, width, optical sizing) using `font-variation-settings` CSS property for variable fonts — `font-weight` automatically maps to the `wght` axis, but custom axes require the explicit property [source](./.skilld/docs/content/docs/typography-and-fonts.mdx#variations--features)
-
-```tsx
-<div
-  style={{
-    fontVariationSettings: "'wght' 700, 'wdth' 150",
-  }}
->
-  Customized font axes
-</div>
-```
+- When layout appears incorrect, enable `drawDebugBorder: true` in `ImageResponse` options to visualize borders around all nodes and diagnose layout problems before filing an issue [source](./.skilld/docs/content/docs/troubleshooting.mdx:L10:27)
 <!-- /skilld:best-practices -->

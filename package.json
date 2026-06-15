@@ -30,6 +30,7 @@
     "@biomejs/biome": "2.5.0",
     "@catppuccin/daisyui": "^2.1.1",
     "@catppuccin/tailwindcss": "^1.0.0",
+    "@storybloq/storybloq": "^1.4.4",
     "@tailwindcss/cli": "^4.3.1",
     "@types/node": "^25.9.3",
     "ctx7": "^0.5.2",
@@ -93,6 +94,7 @@
   },
   "trustedDependencies": [
     "@anthropic-ai/claude-code",
+    "@google/genai",
     "@parcel/watcher",
     "better-sqlite3",
     "esbuild",

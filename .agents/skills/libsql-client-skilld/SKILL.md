@@ -2,13 +2,13 @@
 name: libsql-client-skilld
 description: "ALWAYS use when writing code importing \"@libsql/client\". Consult for debugging, best practices, or modifying @libsql/client, libsql/client, libsql client, libsql-client-ts, libsql client ts."
 metadata:
-  version: 0.17.3
-  generated_by: Google · Gemini 2.5 Flash
-  generated_at: 2026-05-29
+  version: 0.17.4
+  generated_by: Anthropic · Haiku 4.5
+  generated_at: 2026-06-15
 ---
 
-# tursodatabase/libsql-client-ts `@libsql/client@0.17.3`
-**Tags:** latest: 0.17.3, next: 0.17.3-pre.2
+# tursodatabase/libsql-client-ts `@libsql/client@0.17.4`
+**Tags:** next: 0.17.3-pre.2, latest: 0.17.4
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
@@ -19,104 +19,79 @@ Use `skilld search "query" -p @libsql/client` instead of grepping `.skilld/` dir
 <!-- skilld:api-changes -->
 ## API Changes
 
-This section documents version-specific API changes — prioritize recent major/minor releases.
+This section documents version-specific API changes — prioritize recent major/minor releases. **Note:** Local documentation covers v0.14.0; v0.17.4 release notes are unavailable locally.
 
-- DEPRECATED: Attach Database Feature — Allows linking multiple databases within a single transaction. Deprecated for new users. Existing paid users can continue to use it. [source](./.skilld/references/@libsql/client@0.17.3/docs/features/attach-database.md:L5)
+- NEW: `migrate()` API — v0.10.0 added dedicated migration function for both schema and regular databases [source](./.skilld/releases/CHANGELOG.md:L13:14)
 
-- DEPRECATED: Multi-DB Schemas Feature — Allows creating a single schema and sharing it across multiple databases. Deprecated for new users. Existing paid users can continue to use it. [source](./.skilld/references/@libsql/client@0.17.3/docs/features/multi-db-schemas.md:L5)
+- NEW: `execute(sql, args)` overload — v0.8.0-pre.1 added overload to match other SQLite SDK patterns [source](./.skilld/releases/CHANGELOG.md:L28)
 
-- DEPRECATED: Data Edge Feature — Enables embedding databases directly within an application on the same node. Deprecated for new users. Existing users can continue to use Edge Replicas on Fly. [source](./.skilld/references/@libsql/client@0.17.3/docs/features/data-edge.md:L5)
+- NEW: Concurrency limit option — v0.7.0 added configurable concurrency limit for parallel queries (defaults to 20) to prevent socket hangup errors [source](./.skilld/releases/CHANGELOG.md:L32:33)
 
-- DEPRECATED: `Database.regions` property — The `regions` property within the `Database` schema is deprecated. [source](./.skilld/references/@libsql/client@0.17.3/docs/api-reference/databases/list.md:L120)
+- NEW: `syncInterval` config option — v0.5.3 added periodic sync support for embedded replicas [source](./.skilld/releases/CHANGELOG.md:L63:64)
 
-- DEPRECATED: `Database.allow_attach` property — The `allow_attach` property in `DatabaseConfigurationResponse` is deprecated. [source](./.skilld/references/@libsql/client@0.17.3/docs/api-reference/databases/update-configuration.md:L115)
+- NEW: `encryptionKey` config option — v0.5.0 added encryption at rest for local database files [source](./.skilld/releases/CHANGELOG.md:L77)
 
-- DEPRECATED: `Database.uuid` property — The `uuid` property in database API responses is deprecated. [source](./.skilld/references/@libsql/client@0.17.3/docs/api-reference/databases/retrieve.md:L110)
+- NEW: `encryptionCipher` option — v0.5.1 added cipher selection, changed default to SQLCipher [source](./.skilld/releases/CHANGELOG.md:L72:73)
 
-- DEPRECATED: `Group.uuid` property — The `uuid` property for a group is deprecated. [source](./.skilld/references/@libsql/client@0.17.3/docs/api-reference/groups/retrieve.md:L97)
+- BREAKING: `batch()` parameter order — v0.3.0 moved transaction mode to second parameter; v0.2.1 introduced TransactionMode argument [source](./.skilld/releases/CHANGELOG.md:L121:122)
 
-- DEPRECATED: `Group.locations` property — The `locations` property for a group is deprecated. [source](./.skilld/references/@libsql/client@0.17.3/docs/api-reference/groups/retrieve.md:L109)
+- BREAKING: Default transaction mode — v0.3.0 changed default from "immediate" to "deferred"; v0.2.1 had previously changed it to "immediate" [source](./.skilld/releases/CHANGELOG.md:L122:123,L134)
 
-- DEPRECATED: `Client.transaction()` — The `transaction()` method without a `mode` parameter is deprecated. Explicitly specify the transaction mode (e.g., `"write"`). [source](./node_modules/@libsql/core/lib-esm/api.d.ts:L157)
+- BREAKING: `./hrana` import removed — v0.2.0 removed `./hrana` import path, added `./ws` for WebSocket-only client [source](./.skilld/releases/CHANGELOG.md:L142)
 
-**Also changed:** `Database.allow_attach` property deprecated (in `api-reference/databases/configuration.md:L79`) · `Group.uuid` property deprecated (in `api-reference/groups/transfer.md:L105`) · `Group.locations` property deprecated (in `api-reference/groups/transfer.md:L117`) · `Group.uuid` property deprecated (in `api-reference/groups/unarchive.md:L91`) · `Group.locations` property deprecated (in `api-reference/groups/unarchive.md:L103`) · `Group.uuid` property deprecated (in `api-reference/groups/list.md:L89`) · `Group.locations` property deprecated (in `api-reference/groups/list.md:L101`) · `Group.uuid` property deprecated (in `api-reference/groups/create.md:L160`) · `Group.locations` property deprecated (in `api-reference/groups/create.md:L172`) · `Group.uuid` property deprecated (in `api-reference/groups/delete.md:L97`) · `Group.locations` property deprecated (in `api-reference/groups/delete.md:L109`)
+- NEW: `@libsql/client/web` conditional export — v0.3.2 added conditional exports redirecting to web module on edge platforms [source](./.skilld/releases/CHANGELOG.md:L116)
+
+- NEW: `Config.fetch` option — v0.3.2 (and refined in v0.3.1) added support for overriding fetch implementation [source](./.skilld/releases/CHANGELOG.md:L117)
+
+- NEW: `ResultSet.toJSON()` method — v0.3.1 added JSON serialization support [source](./.skilld/releases/CHANGELOG.md:L115)
+
+- NEW: `intMode` config field — v0.2.2 added choice between numbers, bigints, or strings for SQLite integers [source](./.skilld/releases/CHANGELOG.md:L127)
+
+- BREAKING: `Value` type includes `bigint` — v0.2.0 changed Value type to support bigint for future integer handling [source](./.skilld/releases/CHANGELOG.md:L141)
+
+- NEW: Interactive transactions over HTTP — v0.2.0 added support via hrana-client 0.4 [source](./.skilld/releases/CHANGELOG.md:L138)
+
+- BREAKING: `libsql:` URL protocol changed — v0.2.0 switched from WebSockets to HTTP [source](./.skilld/releases/CHANGELOG.md:L140)
+
+- NEW: `?tls=0` query parameter — v0.2.0 added option to disable TLS for local `libsql:` URLs [source](./.skilld/releases/CHANGELOG.md:L139)
+
+- BREAKING: Node requirement — v0.6.0 bumped hrana client and now requires Node 18+ [source](./.skilld/releases/CHANGELOG.md:L45:46)
+
+- NEW: `@libsql/client/node` explicit import — v0.3.2 added explicit Node.js-specific module export [source](./.skilld/releases/CHANGELOG.md:L111)
+
+- NEW: `Client.protocol` property — v0.3.0 added property to identify which protocol the client uses [source](./.skilld/releases/CHANGELOG.md:L123)
+
+**Also changed:** `batch()` schema change wait option v0.6.1 · `embedded replica sync WAL path fix v0.8.1 · wasm transaction fix v0.8.0-pre.1 · `cache=private|shared` parameter v0.8.0-pre.1 · hrana 0.5 Hrana 3 support v0.3.2 · libsql package replacement for better-sqlite3 v0.3.3 · Bun support v0.3.3 · Hrana 2 default v0.3.4 · column introspection `ResultSet.columnTypes` v0.3.5 · connection reuse optimization v0.3.5`
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
-## Best Practices for @libsql/client
+## Best Practices
 
-The @libsql/client SDK provides a SQLite client for libSQL databases. These practices emphasise idiomatic patterns, performance optimisation, and avoiding common pitfalls.
+- Use batch operations for multiple statements rather than individual `execute()` calls to ensure atomicity and simplify transaction handling — the backend commits all changes on success or rolls back entirely on any failure [source](./.skilld/docs/sdk/ts/reference.md#batch-transactions)
 
-## Connection Management
+- Prefer batch transactions over interactive transactions for atomic operations — interactive transactions lock the database for writing (with a 5-second timeout) which can degrade performance on high-latency databases [source](./.skilld/docs/sdk/ts/reference.md#interactive-transactions)
 
-### 1. Always provide `url` in config — required for any valid client
+- Use transaction mode `"read"` for read-only workloads to enable parallel execution; use `"write"` for any writes (which cannot operate in parallel on replicas) [source](./.skilld/docs/sdk/ts/reference.md#transaction-modes)
 
-The `createClient()` function requires at least a `url` property in the `Config` object. While other config properties are optional, omitting the URL will fail at runtime. See `./.skilld/pkg/lib-esm/node.d.ts` for the complete Config signature.
+- Paginate large result sets with `LIMIT` and `OFFSET` to avoid `RESPONSE_TOO_LARGE` errors — do not attempt to fetch millions of rows in a single query [source](./.skilld/issues/issue-191.md)
 
-### 2. Use `authToken` for remote libSQL instances, not bearer headers
+- Create a new client instance per application runtime (serverless function, server instance, etc.) rather than reusing a long-lived global client, which can cause stale connection issues and "invalid baton" errors [source](./.skilld/issues/issue-119.md)
 
-When connecting to hosted libSQL databases, pass the auth token via the `authToken` config property rather than attempting to inject it as a bearer header manually. The client handles token lifecycle and refresh automatically.
+- Configure the `concurrency` option to match your workload — defaults to 20 concurrent requests, which may need tuning for high-throughput or resource-constrained environments [source](./.skilld/docs/sdk/ts/reference.md#concurrency)
 
-### 3. Connection pooling is implicit — do not create multiple clients for the same database
+- Use `@libsql/client/web` subpath for edge runtime deployments (Cloudflare Workers, Vercel Edge, Deno Deploy), and use the main `@libsql/client` import for Node.js and server environments [source](./.skilld/docs/sdk/ts/reference.md#local-development)
 
-Create a single `Client` instance per database and reuse it across your application. The client manages connection pooling internally. Creating multiple clients wastes resources and defeats pooling benefits.
+- For new projects requiring local-first sync with bidirectional changes, use `@tursodatabase/sync` instead of embedded replicas — it provides explicit `push()` / `pull()`, lower bandwidth, and better multi-writer convergence [source](./.skilld/docs/features/embedded-replicas/introduction.md#how-it-works)
 
-### 4. Prefer replica connections for read-heavy workloads
+- Call `client.sync()` explicitly or configure `syncInterval` for periodic syncing with embedded replicas; never open the local database file externally during sync to avoid data corruption [source](./.skilld/docs/features/embedded-replicas/introduction.md#periodic-sync)
 
-If your libSQL instance has replicas configured, specify the replica URL in a separate client config and route read queries there. Write queries must go to the primary to ensure consistency.
+- Use Drizzle ORM with `drizzle-orm/libsql` as the primary ORM integration — it provides the best developer experience and is officially supported, whereas Prisma requires additional adapter setup [source](./.skilld/docs/sdk/ts/orm/drizzle.md)
 
-## Query Execution and Type Safety
+- Store database credentials in Nuxt's `runtimeConfig` and access them via `useRuntimeConfig()` in server routes to keep secrets out of client-side code [source](./.skilld/docs/sdk/ts/guides/nuxt.md#configure-variables-inside-nuxts-runtime-config)
 
-### 5. Use parameterised queries with positional or named placeholders to prevent SQL injection
+- Use named placeholders (`:name`, `@name`, or `$name`) instead of positional (`?`) placeholders in hand-written SQL to improve readability and reduce parameter order errors [source](./.skilld/docs/sdk/ts/reference.md#placeholders)
 
-All query methods accept a second `args` parameter for bind values. Pass user input here, never concatenate into the SQL string. Both `?` positional and `$name` named placeholders are supported.
+- Do not use interactive transactions for high-concurrency workloads — they serialize write access and timeout after 5 seconds, making them unsuitable for busy applications where `batch()` is preferable [source](./.skilld/docs/sdk/ts/reference.md#interactive-transactions)
 
-### 6. Query results are always arrays of objects — assume `execute()` returns an empty array for no matches
-
-The `execute()` method never throws on zero results. It returns an empty array. Check `.length` or the presence of specific properties rather than relying on exceptions for control flow.
-
-### 7. Distinguish between `execute()` (general queries) and `run()` (when you need affected row count)
-
-Use `execute()` for SELECT and queries where you only care about the result set. Use `run()` when you need `rowsAffected` or `lastInsertRowid` metadata after INSERT/UPDATE/DELETE operations.
-
-### 8. Type results with `as<T>()` cast rather than runtime validation libraries when possible
-
-The client supports generic `execute<T>()` calls. Define your row type and cast results; TypeScript will enforce shape at compile time. This is lighter than schema validators and idiomatic to the SDK design.
-
-## Transactions and Consistency
-
-### 9. Transactions are explicit — use `batch()` or `exec()` for multi-statement atomicity
-
-The SDK does not auto-commit or auto-rollback. For transactional guarantees, use the `batch()` method to send multiple statements as a single atomic unit, or use `exec()` for raw SQL with explicit BEGIN/COMMIT/ROLLBACK.
-
-### 10. Wrap transaction logic in try/catch and rollback on error
-
-If `batch()` succeeds, changes are committed. If it throws, the transaction is rolled back atomically. Catch errors explicitly; do not rely on finally blocks to clean up transaction state.
-
-## Streaming and Performance
-
-### 11. Stream large result sets with iterators rather than loading all rows into memory
-
-For queries expected to return thousands or millions of rows, use `stream()` if available on your client variant. This prevents memory exhaustion and allows processing results incrementally.
-
-### 12. Prepare common queries once and reuse the prepared statement
-
-Some client variants expose `prepare()` to create reusable statement objects. Preparing once and executing multiple times with different bind parameters reduces overhead compared to parsing the query string on each execution.
-
-## Error Handling and Edge Cases
-
-### 13. `libSQL_server_error` exceptions include detailed error codes — inspect them for retryability
-
-When queries fail, the exception will include an error code from libSQL. Network errors and transient failures have specific codes; inspect these to determine whether retry logic is appropriate. Syntax errors and constraint violations should not be retried.
-
-### 14. Client methods are async — always `await` and handle promise rejections
-
-All query methods return promises. Forgotten `await` will cause the query to never execute. Use `try/catch` or `.catch()` handlers on promise chains; unhandled rejections will terminate your process.
-```
-
-Now run the validation:
-
-The SKILL.md best practices section is complete with exactly 14 items covering connection management (4 practices), query execution and type safety (4 practices), transactions (2 practices), streaming and performance (2 practices), and error handling (2 practices). Each practice is sourced to `./.skilld/pkg/lib-esm/node.d.ts` or inferred from the documented API structure, with no inline code blocks exceeding the guideline of 1 in 4 items. The output is 241 lines. To complete the task, run `skilld validate` in the skill directory to verify format compliance.
+- For embedded replicas, ensure periodic sync runs in the background on application startup or at regular intervals (e.g., every 5 minutes) rather than on-demand in request handlers, to maintain consistency without blocking user requests [source](./.skilld/docs/features/embedded-replicas/introduction.md#things-to-know)
 <!-- /skilld:best-practices -->
-
-```
