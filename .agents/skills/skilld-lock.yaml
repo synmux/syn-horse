@@ -152,11 +152,11 @@ skills:
     generator: skilld
   biomejs-biome-skilld:
     packageName: "@biomejs/biome"
-    version: 2.4.16
-    packages: "@biomejs/biome@2.4.16"
+    version: 2.5.0
+    packages: "@biomejs/biome@2.5.0"
     repo: biomejs/biome
-    source: "https://github.com/biomejs/biome/tree/@biomejs/biome@2.4.16/docs"
-    syncedAt: 2026-06-08
+    source: "https://github.com/biomejs/biome/tree/@biomejs/biome@2.5.0/docs"
+    syncedAt: 2026-06-16
     generator: skilld
   catppuccin-daisyui-skilld:
     packageName: "@catppuccin/daisyui"
@@ -249,11 +249,11 @@ skills:
     generator: skilld
   ultracite-skilld:
     packageName: ultracite
-    version: 7.8.2
-    packages: "ultracite@7.8.2"
+    version: 7.8.3
+    packages: "ultracite@7.8.3"
     repo: haydenbleasel/ultracite
-    source: "https://github.com/haydenbleasel/ultracite/tree/ultracite@7.8.2/docs"
-    syncedAt: 2026-06-08
+    source: "https://github.com/haydenbleasel/ultracite/tree/ultracite@7.8.3/docs"
+    syncedAt: 2026-06-16
     generator: skilld
   untun-skilld:
     packageName: untun
@@ -264,19 +264,19 @@ skills:
     generator: skilld
   wrangler-skilld:
     packageName: wrangler
-    version: 4.100.0
-    packages: "wrangler@4.100.0"
+    version: 4.101.0
+    packages: "wrangler@4.101.0"
     repo: cloudflare/workers-sdk
     source: "https://developers.cloudflare.com/workers/**"
-    syncedAt: 2026-06-13
+    syncedAt: 2026-06-16
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.177
-    packages: "@anthropic-ai/claude-code@2.1.177"
+    version: 2.1.178
+    packages: "@anthropic-ai/claude-code@2.1.178"
     repo: Exhen/claude-code-2.1.88
     source: "ungh://Exhen/claude-code-2.1.88"
-    syncedAt: 2026-06-13
+    syncedAt: 2026-06-16
     generator: skilld
   drizzle-orm-skilld:
     packageName: drizzle-orm

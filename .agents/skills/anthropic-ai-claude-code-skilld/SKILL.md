@@ -2,13 +2,13 @@
 name: anthropic-ai-claude-code-skilld
 description: "ALWAYS use when writing code importing \"@anthropic-ai/claude-code\". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88."
 metadata:
-  version: 2.1.177
+  version: 2.1.178
   generated_by: Anthropic · Haiku 4.5
-  generated_at: 2026-06-13
+  generated_at: 2026-06-16
 ---
 
-# Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.177`
-**Tags:** stable: 2.1.153, latest: 2.1.177, next: 2.1.177
+# Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.178`
+**Tags:** stable: 2.1.153, latest: 2.1.178, next: 2.1.178
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md)
 
@@ -19,39 +19,39 @@ Use `skilld search "query" -p @anthropic-ai/claude-code` instead of grepping `.s
 <!-- skilld:api-changes -->
 ## API Changes
 
-This section documents version-specific API changes in @anthropic-ai/claude-code v2.1.177 — prioritizing recent major/minor releases.
+This section documents version-specific API changes in @anthropic-ai/claude-code v2.x.
 
-- DEPRECATED: `shell_id` in TaskStopInput — use `task_id` instead. The `shell_id` parameter is deprecated; pass `task_id` to identify the background task to stop [source](./.skilld/pkg/sdk-tools.d.ts:L604-622)
+- DEPRECATED: `team_name` parameter on Agent — ignored in v2+. The session has a single implicit team (no replacement parameter needed). [source](./.skilld/pkg/sdk-tools.d.ts:L435)
 
-**Also changed:** `taskType` in WorkflowOutput added for tracking workflow execution context · `workflowName` in WorkflowOutput tracks script meta name · `runId` in WorkflowOutput provides resume handle for local workflows · `scriptPath` in WorkflowOutput enables workflow re-execution
+- DEPRECATED: `shell_id` parameter on TaskStop — use `task_id` instead. Both are optional but `task_id` is the canonical identifier. [source](./.skilld/pkg/sdk-tools.d.ts:L633)
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
 ## Best Practices
 
-- Execute Claude from your project root directory, not from parent directories — Claude understands your codebase relative to the current working directory, so context is lost when run from wrong location [source](./.skilld/pkg/README.md:L21)
+- Always provide semantic descriptions for bash commands — helps the CLI document what the command does, and uses 5–10 words for simple commands, more context for complex ones (piped, obscure flags) [source](./.skilld/pkg/sdk-tools.d.ts:L460:469)
 
-- Use Claude across multiple interfaces (terminal, IDE, GitHub) for different contexts — terminal for interactive work, IDE integrations for real-time assistance, and GitHub for code review collaboration [source](./.skilld/pkg/README.md:L7)
+- Use `type` parameter in Grep instead of glob patterns when searching specific file types — more efficient than `glob` for standard types (js, py, rust, go, java, etc.) [source](./.skilld/pkg/sdk-tools.d.ts:L596:597)
 
-- Leverage Claude's native git workflow support instead of managing git manually in parallel — the tool handles commit, branch, and workflow operations natively through natural language [source](./.skilld/pkg/README.md:L8)
+- Use `head_limit` in Grep to restrict output size — defaults to 250, critical for avoiding context waste when searching large codebases; pass 0 only when genuinely needing all results [source](./.skilld/pkg/sdk-tools.d.ts:L615:616)
 
-- Report bugs via the `/bug` command rather than stopping your workflow — this provides Claude with full session context, making reported issues easier to reproduce and diagnose [source](./.skilld/pkg/README.md:L25)
+- Use `offset` and `limit` parameters for FileRead when dealing with large files — avoids token cap truncation and allows paginating through content in chunks [source](./.skilld/pkg/sdk-tools.d.ts:L535:543)
 
-- Be aware that code acceptance/rejection feedback and conversation data are collected for improvement — understand Claude's data usage policies before working with sensitive code; review the privacy safeguards documented in the Commercial Terms of Service [source](./.skilld/pkg/README.md:L31:43)
+- Check the `truncatedByTokenCap` flag in FileReadOutput when reading large files — signals when a read was auto-paginated due to token limits, so you know more content exists [source](./.skilld/pkg/sdk-tools.d.ts:L201:202)
 
-- Use the Claude Developers Discord community for workflows and patterns before filing generic issues — collective experience surfaces best approaches and helps identify if behavior is expected or a genuine bug [source](./.skilld/pkg/README.md:L29)
+- Use `isolation: "worktree"` when spawning agents that will modify files in parallel — creates isolated git worktree per agent to prevent conflicts between concurrent edits [source](././.skilld/pkg/sdk-tools.d.ts:L445:446)
 
-- Provide full context in natural language prompts rather than expecting Claude to infer intent — since Claude reads your codebase, specify what you want explained, changed, or fixed explicitly [source](./.skilld/pkg/README.md:L8)
+- Use `run_in_background: true` for long-running bash commands or agents — allows the task to complete asynchronously and receive notifications rather than blocking [source](./.skilld/pkg/sdk-tools.d.ts:L471:473)
 
-- Trust Claude's codebase understanding for code explanation and task execution — the tool is designed to read and understand your full project structure, so complex multi-file requests are within scope [source](./.skilld/pkg/README.md:L8)
+- Use `pages` parameter in FileRead for PDFs to limit page range — avoids loading entire PDF when only specific pages are needed (maximum 20 pages per request) [source](./.skilld/pkg/sdk-tools.d.ts:L540:542)
 
-- Review Claude's code changes in your editor before accepting — while Claude handles execution, your acceptance/rejection feedback trains improvements, so explicit approval gates quality [source](./.skilld/pkg/README.md:L33)
+- Choose `output_mode` explicitly in Grep — use `"files_with_matches"` to get paths only, `"content"` for matching lines with context, or `"count"` for just match counts [source](./.skilld/pkg/sdk-tools.d.ts:L579:581)
 
-- Use Claude for routine task automation rather than one-off questions — the tool excels at executing repetitive workflows (refactoring, testing, git operations) where natural language reduces manual steps [source](./.skilld/pkg/README.md:L8)
+- Use `model` parameter in Agent to select the appropriate model for the task — allows optimising cost/performance; omit to inherit from parent or agent definition [source](./.skilld/pkg/sdk-tools.d.ts:L423:425)
 
-- Maintain Node.js 18+ in your environment — Claude Code requires this minimum version for compatibility with the installed binary [source](./.skilld/pkg/package.json:L12)
+- Use `isolation: "remote"` for CPU-intensive agent tasks when available — launches agent in remote cloud environment rather than local context [source](./.skilld/pkg/sdk-tools.d.ts:L444:445)
 
-- Install Claude Code globally for terminal-wide availability rather than per-project — global installation via npm simplifies access across your development environment [source](./.skilld/pkg/README.md:L18)
+- Use Workflow `pipeline()` as the default over `parallel()` between stages — pipeline allows stage N to proceed while stage N-1 is still running on other items, reducing wall-clock time and avoiding barriers that aren't needed [source](./.skilld/pkg/sdk-tools.d.ts:L2400:2401)
 
-- Leverage Claude for explaining complex code in your existing projects — a core strength is reading and explaining logic without requiring refactoring, making it useful for onboarding and understanding legacy systems [source](./.skilld/pkg/README.md:L8)
+- Store Workflow invocation IDs to enable resumption — use `resumeFromRunId` to replay cached agent() calls with unchanged inputs, skipping re-execution for edited/new calls [source](./.skilld/pkg/sdk-tools.d.ts:L2426:2427)
 <!-- /skilld:best-practices -->
