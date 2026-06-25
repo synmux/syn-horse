@@ -144,6 +144,7 @@ export default defineNuxtConfig({
     // "DB binding not found".
     "@nuxt/icon",
     "@nuxt/image",
+    "@nuxt/eslint",
     "@nuxt/fonts",
     "@nuxt/scripts",
     "nuxt-security",
@@ -267,6 +268,11 @@ export default defineNuxtConfig({
           binding: "CF_VERSION_METADATA",
         },
         workers_dev: true,
+      },
+    },
+    eslint: {
+      checker: {
+        eslintPath: "eslint",
       },
     },
     experimental: {
