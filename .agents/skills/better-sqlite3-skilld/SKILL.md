@@ -1,6 +1,6 @@
 ---
 name: better-sqlite3-skilld
-description: "ALWAYS use when writing code importing \"better-sqlite3\". Consult for debugging, best practices, or modifying better-sqlite3, better sqlite3."
+description: 'ALWAYS use when writing code importing "better-sqlite3". Consult for debugging, best practices, or modifying better-sqlite3, better sqlite3.'
 metadata:
   version: 12.11.1
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # WiseLibs/better-sqlite3 `better-sqlite3@12.11.1`
+
 **Tags:** latest: 12.11.1
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p better-sqlite3` instead of grepping `.skilld/` directories. Run `skilld search --guide -p better-sqlite3` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -28,9 +30,11 @@ better-sqlite3 v12.11.1 maintains API stability. No breaking, deprecated, or ren
 **Node.js support:** v12.8.0+ requires Node.js v20 or later [source](./.skilld/releases/v12.8.0.md:L10).
 
 No user-facing API migrations required for upgrading within v12.x.
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use `.transaction()` for grouped operations rather than manual `BEGIN`/`COMMIT` — automatic rollback on error, nested savepoint support, and deferred/immediate/exclusive variants prevent deadlocks under concurrent load [source](./.skilld/docs/api.md:L55:96)

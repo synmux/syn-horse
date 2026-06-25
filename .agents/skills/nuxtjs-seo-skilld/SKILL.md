@@ -1,6 +1,6 @@
 ---
 name: nuxtjs-seo-skilld
-description: "ALWAYS use when writing code importing \"@nuxtjs/seo\". Consult for debugging, best practices, or modifying @nuxtjs/seo, nuxtjs/seo, nuxtjs seo, nuxt-seo, nuxt seo."
+description: 'ALWAYS use when writing code importing "@nuxtjs/seo". Consult for debugging, best practices, or modifying @nuxtjs/seo, nuxtjs/seo, nuxtjs seo, nuxt-seo, nuxt seo.'
 metadata:
   version: 5.3.0
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # harlan-zw/nuxt-seo `@nuxtjs/seo@5.3.0`
+
 **Tags:** latest: 5.3.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @nuxtjs/seo` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @nuxtjs/seo` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -64,9 +66,11 @@ This section documents version-specific API changes — prioritize recent major/
 - NEW: AI Ready module for best-practice AI & LLM discoverability; generates `llms.txt`, `llms-full.txt`, and robots.txt AI directives; available as standalone `nuxt-ai-ready` [source](./.skilld/docs/content/1.getting-started/0.introduction.md:L37)
 
 **Also changed:** i18n multi-sitemap auto-expansion per locale · `@nuxtjs/seo` dependency versions updated (robots >=6.0, sitemap >=8.0, link-checker >=5.0, og-image >=6.2, schema-org >=6.0, seo-utils >=8.1, site-config >=4.0)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Set `site.name` explicitly in `nuxt.config` — in v5+ it is no longer inferred from `package.json` or your directory name, so it must be provided to ensure meta tags and Schema.org include your site's name [source](./.skilld/docs/content/2.guides/0.using-the-modules.md#shared-configuration)

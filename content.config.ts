@@ -1,5 +1,5 @@
-import { defineCollection, defineContentConfig } from "@nuxt/content";
-import { z } from "zod";
+import { defineCollection, defineContentConfig } from "@nuxt/content"
+import { z } from "zod"
 
 export default defineContentConfig({
   collections: {
@@ -20,4 +20,4 @@ export default defineContentConfig({
       }),
     }),
   },
-});
+})

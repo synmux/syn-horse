@@ -1,6 +1,6 @@
 ---
 name: tailwindcss-vite-skilld
-description: "ALWAYS use when writing code importing \"@tailwindcss/vite\". Consult for debugging, best practices, or modifying @tailwindcss/vite, tailwindcss/vite, tailwindcss vite, tailwindcss."
+description: 'ALWAYS use when writing code importing "@tailwindcss/vite". Consult for debugging, best practices, or modifying @tailwindcss/vite, tailwindcss/vite, tailwindcss vite, tailwindcss.'
 metadata:
   version: 4.3.1
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # tailwindlabs/tailwindcss `@tailwindcss/vite@4.3.1`
+
 **Tags:** internal: 0.0.0-internal.b2586d4e, next: 4.0.0, latest: 4.3.1
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @tailwindcss/vite` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @tailwindcss/vite` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritise recent major/minor releases.
@@ -70,9 +72,11 @@ This section documents version-specific API changes — prioritise recent major/
 - DEPRECATED: `start-*` and `end-*` utilities — use `inset-s-*` and `inset-e-*` logical property utilities instead (v4.2.0 and later) [source](./.skilld/releases/v4.2.0.md:L42)
 
 **Also changed:** Spacing utility generation optimised for smaller CSS (v4.3.1, #20196)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Initialize a git repository in your project root — Tailwind uses `.gitignore` rules internally for automatic source detection, and absence of a git boundary can cause files to be ignored [source](./.skilld/discussions/discussion-20135.md:L35)

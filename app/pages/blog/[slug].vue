@@ -1,28 +1,26 @@
 <script setup lang="ts">
-  import { useRoute } from "vue-router";
-  import { SITE } from "~/data/site";
+import { useRoute } from "vue-router"
+import { SITE } from "~/data/site"
 
-  const route = useRoute();
+const route = useRoute()
 
-  const { data: page } = await useAsyncData(route.path, () => {
-    const query = queryCollection("blog").path(route.path);
-    return import.meta.dev
-      ? query.first()
-      : query.where("future", "=", false).first();
-  });
+const { data: page } = await useAsyncData(route.path, () => {
+  const query = queryCollection("blog").path(route.path)
+  return import.meta.dev ? query.first() : query.where("future", "=", false).first()
+})
 
-  if (!page.value) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: "post not found",
-      fatal: true,
-    });
-  }
+if (!page.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "post not found",
+    fatal: true
+  })
+}
 
-  useSeoMeta({
-    title: () => `${page.value?.title} · ${SITE.name}`,
-    description: () => page.value?.description,
-  });
+useSeoMeta({
+  title: () => `${page.value?.title} · ${SITE.name}`,
+  description: () => page.value?.description
+})
 </script>
 
 <template>
@@ -41,9 +39,7 @@
     <div class="post-foot">
       <span>◆ written in /var/notes/2026/ · cron'd, not edited</span>
       <span>
-        <a :href="SITE.github" target="_blank" rel="noopener"
-          >edit on github →</a
-        >
+        <a :href="SITE.github" target="_blank" rel="noopener">edit on github →</a>
       </span>
     </div>
   </div>

@@ -1,6 +1,6 @@
 ---
 name: catppuccin-tailwindcss-skilld
-description: "ALWAYS use when writing code importing \"@catppuccin/tailwindcss\". Consult for debugging, best practices, or modifying @catppuccin/tailwindcss, catppuccin/tailwindcss, catppuccin tailwindcss, tailwindcss."
+description: 'ALWAYS use when writing code importing "@catppuccin/tailwindcss". Consult for debugging, best practices, or modifying @catppuccin/tailwindcss, catppuccin/tailwindcss, catppuccin tailwindcss, tailwindcss.'
 metadata:
   version: 1.0.0
   generated_by: Google · Gemini 2.5 Flash
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # catppuccin/tailwindcss `@catppuccin/tailwindcss@1.0.0`
+
 **Tags:** latest: 1.0.0, beta: 1.0.0-beta.2
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @catppuccin/tailwindcss` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @catppuccin/tailwindcss` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -25,6 +27,7 @@ This section documents version-specific API changes — prioritize recent major/
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Migrate to direct CSS import for Tailwind v4 compatibility: With the release of `@catppuccin/tailwindcss` v1.0.0, which supports Tailwind CSS v4, the recommended approach is to directly `@import` the desired Catppuccin flavour CSS files in your main stylesheet, as the traditional `tailwind.config.js` plugin configuration is no longer applicable. [source](./.skilld/releases/v1.0.0.md#v1.0.0-2025-07-26)

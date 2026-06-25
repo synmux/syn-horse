@@ -1,6 +1,6 @@
 ---
 name: nuxi-skilld
-description: "Nuxt CLI. ALWAYS use when writing code importing \"nuxi\". Consult for debugging, best practices, or modifying nuxi, cli."
+description: 'Nuxt CLI. ALWAYS use when writing code importing "nuxi". Consult for debugging, best practices, or modifying nuxi, cli.'
 metadata:
   version: 3.35.2
   generated_by: cached
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # nuxt/cli `nuxi@3.35.2`
+
 **Tags:** latest: 3.35.2
 
 **References:** [package.json](./.skilld/pkg/package.json) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p nuxi` instead of grepping `.skilld/` directories. Run `skilld search --guide -p nuxi` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API and command changes in nuxi v3.35.2 — prioritising recent major/minor releases and behavioural shifts.
@@ -38,9 +40,11 @@ This section documents version-specific API and command changes in nuxi v3.35.2 
 - NEW: `--nightly` flag for `nuxt init` — v3.28.0 added `--nightly` to scaffold projects using the latest nightly Nuxt build instead of stable releases [source](./.skilld/releases/v3.28.0.md#enhancements)
 
 **Also changed:** Shell completions via `@bomb.sh/tab` · Fuzzy search in module selection · `@clack/prompts` v4 upgrade · Clipboard migration (`copy-paste` replaces `clipboardy`) · NODE_COMPILE_CACHE auto-enable for ~3x faster CLI startup · Native fs.watch for config/env watching · Socket-based dev proxy (v3.18+ on Nuxt v4)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use `--profile` with `nuxt build` and `nuxt dev` to capture performance profiles for benchmarking — writes a V8 CPU profile and JSON report on exit; use `--profile=verbose` for a full console report [source](./.skilld/docs/raw/docs/4.x/api/commands/build.md:L214:226)

@@ -1,6 +1,6 @@
 ---
 name: ultracite-skilld
-description: "ALWAYS use when writing code importing \"ultracite\". Consult for debugging, best practices, or modifying ultracite."
+description: 'ALWAYS use when writing code importing "ultracite". Consult for debugging, best practices, or modifying ultracite.'
 metadata:
   version: 7.8.3
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # haydenbleasel/ultracite `ultracite@7.8.3`
+
 **Tags:** canary: 5.0.0--canary.162.3c1836f.0, latest: 7.8.3
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p ultracite` instead of grepping `.skilld/` directories. Run `skilld search --guide -p ultracite` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## ultracite API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -58,9 +60,11 @@ This section documents version-specific API changes — prioritize recent major/
 - BREAKING: Husky hook file restaging — v7.8.0 patch hardens generated Husky hook to use `git add -- "$file"` preventing option-shaped filenames from being interpreted as Git options [source](./.skilld/releases/ultracite@7.8.0.md#L19-L20)
 
 **Also changed:** Biome rule additions `suspicious/noDuplicateDependencies` (v7.7.0) · Oxlint + Stylelint rules added in v7.8.2 · ESLint preset consolidation and stale rule removals (v7.7.0) · Next.js preset `next-env.d.ts` override (v7.7.0) · Remix preset `routeTree.gen.ts` overrides (v7.7.0)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Ultracite v7.8.3 Best Practices
 
 ## Best Practices

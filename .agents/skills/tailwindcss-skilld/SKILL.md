@@ -1,6 +1,6 @@
 ---
 name: tailwindcss-skilld
-description: "ALWAYS use when writing code importing \"tailwindcss\". Consult for debugging, best practices, or modifying tailwindcss."
+description: 'ALWAYS use when writing code importing "tailwindcss". Consult for debugging, best practices, or modifying tailwindcss.'
 metadata:
   version: 4.3.1
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # tailwindlabs/tailwindcss `tailwindcss@4.3.1`
+
 **Tags:** next: 4.0.0, v3-lts: 3.4.19, latest: 4.3.1
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p tailwindcss` instead of grepping `.skilld/` directories. Run `skilld search --guide -p tailwindcss` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -50,9 +52,11 @@ This section documents version-specific API changes — prioritize recent major/
 - NEW: Color palettes — mauve, olive, mist, and taupe color palettes added to default theme in v4.2.0 [source](./.skilld/releases/v4.2.0.md#added)
 
 **Also changed:** `font-features-*` utility v4.2.0 · `PluginWithConfig` type export v4.3.0 · `@apply` with CSS mixins v4.3.1 · `@variant` in `addBase` v4.3.1 · `@source` symlink handling v4.3.1 · `@source` re-inclusion rules v4.3.1
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use type hints with arbitrary values when the prefix maps to multiple CSS properties — disambiguate `text-`, `font-`, and similar ambiguous prefixes by adding a data type like `text-(length:--my-var)` for font-size or `text-(color:--my-var)` for color [source](./.skilld/docs/adding-custom-styles.mdx#resolving-ambiguities)

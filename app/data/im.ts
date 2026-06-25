@@ -1,11 +1,11 @@
 export interface IMEntry {
-  name: string;
-  note: string;
-  ok: boolean;
+  name: string
+  note: string
+  ok: boolean
 }
 
 export const IM: IMEntry[] = [
   { name: "signal", note: "preferred. username syn.69. nice", ok: true },
   { name: "whatsapp", note: "fine. ask for my number", ok: true },
   { name: "telegram", note: "no. it's awful", ok: true },
-];
+]

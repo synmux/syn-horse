@@ -1,6 +1,6 @@
 ---
 name: lefthook-skilld
-description: "ALWAYS use when writing code importing \"lefthook\". Consult for debugging, best practices, or modifying lefthook."
+description: 'ALWAYS use when writing code importing "lefthook". Consult for debugging, best practices, or modifying lefthook.'
 metadata:
   version: 2.1.9
   generated_by: Google · Gemini 2.5 Flash
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # evilmartians/lefthook `lefthook@2.1.9`
+
 **Tags:** latest: 2.1.9
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p lefthook` instead of grepping `.skilld/` directories. Run `skilld search --guide -p lefthook` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -43,9 +45,11 @@ This section documents version-specific API changes — prioritize recent major/
 - BREAKING: `execute files command within configured root` (v1.8.0). [source](./.skilld/repos/evilmartians/lefthook/releases/CHANGELOG.md:L492)
 
 **Also changed:** `add timeout argument` (v2.0.16) · `add optional args to scripts` (v2.0.5) · `add optional standard glob matcher (doublestar)` (v2.0.4) · `fail_on_changes non-ci option` (v2.0.3) · `add $schema property` (v1.10.11) · `add custom plain templates` (v1.10.8) · `add schema.json to npm packages` (v1.10.7) · `add lefthook option for custom path or command` (v1.10.5) · `add validate command` (v1.10.2) · `inherit exclude option in groups` (v1.10.2) · `add ability to specify job names for command run` (v1.10.1) · `add jobs option` (v1.10.0) · `add option to skip running LFS hooks` (v1.8.5) · `add refetch_frequency parameter to settings` (v1.8.2) · `add skip option merge-commit` (v1.7.22) · `maintain Python package` (v1.7.21) · `add self-update command` (v1.7.6) · `use glob in exclude array` (v1.7.5) · `allow list of files in exclude option` (v1.7.3) · `add file type filters` (v1.6.10) · `add priorities to scripts` (v1.6.8) · `Add output setting` (v1.6.6) · `use configurable path to lefthook (LEFTHOOK_BIN)` (v1.6.6) · `add remotes and configs options` (v1.6.0) · `add replaces to all template and parse files from stdin` (v1.6.0) · `add priorities to commands` (v1.5.5) · `add force flag to run command` (v1.5.1) · `initial support for Swift Plugins` (v1.5.1) · `add interrupt (Ctrl-C) handling` (v1.5.0) · `add use_stdin option` (v1.4.11) · `add files, all-files, and commands flags` (v1.4.9) · `add assert_lefthook_installed option` (v1.4.8) · `support .lefthook.yml and .lefthook-local.yml` (v1.4.6) · `support toml dumpint` (v1.4.2) · `support json configs` (v1.4.2) · `allow dumping with JSON` (v1.4.1) · `add skip execution_info option` (v1.4.1) · `add adaptive colors` (v1.4.0) · `add dump command` (v1.4.0) · `add only option` (v1.3.13) · `add execution_out to skip output settings` (v1.3.11) · `implitic skip on missing files for pre-commit and pre-push hooks` (v1.3.6) · `add stage_fixed option` (v1.3.5) · `Skip unstaged changes for pre-commit hook` (v1.3.0) · `Allow following output` (v1.2.6) · `Add an option to disable spinner` (v1.2.5) · `Use pnpm before npx` (v1.2.5) · `Allow providing rc file` (v1.2.4) · `Expand env variables` (v1.2.3) · `Skip based on branch name and allow global skip rules` (v1.2.2) · `Add remote config support` (v1.2.0) · `Add LEFTHOOK_VERBOSE env` (v1.1.4) · `Allow setting env vars` (v1.1.3) · `Show current running command and script name(s)` (v1.1.3) · `Exclude by command names too` (v1.1.3) · `Pass stdin by default` (v1.1.2) · `Allow suppressing execution output` (v1.1.0) · `Add support for Git LFS` (v1.1.0) · `Add fail text option` (v1.1.0).
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Configure `refetch_frequency` for remotes with mutable references to ensure up-to-date configurations, using a frequency appropriate for the project, rather than relying on `never` or not setting it. [source](./.skilld/references/lefthook@2.1.9/docs/configuration/refetch_frequency.md#refetch_frequency)

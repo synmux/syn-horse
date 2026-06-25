@@ -1,6 +1,6 @@
 ---
 name: biomejs-biome-skilld
-description: "ALWAYS use when writing code importing \"@biomejs/biome\". Consult for debugging, best practices, or modifying @biomejs/biome, biomejs/biome, biomejs biome, biome."
+description: 'ALWAYS use when writing code importing "@biomejs/biome". Consult for debugging, best practices, or modifying @biomejs/biome, biomejs/biome, biomejs biome, biome.'
 metadata:
   version: 2.5.0
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # biomejs/biome `@biomejs/biome@2.5.0`
+
 **Tags:** nightly: 1.9.5-nightly.81fdedb, beta: 2.0.0-beta.6, latest: 2.5.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @biomejs/biome` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @biomejs/biome` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes for Biome v2.4.x (MINOR v2.4.0 released 2026-02-15; latest patch v2.4.16 released 2026-05-27). Note: v2.5.0 does not yet exist.
@@ -152,9 +154,11 @@ This section documents version-specific API changes for Biome v2.4.x (MINOR v2.4
 - NEW: Fatal errors can now include stacktrace when `RUST_BACKTRACE=1` environment variable is set. [source](./.skilld/releases/@biomejs/biome@2.4.0.md#minor-changes)
 
 **Also changed:** Support for formatting standalone interpolations in Vue/Svelte inline elements · Fixed Vue dynamic slot shorthand with template literals · Fixed Tailwind `@utility` parsing · Added `useConsistentEnumValueType` nursery rule · SCSS interpolation support in selectors, properties, attributes · Fixed `useComponentExportOnlyModules` TanStack Router patterns · Improved `useVueValidVOn` keyboard event handling · Improved `noSvgWithoutTitle` role support
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use `ignore` option in rules like `useHookAtTopLevel`, `noUnknownProperty`, `noUnknownFunction`, and `noUnknownPseudoClass` to customize which items don't trigger diagnostics — avoids disabling entire rules when only specific patterns should be exempt [source](./.skilld/releases/@biomejs/biome@2.4.0.md:L15:35)

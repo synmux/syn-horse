@@ -93,11 +93,7 @@ ul {
   inset: 0;
   pointer-events: none;
   z-index: 9997;
-  background: radial-gradient(
-    ellipse at center,
-    transparent 55%,
-    rgba(0, 0, 0, 0.55) 100%
-  );
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
 }
 
 /* ─── status bar (top) ───────────────────────────────────────── */

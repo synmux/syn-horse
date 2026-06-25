@@ -1,6 +1,6 @@
 ---
 name: uuid-skilld
-description: "ALWAYS use when writing code importing \"uuid\". Consult for debugging, best practices, or modifying uuid."
+description: 'ALWAYS use when writing code importing "uuid". Consult for debugging, best practices, or modifying uuid.'
 metadata:
   version: 14.0.0
   generated_by: Google · Gemini 2.5 Flash
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # uuidjs/uuid `uuid@14.0.0`
+
 **Tags:** latest: 14.0.0, legacy-13: 13.0.2, legacy-12: 12.0.1
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p uuid` instead of grepping `.skilld/` directories. Run `skilld search --guide -p uuid` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -30,9 +32,11 @@ This section documents version-specific API changes — prioritize recent major/
 - BREAKING: `drop node@16 support` — v12 dropped support for Node.js 16 [source](./.skilld/repos/uuidjs/uuid/releases/CHANGELOG.md:L11)
 
 Also changed: `add node@24 to ci matrix` new in v12 · `update TS types to allow Uint8Array subtypes for buffer option` new in v11.1
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## UUID v14.0.0 Best Practices
 
 ## Overview
@@ -72,4 +76,5 @@ The `uuid` package implements RFC9562 UUID generation and manipulation with supp
 ## Conclusion
 
 The uuid library provides a comprehensive suite of RFC9562-compliant functions for generating and manipulating UUIDs. Select the appropriate UUID version based on your requirements for randomness, determinism, and sortability, and use the utility functions to safely convert between representations.
+
 <!-- /skilld:best-practices -->

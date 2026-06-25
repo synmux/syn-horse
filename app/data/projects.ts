@@ -1,16 +1,16 @@
-export type ProjectTagKind = "hot" | "cool" | "lilac" | "warn";
+export type ProjectTagKind = "hot" | "cool" | "lilac" | "warn"
 
 export interface ProjectTag {
-  k?: ProjectTagKind;
-  l: string;
+  k?: ProjectTagKind
+  l: string
 }
 
 export interface Project {
-  desc: string;
-  name: string;
-  tags: ProjectTag[];
-  url: string;
-  yr: string;
+  desc: string
+  name: string
+  tags: ProjectTag[]
+  url: string
+  yr: string
 }
 
 export const PROJECTS: Project[] = [
@@ -70,17 +70,17 @@ export const PROJECTS: Project[] = [
     url: "github.com/synmux/tabby",
     tags: [{ l: "OSS" }, { l: "WEB" }],
   },
-];
+]
 
 // abandoned projects — revealed on /projects only when konami mode is active.
 // these are placeholders; swap in real dead projects. they link nowhere, so an
 // epitaph (cause of death) takes the place of a live project's url.
 export interface AbandonedProject {
-  desc: string;
-  epitaph: string;
-  name: string;
-  tags: ProjectTag[];
-  yr: string;
+  desc: string
+  epitaph: string
+  name: string
+  tags: ProjectTag[]
+  yr: string
 }
 
 export const ABANDONED_PROJECTS: AbandonedProject[] = [
@@ -119,4 +119,4 @@ export const ABANDONED_PROJECTS: AbandonedProject[] = [
     epitaph: "abandoned for the good of the neighbourhood",
     tags: [{ l: "ABANDONED", k: "warn" }, { l: "RAILS" }, { l: "POSTGRES" }],
   },
-];
+]

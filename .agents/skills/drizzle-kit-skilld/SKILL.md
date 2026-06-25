@@ -1,6 +1,6 @@
 ---
 name: drizzle-kit-skilld
-description: "ALWAYS use when writing code importing \"drizzle-kit\". Consult for debugging, best practices, or modifying drizzle-kit, drizzle kit, drizzle-orm, drizzle orm."
+description: 'ALWAYS use when writing code importing "drizzle-kit". Consult for debugging, best practices, or modifying drizzle-kit, drizzle kit, drizzle-orm, drizzle orm.'
 metadata:
   version: 0.31.10
   generated_by: Google · Gemini 2.5 Flash
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # drizzle-team/drizzle-orm `drizzle-kit@0.31.10`
+
 **Tags:** mysql-fixes: 0.16.9-dae8c3d, introspect-fixes: 0.17.0-7c10593, dan: 0.17.1-609a4f0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p drizzle-kit` instead of grepping `.skilld/` directories. Run `skilld search --guide -p drizzle-kit` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -28,9 +30,11 @@ This section documents version-specific API changes — prioritize recent major/
 - NEW: `driver: 'durable-sqlite'` for `sqlite` dialect in `defineConfig` - Added support for SQLite Durable Objects driver in v0.29.0. This new driver can be used with the `sqlite` dialect. [source](./.skilld/repos/drizzle-team/drizzle-orm/releases/drizzle-kit@0.29.0.md#new-drivers)
 
 **Also changed:** Enum DDL generation improvements in v0.31.0 · `esbuild` upgraded to `0.25.2` in v0.31.0
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Initialize Drizzle with your full schema object (or spread multiple schema files) when using relational queries to ensure all tables and relations are available. [source](./.skilld/docs/docs/rqb.md:L132-L135)

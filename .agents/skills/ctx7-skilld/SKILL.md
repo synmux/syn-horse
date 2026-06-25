@@ -1,6 +1,6 @@
 ---
 name: ctx7-skilld
-description: "ALWAYS use when writing code importing \"ctx7\". Consult for debugging, best practices, or modifying ctx7, context7."
+description: 'ALWAYS use when writing code importing "ctx7". Consult for debugging, best practices, or modifying ctx7, context7.'
 metadata:
   version: 0.5.2
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # upstash/context7 `ctx7@0.5.2`
+
 **Tags:** canary: 0.2.4-canary.0, latest: 0.5.2
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p ctx7` instead of grepping `.skilld/` directories. Run `skilld search --guide -p ctx7` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -54,9 +56,11 @@ This section documents version-specific API changes — prioritize recent major/
 - ENHANCED: `ctx7 setup --api-key` behavior — v0.4.5 adds prompt to choose between MCP server and CLI + Skills modes when passing `--api-key` without explicit mode flag. Explicit `--mcp` / `--cli` / `--stdio` / `--oauth` / `-y` still skip the prompt [source](./.skilld/releases/ctx7@0.4.5.md:L12)
 
 **Also changed:** Skill command deprecation warning added v0.4.5 · `@inquirer/core` declared as direct dependency v0.4.3 · MCP config parse error handling v0.4.2 · `CLAUDE_CONFIG_DIR` env var respected v0.4.2 · Skill name character set restricted v0.4.3 · Dependency bumps: `commander` 13→15, `ora` 9.0→9.4 in v0.5.2
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Context7 Best Practices
 
 ## Best Practices

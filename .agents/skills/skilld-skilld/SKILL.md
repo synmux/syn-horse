@@ -1,6 +1,6 @@
 ---
 name: skilld-skilld
-description: "Generate AI agent skills from npm package documentation. ALWAYS use when writing code importing \"skilld\". Consult for debugging, best practices, or modifying skilld."
+description: 'Generate AI agent skills from npm package documentation. ALWAYS use when writing code importing "skilld". Consult for debugging, best practices, or modifying skilld.'
 metadata:
   version: 2.0.0
   generated_by: cached
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # skilld-dev/skilld `skilld@2.0.0`
+
 **Tags:** latest: 2.0.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p skilld` instead of grepping `.skilld/` directories. Run `skilld search --guide -p skilld` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases to understand what's new in v2.0.0.
@@ -48,9 +50,11 @@ This section documents version-specific API changes — prioritize recent major/
 - NEW: LLM-generated sections — skills now support optional sections for Best Practices, API Changes, and custom prompts curated by LLMs instead of raw docs [source](./.skilld/pkg/README.md:L34)
 
 **Also changed:** Dangling symlink handling · Isolated lockfile cache copies · Skip LLM on full cache hit · jsonc-parser for surgical edits
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Be selective about skill installation — only add skills for packages your agent actually struggles with, not every dependency. Unnecessary skills add context overhead without benefit [source](./.skilld/docs/index.md#what-should-your-agent-be-better-at)
@@ -65,7 +69,7 @@ This section documents version-specific API changes — prioritize recent major/
 
 - Target specific agents with `skilld add npm:package --agent claude-code` (or cursor, gemini-cli, etc.) to install skills into the right agent directory without manual setup [source](./.skilld/../README.md:L165)
 
-- For no-agent workflows, choose "No agent" when prompted — you get a base SKILL.md immediately, plus PROMPT_*.md files you can paste into ChatGPT/Claude web, then assemble the outputs with `skilld author assemble` [source](./.skilld/../README.md:L59:L66)
+- For no-agent workflows, choose "No agent" when prompted — you get a base SKILL.md immediately, plus PROMPT\_\*.md files you can paste into ChatGPT/Claude web, then assemble the outputs with `skilld author assemble` [source](./.skilld/../README.md:L59:L66)
 
 - Use `--force` flag when debugging skill generation or cache issues — it clears all caches and regenerates from scratch, avoiding stale LLM output or partial doc fetches [source](./.skilld/../README.md:L245)
 

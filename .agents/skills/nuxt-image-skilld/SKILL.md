@@ -1,6 +1,6 @@
 ---
 name: nuxt-image-skilld
-description: "ALWAYS use when writing code importing \"@nuxt/image\". Consult for debugging, best practices, or modifying @nuxt/image, nuxt/image, nuxt image, image."
+description: 'ALWAYS use when writing code importing "@nuxt/image". Consult for debugging, best practices, or modifying @nuxt/image, nuxt/image, nuxt image, image.'
 metadata:
   version: 2.0.0
   generated_by: Google · Gemini 2.5 Flash
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # nuxt/image `@nuxt/image@2.0.0`
+
 **Tags:** rc: 1.0.0-rc.3, alpha: 2.0.0-alpha.1, latest: 2.0.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @nuxt/image` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @nuxt/image` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -50,9 +52,11 @@ This section documents version-specific API changes — prioritize recent major/
 - NEW: IPX v3 — Upgraded to IPX v3 for better performance and `sharp` binary handling [source](./.skilld/repos/nuxt/image/releases/v2.0.0.md#ipx-v3)
 
 **Also changed:** `ipx`: Pass all options changed in v1.0.0 [source](./.skilld/repos/nuxt/image/releases/CHANGELOG.md#v100) · `ipx` migrate to v2 in v1.0.0-rc.3 [source](./.skilld/repos/nuxt/image/releases/CHANGELOG.md#v100-rc3) · `sizes` default changed to responsive-first in v1.0.0-rc.2 [source](./.skilld/repos/nuxt/image/releases/CHANGELOG.md#v100-rc2)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Avoid new Netlify Large Media configuration for `nuxt/image` as it is deprecated; existing configurations will continue to work but new setups are not recommended. [source](./.skilld/references/@nuxt/image@2.0.0/docs/content/3.providers/netlify.md:L62)

@@ -1,6 +1,6 @@
 ---
 name: nuxt-gtag-skilld
-description: "ALWAYS use when writing code importing \"nuxt-gtag\". Consult for debugging, best practices, or modifying nuxt-gtag, nuxt gtag."
+description: 'ALWAYS use when writing code importing "nuxt-gtag". Consult for debugging, best practices, or modifying nuxt-gtag, nuxt gtag.'
 metadata:
   version: 4.1.0
   generated_by: Google · Gemini 2.5 Flash
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # johannschopplich/nuxt-gtag `nuxt-gtag@4.1.0`
+
 **Tags:** latest: 4.1.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p nuxt-gtag` instead of grepping `.skilld/` directories. Run `skilld search --guide -p nuxt-gtag` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -28,9 +30,11 @@ This section documents version-specific API changes — prioritize recent major/
 - BREAKING: `initMode` for manual Gtag initialization — the `enabled` option is replaced by `initMode: 'manual'` for manual initialization; `enabled` now disables the module per environment. [source](./.skilld/releases/v3.0.0.md#breaking-changes)
 
 **Also changed:** `enabled` option repurposed for environment-specific module disabling [source](./.skilld/releases/v3.0.0.md#migration)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use `useTrackEvent` outside of `onMounted` hooks to ensure it is SSR-ready. [source](./.skilld/repos/johannschopplich/nuxt-gtag/discussions/discussion-26.md:L22)
@@ -58,6 +62,7 @@ This section documents version-specific API changes — prioritize recent major/
 - When migrating to v3+, replace the `enabled` option with `initMode: 'manual'` in `nuxt.config.ts` for manual Gtag initialization. [source](./.skilld/repos/johannschopplich/nuxt-gtag/releases/v3.0.0.md:L15:27)
 
 - To disable tracking on localhost, unset the Gtag ID during development by using the `$development` environment specific configuration in `nuxt.config.ts`, setting `gtag.id` to `undefined`.
+
 ```ts
 // `nuxt.config.ts`
 export default defineNuxtConfig({
@@ -65,15 +70,16 @@ export default defineNuxtConfig({
 
   $development: {
     gtag: {
-      id: undefined,
-    },
+      id: undefined
+    }
   },
 
   gtag: {
-    id: "G-XXXXXXXXXX",
-  },
-});
+    id: "G-XXXXXXXXXX"
+  }
+})
 ```
+
 [source](./.skilld/repos/johannschopplich/nuxt-gtag/discussions/discussion-20.md:L22:33)
 
 - When using manual initialization with consent, ensure `initCommands` are set for default consent and `initialize(id)` is called to load gtag.js after consent is managed. [source](./.skilld/repos/johannschopplich/nuxt-gtag/issues/issue-97.md:L23:27)

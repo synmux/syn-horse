@@ -1,13 +1,13 @@
-export type DomainStatus = "ok" | "warn" | "park";
-export type DomainCls = "" | "alt" | "alt2" | "alt3";
+export type DomainStatus = "ok" | "warn" | "park"
+export type DomainCls = "" | "alt" | "alt2" | "alt3"
 
 export interface Domain {
-  base: string;
-  cls: DomainCls;
-  desc: string;
-  status: DomainStatus;
-  statusText: string;
-  tld: string;
+  base: string
+  cls: DomainCls
+  desc: string
+  status: DomainStatus
+  statusText: string
+  tld: string
 }
 
 export const DOMAINS: Domain[] = [
@@ -51,4 +51,4 @@ export const DOMAINS: Domain[] = [
     status: "warn",
     statusText: "live · niche",
   },
-];
+]

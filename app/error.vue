@@ -1,18 +1,16 @@
 <script setup lang="ts">
-  import { computed } from "vue";
-  import type { NuxtError } from "#app";
+import { computed } from "vue"
+import type { NuxtError } from "#app"
 
-  const props = defineProps<{ error: NuxtError }>();
-  const isFourOhFour = computed(() => props.error?.statusCode === 404);
+const props = defineProps<{ error: NuxtError }>()
+const isFourOhFour = computed(() => props.error?.statusCode === 404)
 </script>
 
 <template>
   <NuxtLayout name="default">
     <NotFound v-if="isFourOhFour" />
     <section v-else class="page-shell generic-error">
-      <div class="eyebrow">
-        ▶ /error · status {{ error.statusCode || "unknown" }}
-      </div>
+      <div class="eyebrow">▶ /error · status {{ error.statusCode || "unknown" }}</div>
       <h1>{{ error.statusCode || "error" }}<span class="dot">.</span></h1>
       <p class="lede">
         {{ error.statusMessage || "something broke. sorry about that." }}

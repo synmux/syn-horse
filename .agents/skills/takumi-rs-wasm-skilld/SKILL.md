@@ -1,6 +1,6 @@
 ---
 name: takumi-rs-wasm-skilld
-description: "ALWAYS use when writing code importing \"@takumi-rs/wasm\". Consult for debugging, best practices, or modifying @takumi-rs/wasm, takumi-rs/wasm, takumi-rs wasm, takumi rs wasm, takumi."
+description: 'ALWAYS use when writing code importing "@takumi-rs/wasm". Consult for debugging, best practices, or modifying @takumi-rs/wasm, takumi-rs/wasm, takumi-rs wasm, takumi rs wasm, takumi.'
 metadata:
   version: 1.8.5
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # kane50613/takumi `@takumi-rs/wasm@1.8.5`
+
 **Tags:** beta: 1.0.0-beta.20, rc: 1.0.0-rc.17, latest: 1.8.5
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @takumi-rs/wasm` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @takumi-rs/wasm` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes for @takumi-rs/wasm — prioritise recent major/minor releases.
@@ -26,9 +28,11 @@ This section documents version-specific API changes for @takumi-rs/wasm — prio
 - OPTIMIZATION: Binary size reduction — v1.8.0 built with nightly Rust toolchain with `panic=immediate-abort` to reduce WASM binary size [source](./.skilld/releases/@takumi-rs/wasm@1.8.0.md:L11)
 
 **Also changed:** SIMD configuration fixes (v1.8.2)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices for @takumi-rs/wasm v1.8.5
 
 ## Performance & Optimization

@@ -1,6 +1,6 @@
 ---
 name: nuxt-content-skilld
-description: "ALWAYS use when writing code importing \"@nuxt/content\". Consult for debugging, best practices, or modifying @nuxt/content, nuxt/content, nuxt content, content."
+description: 'ALWAYS use when writing code importing "@nuxt/content". Consult for debugging, best practices, or modifying @nuxt/content, nuxt/content, nuxt content, content.'
 metadata:
   version: 3.14.0
   generated_by: Google · Gemini 2.5 Flash
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # nuxt/content `@nuxt/content@3.14.0`
+
 **Tags:** next: 3.0.0-alpha.8, alpha: 3.0.0-alpha.9, latest: 3.14.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @nuxt/content` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @nuxt/content` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -57,6 +59,7 @@ This section documents version-specific API changes — prioritize recent major/
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - If you are using multiple themes for syntax highlighting, it's recommended to always have a `default` theme specified. [source](./.skilld/references/@nuxt/content@3.14.0/docs/content/docs/1.getting-started/3.configuration.md:L177)

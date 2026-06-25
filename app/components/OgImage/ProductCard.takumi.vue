@@ -1,22 +1,20 @@
 <script setup>
-  defineProps({
-    colorMode: { type: String, required: false, default: "light" },
-    productName: { type: String, required: false, default: "Product Name" },
-    price: { type: String, required: false, default: "$99" },
-    description: {
-      type: String,
-      required: false,
-      default: "A fantastic product that solves your problems",
-    },
-    image: { type: String, required: false, default: "/images/self/self.jpg" },
-    brand: { type: String, required: false, default: "Brand" },
-  });
+defineProps({
+  colorMode: { type: String, required: false, default: "light" },
+  productName: { type: String, required: false, default: "Product Name" },
+  price: { type: String, required: false, default: "$99" },
+  description: {
+    type: String,
+    required: false,
+    default: "A fantastic product that solves your problems"
+  },
+  image: { type: String, required: false, default: "/images/self/self.jpg" },
+  brand: { type: String, required: false, default: "Brand" }
+})
 </script>
 
 <template>
-  <div
-    class="w-full h-full flex p-10 items-center justify-center bg-neutral-100 dark:bg-neutral-800"
-  >
+  <div class="w-full h-full flex p-10 items-center justify-center bg-neutral-100 dark:bg-neutral-800">
     <div
       class="w-full h-full flex overflow-hidden bg-white dark:bg-neutral-900"
       style="border-radius: 32px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08)"
@@ -25,22 +23,11 @@
         class="flex-1 flex items-center justify-center p-10 bg-neutral-50 dark:bg-neutral-800"
         style="border-top-left-radius: 32px; border-bottom-left-radius: 32px"
       >
-        <img
-          v-if="image"
-          :src="image"
-          alt="Product"
-          style="width: 200px; height: 200px; object-fit: contain"
-        >
+        <img v-if="image" :src="image" alt="Product" style="width: 200px; height: 200px; object-fit: contain" />
       </div>
-      <div
-        class="flex-1 flex flex-col justify-center"
-        style="padding: 50px 60px"
-      >
+      <div class="flex-1 flex flex-col justify-center" style="padding: 50px 60px">
         <div class="flex flex-col gap-2">
-          <span
-            class="text-[22px] font-bold uppercase text-blue-600"
-            style="letter-spacing: 0.1em"
-          >
+          <span class="text-[22px] font-bold uppercase text-blue-600" style="letter-spacing: 0.1em">
             {{ brand }}
           </span>
           <span

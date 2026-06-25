@@ -1,50 +1,50 @@
 <script setup lang="ts">
-  import { computed } from "vue";
-  import { useRoute } from "vue-router";
-  import { useClock } from "~/composables/useClock";
-  import { useTime } from "~/composables/useTime";
-  import { SITE } from "~/data/site";
+import { computed } from "vue"
+import { useRoute } from "vue-router"
+import { useClock } from "~/composables/useClock"
+import { useTime } from "~/composables/useTime"
+import { SITE } from "~/data/site"
 
-  const route = useRoute();
-  const { now } = useTime();
+const route = useRoute()
+const { now } = useTime()
 
-  const runtimeConfig = useRuntimeConfig();
-  const buildTimeRaw = runtimeConfig.public.buildTime as string;
-  const commitHash = runtimeConfig.public.commitHash as string;
-  const commitUrl = `${SITE.github}/commit/${commitHash}`;
-  const buildTimeMs = (() => {
-    const parsed = new Date(buildTimeRaw).getTime();
-    return Number.isNaN(parsed) ? null : parsed;
-  })();
+const runtimeConfig = useRuntimeConfig()
+const buildTimeRaw = runtimeConfig.public.buildTime as string
+const commitHash = runtimeConfig.public.commitHash as string
+const commitUrl = `${SITE.github}/commit/${commitHash}`
+const buildTimeMs = (() => {
+  const parsed = new Date(buildTimeRaw).getTime()
+  return Number.isNaN(parsed) ? null : parsed
+})()
 
-  const utc = useClock(now, "UTC");
-  const jfk = useClock(now, "America/New_York");
-  const lhr = useClock(now, "Europe/London");
+const utc = useClock(now, "UTC")
+const jfk = useClock(now, "America/New_York")
+const lhr = useClock(now, "Europe/London")
 
-  const buildAge = computed(() => {
-    if (!now.value || buildTimeMs === null) {
-      return "";
-    }
-    const diffMs = now.value.getTime() - buildTimeMs;
-    const minutes = Math.max(Math.floor(diffMs / 60_000), 0);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    if (days >= 1) {
-      return `${days}d ago`;
-    }
-    if (hours >= 1) {
-      return `${hours}h ago`;
-    }
-    return `${minutes}m ago`;
-  });
+const buildAge = computed(() => {
+  if (!now.value || buildTimeMs === null) {
+    return ""
+  }
+  const diffMs = now.value.getTime() - buildTimeMs
+  const minutes = Math.max(Math.floor(diffMs / 60_000), 0)
+  const hours = Math.floor(minutes / 60)
+  const days = Math.floor(hours / 24)
+  if (days >= 1) {
+    return `${days}d ago`
+  }
+  if (hours >= 1) {
+    return `${hours}h ago`
+  }
+  return `${minutes}m ago`
+})
 
-  const slug = computed(() => {
-    const p = route.path;
-    if (p === "/") {
-      return "home";
-    }
-    return p.replace(/^\//, "").replace(/\/.*$/, "") || "home";
-  });
+const slug = computed(() => {
+  const p = route.path
+  if (p === "/") {
+    return "home"
+  }
+  return p.replace(/^\//, "").replace(/\/.*$/, "") || "home"
+})
 </script>
 
 <template>
@@ -99,13 +99,9 @@
       </ClientOnly>
     </span>
     <span class="hidden md:block">
-      <a
-        :href="commitUrl"
-        target="_blank"
-        rel="noopener"
-        class="text-paper-2 tabular-nums hover:text-cool"
-        >{{ commitHash }}</a
-      >
+      <a :href="commitUrl" target="_blank" rel="noopener" class="text-paper-2 tabular-nums hover:text-cool">{{
+        commitHash
+      }}</a>
     </span>
   </div>
 </template>

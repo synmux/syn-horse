@@ -141,9 +141,7 @@
   --animate-scan-flicker: scan-flicker 4s ease-in-out infinite;
   --animate-grain-shift: grain-shift 1.2s steps(6) infinite;
   --animate-glitch-strong: glitch-strong 2.4s steps(8) infinite;
-  --animate-konami:
-    konami-in 0.3s cubic-bezier(0.2, 0.9, 0.2, 1),
-    konami-jitter 0.12s steps(2) infinite;
+  --animate-konami: konami-in 0.3s cubic-bezier(0.2, 0.9, 0.2, 1), konami-jitter 0.12s steps(2) infinite;
 }
 
 /* =====================================================================
@@ -1366,11 +1364,7 @@
     inset: 0;
     z-index: 9997;
     pointer-events: none;
-    background: radial-gradient(
-      ellipse at center,
-      transparent 55%,
-      rgb(0 0 0 / 0.55) 100%
-    );
+    background: radial-gradient(ellipse at center, transparent 55%, rgb(0 0 0 / 0.55) 100%);
   }
 
   /* chromatic aberration on hover for any element marked .fx-glitch */

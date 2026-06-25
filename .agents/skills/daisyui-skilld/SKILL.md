@@ -1,6 +1,6 @@
 ---
 name: daisyui-skilld
-description: "ALWAYS use when writing code importing \"daisyui\". Consult for debugging, best practices, or modifying daisyui."
+description: 'ALWAYS use when writing code importing "daisyui". Consult for debugging, best practices, or modifying daisyui.'
 metadata:
   version: 5.5.23
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # saadeghi/daisyui `daisyui@5.5.23`
+
 **Tags:** alpha: 5.0.0-alpha.61, beta: 5.5.1-beta.2, latest: 5.5.23
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p daisyui` instead of grepping `.skilld/` directories. Run `skilld search --guide -p daisyui` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -64,14 +66,16 @@ This section documents version-specific API changes — prioritize recent major/
 - NEW: `FAB` / Speed Dial component (v5.1.0) — floating action button with expanded menu [source](./.skilld/releases/CHANGELOG.md#510-2025-09-01)
 
 **Also changed:** `skeleton-text` new variant · `dropdown-close` new modifier · `is-drawer-open` and `is-drawer-close` variants · native HTML `<select>` styled element (v5.1.0) · `prefers-reduced-motion` support for all animations · `alert-outline`, `alert-dash`, `alert-soft` · `alert-vertical`, `alert-horizontal` · `btn-dash`, `btn-soft`, `btn-xl` · `badge-dash`, `badge-soft`, `badge-xl` · `card-dash`, `card-xs/sm/md/lg/xl` · `card-compact` removed use `card-sm` · `card-bordered` renamed `card-border` · `file-input-xl` · `input-xl` · `kbd-xl` · `label` refactored for form compatibility · `loading-xl` · `mask-parallelogram*` removed · `menu-xl` · `modal-start`, `modal-end` · `radio-xl` · `range-xl` · `select-xl` · `stack` uses CSS grid with `stack-bottom/top/start/end` · `step-icon` class · `tab-xl`, `tabs-top`, `tabs-bottom` · `table-xl` · `toggle-xl`, `toggle-neutral` · `tooltip-content` class for HTML content · `dropdown` now uses CSS `@starting-style` and `display` instead of `visibility` · `modal` uses CSS `@starting-style` · `diff` requires `tabindex="0"` for iOS and keyboard navigation
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
-- Use semantic color names (`primary`, `secondary`, `accent`, `success`, `warning`, `error`, `info`, `base`) instead of Tailwind's raw color names for all components and utilities—this ensures theme changes propagate automatically across your entire site without element-by-element overrides [source](./.skilld/docs/src/routes/(routes)/blog/(posts)/daisyui-colors-and-themes/+page.md#solution-semantic-color-names-and-css-variables)
+- Use semantic color names (`primary`, `secondary`, `accent`, `success`, `warning`, `error`, `info`, `base`) instead of Tailwind's raw color names for all components and utilities—this ensures theme changes propagate automatically across your entire site without element-by-element overrides [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/daisyui-colors-and-themes/+page.md#solution-semantic-color-names-and-css-variables>)
 
-- Apply theme customisation via `@plugin "daisyui/theme"` blocks to define variables per theme—enables switching between multiple complete design systems (light, dark, branded) without adding class names to any HTML elements [source](./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-add-new-colors-to-daisyui/+page.md:L40:L70)
+- Apply theme customisation via `@plugin "daisyui/theme"` blocks to define variables per theme—enables switching between multiple complete design systems (light, dark, branded) without adding class names to any HTML elements [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-add-new-colors-to-daisyui/+page.md:L40:L70>)
 
 ```css
 @plugin "daisyui/theme" {
@@ -82,24 +86,21 @@ This section documents version-specific API changes — prioritize recent major/
 }
 ```
 
-- Define custom colour names in a `@theme` block before using them in daisyUI theme plugins—ensures Tailwind generates the utility classes and daisyUI can override them per theme [source](./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-add-new-colors-to-daisyui/+page.md:L20:L35)
+- Define custom colour names in a `@theme` block before using them in daisyUI theme plugins—ensures Tailwind generates the utility classes and daisyUI can override them per theme [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-add-new-colors-to-daisyui/+page.md:L20:L35>)
 
-- Never use dynamic class name templates like `btn-{{ type }}` in HTML—Tailwind scans for literal class strings during the build, so computed class names generate no CSS, even if they worked in dev [source](./.skilld/docs/src/routes/(routes)/blog/(posts)/most-common-mistake-when-using-tailwind-css/+page.md#the-mistake)
+- Never use dynamic class name templates like `btn-{{ type }}` in HTML—Tailwind scans for literal class strings during the build, so computed class names generate no CSS, even if they worked in dev [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/most-common-mistake-when-using-tailwind-css/+page.md#the-mistake>)
 
-- Switch themes by setting `data-theme` on a parent element instead of changing classes—daisyUI uses CSS variable cascading to apply theme colours to all descendants without rebuilding the DOM [source](./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-add-new-colors-to-daisyui/+page.md:L95:L110)
+- Switch themes by setting `data-theme` on a parent element instead of changing classes—daisyUI uses CSS variable cascading to apply theme colours to all descendants without rebuilding the DOM [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-add-new-colors-to-daisyui/+page.md:L95:L110>)
 
-- Use the `theme-controller` class on checkbox or radio inputs for CSS-only theme toggling—pairs with `value` attribute to match a theme name; persist the choice in localStorage or a server session if needed [source](./.skilld/docs/src/routes/(routes)/components/theme-controller/+page.md#description)
+- Use the `theme-controller` class on checkbox or radio inputs for CSS-only theme toggling—pairs with `value` attribute to match a theme name; persist the choice in localStorage or a server session if needed [source](<./.skilld/docs/src/routes/(routes)/components/theme-controller/+page.md#description>)
 
-- Customize component appearance via CSS variable overrides (e.g., `--color-primary`, `--radius-field`, `--size-selector`) rather than rebuilding utility classes—variables are the intent and maintainers ensure all components respond to them [source](./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-add-new-colors-to-daisyui/+page.md:L40:L70)
+- Customize component appearance via CSS variable overrides (e.g., `--color-primary`, `--radius-field`, `--size-selector`) rather than rebuilding utility classes—variables are the intent and maintainers ensure all components respond to them [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-add-new-colors-to-daisyui/+page.md:L40:L70>)
 
-- Guard dynamic Tailwind class names with a safelist in `tailwind.config.js`—lists literal classes or regex patterns that must survive purging when you can't hardcode them as strings [source](./.skilld/docs/src/routes/(routes)/blog/(posts)/most-common-mistake-when-using-tailwind-css/+page.md#solution-2-a-safelist-file)
+- Guard dynamic Tailwind class names with a safelist in `tailwind.config.js`—lists literal classes or regex patterns that must survive purging when you can't hardcode them as strings [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/most-common-mistake-when-using-tailwind-css/+page.md#solution-2-a-safelist-file>)
 
 ```js
 module.exports = {
-  safelist: [
-    "btn-primary",
-    { pattern: /bg-(red|green|blue)-(400|500|600)/ },
-  ],
+  safelist: ["btn-primary", { pattern: /bg-(red|green|blue)-(400|500|600)/ }]
 }
 ```
 
@@ -109,7 +110,7 @@ module.exports = {
 
 - Define font families in theme plugins using `--font-*` variables rather than utility class overrides—ensures all text elements respect the theme's typography system [source](./.skilld/repos/saadeghi/daisyui/discussions/discussion-4401.md)
 
-- Avoid arbitrary colour utilities like `bg-[#ff00ff]` for semantic state colours—use theme variables instead so theme switching actually changes the colour, not just the token name [source](./.skilld/docs/src/routes/(routes)/blog/(posts)/daisyui-colors-and-themes/+page.md#semantic-color-names-make-more-sense)
+- Avoid arbitrary colour utilities like `bg-[#ff00ff]` for semantic state colours—use theme variables instead so theme switching actually changes the colour, not just the token name [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/daisyui-colors-and-themes/+page.md#semantic-color-names-make-more-sense>)
 
 - Read the official blog guides for framework-specific patterns (React, Vue, Svelte, etc.)—each framework has unique considerations for theme persistence, server-side rendering, and state management [source](./.skilld/docs/_INDEX.md)
 <!-- /skilld:best-practices -->

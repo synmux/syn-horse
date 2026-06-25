@@ -1,6 +1,6 @@
 ---
 name: nuxt-fonts-skilld
-description: "ALWAYS use when writing code importing \"@nuxt/fonts\". Consult for debugging, best practices, or modifying @nuxt/fonts, nuxt/fonts, nuxt fonts, fonts."
+description: 'ALWAYS use when writing code importing "@nuxt/fonts". Consult for debugging, best practices, or modifying @nuxt/fonts, nuxt/fonts, nuxt fonts, fonts.'
 metadata:
   version: 0.14.0
   generated_by: Google · Gemini 2.5 Flash
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # nuxt/fonts `@nuxt/fonts@0.14.0`
+
 **Tags:** latest: 0.14.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @nuxt/fonts` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @nuxt/fonts` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -37,6 +39,7 @@ This section documents version-specific API changes — prioritize recent major/
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Prioritize `woff2` format by default, as it's universally supported and reduces CSS size, making it the default resolution format for `@nuxt/fonts`. [source: `./.skilld/references/@nuxt/fonts@0.14.0/docs/content/1.get-started/5.upgrade.md#default-font-format-is-now-woff2-only`]

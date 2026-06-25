@@ -5,4 +5,4 @@ export const SITE = {
   url: "https://syn.horse",
   github: "https://github.com/synmux/syn-horse",
   feed: "/feed.xml",
-} as const;
+} as const

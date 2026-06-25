@@ -1,25 +1,25 @@
 /* syn.horse — screen components */
 
-const { useState, useEffect, useRef, useMemo } = React;
+const { useState, useEffect, useRef, useMemo } = React
 
 // ─── Status bar (top, with clock + uptime) ────────────────────
 function StatusBar({ route }) {
-  const [now, setNow] = useState(() => new Date());
-  const startRef = useRef(Date.now());
-  const [uptime, setUptime] = useState("00:00:00");
+  const [now, setNow] = useState(() => new Date())
+  const startRef = useRef(Date.now())
+  const [uptime, setUptime] = useState("00:00:00")
   useEffect(() => {
     const t = setInterval(() => {
-      setNow(new Date());
-      const ms = Date.now() - startRef.current;
-      const s = Math.floor(ms / 1000);
-      const hh = String(Math.floor(s / 3600)).padStart(2, "0");
-      const mm = String(Math.floor((s % 3600) / 60)).padStart(2, "0");
-      const ss = String(s % 60).padStart(2, "0");
-      setUptime(`${hh}:${mm}:${ss}`);
-    }, 1000);
-    return () => clearInterval(t);
-  }, []);
-  const time = now.toISOString().slice(11, 19);
+      setNow(new Date())
+      const ms = Date.now() - startRef.current
+      const s = Math.floor(ms / 1000)
+      const hh = String(Math.floor(s / 3600)).padStart(2, "0")
+      const mm = String(Math.floor((s % 3600) / 60)).padStart(2, "0")
+      const ss = String(s % 60).padStart(2, "0")
+      setUptime(`${hh}:${mm}:${ss}`)
+    }, 1000)
+    return () => clearInterval(t)
+  }, [])
+  const time = now.toISOString().slice(11, 19)
   return (
     <div className="statusbar">
       <span>
@@ -41,7 +41,7 @@ function StatusBar({ route }) {
       </span>
       <span>v0.3.1-syn</span>
     </div>
-  );
+  )
 }
 
 // ─── Nav ──────────────────────────────────────────────────────
@@ -53,8 +53,8 @@ function Nav({ active, go }) {
     { id: "blog", label: "blog" },
     { id: "cv", label: "cv" },
     { id: "domains", label: "domains" },
-    { id: "contact", label: "contact" },
-  ];
+    { id: "contact", label: "contact" }
+  ]
   return (
     <nav className="nav">
       <div className="brand fx-glitch" onClick={() => go("home")}>
@@ -67,12 +67,7 @@ function Nav({ active, go }) {
       {tabs.map((t) => (
         <button
           key={t.id}
-          className={
-            "tab fx-glitch " +
-            (active === t.id || (active === "post" && t.id === "blog")
-              ? "active"
-              : "")
-          }
+          className={"tab fx-glitch " + (active === t.id || (active === "post" && t.id === "blog") ? "active" : "")}
           onClick={() => go(t.id)}
         >
           {t.label}
@@ -82,7 +77,7 @@ function Nav({ active, go }) {
         press <kbd>/</kbd>
       </span>
     </nav>
-  );
+  )
 }
 
 // ─── HOME ─────────────────────────────────────────────────────
@@ -98,9 +93,8 @@ function HomeCalm({ go, status }) {
         things<span className="accent">.</span>
       </h1>
       <p className="sub">
-        i'm <b>syn</b>. devops engineer and general-purpose nerd. i write
-        occasionally, ship occasionally, and have a lot of opinions about
-        prometheus.
+        i'm <b>syn</b>. devops engineer and general-purpose nerd. i write occasionally, ship occasionally, and have a
+        lot of opinions about prometheus.
       </p>
       <div className="now-bar">
         <span className="pulse"></span>
@@ -141,18 +135,14 @@ function HomeCalm({ go, status }) {
         <a href="https://basilisk.gallery/@dave" target="_blank" rel="noopener">
           mastodon
         </a>
-        <a
-          href="https://bsky.app/profile/syn.horse"
-          target="_blank"
-          rel="noopener"
-        >
+        <a href="https://bsky.app/profile/syn.horse" target="_blank" rel="noopener">
           bluesky
         </a>
         <a
           href="#"
           onClick={(e) => {
-            e.preventDefault();
-            go("contact");
+            e.preventDefault()
+            go("contact")
           }}
         >
           contact
@@ -160,8 +150,8 @@ function HomeCalm({ go, status }) {
         <a
           href="#"
           onClick={(e) => {
-            e.preventDefault();
-            go("domains");
+            e.preventDefault()
+            go("domains")
           }}
         >
           the syn.* domains
@@ -173,7 +163,7 @@ function HomeCalm({ go, status }) {
         <span>no analytics · no newsletter · no we</span>
       </div>
     </div>
-  );
+  )
 }
 
 function HomeFeral({ go, status }) {
@@ -189,13 +179,11 @@ function HomeFeral({ go, status }) {
     "no analytics",
     "◆ NO WE",
     "do not subscribe",
-    "◆ ask me about meshtastic",
-  ];
+    "◆ ask me about meshtastic"
+  ]
   return (
     <div className="container home feral">
-      <div className="eyebrow">
-        ▶ syn · they/them · last seen: {new Date().toISOString().slice(0, 10)}
-      </div>
+      <div className="eyebrow">▶ syn · they/them · last seen: {new Date().toISOString().slice(0, 10)}</div>
       <h1>
         <span className="l1">devops</span>
         <span className="l2">engineer.</span>
@@ -216,8 +204,8 @@ function HomeFeral({ go, status }) {
         </div>
       </div>
       <p className="sub" style={{ marginTop: 32 }}>
-        terraform, nomad, cloudflare. a homelab. a meshtastic node on a ridge in
-        wales. <b>currently shouting at git.</b>
+        terraform, nomad, cloudflare. a homelab. a meshtastic node on a ridge in wales.{" "}
+        <b>currently shouting at git.</b>
       </p>
       <div className="grid three" style={{ marginTop: 36 }}>
         <div className="card fx-glitch" onClick={() => go("now")}>
@@ -260,12 +248,11 @@ function HomeFeral({ go, status }) {
       <div className="footer-note" style={{ marginTop: 48 }}>
         <span>◆ syn · 2026 · built in the void</span>
         <span>
-          press <kbd style={{ color: "var(--cool)" }}>/</kbd> for command
-          palette · ↑↑↓↓ for a surprise
+          press <kbd style={{ color: "var(--cool)" }}>/</kbd> for command palette · ↑↑↓↓ for a surprise
         </span>
       </div>
     </div>
-  );
+  )
 }
 
 function HomeUnhinged({ go, status }) {
@@ -274,13 +261,11 @@ function HomeUnhinged({ go, status }) {
     "   █                       █",
     "   █   ◆ syn.horse v0.3   █",
     "   █     not for sale     █",
-    "   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀",
-  ].join("\n");
+    "   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀"
+  ].join("\n")
   return (
     <div className="container wide home unhinged">
-      <div className="eyebrow">
-        ▶ /home · uptime since 2014 · last reboot: complaint-driven
-      </div>
+      <div className="eyebrow">▶ /home · uptime since 2014 · last reboot: complaint-driven</div>
       <h1>
         <span className="ghost">syn.horse</span>
         <span className="punk">syn.horse</span>
@@ -329,31 +314,24 @@ function HomeUnhinged({ go, status }) {
       </div>
       <div className="console-block" style={{ marginTop: 24 }}>
         <div>
-          <span className="pr">syn@horse</span> <span className="mu">~/$</span>{" "}
-          whoami
+          <span className="pr">syn@horse</span> <span className="mu">~/$</span> whoami
         </div>
-        <div className="mu">
-          → a devops engineer who keeps building blogs instead of sleeping
-        </div>
+        <div className="mu">→ a devops engineer who keeps building blogs instead of sleeping</div>
         <div>
-          <span className="pr">syn@horse</span> <span className="mu">~/$</span>{" "}
-          cat /etc/motd
+          <span className="pr">syn@horse</span> <span className="mu">~/$</span> cat /etc/motd
         </div>
         <div className="mu">→ welcome. read nothing. press buttons.</div>
         <div>
-          <span className="pr">syn@horse</span> <span className="mu">~/$</span>{" "}
-          ls -la /things
+          <span className="pr">syn@horse</span> <span className="mu">~/$</span> ls -la /things
         </div>
         <div className="mu">
-          drwx— <span className="ok">blog/</span> 17 posts · last touched
-          2025-09-20
+          drwx— <span className="ok">blog/</span> 17 posts · last touched 2025-09-20
         </div>
         <div className="mu">
           drwx— <span className="ok">projects/</span> 8 items · 6 alive
         </div>
         <div className="mu">
-          drwx— <span className="ok">cv/</span> 4 roles · 5 talks · 4 side
-          things
+          drwx— <span className="ok">cv/</span> 4 roles · 5 talks · 4 side things
         </div>
         <div className="mu">
           drwx— <span className="ok">domains/</span> 5 of them. don't ask.
@@ -383,18 +361,12 @@ function HomeUnhinged({ go, status }) {
           <span className="arrow">→ /contact</span>
         </div>
       </div>
-      <div
-        className="footer-note"
-        style={{ margin: "48px 0 0", padding: "14px 0 64px" }}
-      >
-        <span>
-          ◆ syn · 2026 · this site is held together with vibes and a cloudflare
-          worker
-        </span>
+      <div className="footer-note" style={{ margin: "48px 0 0", padding: "14px 0 64px" }}>
+        <span>◆ syn · 2026 · this site is held together with vibes and a cloudflare worker</span>
         <span>you got here. you're reading. that's the contract.</span>
       </div>
     </div>
-  );
+  )
 }
 
 // ─── /now ─────────────────────────────────────────────────────
@@ -405,29 +377,24 @@ function Now({ status }) {
       <h1>
         now<span className="dot">.</span>
       </h1>
-      <p className="lede">
-        a /now page. what i'm actually doing this month, not what linkedin would
-        have you believe.
-      </p>
+      <p className="lede">a /now page. what i'm actually doing this month, not what linkedin would have you believe.</p>
       <h2>building</h2>
       <ul>
         <li>
           <span>
-            <b>syn.horse</b> — this rewrite. nuxt 4 on cloudflare workers,
-            content from markdown, deployed via wrangler. mostly working.{" "}
-            {status}.
+            <b>syn.horse</b> — this rewrite. nuxt 4 on cloudflare workers, content from markdown, deployed via wrangler.
+            mostly working. {status}.
           </span>
         </li>
         <li>
           <span>
-            <b>genderbase</b> — quarterly content review. removed 2 dead links,
-            added 7 resources, refreshed the FAQ.
+            <b>genderbase</b> — quarterly content review. removed 2 dead links, added 7 resources, refreshed the FAQ.
           </span>
         </li>
         <li>
           <span>
-            <b>meshtastic node FOXP1</b> — moved it to a higher ridge. range
-            went from 8km to ~12km. neighbours now relay my jokes.
+            <b>meshtastic node FOXP1</b> — moved it to a higher ridge. range went from 8km to ~12km. neighbours now
+            relay my jokes.
           </span>
         </li>
       </ul>
@@ -440,8 +407,7 @@ function Now({ status }) {
         </li>
         <li>
           <span>
-            <b>the unaccountability machine</b>, dan davies. systems thinking
-            for people who already shout at git.
+            <b>the unaccountability machine</b>, dan davies. systems thinking for people who already shout at git.
           </span>
         </li>
         <li>
@@ -459,8 +425,7 @@ function Now({ status }) {
         </li>
         <li>
           <span>
-            <b>look mum no computer</b> — tinkerer/musician. accidentally
-            informative.
+            <b>look mum no computer</b> — tinkerer/musician. accidentally informative.
           </span>
         </li>
       </ul>
@@ -484,29 +449,20 @@ function Now({ status }) {
       </ul>
       <div className="console">
         <div>
-          <span className="pr">&gt;</span>{" "}
-          <span className="mu">
-            last cron job ran 3h ago — yes the site is alive
-          </span>
+          <span className="pr">&gt;</span> <span className="mu">last cron job ran 3h ago — yes the site is alive</span>
         </div>
         <div>
           <span className="pr">&gt;</span>{" "}
-          <span className="mu">
-            if you got here from hacker news: hi. don't comment. read.
-          </span>
+          <span className="mu">if you got here from hacker news: hi. don't comment. read.</span>
         </div>
         <div>
           <span className="pr">&gt;</span>{" "}
-          <span className="mu">
-            if you got here from linkedin: i don't know how. close the tab.
-          </span>
+          <span className="mu">if you got here from linkedin: i don't know how. close the tab.</span>
         </div>
       </div>
-      <div className="updated">
-        last meaningful update: 2026.04.20 · next: when i remember
-      </div>
+      <div className="updated">last meaningful update: 2026.04.20 · next: when i remember</div>
     </div>
-  );
+  )
 }
 
 // ─── projects ─────────────────────────────────────────────────
@@ -517,9 +473,7 @@ function Projects() {
       <h1>
         projects<span className="dot">.</span>
       </h1>
-      <p className="lede">
-        things i made on purpose. things i regret are not on this list.
-      </p>
+      <p className="lede">things i made on purpose. things i regret are not on this list.</p>
       <div className="proj-grid">
         {window.PROJECTS.map((p) => (
           <div className="proj fx-glitch" key={p.name}>
@@ -538,7 +492,7 @@ function Projects() {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
 Object.assign(window, {
@@ -548,5 +502,5 @@ Object.assign(window, {
   HomeFeral,
   HomeUnhinged,
   Now,
-  Projects,
-});
+  Projects
+})

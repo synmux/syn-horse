@@ -1,31 +1,27 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config]
 // trunk-ignore-all(trunk-toolbox/todo)
 
-import { execFileSync } from "node:child_process";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process"
+import { existsSync, readFileSync, writeFileSync } from "node:fs"
 
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from "@tailwindcss/vite"
 
-const compatibilityDate = "2026-04-15";
+const compatibilityDate = "2026-04-15"
 
-let buildTime = existsSync(".buildtime")
-  ? readFileSync(".buildtime", "utf8").trim()
-  : "";
+let buildTime = existsSync(".buildtime") ? readFileSync(".buildtime", "utf8").trim() : ""
 if (buildTime.length === 0) {
-  buildTime = new Date().toISOString();
-  writeFileSync(".buildtime", buildTime);
+  buildTime = new Date().toISOString()
+  writeFileSync(".buildtime", buildTime)
 }
 
-let commitHash = existsSync(".commithash")
-  ? readFileSync(".commithash", "utf8").trim()
-  : "";
+let commitHash = existsSync(".commithash") ? readFileSync(".commithash", "utf8").trim() : ""
 if (commitHash.length === 0) {
   try {
     commitHash = execFileSync("git", ["rev-parse", "--short", "HEAD"], {
       encoding: "utf8",
-    }).trim();
+    }).trim()
   } catch {
-    commitHash = "unknown";
+    commitHash = "unknown"
   }
 }
 
@@ -189,10 +185,7 @@ export default defineNuxtConfig({
           binding: "BROWSER",
         },
         compatibility_date: compatibilityDate,
-        compatibility_flags: [
-          "nodejs_compat",
-          "nodejs_compat_populate_process_env",
-        ],
+        compatibility_flags: ["nodejs_compat", "nodejs_compat_populate_process_env"],
         // D1 binding for @nuxt/content. database_name must match the name registered in
         // Cloudflare (verify with `wrangler d1 list`); database_id is authoritative for routing.
         d1_databases: [
@@ -371,13 +364,8 @@ export default defineNuxtConfig({
       minify: "esbuild",
     },
     optimizeDeps: {
-      include: [
-        "@vue/devtools-core",
-        "@vue/devtools-kit",
-        "@vueuse/core",
-        "@unhead/schema-org/vue",
-      ],
+      include: ["@vue/devtools-core", "@vue/devtools-kit", "@vueuse/core", "@unhead/schema-org/vue"],
     },
     plugins: [tailwindcss()],
   },
-});
+})

@@ -1,6 +1,6 @@
 ---
 name: takumi-rs-core-skilld
-description: "ALWAYS use when writing code importing \"@takumi-rs/core\". Consult for debugging, best practices, or modifying @takumi-rs/core, takumi-rs/core, takumi-rs core, takumi rs core, takumi."
+description: 'ALWAYS use when writing code importing "@takumi-rs/core". Consult for debugging, best practices, or modifying @takumi-rs/core, takumi-rs/core, takumi-rs core, takumi rs core, takumi.'
 metadata:
   version: 1.8.5
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # kane50613/takumi `@takumi-rs/core@1.8.5`
+
 **Tags:** beta: 1.0.0-beta.20, rc: 1.0.0-rc.17, latest: 1.8.5
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @takumi-rs/core` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @takumi-rs/core` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — v1.8.x is a stable minor release line with no breaking changes or API renames from v1.0.
@@ -38,9 +40,11 @@ This section documents version-specific API changes — v1.8.x is a stable minor
 **Stable APIs (unchanged since v1.0):** `Renderer` class, core `render()` method, font/image handling
 
 **Also changed:** `extractResourceUrls()` re-exported from `@takumi-rs/helpers` [source](./.skilld/pkg/./dist/export.d.ts#L4)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices for @takumi-rs/core v1.8.5
 
 - Reuse the Renderer instance across multiple renderings — creating a new Renderer for each render call incurs unnecessary initialization overhead and resource allocation [source](./.skilld/docs/content/docs/performance-and-optimization.mdx:L11)
@@ -48,17 +52,17 @@ This section documents version-specific API changes — v1.8.x is a stable minor
 - Initialize the WASM module and Renderer instance **outside** the fetch() handler in Cloudflare Workers — this prevents re-initialization on every request [source](./.skilld/docs/content/docs/performance-and-optimization.mdx:L21:49)
 
 ```tsx
-import { initSync, Renderer } from "takumi-js/wasm";
-import module from "takumi-js/wasm/takumi_wasm_bg.wasm";
+import { initSync, Renderer } from "takumi-js/wasm"
+import module from "takumi-js/wasm/takumi_wasm_bg.wasm"
 
-initSync(module);
-const renderer = new Renderer();
+initSync(module)
+const renderer = new Renderer()
 
 export default {
   fetch(request) {
     // Use renderer here, not inside fetch
   }
-};
+}
 ```
 
 - Preload frequently used images like logos and backgrounds via `persistentImages` to avoid redundant image decoding during rendering [source](./.skilld/docs/content/docs/load-images.mdx:L27:64)

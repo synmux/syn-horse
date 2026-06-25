@@ -1,13 +1,13 @@
 <script setup lang="ts">
-  import { SITE } from "~/data/site";
+import { SITE } from "~/data/site"
 
-  useSeoMeta({
-    title: SITE.name,
-    description: SITE.description,
-    ogTitle: SITE.name,
-    ogDescription: SITE.description,
-    themeColor: "#0d0221",
-  });
+useSeoMeta({
+  title: SITE.name,
+  description: SITE.description,
+  ogTitle: SITE.name,
+  ogDescription: SITE.description,
+  themeColor: "#0d0221"
+})
 </script>
 
 <template>

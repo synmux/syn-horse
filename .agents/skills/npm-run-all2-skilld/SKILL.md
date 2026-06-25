@@ -1,6 +1,6 @@
 ---
 name: npm-run-all2-skilld
-description: "ALWAYS use when writing code importing \"npm-run-all2\". Consult for debugging, best practices, or modifying npm-run-all2, npm run all2."
+description: 'ALWAYS use when writing code importing "npm-run-all2". Consult for debugging, best practices, or modifying npm-run-all2, npm run all2.'
 metadata:
   version: 9.0.2
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # bcomnes/npm-run-all2 `npm-run-all2@9.0.2`
+
 **Tags:** beta: 8.1.0-beta.0, latest: 9.0.2
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p npm-run-all2` instead of grepping `.skilld/` directories. Run `skilld search --guide -p npm-run-all2` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritise recent major/minor releases.
@@ -32,9 +34,11 @@ This section documents version-specific API changes — prioritise recent major/
 - NEW: `colorMode` option — v9.0.0 added `colorMode` option to override terminal colour palette detection; accepts `"auto"` (default, detect from stream), `"none"` (disable), `"16"` (force 16-colour palette), or `"256"` (force 256-colour palette) [source](./.skilld/docs/node-api.md:L43:L45)
 
 **Also changed:** `packageConfig` now a proper typed option · `maxParallel` type enforcement improved · Published types with `tsc` validation
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use the `--node-run` flag or set `nodeRun: true` in `package.json` to leverage Node's native `node --run` command — this bypasses the package manager entirely for faster execution (available since v9.0.0 for Node >= 22.3.0) [source](./.skilld/docs/npm-run-all.md:L51:59)

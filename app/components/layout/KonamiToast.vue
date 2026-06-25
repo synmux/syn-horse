@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import { useKonamiToast } from "~/composables/useKonamiToast";
+import { useKonamiToast } from "~/composables/useKonamiToast"
 
-  const { message } = useKonamiToast();
+const { message } = useKonamiToast()
 </script>
 
 <template>
@@ -13,10 +13,7 @@
       aria-live="polite"
     >
       <div>◆ {{ message.title }} ◆</div>
-      <div
-        v-if="message.sub"
-        class="mt-1 font-mono text-[11px] tracking-[0.14em] uppercase text-void"
-      >
+      <div v-if="message.sub" class="mt-1 font-mono text-[11px] tracking-[0.14em] uppercase text-void">
         {{ message.sub }}
       </div>
     </div>
@@ -24,10 +21,10 @@
 </template>
 
 <style scoped>
-  .konami-fade-leave-active {
-    transition: opacity 280ms ease;
-  }
-  .konami-fade-leave-to {
-    opacity: 0;
-  }
+.konami-fade-leave-active {
+  transition: opacity 280ms ease;
+}
+.konami-fade-leave-to {
+  opacity: 0;
+}
 </style>

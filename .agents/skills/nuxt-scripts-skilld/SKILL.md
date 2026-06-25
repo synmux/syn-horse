@@ -1,6 +1,6 @@
 ---
 name: nuxt-scripts-skilld
-description: "ALWAYS use when writing code importing \"@nuxt/scripts\". Consult for debugging, best practices, or modifying @nuxt/scripts, nuxt/scripts, nuxt scripts, scripts."
+description: 'ALWAYS use when writing code importing "@nuxt/scripts". Consult for debugging, best practices, or modifying @nuxt/scripts, nuxt/scripts, nuxt scripts, scripts.'
 metadata:
   version: 1.2.1
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # nuxt/scripts `@nuxt/scripts@1.2.1`
+
 **Tags:** beta: 1.0.0-beta.32, rc: 1.0.0-rc.11, latest: 1.2.1
 
 **References:** [package.json](./.skilld/pkg/package.json) • [Docs](./.skilld/docs/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @nuxt/scripts` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @nuxt/scripts` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 - BREAKING: Registry entries no longer auto-load without `trigger` — must explicitly set `trigger: 'onNuxtReady'` or `trigger: false` to silence build warning. In v0 all configured entries auto-loaded globally; v1 registers infrastructure (types, bundling, proxy) but blocks injection without an explicit trigger [source](./.skilld/docs/content/docs/4.migration-guide/1.v0-to-v1.md#scripts-no-longer-auto-load-without-a-trigger)
@@ -52,9 +54,11 @@ Use `skilld search "query" -p @nuxt/scripts` instead of grepping `.skilld/` dire
 - NEW: Google Maps components — 11 new declarative components (`ScriptGoogleMapsMarker`, `ScriptGoogleMapsCircle`, `ScriptGoogleMapsPolygon`, `ScriptGoogleMapsPolyline`, `ScriptGoogleMapsRectangle`, `ScriptGoogleMapsMarkerClusterer`, `ScriptGoogleMapsHeatmapLayer`, `ScriptGoogleMapsOverlayView`, `ScriptGoogleMapsGeoJson`, `ScriptGoogleMapsStaticMap`) with Vue injection system and automatic cleanup [source](./.skilld/docs/content/docs/5.releases/1.v1.md#google-maps-overhaul)
 
 **Also changed:** YouTube Player `ratio` prop · Vimeo Player `ratio` prop · Automatic SRI integrity hashes via `scripts.assets.integrity` config · Environment variable config via `NUXT_PUBLIC_SCRIPTS_*` vars · New registry scripts: PostHog, Google reCAPTCHA v3, TikTok Pixel, Google Sign-In, Rybbit Analytics, Databuddy Analytics, Bing UET, Mixpanel Analytics, Vercel Analytics, Gravatar · Google Maps color mode support via `mapIds` prop · Google Maps geocode proxy for server-side geocoding · Type augmentation reorganization (run `nuxi prepare` after upgrade)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Wrap `useScript()` calls in composables when you reference them across multiple components — scripts load as global singletons, and wrapper composables make instantiation consistent and easier to maintain [source](./.skilld/docs/content/docs/1.guides/0.key-concepts.md:L19:33)

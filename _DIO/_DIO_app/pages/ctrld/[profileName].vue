@@ -28,11 +28,7 @@
           />
 
           <!-- Status message display with appropriate styling -->
-          <div
-            v-if="statusMessage"
-            role="alert"
-            :class="['alert mt-4', statusClass]"
-          >
+          <div v-if="statusMessage" role="alert" :class="['alert mt-4', statusClass]">
             <!-- Success icon -->
             <svg
               v-if="statusClass === 'alert-success'"
@@ -81,61 +77,61 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, computed } from "vue";
-  import type { ctrldProfile } from "~~/shared/types/ctrld";
-  import DomainCheck from "~/components/ctrld/DomainCheck.vue";
-  import UnblockConfirmActions from "~/components/ctrld/UnblockConfirmActions.vue";
-  import UnblockSuccessOverlay from "~/components/ctrld/UnblockSuccessOverlay.vue";
+import { ref, computed } from "vue"
+import type { ctrldProfile } from "~~/shared/types/ctrld"
+import DomainCheck from "~/components/ctrld/DomainCheck.vue"
+import UnblockConfirmActions from "~/components/ctrld/UnblockConfirmActions.vue"
+import UnblockSuccessOverlay from "~/components/ctrld/UnblockSuccessOverlay.vue"
 
-  // Get route information for dynamic parameters
-  const route = useRoute();
+// Get route information for dynamic parameters
+const route = useRoute()
 
-  // Computed properties from route parameters and query strings
-  const profile = computed(() => route.params.profileName as ctrldProfile);
-  const domain = computed(() => route.query.domain as string);
-  const auth = computed(() => route.query.auth as string);
+// Computed properties from route parameters and query strings
+const profile = computed(() => route.params.profileName as ctrldProfile)
+const domain = computed(() => route.query.domain as string)
+const auth = computed(() => route.query.auth as string)
 
-  // Reactive state for UI interactions
-  const statusMessage = ref(""); // User feedback message
-  const statusClass = ref("alert-success"); // CSS class for status styling
-  const showOverlay = ref(false); // Control overlay visibility
-  const isPermanentUnblock = ref(false); // Track if unblock was permanent
+// Reactive state for UI interactions
+const statusMessage = ref("") // User feedback message
+const statusClass = ref("alert-success") // CSS class for status styling
+const showOverlay = ref(false) // Control overlay visibility
+const isPermanentUnblock = ref(false) // Track if unblock was permanent
 
-  // Validation: Ensure a domain is specified in the query
-  if (!domain.value) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "You need to specify a domain",
-    });
-  }
+// Validation: Ensure a domain is specified in the query
+if (!domain.value) {
+  throw createError({
+    statusCode: 400,
+    statusMessage: "You need to specify a domain"
+  })
+}
 
-  // Validation: Ensure authentication token is provided
-  if (!auth.value) {
-    throw createError({
-      statusCode: 401,
-      statusMessage: "You need to at least TRY to authenticate",
-    });
-  }
+// Validation: Ensure authentication token is provided
+if (!auth.value) {
+  throw createError({
+    statusCode: 401,
+    statusMessage: "You need to at least TRY to authenticate"
+  })
+}
 
-  // Set up page metadata and SEO
-  usePageSetup({
-    title: `ControlD for ${profile.value}`,
-    description: `Unblock a domain for ${profile.value}`,
-  });
+// Set up page metadata and SEO
+usePageSetup({
+  title: `ControlD for ${profile.value}`,
+  description: `Unblock a domain for ${profile.value}`
+})
 
-  function onSuccess(message: string) {
-    statusMessage.value = message;
-    statusClass.value = "alert-success";
+function onSuccess(message: string) {
+  statusMessage.value = message
+  statusClass.value = "alert-success"
 
-    // Determine if it was a permanent unblock based on the message
-    isPermanentUnblock.value = message.includes("permanently");
+  // Determine if it was a permanent unblock based on the message
+  isPermanentUnblock.value = message.includes("permanently")
 
-    // Show the overlay with instructions
-    showOverlay.value = true;
-  }
+  // Show the overlay with instructions
+  showOverlay.value = true
+}
 
-  function onError(message: string) {
-    statusMessage.value = message;
-    statusClass.value = "alert-error";
-  }
+function onError(message: string) {
+  statusMessage.value = message
+  statusClass.value = "alert-error"
+}
 </script>

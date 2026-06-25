@@ -1,6 +1,6 @@
 ---
 name: tsx-skilld
-description: "ALWAYS use when writing code importing \"tsx\". Consult for debugging, best practices, or modifying tsx."
+description: 'ALWAYS use when writing code importing "tsx". Consult for debugging, best practices, or modifying tsx.'
 metadata:
   version: 4.22.4
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # privatenumber/tsx `tsx@4.22.4`
+
 **Tags:** latest: 4.22.4
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p tsx` instead of grepping `.skilld/` directories. Run `skilld search --guide -p tsx` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents API changes and deprecations for tsx v4.22.4. Note: The available documentation covers the current version's API without detailed version history. The following change reflects Node.js runtime compatibility:
@@ -44,9 +46,11 @@ The following APIs are part of the current tsx Developer API:
 - `node --import tsx` — Node.js CLI flag integration (replaces deprecated `--loader` in Node.js v20.6.0+) for adding tsx enhancement to node command directly [source](./.skilld/docs/dev-api/node-cli.md:L1:7)
 
 **Note:** Documentation for tsx v4.22.4 is current, but historical API changes from previous versions (v3.x → v4.x or within v4.x minor releases) are not available in the local reference materials. For comprehensive breaking changes and feature introductions across versions, consult the project's GitHub releases page or changelog.
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use recommended `tsconfig.json` settings with `moduleDetection: "force"` and `module: "Preserve"` — these enable consistent type-checking behaviour for tsx's esbuild-based transpilation, ensuring JSX and module detection work as expected [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/typescript.md:L40-L64)

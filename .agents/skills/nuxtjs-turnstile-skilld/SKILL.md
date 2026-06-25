@@ -1,6 +1,6 @@
 ---
 name: nuxtjs-turnstile-skilld
-description: "Cloudflare Turnstile integration for Nuxt. ALWAYS use when writing code importing \"@nuxtjs/turnstile\". Consult for debugging, best practices, or modifying @nuxtjs/turnstile, nuxtjs/turnstile, nuxtjs turnstile, turnstile."
+description: 'Cloudflare Turnstile integration for Nuxt. ALWAYS use when writing code importing "@nuxtjs/turnstile". Consult for debugging, best practices, or modifying @nuxtjs/turnstile, nuxtjs/turnstile, nuxtjs turnstile, turnstile.'
 metadata:
   version: 1.1.3
   generated_by: cached
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # nuxt-modules/turnstile `@nuxtjs/turnstile@1.1.3`
+
 **Tags:** beta: 0.9.11-beta.1, latest: 1.1.3
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @nuxtjs/turnstile` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @nuxtjs/turnstile` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -26,9 +28,11 @@ This section documents version-specific API changes — prioritize recent major/
 - BREAKING: CJS module removed — v1.0.0 removed `.cjs` entry point and updated to latest module builder, ESM-only from v1.0.0+ [source](./.skilld/releases/v1.0.0.md)
 
 **Also changed:** Component `.vue` extension added v1.1.1 (module resolution fix)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices — @nuxtjs/turnstile
 
 ## Configuration & Setup

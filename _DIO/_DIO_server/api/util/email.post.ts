@@ -1,5 +1,5 @@
-import { logger } from "~~/server/utils/logging";
-import { error, ok } from "~~/server/utils/response";
+import { logger } from "~~/server/utils/logging"
+import { error, ok } from "~~/server/utils/response"
 
 /**
  * Handles HTTP POST requests for email verification.
@@ -12,25 +12,25 @@ import { error, ok } from "~~/server/utils/response";
  *   A response object containing the email address and success status.
  */
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event);
-  const { token } = body;
+  const body = await readBody(event)
+  const { token } = body
 
   if (!token) {
-    return error(event, {}, "Token not provided.", 422);
+    return error(event, {}, "Token not provided.", 422)
   }
 
-  logger.info(body, { log_source: "/api/util/email" });
+  logger.info(body, { log_source: "/api/util/email" })
 
   // Use the built-in Turnstile verification from @nuxtjs/turnstile
-  const validationResult = await verifyTurnstileToken(token);
+  const validationResult = await verifyTurnstileToken(token)
 
   // Logic was inverted - should fail if NOT successful
   if (!validationResult.success) {
-    return error(event, {}, "Token validation failed.", 403);
+    return error(event, {}, "Token validation failed.", 403)
   }
 
   // Return the email after successful verification
   return ok(event, {
     email: "dave@dave.io",
-  });
-});
+  })
+})

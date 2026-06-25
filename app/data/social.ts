@@ -1,7 +1,7 @@
 export interface Social {
-  href: string;
-  k: string;
-  v: string;
+  href: string
+  k: string
+  v: string
 }
 
 export const SOCIAL: Social[] = [
@@ -25,4 +25,4 @@ export const SOCIAL: Social[] = [
   { k: "instagram", v: "@synmux", href: "https://instagram.com/synmux" },
   { k: "email", v: "[pending]", href: "#" },
   { k: "rss", v: "/feed.xml", href: "/feed.xml" },
-];
+]

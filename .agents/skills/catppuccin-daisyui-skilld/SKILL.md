@@ -1,6 +1,6 @@
 ---
 name: catppuccin-daisyui-skilld
-description: "ALWAYS use when writing code importing \"@catppuccin/daisyui\". Consult for debugging, best practices, or modifying @catppuccin/daisyui, catppuccin/daisyui, catppuccin daisyui, daisyui."
+description: 'ALWAYS use when writing code importing "@catppuccin/daisyui". Consult for debugging, best practices, or modifying @catppuccin/daisyui, catppuccin/daisyui, catppuccin daisyui, daisyui.'
 metadata:
   version: 2.1.1
   generated_by: Google · Gemini 2.5 Flash
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # catppuccin/daisyui `@catppuccin/daisyui@2.1.1`
+
 **Tags:** latest: 2.1.1
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @catppuccin/daisyui` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @catppuccin/daisyui` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -26,9 +28,11 @@ This section documents version-specific API changes — prioritize recent major/
 - NEW: `CDN Usage` — v2.1.0 introduced support for CDN usage, allowing direct linking of CSS files [source](./.skilld/repos/catppuccin/daisyui/releases/v2.1.0.md:L9)
 
 **Also changed:** `customizable semantic colors` new v1.1.0 · `pick accent color` new v1.0.0
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use `createCatppuccinPlugin()` for integrating Catppuccin themes with DaisyUI, exporting it as the default plugin in a dedicated configuration file [source](./node_modules/@catppuccin/daisyui/README.md#configuration)

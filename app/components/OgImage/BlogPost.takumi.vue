@@ -1,13 +1,13 @@
 <script setup>
-  defineProps({
-    colorMode: { type: String, required: false, default: "dark" },
-    title: { type: String, required: false, default: "Blog Post Title" },
-    author: { type: String, required: false, default: "Author Name" },
-    date: { type: String, required: false, default: "Jan 1, 2025" },
-    category: { type: String, required: false, default: "Technology" },
-    avatar: { type: String, required: false, default: "/images/self/self.jpg" },
-    backgroundImage: { type: String, required: false, default: "" },
-  });
+defineProps({
+  colorMode: { type: String, required: false, default: "dark" },
+  title: { type: String, required: false, default: "Blog Post Title" },
+  author: { type: String, required: false, default: "Author Name" },
+  date: { type: String, required: false, default: "Jan 1, 2025" },
+  category: { type: String, required: false, default: "Technology" },
+  avatar: { type: String, required: false, default: "/images/self/self.jpg" },
+  backgroundImage: { type: String, required: false, default: "" }
+})
 </script>
 
 <template>
@@ -16,9 +16,7 @@
     :style="backgroundImage ? { backgroundImage: `url(${backgroundImage})` } : void 0"
   >
     <div class="flex items-start">
-      <div
-        class="text-[24px] font-semibold px-6 py-2 text-white bg-blue-500 rounded-full"
-      >
+      <div class="text-[24px] font-semibold px-6 py-2 text-white bg-blue-500 rounded-full">
         {{ category }}
       </div>
     </div>
@@ -36,12 +34,7 @@
         class="overflow-hidden border-4 border-neutral-200 dark:border-neutral-800"
         style="width: 80px; height: 80px; border-radius: 50%"
       >
-        <img
-          :src="avatar"
-          alt="Avatar"
-          class="w-full h-full"
-          style="object-fit: cover; border-radius: 50%"
-        >
+        <img :src="avatar" alt="Avatar" class="w-full h-full" style="object-fit: cover; border-radius: 50%" />
       </div>
       <div class="flex flex-col">
         <span class="text-[32px] font-semibold">{{ author }}</span>

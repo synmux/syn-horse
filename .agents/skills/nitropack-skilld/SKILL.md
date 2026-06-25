@@ -1,6 +1,6 @@
 ---
 name: nitropack-skilld
-description: "Build and Deploy Universal JavaScript Servers. ALWAYS use when writing code importing \"nitropack\". Consult for debugging, best practices, or modifying nitropack, nitro."
+description: 'Build and Deploy Universal JavaScript Servers. ALWAYS use when writing code importing "nitropack". Consult for debugging, best practices, or modifying nitropack, nitro.'
 metadata:
   version: 2.13.4
   generated_by: cached
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # nitrojs/nitro `nitropack@2.13.4`
+
 **Tags:** latest: 2.13.4
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p nitropack` instead of grepping `.skilld/` directories. Run `skilld search --guide -p nitropack` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes — Nitro v2.13.3
 
 This section documents API changes in the v2.x series — focus on deprecations, experimental APIs, and breaking changes that LLMs trained on older data may get wrong.
@@ -52,9 +54,11 @@ NEW: Vercel skew protection support — Added in v2.13.0. Configure with Vercel 
 NEW: Bun runtime support — Added in v2.13.0 and v2.12.9. Set `NITRO_BUN_IDLE_TIMEOUT` env variable to configure idle timeout [source](./.skilld/releases/v2.13.0.md:L14)
 
 **Also changed:** OpenAPI experimental API (v2.12.0+) · `NitroConfig.experimental.openAPI` option · `NitroConfig.experimental.tasks` option · Cloudflare durable object `publish` method (v2.11.10+) experimental · OpenAPI extensible properties (v2.11.9+) · `dotenv` config for `loadOptions()` (v2.11.9+) · `workspaceDir` config option (v2.11.12+) · Type imports resolved for absolute paths (v2.11.13+) · `tsConfig` added to `types:extend` hook (v2.11.13+)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 ### Cloudflare Workers Deployment
@@ -75,7 +79,7 @@ NEW: Bun runtime support — Added in v2.13.0 and v2.12.9. Set `NITRO_BUN_IDLE_T
 
 ### Middleware & Routing
 
-7. **Avoid adding middleware to `server/middleware/` for simple route guards.** Use route-level middleware in your pages/layouts (Nuxt's `defineRouteMiddleware`) instead; it's tree-shakeable and composable, whereas server middleware runs for *every* request. Server middleware is best reserved for cross-cutting concerns (logging, security headers, authentication checks on protected routes).
+7. **Avoid adding middleware to `server/middleware/` for simple route guards.** Use route-level middleware in your pages/layouts (Nuxt's `defineRouteMiddleware`) instead; it's tree-shakeable and composable, whereas server middleware runs for _every_ request. Server middleware is best reserved for cross-cutting concerns (logging, security headers, authentication checks on protected routes).
 
 8. **Define API routes under `server/routes/api/`** using the `defineEventHandler` pattern. Routes are file-based and auto-discovered; keep them flat or shallow (max 2-3 levels) to avoid route collision bugs with dynamic parameters.
 
@@ -98,4 +102,5 @@ NEW: Bun runtime support — Added in v2.13.0 and v2.12.9. Set `NITRO_BUN_IDLE_T
 ---
 
 **Source guidance:** Patterns derived from nitropack 2.13.4 documentation (Cloudflare integration, config patterns), Nuxt 4 async data patterns, and Cloudflare Workers best practices. Each point prioritises production reliability, type safety, and edge-platform idioms.
+
 <!-- /skilld:best-practices -->

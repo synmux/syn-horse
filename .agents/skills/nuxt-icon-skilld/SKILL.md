@@ -1,6 +1,6 @@
 ---
 name: nuxt-icon-skilld
-description: "ALWAYS use when writing code importing \"@nuxt/icon\". Consult for debugging, best practices, or modifying @nuxt/icon, nuxt/icon, nuxt icon, icon."
+description: 'ALWAYS use when writing code importing "@nuxt/icon". Consult for debugging, best practices, or modifying @nuxt/icon, nuxt/icon, nuxt icon, icon.'
 metadata:
   version: 2.2.3
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # nuxt/icon `@nuxt/icon@2.2.3`
+
 **Tags:** latest: 2.2.3
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @nuxt/icon` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @nuxt/icon` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -34,9 +36,11 @@ This section documents version-specific API changes — prioritize recent major/
 - NEW: `cssWherePseudo` option — uses CSS `:where()` pseudo-selector to reduce specificity, enabled by default in v2.x [source](./.skilld/pkg/dist/module.d.mts:L71)
 
 **Also changed:** `customize` callback per-instance scoping (v2.2.3 fix: now scoped to unique CSS selector) · 44 new icon collections (v2.2.0 feature) · `normalizeIconName` default true, flipped to false in future major · `serverBundle.disabled` option added for explicit control
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## @nuxt/icon v2.2.3 — Best Practices
 
 ## Best Practices

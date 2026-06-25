@@ -1,6 +1,6 @@
 ---
 name: anthropic-ai-claude-code-skilld
-description: "ALWAYS use when writing code importing \"@anthropic-ai/claude-code\". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88."
+description: 'ALWAYS use when writing code importing "@anthropic-ai/claude-code". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88.'
 metadata:
   version: 2.1.178
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.178`
+
 **Tags:** stable: 2.1.153, latest: 2.1.178, next: 2.1.178
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @anthropic-ai/claude-code` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @anthropic-ai/claude-code` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes in @anthropic-ai/claude-code v2.x.
@@ -27,6 +29,7 @@ This section documents version-specific API changes in @anthropic-ai/claude-code
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Always provide semantic descriptions for bash commands — helps the CLI document what the command does, and uses 5–10 words for simple commands, more context for complex ones (piped, obscure flags) [source](./.skilld/pkg/sdk-tools.d.ts:L460:469)

@@ -1,6 +1,6 @@
 ---
 name: tailwindcss-cli-skilld
-description: "ALWAYS use when writing code importing \"@tailwindcss/cli\". Consult for debugging, best practices, or modifying @tailwindcss/cli, tailwindcss/cli, tailwindcss cli, tailwindcss."
+description: 'ALWAYS use when writing code importing "@tailwindcss/cli". Consult for debugging, best practices, or modifying @tailwindcss/cli, tailwindcss/cli, tailwindcss cli, tailwindcss.'
 metadata:
   version: 4.3.1
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # tailwindlabs/tailwindcss `@tailwindcss/cli@4.3.1`
+
 **Tags:** internal: 0.0.0-internal.b2586d4e, next: 4.0.0, latest: 4.3.1
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @tailwindcss/cli` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @tailwindcss/cli` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -52,9 +54,11 @@ This section documents version-specific API changes — prioritize recent major/
 - NEW: `font-features-*` utility — control `font-feature-settings` for typography fine-tuning [source](./.skilld/releases/v4.2.0.md:L21)
 
 **Also changed:** `scroll-mbs-*`, `scroll-pbs-*` logical scroll utilities v4.2.0 · `border-bs-*`, `border-be-*` logical border utilities v4.2.0 · `clip` → `clip-path` deprecated v4.1.13 · `break-words` → `wrap-break-word` v4.1.15 · `order-none` → `order-0` deprecated v4.1.8 · arbitrary `:has()` variants migration v4.3.0 · source maps generation support v4.1.x
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use `@utility` directive instead of `@layer utilities` for custom classes requiring `@apply` — Tailwind v4 only applies `@apply` to utilities registered via `@utility`, not those in standard layer blocks [source](./.skilld/discussions/discussion-20211.md)

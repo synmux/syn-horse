@@ -1,6 +1,6 @@
 ---
 name: untun-skilld
-description: "ALWAYS use when writing code importing \"untun\". Consult for debugging, best practices, or modifying untun."
+description: 'ALWAYS use when writing code importing "untun". Consult for debugging, best practices, or modifying untun.'
 metadata:
   version: 0.1.3
   generated_by: Google · Gemini 2.5 Flash
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # unjs/untun `untun@0.1.3`
+
 **Tags:** latest: 0.1.3
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p untun` instead of grepping `.skilld/` directories. Run `skilld search --guide -p untun` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 - NEW: `acceptCloudflareNotice` in `TunnelOptions` — new boolean option to accept Cloudflare notice, added in v0.1.3 [source](./.skilld/pkg/dist/index.d.ts:L3)
@@ -24,6 +26,7 @@ Use `skilld search "query" -p untun` instead of grepping `.skilld/` directories.
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Prefer `http2` protocol for `cloudflared` to ensure more reliable connections, especially when the default `quic` protocol shows instability. [source](./.skilld/issues/issue-38.md:L18)

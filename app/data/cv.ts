@@ -1,22 +1,22 @@
 export interface CvRole {
-  desc: string;
-  dt: string;
-  loc: string;
-  place: string;
-  stack: string[];
-  title: string;
+  desc: string
+  dt: string
+  loc: string
+  place: string
+  stack: string[]
+  title: string
 }
 
 export interface Talk {
-  title: string;
-  venue: string;
-  yr: string;
+  title: string
+  venue: string
+  yr: string
 }
 
 export interface SideProject {
-  desc: string;
-  name: string;
-  yr: string;
+  desc: string
+  name: string
+  yr: string
 }
 
 export const CV_ROLES: CvRole[] = [
@@ -52,7 +52,7 @@ export const CV_ROLES: CvRole[] = [
     desc: "racked servers in a colo. wrote the deploy script. answered the support email. all in one tuesday.",
     stack: ["debian", "bash", "postgres", "nginx"],
   },
-];
+]
 
 export const TALKS: Talk[] = [
   {
@@ -76,7 +76,7 @@ export const TALKS: Talk[] = [
     title: "on-call is a culture problem",
     venue: "sre lounge meetup",
   },
-];
+]
 
 export const SIDE: SideProject[] = [
   {
@@ -99,4 +99,4 @@ export const SIDE: SideProject[] = [
     desc: "a local mutual-aid mesh + a small queer tech reading group.",
     yr: "2022 — now",
   },
-];
+]

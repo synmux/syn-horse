@@ -1,6 +1,6 @@
 ---
 name: nuxthub-core-skilld
-description: "ALWAYS use when writing code importing \"@nuxthub/core\". Consult for debugging, best practices, or modifying @nuxthub/core, nuxthub/core, nuxthub core, core."
+description: 'ALWAYS use when writing code importing "@nuxthub/core". Consult for debugging, best practices, or modifying @nuxthub/core, nuxthub/core, nuxthub core, core.'
 metadata:
   version: 0.10.7
   generated_by: Google · Gemini 2.5 Flash
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # nuxt-hub/core `@nuxthub/core@0.10.7`
+
 **Tags:** nightly: 0.8.18-20250219-172059-f056e7b, latest: 0.10.7
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @nuxthub/core` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @nuxthub/core` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -62,9 +64,11 @@ This section documents version-specific API changes — prioritize recent major/
 - NEW: `blob: Add createCredentials() to support presigned URLs` — v0.7.32 added `createCredentials()` for presigned URLs in blob storage. [source](./.skilld/repos/nuxt-hub/core/releases/CHANGELOG.md:L347:347)
 
 **Also changed:** `db: Generate schema types during prepare` v0.10.6 · `db: Create package.json during prepare` v0.10.6 · `db: Resolve Nuxt aliases in schema bundling` v0.10.6 · `db: Use libsql in dev mode when cloudflare preset is set` v0.10.5 · `db: Use dynamic import for migrations plugin` v0.10.5 · `db: Update neon-http connection string format in setup.ts` v0.10.4 · `db: Pass mode to drizzle for mysql` v0.10.3 · `db: Lazy D1/Hyperdrive binding access` v0.10.1 · `db: Setup config relative path on windows` v0.10.1 · `Add no_bundle mode` v0.10.1 · `types: Add missing type definition for databaseMigrationsDirs` v0.9.1 · `migrations: Do not return after first successful migrate` v0.9.1 · `types: Add exports in package.json` v0.8.23 · `migrations: Respect for loop for remote db migrations` v0.8.13 · `api: Disable cache and prerender on /api/_hub/**` v0.8.11 · `vectorize: Return undefined instead of throwing in dev with no remote` v0.8.10 · `blob: Handle pdf type correctly in ensureBlob` v0.8.9 · `migration: Invalid behavior while using -- or /* */ inside column string` v0.8.9 · `blob: Missing content type on complete for multipart upload` v0.8.19 · `ai: Properly handle error data on streams` v0.8.19 · `Support upcoming nitro version` v0.8.17 · `blob: Return null for get() with remote enabled` v0.8.16 · `Fixes: Split sql trigger statements as a single query` v0.8.16 · `blob: Expose more data` v0.7.36 · `cache: Support batch delete` v0.7.35 · `blob: Support customMetadata in proxy on put()` v0.7.3 · `Add hubAI()` v0.7.2
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Prefer NuxtHub v0.10's multi-cloud and self-hosting approach over Cloudflare-exclusive deployments — provides greater flexibility and control [source](./.skilld/references/@nuxthub/core@0.10.7/docs/content/docs/1.getting-started/4.migration.md#philosophy-shift)

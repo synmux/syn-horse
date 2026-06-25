@@ -1,1 +1,1 @@
-export const formatBlogDate = (isoDate: string) => isoDate.replace(/-/g, ".");
+export const formatBlogDate = (isoDate: string) => isoDate.replace(/-/g, ".")

@@ -1,5 +1,5 @@
-import { ok, error } from "~~/server/utils/response";
-import { logger } from "~~/server/utils/logging";
+import { ok, error } from "~~/server/utils/response"
+import { logger } from "~~/server/utils/logging"
 
 // trunk-ignore-all(trunk-toolbox/todo)
 
@@ -10,21 +10,16 @@ import { logger } from "~~/server/utils/logging";
  */
 export default defineEventHandler(async (event) => {
   const body = await readBody<{
-    title?: string;
-    description?: string;
-    type?: string;
-    priority?: string;
-    name?: string;
-    email?: string;
-  }>(event);
+    title?: string
+    description?: string
+    type?: string
+    priority?: string
+    name?: string
+    email?: string
+  }>(event)
 
   if (!body?.title || !body?.description) {
-    return error(
-      event,
-      {},
-      "Missing required fields: title and description",
-      422
-    );
+    return error(event, {}, "Missing required fields: title and description", 422)
   }
 
   // Structured log for visibility during local/dev testing
@@ -38,17 +33,16 @@ export default defineEventHandler(async (event) => {
       email: body.email,
       descriptionLength: body.description?.length || 0,
     },
-    event
-  );
+    event,
+  )
 
   // Reply with a stub response
   return ok(
     event,
     {
       received: true,
-      message:
-        "TODO API stub: request accepted. Backend Linear integration not implemented yet.",
+      message: "TODO API stub: request accepted. Backend Linear integration not implemented yet.",
     },
-    202
-  );
-});
+    202,
+  )
+})

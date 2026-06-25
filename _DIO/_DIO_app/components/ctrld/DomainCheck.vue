@@ -12,10 +12,7 @@
       </div>
 
       <div v-else-if="error || !safety" class="text-red-400">
-        <Icon
-          name="i-heroicons-exclamation-triangle"
-          class="w-4 h-4 inline mr-2"
-        />
+        <Icon name="i-heroicons-exclamation-triangle" class="w-4 h-4 inline mr-2" />
         {{ error }}
       </div>
 
@@ -24,68 +21,65 @@
       </div>
 
       <div v-else class="text-subtext1 text-sm">
-        <Icon
-          name="i-heroicons-information-circle"
-          class="w-4 h-4 inline mr-2"
-        />
+        <Icon name="i-heroicons-information-circle" class="w-4 h-4 inline mr-2" />
         Domain check completed
       </div>
     </div>
     <p class="text-subtext1 text-sm mt-4">
-      The domain check operates with <strong>very limited information</strong>.
-      It will only catch the most obvious red flags.
+      The domain check operates with <strong>very limited information</strong>. It will only catch the most obvious red
+      flags.
     </p>
   </div>
 </template>
 
 <script setup lang="ts">
-  interface Props {
-    auth: string;
-    domain: string;
-  }
+interface Props {
+  auth: string
+  domain: string
+}
 
-  const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-  const loading = ref(true);
-  const error = ref<string>();
-  const result = ref<string>();
-  const safety = ref<boolean>();
+const loading = ref(true)
+const error = ref<string>()
+const result = ref<string>()
+const safety = ref<boolean>()
 
-  // Function to check domain security
-  const checkDomainSecurity = async () => {
-    try {
-      loading.value = true;
-      error.value = undefined;
+// Function to check domain security
+const checkDomainSecurity = async () => {
+  try {
+    loading.value = true
+    error.value = undefined
 
-      if (!props.domain) {
-        error.value = "No domain provided";
-        return;
-      }
-
-      const response = await $fetch("/api/ctrld/check", {
-        method: "POST",
-        body: { domain: props.domain, auth: props.auth },
-      });
-
-      // The API returns the AI response directly
-      const res = response as unknown as { safe: boolean; reasoning: string };
-      result.value = res.reasoning;
-      safety.value = res.safe;
-    } catch {
-      error.value = "Failed to check domain security";
-    } finally {
-      loading.value = false;
+    if (!props.domain) {
+      error.value = "No domain provided"
+      return
     }
-  };
 
-  // Check domain when component mounts
-  onMounted(() => {
-    checkDomainSecurity();
-  });
+    const response = await $fetch("/api/ctrld/check", {
+      method: "POST",
+      body: { domain: props.domain, auth: props.auth }
+    })
+
+    // The API returns the AI response directly
+    const res = response as unknown as { safe: boolean; reasoning: string }
+    result.value = res.reasoning
+    safety.value = res.safe
+  } catch {
+    error.value = "Failed to check domain security"
+  } finally {
+    loading.value = false
+  }
+}
+
+// Check domain when component mounts
+onMounted(() => {
+  checkDomainSecurity()
+})
 </script>
 
 <style scoped>
-  .domain-check-section {
-    margin-bottom: 6px;
-  }
+.domain-check-section {
+  margin-bottom: 6px;
+}
 </style>

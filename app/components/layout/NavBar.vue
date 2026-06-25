@@ -1,30 +1,30 @@
 <script setup lang="ts">
-  import { computed } from "vue";
-  import { useRoute } from "vue-router";
-  import { useCommandPalette } from "~/composables/useCommandPalette";
+import { computed } from "vue"
+import { useRoute } from "vue-router"
+import { useCommandPalette } from "~/composables/useCommandPalette"
 
-  const route = useRoute();
-  const palette = useCommandPalette();
+const route = useRoute()
+const palette = useCommandPalette()
 
-  const tabs = [
-    { id: "home", label: "home", to: "/" },
-    { id: "now", label: "now", to: "/now" },
-    { id: "projects", label: "projects", to: "/projects" },
-    { id: "blog", label: "blog", to: "/blog" },
-    { id: "cv", label: "cv", to: "/cv" },
-    { id: "domains", label: "domains", to: "/domains" },
-    { id: "contact", label: "contact", to: "/contact" },
-  ] as const;
+const tabs = [
+  { id: "home", label: "home", to: "/" },
+  { id: "now", label: "now", to: "/now" },
+  { id: "projects", label: "projects", to: "/projects" },
+  { id: "blog", label: "blog", to: "/blog" },
+  { id: "cv", label: "cv", to: "/cv" },
+  { id: "domains", label: "domains", to: "/domains" },
+  { id: "contact", label: "contact", to: "/contact" }
+] as const
 
-  const activeId = computed(() => {
-    const p = route.path;
-    if (p === "/") {
-      return "home";
-    }
-    const top = p.replace(/^\//, "").replace(/\/.*$/, "");
-    // /blog/<slug> still highlights "blog"
-    return top || "home";
-  });
+const activeId = computed(() => {
+  const p = route.path
+  if (p === "/") {
+    return "home"
+  }
+  const top = p.replace(/^\//, "").replace(/\/.*$/, "")
+  // /blog/<slug> still highlights "blog"
+  return top || "home"
+})
 </script>
 
 <template>
@@ -32,14 +32,8 @@
     class="nav sticky top-8 z-[99] flex flex-wrap items-center gap-x-4 gap-y-1.5 border-b border-void-4 bg-void/70 px-4 py-3 font-sans text-[13px] backdrop-blur-md md:flex-nowrap md:gap-4.5 md:px-8 md:py-3.5"
   >
     <NuxtLink to="/" class="fx-glitch flex cursor-pointer items-center gap-2.5">
-      <img
-        class="h-7 w-7 [image-rendering:pixelated]"
-        src="/assets/logo-mark.svg"
-        alt=""
-      >
-      <span
-        class="font-display text-[26px] leading-none tracking-[0.01em] text-paper"
-      >
+      <img class="h-7 w-7 [image-rendering:pixelated]" src="/assets/logo-mark.svg" alt="" />
+      <span class="font-display text-[26px] leading-none tracking-[0.01em] text-paper">
         syn<span class="text-hot">.</span>horse
       </span>
     </NuxtLink>
@@ -53,9 +47,7 @@
         activeId === t.id ? 'text-paper' : 'text-paper-3'
       ]"
     >
-      <span v-if="activeId === t.id" class="align-[1px] text-[10px] text-hot"
-        >◆
-      </span>{{ t.label }}
+      <span v-if="activeId === t.id" class="align-[1px] text-[10px] text-hot">◆ </span>{{ t.label }}
     </NuxtLink>
     <button
       class="hidden border border-void-4 bg-void-2 px-1.75 py-0.75 font-mono text-[10px] tracking-[0.08em] text-paper-3 md:inline-block"

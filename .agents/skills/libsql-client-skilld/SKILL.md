@@ -1,6 +1,6 @@
 ---
 name: libsql-client-skilld
-description: "ALWAYS use when writing code importing \"@libsql/client\". Consult for debugging, best practices, or modifying @libsql/client, libsql/client, libsql client, libsql-client-ts, libsql client ts."
+description: 'ALWAYS use when writing code importing "@libsql/client". Consult for debugging, best practices, or modifying @libsql/client, libsql/client, libsql client, libsql-client-ts, libsql client ts.'
 metadata:
   version: 0.17.4
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # tursodatabase/libsql-client-ts `@libsql/client@0.17.4`
+
 **Tags:** next: 0.17.3-pre.2, latest: 0.17.4
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @libsql/client` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @libsql/client` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases. **Note:** Local documentation covers v0.14.0; v0.17.4 release notes are unavailable locally.
@@ -61,10 +63,12 @@ This section documents version-specific API changes — prioritize recent major/
 
 - NEW: `Client.protocol` property — v0.3.0 added property to identify which protocol the client uses [source](./.skilld/releases/CHANGELOG.md:L123)
 
-**Also changed:** `batch()` schema change wait option v0.6.1 · `embedded replica sync WAL path fix v0.8.1 · wasm transaction fix v0.8.0-pre.1 · `cache=private|shared` parameter v0.8.0-pre.1 · hrana 0.5 Hrana 3 support v0.3.2 · libsql package replacement for better-sqlite3 v0.3.3 · Bun support v0.3.3 · Hrana 2 default v0.3.4 · column introspection `ResultSet.columnTypes` v0.3.5 · connection reuse optimization v0.3.5`
+**Also changed:** `batch()` schema change wait option v0.6.1 · `embedded replica sync WAL path fix v0.8.1 · wasm transaction fix v0.8.0-pre.1 · `cache=private|shared`parameter v0.8.0-pre.1 · hrana 0.5 Hrana 3 support v0.3.2 · libsql package replacement for better-sqlite3 v0.3.3 · Bun support v0.3.3 · Hrana 2 default v0.3.4 · column introspection`ResultSet.columnTypes` v0.3.5 · connection reuse optimization v0.3.5`
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use batch operations for multiple statements rather than individual `execute()` calls to ensure atomicity and simplify transaction handling — the backend commits all changes on success or rolls back entirely on any failure [source](./.skilld/docs/sdk/ts/reference.md#batch-transactions)

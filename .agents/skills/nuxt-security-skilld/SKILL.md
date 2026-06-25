@@ -1,6 +1,6 @@
 ---
 name: nuxt-security-skilld
-description: " Security Module for Nuxt based on HTTP Headers and Middleware. ALWAYS use when writing code importing \"nuxt-security\". Consult for debugging, best practices, or modifying nuxt-security, nuxt security."
+description: ' Security Module for Nuxt based on HTTP Headers and Middleware. ALWAYS use when writing code importing "nuxt-security". Consult for debugging, best practices, or modifying nuxt-security, nuxt security.'
 metadata:
   version: 2.6.0
   generated_by: cached
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # Baroshem/nuxt-security `nuxt-security@2.6.0`
+
 **Tags:** latest: 2.6.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p nuxt-security` instead of grepping `.skilld/` directories. Run `skilld search --guide -p nuxt-security` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes in nuxt-security v2.x — prioritize recent major/minor releases and breaking changes.
@@ -74,9 +76,11 @@ This section documents version-specific API changes in nuxt-security v2.x — pr
 - Kit v4 type templates — v2.5.0 upgraded Nuxt Kit to v4 for improved type inference and schema augmentation, affects TypeScript definitions for nuxt-security configuration [source](./.skilld/releases/v2.5.0.md#what's-changed)
 
 Also changed: `nuxt-security:routeRules` runtime hook · `defineRouteRules` macro for inline route config · `defuReplaceArray` utility for array-replacing merge · SRI configuration (sri: boolean) · Pre-rendered header exports hook · CORS route rules support
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Start with default configuration (`strict: false`) and only add restrictions as needed. Nuxt Security's defaults provide an A+ Mozilla Observatory score without breaking typical applications — gradually migrate to strict mode once your app is stable [source](./.skilld/docs/content/5.advanced/7.improve-security.md#introduction)

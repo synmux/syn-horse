@@ -1,11 +1,11 @@
 export interface Command {
-  desc: string;
-  ext?: string;
-  ic: string;
-  id: string;
-  joke?: { kind: "toast" | "shake-toast" | "descend"; message: string };
-  konamiNote?: string;
-  label: string;
+  desc: string
+  ext?: string
+  ic: string
+  id: string
+  joke?: { kind: "toast" | "shake-toast" | "descend"; message: string }
+  konamiNote?: string
+  label: string
 }
 
 export const COMMANDS: Command[] = [
@@ -60,7 +60,7 @@ export const COMMANDS: Command[] = [
     desc: "bsky.app/profile/syn.horse",
     ext: "https://bsky.app/profile/syn.horse",
   },
-];
+]
 
 export const KONAMI_COMMANDS: Command[] = [
   {
@@ -94,4 +94,4 @@ export const KONAMI_COMMANDS: Command[] = [
     desc: "descend into the void.",
     joke: { kind: "descend", message: "" },
   },
-];
+]

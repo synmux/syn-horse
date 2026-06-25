@@ -1,5 +1,5 @@
 // Pages.jsx — the 6 screens
-const { useState: useStateP, useEffect: useEffectP } = React;
+const { useState: useStateP, useEffect: useEffectP } = React
 
 function DashboardPage({ onOpenSynth }) {
   const synths = [
@@ -7,43 +7,39 @@ function DashboardPage({ onOpenSynth }) {
       id: "SY-0421",
       title: "my entire posting history",
       desc: "unhinged screenshots and drafts. updated whenever you press a wrong button.",
-      tags: [{ label: "PUBLIC", kind: "hot" }, { label: "421 ITEMS" }],
+      tags: [{ label: "PUBLIC", kind: "hot" }, { label: "421 ITEMS" }]
     },
     {
       id: "SY-0188",
       title: "thoughts at 3am",
       desc: "do not open. if you opened it, do not read.",
-      tags: [{ label: "PRIVATE", kind: "cool" }, { label: "12 ITEMS" }],
+      tags: [{ label: "PRIVATE", kind: "cool" }, { label: "12 ITEMS" }]
     },
     {
       id: "SY-0099",
       title: "screenshots of error messages i found beautiful",
       desc: "a curated gallery. yes, even the kernel panic.",
-      tags: [
-        { label: "PUBLIC", kind: "hot" },
-        { label: "88 ITEMS" },
-        { label: "PINNED", kind: "warn" },
-      ],
+      tags: [{ label: "PUBLIC", kind: "hot" }, { label: "88 ITEMS" }, { label: "PINNED", kind: "warn" }]
     },
     {
       id: "SY-0042",
       title: "the void ledger",
       desc: "a running list of things i meant to post and didn't.",
-      tags: [{ label: "DRAFT" }, { label: "42 ITEMS" }],
+      tags: [{ label: "DRAFT" }, { label: "42 ITEMS" }]
     },
     {
       id: "SY-0007",
       title: "cursed receipts",
       desc: "every transaction that made me feel something. mostly small.",
-      tags: [{ label: "ARCHIVE" }, { label: "7 ITEMS" }],
+      tags: [{ label: "ARCHIVE" }, { label: "7 ITEMS" }]
     },
     {
       id: "SY-0001",
       title: "first synth",
       desc: "the original. a screenshot of a screenshot. you cannot delete this.",
-      tags: [{ label: "PINNED", kind: "warn" }, { label: "1 ITEM" }],
-    },
-  ];
+      tags: [{ label: "PINNED", kind: "warn" }, { label: "1 ITEM" }]
+    }
+  ]
   return (
     <>
       <div className="page-head">
@@ -66,7 +62,7 @@ function DashboardPage({ onOpenSynth }) {
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-          gap: 14,
+          gap: 14
         }}
       >
         {synths.map((s) => (
@@ -74,15 +70,15 @@ function DashboardPage({ onOpenSynth }) {
         ))}
       </div>
     </>
-  );
+  )
 }
 
 function DetailPage({ synth, onBack }) {
   const s = synth || {
     id: "SY-0421",
     title: "my entire posting history",
-    desc: "a folder of unhinged screenshots and drafts. updated every time you press a wrong button.",
-  };
+    desc: "a folder of unhinged screenshots and drafts. updated every time you press a wrong button."
+  }
   return (
     <>
       <div className="page-head">
@@ -98,20 +94,14 @@ function DetailPage({ synth, onBack }) {
           <button className="btn btn-danger btn-sm">DELETE</button>
         </div>
       </div>
-      <Tabs
-        items={["contents", "history", "danger zone"]}
-        active="contents"
-        onChange={() => {}}
-      />
-      <div
-        style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: 28 }}
-      >
+      <Tabs items={["contents", "history", "danger zone"]} active="contents" onChange={() => {}} />
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: 28 }}>
         <div>
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 8,
+              gap: 8
             }}
           >
             {Array.from({ length: 9 }).map((_, i) => (
@@ -125,7 +115,7 @@ function DetailPage({ synth, onBack }) {
                   placeItems: "center",
                   fontFamily: "var(--font-mono)",
                   fontSize: 11,
-                  color: "var(--fg-3)",
+                  color: "var(--fg-3)"
                 }}
               >
                 [ image: TODO ]
@@ -135,16 +125,14 @@ function DetailPage({ synth, onBack }) {
         </div>
         <aside>
           <div className="label">about</div>
-          <p style={{ fontSize: 13, color: "var(--fg-2)", marginBottom: 18 }}>
-            {s.desc}
-          </p>
+          <p style={{ fontSize: 13, color: "var(--fg-2)", marginBottom: 18 }}>{s.desc}</p>
           <div className="label">stats</div>
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
               gap: 6,
-              marginBottom: 18,
+              marginBottom: 18
             }}
           >
             <div className="tag tag-hot">421 ITEMS</div>
@@ -158,18 +146,18 @@ function DetailPage({ synth, onBack }) {
               { prompt: true, text: "last edit: 3 minutes ago" },
               { prompt: true, text: "created: 2024-08-11 23:41" },
               { kind: "warn", text: "WARN: 2 unsynced drafts" },
-              { prompt: true, text: "owner: @horse.dril" },
+              { prompt: true, text: "owner: @horse.dril" }
             ]}
           />
         </aside>
       </div>
     </>
-  );
+  )
 }
 
 function ComposePage({ onSave }) {
-  const [title, setTitle] = useStateP("");
-  const [body, setBody] = useStateP("");
+  const [title, setTitle] = useStateP("")
+  const [body, setBody] = useStateP("")
   return (
     <>
       <div className="page-head">
@@ -184,9 +172,7 @@ function ComposePage({ onSave }) {
           </button>
         </div>
       </div>
-      <div
-        style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: 28 }}
-      >
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: 28 }}>
         <div>
           <div className="label">title</div>
           <input
@@ -206,7 +192,7 @@ function ComposePage({ onSave }) {
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: 13,
-              lineHeight: 1.6,
+              lineHeight: 1.6
             }}
           />
           <div
@@ -216,7 +202,7 @@ function ComposePage({ onSave }) {
               color: "var(--fg-3)",
               marginTop: 6,
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "space-between"
             }}
           >
             <span>markdown supported. emoji are not.</span>
@@ -230,7 +216,7 @@ function ComposePage({ onSave }) {
               display: "flex",
               gap: 6,
               marginBottom: 16,
-              flexWrap: "wrap",
+              flexWrap: "wrap"
             }}
           >
             <span className="tag tag-hot">PUBLIC</span>
@@ -252,7 +238,7 @@ function ComposePage({ onSave }) {
               textAlign: "center",
               color: "var(--fg-3)",
               fontSize: 12,
-              fontFamily: "var(--font-mono)",
+              fontFamily: "var(--font-mono)"
             }}
           >
             drop file here
@@ -262,7 +248,7 @@ function ComposePage({ onSave }) {
         </aside>
       </div>
     </>
-  );
+  )
 }
 
 function SettingsPage() {
@@ -279,7 +265,7 @@ function SettingsPage() {
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: 28,
-          maxWidth: 880,
+          maxWidth: 880
         }}
       >
         <section>
@@ -290,29 +276,17 @@ function SettingsPage() {
               color: "var(--fg-3)",
               textTransform: "uppercase",
               letterSpacing: ".1em",
-              marginBottom: 14,
+              marginBottom: 14
             }}
           >
             account
           </h4>
           <div className="label">handle</div>
-          <input
-            className="field"
-            defaultValue="@horse.dril"
-            style={{ marginBottom: 14 }}
-          />
+          <input className="field" defaultValue="@horse.dril" style={{ marginBottom: 14 }} />
           <div className="label">display name</div>
-          <input
-            className="field"
-            defaultValue="a horse, dril"
-            style={{ marginBottom: 14 }}
-          />
+          <input className="field" defaultValue="a horse, dril" style={{ marginBottom: 14 }} />
           <div className="label">bio</div>
-          <textarea
-            className="field"
-            rows="3"
-            defaultValue="i used to be normal. then i became a synth."
-          />
+          <textarea className="field" rows="3" defaultValue="i used to be normal. then i became a synth." />
         </section>
         <section>
           <h4
@@ -322,7 +296,7 @@ function SettingsPage() {
               color: "var(--danger)",
               textTransform: "uppercase",
               letterSpacing: ".1em",
-              marginBottom: 14,
+              marginBottom: 14
             }}
           >
             DANGER ZONE
@@ -331,31 +305,26 @@ function SettingsPage() {
             style={{
               border: "2px solid var(--danger)",
               padding: 16,
-              marginBottom: 12,
+              marginBottom: 12
             }}
           >
-            <div style={{ fontWeight: 600, marginBottom: 6 }}>
-              EXPORT EVERYTHING
-            </div>
+            <div style={{ fontWeight: 600, marginBottom: 6 }}>EXPORT EVERYTHING</div>
             <p style={{ fontSize: 13, color: "var(--fg-2)", marginBottom: 10 }}>
               a tar.gz of every synth, draft, and regret.
             </p>
             <button className="btn btn-danger btn-sm">EXPORT</button>
           </div>
           <div style={{ border: "2px solid var(--danger)", padding: 16 }}>
-            <div style={{ fontWeight: 600, marginBottom: 6 }}>
-              DELETE ACCOUNT
-            </div>
+            <div style={{ fontWeight: 600, marginBottom: 6 }}>DELETE ACCOUNT</div>
             <p style={{ fontSize: 13, color: "var(--fg-2)", marginBottom: 10 }}>
-              this deletes everything. it does not "freeze" or "deactivate". it
-              ends.
+              this deletes everything. it does not "freeze" or "deactivate". it ends.
             </p>
             <button className="btn btn-danger btn-sm">DELETE FOREVER</button>
           </div>
         </section>
       </div>
     </>
-  );
+  )
 }
 
 function NotFoundPage({ onGoHome }) {
@@ -365,7 +334,7 @@ function NotFoundPage({ onGoHome }) {
         textAlign: "center",
         padding: "80px 0",
         maxWidth: 680,
-        margin: "0 auto",
+        margin: "0 auto"
       }}
     >
       <div style={{ display: "inline-block", marginBottom: 24 }}>
@@ -380,7 +349,7 @@ function NotFoundPage({ onGoHome }) {
           lineHeight: 1,
           color: "var(--paper)",
           textShadow: "2px 0 0 var(--hot), -2px 0 0 var(--cool)",
-          marginBottom: 20,
+          marginBottom: 20
         }}
       >
         404.
@@ -392,14 +361,12 @@ function NotFoundPage({ onGoHome }) {
           marginBottom: 12,
           textTransform: "uppercase",
           letterSpacing: ".04em",
-          fontWeight: 600,
+          fontWeight: 600
         }}
       >
         THIS PAGE DOES NOT EXIST.
       </p>
-      <p style={{ fontSize: 14, color: "var(--fg-3)", marginBottom: 28 }}>
-        never did. you are imagining it. go home.
-      </p>
+      <p style={{ fontSize: 14, color: "var(--fg-3)", marginBottom: 28 }}>never did. you are imagining it. go home.</p>
       <button className="btn btn-primary" onClick={onGoHome}>
         go home
       </button>
@@ -408,12 +375,12 @@ function NotFoundPage({ onGoHome }) {
           lines={[
             { prompt: true, text: "GET /void/this-page HTTP/1.1" },
             { kind: "err", text: "404 NOT FOUND. nothing here. cope." },
-            { prompt: true, text: "redirecting in 0ms (psyche)" },
+            { prompt: true, text: "redirecting in 0ms (psyche)" }
           ]}
         />
       </div>
     </div>
-  );
+  )
 }
 
 function CommandPalette({ onClose, onNavigate }) {
@@ -428,22 +395,19 @@ function CommandPalette({ onClose, onNavigate }) {
     { label: "log out", kbd: "q" },
     { section: "cursed" },
     { label: "summon a random synth", kbd: "?" },
-    { label: "DELETE EVERYTHING", kbd: "⇧⌘⌫", danger: true },
-  ];
+    { label: "DELETE EVERYTHING", kbd: "⇧⌘⌫", danger: true }
+  ]
   return (
     <div className="cp-overlay" onClick={onClose}>
       <div className="cp" onClick={(e) => e.stopPropagation()}>
         <div className="cp-input">
-          <i
-            data-lucide="search"
-            style={{ color: "var(--hot)", width: 18, height: 18 }}
-          ></i>
+          <i data-lucide="search" style={{ color: "var(--hot)", width: 18, height: 18 }}></i>
           <input autoFocus placeholder="say a command. or don't." />
           <span
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: 11,
-              color: "var(--fg-3)",
+              color: "var(--fg-3)"
             }}
           >
             ESC
@@ -461,8 +425,8 @@ function CommandPalette({ onClose, onNavigate }) {
                 className={"cp-item" + (i === 1 ? " active" : "")}
                 onClick={() => {
                   if (it.go) {
-                    onNavigate(it.go);
-                    onClose();
+                    onNavigate(it.go)
+                    onClose()
                   }
                 }}
                 style={it.danger ? { color: "var(--danger)" } : null}
@@ -475,7 +439,7 @@ function CommandPalette({ onClose, onNavigate }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 Object.assign(window, {
@@ -484,5 +448,5 @@ Object.assign(window, {
   ComposePage,
   SettingsPage,
   NotFoundPage,
-  CommandPalette,
-});
+  CommandPalette
+})

@@ -5,13 +5,13 @@ export function usePageSetup({
   image,
   keywords,
 }: {
-  title?: string;
-  description?: string;
-  icon?: string;
-  image?: string;
-  keywords?: string[];
+  title?: string
+  description?: string
+  icon?: string
+  image?: string
+  keywords?: string[]
 }) {
-  const fullTitle = `${title} @ dave.io`;
+  const fullTitle = `${title} @ dave.io`
 
   useHead({
     link: [
@@ -36,7 +36,7 @@ export function usePageSetup({
           "dave.io, Dave Williams, personal site, portfolio, blog, projects, web development, programming, technology, software engineer",
       },
     ],
-  });
+  })
 
   useSeoMeta({
     description: description || "Personal site of Dave Williams",
@@ -48,5 +48,5 @@ export function usePageSetup({
     twitterDescription: description || "Personal site of Dave Williams",
     twitterImage: image || "/images/social.webp",
     twitterTitle: fullTitle,
-  });
+  })
 }

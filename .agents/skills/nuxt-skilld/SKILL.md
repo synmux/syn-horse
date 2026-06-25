@@ -1,6 +1,6 @@
 ---
 name: nuxt-skilld
-description: "ALWAYS use when writing code importing \"nuxt\". Consult for debugging, best practices, or modifying nuxt."
+description: 'ALWAYS use when writing code importing "nuxt". Consult for debugging, best practices, or modifying nuxt.'
 metadata:
   version: 4.4.8
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # nuxt/nuxt `nuxt@4.4.8`
+
 **Tags:** 1x: 1.4.5, 2x: 2.18.1, alpha: 4.0.0-alpha.4
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p nuxt` instead of grepping `.skilld/` directories. Run `skilld search --guide -p nuxt` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes in Nuxt v4.4.8 — prioritizing recent major/minor releases where breaking changes and renamed APIs are most likely to differ from pre-trained knowledge.
@@ -62,9 +64,11 @@ This section documents version-specific API changes in Nuxt v4.4.8 — prioritiz
 - NEW: `clearNuxtState(key)` resets to default — Nuxt 4.4 changes behavior to reset `useState` to initial value instead of `undefined` [source](./.skilld/releases/v4.4.0.md#usestate-reset-to-default)
 
 **Also changed:** Async plugin constructors via `addVitePlugin` in v4.3 · `payloadExtraction: 'client'` mode in v4.4 · Module `onInstall`/`onUpgrade` hooks in v4.1 · `moduleDependencies` for module interdependencies in v4.1 · `defineLazyHydrationComponent()` without auto-imports in v4.1 · `getLayerDirectories()` utility in v4.1 · Import maps for chunk stability (experimental `entryImportMap`) in v4.1 · `NuxtPage.rules` property in v4.1 · Better error pages with dev overlay in v4.2 · Async data handler extraction (experimental `extractAsyncDataHandlers`) in v4.2 · Component `declarationPath` option in v4.2 · Vite Environment API opt-in (experimental `viteEnvironmentApi`) in v4.2 · `resolveModule` extensions option in v4.2 · `setGlobalHead()` kit utility in v4.2 · Removed `#app/components/layout` import path in v4.0 · Removed `globalName` property in v4.0 · Removed public/assets aliases in v4.0
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use `useFetch` or `useAsyncData` for initial component data instead of `$fetch` — prevents double-fetching on SSR and ensures data reaches the client in the payload, avoiding hydration mismatches [source](./.skilld/docs/1.getting-started/10.data-fetching.md:L7:22)

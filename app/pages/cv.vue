@@ -1,31 +1,25 @@
 <script setup lang="ts">
-  import { CV_ROLES, SIDE, TALKS } from "~/data/cv";
-  import { SITE } from "~/data/site";
+import { CV_ROLES, SIDE, TALKS } from "~/data/cv"
+import { SITE } from "~/data/site"
 
-  useSeoMeta({
-    title: `cv · ${SITE.name}`,
-    description: "10+ years in devops, sre, and sysadmin.",
-  });
+useSeoMeta({
+  title: `cv · ${SITE.name}`,
+  description: "10+ years in devops, sre, and sysadmin."
+})
 </script>
 
 <template>
   <div class="page-shell">
-    <div class="eyebrow">
-      ▶ /cv · last revised 2026.03 · pdf available on request
-    </div>
+    <div class="eyebrow">▶ /cv · last revised 2026.03 · pdf available on request</div>
     <h1 class="page-h1">cv<span class="dot">.</span></h1>
     <p class="lede">
-      10+ years in devops, sre, and sysadmin. terraform, nomad, kubernetes,
-      prometheus, more bash than is strictly healthy. terse on purpose.
+      10+ years in devops, sre, and sysadmin. terraform, nomad, kubernetes, prometheus, more bash than is strictly
+      healthy. terse on purpose.
     </p>
     <div class="cv-actions">
       <button type="button" class="btn-syn fx-glitch">↓ download pdf</button>
-      <button type="button" class="btn-syn fx-glitch">
-        ↗ linkedin (don't)
-      </button>
-      <button type="button" class="btn-syn fx-glitch">
-        ✉ email for full ref list
-      </button>
+      <button type="button" class="btn-syn fx-glitch">↗ linkedin (don't)</button>
+      <button type="button" class="btn-syn fx-glitch">✉ email for full ref list</button>
     </div>
 
     <h2 class="cv-h2"><span class="num">01 ·</span> work</h2>
@@ -70,9 +64,8 @@
       </div>
       <div class="right">
         <p>
-          i can put you in touch with eng managers, peers, and direct reports.
-          names + contact details on request — i'm not putting them on a public
-          page.
+          i can put you in touch with eng managers, peers, and direct reports. names + contact details on request — i'm
+          not putting them on a public page.
         </p>
       </div>
     </div>

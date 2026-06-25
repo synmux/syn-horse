@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Spinning Horse</title>
     <style>
       :root {
@@ -15,9 +15,7 @@
         padding: 0;
         margin: 0;
         overflow: hidden;
-        font-family:
-          -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
-          Arial, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
         color: #e8e8ee;
         background: #0b0b0f;
       }
@@ -27,13 +25,7 @@
         inset: 0;
         display: grid;
         place-items: center;
-        background:
-          radial-gradient(
-            ellipse at center,
-            rgba(80, 70, 120, 0.18) 0%,
-            rgba(11, 11, 15, 0) 60%
-          ),
-          #0b0b0f;
+        background: radial-gradient(ellipse at center, rgba(80, 70, 120, 0.18) 0%, rgba(11, 11, 15, 0) 60%), #0b0b0f;
       }
 
       .horse {
@@ -107,64 +99,64 @@
       <button id="toggle" type="button">Pause</button>
       <button id="reverse" type="button">Reverse</button>
       <label for="speed">Speed</label>
-      <input id="speed" type="range" min="1" max="60" value="24">
+      <input id="speed" type="range" min="1" max="60" value="24" />
     </div>
 
     <script>
-      "use strict";
+      "use strict"
       // Generate frame angles from 0 to 345 in 15 degree increments,
       // matching the file naming convention (-180..180 by 15, with 180 == -180).
-      const angles = [];
+      const angles = []
       for (let a = 0; a < 360; a += 15) {
         // Map angles > 180 to the corresponding negative value so they match
         // the source filenames (e.g. 195 -> -165).
-        angles.push(a <= 180 ? a : a - 360);
+        angles.push(a <= 180 ? a : a - 360)
       }
 
-      const horse = document.getElementById("horse");
+      const horse = document.getElementById("horse")
       const imgs = angles.map((angle) => {
-        const img = new Image();
-        img.src = `Generative Object (${angle}, 0).png`;
-        img.alt = "";
-        img.decoding = "async";
-        img.loading = "eager";
-        horse.appendChild(img);
-        return img;
-      });
+        const img = new Image()
+        img.src = `Generative Object (${angle}, 0).png`
+        img.alt = ""
+        img.decoding = "async"
+        img.loading = "eager"
+        horse.appendChild(img)
+        return img
+      })
 
-      let current = 0;
-      let direction = 1;
-      let fps = 24;
-      let playing = true;
-      let last = performance.now();
+      let current = 0
+      let direction = 1
+      let fps = 24
+      let playing = true
+      let last = performance.now()
 
-      imgs[current].classList.add("active");
+      imgs[current].classList.add("active")
 
       function tick(now) {
-        const interval = 1000 / fps;
+        const interval = 1000 / fps
         if (playing && now - last >= interval) {
-          imgs[current].classList.remove("active");
-          current = (current + direction + imgs.length) % imgs.length;
-          imgs[current].classList.add("active");
-          last = now;
+          imgs[current].classList.remove("active")
+          current = (current + direction + imgs.length) % imgs.length
+          imgs[current].classList.add("active")
+          last = now
         }
-        requestAnimationFrame(tick);
+        requestAnimationFrame(tick)
       }
-      requestAnimationFrame(tick);
+      requestAnimationFrame(tick)
 
-      const toggleBtn = document.getElementById("toggle");
+      const toggleBtn = document.getElementById("toggle")
       toggleBtn.addEventListener("click", () => {
-        playing = !playing;
-        toggleBtn.textContent = playing ? "Pause" : "Play";
-      });
+        playing = !playing
+        toggleBtn.textContent = playing ? "Pause" : "Play"
+      })
 
       document.getElementById("reverse").addEventListener("click", () => {
-        direction *= -1;
-      });
+        direction *= -1
+      })
 
       document.getElementById("speed").addEventListener("input", (e) => {
-        fps = Number(e.target.value);
-      });
+        fps = Number(e.target.value)
+      })
     </script>
   </body>
 </html>

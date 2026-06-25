@@ -1,7 +1,7 @@
 /// <reference types="../../worker-configuration" />
 
-import type { H3Event } from "h3";
-import { drizzle } from "drizzle-orm/d1";
+import type { H3Event } from "h3"
+import { drizzle } from "drizzle-orm/d1"
 
 /**
  * Retrieves the Cloudflare environment from the given event.
@@ -17,13 +17,13 @@ import { drizzle } from "drizzle-orm/d1";
  *   Error: If the environment is not found in the event context.
  */
 export function getEnv(event: H3Event) {
-  const env = (event.context.cloudflare?.env || null) as Env;
+  const env = (event.context.cloudflare?.env || null) as Env
 
   if (!env) {
-    throw new Error("Environment not found in event context");
+    throw new Error("Environment not found in event context")
   }
 
-  return env;
+  return env
 }
 
 /**
@@ -40,11 +40,11 @@ export function getEnv(event: H3Event) {
  *   Error: If the environment or database is not found in the event context.
  */
 export function getDB(event: H3Event) {
-  const env = getEnv(event);
+  const env = getEnv(event)
 
   if (!env.DB) {
-    throw new Error("Database not found in environment");
+    throw new Error("Database not found in environment")
   }
 
-  return drizzle(env.DB);
+  return drizzle(env.DB)
 }

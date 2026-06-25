@@ -1,6 +1,6 @@
 ---
 name: wrangler-skilld
-description: "ALWAYS use when writing code importing \"wrangler\". Consult for debugging, best practices, or modifying wrangler, workers-sdk, workers sdk."
+description: 'ALWAYS use when writing code importing "wrangler". Consult for debugging, best practices, or modifying wrangler, workers-sdk, workers sdk.'
 metadata:
   version: 4.101.0
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # cloudflare/workers-sdk `wrangler@4.101.0`
+
 **Tags:** wrangler@2.2.4: 2.2.4, legacy: 3.114.17, latest: 4.101.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p wrangler` instead of grepping `.skilld/` directories. Run `skilld search --guide -p wrangler` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritise recent major/minor releases.
@@ -64,9 +66,11 @@ This section documents version-specific API changes — prioritise recent major/
 - BREAKING: `[script]` positional argument generalised to `[path]` — v4.98.0 generalises `wrangler deploy` and `wrangler versions upload` positional from file to file-or-directory. Auto-detects type. `--script` flag deprecated (hidden, backwards compatible for files only; rejects directories with guidance). Usage: `wrangler deploy ./src/index.ts` (file) or `wrangler deploy ./public` (directory) [source](./.skilld/releases/wrangler@4.98.0.md#minor-changes)
 
 **Also changed:** Tunnel QR code display v4.94.0 · `getPlatformProxy()` workflow binding passthrough v4.98.0 · `wrangler types --check` multi-worker fix v4.99.0 · `wrangler secret bulk` delete-only no-op v4.99.0 · Workflow binding `schedule` property v4.94.0 · Deploy helper flags v4.95.0 · Authentication error messages v4.100.0 · D1 error message improvements v4.100.0 · R2 Sippy error messages v4.100.0 · Memory leak fix in headless dev v4.100.0
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Run `wrangler types` to generate your `Env` interface instead of hand-writing it — this catches binding mismatches at compile time rather than deploy time and must be re-run whenever bindings change [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#generate-binding-types-with-wrangler-types)

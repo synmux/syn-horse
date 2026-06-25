@@ -1,6 +1,6 @@
 ---
 name: vue-skilld
-description: "ALWAYS use when editing or working with *.vue files or code importing \"vue\". Consult for debugging, best practices, or modifying vue, core."
+description: 'ALWAYS use when editing or working with *.vue files or code importing "vue". Consult for debugging, best practices, or modifying vue, core.'
 metadata:
   version: 3.5.38
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # vuejs/core `vue@3.5.38`
+
 **Tags:** csp: 1.0.28-csp, legacy: 2.7.16, v2-latest: 2.7.16
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p vue` instead of grepping `.skilld/` directories. Run `skilld search --guide -p vue` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritise recent major/minor releases.
@@ -70,9 +72,11 @@ This section documents version-specific API changes — prioritise recent major/
 - FEATURE: Ergonomic `defineEmits` — type-based declaration with simpler syntax `foo: [id: number]` instead of call signature `(e: 'foo', id: number): void` [source](./.skilld/releases/blog-3.3.md#more-ergonomic-defineemits)
 
 **Performance:** Reactivity system refactored in v3.4 — computed properties only re-evaluate when results change; array methods (`shift`, `unshift`, `splice`) trigger effects once; v3.5 reactivity optimisations achieve -56% memory usage and 10x speedup for large arrays · Parser rewritten for 2x template compilation speed in v3.4 · Hydration mismatch errors improved with better wording, DOM node references, and dynamic attribute checks
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Always use `<script setup lang="ts">` as the recommended syntax for Single-File Components with Composition API — it is the most modern and ergonomic way to write Vue components with built-in support for TypeScript props type inference [source](./.skilld/docs/api/sfc-script-setup.md)

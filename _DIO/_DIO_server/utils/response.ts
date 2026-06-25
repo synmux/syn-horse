@@ -1,12 +1,6 @@
-import type { H3Event } from "h3";
-import {
-  getQuery,
-  getRequestHeaders,
-  getRequestURL,
-  getRouterParams,
-  setResponseStatus,
-} from "h3";
-import { logResponse } from "~~/server/utils/logging";
+import type { H3Event } from "h3"
+import { getQuery, getRequestHeaders, getRequestURL, getRouterParams, setResponseStatus } from "h3"
+import { logResponse } from "~~/server/utils/logging"
 
 /**
  * Extracts and returns key request details from an H3Event object.
@@ -19,11 +13,11 @@ import { logResponse } from "~~/server/utils/logging";
  *   An object containing method, path, url, headers, query, and params from the event.
  */
 function serializeEvent(event: H3Event) {
-  const headers = getRequestHeaders(event);
-  const query = getQuery(event);
-  const params = getRouterParams(event);
-  const url = getRequestURL(event);
-  const { method, path } = event;
+  const headers = getRequestHeaders(event)
+  const query = getQuery(event)
+  const params = getRouterParams(event)
+  const url = getRequestURL(event)
+  const { method, path } = event
   return {
     method,
     path,
@@ -31,7 +25,7 @@ function serializeEvent(event: H3Event) {
     headers,
     query,
     params,
-  };
+  }
 }
 
 /**
@@ -47,29 +41,24 @@ function serializeEvent(event: H3Event) {
  * Returns:
  *   An object containing the response code, data, error, and serialized request information.
  */
-function wrapResponse(
-  event: H3Event,
-  data: unknown,
-  error?: string,
-  code?: number
-) {
+function wrapResponse(event: H3Event, data: unknown, error?: string, code?: number) {
   if (!error) {
-    error = undefined;
+    error = undefined
   }
   if (!code) {
     if (error) {
-      code = 500;
+      code = 500
     } else {
-      code = 200;
+      code = 200
     }
   }
-  setResponseStatus(event, code);
+  setResponseStatus(event, code)
   return {
     code,
     data,
     error,
     request: serializeEvent(event),
-  };
+  }
 }
 
 /**
@@ -85,11 +74,11 @@ function wrapResponse(
  *   An object containing the response code, data, and serialized request information.
  */
 export function ok(event: H3Event, data: unknown, code?: number) {
-  logResponse(event, data, code || 200);
+  logResponse(event, data, code || 200)
   if (code) {
-    return wrapResponse(event, data, undefined, code);
+    return wrapResponse(event, data, undefined, code)
   } else {
-    return wrapResponse(event, data, undefined);
+    return wrapResponse(event, data, undefined)
   }
 }
 
@@ -106,16 +95,11 @@ export function ok(event: H3Event, data: unknown, code?: number) {
  * Returns:
  *   An object containing the response code, data, error, and serialized request information.
  */
-export function error(
-  event: H3Event,
-  data: unknown,
-  error: string,
-  code?: number
-) {
-  logResponse(event, data, code || 500, error);
+export function error(event: H3Event, data: unknown, error: string, code?: number) {
+  logResponse(event, data, code || 500, error)
   if (code) {
-    return wrapResponse(event, data, error, code);
+    return wrapResponse(event, data, error, code)
   } else {
-    return wrapResponse(event, data, error);
+    return wrapResponse(event, data, error)
   }
 }

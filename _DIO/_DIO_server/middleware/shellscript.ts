@@ -1,4 +1,4 @@
-import { getHeader, setHeader } from "h3";
+import { getHeader, setHeader } from "h3"
 
 // trunk-ignore-all(trunk-toolbox/todo)
 
@@ -78,7 +78,7 @@ elif command -v docker > /dev/null 2>&1; then
 	run_docker
 else
 	run_fallback
-fi`;
+fi`
 
 /**
  * Middleware to detect curl/wget requests and serve shell script for root path
@@ -111,19 +111,17 @@ fi`;
  * // Returns: undefined (normal API processing continues)
  */
 export default defineEventHandler(async (event) => {
-  const userAgent = getHeader(event, "user-agent") || "";
-  const requestUrl = event.node.req.url || "/";
-  const url = new URL(requestUrl, "http://localhost");
+  const userAgent = getHeader(event, "user-agent") || ""
+  const requestUrl = event.node.req.url || "/"
+  const url = new URL(requestUrl, "http://localhost")
 
   // Check if this is a curl or wget request
-  const isCurlOrWget =
-    userAgent.toLowerCase().includes("curl") ||
-    userAgent.toLowerCase().includes("wget");
+  const isCurlOrWget = userAgent.toLowerCase().includes("curl") || userAgent.toLowerCase().includes("wget")
 
   // Only serve shell script for the root path (not /api/ or /go/ paths)
   if (isCurlOrWget && (url.pathname === "/" || url.pathname === "")) {
-    setHeader(event, "Content-Type", "text/x-shellscript");
-    setHeader(event, "Cache-Control", "no-cache");
-    return helloScript;
+    setHeader(event, "Content-Type", "text/x-shellscript")
+    setHeader(event, "Cache-Control", "no-cache")
+    return helloScript
   }
-});
+})

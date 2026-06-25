@@ -1,6 +1,6 @@
 ---
 name: storybloq-storybloq-skilld
-description: "ALWAYS use when writing code importing \"@storybloq/storybloq\". Consult for debugging, best practices, or modifying @storybloq/storybloq, storybloq/storybloq, storybloq storybloq, storybloq."
+description: 'ALWAYS use when writing code importing "@storybloq/storybloq". Consult for debugging, best practices, or modifying @storybloq/storybloq, storybloq/storybloq, storybloq storybloq, storybloq.'
 metadata:
   version: 1.4.4
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # Storybloq/storybloq `@storybloq/storybloq@1.4.4`
+
 **Tags:** latest: 1.4.4
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @storybloq/storybloq` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @storybloq/storybloq` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritise recent major/minor releases.
@@ -103,9 +105,11 @@ Optional config field for Codex-session review preferences. Defaults to `["lense
 - `CLAUDESTORY_PROJECT_ROOT` will be removed in a future major version
 
 **Also changed:** Codex auto-approval for `storybloq_node_list` (v1.4.1) · `status.json` refresh on workflow state transitions (v1.4.2) · Symlink-safe dotfile writes (v1.4.3) · Windows path handling in `.story/` writes (v1.4.4)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Return `"insufficient-context"` status when code fragments are too disjointed to review safely — never force findings from ambiguous context. This prevents false positives from incomplete views of data flow or error handling paths [source](./.skilld/docs/shared-preamble.md:L18:22)
