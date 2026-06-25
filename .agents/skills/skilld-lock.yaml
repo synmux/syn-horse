@@ -9,11 +9,11 @@ skills:
     generator: skilld
   vue-skilld:
     packageName: vue
-    version: 3.5.38
-    packages: "vue@3.5.38"
+    version: 3.5.39
+    packages: "vue@3.5.39"
     repo: vuejs/core
     source: "https://github.com/vuejs/core/tree/main/docs"
-    syncedAt: 2026-06-13
+    syncedAt: 2026-06-25
     generator: skilld
   nuxt-content-skilld:
     packageName: "@nuxt/content"
@@ -31,11 +31,11 @@ skills:
     generator: skilld
   nuxt-icon-skilld:
     packageName: "@nuxt/icon"
-    version: 2.2.3
-    packages: "@nuxt/icon@2.2.3"
+    version: 2.2.4
+    packages: "@nuxt/icon@2.2.4"
     repo: nuxt/icon
     source: "https://stackblitz.com/edit/nuxt-icon-playground?file=app.vue/**"
-    syncedAt: 2026-06-05
+    syncedAt: 2026-06-25
     generator: skilld
   nuxt-image-skilld:
     packageName: "@nuxt/image"
@@ -46,11 +46,11 @@ skills:
     generator: skilld
   nuxtjs-seo-skilld:
     packageName: "@nuxtjs/seo"
-    version: 5.3.0
-    packages: "@nuxtjs/seo@5.3.0"
+    version: 5.3.1
+    packages: "@nuxtjs/seo@5.3.1"
     repo: harlan-zw/nuxt-seo
-    source: "https://github.com/harlan-zw/nuxt-seo/tree/v5.3.0/docs"
-    syncedAt: 2026-06-13
+    source: "https://github.com/harlan-zw/nuxt-seo/tree/v5.3.1/docs"
+    syncedAt: 2026-06-25
     generator: skilld
   nuxthub-core-skilld:
     packageName: "@nuxthub/core"
@@ -92,19 +92,19 @@ skills:
     generator: skilld
   takumi-rs-core-skilld:
     packageName: "@takumi-rs/core"
-    version: 1.8.5
-    packages: "@takumi-rs/core@1.8.5"
+    version: 1.8.7
+    packages: "@takumi-rs/core@1.8.7"
     repo: kane50613/takumi
-    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/core@1.8.5/docs"
-    syncedAt: 2026-06-15
+    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/core@1.8.7/docs"
+    syncedAt: 2026-06-25
     generator: skilld
   takumi-rs-wasm-skilld:
     packageName: "@takumi-rs/wasm"
-    version: 1.8.5
-    packages: "@takumi-rs/wasm@1.8.5"
+    version: 1.8.7
+    packages: "@takumi-rs/wasm@1.8.7"
     repo: kane50613/takumi
-    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/wasm@1.8.5/docs"
-    syncedAt: 2026-06-15
+    source: "https://github.com/kane50613/takumi/tree/@takumi-rs/wasm@1.8.7/docs"
+    syncedAt: 2026-06-25
     generator: skilld
   nuxt-security-skilld:
     packageName: nuxt-security
@@ -123,10 +123,11 @@ skills:
     generator: skilld
   uuid-skilld:
     packageName: uuid
-    version: 14.0.0
+    version: 14.0.1
+    packages: "uuid@14.0.1"
     repo: uuidjs/uuid
     source: "ungh://uuidjs/uuid"
-    syncedAt: 2026-05-29
+    syncedAt: 2026-06-25
     generator: skilld
   tailwindcss-skilld:
     packageName: tailwindcss
@@ -152,11 +153,11 @@ skills:
     generator: skilld
   biomejs-biome-skilld:
     packageName: "@biomejs/biome"
-    version: 2.5.0
-    packages: "@biomejs/biome@2.5.0"
+    version: 2.5.1
+    packages: "@biomejs/biome@2.5.1"
     repo: biomejs/biome
-    source: "https://github.com/biomejs/biome/tree/@biomejs/biome@2.5.0/docs"
-    syncedAt: 2026-06-16
+    source: "https://raw.githubusercontent.com/biomejs/biome/@biomejs/biome@2.5.1/packages/@biomejs/biome/README.md"
+    syncedAt: 2026-06-25
     generator: skilld
   catppuccin-daisyui-skilld:
     packageName: "@catppuccin/daisyui"
@@ -182,19 +183,19 @@ skills:
     generator: skilld
   types-node-skilld:
     packageName: "@types/node"
-    version: 25.9.3
-    packages: "@types/node@25.9.3"
+    version: 26.0.1
+    packages: "@types/node@26.0.1"
     repo: DefinitelyTyped/DefinitelyTyped
-    source: "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/docs"
-    syncedAt: 2026-06-13
+    source: readme
+    syncedAt: 2026-06-25
     generator: skilld
   ctx7-skilld:
     packageName: ctx7
-    version: 0.5.2
-    packages: "ctx7@0.5.2"
+    version: 0.5.3
+    packages: "ctx7@0.5.3"
     repo: upstash/context7
-    source: "https://github.com/upstash/context7/tree/ctx7@0.5.2/docs"
-    syncedAt: 2026-06-13
+    source: "https://github.com/upstash/context7/tree/ctx7@0.5.3/docs"
+    syncedAt: 2026-06-25
     generator: skilld
   nuxt-gtag-skilld:
     packageName: nuxt-gtag
@@ -227,10 +228,11 @@ skills:
     generator: skilld
   nuxi-skilld:
     packageName: nuxi
-    version: 3.35.2
+    version: 3.36.0
+    packages: "nuxi@3.36.0"
     repo: nuxt/cli
     source: "https://nuxt.com/llms.txt"
-    syncedAt: 2026-05-29
+    syncedAt: 2026-06-25
     generator: skilld
   skilld-skilld:
     packageName: skilld
@@ -264,19 +266,19 @@ skills:
     generator: skilld
   wrangler-skilld:
     packageName: wrangler
-    version: 4.101.0
-    packages: "wrangler@4.101.0"
+    version: 4.105.0
+    packages: "wrangler@4.105.0"
     repo: cloudflare/workers-sdk
-    source: "https://developers.cloudflare.com/workers/**"
-    syncedAt: 2026-06-16
+    source: "https://github.com/cloudflare/workers-sdk/tree/v4.105.0/docs"
+    syncedAt: 2026-06-25
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.178
-    packages: "@anthropic-ai/claude-code@2.1.178"
+    version: 2.1.191
+    packages: "@anthropic-ai/claude-code@2.1.191"
     repo: Exhen/claude-code-2.1.88
     source: "ungh://Exhen/claude-code-2.1.88"
-    syncedAt: 2026-06-16
+    syncedAt: 2026-06-25
     generator: skilld
   drizzle-orm-skilld:
     packageName: drizzle-orm
@@ -306,4 +308,32 @@ skills:
     repo: Storybloq/storybloq
     source: "https://github.com/Storybloq/storybloq/tree/v1.4.4/docs"
     syncedAt: 2026-06-15
+    generator: skilld
+  vite-plugin-eslint2-skilld:
+    packageName: vite-plugin-eslint2
+    version: 5.3.0
+    repo: ModyQyW/vite-plugin-eslint2
+    source: "https://github.com/ModyQyW/vite-plugin-eslint2/tree/v5.3.0/docs"
+    syncedAt: 2026-06-25
+    generator: skilld
+  nuxt-eslint-skilld:
+    packageName: "@nuxt/eslint"
+    version: 1.16.0
+    repo: nuxt/eslint
+    source: "https://github.com/nuxt/eslint/tree/v1.16.0/docs"
+    syncedAt: 2026-06-25
+    generator: skilld
+  prettier-skilld:
+    packageName: prettier
+    version: 3.8.4
+    repo: prettier/prettier
+    source: "https://github.com/prettier/prettier/tree/3.8.4/docs"
+    syncedAt: 2026-06-25
+    generator: skilld
+  eslint-skilld:
+    packageName: eslint
+    version: 10.5.0
+    repo: eslint/eslint
+    source: "https://github.com/eslint/eslint/tree/v10.5.0/docs"
+    syncedAt: 2026-06-25
     generator: skilld

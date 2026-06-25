@@ -1,15 +1,14 @@
 ---
 name: wrangler-skilld
-description: 'ALWAYS use when writing code importing "wrangler". Consult for debugging, best practices, or modifying wrangler, workers-sdk, workers sdk.'
+description: "Command-line interface for all things Cloudflare Workers. ALWAYS use when writing code importing \"wrangler\". Consult for debugging, best practices, or modifying wrangler, workers-sdk, workers sdk."
 metadata:
-  version: 4.101.0
-  generated_by: Anthropic · Haiku 4.5
-  generated_at: 2026-06-16
+  version: 4.105.0
+  generated_by: cached
+  generated_at: 2026-06-25
 ---
 
-# cloudflare/workers-sdk `wrangler@4.101.0`
-
-**Tags:** wrangler@2.2.4: 2.2.4, legacy: 3.114.17, latest: 4.101.0
+# cloudflare/workers-sdk `wrangler@4.105.0`
+**Tags:** wrangler@2.2.4: 2.2.4, legacy: 3.114.17, latest: 4.105.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
@@ -18,86 +17,69 @@ metadata:
 Use `skilld search "query" -p wrangler` instead of grepping `.skilld/` directories. Run `skilld search --guide -p wrangler` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
-
 ## API Changes
 
-This section documents version-specific API changes — prioritise recent major/minor releases.
+This section documents version-specific API changes in wrangler v4.x — these are the changes that may cause silent breakage or are unknown to LLMs trained on older data.
 
-- NEW: `createTestHarness()` — v4.99.0 introduces integration testing API for Workers. Runs workers in local preview using production build output, works with Wrangler and Vite plugin projects. Methods: `listen()`, `fetch()`, `getWorker()`, `getLogs()`, `debug()`, `reset()`, `close()` [source](./.skilld/releases/wrangler@4.99.0.md#minor-changes)
+- BREAKING: `web_search` binding renamed to `websearch` — v4.98.0 changed the configuration key from `web_search` to `websearch` in `wrangler.jsonc`, along with the binding type string and miniflare option key. Update your config from `"web_search": { "binding": "WEBSEARCH" }` to `"websearch": { "binding": "WEBSEARCH" }`. The runtime `WebSearch` type is unchanged [source](./.skilld/releases/wrangler@4.98.0.md:L52:62)
 
-- BREAKING: `web_search` binding renamed to `websearch` — v4.98.0 renames config key from `web_search` to `websearch`. Update wrangler config: `"websearch": { "binding": "WEBSEARCH" }`. Runtime type `WebSearch` on `env.WEBSEARCH` unchanged [source](./.skilld/releases/wrangler@4.98.0.md#minor-changes)
+- BREAKING: Workflow binding `schedule` property renamed to `schedules` — v4.95.0 changed the configuration field from `schedule` to `schedules` to match the control plane API. Update Workflow bindings from `"schedule": "0 0 * * *"` to `"schedules": "0 0 * * *"` or `"schedules": ["0 0 * * *", ...]` [source](./.skilld/releases/wrangler@4.95.0.md:L53:56)
 
-- NEW: `defineWorker()` and `defineWranglerConfig()` — v4.100.0 adds experimental `--x-new-config` flag enabling TypeScript-based config. `cloudflare.config.ts` (required) defines Worker runtime config via `defineWorker` from `wrangler/experimental-config`. `wrangler.config.ts` (optional) defines tooling config via `defineWranglerConfig`. Per-environment config via `ctx.mode` branching. Flag, formats, and exports may change [source](./.skilld/releases/wrangler@4.100.0.md#minor-changes)
+- BREAKING: Pipeline binding `pipeline` field renamed to `stream` — v4.96.0 changed the pipeline bindings configuration field from `pipeline` to `stream` to align with the updated API wire format. The old `pipeline` field is still accepted but deprecated and emits a warning. Update from `"pipeline": "my-stream-name"` to `"stream": "my-stream-name"` [source](./.skilld/releases/wrangler@4.96.0.md:L71:101)
 
-- NEW: Agent Memory bindings (`agent_memory`) — v4.96.0 adds remote-only bindings for Cloudflare Agent Memory service. Configure in wrangler.json with `binding` and `namespace` fields. Namespaces auto-provision on deploy. Wrangler generates types via `wrangler types`. `agent-memory:write` OAuth scope added [source](./.skilld/releases/wrangler@4.96.0.md#minor-changes)
+- BREAKING: `experimental.testMode` removed from `unstable_dev` — v4.96.0 removed the deprecated `experimental.testMode` option which only affected the default log level. Callers passing `testMode: true` should now set `logLevel: "warn"` directly [source](./.skilld/releases/wrangler@4.96.0.md:L116:120)
 
-- NEW: `wrangler agent-memory namespace` commands — v4.96.0 adds `create`, `list`, `get`, `delete` subcommands with optional `--json` output and `-y`/`--force` flags [source](./.skilld/releases/wrangler@4.96.0.md#minor-changes)
+- NEW: `createTestHarness()` for integration testing Workers — v4.99.0 introduces a new exported function from `wrangler` that creates a local test environment. It runs Workers using production build output and works with both Wrangler projects and the Cloudflare Vite plugin. Use `createTestHarness({ workers: [{ configPath: "./dist/worker/wrangler.json" }] })` then call `.fetch()`, `.getWorker()`, `.getLogs()`, `.debug()`, and `.reset()` on the returned server instance [source](./.skilld/releases/wrangler@4.99.0.md:L11:44)
 
-- NEW: `wrangler websearch search` command — v4.96.0 adds CLI for Web Search queries. Usage: `wrangler websearch search "query" [--limit 5] [--json]`. Limit defaults to 10, capped at 20. Remote-only binding [source](./.skilld/releases/wrangler@4.96.0.md#minor-changes)
+- NEW: `agent_memory` bindings — v4.96.0 adds support for Agent Memory bindings for storing and retrieving agent conversation state. Configure with `"agent_memory": [{ "binding": "MY_MEMORY", "namespace": "my-namespace" }]`. Wrangler auto-provisions namespaces on deployment and generates types via `wrangler types` [source](./.skilld/releases/wrangler@4.96.0.md:L35:52)
 
-- BREAKING: Workflow binding `schedule` renamed to `schedules` — v4.95.0 renames property from singular `schedule` to plural `schedules`. Accepts string or string array of cron expressions. Scheduled triggering not yet available [source](./.skilld/releases/wrangler@4.95.0.md#patch-changes)
+- NEW: `wrangler agent-memory namespace` commands — v4.96.0 adds CLI commands for managing Agent Memory namespaces: `wrangler agent-memory namespace create <namespace>`, `list [--json]`, `get <namespace_name> [--json]`, `delete <namespace_name> [--force]` [source](./.skilld/releases/wrangler@4.96.0.md:L56:65)
 
-- BREAKING: Pipeline binding `pipeline` field renamed to `stream` — v4.96.0 renames config from `"pipeline": "name"` to `"stream": "name"`. Old field still accepted but deprecated with warning [source](./.skilld/releases/wrangler@4.96.0.md#minor-changes)
+- NEW: `--x-new-config` flag for TypeScript config files (experimental) — v4.100.0 introduces an experimental opt-in feature to author Worker config in TypeScript instead of TOML/JSON. When enabled, `wrangler dev`, `build`, `deploy`, `versions upload`, and `versions deploy` load from `cloudflare.config.ts` (required, defines bindings/triggers/routes via `defineWorker`) and optional `wrangler.config.ts` (tooling config via `defineWranglerConfig`). Per-environment config uses `ctx.mode` branching. Export both from `wrangler/experimental-config`. This is experimental and may change [source](./.skilld/releases/wrangler@4.100.0.md:L15:52)
 
-- NEW: D1 binding `migrations_pattern` field — v4.98.0 adds optional glob pattern (relative to wrangler config). Defaults to `${migrations_dir}/*.sql`. Supports nested layouts like drizzle-style `migrations/*/migration.sql`. `wrangler d1 migrations create` errors if generated filename won't match pattern [source](./.skilld/releases/wrangler@4.98.0.md#minor-changes)
+- NEW: `migrations_pattern` for D1 database bindings — v4.98.0 adds an optional `migrations_pattern` field to D1 bindings in `wrangler.jsonc`, allowing you to point `wrangler d1 migrations apply` and `list` at nested migration files (e.g., ORM-generated folders like `migrations/0000_init/migration.sql`). It defaults to `${migrations_dir}/*.sql`. When no migrations match but files at common patterns exist, Wrangler logs a hint suggesting the opt-in. `wrangler d1 migrations create` returns an error if the filename would not match the pattern [source](./.skilld/releases/wrangler@4.98.0.md:L11:33)
 
-- NEW: `--version-tag` support for `wrangler versions deploy` — v4.99.0 allows deploying by version tag instead of version ID. Usage: `wrangler versions deploy --version-tag <sha>@100%`. Tags resolved against deployable versions; unsupported for aged-out versions [source](./.skilld/releases/wrangler@4.99.0.md#minor-changes)
+- NEW: `--version-tag` support for `wrangler versions deploy` — v4.99.0 adds the ability to deploy a version by the tag it was uploaded with (e.g., a commit SHA) instead of the Version ID. Use `wrangler versions deploy --version-tag <sha>@100%` and the tag is resolved to a Version ID against deployable versions. Works with the same `<version-tag>@<percentage>` notation and splitting traffic as `<version-id>` [source](./.skilld/releases/wrangler@4.99.0.md:L52:58)
 
-- NEW: `wrangler workflows instances restart --from-step-*` options — v4.97.0 adds `--from-step-name`, `--from-step-count`, `--from-step-type` to restart from specific step. Works for remote and local `wrangler dev --local` sessions [source](./.skilld/releases/wrangler@4.97.0.md#minor-changes)
+- NEW: `--from-step-name`, `--from-step-count`, `--from-step-type` options for `wrangler workflows instances restart` — v4.97.0 adds the ability to restart a Workflow instance from a specific step using `--from-step-name` with optional disambiguation flags `--from-step-count` and `--from-step-type`. These work for both remote Workflow instances and local `wrangler dev --local` sessions [source](./.skilld/releases/wrangler@4.97.0.md:L11:13)
 
-- NEW: `wrangler ai models list` command — v4.93.0 adds model catalog query with filters: `--search`, `--task`, `--author`, `--source`, `--hide-experimental` [source](./.skilld/releases/wrangler@4.93.0.md#minor-changes)
+- NEW: R2 bucket objects publicly accessible via dev server — v4.100.0 exposes local R2 bucket objects at `/cdn-cgi/local/r2/public/<bucket-id>/<key>` on the dev server, where `<bucket-id>` is the bucket's `bucket_name` when set, otherwise its `binding`. Simulates a public bucket during development. Bindings configured with `remote: true` are not exposed [source](./.skilld/releases/wrangler@4.100.0.md:L11:13)
 
-- NEW: `wrangler ai models schema` command — v4.93.0 adds schema fetching for Workers AI models. Usage: `wrangler ai models schema <model>` [source](./.skilld/releases/wrangler@4.93.0.md#minor-changes)
+- NEW: `cf-wrangler` delegate entrypoint (experimental) — v4.100.0 adds an experimental `cf-wrangler dev` command that starts the same local dev server as `wrangler dev` but exposes a narrow CLI surface (`--mode`, `--port`, `--host`, `--local`) for parent CLIs to delegate to. This replaces the separate `@cloudflare/wrangler-bundler` package and is an internal integration point [source](./.skilld/releases/wrangler@4.100.0.md:L60:64)
 
-- NEW: `wrangler artifacts` commands — v4.92.0 adds control-plane workflows: list/inspect namespaces, create/list/inspect/delete repos, issue repo-scoped tokens. Supports `--json` output [source](./.skilld/releases/wrangler@4.92.0.md#minor-changes)
+- NEW: Pipeline status and failure reasons visible in CLI — v4.99.0 adds `Status` column to `wrangler pipelines list` and shows failure reasons for failed pipelines. `wrangler pipelines get` now shows pipeline `Status` in details and highlights failures with the reason reported by the API [source](./.skilld/releases/wrangler@4.99.0.md:L46:50)
 
-- NEW: `--keep-vars` flag for `wrangler versions upload` — v4.92.0 adds flag matching `wrangler deploy` behaviour, preserving dashboard environment variables instead of deleting them [source](./.skilld/releases/wrangler@4.92.0.md#minor-changes)
-
-- DEPRECATED: `experimental.testMode` removed from `unstable_dev()` — v4.96.0 removes option that only affected default `logLevel`. Callers should use `logLevel: "warn"` directly instead [source](./.skilld/releases/wrangler@4.96.0.md#minor-changes)
-
-- NEW: Secret bulk deletion via null values — v4.96.0 allows `wrangler secret bulk` to delete secrets by setting value to `null` in JSON input. Usage: `{ "SECRET_TO_DELETE": null, "SECRET_TO_UPDATE": "new-value" }` [source](./.skilld/releases/wrangler@4.96.0.md#minor-changes)
-
-- NEW: `--containers-rollout=none` flag — v4.93.0 allows skipping container deploy while updating Worker configuration [source](./.skilld/releases/wrangler@4.93.0.md#minor-changes)
-
-- NEW: Public R2 bucket objects via `/cdn-cgi/local/r2/public/` — v4.100.0 exposes local R2 objects on dev server at `/cdn-cgi/local/r2/public/<bucket-id>/<key>`. Bindings with `remote: true` excluded. Simulates public bucket [source](./.skilld/releases/wrangler@4.100.0.md#minor-changes)
-
-- NEW: `cf-wrangler` delegate entrypoint (experimental) — v4.100.0 adds narrow CLI surface for parent CLIs to delegate to wrangler's dev server. Supports `--mode`, `--port`, `--host`, `--local`. Replaces `@cloudflare/wrangler-bundler`. Internal integration point [source](./.skilld/releases/wrangler@4.100.0.md#patch-changes)
-
-- BREAKING: `[script]` positional argument generalised to `[path]` — v4.98.0 generalises `wrangler deploy` and `wrangler versions upload` positional from file to file-or-directory. Auto-detects type. `--script` flag deprecated (hidden, backwards compatible for files only; rejects directories with guidance). Usage: `wrangler deploy ./src/index.ts` (file) or `wrangler deploy ./public` (directory) [source](./.skilld/releases/wrangler@4.98.0.md#minor-changes)
-
-**Also changed:** Tunnel QR code display v4.94.0 · `getPlatformProxy()` workflow binding passthrough v4.98.0 · `wrangler types --check` multi-worker fix v4.99.0 · `wrangler secret bulk` delete-only no-op v4.99.0 · Workflow binding `schedule` property v4.94.0 · Deploy helper flags v4.95.0 · Authentication error messages v4.100.0 · D1 error message improvements v4.100.0 · R2 Sippy error messages v4.100.0 · Memory leak fix in headless dev v4.100.0
-
+**Also changed:** `[path]` argument for `wrangler deploy` and `wrangler versions upload` (v4.98.0) — accepts file or directory auto-detected, `--script` deprecated · `getPlatformProxy()` passes through Workflow bindings with `script_name` (v4.98.0) · D1 `executeSql` logger level restore via try/finally (v4.98.0) · OAuth error descriptions surfaced in `wrangler login` (v4.98.0) · JSON variable bindings fixed in remote config (v4.97.0) · Graceful EMFILE error handling for large assets directories (v4.97.0) · `wrangler secret bulk` stdin newline preservation (v4.97.0) · `wrangler secret bulk` JSON validation (v4.97.0) · Workflow `schedules` deploy payload mapped to API format (v4.97.0) · Sentry error reporting disabled by default (v4.96.0) · Secrets stored with mode `0600` on Unix (v4.98.0)
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
-
 ## Best Practices
 
-- Run `wrangler types` to generate your `Env` interface instead of hand-writing it — this catches binding mismatches at compile time rather than deploy time and must be re-run whenever bindings change [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#generate-binding-types-with-wrangler-types)
+- Use `wrangler.jsonc` (JSON configuration) instead of TOML for new projects — newer Wrangler features are only available with JSON config files, and Cloudflare recommends this format for new projects [source](./.skilld/docs/workers/wrangler/configuration.md#section-wrangler-jsonc)
 
-- Set `compatibility_date` to today's date on new projects and periodically update existing projects to access new runtime features and bug fixes — this enables newer APIs without code changes [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#keep-your-compatibility-date-current)
+- Treat your Wrangler configuration file as the single source of truth for Worker configuration — avoid making changes via the Cloudflare dashboard to prevent configuration drift between local and deployed state [source](./.skilld/docs/workers/wrangler/configuration.md#source-of-truth)
 
-- Enable the `nodejs_compat` compatibility flag to give Workers access to Node.js built-in modules (`node:crypto`, `node:buffer`, `node:stream`) which many libraries depend on [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#enable-nodejs_compat)
+- Use secrets instead of environment variables for sensitive information — `vars` are designed for non-sensitive configuration and are visible in the dashboard, while secrets are encrypted and only available to the Worker [source](./.skilld/docs/workers/wrangler/environments.md#secrets-in-local-development)
 
-- Store secrets with `wrangler secret put` (interactive prompt) or piped from environment variables/CLI tools — never store secrets in `wrangler.jsonc` or source code, use `.env` files locally with `.gitignore` [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#store-secrets-with-wrangler-secret-not-in-source)
+- Store local secrets in `.dev.vars` or `.env` files and add these to `.gitignore` to prevent accidental commits — these dotenv files hold development secrets that should never be version-controlled [source](./.skilld/docs/workers/wrangler/configuration.md#environment-variables)
 
-- Configure each environment (production, staging) with explicit per-environment bindings and routes — bindings are not inherited and the root Worker is a separate deployment [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#configure-environments-deliberately)
+- Declare required secret names in your Wrangler configuration using the `secrets.required` property — this enables validation during local development and deploy, and ensures type generation captures which secrets your Worker expects [source](./.skilld/docs/workers/wrangler/configuration.md#secrets)
 
-- Use Cloudflare service bindings (KV, R2, D1, Queues, Workflows) instead of REST APIs — bindings are in-process with no network hop, no authentication overhead, and no latency [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-bindings-for-cloudflare-services-not-rest-apis)
+- Set `compatibility_date` to today's date in new projects to opt into the latest Workers runtime features — compatibility dates act as a feature freeze, isolating your Worker from unintended breaking changes during Cloudflare platform updates [source](./.skilld/docs/workers/wrangler/configuration.md#compatibility-dates)
 
-- Stream request and response bodies using `response.body` or `TransformStream` instead of buffering with `await response.text()` — the 128 MB memory limit means large payloads will crash your Worker [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#stream-request-and-response-bodies)
+- Do not use `wrangler.jsonc` and `wrangler.toml` simultaneously in the same project — Wrangler will prioritise one format and silently ignore the other, causing configuration confusion [source](./.skilld/docs/workers/wrangler/configuration.md#configuration-files)
 
-- Use `ctx.waitUntil()` for background work after sending the response (analytics, cache writes, webhooks) without destructuring `ctx` which loses the `this` binding — this keeps responses fast while completing non-critical tasks [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-waituntil-for-work-after-the-response)
+- Avoid disabling bundling unless your code is pre-processed by other tooling — Wrangler's bundler (esbuild) handles dependency resolution, tree-shaking, and compatibility transforms that are essential for Workers runtime compatibility [source](./.skilld/docs/workers/wrangler/bundling.md#disable-bundling)
 
-- Use Queues for single-step async work (email, webhooks, buffering) and Workflows for multi-step durable processes (payment → fulfillment → notification) — Workflows persist step results and retry only failed steps, not the entire job [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-queues-and-workflows-for-async-and-background-work)
+- Migrate from `unstable_dev()` to `unstable_startWorker()` for programmatic Worker management — `unstable_dev()` has an experimental API prefix and is expected to change, whereas `unstable_startWorker()` provides a more stable interface [source](./.skilld/docs/workers/wrangler/api.md#unstable_startworker)
 
-- Use service bindings for Worker-to-Worker communication via RPC instead of HTTP requests — service bindings are zero-cost, bypass the public internet, and support type-safe method calls [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-service-bindings-for-worker-to-worker-communication)
+- Do not store sensitive information in environment names or comments — environment-specific names (e.g. "migrating-service-from-company1-to-company2") are visible in public DNS and SSL certificate records [source](./.skilld/docs/workers/wrangler/environments.md#environment-specific-configuration)
 
-- Use Hyperdrive to connect to remote PostgreSQL or MySQL databases — it maintains a regional connection pool eliminating per-request TCP handshake and TLS negotiation costs (often 300–500ms) [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-hyperdrive-for-external-database-connections)
+- Continue using Wrangler CLI to manage Worker configuration when you use `wrangler deploy` — dashboard-initiated syncs with `--from-dash` do not track subsequent dashboard changes, causing ongoing configuration drift [source](./.skilld/docs/workers/wrangler/commands/workers.md#wrangler-deploy)
 
-- Use Durable Objects with `ctx.acceptWebSocket()` and the Hibernation API for persistent WebSocket connections — this keeps connections alive even when the isolate is evicted and auto-wakes on message arrival [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#use-durable-objects-for-websockets)
+- Use environment-specific secret files (`.dev.vars.<environment-name>`) when developing multiple Wrangler environments locally — if an environment-specific file exists, Wrangler loads only that file and ignores the base `.dev.vars`, ensuring correct secrets per environment [source](./.skilld/docs/workers/wrangler/environments.md#secrets-in-local-development)
 
-- Test with `@cloudflare/vitest-pool-workers` which runs tests inside the Workers runtime with real bindings (KV, R2, D1, Durable Objects) — Node.js tests miss unsupported APIs and can pass without required compatibility flags [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#test-with-cloudflarevitest-pool-workers)
+- Run `wrangler types` after updating bindings or configuration to regenerate TypeScript types — the generated `worker-configuration.d.ts` file ensures type inference for all env bindings and is kept in sync via the postinstall hook [source](./.skilld/docs/workers/wrangler/commands/general.md#generate-types)
 
-- Enable observability with structured JSON logging via `console.log()` and control sampling with `head_sampling_rate` (1 = 100% capture, lower for high-traffic) — without observability enabled, production Workers are a black box for debugging intermittent errors [source](./.skilld/docs/workers/best-practices/workers-best-practices.md#enable-workers-logs-and-traces)
+- Profile startup time with `wrangler check startup` using the exact same arguments as your deploy command — if you deploy with `--no-bundle`, profile with `--args="--no-bundle"` to get an accurate representation of startup behaviour in production [source](./.skilld/docs/workers/wrangler/commands/workers.md#wrangler-check-startup)
 <!-- /skilld:best-practices -->
