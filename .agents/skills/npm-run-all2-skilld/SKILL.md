@@ -1,15 +1,14 @@
 ---
 name: npm-run-all2-skilld
-description: 'ALWAYS use when writing code importing "npm-run-all2". Consult for debugging, best practices, or modifying npm-run-all2, npm run all2.'
+description: "A CLI tool to run multiple npm-scripts in parallel or sequential. (Maintenance fork). ALWAYS use when writing code importing \"npm-run-all2\". Consult for debugging, best practices, or modifying npm-run-all2, npm run all2."
 metadata:
-  version: 9.0.1
-  generated_by: Google · Gemini 2.5 Flash
-  generated_at: 2026-05-27
+  version: 9.0.2
+  generated_by: cached
+  generated_at: 2026-06-25
 ---
 
-# bcomnes/npm-run-all2 `npm-run-all2@9.0.1`
-
-**Tags:** beta: 8.1.0-beta.0, latest: 9.0.1
+# bcomnes/npm-run-all2 `npm-run-all2@9.0.2`
+**Tags:** beta: 8.1.0-beta.0, latest: 9.0.2
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
@@ -18,48 +17,51 @@ metadata:
 Use `skilld search "query" -p npm-run-all2` instead of grepping `.skilld/` directories. Run `skilld search --guide -p npm-run-all2` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
-
 ## API Changes
 
-This section documents version-specific API changes — prioritize recent major/minor releases.
+This section documents version-specific API changes — prioritise recent major/minor releases.
 
-- BREAKING: Node.js engine floor raised to `>= Node 20` — affects users on older Node.js versions, requiring an upgrade to Node.js 20 or greater. [source](./.skilld/repos/bcomnes/npm-run-all2/releases/v8.0.0.md#commits)
+- BREAKING: ESM only — v9.0.0 no longer exports CJS; use `import npmRunAll from "npm-run-all2"` instead of `require()` [source](./.skilld/releases/v9.0.0.md:L11)
 
-- BREAKING: Node.js engine floor raised to `^18.17.0 || >=20.5.0` — previous breaking change for migration from v7 to v8, requiring Node.js 18.17.0 or 20.5.0 or greater. [source](./.skilld/repos/bcomnes/npm-run-all2/releases/v7.0.0.md#commits)
+- BREAKING: Node engine requirements — v9.0.0 requires `^22.22.2 || ^24.15.0 || >=26.0.0` (raised from `>=20` in v8.0.0) [source](./.skilld/releases/v9.0.0.md:L12)
 
-**Also changed:** `--aggregate-output` option new in v4.1.0 · `--max-parallel` option new in v4.0.0 · `$npm_config_xxx` support new in v3.1.0 · `race` option new in v2.3.0 · arguments pass-through new in v2.2.0 · `npm-run-all2` bin alias new in v6.1.1 · pnpm support new in v6.1.0
+- BREAKING: Glob pattern matching — empty glob patterns now succeed silently instead of throwing an error; unmatched patterns no longer cause exit code non-zero [source](./.skilld/releases/v9.0.0.md#breaking-changes)
 
+- NEW: `--node-run` CLI flag / `nodeRun` option — v9.0.0 added support for `node --run` mode to bypass the package manager; faster execution but omits pre/post lifecycle hooks and npm environment variables [source](./.skilld/docs/npm-run-all.md:L51:L59)
+
+- NEW: `colorMode` option — v9.0.0 added `colorMode` option to override terminal colour palette detection; accepts `"auto"` (default, detect from stream), `"none"` (disable), `"16"` (force 16-colour palette), or `"256"` (force 256-colour palette) [source](./.skilld/docs/node-api.md:L43:L45)
+
+**Also changed:** `packageConfig` now a proper typed option · `maxParallel` type enforcement improved · Published types with `tsc` validation
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
-
 ## Best Practices
 
-- Maintain updated Node.js versions: Ensure your Node.js environment meets or exceeds the minimum version required by `npm-run-all2` (e.g., Node 20 for v8.0.0+) to benefit from crucial updates and prevent compatibility issues. [source](./.skilld/releases/v8.0.0.md:L7)
+- Use the `--node-run` flag or set `nodeRun: true` in `package.json` to leverage Node's native `node --run` command — this bypasses the package manager entirely for faster execution (available since v9.0.0 for Node >= 22.3.0) [source](./.skilld/docs/npm-run-all.md:L51:59)
 
-- Control parallel task concurrency: Use the `--max-parallel` option with `run-p` to limit the number of concurrently executing scripts, especially in resource-constrained environments like CI/CD, to prevent system overload. [source](./.skilld/releases/CHANGELOG.md:L221)
+- Set `--max-parallel` in CI environments to limit resource consumption, preventing resource exhaustion on systems with constrained CPU or memory — especially useful in CI/CD pipelines where you need explicit parallelism control [source](./.skilld/docs/npm-run-all.md:L28:29)
 
-- Dynamically adjust concurrency in CI: Leverage environment variables (e.g., `MAX_PARALLEL_TASKS`) to dynamically set the `--max-parallel` limit, allowing for flexible resource management across different CI pipeline configurations. [source](./.skilld/issues/issue-116.md:L9-L10)
+- Use `--aggregate-output` in parallel mode to prevent interleaved log output from multiple concurrent tasks, improving readability when task output matters (though some tools stop coloring when stdout is piped) [source](./.skilld/docs/npm-run-all.md:L16:17)
 
-- Prioritize PNPM compatibility: When working with PNPM, use `npm-run-all2` versions that specifically address PNPM configuration handling (e.g., v6.2.3 and later) to avoid unintended flag passing. [source](./.skilld/releases/CHANGELOG.md:L112)
+- When using glob patterns with `run-s`, scripts execute in the order they appear in `package.json` due to ECMAScript specification guarantees; this is predictable only if your build tool doesn't alphabetically reorder the scripts file [source](./.skilld/docs/npm-run-all.md:L154:156)
 
-- Be mindful of glob pattern changes: Be aware that `npm-run-all2` has undergone internal changes to its glob matching library (`minimatch` to `picomatch` and back), which can subtly alter script matching behavior across versions. [source](./.skilld/releases/CHANGELOG.md:L50)
+- Prefix script names with numbers (e.g., `build:1:html`, `build:2:js`) instead of relying on glob patterns when deterministic execution order is critical and your toolchain may rewrite `package.json` alphabetically [source](./.skilld/docs/npm-run-all.md:L159:160)
 
-- Aggregate parallel output for readability: Employ the `--aggregate-output` option with `run-p` to consolidate the output of parallel tasks, improving log readability and debugging experience. [source](./.skilld/releases/CHANGELOG.md:L196)
+- Use `--continue-on-error` to allow subsequent tasks to run even when one task exits with a non-zero code — the process still exits with non-zero if any task failed, but you get complete results instead of early termination [source](./.skilld/docs/npm-run-all.md:L24:27)
 
-- Continue on non-critical task failures: For parallel execution where some task failures are tolerable, use the `--continue-on-error` option to allow other tasks to complete instead of halting the entire process prematurely. [source](./.skilld/releases/CHANGELOG.md:L231)
+- Combine `--print-label` and `--print-name` for parallel execution to keep task output clearly identified with source task names, though note that some tools (like chalk-based colorizers) stop applying colour when stdout is piped; use `FORCE_COLOR=1` if needed [source](./.skilld/docs/npm-run-all.md:L35:39)
 
-- Suppress internal `npm-run-all2` output: Use the `--silent` option to minimize verbose output from `npm-run-all2` itself, focusing the console on the actual script outputs for cleaner logs. [source](./.skilld/releases/CHANGELOG.md:L305)
+- Leverage argument placeholders (`{1}`, `{2}`, `{@}`, `{*}`, `{%}`) with suffix defaults (`{1-=fallback}`, `{1:=sticky}`) to pass dynamic arguments through glob patterns — this is more flexible than explicit script names when building parameterized task pipelines [source](./.skilld/docs/npm-run-all.md:L174:211)
 
-- Ensure deterministic sequential order with wildcards: When using `run-s` with wildcard patterns, understand that the current expectation is for script execution order to follow their definition in `package.json`, although this behavior is explicitly sought for documentation. [source](./.skilld/issues/issue-167.md:L10-L11)
+- Use the `race` flag with `--parallel` to terminate all tasks immediately when the first one succeeds with exit code zero — useful for competitive tasks like "watch for changes OR serve dev server" where you want the fastest to win [source](./.skilld/docs/npm-run-all.md:L43:45)
 
-- Use `--workspaces` for monorepo script execution (experimental consideration): While direct `--workspaces` support is a feature request, for monorepos, consider patterns that iterate through workspaces and then apply `run-s` or `run-p` to the individual workspace scripts. [source](./.skilld/issues/issue-60.md:L7)
+- Configure `nodeRun` in `package.json` under `"npm-run-all2": { "nodeRun": true }` to enable `node --run` globally for all commands without requiring the CLI flag on every invocation [source](./.skilld/docs/npm-run-all.md:L57:59)
 
-- Leverage `read-package-json-fast` integration: Newer versions integrate `read-package-json-fast` for potentially faster package.json parsing, which can contribute to overall performance in large projects. [source](./.skilld/releases/CHANGELOG.md:L142)
+- Empty glob patterns now succeed silently instead of throwing errors (breaking change in v9.0.0) — if you depend on error detection for missing scripts, use explicit script names instead of wildcards or implement your own validation [source](./.skilld/releases/v9.0.0.md:L26)
 
-- Consider `--race` for early exit conditions: When running parallel tasks where the success of any single task is sufficient, use the `--race` option to terminate all other tasks as soon as one completes successfully. [source](./.skilld/releases/CHANGELOG.md:L355)
+- Pass explicit task lists via the Node API's `taskList` option to avoid redundant `package.json` reads when you're building tooling that manages its own script discovery — this optimizes performance for wrapper commands [source](./.skilld/docs/node-api.md:L95:98)
 
-- Explicitly pass arguments to child scripts: Use the `--` separator to correctly pass arguments from the `npm-run-all2` command to the child npm scripts, ensuring proper configuration and execution. [source](./.skilld/releases/CHANGELOG.md:L377)
+- Configure `colorMode` intelligently using `"256"` for modern terminals and `"none"` for CI logs to preserve clean output; the default `"auto"` detection works well but explicit control prevents colour artefacts in piped output [source](./.skilld/docs/npm-run-all.md:L19:23)
 
-- Utilize `npm-run-all2` bin alias: The `npm-run-all2` package provides its own bin alias. Use this directly for clarity and to avoid potential conflicts with other `npm-run-all` versions. [source](./.skilld/releases/CHANGELOG.md:L157)
+- Use `stdin`, `stdout`, and `stderr` options in the Node API to integrate npm-run-all into larger process pipelines, but configure `emitter.setMaxListeners(n)` appropriately when streaming to multiple child processes to avoid MaxListenersExceededWarning [source](./.skilld/docs/node-api.md:L117:121)
 <!-- /skilld:best-practices -->

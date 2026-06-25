@@ -1,0 +1,8 @@
+skills:
+  vitest:
+    packageName: vitest
+    version: "2026-06-23T00:14:36.000Z"
+    repo: antfu/skills
+    source: registry
+    syncedAt: 2026-06-25
+    generator: curator

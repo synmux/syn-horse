@@ -1,14 +1,14 @@
 ---
 name: anthropic-ai-claude-code-skilld
-description: "ALWAYS use when writing code importing \"@anthropic-ai/claude-code\". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code."
+description: "ALWAYS use when writing code importing \"@anthropic-ai/claude-code\". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88."
 metadata:
-  version: 2.1.167
+  version: 2.1.191
   generated_by: Anthropic · Haiku 4.5
-  generated_at: 2026-06-06
+  generated_at: 2026-06-25
 ---
 
-# @anthropic-ai/claude-code@2.1.167
-**Tags:** stable: 2.1.153, latest: 2.1.167, next: 2.1.167
+# Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.191`
+**Tags:** stable: 2.1.179, latest: 2.1.191, next: 2.1.193
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md)
 
@@ -19,61 +19,43 @@ Use `skilld search "query" -p @anthropic-ai/claude-code` instead of grepping `.s
 <!-- skilld:api-changes -->
 ## API Changes
 
-This package (@anthropic-ai/claude-code v2.1.167) is a compiled CLI tool distributed as a binary executable with TypeScript type definitions. Detailed version history and API changes cannot be fully documented because:
+This section documents version-specific API changes in @anthropic-ai/claude-code v2.1.191.
 
-1. **No local changelog/releases:** The `.skilld/` directory contains only basic README and compiled definitions without release notes, changelog entries, or migration guides.
+- NEW: `ReadMcpResourceDir` tool — list directory contents from Model Context Protocol servers. Returns child resources with URIs, names, and MIME types. Complementary to `ReadMcpResource` for hierarchical navigation [source](./.skilld/pkg/sdk-tools.d.ts:L670-679 / L2869-2891)
 
-2. **Auto-generated types:** The TypeScript definitions (`sdk-tools.d.ts`) are automatically generated from JSON schemas and do not embed version history comments.
+- DEPRECATED: `team_name` parameter on Agent — ignored in v2+. The session has a single implicit team (no replacement parameter needed) [source](./.skilld/pkg/sdk-tools.d.ts:L437)
 
-3. **CLI-only distribution:** The package exports only a binary executable and TypeScript type definitions, without a version-controlled public API surface that tracks breaking changes between releases.
+- DEPRECATED: `shell_id` parameter on TaskStop — use `task_id` instead. Both are optional but `task_id` is the canonical identifier [source](./.skilld/pkg/sdk-tools.d.ts:L635)
 
-### Known API Changes
-
-Based on examination of the TypeScript type definitions:
-
-- DEPRECATED: `shell_id` parameter in TaskStopInput — deprecated in favour of `task_id` [source](./.skilld/pkg/sdk-tools.d.ts:L529-L531)
-
-- NEW: `taskType`, `workflowName`, `runId` fields in WorkflowOutput — recently added to track background task metadata; these fields are absent only on transcripts written before the fields existed [source](./.skilld/pkg/sdk-tools.d.ts:L3115-L3125)
-
-### How to obtain version history
-
-For complete API/feature changes in @anthropic-ai/claude-code, refer to:
-
-- **GitHub Releases:** https://github.com/anthropics/claude-code/releases
-- **Documentation:** https://code.claude.com/docs/en/overview
-- **NPM Package Page:** https://www.npmjs.com/package/@anthropic-ai/claude-code
-
-These external sources contain the definitive version history, breaking changes, and new features for each release.
-
-**Also changed:** No additional items could be documented due to unavailable version history
+**Also changed:** `taskType` in WorkflowOutput tracks task execution context · `workflowName` in WorkflowOutput carries meta.name from script · `runId` in WorkflowOutput enables resumeFromRunId handle for local workflows · `scriptPath` in WorkflowOutput tracks persisted workflow script location
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
 ## Best Practices
 
-- Use `resumeFromRunId` in Workflow to continue from interrupted runs rather than restarting — restores cached results from prior agent() calls with unchanged prompts and options, allowing incremental progress without token waste [source](./.skilld/pkg-claude-code/sdk-tools.d.ts:L2295)
+- Pass `args` to Workflow as actual JSON values, not JSON-encoded strings — a stringified list breaks `args.filter()` and `args.map()` in the workflow script [source](./.skilld/pkg/sdk-tools.d.ts:L2382:2388)
 
-- Pass args to workflows as actual JSON objects, never as JSON-encoded strings — stringified values break args.filter() and args.map() inside the script, causing runtime errors [source](./.skilld/pkg-claude-code/sdk-tools.d.ts:L2285)
+- Iterate on workflow scripts by editing the persisted file and re-invoking with the same `scriptPath` instead of re-sending the full script each turn [source](./.skilld/pkg/sdk-tools.d.ts:L2390:2393)
 
-- Prefer 270s over 300s when sleeping in loops to stay within the 5-minute prompt cache window — sleeping past 300 seconds forces cache misses and increases token cost without amortizing the expense [source](./.skilld/pkg-claude-code/sdk-tools.d.ts:L2326)
+- Resume incomplete Workflow runs with `resumeFromRunId` after stopping the prior run — completed agent() calls with unchanged (prompt, opts) return cached results instantly; only edited or new calls re-run [source](./.skilld/pkg/sdk-tools.d.ts:L2395:2397)
 
-- Set persistent: true in Monitor for session-length watches (PR monitoring, log tails) instead of using timeout_ms — avoids creating dozens of short-lived monitors that compete for resources [source](./.skilld/pkg-claude-code/sdk-tools.d.ts:L2361)
+- Use persistent Monitor for session-length watches like PR monitoring or log tails — set `persistent: true` and stop with TaskStop instead of relying on timeout_ms [source](./.skilld/pkg/sdk-tools.d.ts:L2502:2508)
 
-- Use scriptPath over script when iterating on Workflow code — allows editing the persisted script file and re-invoking with the same path, avoiding full re-sends on each iteration [source](./.skilld/pkg-claude-code/sdk-tools.d.ts:L2291)
+- Keep Bash command descriptions clear and active-voice without hedging words — avoid "complex" or "risk"; for piped commands, add enough context to clarify intent [source](./.skilld/pkg/sdk-tools.d.ts:L460:L478)
 
-- Supply model override (sonnet/opus/haiku) only when confident a smaller or larger model fits the task — omitting inherits the parent context, avoiding unnecessary tier shifts [source](./.skilld/pkg-claude-code/sdk-tools.d.ts:L2321)
+- Limit AskUserQuestion to 1–4 questions per call and 2–4 distinct, mutually exclusive options per question — do not add an 'Other' option (auto-provided) [source](./.skilld/pkg/sdk-tools.d.ts:L724:L754)
 
-- Check truncatedByTokenCap in FileReadOutput when implementing pagination — true signals the content was auto-paginated due to token budget, enabling graceful follow-up reads with offset/limit [source](./.skilld/pkg-claude-code/sdk-tools.d.ts:L169)
+- Use Grep `head_limit: 0` (unlimited) sparingly — large result sets waste context; prefer bounded limits or narrower patterns and `output_mode: "files_with_matches"` for path-only results [source](./.skilld/pkg/sdk-tools.d.ts:L869:L876)
 
-- Use multiSelect: true in AskUserQuestion only for non-mutually-exclusive choices — answers default to single-select, so enabling multiSelect changes the UI and interaction model [source](./.skilld/pkg-claude-code/sdk-tools.d.ts:L768)
+- Set TaskCreate `activeForm` to present-continuous form shown in task spinner (e.g., "Running tests") so users see live progress, not just a static subject [source](./.skilld/pkg/sdk-tools.d.ts:L1030:L1035)
 
-- Block TaskOutput with timeout instead of polling — the block parameter waits for completion, avoiding manual wait loops and race conditions [source](./.skilld/pkg-claude-code/sdk-tools.d.ts:L383:385)
+- Use Agent model override (e.g., `model: "haiku"`) to force specific tier when a task is cost-critical or inherently lightweight; omit to inherit the parent/session model [source](./.skilld/pkg/sdk-tools.d.ts:L129:L132)
 
-- Leverage EnterWorktreeInput isolation for agents that mutate files in parallel — each agent in a separate worktree prevents branch/file conflicts across concurrent modifications [source](./.skilld/pkg-claude-code/sdk-tools.d.ts:L2376)
+- Enable Grep multiline matching (`multiline: true`) only when patterns span multiple lines — costs more resources; prefer single-line patterns and regex alternation for common cases [source](./.skilld/pkg/sdk-tools.d.ts:L899:L901)
 
-- Use REPL for state-persisting JavaScript work where each call preserves prior declarations — state persists across invocations (unlike Bash), enabling incremental data transformations without re-declaring utilities [source](./.skilld/pkg-claude-code/sdk-tools.d.ts:L2255)
+- Use Artifact `file_path` with a short, distinctive basename — it becomes the fallback title if the HTML has no `<title>` tag [source](./.skilld/pkg/sdk-tools.d.ts:L2519:L2521)
 
-- Invoke ExitPlanMode with allowedPrompts when exiting plan mode to grant semantic action categories rather than specific commands — handlers then check intent (e.g., "run tests") instead of hard-coded command lists [source](./.skilld/pkg-claude-code/sdk-tools.d.ts:L2393)
+- Pass `baseVersion` when updating Artifacts to detect concurrent writes (409 conflict); omit only after reconciling and intending to force-replace via `force: true` [source](./.skilld/pkg/sdk-tools.d.ts:L2531:L2534)
 
-- Use name parameter in Agent to make spawned agents addressable via SendMessage({to: name}) for inter-agent communication — unnamed agents cannot receive targeted messages [source](./.skilld/pkg-claude-code/sdk-tools.d.ts:L2329)
+- Limit PushNotification `message` to under 200 characters — mobile OSes truncate longer text [source](./.skilld/pkg/sdk-tools.d.ts:L2545:L2547)
 <!-- /skilld:best-practices -->

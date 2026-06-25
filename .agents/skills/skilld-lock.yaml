@@ -48,19 +48,19 @@ skills:
     generator: skilld
   npm-run-all2-skilld:
     packageName: npm-run-all2
-    version: 9.0.1
-    packages: "npm-run-all2@9.0.1"
+    version: 9.0.2
+    packages: "npm-run-all2@9.0.2"
     repo: bcomnes/npm-run-all2
-    source: "ungh://bcomnes/npm-run-all2@v9.0.1"
-    syncedAt: 2026-05-27
+    source: "ungh://bcomnes/npm-run-all2@v9.0.2"
+    syncedAt: 2026-06-25
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.167
-    packages: "@anthropic-ai/claude-code@2.1.167"
+    version: 2.1.191
+    packages: "@anthropic-ai/claude-code@2.1.191"
     repo: Exhen/claude-code-2.1.88
-    source: "file:///Users/syn/src/_worktrees/syn-horse.notifications/node_modules/@anthropic-ai/claude-code/README.md"
-    syncedAt: 2026-06-06
+    source: "ungh://Exhen/claude-code-2.1.88"
+    syncedAt: 2026-06-25
     generator: skilld
   skilld-skilld:
     packageName: skilld
@@ -80,11 +80,11 @@ skills:
     generator: skilld
   vitest-skilld:
     packageName: vitest
-    version: 4.1.8
-    packages: "vitest@4.1.8"
+    version: 4.1.9
+    packages: "vitest@4.1.9"
     repo: vitest-dev/vitest
-    source: "https://github.com/vitest-dev/vitest/tree/v4.1.8/docs"
-    syncedAt: 2026-06-05
+    source: "https://github.com/vitest-dev/vitest/tree/v4.1.9/docs"
+    syncedAt: 2026-06-25
     generator: skilld
   typescript-skilld:
     packageName: typescript
@@ -96,33 +96,33 @@ skills:
     generator: skilld
   types-node-skilld:
     packageName: "@types/node"
-    version: 25.9.2
-    packages: "@types/node@25.9.2"
+    version: 25.9.4
+    packages: "@types/node@25.9.4"
     repo: DefinitelyTyped/DefinitelyTyped
-    source: "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/docs"
-    syncedAt: 2026-06-06
+    source: readme
+    syncedAt: 2026-06-25
     generator: skilld
   wrangler-skilld:
     packageName: wrangler
-    version: 4.98.0
-    packages: "wrangler@4.98.0"
+    version: 4.105.0
+    packages: "wrangler@4.105.0"
     repo: cloudflare/workers-sdk
-    source: "https://github.com/cloudflare/workers-sdk/tree/v4.98.0/docs"
-    syncedAt: 2026-06-05
+    source: "https://github.com/cloudflare/workers-sdk/tree/v4.105.0/docs"
+    syncedAt: 2026-06-25
     generator: skilld
   biomejs-biome-skilld:
     packageName: "@biomejs/biome"
-    version: 2.4.16
-    packages: "@biomejs/biome@2.4.16"
+    version: 2.5.1
+    packages: "@biomejs/biome@2.5.1"
     repo: biomejs/biome
-    source: "https://raw.githubusercontent.com/biomejs/biome/@biomejs/biome@2.4.16/packages/@biomejs/biome/README.md"
-    syncedAt: 2026-05-29
+    source: "https://github.com/biomejs/biome/tree/@biomejs/biome@2.5.1/docs"
+    syncedAt: 2026-06-25
     generator: skilld
   ultracite-skilld:
     packageName: ultracite
-    version: 7.8.1
-    packages: "ultracite@7.8.1"
+    version: 7.8.3
+    packages: "ultracite@7.8.3"
     repo: haydenbleasel/ultracite
-    source: "https://github.com/haydenbleasel/ultracite/tree/ultracite@7.8.1/docs"
-    syncedAt: 2026-06-05
+    source: "ungh://haydenbleasel/ultracite@ultracite@7.8.3"
+    syncedAt: 2026-06-25
     generator: skilld
