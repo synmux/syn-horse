@@ -70,4 +70,5 @@ No user-facing API migrations required for upgrading within v12.x.
 - Defer long-running queries to worker threads to avoid blocking the main event loop — use the pool pattern from the docs with message-passing to SQLite instances in dedicated threads [source](./.skilld/docs/threads.md:L1:97)
 
 - Call `.close()` on database handles before process exit to flush WAL checkpoints and release file locks — prevents data loss and allows clean reconnection on restart [source](./.skilld/docs/api.md:L386:395)
+
 <!-- /skilld:best-practices -->

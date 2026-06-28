@@ -1,6 +1,6 @@
 ---
 name: vite-plugin-eslint2-skilld
-description: "ALWAYS use when writing code importing \"vite-plugin-eslint2\". Consult for debugging, best practices, or modifying vite-plugin-eslint2, vite plugin eslint2."
+description: 'ALWAYS use when writing code importing "vite-plugin-eslint2". Consult for debugging, best practices, or modifying vite-plugin-eslint2, vite plugin eslint2.'
 metadata:
   version: 5.3.0
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # ModyQyW/vite-plugin-eslint2 `vite-plugin-eslint2@5.3.0`
+
 **Tags:** latest: 5.3.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p vite-plugin-eslint2` instead of grepping `.skilld/` directories. Run `skilld search --guide -p vite-plugin-eslint2` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritise recent major/minor releases.
@@ -39,6 +41,7 @@ This section documents version-specific API changes — prioritise recent major/
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Enable caching by default for consistent performance — vite-plugin-eslint2 sets `cache: true` as the default (unlike ESLint v7's default of `false`), avoiding unnecessary re-linting of unchanged files [source](./.skilld/docs/guide/options.md#cache)
@@ -68,4 +71,5 @@ This section documents version-specific API changes — prioritise recent major/
 - Use `eslintPath: 'eslint/use-at-your-own-risk'` only for ESLint v8 with flat config — ESLint v10 enforces flat config by default and no longer supports this override; for v8, set the `ESLINT_USE_FLAT_CONFIG` environment variable instead [source](./.skilld/docs/guide/options.md#eslintpath)
 
 - When fixing is slow, check if you have custom formatters — the `formatter` option no longer accepts functions (only string paths) as of vite-plugin-eslint2; custom formatting is now handled by ESLint's built-in formatter registry [source](./.skilld/docs/guide/migrate-from-vite-plugin-eslint.md#type-changes)
+
 <!-- /skilld:best-practices -->

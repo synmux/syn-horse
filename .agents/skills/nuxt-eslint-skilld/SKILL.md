@@ -1,6 +1,6 @@
 ---
 name: nuxt-eslint-skilld
-description: "ALWAYS use when writing code importing \"@nuxt/eslint\". Consult for debugging, best practices, or modifying @nuxt/eslint, nuxt/eslint, nuxt eslint, eslint."
+description: 'ALWAYS use when writing code importing "@nuxt/eslint". Consult for debugging, best practices, or modifying @nuxt/eslint, nuxt/eslint, nuxt eslint, eslint.'
 metadata:
   version: 1.16.0
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # nuxt/eslint `@nuxt/eslint@1.16.0`
+
 **Tags:** next: 0.3.0-beta.10, latest: 1.16.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @nuxt/eslint` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @nuxt/eslint` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes in @nuxt/eslint v1.16.0.
@@ -55,6 +57,7 @@ This section documents version-specific API changes in @nuxt/eslint v1.16.0.
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Start new Nuxt projects with the `@nuxt/eslint` module using `npx nuxi module add eslint` — it auto-generates project-aware flat config and includes DevTools integration, making it significantly easier than manual setup [source](./.skilld/docs/content/1.packages/0.module.md#quick-setup)
@@ -79,9 +82,9 @@ This section documents version-specific API changes in @nuxt/eslint v1.16.0.
 // Use .prepend() for type-aware rule setup
 export default withNuxt().prepend({
   languageOptions: {
-    parserOptions: { project: './tsconfig.json' }
+    parserOptions: { project: "./tsconfig.json" }
   },
-  rules: { '@typescript-eslint/no-floating-promises': 'error' }
+  rules: { "@typescript-eslint/no-floating-promises": "error" }
 })
 ```
 
@@ -92,4 +95,5 @@ export default withNuxt().prepend({
 - Disable auto-init only if you are managing `eslint.config.mjs` manually or in CI pipelines — set `config.autoInit: false` to prevent automatic generation on server start [source](./.skilld/docs/content/1.packages/0.module.md:L294-309)
 
 - Chain FlatConfigComposer methods (`.prepend()`, `.override()`, `.append()`) to customize ESLint config — avoid rewriting the entire config; targeted mutations are safer and more maintainable [source](./.skilld/docs/content/1.packages/0.module.md#config-customizations)
+
 <!-- /skilld:best-practices -->

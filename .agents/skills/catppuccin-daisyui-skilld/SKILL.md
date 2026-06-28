@@ -60,4 +60,5 @@ This section documents version-specific API changes — prioritize recent major/
 - For CDN usage, consider combining specific themes using the `cdn.jsdelivr.net/combine` syntax to optimize requests if only a subset of themes is needed [source](./node_modules/@catppuccin/daisyui/README.md#for-cdn)
 
 - After installation, ensure both Tailwind CSS and Daisy UI are properly configured before importing `@catppuccin/daisyui` themes, as this package builds upon their setup [source](./node_modules/@catppuccin/daisyui/README.md#configuration)
+
 <!-- /skilld:best-practices -->

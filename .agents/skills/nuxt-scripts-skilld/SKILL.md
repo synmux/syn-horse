@@ -86,4 +86,5 @@ Use `skilld search "query" -p @nuxt/scripts` instead of grepping `.skilld/` dire
 - Use environment variables via `runtimeConfig.public.scripts.*` for registry script credentials — this separates secrets from build-time config and allows per-deployment overrides without rebuilding [source](./.skilld/docs/content/docs/1.guides/1.registry-scripts.md:L57:87)
 
 - Provide a unique `key` when loading the same registry script multiple times with different configs — without a key, both calls return the first cached instance, silently ignoring the second config [source](./.skilld/docs/content/docs/1.guides/1.registry-scripts.md:L118:150)
+
 <!-- /skilld:best-practices -->

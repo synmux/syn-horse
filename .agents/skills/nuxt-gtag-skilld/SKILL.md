@@ -83,4 +83,5 @@ export default defineNuxtConfig({
 [source](./.skilld/repos/johannschopplich/nuxt-gtag/discussions/discussion-20.md:L22:33)
 
 - When using manual initialization with consent, ensure `initCommands` are set for default consent and `initialize(id)` is called to load gtag.js after consent is managed. [source](./.skilld/repos/johannschopplich/nuxt-gtag/issues/issue-97.md:L23:27)
+
 <!-- /skilld:best-practices -->

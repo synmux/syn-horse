@@ -78,4 +78,5 @@ This section documents version-specific API changes — prioritize recent major/
 - Ensure your Content-Security-Policy (CSP) includes `https://challenges.cloudflare.com` and `https://cdn-cgi.com` in `script-src` (or inherit from `default-src`) — if using `strict-dynamic` or other CSP3 directives, the widget may fail because it cannot nonce injected scripts source.
 
 - For local development, use Cloudflare's test sitekey `'1x00000000000000000000AA'` in your dev environment to bypass real challenge requests — if testing on a hostname like `localhost:3000` that cannot be added to Cloudflare, create a local tunnel or use a `.test` domain bound to localhost source.
+
 <!-- /skilld:best-practices -->

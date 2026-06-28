@@ -1,6 +1,6 @@
 ---
 name: wrangler-skilld
-description: "Command-line interface for all things Cloudflare Workers. ALWAYS use when writing code importing \"wrangler\". Consult for debugging, best practices, or modifying wrangler, workers-sdk, workers sdk."
+description: 'Command-line interface for all things Cloudflare Workers. ALWAYS use when writing code importing "wrangler". Consult for debugging, best practices, or modifying wrangler, workers-sdk, workers sdk.'
 metadata:
   version: 4.105.0
   generated_by: cached
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # cloudflare/workers-sdk `wrangler@4.105.0`
+
 **Tags:** wrangler@2.2.4: 2.2.4, legacy: 3.114.17, latest: 4.105.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p wrangler` instead of grepping `.skilld/` directories. Run `skilld search --guide -p wrangler` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes in wrangler v4.x — these are the changes that may cause silent breakage or are unknown to LLMs trained on older data.
@@ -53,6 +55,7 @@ This section documents version-specific API changes in wrangler v4.x — these a
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use `wrangler.jsonc` (JSON configuration) instead of TOML for new projects — newer Wrangler features are only available with JSON config files, and Cloudflare recommends this format for new projects [source](./.skilld/docs/workers/wrangler/configuration.md#section-wrangler-jsonc)
@@ -82,4 +85,5 @@ This section documents version-specific API changes in wrangler v4.x — these a
 - Run `wrangler types` after updating bindings or configuration to regenerate TypeScript types — the generated `worker-configuration.d.ts` file ensures type inference for all env bindings and is kept in sync via the postinstall hook [source](./.skilld/docs/workers/wrangler/commands/general.md#generate-types)
 
 - Profile startup time with `wrangler check startup` using the exact same arguments as your deploy command — if you deploy with `--no-bundle`, profile with `--args="--no-bundle"` to get an accurate representation of startup behaviour in production [source](./.skilld/docs/workers/wrangler/commands/workers.md#wrangler-check-startup)
+
 <!-- /skilld:best-practices -->

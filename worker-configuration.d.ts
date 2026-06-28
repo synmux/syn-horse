@@ -117,7 +117,7 @@ declare abstract class WorkerGlobalScope extends EventTarget<WorkerGlobalScopeEv
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/console)
  */
 interface Console {
-  "assert"(condition?: boolean, ...data: any[]): void
+  assert(condition?: boolean, ...data: any[]): void
   /**
    * The **`console.clear()`** static method clears the console if possible.
    *
@@ -608,17 +608,7 @@ interface DurableObjectNamespaceNewUniqueIdOptions {
   jurisdiction?: DurableObjectJurisdiction
 }
 type DurableObjectLocationHint =
-  | "wnam"
-  | "enam"
-  | "sam"
-  | "weur"
-  | "eeur"
-  | "apac"
-  | "apac-ne"
-  | "apac-se"
-  | "oc"
-  | "afr"
-  | "me"
+  "wnam" | "enam" | "sam" | "weur" | "eeur" | "apac" | "apac-ne" | "apac-se" | "oc" | "afr" | "me"
 type DurableObjectRoutingMode = "primary-only"
 interface DurableObjectNamespaceGetDurableObjectOptions {
   locationHint?: DurableObjectLocationHint
@@ -864,8 +854,7 @@ interface EventListenerObject<EventType extends Event = Event> {
   handleEvent(event: EventType): void
 }
 type EventListenerOrEventListenerObject<EventType extends Event = Event> =
-  | EventListener<EventType>
-  | EventListenerObject<EventType>
+  EventListener<EventType> | EventListenerObject<EventType>
 /**
  * The **`EventTarget`** interface is implemented by objects that can receive events and may have listeners for them.
  *
@@ -1152,14 +1141,7 @@ declare abstract class Crypto {
    */
   getRandomValues<
     T extends
-      | Int8Array
-      | Uint8Array
-      | Int16Array
-      | Uint16Array
-      | Int32Array
-      | Uint32Array
-      | BigInt64Array
-      | BigUint64Array,
+      Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | BigInt64Array | BigUint64Array,
   >(buffer: T): T
   /**
    * The **`randomUUID()`** method of the Crypto interface is used to generate a v4 UUID using a cryptographically secure random number generator.
@@ -5295,12 +5277,7 @@ type FunctionMessage = {
   name: string
 }
 type ChatCompletionMessageParam =
-  | DeveloperMessage
-  | SystemMessage
-  | UserMessage
-  | AssistantMessage
-  | ToolMessage
-  | FunctionMessage
+  DeveloperMessage | SystemMessage | UserMessage | AssistantMessage | ToolMessage | FunctionMessage
 type ChatCompletionsResponseFormatText = {
   type: "text"
 }
@@ -5317,9 +5294,7 @@ type ResponseFormatJSONSchema = {
   }
 }
 type ResponseFormat =
-  | ChatCompletionsResponseFormatText
-  | ChatCompletionsResponseFormatJSONObject
-  | ResponseFormatJSONSchema
+  ChatCompletionsResponseFormatText | ChatCompletionsResponseFormatJSONObject | ResponseFormatJSONSchema
 type ChatCompletionsStreamOptions = {
   include_usage?: boolean
   include_obfuscation?: boolean
@@ -5565,11 +5540,7 @@ type Reasoning = {
   summary?: "auto" | "concise" | "detailed" | null
 }
 type ResponseContent =
-  | ResponseInputText
-  | ResponseInputImage
-  | ResponseOutputText
-  | ResponseOutputRefusal
-  | ResponseContentReasoningText
+  ResponseInputText | ResponseInputImage | ResponseOutputText | ResponseOutputRefusal | ResponseContentReasoningText
 type ResponseContentReasoningText = {
   text: string
   type: "reasoning_text"
@@ -5734,10 +5705,7 @@ type ResponseInputTextContent = {
   type: "input_text"
 }
 type ResponseItem =
-  | ResponseInputMessageItem
-  | ResponseOutputMessage
-  | ResponseFunctionToolCallItem
-  | ResponseFunctionToolCallOutputItem
+  ResponseInputMessageItem | ResponseOutputMessage | ResponseFunctionToolCallItem | ResponseFunctionToolCallOutputItem
 type ResponseOutputItem = ResponseOutputMessage | ResponseFunctionToolCall | ResponseReasoningItem
 type ResponseOutputItemAddedEvent = {
   item: ResponseOutputItem
@@ -6440,8 +6408,7 @@ declare abstract class Base_Ai_Cf_Black_Forest_Labs_Flux_1_Schnell {
   postProcessedOutputs: Ai_Cf_Black_Forest_Labs_Flux_1_Schnell_Output
 }
 type Ai_Cf_Meta_Llama_3_2_11B_Vision_Instruct_Input =
-  | Ai_Cf_Meta_Llama_3_2_11B_Vision_Instruct_Prompt
-  | Ai_Cf_Meta_Llama_3_2_11B_Vision_Instruct_Messages
+  Ai_Cf_Meta_Llama_3_2_11B_Vision_Instruct_Prompt | Ai_Cf_Meta_Llama_3_2_11B_Vision_Instruct_Messages
 interface Ai_Cf_Meta_Llama_3_2_11B_Vision_Instruct_Prompt {
   /**
    * The input text prompt for the model to generate a response.
@@ -7111,8 +7078,7 @@ declare abstract class Base_Ai_Cf_Baai_Bge_Reranker_Base {
   postProcessedOutputs: Ai_Cf_Baai_Bge_Reranker_Base_Output
 }
 type Ai_Cf_Qwen_Qwen2_5_Coder_32B_Instruct_Input =
-  | Ai_Cf_Qwen_Qwen2_5_Coder_32B_Instruct_Prompt
-  | Ai_Cf_Qwen_Qwen2_5_Coder_32B_Instruct_Messages
+  Ai_Cf_Qwen_Qwen2_5_Coder_32B_Instruct_Prompt | Ai_Cf_Qwen_Qwen2_5_Coder_32B_Instruct_Messages
 interface Ai_Cf_Qwen_Qwen2_5_Coder_32B_Instruct_Prompt {
   /**
    * The input text prompt for the model to generate a response.
@@ -7635,8 +7601,7 @@ declare abstract class Base_Ai_Cf_Qwen_Qwq_32B {
   postProcessedOutputs: Ai_Cf_Qwen_Qwq_32B_Output
 }
 type Ai_Cf_Mistralai_Mistral_Small_3_1_24B_Instruct_Input =
-  | Ai_Cf_Mistralai_Mistral_Small_3_1_24B_Instruct_Prompt
-  | Ai_Cf_Mistralai_Mistral_Small_3_1_24B_Instruct_Messages
+  Ai_Cf_Mistralai_Mistral_Small_3_1_24B_Instruct_Prompt | Ai_Cf_Mistralai_Mistral_Small_3_1_24B_Instruct_Messages
 interface Ai_Cf_Mistralai_Mistral_Small_3_1_24B_Instruct_Prompt {
   /**
    * The input text prompt for the model to generate a response.
@@ -8406,8 +8371,7 @@ interface Ai_Cf_Meta_Llama_4_Scout_17B_16E_Instruct_Messages {
 }
 interface Ai_Cf_Meta_Llama_4_Scout_17B_16E_Instruct_Async_Batch {
   requests: (
-    | Ai_Cf_Meta_Llama_4_Scout_17B_16E_Instruct_Prompt_Inner
-    | Ai_Cf_Meta_Llama_4_Scout_17B_16E_Instruct_Messages_Inner
+    Ai_Cf_Meta_Llama_4_Scout_17B_16E_Instruct_Prompt_Inner | Ai_Cf_Meta_Llama_4_Scout_17B_16E_Instruct_Messages_Inner
   )[]
 }
 interface Ai_Cf_Meta_Llama_4_Scout_17B_16E_Instruct_Prompt_Inner {
@@ -8697,9 +8661,7 @@ declare abstract class Base_Ai_Cf_Meta_Llama_4_Scout_17B_16E_Instruct {
   postProcessedOutputs: Ai_Cf_Meta_Llama_4_Scout_17B_16E_Instruct_Output
 }
 type Ai_Cf_Qwen_Qwen3_30B_A3B_Fp8_Input =
-  | Ai_Cf_Qwen_Qwen3_30B_A3B_Fp8_Prompt
-  | Ai_Cf_Qwen_Qwen3_30B_A3B_Fp8_Messages
-  | Ai_Cf_Qwen_Qwen3_30B_A3B_Fp8_Async_Batch
+  Ai_Cf_Qwen_Qwen3_30B_A3B_Fp8_Prompt | Ai_Cf_Qwen_Qwen3_30B_A3B_Fp8_Messages | Ai_Cf_Qwen_Qwen3_30B_A3B_Fp8_Async_Batch
 interface Ai_Cf_Qwen_Qwen3_30B_A3B_Fp8_Prompt {
   /**
    * The input text prompt for the model to generate a response.
@@ -9963,8 +9925,7 @@ interface Ai_Cf_Aisingapore_Gemma_Sea_Lion_V4_27B_It_JSON_Mode_1 {
 }
 interface Ai_Cf_Aisingapore_Gemma_Sea_Lion_V4_27B_It_Async_Batch {
   requests: (
-    | Ai_Cf_Aisingapore_Gemma_Sea_Lion_V4_27B_It_Prompt_1
-    | Ai_Cf_Aisingapore_Gemma_Sea_Lion_V4_27B_It_Messages_1
+    Ai_Cf_Aisingapore_Gemma_Sea_Lion_V4_27B_It_Prompt_1 | Ai_Cf_Aisingapore_Gemma_Sea_Lion_V4_27B_It_Messages_1
   )[]
 }
 interface Ai_Cf_Aisingapore_Gemma_Sea_Lion_V4_27B_It_Prompt_1 {
@@ -12223,7 +12184,8 @@ interface RequestInitCfPropertiesImageDraw extends BasicImageTransformations {
   /**
    * How to combine the foreground and backdrop pixels to create the result
    */
-  composite?: /** Foreground drawn on top of backdrop (default) */
+  composite?:
+    /** Foreground drawn on top of backdrop (default) */
     | "over"
     /** Foreground shown only where backdrop is opaque */
     | "in"
@@ -14191,15 +14153,7 @@ declare namespace CloudflareWorkersModule {
     ): Promise<WorkflowStepEvent<T>>
   }
   export type WorkflowInstanceStatus =
-    | "queued"
-    | "running"
-    | "paused"
-    | "errored"
-    | "terminated"
-    | "complete"
-    | "waiting"
-    | "waitingForPause"
-    | "unknown"
+    "queued" | "running" | "paused" | "errored" | "terminated" | "complete" | "waiting" | "waitingForPause" | "unknown"
   export abstract class WorkflowEntrypoint<Env = unknown, T extends Rpc.Serializable<T> | unknown = unknown>
     implements Rpc.WorkflowEntrypointBranded
   {
@@ -15075,9 +15029,7 @@ declare namespace TailStream {
   interface HibernatableWebSocketEventInfo {
     readonly type: "hibernatableWebSocket"
     readonly info:
-      | HibernatableWebSocketEventInfoClose
-      | HibernatableWebSocketEventInfoError
-      | HibernatableWebSocketEventInfoMessage
+      HibernatableWebSocketEventInfoClose | HibernatableWebSocketEventInfoError | HibernatableWebSocketEventInfoMessage
   }
   interface CustomEventInfo {
     readonly type: "custom"

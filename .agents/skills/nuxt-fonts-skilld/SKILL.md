@@ -36,6 +36,7 @@ This section documents version-specific API changes — prioritize recent major/
 - NEW: `fonts:public-asset-context` hook — new hook added in v0.13.0. [source](./.skilld/repos/nuxt/fonts/releases/v0.13.0.md:L11)
 
 - BREAKING: Default font weight — v0.12.0 changed default font weight to `400 700`. [source](./.skilld/repos/nuxt/fonts/releases/v0.12.0.md:L110)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
@@ -75,4 +76,5 @@ This section documents version-specific API changes — prioritize recent major/
 - Control font format resolution with `defaults.formats` in `nuxt.config.ts` if you need to support legacy browsers that require formats other than the default `woff2` (e.g., `['woff2', 'woff', 'ttf']`). [source: `./.skilld/references/@nuxt/fonts@0.14.0/docs/content/1.get-started/5.upgrade.md#font-format-resolution`]
 
 - Consider enabling `throwOnError: true` (experimental) in `nuxt.config.ts` to convert font resolution warnings into errors, which can be beneficial for strict CI/CD environments. [source: `./.skilld/references/@nuxt/fonts@0.14.0/docs/content/1.get-started/5.upgrade.md#throwonerror-option`]
+
 <!-- /skilld:best-practices -->

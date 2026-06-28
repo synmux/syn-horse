@@ -80,4 +80,5 @@ The following APIs are part of the current tsx Developer API:
 - Use `#!/usr/bin/env -S npx tsx` in hashbang for project-local shell scripts — this approach ensures the script uses the project's installed tsx version and works across package managers (npm, pnpm, yarn) [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/shell-scripts.md:L7-L27)
 
 - Configure VS Code's launch configuration with `runtimeExecutable: "tsx"` to enable native TypeScript debugging — this provides a seamless debugging experience without needing a separate build step [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/vscode.md:L13-L64)
+
 <!-- /skilld:best-practices -->

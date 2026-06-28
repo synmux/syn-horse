@@ -96,6 +96,7 @@ This section documents version-specific API changes — prioritize recent major/
 - In Biome, understand that Ultracite uses an opt-in configuration approach where every rule is explicitly specified — nothing is implicitly inherited, giving full visibility but requiring intentional choices when customizing [source](./.skilld/docs/provider/biome.mdx#configuration-approach)
 
 - Enable TypeScript's strict mode (`"strict": true` in `tsconfig.json`) when using Ultracite — type-aware rules assume strictness; loose settings (missing `strictNullChecks`) may produce false positives around undefined handling [source](./.skilld/docs/troubleshooting.mdx)
+
 <!-- /skilld:best-practices -->
 
 Related: zod-skilld

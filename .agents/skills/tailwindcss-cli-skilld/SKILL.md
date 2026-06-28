@@ -86,6 +86,7 @@ This section documents version-specific API changes — prioritize recent major/
 - Preserve arbitrary value units and whitespace in canonical suggestions — Tailwind's canonicalization respects original units (e.g., `in`, `mm`) and significant whitespace in expressions; it will not normalize `20in` to pixels [source](./.skilld/releases/v4.3.0.md#fixed)
 
 - Use `--silent` flag in CI pipelines to suppress Tailwind CLI output — The `--silent` option added in v4.3.1 silences standard output, keeping logs clean in automated environments [source](./.skilld/releases/v4.3.1.md#added)
+
 <!-- /skilld:best-practices -->
 
 Related: tailwindcss-skilld

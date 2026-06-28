@@ -228,11 +228,11 @@ skills:
     generator: skilld
   nuxi-skilld:
     packageName: nuxi
-    version: 3.36.0
-    packages: "nuxi@3.36.0"
+    version: 3.36.1
+    packages: "nuxi@3.36.1"
     repo: nuxt/cli
     source: "https://nuxt.com/llms.txt"
-    syncedAt: 2026-06-25
+    syncedAt: 2026-06-28
     generator: skilld
   skilld-skilld:
     packageName: skilld
@@ -274,11 +274,11 @@ skills:
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.191
-    packages: "@anthropic-ai/claude-code@2.1.191"
+    version: 2.1.195
+    packages: "@anthropic-ai/claude-code@2.1.195"
     repo: Exhen/claude-code-2.1.88
     source: "ungh://Exhen/claude-code-2.1.88"
-    syncedAt: 2026-06-25
+    syncedAt: 2026-06-28
     generator: skilld
   drizzle-orm-skilld:
     packageName: drizzle-orm
@@ -296,11 +296,11 @@ skills:
     generator: skilld
   daisyui-skilld:
     packageName: daisyui
-    version: 5.5.23
-    packages: "daisyui@5.5.23"
+    version: 5.6.3
+    packages: "daisyui@5.6.3"
     repo: saadeghi/daisyui
-    source: "https://github.com/saadeghi/daisyui/tree/v5.5.23/docs"
-    syncedAt: 2026-06-08
+    source: "https://github.com/saadeghi/daisyui/tree/v5.6.3/docs"
+    syncedAt: 2026-06-28
     generator: skilld
   storybloq-storybloq-skilld:
     packageName: "@storybloq/storybloq"
@@ -325,15 +325,17 @@ skills:
     generator: skilld
   prettier-skilld:
     packageName: prettier
-    version: 3.8.4
+    version: 3.9.1
+    packages: "prettier@3.9.1"
     repo: prettier/prettier
-    source: "https://github.com/prettier/prettier/tree/3.8.4/docs"
-    syncedAt: 2026-06-25
+    source: "https://github.com/prettier/prettier/tree/3.9.1/docs"
+    syncedAt: 2026-06-28
     generator: skilld
   eslint-skilld:
     packageName: eslint
-    version: 10.5.0
+    version: 10.6.0
+    packages: "eslint@10.6.0"
     repo: eslint/eslint
-    source: "https://github.com/eslint/eslint/tree/v10.5.0/docs"
-    syncedAt: 2026-06-25
+    source: "https://github.com/eslint/eslint/tree/v10.6.0/docs"
+    syncedAt: 2026-06-28
     generator: skilld

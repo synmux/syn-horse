@@ -1,12 +1,13 @@
 ---
 name: takumi-rs-wasm-skilld
-description: "ALWAYS use when writing code importing \"@takumi-rs/wasm\". Consult for debugging, best practices, or modifying @takumi-rs/wasm, takumi-rs/wasm, takumi-rs wasm, takumi rs wasm, takumi."
+description: 'ALWAYS use when writing code importing "@takumi-rs/wasm". Consult for debugging, best practices, or modifying @takumi-rs/wasm, takumi-rs/wasm, takumi-rs wasm, takumi rs wasm, takumi.'
 metadata:
   version: 1.8.7
   generated_at: 2026-06-25
 ---
 
 # kane50613/takumi `@takumi-rs/wasm@1.8.7`
+
 **Tags:** rc: 1.0.0-rc.17, latest: 1.8.7, beta: 2.0.0-beta.12
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)

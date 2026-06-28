@@ -64,4 +64,5 @@ This section documents version-specific API changes — prioritize recent major/
 - Enable `strict: true` in your `drizzle.config.ts` for `drizzle-kit push` commands in production or shared environments. This prompts for confirmation before applying SQL changes, preventing accidental modifications. [source](./.skilld/docs/docs/drizzle-config-file.md:L975-L977)
 
 - Utilize `tablesFilter`, `schemaFilter`, and `extensionsFilters` in `drizzle.config.ts` to precisely control which database entities Drizzle Kit manages, especially in multi-project, multi-schema, or multi-tenant environments. This helps avoid unintended modifications and ignores external/system tables. [source](./.skilld/docs/docs/drizzle-config-file.md:L1040-L1044)
+
 <!-- /skilld:best-practices -->

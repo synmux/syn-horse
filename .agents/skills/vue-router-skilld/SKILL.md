@@ -86,4 +86,5 @@ This section documents version-specific API changes — prioritize recent major/
 - **For `defineColadaLoader`, configure `staleTime` and leverage route tracking for efficient data fetching (experimental)**: `staleTime` controls refetching frequency, and route tracking ensures data refreshes only when _tracked_ `to` parameter properties change. [source](./.skilld/docs/data-loaders/colada/index.md:L91:L95)
 
 - **Commit the generated `typed-router.d.ts` file and include it in `tsconfig.json` for file-based routing**: This ensures type safety and consistency across the project. [source](./.skilld/docs/file-based-routing/index.md:L73:L96)
+
 <!-- /skilld:best-practices -->

@@ -24,6 +24,7 @@ Use `skilld search "query" -p @catppuccin/tailwindcss` instead of grepping `.ski
 This section documents version-specific API changes — prioritize recent major/minor releases.
 
 - BREAKING: `support Tailwind v4` — `@catppuccin/tailwindcss` now requires Tailwind CSS v4, which may introduce breaking changes for projects using older Tailwind versions. [source](./.skilld/repos/catppuccin/tailwindcss/releases/v1.0.0.md:L12)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
@@ -55,4 +56,5 @@ This section documents version-specific API changes — prioritize recent major/
 - Ensure `tailwindcss` version compatibility with `v1.0.0` for Tailwind v4 projects: The `@catppuccin/tailwindcss` v1.0.0 release is specifically tailored for Tailwind CSS v4. When upgrading to v1.0.0, confirm that your project is also migrating to or already using Tailwind CSS v4 to ensure full compatibility and prevent unexpected styling issues. [source](./.skilld/releases/v1.0.0.md#v1.0.0-2025-07-26)
 
 - Import flavour stylesheets individually for precise control over theme application: Explicitly import the desired Catppuccin flavour stylesheet (e.g., `@import "@catppuccin/tailwindcss/mocha.css";`) into your main CSS. This provides granular control over which theme is active and simplifies dynamic theme switching, rather than relying on a single entry point for all flavours. [source](./.skilld/pkg/README.md#L16:19)
+
 <!-- /skilld:best-practices -->

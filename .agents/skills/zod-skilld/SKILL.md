@@ -85,6 +85,7 @@ Also changed: `.toJSONSchema()` method added (v4.2.0); Standard JSON Schema impl
 - Release notes: [`v4.3.0`](./releases/v4.3.0.md) (2025-12-31), [`v4.3.5`](./releases/v4.3.5.md) (2026-01-04), [`v4.3.6`](./releases/v4.3.6.md) (2026-01-22)
 - Previous MINOR: [`v4.2.0`](./releases/v4.2.0.md) (2025-12-15)
 - Full index: [`releases/_INDEX.md`](./releases/_INDEX.md)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->

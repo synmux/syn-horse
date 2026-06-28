@@ -98,4 +98,5 @@ This section documents version-specific API changes — prioritize recent major/
 - Do not use interactive transactions for high-concurrency workloads — they serialize write access and timeout after 5 seconds, making them unsuitable for busy applications where `batch()` is preferable [source](./.skilld/docs/sdk/ts/reference.md#interactive-transactions)
 
 - For embedded replicas, ensure periodic sync runs in the background on application startup or at regular intervals (e.g., every 5 minutes) rather than on-demand in request handlers, to maintain consistency without blocking user requests [source](./.skilld/docs/features/embedded-replicas/introduction.md#things-to-know)
+
 <!-- /skilld:best-practices -->

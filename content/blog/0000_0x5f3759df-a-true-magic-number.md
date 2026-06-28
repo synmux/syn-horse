@@ -42,7 +42,7 @@ float Q_rsqrt(float number) {
 
 What it does is generate a guess for  `1/sqrt(x)`  very, very quickly. With that information, Newton's algorithm (which is used to intelligently refine a guess for any mathematical function) only needs one iteration to get to a tolerable margin of error.
 
-Turns out that, on the processors of the time, this is  *four times faster*  than asking the CPU to find the square root by itself.
+Turns out that, on the processors of the time, this is  _four times faster_  than asking the CPU to find the square root by itself.
 
 ## So where's the magic?
 

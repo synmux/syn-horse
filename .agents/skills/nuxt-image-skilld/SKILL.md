@@ -86,4 +86,5 @@ This section documents version-specific API changes — prioritize recent major/
 - Utilize the `nonce` prop on `NuxtImg` to enhance Content Security Policy (CSP) without resorting to the less secure `unsafe-inline` directive. [source](./.skilld/references/@nuxt/image@2.0.0/docs/content/2.usage/1.nuxt-img.md:L386)
 
 - For Nuxt 3, ensure that `/nuxt-icon.png` is placed inside the `public/` directory to make the `<NuxtImg src="/nuxt-icon.png" />` example work correctly with the default provider. [source](./.skilld/references/@nuxt/image@2.0.0/docs/content/2.usage/1.nuxt-img.md:L34)
+
 <!-- /skilld:best-practices -->

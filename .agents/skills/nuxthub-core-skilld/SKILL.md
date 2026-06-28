@@ -86,4 +86,5 @@ This section documents version-specific API changes — prioritize recent major/
 - Populate the database with initial data using Nitro Tasks by enabling `experimental.tasks` in `nitro` config and defining a seed task in `server/tasks/` [source](./.skilld/references/@nuxthub/core@0.10.7/docs/content/docs/2.database/2.schema.md#database-seed)
 - Always import the database client using `@nuxthub/db` instead of `hub:db` (legacy virtual module) to ensure compatibility with both Nuxt server routes and external bundlers like Workflow [source](./.skilld/references/@nuxthub/core@0.10.7/docs/content/docs/2.database/3.query.md#recommended-nuxthubdb)
 - Rely on the auto-generated `@nuxthub/db` package for database client and schema, which provides universal compatibility, type-safety, and automatic synchronization during development and build, without needing to add it to `package.json` [source](./.skilld/references/@nuxthub/core@0.10.7/docs/content/docs/2.database/3.query.md#how-it-works)
+
 <!-- /skilld:best-practices -->

@@ -2,14 +2,14 @@
 name: daisyui-skilld
 description: 'ALWAYS use when writing code importing "daisyui". Consult for debugging, best practices, or modifying daisyui.'
 metadata:
-  version: 5.5.23
+  version: 5.6.3
   generated_by: Anthropic · Haiku 4.5
-  generated_at: 2026-06-08
+  generated_at: 2026-06-28
 ---
 
-# saadeghi/daisyui `daisyui@5.5.23`
+# saadeghi/daisyui `daisyui@5.6.3`
 
-**Tags:** alpha: 5.0.0-alpha.61, beta: 5.5.1-beta.2, latest: 5.5.23
+**Tags:** alpha: 5.6.0-alpha.4, beta: 5.6.0-beta.0, latest: 5.6.3
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
@@ -21,96 +21,113 @@ Use `skilld search "query" -p daisyui` instead of grepping `.skilld/` directorie
 
 ## API Changes
 
-This section documents version-specific API changes — prioritize recent major/minor releases.
+This section documents version-specific API changes — prioritise recent major/minor releases.
 
-- BREAKING: `artboard` and `phone-*` classes removed (v5.0.0) — replaced by Tailwind `w-*` and `h-*` utilities. Use `w-[320px] h-[568px]` instead of `artboard phone-1` [source](./.skilld/releases/CHANGELOG.md#artboard)
+### Major Breaking Changes (v5.0.0)
 
-- BREAKING: `bottom-nav` component removed (v5.0.0) — use `dock` component instead. Migrate `btm-nav-sm` to `dock-sm`, `btm-nav-active` to `dock-active` [source](./.skilld/releases/CHANGELOG.md#bottom-navigation)
+- BREAKING: `artboard` and `phone-*` classes removed entirely — use Tailwind `w-*` and `h-*` classes instead. Classes like `artboard phone-1` become `w-[320px] h-[568px]` [source](./.skilld/releases/CHANGELOG.md:L978-L1004)
 
-- BREAKING: `avatar online` / `avatar offline` / `avatar placeholder` renamed (v5.0.0) — use `avatar-online`, `avatar-offline`, `avatar-placeholder` classes [source](./.skilld/releases/CHANGELOG.md#avatar)
+- BREAKING: `avatar online` class renamed to `avatar avatar-online`, `offline` to `avatar-offline`, `placeholder` to `avatar-placeholder` [source](./.skilld/releases/CHANGELOG.md:L1008-L1027)
 
-- BREAKING: `card-bordered` renamed to `card-border` (v5.0.0) — update markup from `class="card card-bordered"` to `class="card card-border"` [source](./.skilld/releases/CHANGELOG.md#card)
+- BREAKING: `card-bordered` renamed to `card-border` [source](./.skilld/releases/CHANGELOG.md:L1087-L1094)
 
-- BREAKING: `input-bordered` class removed (v5.0.0) — input now has a border by default with 20rem width. Use `input-ghost` to remove the border [source](./.skilld/releases/CHANGELOG.md#input)
+- BREAKING: `input-bordered` class removed — `input` now has border by default; use `input-ghost` to remove border [source](./.skilld/releases/CHANGELOG.md:L1207-L1241)
 
-- BREAKING: `select-bordered` class removed (v5.0.0) — select now has a border by default with 20rem width. Use `select-ghost` to remove the border [source](./.skilld/releases/CHANGELOG.md#select)
+- BREAKING: `select-bordered` class removed — `select` now has border by default; use `select-ghost` to remove border [source](./.skilld/releases/CHANGELOG.md:L1371-L1400)
 
-- BREAKING: `file-input-bordered` removed (v5.0.0) — file input now has border by default. Use `file-input-ghost` if you want to remove the border [source](./.skilld/releases/CHANGELOG.md#fileinput)
+- BREAKING: `textarea-border` class removed — `textarea` now has border by default; use `textarea-ghost` to remove border [source](./.skilld/releases/CHANGELOG.md:L1473)
 
-- BREAKING: `menu disabled` / `active` / `focus` classes renamed (v5.0.0) — use `menu-disabled`, `menu-active`, `menu-focus` instead. Menu is no longer `w-full` by default [source](./.skilld/releases/CHANGELOG.md#menu)
+- BREAKING: `file-input-bordered` class removed — `file-input` now has border by default; use `file-input-ghost` to remove border [source](./.skilld/releases/CHANGELOG.md:L1178-L1186)
 
-- BREAKING: `textarea-border` removed (v5.0.0) — textarea now has a border by default. Use `textarea-ghost` if you want to remove the border [source](./.skilld/releases/CHANGELOG.md#textarea)
+- BREAKING: `form-control`, `label-text`, and `label-text-alt` classes removed entirely — use `fieldset`, `legend`, and `label` elements with Tailwind utilities instead [source](./.skilld/releases/CHANGELOG.md:L1507-L1565)
 
-- BREAKING: `table` hover class removed (v5.0.0) — use `hover:bg-base-300` or other Tailwind hover utilities instead [source](./.skilld/releases/CHANGELOG.md#table)
+- BREAKING: `btn-group` and `input-group` components removed — use `join` component with `join-item` class instead [source](./.skilld/releases/CHANGELOG.md:L1567-L1589)
 
-- BREAKING: `tabs-lifted` renamed to `tabs-lift` (v5.0.0) — update from `class="tabs tabs-lifted"` to `class="tabs tabs-lift"` [source](./.skilld/releases/CHANGELOG.md#tab)
+- BREAKING: `footer` is now vertical by default — use `footer-horizontal` to make it horizontal [source](./.skilld/releases/CHANGELOG.md:L1194-L1199)
 
-- BREAKING: `btn-ghost` hover style changed (v5.0.0) — no longer applies primary color by default. Use `btn-ghost btn-primary` and check hover state behaves as expected (shows original color on hover) [source](./.skilld/releases/CHANGELOG.md#button)
+- BREAKING: `table hover` class removed — use `hover:bg-base-300` (or any Tailwind background color) instead [source](./.skilld/releases/CHANGELOG.md:L1460-L1465)
 
-- BREAKING: Button default height reduced (v5.0.0) — height now customizable via `--size-field` CSS variable instead of hardcoded [source](./.skilld/releases/CHANGELOG.md#button)
+- BREAKING: `tabs-lifted` renamed to `tabs-lift` [source](./.skilld/releases/CHANGELOG.md:L1447-L1452)
 
-- BREAKING: `footer` is now vertical by default (v5.0.0) — use `footer-horizontal` to make it horizontal. Migrate `<footer class="footer">` to `<footer class="footer md:footer-horizontal">` [source](./.skilld/releases/CHANGELOG.md#footer)
+- BREAKING: Menu item modifier classes renamed: `disabled` → `menu-disabled`, `active` → `menu-active`, `focus` → `menu-focus`; vertical menu no longer `w-full` by default [source](./.skilld/releases/CHANGELOG.md:L1280-L1298)
 
-- BREAKING: `chat-bubble` default color changed (v5.0.0) — changed from `neutral` to `base-300`. Add `chat-bubble-neutral` to restore neutral color [source](./.skilld/releases/CHANGELOG.md#chat)
+- BREAKING: `mockup-phone` class names changed: `camera` → `mockup-phone-camera`, `display` → `mockup-phone-display` [source](./.skilld/releases/CHANGELOG.md:L1303-L1319)
 
-- BREAKING: `mockup-phone` classes renamed (v5.0.0) — `camera` becomes `mockup-phone-camera`, `display` becomes `mockup-phone-display` [source](./.skilld/releases/CHANGELOG.md#mockup)
+- BREAKING: `bottom-nav` component removed — use `dock` component instead; `btm-nav-xs/sm/md/lg` → `dock-xs/sm/md/lg`, `btm-nav-active` → `dock-active` [source](./.skilld/releases/CHANGELOG.md:L1047-L1060)
 
-- BREAKING: `stats` background color is now transparent (v5.0.0) — add `bg-base-100` if you need a background color [source](./.skilld/releases/CHANGELOG.md#stat)
+- BREAKING: `btn-ghost` hover style changed in v5 — now shows original color on hover instead of forcing a specific style [source](./.skilld/releases/CHANGELOG.md:L1077)
 
-- NEW: `hover-3d` component (v5.5.0) — creates a 3D card effect on hover [source](./.skilld/releases/CHANGELOG.md#550-2025-11-11)
+- BREAKING: Default button height reduced; customizable via `--size-field` CSS variable [source](./.skilld/releases/CHANGELOG.md:L1075)
 
-- NEW: `text-rotate` component (v5.5.0) — rotates between multiple words with animation [source](./.skilld/releases/CHANGELOG.md#550-2025-11-11)
+- BREAKING: `input` now has default width of 20rem — no need for `w-full max-w-xs` [source](./.skilld/releases/CHANGELOG.md:L1207)
 
-- NEW: `hover-gallery` component (v5.1.0) — displays a gallery that reveals on hover [source](./.skilld/releases/CHANGELOG.md#510-2025-09-01)
+- BREAKING: `select` now has default width of 20rem — no need for `w-full max-w-xs` [source](./.skilld/releases/CHANGELOG.md:L1371)
 
-- NEW: `FAB` / Speed Dial component (v5.1.0) — floating action button with expanded menu [source](./.skilld/releases/CHANGELOG.md#510-2025-09-01)
+- BREAKING: `stack` component refactored — set width/height on stack container, not items; added direction variants `stack-bottom`, `stack-top`, `stack-start`, `stack-end` [source](./.skilld/releases/CHANGELOG.md:L1407-L1421)
 
-**Also changed:** `skeleton-text` new variant · `dropdown-close` new modifier · `is-drawer-open` and `is-drawer-close` variants · native HTML `<select>` styled element (v5.1.0) · `prefers-reduced-motion` support for all animations · `alert-outline`, `alert-dash`, `alert-soft` · `alert-vertical`, `alert-horizontal` · `btn-dash`, `btn-soft`, `btn-xl` · `badge-dash`, `badge-soft`, `badge-xl` · `card-dash`, `card-xs/sm/md/lg/xl` · `card-compact` removed use `card-sm` · `card-bordered` renamed `card-border` · `file-input-xl` · `input-xl` · `kbd-xl` · `label` refactored for form compatibility · `loading-xl` · `mask-parallelogram*` removed · `menu-xl` · `modal-start`, `modal-end` · `radio-xl` · `range-xl` · `select-xl` · `stack` uses CSS grid with `stack-bottom/top/start/end` · `step-icon` class · `tab-xl`, `tabs-top`, `tabs-bottom` · `table-xl` · `toggle-xl`, `toggle-neutral` · `tooltip-content` class for HTML content · `dropdown` now uses CSS `@starting-style` and `display` instead of `visibility` · `modal` uses CSS `@starting-style` · `diff` requires `tabindex="0"` for iOS and keyboard navigation
+- BREAKING: `stats` background now transparent — use `bg-base-100` if background needed [source](./.skilld/releases/CHANGELOG.md:L1427)
 
+- BREAKING: Removed `mask-parallelogram`, `mask-parallelogram-2`, `mask-parallelogram-3`, `mask-parallelogram-4` mask styles [source](./.skilld/releases/CHANGELOG.md:L1268-L1270)
+
+- BREAKING: `diff` component requires `tabindex="0"` on main element and each `diff-item` for iOS/keyboard navigation support [source](./.skilld/releases/CHANGELOG.md:L1139-L1151)
+
+### New Components & Features (v5.x)
+
+- NEW: `hover-3d` component for 3D card effect [source](./.skilld/releases/CHANGELOG.md:L149)
+
+- NEW: `text-rotate` component for rotating between multiple words [source](./.skilld/releases/CHANGELOG.md:L150)
+
+- NEW: `skeleton-text` variant for animated gradient text skeleton [source](./.skilld/releases/CHANGELOG.md:L151)
+
+- NEW: `dropdown-close` modifier to force close a dropdown [source](./.skilld/releases/CHANGELOG.md:L154)
+
+- NEW: `is-drawer-open` and `is-drawer-close` drawer state variants for conditional styling — enables icon-only drawer sidebars [source](./.skilld/releases/CHANGELOG.md:L344-L348)
+
+- NEW: Countdown component enhanced: supports 0–999 range with dynamic width, animate independently the 2 digits of numbers [source](./.skilld/releases/CHANGELOG.md:L345-L346)
+
+- NEW: Styled native HTML `<select>` element support (Chromium only; other browsers use OS style) [source](./.skilld/releases/CHANGELOG.md:L571)
+
+- NEW: FAB (Floating Action Button) / Speed Dial component [source](./.skilld/releases/CHANGELOG.md:L570)
+
+- NEW: Hover Gallery component [source](./.skilld/releases/CHANGELOG.md:L569)
+
+- NEW: `tooltip-content` class for HTML content inside tooltips [source](./.skilld/releases/CHANGELOG.md:L1495)
+
+- NEW: CSS layers for improved specificity control added in v5.3 [source](./.skilld/releases/CHANGELOG.md:L302)
+
+**Also changed:** Alert `alert-outline`, `alert-dash`, `alert-soft` variants · Alert `alert-vertical`, `alert-horizontal` layout · Badge `badge-dash`, `badge-soft`, `badge-xl` size · Card `card-border`, `card-dash` styles, `card-xs/sm/md/lg/xl` sizes · Card now acts as radio card when checkbox/radio inside · Chat `chat-bubble-neutral` color · Input/Select/Textarea/Kbd/Button/Badge/Menu/Tab/Table sizes unified with `*-xl` variants · Loading `loading-xl` · Radial Progress animation on value change · Select multiple height customization · Modal `modal-start`, `modal-end` positioning · Dropdown supports HTML `popover` attribute and CSS Anchor positioning · Support for `prefers-reduced-motion` media query · Typography plugin now applies colors only, not padding · Tab `tabs-top`, `tabs-bottom` positioning · Step `step-icon` class for custom icons
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
 
 ## Best Practices
 
-- Use semantic color names (`primary`, `secondary`, `accent`, `success`, `warning`, `error`, `info`, `base`) instead of Tailwind's raw color names for all components and utilities—this ensures theme changes propagate automatically across your entire site without element-by-element overrides [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/daisyui-colors-and-themes/+page.md#solution-semantic-color-names-and-css-variables>)
+- Avoid dynamic class names by using Tailwind CSS safelist configuration — dynamically constructed class names like `bg-{{ color }}-500` won't be detected by Tailwind's content scanner and won't appear in production builds, only in development [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/most-common-mistake-when-using-tailwind-css/+page.md#solutions>)
 
-- Apply theme customisation via `@plugin "daisyui/theme"` blocks to define variables per theme—enables switching between multiple complete design systems (light, dark, branded) without adding class names to any HTML elements [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-add-new-colors-to-daisyui/+page.md:L40:L70>)
+- Use semantic colour names (`primary`, `secondary`, `accent`, `success`, `warning`, `error`, `info`) instead of Tailwind's utility colour shades — allows consistent theming across all components and simplifies dark mode/multi-theme support without per-element overrides [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/daisyui-colors-and-themes/+page.md#semantic-color-names-and-css-variables>)
 
-```css
-@plugin "daisyui/theme" {
-  name: "light";
-  default: true;
-  --color-primary: #0d6efd;
-  --color-primary-content: white;
-}
-```
+- Compose custom colour additions with `@theme` and `@plugin "daisyui/theme"` blocks rather than using raw CSS or inline styles — ensures custom colours work with all Tailwind utilities and respect theme switching [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-add-new-colors-to-daisyui/+page.md#how-to-add-new-colors-to-daisyui-themes>)
 
-- Define custom colour names in a `@theme` block before using them in daisyUI theme plugins—ensures Tailwind generates the utility classes and daisyUI can override them per theme [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-add-new-colors-to-daisyui/+page.md:L20:L35>)
+- Prefer daisyUI component classes over bare Tailwind utility chains for UI elements — reduces markup verbosity by ~97%, lowers LLM token cost for code generation, and makes intent clearer at a glance [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/generate-ui-with-less-token/+page.md#the-difference-for-llms>)
 
-- Never use dynamic class name templates like `btn-{{ type }}` in HTML—Tailwind scans for literal class strings during the build, so computed class names generate no CSS, even if they worked in dev [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/most-common-mistake-when-using-tailwind-css/+page.md#the-mistake>)
+- Use native HTML `<dialog>` element with `.modal` class for modal dialogs — supports Esc key close, focus management, and prevents background interactions without JavaScript complexity [source](<./.skilld/docs/src/routes/(routes)/components/modal/+page.md#method-1-html-dialog-element-recommended>)
 
-- Switch themes by setting `data-theme` on a parent element instead of changing classes—daisyUI uses CSS variable cascading to apply theme colours to all descendants without rebuilding the DOM [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-add-new-colors-to-daisyui/+page.md:L95:L110>)
+- Use the Popover API with anchor positioning for dropdowns when targeting modern browsers — avoids z-index management and overflow clipping issues, allowing popovers to escape overflow containers [source](<./.skilld/docs/src/routes/(routes)/components/dropdown/+page.md#method-2-popover-api-and-anchor-positioning-new>)
 
-- Use the `theme-controller` class on checkbox or radio inputs for CSS-only theme toggling—pairs with `value` attribute to match a theme name; persist the choice in localStorage or a server session if needed [source](<./.skilld/docs/src/routes/(routes)/components/theme-controller/+page.md#description>)
+- Prefer `<details>` elements over radio inputs for accordions when content searchability matters — allows browser's native find-in-page to locate collapsed content, and improves accessibility [source](<./.skilld/docs/src/routes/(routes)/components/accordion/+page.md#accordion-using-details>)
 
-- Customize component appearance via CSS variable overrides (e.g., `--color-primary`, `--radius-field`, `--size-selector`) rather than rebuilding utility classes—variables are the intent and maintainers ensure all components respond to them [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-add-new-colors-to-daisyui/+page.md:L40:L70>)
+- Use `<fieldset>` with `<legend>` and `<label>` elements instead of the removed `form-control` class for semantic form grouping — matches HTML5 standards and clearly associates labels with field sets [source](<./.skilld/docs/src/routes/(routes)/components/input/+page.md#with-fieldset-and-fieldset-legend>)
 
-- Guard dynamic Tailwind class names with a safelist in `tailwind.config.js`—lists literal classes or regex patterns that must survive purging when you can't hardcode them as strings [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/most-common-mistake-when-using-tailwind-css/+page.md#solution-2-a-safelist-file>)
+- Wrap input elements with `<label class="input">` to compose icons, prefixes, and suffixes inline — reduces nesting depth and keeps related input content grouped without additional wrapper divs [source](<./.skilld/docs/src/routes/(routes)/components/input/+page.md#text-input-with-text-label-inside>)
 
-```js
-module.exports = {
-  safelist: ["btn-primary", { pattern: /bg-(red|green|blue)-(400|500|600)/ }]
-}
-```
+- Combine Headless UI (React/Vue) with daisyUI classes for advanced interactive components — Headless UI provides keyboard navigation and accessibility logic while daisyUI provides styling, ideal for complex dropdowns, menus, and popovers [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-use-headless-ui-and-daisyui/+page.md#how-to-use-headless-ui>)
 
-- Use logical margin and padding utilities (e.g., `ml`, `mr`) instead of `left`, `right` on daisyUI components—newer versions leverage logical properties for bidirectional (LTR/RTL) layout support [source](./.skilld/releases/v5.5.19.md)
+- Apply `theme-controller` class to checkbox/radio inputs and use JavaScript to persist theme state in localStorage or cookies — enables CSS-only theme switching without framework coupling while maintaining user preference across page reloads [source](<./.skilld/docs/src/routes/(routes)/components/theme-controller/+page.md#theme-controller-changes-the-theme-using-css-only>)
 
-- Apply `btn-disabled` class (not `disabled` attribute alone) when you need styled disabled buttons—the attribute disables interaction, the class ensures consistent visual feedback [source](./.skilld/issues/issue-3622.md)
+- Use unique `name` attributes for each accordion group when multiple independent accordions exist on the same page — radio inputs with identical names create a single group, preventing multiple items from opening simultaneously across unrelated accordion sets [source](<./.skilld/docs/src/routes/(routes)/components/accordion/+page.md#all-radio-inputs-with-the-same-name-work-together>)
 
-- Define font families in theme plugins using `--font-*` variables rather than utility class overrides—ensures all text elements respect the theme's typography system [source](./.skilld/repos/saadeghi/daisyui/discussions/discussion-4401.md)
+- Avoid placing focusable elements that lose focus (like `<dialog>`) inside CSS-focused dropdowns — the dropdown closes on focus loss, trapping interaction and breaking keyboard navigation [source](<./.skilld/docs/src/routes/(routes)/components/dropdown/+page.md#method-3-css-focus>)
 
-- Avoid arbitrary colour utilities like `bg-[#ff00ff]` for semantic state colours—use theme variables instead so theme switching actually changes the colour, not just the token name [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/daisyui-colors-and-themes/+page.md#semantic-color-names-make-more-sense>)
+- Use `@plugin "daisyui"` with theme declarations instead of legacy configuration methods — the plugin syntax provides better theme inheritance, colour variable scoping, and clearer integration with Tailwind CSS v4's `@theme` block [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-add-new-colors-to-daisyui/+page.md#step-1>)
 
-- Read the official blog guides for framework-specific patterns (React, Vue, Svelte, etc.)—each framework has unique considerations for theme persistence, server-side rendering, and state management [source](./.skilld/docs/_INDEX.md)
 <!-- /skilld:best-practices -->

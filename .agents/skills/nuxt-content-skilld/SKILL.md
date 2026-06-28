@@ -56,6 +56,7 @@ This section documents version-specific API changes — prioritize recent major/
 - SILENT BREAKAGE: Sort order now alphabetical instead of numerical due to SQL limitations. [source](./.skilld/references/@nuxt/content@3.14.0/docs/content/docs/1.getting-started/4.migration.md:L64)
 
 - BREAKING: Module options changed from v2. Refer to configuration page for details. [source](./.skilld/references/@nuxt/content@3.14.0/docs/content/docs/1.getting-started/4.migration.md:L66)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
@@ -89,4 +90,5 @@ This section documents version-specific API changes — prioritize recent major/
 - When integrating with `@nuxtjs/i18n`, organize content files in language-specific folders (e.g., `content/en/`, `content/fr/`) to match defined collections and ensure content parity across locales. [source](./.skilld/references/@nuxt/content@3.14.0/docs/content/docs/7.integrations/01.i18n.md#content-structure)
 
 - Implement a fallback strategy for i18n to gracefully handle missing content by displaying content from the default locale if it's not available in the current language. [source](./.skilld/references/@nuxt/content@3.14.0/docs/content/docs/7.integrations/01.i18n.md#fallback-strategy)
+
 <!-- /skilld:best-practices -->

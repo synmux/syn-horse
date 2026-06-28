@@ -23,6 +23,7 @@ Use `skilld search "query" -p untun` instead of grepping `.skilld/` directories.
 
 - NEW: `acceptCloudflareNotice` in `TunnelOptions` — new boolean option to accept Cloudflare notice, added in v0.1.3 [source](./.skilld/pkg/dist/index.d.ts:L3)
 - NEW: CLI `bin` field — enables direct execution of `untun` command via CLI, added in v0.1.1 [source](./.skilld/releases/v0.1.1.md#fixes)
+
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
@@ -54,4 +55,5 @@ Use `skilld search "query" -p untun` instead of grepping `.skilld/` directories.
 - Avoid reliance on accidental logs for debugging or operational purposes, as they are not part of the stable API and can be removed in subsequent versions. [source](./.skilld/releases/CHANGELOG.md:L25)
 
 - Ensure `cloudflared` CLI is installed and accessible in the system's PATH or at a location `untun` can find it, to prevent tunnel initialization failures. [source](./.skilld/issues/issue-9.md:L1-L10)
+
 <!-- /skilld:best-practices -->

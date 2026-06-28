@@ -98,6 +98,7 @@ This section documents version-specific API changes in Nuxt v4.4.8 — prioritiz
 - Use `$fetch` only for event-based client interactions; use `useFetch`/`useAsyncData` for page data — `$fetch` lacks de-duplication and prevents Suspense, causing potential double-requests and hydration issues [source](./.skilld/docs/1.getting-started/10.data-fetching.md:L82:85)
 
 - Avoid conditional rendering based on client-only values in setup — use CSS media queries or handle logic in `onMounted` instead to ensure identical server and client output [source](./.skilld/docs/3.guide/2.best-practices/hydration.md:L85:106)
+
 <!-- /skilld:best-practices -->
 
 Related: vue-skilld, vue-router-skilld

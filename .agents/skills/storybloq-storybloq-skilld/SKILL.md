@@ -139,6 +139,7 @@ Optional config field for Codex-session review preferences. Defaults to `["lense
 - Enable `branchStrategy: "per-ticket"` to auto-create per-ticket branches and prevent branch-history contamination — the dispatch system enforces that each autonomous session works only on the ticket matching the branch name [source](./.skilld/repos/Storybloq/storybloq/releases/v1.3.0.md:L23:26)
 
 - Dispatch independent tickets to parallel autonomous sessions with `storybloq dispatch --all` to scale work across multiple agents — configure `maxParallelAgents` (default 3, max 8) to control concurrency [source](./.skilld/repos/Storybloq/storybloq/releases/v1.3.0.md:L12:21)
+
 <!-- /skilld:best-practices -->
 
 Related: zod-skilld

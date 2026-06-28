@@ -68,4 +68,5 @@ This section documents version-specific API changes — prioritise recent major/
 - Configure `colorMode` intelligently using `"256"` for modern terminals and `"none"` for CI logs to preserve clean output; the default `"auto"` detection works well but explicit control prevents colour artefacts in piped output [source](./.skilld/docs/npm-run-all.md:L19:23)
 
 - Use `stdin`, `stdout`, and `stderr` options in the Node API to integrate npm-run-all into larger process pipelines, but configure `emitter.setMaxListeners(n)` appropriately when streaming to multiple child processes to avoid MaxListenersExceededWarning [source](./.skilld/docs/node-api.md:L117:121)
+
 <!-- /skilld:best-practices -->

@@ -110,4 +110,5 @@ Also changed: `nuxt-security:routeRules` runtime hook · `defineRouteRules` macr
 - Place security configuration in the `security` property of `routeRules`, not the standard `headers` property — the `security` property is namespaced to avoid conflicts and takes precedence when both are defined [source](./.skilld/docs/content/1.getting-started/3.usage.md#per-route-configuration)
 
 - Never combine nonces or hashes with `'unsafe-inline'` for the same directive — they cancel each other out, reverting to unrestricted inline execution [source](./.skilld/docs/content/5.advanced/3.strict-csp.md#nonces-and-hashes-csp-level-2)
+
 <!-- /skilld:best-practices -->

@@ -104,6 +104,7 @@ This section documents version-specific API changes — prioritise recent major/
 - Scan raw file contents in templates before transforms — the Vite plugin scans unprocessed files to detect utilities, preventing false negatives from framework transforms [source](./.skilld/releases/CHANGELOG.md:L630)
 
 - Accept that Astro production builds may re-include classes from client-only components — the Vite plugin doesn't rely on the module graph for client-only component detection to ensure completeness [source](./.skilld/releases/CHANGELOG.md:L629)
+
 <!-- /skilld:best-practices -->
 
 Related: tailwindcss-skilld

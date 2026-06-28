@@ -79,4 +79,5 @@ This section documents version-specific API changes — prioritize recent major/
 - To reduce redundancy in command definitions and facilitate local overrides, utilize the `templates` configuration option. Define reusable command snippets or wrappers that can be referenced in `run` values, allowing for cleaner configurations and easy customization via `lefthook-local.yml`. [source](./.skilld/references/lefthook@2.1.9/docs/configuration/templates.md#templates)
 
 - When defining scripts within Lefthook, explicitly specify a `runner` for each script. This ensures the script is executed correctly with the appropriate interpreter or command (e.g., `node` for JavaScript, `go run` for Go), providing clarity and preventing execution issues. [source](./.skilld/references/lefthook@2.1.9/docs/configuration/runner.md#runner)
+
 <!-- /skilld:best-practices -->

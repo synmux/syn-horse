@@ -104,4 +104,5 @@ This section documents version-specific API changes — prioritize recent major/
 - When using upsert clauses in a SELECT statement, always include a `WHERE` clause (even `WHERE true`) to avoid parsing ambiguities. [source](./.skilld/docs/docs/insert.md:L424)
 
 - Employ stored (or persistent) generated columns to improve query performance, as their values are stored and indexed, eliminating the need for recomputation on each query. [source](./.skilld/docs/docs/generated-columns.md:L114)
+
 <!-- /skilld:best-practices -->

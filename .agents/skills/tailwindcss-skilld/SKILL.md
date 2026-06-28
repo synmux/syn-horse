@@ -82,4 +82,5 @@ This section documents version-specific API changes — prioritize recent major/
 - Use `--spacing(--value(…))` in custom utilities to accept spacing scale values by default while supporting arbitrary length and percentage values — this pattern enables utilities to work with both theme tokens and arbitrary values in a single declaration [source](./.skilld/repos/tailwindlabs/tailwindcss/discussions/discussion-20218.md)
 
 - Register the same `@utility` name multiple times with different value types to support theme values, bare integers, and arbitrary values independently — v4.3.0+ allows this without conflicts, letting you handle each input type separately if needed [source](./.skilld/repos/tailwindlabs/tailwindcss/releases/v4.3.0.md)
+
 <!-- /skilld:best-practices -->
