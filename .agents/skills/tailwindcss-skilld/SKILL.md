@@ -1,86 +1,87 @@
 ---
 name: tailwindcss-skilld
-description: 'ALWAYS use when writing code importing "tailwindcss". Consult for debugging, best practices, or modifying tailwindcss.'
+description: "ALWAYS use when writing code importing \"tailwindcss\". Consult for debugging, best practices, or modifying tailwindcss."
 metadata:
-  version: 4.3.1
+  version: 4.3.2
   generated_by: Anthropic · Haiku 4.5
-  generated_at: 2026-06-13
+  generated_at: 2026-06-29
 ---
 
-# tailwindlabs/tailwindcss `tailwindcss@4.3.1`
+# tailwindlabs/tailwindcss `tailwindcss@4.3.2`
+**Tags:** next: 4.0.0, v3-lts: 3.4.19, latest: 4.3.2
 
-**Tags:** next: 4.0.0, v3-lts: 3.4.19, latest: 4.3.1
-
-**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
+**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
 ## Search
 
 Use `skilld search "query" -p tailwindcss` instead of grepping `.skilld/` directories. Run `skilld search --guide -p tailwindcss` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
-
 ## API Changes
 
-This section documents version-specific API changes — prioritize recent major/minor releases.
+This section documents version-specific API changes — prioritise recent major/minor releases. Tailwind CSS v4.3.2 inherits all changes from v4.1.0 through v4.3.1.
 
-- NEW: `@container-size` utility — added in v4.3.0 for container size queries [source](./.skilld/releases/v4.3.0.md#added)
+- NEW: `@container-size` utility for container size queries [source](./.skilld/releases/v4.3.0.md#added)
 
-- NEW: `scrollbar-*` utilities — `scrollbar-{auto,thin,none}` for `scrollbar-width`, `scrollbar-thumb-*` and `scrollbar-track-*` for `scrollbar-color` added in v4.3.0 [source](./.skilld/releases/v4.3.0.md#added)
+- NEW: `scrollbar-{auto,thin,none}` utilities for `scrollbar-width` CSS property, plus `scrollbar-thumb-*` and `scrollbar-track-*` color utilities for `scrollbar-color` [source](./.skilld/releases/v4.3.0.md#added)
 
-- NEW: `scrollbar-gutter-*` utilities — added in v4.3.0 for `scrollbar-gutter` CSS property [source](./.skilld/releases/v4.3.0.md#added)
+- NEW: `scrollbar-gutter-*` utilities for `scrollbar-gutter` CSS property [source](./.skilld/releases/v4.3.0.md#added)
 
-- NEW: `zoom-*` utilities — added in v4.3.0 [source](./.skilld/releases/v4.3.0.md#added)
+- NEW: `zoom-*` utilities for CSS `zoom` property [source](./.skilld/releases/v4.3.0.md#added)
 
-- NEW: `tab-*` utilities — added in v4.3.0 for `tab-size` CSS property [source](./.skilld/releases/v4.3.0.md#added)
+- NEW: `tab-*` utilities for CSS `tab-size` property [source](./.skilld/releases/v4.3.0.md#added)
 
-- NEW: Stacked `@variant` syntax — `@variant hover:focus { … }` now supported in v4.3.0, enabling composition of multiple variant states [source](./.skilld/releases/v4.3.0.md#added)
+- NEW: `@variant` with stacked variants — allows syntax like `@variant hover:focus { … }` to define compound variant combinations [source](./.skilld/releases/v4.3.0.md#added)
 
-- NEW: Compound `@variant` syntax — `@variant hover, focus { … }` now supported in v4.3.0, applying same rules to multiple selectors [source](./.skilld/releases/v4.3.0.md#added)
+- NEW: `@variant` with compound variants — allows syntax like `@variant hover, focus { … }` to define multiple variants in one declaration [source](./.skilld/releases/v4.3.0.md#added)
 
-- NEW: `--default(…)` in functional utilities — functional `@utility` definitions can now use `--default(…)` in `--value(…)` and `--modifier(…)` expressions in v4.3.0 [source](./.skilld/releases/v4.3.0.md#added)
+- NEW: `--default(…)` support in `--value(…)` and `--modifier(…)` for functional `@utility` definitions to provide default values [source](./.skilld/releases/v4.3.0.md#added)
 
-- NEW: `@tailwindcss/webpack` package — webpack plugin for Tailwind CSS added in v4.2.0 [source](./.skilld/releases/v4.2.0.md#added)
+- NEW: `pbs-*` and `pbe-*` utilities for `padding-block-start` and `padding-block-end` CSS logical properties [source](./.skilld/releases/v4.2.0.md#added)
 
-- NEW: Logical property utilities — v4.2.0 added `pbs-*`, `pbe-*`, `mbs-*`, `mbe-*`, `scroll-pbs-*`, `scroll-pbe-*`, `scroll-mbs-*`, `scroll-mbe-*`, `border-bs-*`, `border-be-*`, `inline-*`, `min-inline-*`, `max-inline-*`, `block-*`, `min-block-*`, `max-block-*`, `inset-s-*`, `inset-e-*`, `inset-bs-*`, `inset-be-*` for CSS logical properties [source](./.skilld/releases/v4.2.0.md#added)
+- NEW: `mbs-*` and `mbe-*` utilities for `margin-block-start` and `margin-block-end` CSS logical properties [source](./.skilld/releases/v4.2.0.md#added)
 
-- DEPRECATED: `start-*` and `end-*` utilities — deprecated in v4.2.0, replaced by `inset-s-*` and `inset-e-*` utilities [source](./.skilld/releases/v4.2.0.md#deprecated)
+- NEW: `inset-s-*`, `inset-e-*`, `inset-bs-*`, `inset-be-*` utilities for logical inset positioning — replaces `start-*` and `end-*` [source](./.skilld/releases/v4.2.0.md#added)
 
-- BREAKING: Spacing utility CSS generation — v4.3.1 changed spacing utilities to generate `0` instead of `calc(var(--spacing) * 0)` for zero values (e.g. `m-0`), and `var(--spacing)` instead of `calc(var(--spacing) * 1)` for single-unit values (e.g. `m-1`), affecting CSS output [source](./.skilld/releases/v4.3.1.md#changed)
+- DEPRECATED: `start-*` and `end-*` utilities since v4.2.0 — use `inset-s-*` and `inset-e-*` instead [source](./.skilld/releases/v4.2.0.md#deprecated)
 
-- NEW: `--silent` CLI option — `@tailwindcss/cli` gained `--silent` flag in v4.3.1 to suppress output [source](./.skilld/releases/v4.3.1.md#added)
+- NEW: `text-shadow-*` utilities for text shadow effects [source](./.skilld/releases/v4.1.0.md#added)
 
-- NEW: Color palettes — mauve, olive, mist, and taupe color palettes added to default theme in v4.2.0 [source](./.skilld/releases/v4.2.0.md#added)
+- NEW: `mask-*` utilities for CSS mask properties [source](./.skilld/releases/v4.1.0.md#added)
 
-**Also changed:** `font-features-*` utility v4.2.0 · `PluginWithConfig` type export v4.3.0 · `@apply` with CSS mixins v4.3.1 · `@variant` in `addBase` v4.3.1 · `@source` symlink handling v4.3.1 · `@source` re-inclusion rules v4.3.1
+- NEW: `shadow-*/<alpha>`, `inset-shadow-*/<alpha>`, `drop-shadow-*/<alpha>`, `text-shadow-*/<alpha>` utilities to control shadow opacity [source](./.skilld/releases/v4.1.0.md#added)
 
+- CHANGED: Spacing utilities in v4.3.1 generate simplified CSS — `m-0` and `left-0` now generate `0` instead of `calc(var(--spacing) * 0)`, and `m-1` generates `var(--spacing)` instead of `calc(var(--spacing) * 1)` [source](./.skilld/releases/v4.3.1.md#changed)
+
+**Also changed:** `@tailwindcss/webpack` package new in v4.2.0 · `inline-*`, `min-inline-*`, `max-inline-*` utilities for inline-size new in v4.2.0 · `block-*`, `min-block-*`, `max-block-*` utilities for block-size new in v4.2.0 · `font-features-*` utility for font-feature-settings new in v4.2.0 · `drop-shadow-<color>` utilities new in v4.1.0 · `details-content` variant new in v4.1.0 · `user-valid` and `user-invalid` variants new in v4.1.0 · `wrap-anywhere`, `wrap-break-word`, `wrap-normal` utilities new in v4.1.0 · `@source inline(…)` and `@source not` directives new in v4.1.0 · `items-baseline-last` and `self-baseline-last` utilities new in v4.1.0 · `pointer-none`, `pointer-coarse`, `pointer-fine` variants new in v4.1.0 · deprecated `bg-{left,right}-{top,bottom}` in favor of `bg-{top,bottom}-{left,right}` since v4.1.0
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
-
 ## Best Practices
 
-- Use type hints with arbitrary values when the prefix maps to multiple CSS properties — disambiguate `text-`, `font-`, and similar ambiguous prefixes by adding a data type like `text-(length:--my-var)` for font-size or `text-(color:--my-var)` for color [source](./.skilld/docs/adding-custom-styles.mdx#resolving-ambiguities)
+- Use `@utility` directive for custom utilities that must work with `@apply` — v4 processes CSS in a single pass and only recognizes utilities defined with `@utility`, not those nested inside `@layer utilities` [source](./.skilld/discussions/discussion-20211.md:L41:45)
 
-- Always use complete, statically detectable class names instead of dynamically building them — avoid string interpolation or template literals to construct class names, and instead map props to predefined static strings so Tailwind's content scanner finds all required classes [source](./.skilld/docs/detecting-classes-in-source-files.mdx#dynamic-class-names)
+- Use type hints with arbitrary values when using ambiguous prefixes like `text-*` or `font-*` — the compiler cannot infer which CSS property you intend without disambiguation like `text-[length:inherit]` [source](./.skilld/discussions/discussion-20141.md:L49:54)
 
-- Use arbitrary values when design specifications require breaking out of the theme scale — `w-[123px]` is sometimes more practical than fitting values to the scale, particularly when matching exact pixel specifications or when introducing a custom theme token would add unnecessary complexity [source](./.skilld/repos/tailwindlabs/tailwindcss/discussions/discussion-20142.md)
+- Avoid CSS preprocessors (Less, SCSS) in favour of native CSS — v4 is built on a native CSS compiler in Rust and preprocessors interfere with Tailwind directives like `@apply` by attempting to parse them as their own syntax [source](./.skilld/discussions/discussion-20210.md:L44:50)
 
-- Support theme, bare integer, and arbitrary values together in functional `@utility` definitions — use multiple `--value()` declarations in a single property to accept all three input types, optionally with different transformations for each [source](./.skilld/docs/adding-custom-styles.mdx#supporting-theme-bare-and-arbitrary-values-together)
+- Use the `--spacing()` function to reference the spacing scale inside custom `@utility` definitions — bare integers require `--spacing(--value(integer))` rather than attempting theme token lookup [source](./.skilld/discussions/discussion-20218.md:L43:49)
 
-- Use `@reference` instead of `@import` in component scoped styles to access theme variables and custom utilities without duplicating CSS in the output [source](./.skilld/docs/functions-and-directives.mdx#reference-directive)
+- Tailwind preserves original units in arbitrary values rather than normalizing to pixels — write `-mt-[20in]` for inches and expect them preserved, not converted to pixels [source](./.skilld/releases/v4.3.0.md:L28)
 
-- Explicitly scan external UI libraries with `@source` since `node_modules` is skipped by default — this ensures classes from third-party Tailwind-based libraries are discovered and CSS is generated [source](./.skilld/docs/detecting-classes-in-source-files.mdx#explicitly-registering-sources)
+- Use arbitrary values when design values don't map cleanly to Tailwind's scale — `w-[123px]` is a valid and practical choice when the value falls outside the spacing scale or design spec demands exactness [source](./.skilld/discussions/discussion-20142.md:L21:33)
 
-- Define component classes in `@layer components` rather than via plugins to ensure utilities can still override them — when `addComponents` adds to utilities layer instead of components, use `@layer components` in your main CSS file [source](./.skilld/repos/tailwindlabs/tailwindcss/issues/issue-15045.md)
+- Typography defaults to margin collapsing rather than padding — adjacent margins collapse to a single gap, preventing doubled spacing; override by halving values when switching to padding in `tailwindcss-typography` config [source](./.skilld/discussions/discussion-20009.md:L31:46)
 
-- Stack and combine variants using `@variant` with stacked syntax (`hover:focus`) and comma-separated compound variants — Tailwind v4.3.0+ supports these patterns for more expressive custom styling [source](./.skilld/repos/tailwindlabs/tailwindcss/releases/v4.3.0.md)
+- Prefer logical property utilities (`pbs-*`, `pbe-*`, `mbs-*`, `mbe-*`, `inset-s-*`, `inset-e-*`) over absolute directions for better internationalization support — v4.2.0 added these block-start/block-end and inline-start/inline-end variants [source](./.skilld/releases/v4.2.0.md:L13:20)
 
-- Use `--default()` inside `--value()` for functional utilities that work with or without explicit values — enables utilities like `tab` (using default) and `tab-2` (using explicit value) from a single definition [source](./.skilld/docs/adding-custom-styles.mdx#default-values)
+- `@apply` now works with CSS mixins in v4.3.1+ — you can compose utility classes into mixins and apply them without the limitations of earlier v4 versions [source](./.skilld/releases/v4.3.1.md:L19)
 
-- Override the `dark` variant with `@custom-variant` to switch from `prefers-color-scheme` to class or data-attribute-based dark mode — supports both class-based (`dark` class) and data-attribute (`data-theme="dark"`) implementations [source](./.skilld/docs/dark-mode.mdx#toggling-dark-mode-manually)
+- Functional `@utility` definitions require the `--value(…)` placeholder function — omitting it causes a build error; use `@utility name-* { property: --value(type); }` [source](./.skilld/releases/v4.3.0.md:L34)
 
-- Use `--spacing(--value(…))` in custom utilities to accept spacing scale values by default while supporting arbitrary length and percentage values — this pattern enables utilities to work with both theme tokens and arbitrary values in a single declaration [source](./.skilld/repos/tailwindlabs/tailwindcss/discussions/discussion-20218.md)
+- Use `--silent` in CLI for automated builds and CI/CD to suppress standard output — helpful for keeping build logs clean in continuous integration environments [source](./.skilld/releases/v4.3.1.md:L11)
 
-- Register the same `@utility` name multiple times with different value types to support theme values, bare integers, and arbitrary values independently — v4.3.0+ allows this without conflicts, letting you handle each input type separately if needed [source](./.skilld/repos/tailwindlabs/tailwindcss/releases/v4.3.0.md)
+- Stacked and compound `@variant` definitions enable variant composition — v4.3.0 added support for `@variant hover:focus { … }` (stacked) and `@variant hover, focus { … }` (compound) [source](./.skilld/releases/v4.3.0.md:L16:17)
 
+- Plugin components with fewer properties override those with more properties in v4 due to specificity-based sorting — if you need component overrides, ensure the base component has more properties than the override class or use direct CSS in the components layer [source](./.skilld/issues/issue-15045.md:L51:57)
 <!-- /skilld:best-practices -->

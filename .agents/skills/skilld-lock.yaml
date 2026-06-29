@@ -31,11 +31,11 @@ skills:
     generator: skilld
   nuxt-icon-skilld:
     packageName: "@nuxt/icon"
-    version: 2.2.4
-    packages: "@nuxt/icon@2.2.4"
+    version: 2.2.5
+    packages: "@nuxt/icon@2.2.5"
     repo: nuxt/icon
-    source: "https://stackblitz.com/edit/nuxt-icon-playground?file=app.vue/**"
-    syncedAt: 2026-06-25
+    source: "https://github.com/nuxt/icon/tree/v2.2.5/docs"
+    syncedAt: 2026-06-29
     generator: skilld
   nuxt-image-skilld:
     packageName: "@nuxt/image"
@@ -69,11 +69,11 @@ skills:
     generator: skilld
   tailwindcss-vite-skilld:
     packageName: "@tailwindcss/vite"
-    version: 4.3.1
-    packages: "@tailwindcss/vite@4.3.1"
+    version: 4.3.2
+    packages: "@tailwindcss/vite@4.3.2"
     repo: tailwindlabs/tailwindcss
-    source: "https://tailwindcss.com/**"
-    syncedAt: 2026-06-13
+    source: "https://github.com/tailwindlabs/tailwindcss/tree/v4.3.2/docs"
+    syncedAt: 2026-06-29
     generator: skilld
   nuxtjs-turnstile-skilld:
     packageName: "@nuxtjs/turnstile"
@@ -131,11 +131,11 @@ skills:
     generator: skilld
   tailwindcss-skilld:
     packageName: tailwindcss
-    version: 4.3.1
-    packages: "tailwindcss@4.3.1"
+    version: 4.3.2
+    packages: "tailwindcss@4.3.2"
     repo: tailwindlabs/tailwindcss
-    source: "https://github.com/tailwindlabs/tailwindcss/tree/main/docs"
-    syncedAt: 2026-06-13
+    source: "ungh://tailwindlabs/tailwindcss/packages/tailwindcss@main"
+    syncedAt: 2026-06-29
     generator: skilld
   vue-router-skilld:
     packageName: vue-router
@@ -175,11 +175,11 @@ skills:
     generator: skilld
   tailwindcss-cli-skilld:
     packageName: "@tailwindcss/cli"
-    version: 4.3.1
-    packages: "@tailwindcss/cli@4.3.1"
+    version: 4.3.2
+    packages: "@tailwindcss/cli@4.3.2"
     repo: tailwindlabs/tailwindcss
-    source: "https://tailwindcss.com/**"
-    syncedAt: 2026-06-13
+    source: "https://github.com/tailwindlabs/tailwindcss/tree/v4.3.2/docs"
+    syncedAt: 2026-06-29
     generator: skilld
   types-node-skilld:
     packageName: "@types/node"
@@ -296,11 +296,11 @@ skills:
     generator: skilld
   daisyui-skilld:
     packageName: daisyui
-    version: 5.6.3
-    packages: "daisyui@5.6.3"
+    version: 5.6.6
+    packages: "daisyui@5.6.6"
     repo: saadeghi/daisyui
-    source: "https://github.com/saadeghi/daisyui/tree/v5.6.3/docs"
-    syncedAt: 2026-06-28
+    source: "https://daisyui.com/llms.txt"
+    syncedAt: 2026-06-29
     generator: skilld
   storybloq-storybloq-skilld:
     packageName: "@storybloq/storybloq"
@@ -325,11 +325,11 @@ skills:
     generator: skilld
   prettier-skilld:
     packageName: prettier
-    version: 3.9.1
-    packages: "prettier@3.9.1"
+    version: 3.9.3
+    packages: "prettier@3.9.3"
     repo: prettier/prettier
-    source: "https://github.com/prettier/prettier/tree/3.9.1/docs"
-    syncedAt: 2026-06-28
+    source: "https://github.com/prettier/prettier/tree/v3.9.3/docs"
+    syncedAt: 2026-06-29
     generator: skilld
   eslint-skilld:
     packageName: eslint
