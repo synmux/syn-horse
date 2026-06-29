@@ -1,6 +1,6 @@
 ---
 name: tailwindcss-skilld
-description: "ALWAYS use when writing code importing \"tailwindcss\". Consult for debugging, best practices, or modifying tailwindcss."
+description: 'ALWAYS use when writing code importing "tailwindcss". Consult for debugging, best practices, or modifying tailwindcss.'
 metadata:
   version: 4.3.2
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # tailwindlabs/tailwindcss `tailwindcss@4.3.2`
+
 **Tags:** next: 4.0.0, v3-lts: 3.4.19, latest: 4.3.2
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p tailwindcss` instead of grepping `.skilld/` directories. Run `skilld search --guide -p tailwindcss` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritise recent major/minor releases. Tailwind CSS v4.3.2 inherits all changes from v4.1.0 through v4.3.1.
@@ -57,6 +59,7 @@ This section documents version-specific API changes — prioritise recent major/
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use `@utility` directive for custom utilities that must work with `@apply` — v4 processes CSS in a single pass and only recognizes utilities defined with `@utility`, not those nested inside `@layer utilities` [source](./.skilld/discussions/discussion-20211.md:L41:45)
@@ -84,4 +87,5 @@ This section documents version-specific API changes — prioritise recent major/
 - Stacked and compound `@variant` definitions enable variant composition — v4.3.0 added support for `@variant hover:focus { … }` (stacked) and `@variant hover, focus { … }` (compound) [source](./.skilld/releases/v4.3.0.md:L16:17)
 
 - Plugin components with fewer properties override those with more properties in v4 due to specificity-based sorting — if you need component overrides, ensure the base component has more properties than the override class or use direct CSS in the components layer [source](./.skilld/issues/issue-15045.md:L51:57)
+
 <!-- /skilld:best-practices -->

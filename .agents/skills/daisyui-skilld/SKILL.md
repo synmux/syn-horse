@@ -1,6 +1,6 @@
 ---
 name: daisyui-skilld
-description: "ALWAYS use when writing code importing \"daisyui\". Consult for debugging, best practices, or modifying daisyui."
+description: 'ALWAYS use when writing code importing "daisyui". Consult for debugging, best practices, or modifying daisyui.'
 metadata:
   version: 5.6.6
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # saadeghi/daisyui `daisyui@5.6.6`
+
 **Tags:** alpha: 5.6.0-alpha.4, beta: 5.6.0-beta.0, latest: 5.6.6
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,27 +18,28 @@ metadata:
 Use `skilld search "query" -p daisyui` instead of grepping `.skilld/` directories. Run `skilld search --guide -p daisyui` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes in daisyUI v5 — prioritizing recent major/minor releases and v4→v5 migration breaking changes that LLMs trained on v4 data will encounter.
 
 ### v5.6 New Components & Features
 
-- NEW: `aura` component — wrapper for animated border glow effects with variants `aura-dual`, `aura-rainbow`, `aura-holo`, `aura-gold`, `aura-silver`, `aura-glow`, and sizes `xs` to `xl` [source](./.skilld/references/daisyui@5.6.6/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md#aura)
+- NEW: `aura` component — wrapper for animated border glow effects with variants `aura-dual`, `aura-rainbow`, `aura-holo`, `aura-gold`, `aura-silver`, `aura-glow`, and sizes `xs` to `xl` [source](<./.skilld/references/daisyui@5.6.6/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md#aura>)
 
-- NEW: `megamenu` component — navigation for large menus using Popover API with modifiers `megamenu-vertical`, sizes `xs` to `xl`, and support for wide/full-width layouts [source](./.skilld/references/daisyui@5.6.6/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md#megamenu)
+- NEW: `megamenu` component — navigation for large menus using Popover API with modifiers `megamenu-vertical`, sizes `xs` to `xl`, and support for wide/full-width layouts [source](<./.skilld/references/daisyui@5.6.6/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md#megamenu>)
 
-- NEW: `otp` component — one-time password input with joined style, semantic colors, and sizes `xs` to `xl` [source](./.skilld/references/daisyui@5.6.6/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md#otp)
+- NEW: `otp` component — one-time password input with joined style, semantic colors, and sizes `xs` to `xl` [source](<./.skilld/references/daisyui@5.6.6/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md#otp>)
 
-- NEW: `range-vertical` modifier — vertical range slider mode [source](./.skilld/references/daisyui@5.6.6/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md#better-sliders)
+- NEW: `range-vertical` modifier — vertical range slider mode [source](<./.skilld/references/daisyui@5.6.6/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md#better-sliders>)
 
-- NEW: `tooltip` alignment modifiers — `tooltip-start`, `tooltip-center`, `tooltip-end` for placement control on all tooltip directions [source](./.skilld/references/daisyui@5.6.6/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md#better-tooltips)
+- NEW: `tooltip` alignment modifiers — `tooltip-start`, `tooltip-center`, `tooltip-end` for placement control on all tooltip directions [source](<./.skilld/references/daisyui@5.6.6/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md#better-tooltips>)
 
-- NEW: `modal` Popover API support — use `[popover]`, `:popover-open`, `::backdrop` as alternative to dialog method [source](./.skilld/references/daisyui@5.6.6/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md#better-modals)
+- NEW: `modal` Popover API support — use `[popover]`, `:popover-open`, `::backdrop` as alternative to dialog method [source](<./.skilld/references/daisyui@5.6.6/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md#better-modals>)
 
-- NEW: `card` selectable states — support for `aria-checked`, nested checkbox/radio focus, pointer cursor, and checked outline [source](./.skilld/references/daisyui@5.6.6/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md#better-cards)
+- NEW: `card` selectable states — support for `aria-checked`, nested checkbox/radio focus, pointer cursor, and checked outline [source](<./.skilld/references/daisyui@5.6.6/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md#better-cards>)
 
-- NEW: `[aria-disabled="true"]` support for buttons — allows disabling elements that can't use native `disabled` attribute [source](./.skilld/references/daisyui@5.6.6/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md#improvements)
+- NEW: `[aria-disabled="true"]` support for buttons — allows disabling elements that can't use native `disabled` attribute [source](<./.skilld/references/daisyui@5.6.6/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md#improvements>)
 
 ### v5.5 New Components & Features
 
@@ -97,33 +99,35 @@ This section documents version-specific API changes in daisyUI v5 — prioritizi
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Theme customisation via `@plugin "daisyui/theme"` block — define theme-specific CSS variables once to apply colours, fonts, and other values across all components. Each theme declaration automatically propagates to all daisyUI components using those variables, avoiding manual per-component overrides [source](./.skilld/docs/_INDEX.md)
 
-- Use semantic colour names (`primary`, `secondary`, `accent`, `success`, `warning`, `error`, `info`, `base`) instead of constant Tailwind colour names — semantic names enable theme switching without class changes and multi-theme support by adjusting CSS variables alone [source](./.skilld/docs/src/routes/\(routes\)/blog/\(posts\)/daisyui-colors-and-themes/+page.md)
+- Use semantic colour names (`primary`, `secondary`, `accent`, `success`, `warning`, `error`, `info`, `base`) instead of constant Tailwind colour names — semantic names enable theme switching without class changes and multi-theme support by adjusting CSS variables alone [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/daisyui-colors-and-themes/+page.md>)
 
-- Wrap elements in `aura` component for animated border glow effects — use `aura-rainbow`, `aura-dual`, `aura-holo`, `aura-gold`, `aura-silver`, `aura-glow` modifiers and `aura-xs` through `aura-xl` sizes to highlight important buttons, cards, or images without JavaScript [source](./.skilld/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md)
+- Wrap elements in `aura` component for animated border glow effects — use `aura-rainbow`, `aura-dual`, `aura-holo`, `aura-gold`, `aura-silver`, `aura-glow` modifiers and `aura-xs` through `aura-xl` sizes to highlight important buttons, cards, or images without JavaScript [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
 
-- Build large navigation with Megamenu using native Popover API — structure with a main `megamenu` container holding `popovertarget` buttons paired to corresponding `popover` divs; use `max-sm:megamenu-vertical` for responsive layout that collapses to vertical on small screens [source](./.skilld/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md)
+- Build large navigation with Megamenu using native Popover API — structure with a main `megamenu` container holding `popovertarget` buttons paired to corresponding `popover` divs; use `max-sm:megamenu-vertical` for responsive layout that collapses to vertical on small screens [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
 
-- Implement one-time password input with OTP component — a native input wrapper using visual slots; supports semantic colours, joined style, and all sizes; native autocomplete interacts correctly with browser 2FA flows [source](./.skilld/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md)
+- Implement one-time password input with OTP component — a native input wrapper using visual slots; supports semantic colours, joined style, and all sizes; native autocomplete interacts correctly with browser 2FA flows [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
 
-- Use Popover API (`[popover]` attribute and `:popover-open` pseudo-class) as alternative modal pattern — complements existing dialog, checkbox, and custom modal patterns; leverage `::backdrop` for overlay styling [source](./.skilld/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md)
+- Use Popover API (`[popover]` attribute and `:popover-open` pseudo-class) as alternative modal pattern — complements existing dialog, checkbox, and custom modal patterns; leverage `::backdrop` for overlay styling [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
 
-- Apply `aria-disabled="true"` on buttons that cannot use native `disabled` attribute — ensures semantic accessibility when the element type or framework constraints prevent native disabled support [source](./.skilld/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md)
+- Apply `aria-disabled="true"` on buttons that cannot use native `disabled` attribute — ensures semantic accessibility when the element type or framework constraints prevent native disabled support [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
 
-- Add tooltip alignment modifiers (`tooltip-start`, `tooltip-center`, `tooltip-end`) to position tooltips on their alignment axis — combines with direction modifiers (top, bottom, left, right) for precise tooltip placement in constrained layouts [source](./.skilld/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md)
+- Add tooltip alignment modifiers (`tooltip-start`, `tooltip-center`, `tooltip-end`) to position tooltips on their alignment axis — combines with direction modifiers (top, bottom, left, right) for precise tooltip placement in constrained layouts [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
 
-- Build selectable cards with `aria-checked` or nested checkbox/radio focus styles — cards automatically render checked outline, pointer cursor, and stronger focus state; eliminates need for custom JavaScript to track selection state [source](./.skilld/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md)
+- Build selectable cards with `aria-checked` or nested checkbox/radio focus styles — cards automatically render checked outline, pointer cursor, and stronger focus state; eliminates need for custom JavaScript to track selection state [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
 
-- Add vertical sliders with `range-vertical` class — applies vertical orientation to range input; sizing and colour modifiers work identically to horizontal sliders [source](./.skilld/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md)
+- Add vertical sliders with `range-vertical` class — applies vertical orientation to range input; sizing and colour modifiers work identically to horizontal sliders [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
 
-- Extend colour palette with custom variables in `@theme` block, then map them in theme declarations — define `--color-custom-name` at root level, then use in `@plugin "daisyui/theme"` to apply theme-specific values without polluting the default scope [source](./.skilld/docs/src/routes/\(routes\)/blog/\(posts\)/how-to-add-new-colors-to-daisyui/+page.md)
+- Extend colour palette with custom variables in `@theme` block, then map them in theme declarations — define `--color-custom-name` at root level, then use in `@plugin "daisyui/theme"` to apply theme-specific values without polluting the default scope [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-add-new-colors-to-daisyui/+page.md>)
 
 - Use blur focus triggers for dropdowns and menus instead of click handlers — dropdowns respond to keyboard navigation and focus state; rely on native focus-within and blur events rather than JavaScript click listeners to ensure predictable closing behaviour across frameworks like Angular [source](./.skilld/discussions/discussion-4403.md)
 
 - Ensure modals focus the first focusable element on open — daisyUI's dialog implementation automatically manages focus entry; avoid manually setting focus on mount to prevent conflicts with native focus management [source](./.skilld/issues/issue-3440.md)
 
-- Respect `prefers-reduced-motion` by ensuring collapse animation, loading states, and decorative animations fall back to static styles — daisyUI components automatically honour this preference; test with `@media (prefers-reduced-motion: reduce)` to verify users see non-animated fallbacks [source](./.skilld/docs/src/routes/\(routes\)/blog/\(posts\)/v5.6/+page.md)
+- Respect `prefers-reduced-motion` by ensuring collapse animation, loading states, and decorative animations fall back to static styles — daisyUI components automatically honour this preference; test with `@media (prefers-reduced-motion: reduce)` to verify users see non-animated fallbacks [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
+
 <!-- /skilld:best-practices -->

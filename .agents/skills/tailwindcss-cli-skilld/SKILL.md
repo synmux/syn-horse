@@ -1,6 +1,6 @@
 ---
 name: tailwindcss-cli-skilld
-description: "ALWAYS use when writing code importing \"@tailwindcss/cli\". Consult for debugging, best practices, or modifying @tailwindcss/cli, tailwindcss/cli, tailwindcss cli, tailwindcss."
+description: 'ALWAYS use when writing code importing "@tailwindcss/cli". Consult for debugging, best practices, or modifying @tailwindcss/cli, tailwindcss/cli, tailwindcss cli, tailwindcss.'
 metadata:
   version: 4.3.2
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # tailwindlabs/tailwindcss `@tailwindcss/cli@4.3.2`
+
 **Tags:** internal: 0.0.0-internal.b2586d4e, next: 4.0.0, latest: 4.3.2
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @tailwindcss/cli` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @tailwindcss/cli` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes in @tailwindcss/cli v4.3.2 — prioritizing recent major/minor releases and significant deprecations.
@@ -57,6 +59,7 @@ This section documents version-specific API changes in @tailwindcss/cli v4.3.2 �
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use the `--silent` flag to suppress non-error output when running the CLI in automated pipelines or CI/CD environments — reduces log noise without losing error information [source](./.skilld/releases/v4.3.1.md:L11)
@@ -84,6 +87,7 @@ This section documents version-specific API changes in @tailwindcss/cli v4.3.2 �
 - Ensure tracked dependencies remain available when using `--watch` mode — the CLI now recovers gracefully if a tracked file is deleted and restored, but total removal can still interrupt watching [source](./.skilld/releases/v4.3.1.md:L24)
 
 - Prefer explicit `--input` and `--output` flags over relying on defaults to avoid ambiguity in scripts — while defaults exist (`-` for stdout output), explicit paths are clearer for maintainability and reduce surprises in CI environments [source](./.skilld/docs/index.md:L1)
+
 <!-- /skilld:best-practices -->
 
 Related: tailwindcss-skilld

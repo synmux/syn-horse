@@ -1,5 +1,7 @@
 # APP.md — syn.horse application guide
 
+<!-- trunk-ignore-all(trunk-toolbox/todo) -->
+
 > A planning-oriented map of the application: what exists, how it fits together, where
 > new features slot in, and what is already queued. For **agent** working rules read
 > [`AGENTS.md`](./AGENTS.md) (the authoritative project doc); for **human** setup read

@@ -1,6 +1,6 @@
 ---
 name: tailwindcss-vite-skilld
-description: "ALWAYS use when writing code importing \"@tailwindcss/vite\". Consult for debugging, best practices, or modifying @tailwindcss/vite, tailwindcss/vite, tailwindcss vite, tailwindcss."
+description: 'ALWAYS use when writing code importing "@tailwindcss/vite". Consult for debugging, best practices, or modifying @tailwindcss/vite, tailwindcss/vite, tailwindcss vite, tailwindcss.'
 metadata:
   version: 4.3.2
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # tailwindlabs/tailwindcss `@tailwindcss/vite@4.3.2`
+
 **Tags:** internal: 0.0.0-internal.b2586d4e, next: 4.0.0, latest: 4.3.2
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @tailwindcss/vite` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @tailwindcss/vite` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes for @tailwindcss/vite v4.3.2 — prioritising recent major/minor releases and vite-specific fixes.
@@ -87,6 +89,7 @@ This section documents version-specific API changes for @tailwindcss/vite v4.3.2
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Initialize a git repository in your project root — Tailwind uses git ignore rules internally for automatic source detection, and a `.gitignore` higher in the directory tree may cause files to be ignored [source](./.skilld/discussions/discussion-20135.md:L35)
@@ -114,6 +117,7 @@ This section documents version-specific API changes for @tailwindcss/vite v4.3.2
 - Define multiple `@utility` rules with the same name but different value types — from v4.3.0, multiple definitions with different value shapes on the same utility name no longer conflict or fail [source](./.skilld/releases/v4.3.0.md:L31)
 
 - Avoid passing query parameters in vite `resolve.alias` for `@import` and `@plugin` paths — query params were not treated as unique resources in earlier versions, causing resolution failures with plugins and imports [source](./.skilld/releases/v4.2.4.md#fixed)
+
 <!-- /skilld:best-practices -->
 
 Related: tailwindcss-skilld

@@ -1,6 +1,6 @@
 ---
 name: prettier-skilld
-description: "ALWAYS use when writing code importing \"prettier\". Consult for debugging, best practices, or modifying prettier."
+description: 'ALWAYS use when writing code importing "prettier". Consult for debugging, best practices, or modifying prettier.'
 metadata:
   version: 3.9.3
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # prettier/prettier `prettier@3.9.3`
+
 **Tags:** next: 4.0.0-alpha.13, latest: 3.9.3
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p prettier` instead of grepping `.skilld/` directories. Run `skilld search --guide -p prettier` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -39,6 +41,7 @@ This section documents version-specific API changes — prioritize recent major/
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Always use asynchronous API methods (`format`, `check`, `resolveConfig`) — the synchronous `@prettier/sync` wrapper exists only for special cases where async code is impossible [source](./.skilld/docs/api.md#prettiformatsouce-options)
@@ -68,4 +71,5 @@ This section documents version-specific API changes — prioritize recent major/
 - Share Prettier config as a scoped npm package for teams — publish `@username/prettier-config` with peerDependencies on Prettier itself, enabling effortless config distribution and updates [source](./.skilld/docs/sharing-configurations.md#L13:L70)
 
 - Always quote glob patterns in the CLI to ensure cross-platform compatibility — unquoted globs expand at the shell level, which varies between platforms; quoted globs let Prettier expand them consistently [source](./.skilld/docs/cli.md#L36:L40)
+
 <!-- /skilld:best-practices -->

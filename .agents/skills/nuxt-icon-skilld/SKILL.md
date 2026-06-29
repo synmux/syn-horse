@@ -1,6 +1,6 @@
 ---
 name: nuxt-icon-skilld
-description: "ALWAYS use when writing code importing \"@nuxt/icon\". Consult for debugging, best practices, or modifying @nuxt/icon, nuxt/icon, nuxt icon, icon."
+description: 'ALWAYS use when writing code importing "@nuxt/icon". Consult for debugging, best practices, or modifying @nuxt/icon, nuxt/icon, nuxt icon, icon.'
 metadata:
   version: 2.2.5
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # nuxt/icon `@nuxt/icon@2.2.5`
+
 **Tags:** latest: 2.2.5
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @nuxt/icon` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @nuxt/icon` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritise recent major/minor releases.
@@ -45,6 +47,7 @@ This section documents version-specific API changes — prioritise recent major/
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Prefer CSS mode over SVG mode as the default rendering strategy — it's the recommended approach and works best with Tailwind CSS for fine-grained styling control [source](../../../../../../node_modules/@nuxt/icon/README.md#usage-)
@@ -74,4 +77,5 @@ This section documents version-specific API changes — prioritise recent major/
 - Use `serverBundle: { remote: 'jsdelivr' }` (or `unpkg` / `github-raw`) when bundle size is critical in serverless deployments — remote CDN fetching trades initial request latency for smaller server bundle size [source](../../../../../../node_modules/@nuxt/icon/README.md#server-bundle-mode-remote)
 
 - Enable `clientBundle.scan: true` in combination with explicit `clientBundle.icons: [...]` to bundle statically-detected icons plus manually specified dynamic icons — scanning alone misses runtime-constructed names, so combine both for complete coverage [source](../../../../../../node_modules/@nuxt/icon/README.md#available-options)
+
 <!-- /skilld:best-practices -->
