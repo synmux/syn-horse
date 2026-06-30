@@ -33,7 +33,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@anthropic-ai/claude-code": "^2.1.195",
+    "@anthropic-ai/claude-code": "^2.1.196",
     "@catppuccin/daisyui": "^2.1.1",
     "@catppuccin/tailwindcss": "^1.0.0",
     "@storybloq/storybloq": "^1.4.4",
@@ -44,7 +44,7 @@
     "nitropack": "^2.13.4",
     "npm-run-all2": "^9.0.2",
     "nuxi": "^3.36.1",
-    "prettier": "^3.9.3",
+    "prettier": "^3.9.4",
     "skilld": "^2.0.0",
     "tsx": "^4.22.4",
     "untun": "^0.1.3",

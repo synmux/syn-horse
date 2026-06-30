@@ -274,11 +274,11 @@ skills:
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.195
-    packages: "@anthropic-ai/claude-code@2.1.195"
+    version: 2.1.196
+    packages: "@anthropic-ai/claude-code@2.1.196"
     repo: Exhen/claude-code-2.1.88
     source: "ungh://Exhen/claude-code-2.1.88"
-    syncedAt: 2026-06-28
+    syncedAt: 2026-06-30
     generator: skilld
   drizzle-orm-skilld:
     packageName: drizzle-orm
@@ -325,11 +325,11 @@ skills:
     generator: skilld
   prettier-skilld:
     packageName: prettier
-    version: 3.9.3
-    packages: "prettier@3.9.3"
+    version: 3.9.4
+    packages: "prettier@3.9.4"
     repo: prettier/prettier
-    source: "https://github.com/prettier/prettier/tree/v3.9.3/docs"
-    syncedAt: 2026-06-29
+    source: "https://github.com/prettier/prettier/tree/3.9.4/docs"
+    syncedAt: 2026-06-30
     generator: skilld
   eslint-skilld:
     packageName: eslint
