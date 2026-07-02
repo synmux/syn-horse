@@ -1,15 +1,14 @@
 ---
 name: daisyui-skilld
-description: 'ALWAYS use when writing code importing "daisyui". Consult for debugging, best practices, or modifying daisyui.'
+description: "ALWAYS use when writing code importing \"daisyui\". Consult for debugging, best practices, or modifying daisyui."
 metadata:
-  version: 5.6.6
+  version: 5.6.10
   generated_by: Anthropic · Haiku 4.5
-  generated_at: 2026-06-29
+  generated_at: 2026-07-02
 ---
 
-# saadeghi/daisyui `daisyui@5.6.6`
-
-**Tags:** alpha: 5.6.0-alpha.4, beta: 5.6.0-beta.0, latest: 5.6.6
+# saadeghi/daisyui `daisyui@5.6.10`
+**Tags:** alpha: 5.6.0-alpha.4, beta: 5.6.0-beta.0, latest: 5.6.10
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
@@ -18,116 +17,111 @@ metadata:
 Use `skilld search "query" -p daisyui` instead of grepping `.skilld/` directories. Run `skilld search --guide -p daisyui` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+## daisyUI v5 API Changes
 
-## API Changes
+This section documents version-specific API changes—prioritize recent major/minor releases.
 
-This section documents version-specific API changes in daisyUI v5 — prioritizing recent major/minor releases and v4→v5 migration breaking changes that LLMs trained on v4 data will encounter.
+## Breaking Changes (v4 → v5)
 
-### v5.6 New Components & Features
+- BREAKING: `artboard` and `phone-*` classes removed — use Tailwind CSS `w-*` and `h-*` utilities instead (e.g., `w-[320px] h-[568px]` replaces `artboard phone-1`) [source](./.skilld/releases/CHANGELOG.md#artboard)
 
-- NEW: `aura` component — wrapper for animated border glow effects with variants `aura-dual`, `aura-rainbow`, `aura-holo`, `aura-gold`, `aura-silver`, `aura-glow`, and sizes `xs` to `xl` [source](<./.skilld/references/daisyui@5.6.6/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md#aura>)
+- BREAKING: `bottom-nav` component removed — use `dock` component instead, with `dock-xs/sm/md/lg` replacing `btm-nav-xs/sm/md/lg` and `dock-active` replacing `btm-nav-active` [source](./.skilld/releases/CHANGELOG.md#bottom-navigation)
 
-- NEW: `megamenu` component — navigation for large menus using Popover API with modifiers `megamenu-vertical`, sizes `xs` to `xl`, and support for wide/full-width layouts [source](<./.skilld/references/daisyui@5.6.6/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md#megamenu>)
+- BREAKING: `card-bordered` renamed to `card-border` [source](./.skilld/releases/CHANGELOG.md#card)
 
-- NEW: `otp` component — one-time password input with joined style, semantic colors, and sizes `xs` to `xl` [source](<./.skilld/references/daisyui@5.6.6/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md#otp>)
+- BREAKING: `form-control`, `label-text`, `label-text-alt` classes removed — use semantic `<fieldset>` with `class="fieldset"` and `<legend>` instead for better accessibility [source](./.skilld/releases/CHANGELOG.md#label)
 
-- NEW: `range-vertical` modifier — vertical range slider mode [source](<./.skilld/references/daisyui@5.6.6/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md#better-sliders>)
+- BREAKING: `btn-group` and `input-group` components removed — use `join` component with `join-item` class instead [source](./.skilld/releases/CHANGELOG.md#other-removals)
 
-- NEW: `tooltip` alignment modifiers — `tooltip-start`, `tooltip-center`, `tooltip-end` for placement control on all tooltip directions [source](<./.skilld/references/daisyui@5.6.6/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md#better-tooltips>)
+- BREAKING: `input-bordered` class removed — input now has border by default; use `input-ghost` to remove border [source](./.skilld/releases/CHANGELOG.md#input)
 
-- NEW: `modal` Popover API support — use `[popover]`, `:popover-open`, `::backdrop` as alternative to dialog method [source](<./.skilld/references/daisyui@5.6.6/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md#better-modals>)
+- BREAKING: `select-bordered` class removed — select now has border by default (20rem default width); use `select-ghost` to remove border [source](./.skilld/releases/CHANGELOG.md#select)
 
-- NEW: `card` selectable states — support for `aria-checked`, nested checkbox/radio focus, pointer cursor, and checked outline [source](<./.skilld/references/daisyui@5.6.6/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md#better-cards>)
+- BREAKING: `file-input-bordered` removed — file input has border by default now; use `file-input-ghost` to remove [source](./.skilld/releases/CHANGELOG.md#fileinput)
 
-- NEW: `[aria-disabled="true"]` support for buttons — allows disabling elements that can't use native `disabled` attribute [source](<./.skilld/references/daisyui@5.6.6/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md#improvements>)
+- BREAKING: `textarea-bordered` removed — textarea has border by default; use `textarea-ghost` to remove [source](./.skilld/releases/CHANGELOG.md#textarea)
 
-### v5.5 New Components & Features
+- BREAKING: Avatar state classes renamed — `online` → `avatar-online`, `offline` → `avatar-offline`, `placeholder` → `avatar-placeholder` [source](./.skilld/releases/CHANGELOG.md#avatar)
 
-- NEW: `hover-3d` component — creates a 3D card effect [source](./.skilld/releases/CHANGELOG.md#l150)
+- BREAKING: Menu item state classes renamed — `disabled` → `menu-disabled`, `active` → `menu-active`, `focus` → `menu-focus`; vertical menu no longer `w-full` by default [source](./.skilld/releases/CHANGELOG.md#menu)
 
-- NEW: `text-rotate` component — rotates between multiple words [source](./.skilld/releases/CHANGELOG.md#l150)
+- BREAKING: `tabs-lifted` renamed to `tabs-lift` [source](./.skilld/releases/CHANGELOG.md#tab)
 
-- NEW: `skeleton-text` variant — animated gradient text skeleton [source](./.skilld/releases/CHANGELOG.md#l151)
+- BREAKING: `table` hover class removed — use utility classes like `hover:bg-base-300` instead [source](./.skilld/releases/CHANGELOG.md#table)
 
-- NEW: `dropdown-close` modifier — forces dropdown to close on click [source](./.skilld/releases/CHANGELOG.md#l154)
+- BREAKING: Button default height reduced; customizable via `--size-field` CSS variable [source](./.skilld/releases/CHANGELOG.md#button)
 
-### v5.1 New Components & Features
+- BREAKING: Footer now vertical by default — add `footer-horizontal` for horizontal layout [source](./.skilld/releases/CHANGELOG.md#footer)
 
-- NEW: `hover-gallery` component — interactive hover gallery [source](./.skilld/releases/CHANGELOG.md:L569)
+- BREAKING: `mockup-phone` classes renamed — `camera` → `mockup-phone-camera`, `display` → `mockup-phone-display` [source](./.skilld/releases/CHANGELOG.md#mockup)
 
-- NEW: `fab` component (Speed Dial) — floating action button with multiple action buttons [source](./.skilld/releases/CHANGELOG.md:L570)
+- BREAKING: Stack sizing changed — set width/height on `.stack` container, not individual items [source](./.skilld/releases/CHANGELOG.md#stack)
 
-- NEW: `base-select` class — styled native HTML `<select>` element (Chromium-based browsers only; other browsers use OS default) [source](./.skilld/releases/CHANGELOG.md:L571)
+- BREAKING: `stats` background now transparent — add `bg-base-100` if background colour needed [source](./.skilld/releases/CHANGELOG.md#stat)
 
-- NEW: `prefers-reduced-motion` support — all animations now respect user motion preferences, showing static fallbacks [source](./.skilld/releases/CHANGELOG.md:L572)
+- BREAKING: Chat bubble default colour changed from `neutral` to `base-300` — add `chat-bubble-neutral` to restore old colour [source](./.skilld/releases/CHANGELOG.md#chat)
 
-- NEW: `is-drawer-open` and `is-drawer-close` variants — style elements based on drawer state; enables icon-only drawer sidebars [source](./.skilld/releases/CHANGELOG.md:L345)
+- BREAKING: Label component refactored for form compatibility — now works directly with form elements in `<fieldset>` structure [source](./.skilld/releases/CHANGELOG.md#label)
 
-### v5.0 Breaking Changes (v4 → v5 Migration)
+- BREAKING: `mask-parallelogram` variants removed (`mask-parallelogram-2`, `mask-parallelogram-3`, `mask-parallelogram-4`) [source](./.skilld/releases/CHANGELOG.md#mask)
 
-- BREAKING: `artboard` and `phone-*` classes removed — use Tailwind `w-*` and `h-*` utilities instead (`artboard phone-1` becomes `w-[320px] h-[568px]`) [source](./.skilld/repos/saadeghi/daisyui/releases/CHANGELOG.md#artboard)
+## New Components & Features
 
-- BREAKING: `avatar` state classes renamed — `online` → `avatar-online`, `offline` → `avatar-offline`, `placeholder` → `avatar-placeholder` [source](./.skilld/repos/saadeghi/daisyui/releases/CHANGELOG.md#avatar)
+- NEW: `hover-3d` component for 3D card effects (v5.5.0) [source](./.skilld/releases/CHANGELOG.md#550)
 
-- BREAKING: `bottom-nav` component removed — replace with `dock` component; `btm-nav-*` → `dock-*`, `btm-nav-active` → `dock-active`, use `aria-disabled="true"` instead of `disabled` class [source](./.skilld/repos/saadeghi/daisyui/releases/CHANGELOG.md#bottom-navigation)
+- NEW: `text-rotate` component to rotate between multiple words (v5.5.0) [source](./.skilld/releases/CHANGELOG.md#550)
 
-- BREAKING: `card-bordered` renamed to `card-border` [source](./.skilld/repos/saadeghi/daisyui/releases/CHANGELOG.md#card)
+- NEW: Hover Gallery component (v5.1.0) [source](./.skilld/releases/CHANGELOG.md#510)
 
-- BREAKING: `card-compact` removed — use `card-sm` size instead [source](./.skilld/repos/saadeghi/daisyui/releases/CHANGELOG.md#card)
+- NEW: FAB / Speed Dial component (v5.1.0) [source](./.skilld/releases/CHANGELOG.md#510)
 
-- BREAKING: `btn` default height reduced — customizable via `--size-field` CSS variable [source](./.skilld/repos/saadeghi/daisyui/releases/CHANGELOG.md#button)
+- NEW: Styled native HTML `<select>` element (v5.1.0) — works in Chromium; other browsers use OS default [source](./.skilld/releases/CHANGELOG.md#510)
 
-- BREAKING: `btn-ghost` hover style changed — v4 forced primary color regardless of modifiers; v5 shows original color on hover, allowing customization like `btn btn-ghost btn-primary` [source](./.skilld/repos/saadeghi/daisyui/releases/CHANGELOG.md#button)
+- NEW: `skeleton-text` variant for animated gradient text skeletons (v5.5.0) [source](./.skilld/releases/CHANGELOG.md#550)
 
-- BREAKING: `chat-bubble` default color changed from `neutral` to `base-300` — add `chat-bubble-neutral` class to restore v4 appearance [source](./.skilld/repos/saadeghi/daisyui/releases/CHANGELOG.md#chat)
+## Modifiers & Variants
 
-- BREAKING: `file-input-bordered` removed — file input has border by default; use `file-input-ghost` to remove border [source](./.skilld/repos/saadeghi/daisyui/releases/CHANGELOG.md#fileinput)
+- NEW: `dropdown-close` modifier to force close a dropdown (v5.5.0) [source](./.skilld/releases/CHANGELOG.md#550)
 
-- BREAKING: `input-bordered` removed — input has border by default; use `input-ghost` to remove border [source](./.skilld/repos/saadeghi/daisyui/releases/CHANGELOG.md#input)
+- NEW: `is-drawer-open` and `is-drawer-close` variants to style elements based on drawer state; enables icon-only drawer sidebar (v5.2.0, enhanced v5.5.0) [source](./.skilld/releases/CHANGELOG.md#520)
 
-- BREAKING: `input` now has default width of 20rem — no longer need `w-full max-w-xs` wrapper [source](./.skilld/repos/saadeghi/daisyui/releases/CHANGELOG.md#input)
+- NEW: `tabs-top` and `tabs-bottom` positioning options (v5.1.0) [source](./.skilld/releases/CHANGELOG.md#510)
 
-- BREAKING: `footer` now vertical by default — use `footer-horizontal` modifier to make horizontal [source](./.skilld/repos/saadeghi/daisyui/releases/CHANGELOG.md#footer)
+- NEW: `modal-start` and `modal-end` positioning options (v5.0.0) [source](./.skilld/releases/CHANGELOG.md#modal)
 
-- BREAKING: `menu` item classes renamed — `disabled` → `menu-disabled`, `active` → `menu-active`, `focus` → `menu-focus` [source](./.skilld/repos/saadeghi/daisyui/releases/CHANGELOG.md#menu)
+- NEW: `stack-bottom`, `stack-top`, `stack-start`, `stack-end` directional variants (v5.0.0) [source](./.skilld/releases/CHANGELOG.md#stack)
 
-- BREAKING: `menu` vertical layout no longer `w-full` by default — explicitly add `w-full` if needed [source](./.skilld/repos/saadeghi/daisyui/releases/CHANGELOG.md#menu)
-
-- BREAKING: `mask-parallelogram*` classes removed — use custom CSS if needed [source](./.skilld/repos/saadeghi/daisyui/releases/CHANGELOG.md#mask)
-
-**Also changed:** `label` refactored for form compatibility · `dropdown` now uses `@starting-style` and `display` property · `diff` item order changed (chronological) · `file-input` default border · `input` improved focus styling · `keyboard` new `kbd-xl` size · `loading` now uses SVG animation · `checkbox` improved checkmark and accessibility · `countdown` screen reader improvements · `avatar` improved accessibility · badge new `badge-soft`/`badge-dash` variants and `badge-xl` size · breadcrumb default gap-2 for icons/text
+**Also changed:** Support for `prefers-reduced-motion` · CSS `@starting-style` for modal/dropdown · `popover` attribute support · CSS Anchor positioning for dropdowns (Chromium only) · `display` property instead of `visibility` · `form-control` replaced with `fieldset`/`legend` · Button `btn-soft` and `btn-dash` styles · Badge `badge-soft`, `badge-dash`, and `badge-xl` · `card-border`, `card-dash`, and card sizing (`card-xs/sm/md/lg/xl`) · `alert-outline`, `alert-dash`, `alert-soft`, `alert-vertical`, `alert-horizontal` · Collapse smooth transitions · Rating animation improvements · Print-friendly components (Divider, Steps, Timeline, Toggle, Radio, Checkbox) · New size tiers (`*-xl`, `*-lg`, `*-sm`, `*-xs`) across most components · Diff keyboard navigation · Radial Progress animation · Tooltip smooth transitions and `tooltip-content` class
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+## Best Practices — daisyUI 5.6.10
 
-## Best Practices
+- Declare themes in the main `@plugin "daisyui"` block before customizing them with `@plugin "daisyui/theme"` — this ensures theme names are registered and customizations apply correctly [source](./skilld/discussions/discussion-4365.md#accepted-answer)
 
-- Theme customisation via `@plugin "daisyui/theme"` block — define theme-specific CSS variables once to apply colours, fonts, and other values across all components. Each theme declaration automatically propagates to all daisyUI components using those variables, avoiding manual per-component overrides [source](./.skilld/docs/_INDEX.md)
+- Use `--default` and `--prefersdark` flags when declaring themes to establish the default theme and dark mode auto-detection — omit `default: true` from individual theme blocks [source](./skilld/issues/issue-4488.md#top-comments)
 
-- Use semantic colour names (`primary`, `secondary`, `accent`, `success`, `warning`, `error`, `info`, `base`) instead of constant Tailwind colour names — semantic names enable theme switching without class changes and multi-theme support by adjusting CSS variables alone [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/daisyui-colors-and-themes/+page.md>)
+- Customize font families with `--font-sans`, `--font-mono` in `@plugin "daisyui/theme"` blocks rather than using Tailwind's theme config directly — DaisyUI theme system ensures inheritance across all components [source](./skilld/discussions/discussion-4401.md#accepted-answer)
 
-- Wrap elements in `aura` component for animated border glow effects — use `aura-rainbow`, `aura-dual`, `aura-holo`, `aura-gold`, `aura-silver`, `aura-glow` modifiers and `aura-xs` through `aura-xl` sizes to highlight important buttons, cards, or images without JavaScript [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
+- Create custom color variables using `@plugin "daisyui/theme"` with `--color-*` naming convention — avoid duplicating the entire theme when adding just one or two custom colors [source](./skilld/discussions/discussion-4438.md#accepted-answer)
 
-- Build large navigation with Megamenu using native Popover API — structure with a main `megamenu` container holding `popovertarget` buttons paired to corresponding `popover` divs; use `max-sm:megamenu-vertical` for responsive layout that collapses to vertical on small screens [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
+- Set custom CSS selectors for theme root with the `root` option if not using `:root` — useful for scoped component libraries or multiple theme systems on one page [source](./skilld/functions/pluginOptionsHandler.js:L9)
 
-- Implement one-time password input with OTP component — a native input wrapper using visual slots; supports semantic colours, joined style, and all sizes; native autocomplete interacts correctly with browser 2FA flows [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
+- Use `include` or `exclude` plugin options to load only needed components and reduce CSS bundle size — daisyUI generates CSS for ~70 components by default [source](./skilld/index.js:L17)
 
-- Use Popover API (`[popover]` attribute and `:popover-open` pseudo-class) as alternative modal pattern — complements existing dialog, checkbox, and custom modal patterns; leverage `::backdrop` for overlay styling [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
+- Disable startup logs in production with `logs: false` option to reduce console noise in builds — logs are helpful during development only [source](./skilld/functions/pluginOptionsHandler.js:L14)
 
-- Apply `aria-disabled="true"` on buttons that cannot use native `disabled` attribute — ensures semantic accessibility when the element type or framework constraints prevent native disabled support [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
+- Avoid using `<ol>` (ordered lists) in `.menu` components — Tailwind CSS preflight resets list styling, so numbered lists have no visual indicator; use `<ul>` instead [source](./skilld/discussions/discussion-4473.md#accepted-answer)
 
-- Add tooltip alignment modifiers (`tooltip-start`, `tooltip-center`, `tooltip-end`) to position tooltips on their alignment axis — combines with direction modifiers (top, bottom, left, right) for precise tooltip placement in constrained layouts [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
+- Use `data-theme="theme-name"` attribute on any element to switch themes dynamically at runtime without data attributes on `:root` — provides flexible theme switching for nested components [source](./skilld/functions/pluginOptionsHandler.js:L29)
 
-- Build selectable cards with `aria-checked` or nested checkbox/radio focus styles — cards automatically render checked outline, pointer cursor, and stronger focus state; eliminates need for custom JavaScript to track selection state [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
+- Prefix daisyUI classes carefully — known issue exists where `rootcolor` CSS variable fallback is not prefixed, causing problems in production builds with Vite 8 [source](./skilld/issues/issue-4372.md)
 
-- Add vertical sliders with `range-vertical` class — applies vertical orientation to range input; sizing and colour modifiers work identically to horizontal sliders [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
+- Apply CSS variable fallbacks in theme definitions using the pattern `var(--custom-var, var(--fallback-var))` — allows graceful degradation when a variable is not defined [source](./skilld/functions/pluginOptionsHandler.js:L30)
 
-- Extend colour palette with custom variables in `@theme` block, then map them in theme declarations — define `--color-custom-name` at root level, then use in `@plugin "daisyui/theme"` to apply theme-specific values without polluting the default scope [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/how-to-add-new-colors-to-daisyui/+page.md>)
+- Keep theme customizations in the `@plugin "daisyui/theme"` block instead of overriding in Tailwind's theme config — prevents conflicts and ensures daisyUI components inherit custom values [source](./skilld/discussions/discussion-4401.md)
 
-- Use blur focus triggers for dropdowns and menus instead of click handlers — dropdowns respond to keyboard navigation and focus state; rely on native focus-within and blur events rather than JavaScript click listeners to ensure predictable closing behaviour across frameworks like Angular [source](./.skilld/discussions/discussion-4403.md)
+- Use semantic HTML elements (`<button>`, `<dialog>`, `<details>`) for daisyUI components — they come with built-in accessibility features and proper focus handling [source](./skilld/releases/CHANGELOG.md:L44)
 
-- Ensure modals focus the first focusable element on open — daisyUI's dialog implementation automatically manages focus entry; avoid manually setting focus on mount to prevent conflicts with native focus management [source](./.skilld/issues/issue-3440.md)
-
-- Respect `prefers-reduced-motion` by ensuring collapse animation, loading states, and decorative animations fall back to static styles — daisyUI components automatically honour this preference; test with `@media (prefers-reduced-motion: reduce)` to verify users see non-animated fallbacks [source](<./.skilld/docs/src/routes/(routes)/blog/(posts)/v5.6/+page.md>)
-
+- Leverage `theme-controller` element pattern with input elements and theme switching — daisyUI automatically detects input values matching theme names for dynamic theme selection [source](./skilld/functions/pluginOptionsHandler.js:L25)
 <!-- /skilld:best-practices -->

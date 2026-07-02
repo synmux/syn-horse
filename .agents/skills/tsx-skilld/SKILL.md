@@ -1,84 +1,63 @@
 ---
 name: tsx-skilld
-description: 'ALWAYS use when writing code importing "tsx". Consult for debugging, best practices, or modifying tsx.'
+description: "ALWAYS use when writing code importing \"tsx\". Consult for debugging, best practices, or modifying tsx."
 metadata:
-  version: 4.22.4
+  version: 4.22.5
   generated_by: Anthropic · Haiku 4.5
-  generated_at: 2026-06-05
+  generated_at: 2026-07-02
 ---
 
-# privatenumber/tsx `tsx@4.22.4`
+# privatenumber/tsx `tsx@4.22.5`
+**Tags:** latest: 4.22.5
 
-**Tags:** latest: 4.22.4
-
-**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md)
+**References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
 ## Search
 
 Use `skilld search "query" -p tsx` instead of grepping `.skilld/` directories. Run `skilld search --guide -p tsx` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
-
 ## API Changes
 
-This section documents API changes and deprecations for tsx v4.22.4. Note: The available documentation covers the current version's API without detailed version history. The following change reflects Node.js runtime compatibility:
+This section documents version-specific API changes — prioritize recent major/minor releases.
 
-- DEPRECATED: `--loader` Node.js CLI flag — deprecated in Node.js v20.6.0 in favour of `--import` flag for loading tsx enhancement. Legacy support remains available for Node.js v20.5.1 and below [source](./.skilld/docs/dev-api/node-cli.md:L9:16)
+- DEPRECATED: `tsx watch --ignore` flag — deprecated in v4.19.0 in favour of `--exclude` flag. The ignore flag still works but should be replaced with exclude for consistency with other tools. [source](./.skilld/releases/v4.19.0.md)
 
-### Core Developer APIs (v4.22.4)
+- DEPRECATED: `node --loader tsx` flag — deprecated in Node.js v20.5.2 in favour of `node --import tsx`. The newer `--import` flag is the standardised Node.js way to load modules and should be used for all new code. [source](./.skilld/docs/dev-api/node-cli.md:L9-L16)
 
-The following APIs are part of the current tsx Developer API:
-
-- `import 'tsx'` — Entry-point for ESM module enhancement, only affects dynamic imports after registration [source](./.skilld/docs/dev-api/entry-point.md:L1:12)
-
-- `require('tsx/cjs')` — CommonJS-only enhancement API for loading TypeScript files in CommonJS context [source](./.skilld/docs/dev-api/entry-point.md:L21:32)
-
-- `import 'tsx/esm'` — ESM-only enhancement API for loading TypeScript files in module context [source](./.skilld/docs/dev-api/entry-point.md:L34:43)
-
-- `tsImport()` — Native dynamic import function for TypeScript files with optional module caching and file tracking, accessible via `tsx/esm/api` [source](./.skilld/docs/dev-api/ts-import.md:L1:23)
-
-- `tsx.require()` and `tsx.require.resolve()` — Enhanced CommonJS require function with TypeScript support, tracks loaded modules in `require.cache` for dependency tracking [source](./.skilld/docs/dev-api/tsx-require.md:L1:33)
-
-- `tsx.register()` — Registers tsx enhancement at runtime with optional namespace for scoped enhancement; returns unregister function [source](./.skilld/docs/dev-api/register-cjs.md:L11:22)
-
-- `register()` — ESM equivalent of register API with namespace support and `onImport` hook for tracking loaded files [source](./.skilld/docs/dev-api/register-esm.md:L5:52)
-
-- `node --import tsx` — Node.js CLI flag integration (replaces deprecated `--loader` in Node.js v20.6.0+) for adding tsx enhancement to node command directly [source](./.skilld/docs/dev-api/node-cli.md:L1:7)
-
-**Note:** Documentation for tsx v4.22.4 is current, but historical API changes from previous versions (v3.x → v4.x or within v4.x minor releases) are not available in the local reference materials. For comprehensive breaking changes and feature introductions across versions, consult the project's GitHub releases page or changelog.
-
+**Also changed:** esbuild upgraded to 0.28 in v4.22.0 · esbuild upgraded in v4.21.0 · Node.js v24/v26 support added in v4.21.1
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+## tsx Best Practices
 
 ## Best Practices
 
-- Use recommended `tsconfig.json` settings with `moduleDetection: "force"` and `module: "Preserve"` — these enable consistent type-checking behaviour for tsx's esbuild-based transpilation, ensuring JSX and module detection work as expected [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/typescript.md:L40-L64)
+- Separate type checking from execution in your workflow — run `tsc --noEmit` in pre-commit hooks or CI while letting tsx focus on fast execution without type verification [source](./.skilld/docs/typescript.md#development-workflow)
 
-- Keep type checking separate from tsx execution — run `tsc --noEmit` in pre-commit hooks or CI rather than relying on tsx to enforce types, since tsx prioritises fast iteration over type validation [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/typescript.md:L6-L12)
+- Configure `tsconfig.json` with sensible defaults: `moduleDetection: "force"`, `module: "Preserve"`, `allowJs: true`, `esModuleInterop: true`, `isolatedModules: true` for consistent type-checking behaviour [source](./.skilld/docs/typescript.md#recommendation)
 
-- Enable `verbatimModuleSyntax` in `tsconfig.json` for safer type-only imports — this requires explicit `import type` syntax, preventing subtle issues with transpilers that may not properly handle type erasure [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/typescript.md:L67-L71)
+- Replace the `tsx` CLI with `node --import tsx` (v20.6+) when you need direct node control, are integrating with tools that call `node`, or prefer the `node` command [source](./.skilld/docs/dev-api/node-cli.md)
 
-- Substitute `tsx` directly for `node` in commands — tsx is a drop-in replacement supporting all Node.js flags, making it ideal for gradual TypeScript adoption without restructuring workflows [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/node-enhancement.md:L3-L16)
+- Use `tsImport()` to load isolated TypeScript files (like config files) without registering runtime enhancements across your entire environment [source](./.skilld/docs/dev-api/ts-import.md)
 
-- Use `node --import tsx` when integrating with tools that invoke node directly — this method provides more explicit control over the Node.js environment compared to the tsx CLI, useful for CI/CD and tool integration [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/dev-api/index.md:L8-L10)
+- Use scoped `register({ namespace: Date.now().toString() })` to isolate hook state when multiple independent tsx registrations coexist [source](./.skilld/docs/dev-api/register-esm.md#scoped-registration)
 
-- Optimise watch mode with glob patterns to exclude unnecessary directories — use `--exclude "./dist/**/*" --exclude "./node_modules/**/*"` to reduce file-system overhead and improve iteration speed on large projects [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/watch-mode.md:L24-L48)
+- Never publish uncompiled TypeScript to npm, even in monorepos where tsx can execute it — use pkgroll to compile to JavaScript first [source](./.skilld/docs/compilation.md)
 
-- Use `tsImport()` for one-time TypeScript loads that should skip caching — the API is designed for packages that need to load configuration files without side effects on the entire runtime [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/dev-api/ts-import.md:L1-L22)
+- Prefer ESM `register()` over CommonJS `register()` for better module caching and alignment with modern JavaScript standards [source](./.skilld/docs/dev-api/register-cjs.md#caveats)
 
-- Use scoped ESM registration with `namespace` to isolate tsx enhancements from the global runtime — this prevents unintended interactions when multiple independent modules need TypeScript support [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/dev-api/register-esm.md:L18-L39)
+- Track file dependencies with the `onImport` hook when calling `register()` to gather data for implementing custom file watchers [source](./.skilld/docs/dev-api/register-esm.md#tracking-loaded-files)
 
-- Track loaded files with the `onImport` hook to implement dependency tracking for custom watchers — this is essential when building watcher integrations that need to know which files were loaded [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/dev-api/register-esm.md:L44-L52)
+- Avoid `tsx.require()` when loaded files contain `dynamic import()` statements — use `tsImport()` or the ESM `register()` API instead [source](./.skilld/docs/dev-api/tsx-require.md#caveats)
 
-- Use `tsx.require.cache` to collect dependencies for dependency tracking and custom watcher implementations — this leverages CommonJS's built-in module cache to traverse the dependency graph without re-executing code [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/dev-api/tsx-require.md:L36-L48)
+- Use the `NODE_OPTIONS='--import tsx'` environment variable to enhance node when you cannot modify the command directly (e.g., in tools that invoke binaries) [source](./.skilld/docs/dev-api/node-cli.md#binaries)
 
-- Never publish uncompiled TypeScript files in npm packages — always compile to JavaScript with a bundler like pkgroll to avoid TypeScript compilation overhead and ensure consistent behaviour across consumer environments [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/compilation.md:L5-L16)
+- Use `#!/usr/bin/env -S npx tsx` in script shebangs for project-local scripts to ensure the installed project version of tsx is invoked [source](./.skilld/docs/shell-scripts.md#project-scripts)
 
-- Use proper `package.json#exports` structure with dual ESM and CommonJS entry-points for wide compatibility — explicit exports guide tooling and ensure only intended files are available to consumers [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/compilation.md:L32-L54)
+- Customise watch mode with `--exclude` glob patterns to prevent re-triggering on generated files, vendor directories, or build outputs [source](./.skilld/docs/watch-mode.md#excluding-files-from-watch)
 
-- Use `#!/usr/bin/env -S npx tsx` in hashbang for project-local shell scripts — this approach ensures the script uses the project's installed tsx version and works across package managers (npm, pnpm, yarn) [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/shell-scripts.md:L7-L27)
+- Attach the VS Code debugger to a running tsx process via `--inspect-brk` rather than launching tsx as the debug runtime to avoid configuration overhead [source](./.skilld/docs/vscode.md#method-2-attach-the-vs-code-debugger-to-a-running-nodejs-process)
 
-- Configure VS Code's launch configuration with `runtimeExecutable: "tsx"` to enable native TypeScript debugging — this provides a seamless debugging experience without needing a separate build step [source](#/Users/syn/.skilld/references/tsx@4.22.4/docs/vscode.md:L13-L64)
-
+- Install `@types/node` alongside TypeScript for full IDE type hints and editor support, even though tsx does not require TypeScript to be installed [source](./.skilld/docs/typescript.md#installation)
 <!-- /skilld:best-practices -->

@@ -1,15 +1,14 @@
 ---
 name: anthropic-ai-claude-code-skilld
-description: 'ALWAYS use when writing code importing "@anthropic-ai/claude-code". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88.'
+description: "Use Claude, Anthropic's AI assistant, right from your terminal. Claude can understand your codebase, edit files, run terminal commands, and handle entire workflows for you. ALWAYS use when writing code importing \"@anthropic-ai/claude-code\". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88."
 metadata:
-  version: 2.1.196
-  generated_by: Anthropic · Haiku 4.5
-  generated_at: 2026-06-30
+  version: 2.1.198
+  generated_by: cached
+  generated_at: 2026-07-02
 ---
 
-# Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.196`
-
-**Tags:** stable: 2.1.185, latest: 2.1.196, next: 2.1.197
+# Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.198`
+**Tags:** stable: 2.1.187, next: 2.1.199, latest: 2.1.198
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md)
 
@@ -18,48 +17,63 @@ metadata:
 Use `skilld search "query" -p @anthropic-ai/claude-code` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @anthropic-ai/claude-code` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
-
 ## API Changes
 
-This section documents version-specific API changes for the Claude Code CLI tool. Since @anthropic-ai/claude-code is primarily a CLI application distributed as a binary, programmatic APIs are exposed through TypeScript interfaces in `sdk-tools.d.ts`.
+This section documents version-specific API changes in @anthropic-ai/claude-code v2.1.198 — prioritize these when using the CLI or SDK.
 
-- DEPRECATED: `team_name` field in AgentInput — ignored; the session has a single implicit team. Use without this parameter. [source](./.skilld/pkg/sdk-tools.d.ts:L439)
+- DEPRECATED: `team_name` parameter in `AgentInput` — ignored as sessions now have a single implicit team [source](./.skilld/pkg/sdk-tools.d.ts:L439)
 
-- DEPRECATED: `shell_id` field in TaskStopInput — use `task_id` instead for stopping background tasks. Both fields are in the interface, but `task_id` is the canonical identifier. [source](./.skilld/pkg/sdk-tools.d.ts:L637)
+- DEPRECATED: `shell_id` parameter in `TaskStopInput` — use `task_id` instead [source](./.skilld/pkg/sdk-tools.d.ts:L637)
 
-**Also changed:** AgentInput model options (`sonnet`, `opus`, `haiku`, `fable`) · EnterWorktreeInput/ExitWorktreeOutput for isolated git worktrees · CronCreateInput/CronDeleteInput/CronListInput for scheduled tasks · ScheduleWakeupInput for dynamic loop pacing · RemoteTriggerInput for remote cloud agent dispatch
+- NEW: `Workflow` tool — orchestrate multi-agent workflows with `agent()`, `parallel()`, `pipeline()`, and `phase()` primitives; supports resumable runs and budget tracking [source](./.skilld/pkg/sdk-tools.d.ts:L2449-2480)
+
+- NEW: `EnterWorktree` and `ExitWorktree` tools — manage isolated git worktrees for parallel development or risky changes; support named or existing worktree paths [source](./.skilld/pkg/sdk-tools.d.ts:L2592-2611)
+
+- NEW: `CronCreate`, `CronDelete`, and `CronList` tools — schedule durable or in-memory cron jobs; supports standard 5-field cron expressions and one-shot scheduling [source](./.skilld/pkg/sdk-tools.d.ts:L2481-2505)
+
+- NEW: `ScheduleWakeup` tool — schedule a single wake-up after a delay (60–3600 seconds); fires the given `/loop` command at the specified time [source](./.skilld/pkg/sdk-tools.d.ts:L2506-2518)
+
+- NEW: `Monitor` tool — watch a shell command or WebSocket stream for events; emits each stdout line or socket frame as an event [source](./.skilld/pkg/sdk-tools.d.ts:L2534-2557)
+
+- NEW: `RemoteTrigger` tool — manage remote trigger actions (list, get, create, update, run) for external integrations [source](./.skilld/pkg/sdk-tools.d.ts:L2520-2532)
+
+- NEW: Task management suite (`TaskCreate`, `TaskGet`, `TaskUpdate`, `TaskList`) — create and manage in-session task lists with status tracking, blocking relationships, and metadata [source](./.skilld/pkg/sdk-tools.d.ts:L2369-2435)
+
+- NEW: `REPL` tool — execute arbitrary JavaScript with top-level await support and persistent state across calls [source](./.skilld/pkg/sdk-tools.d.ts:L2436-2448)
+
+**Also changed:** `Artifact` tool now accepts `favicon`, `label`, `url`, and `force` parameters for managing live artifact versions · `PushNotification` tool for sending mobile and browser notifications
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
-
-## @anthropic-ai/claude-code Best Practices
+## Best Practices — @anthropic-ai/claude-code@2.1.198
 
 ## Best Practices
 
-- Use `isolation: "worktree"` when spawning agents that mutate files in parallel to prevent conflicts — automatically isolates the agent's file system changes and cleans up after completion [source](./.skilld/pkg/sdk-tools.d.ts:L425:427)
+- Define workflow `meta` as a pure literal object with no computed values or function calls — the schema enforces immutability; computed values cause parse failures and make resume semantics ambiguous [source](./.skilld/pkg/sdk-tools.d.ts:L2449:2480)
 
-- Pass `run_in_background: true` and `name: "..."` when launching long-running agents to remain responsive and enable inter-agent messaging — agents without names cannot be addressed via SendMessage [source](./.skilld/pkg/sdk-tools.d.ts:L420:424)
+- Prefer `pipeline()` over `parallel()` in workflows when stages are logically sequential — it provides wall-clock speed (slowest single-item chain) without barrier latency while still running all items concurrently through the stages [source](./.skilld/pkg/sdk-tools.d.ts:L2449:2480)
 
-- Use `pipeline()` instead of `parallel()` for multi-stage workflows by default — provides true streaming where stage N processes items while stage N+1 is still waiting, maximising wall-clock throughput over sequential barriers [source](./.skilld/pkg/README.md:L36:65)
+- Set `persistent: true` on Monitor when watching session-length state (PR monitoring, log tails) — `persistent` ignores the `timeout_ms` default of 300s and runs until TaskStop or session end [source](./.skilld/pkg/sdk-tools.d.ts:L2534:2558)
 
-- Set Bash `timeout` to 600000ms (10 minutes) maximum when running long-running commands to prevent indefinite hangs — specify timeout in milliseconds to enforce absolute limits [source](./.skilld/pkg/sdk-tools.d.ts:L453)
+- Use `ScheduleWakeup` with `delaySeconds` between 300–3600 (5–60 min) for idle polling loops rather than `sleep` commands — avoids blocking, respects prompt cache TTL, and keeps sessions responsive [source](./.skilld/pkg/sdk-tools.d.ts:L2506:2533)
 
-- Read large files with `offset` and `limit` parameters instead of loading entire contents at once — omit these for small files; use only when the file is too large to read in one call to avoid context bloat [source](./.skilld/pkg/sdk-tools.d.ts:L533:540)
+- Spawn worktree-isolated agents for concurrent mutations using `isolation: "worktree"` — prevents file-lock collisions and allows parallel edits across a codebase without shared state hazards [source](./.skilld/pkg/sdk-tools.d.ts:L413:450)
 
-- Always call File.Read before File.Edit to verify the old_string exists and identify exact context — Edit requires reading first; unsourced edits risk silent failures or incorrect replacements [source](./.skilld/pkg/sdk-tools.d.ts:L513:523)
+- Pass `run_in_background: false` to Agent when you need its result before continuing — the default background mode is asynchronous; synchronous agents block until completion but return structured output immediately [source](./.skilld/pkg/sdk-tools.d.ts:L413:450)
 
-- Use `resume_from_run_id` in Workflow to skip re-executing completed agent calls when restarting failed workflows — unchanged agent() prompts return cached results instantly while edited calls re-run, reducing iteration time [source](./.skilld/pkg/sdk-tools.d.ts:L2476:2478)
+- Use `CronCreate` with `durable: true` only when the user explicitly requests the task survive session restarts — the default `durable: false` is in-memory only and auto-deletes with the session [source](./.skilld/pkg/sdk-tools.d.ts:L2481:2505)
 
-- Set Bash `description` to active voice, specific output (not "complex" / "risk"), keeping 5-10 words for simple commands and adding context for piped or obscure-flag commands — descriptions improve permission prompts and audit trails [source](./.skilld/pkg/sdk-tools.d.ts:L462:475)
+- Check `agent()` return value is non-null before using it in workflows — agents fail silently on terminal API errors, returning `null` instead of throwing; filter with `.filter(Boolean)` before downstream work [source](./.skilld/pkg/sdk-tools.d.ts:L91:179)
 
-- Guard budget-aware loops with `budget.total && budget.remaining() > threshold` before spawning agents in workflows — prevents runaway loops and respects user-set token budgets without silent truncation [source](./.skilld/pkg/README.md:L102:108)
+- Set effort levels on expensive verification phases — `effort: "high"` or `"xhigh"` on agents verifying code correctness or security ensures deeper reasoning; low effort is appropriate only for cheap mechanical stages [source](./.skilld/pkg/sdk-tools.d.ts:L2476:2480)
 
-- Use `mode: "plan"` when spawning agents that require explicit approval before editing files, and `mode: "auto"` for fully autonomous agents — mode controls permission prompts and safety guardrails [source](./.skilld/pkg/sdk-tools.d.ts:L426)
+- Override agent model for specific task tiers — use `model: "haiku"` for mechanical stages (pagination, filtering, boilerplate) and `model: "opus"` for novel design/reasoning phases to optimize cost and latency [source](./.skilld/pkg/sdk-tools.d.ts:L413:450)
 
-- Prefer `model: "sonnet"` for most tasks, reserve `"opus"` for complex reasoning, and use `"haiku"` for simple lookups or loop iterations to optimise cost without sacrificing capability [source](./.skilld/pkg/sdk-tools.d.ts:L418:419)
+- Batch file reads using `limit` and `offset` parameters for large files — reading partial chunks avoids token overrun; many small reads in parallel are cheaper than one full read that truncates [source](./.skilld/pkg/sdk-tools.d.ts:L531:548)
 
-- Use Monitor with `persistent: true` for session-length watches (e.g., PR polling, log tails) and `persistent: false` with explicit `timeout_ms` (default 300000ms) for finite checks — persistent monitors must be stopped manually with TaskStop [source](./.skilld/pkg/sdk-tools.d.ts:L2541:2549)
+- Set tool timeouts conservatively: Bash max 600s, Monitor max 3600s, REP max 600s — long operations that timeout silently drop output; estimate wall-clock time and add buffer for network latency [source](./.skilld/pkg/sdk-tools.d.ts:L451:482)
 
-- Declare `meta.phases` in workflows as an array of `{ title, detail }` objects to group agent work into logical stages — phase() calls group progress UI; unmatched phase names create new groups automatically [source](./.skilld/pkg/README.md:L19:22)
+- Resume workflows from runId after edits to cache unchanged agent() calls — the longest unchanged prefix of agent() calls returns cached results instantly; only edited/new calls re-run, preserving prior work [source](./.skilld/pkg/sdk-tools.d.ts:L2449:2480)
 
+- Use `args` to parameterize workflows instead of side-channel files — pass arrays/objects as native JSON (not stringified), and they become the global `args` variable in the script [source](./.skilld/pkg/sdk-tools.d.ts:L2449:2480)
 <!-- /skilld:best-practices -->
