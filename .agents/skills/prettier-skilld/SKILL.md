@@ -1,6 +1,6 @@
 ---
 name: prettier-skilld
-description: "ALWAYS use when writing code importing \"prettier\". Consult for debugging, best practices, or modifying prettier."
+description: 'ALWAYS use when writing code importing "prettier". Consult for debugging, best practices, or modifying prettier.'
 metadata:
   version: 3.9.4
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # prettier/prettier `prettier@3.9.4`
+
 **Tags:** next: 4.0.0-alpha.13, latest: 3.9.4
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p prettier` instead of grepping `.skilld/` directories. Run `skilld search --guide -p prettier` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -57,6 +59,7 @@ This section documents version-specific API changes — prioritize recent major/
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Prefer asynchronous APIs over synchronous ones — the main Prettier entry points are async for a reason, and `@prettier/sync` should only be used when synchronous operation is unavoidable [source](./.skilld/docs/api.md#prettier-format-source-options)
@@ -86,4 +89,5 @@ This section documents version-specific API changes — prioritize recent major/
 - Understand that `printWidth` is a guide, not a hard limit — it specifies the preferred line length for readability, not a maximum like ESLint's `max-len`; Prettier will make both shorter and longer lines to optimize formatting [source](./.skilld/docs/options.md#print-width)
 
 - Enable EditorConfig integration for cross-tool compatibility — Prettier reads `.editorconfig` files and converts them to Prettier config, allowing teams to use a single source of truth for indent style and width [source](./.skilld/docs/configuration.md#editorconfig)
+
 <!-- /skilld:best-practices -->

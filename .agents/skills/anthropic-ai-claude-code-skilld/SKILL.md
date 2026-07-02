@@ -1,6 +1,6 @@
 ---
 name: anthropic-ai-claude-code-skilld
-description: "ALWAYS use when writing code importing \"@anthropic-ai/claude-code\". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88."
+description: 'ALWAYS use when writing code importing "@anthropic-ai/claude-code". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88.'
 metadata:
   version: 2.1.196
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.196`
+
 **Tags:** stable: 2.1.185, latest: 2.1.196, next: 2.1.197
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @anthropic-ai/claude-code` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @anthropic-ai/claude-code` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes for the Claude Code CLI tool. Since @anthropic-ai/claude-code is primarily a CLI application distributed as a binary, programmatic APIs are exposed through TypeScript interfaces in `sdk-tools.d.ts`.
@@ -29,6 +31,7 @@ This section documents version-specific API changes for the Claude Code CLI tool
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## @anthropic-ai/claude-code Best Practices
 
 ## Best Practices
@@ -58,4 +61,5 @@ This section documents version-specific API changes for the Claude Code CLI tool
 - Use Monitor with `persistent: true` for session-length watches (e.g., PR polling, log tails) and `persistent: false` with explicit `timeout_ms` (default 300000ms) for finite checks — persistent monitors must be stopped manually with TaskStop [source](./.skilld/pkg/sdk-tools.d.ts:L2541:2549)
 
 - Declare `meta.phases` in workflows as an array of `{ title, detail }` objects to group agent work into logical stages — phase() calls group progress UI; unmatched phase names create new groups automatically [source](./.skilld/pkg/README.md:L19:22)
+
 <!-- /skilld:best-practices -->
