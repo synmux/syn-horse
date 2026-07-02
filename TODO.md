@@ -8,6 +8,7 @@
 - [ ] consider a second `Pager` implementation on the producer side (e.g. a direct synchronous channel) if/when needed — extend `usePager()` to choose based on channel or runtime config.
 - [ ] decide whether to keep `status = "queued"` rows visible to any future admin UI as in-flight states, vs treating them as failed after a TTL if no consumer-side `delivered` / `delivery_failed` update arrives.
 - [ ] RSS feed at `/feed.xml` — currently linked from the home and blog footers but returns 404. Wants a `server/routes/feed.xml.ts` reading from a `queryCollection`. **(designed & independently reviewed — full spec in `APP.md` §15; ready to implement)**
+- [ ] review `PUBSUB.md` (2026-07-02) and pick a websocket transport for the digital signage device — recommended: dedicated realtime worker + hibernating durable object; build `/api/signage/state` with `ETag` first whichever option wins
 - [ ] mobile breakpoints — the source design ships no `@media` queries; some headings overflow narrow viewports
 
 ## review recommendations (2026-05-09)
