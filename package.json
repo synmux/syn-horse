@@ -89,7 +89,7 @@
     "prepare:nuxt": "bun run nuxt prepare",
     "preview": "bun run-s build preview:wrangler",
     "preview:wrangler": "bun run wrangler dev",
-    "types": "bun run-s prepare:nuxt types:wrangler format",
+    "types": "bun run-s prepare:nuxt types:wrangler",
     "types:wrangler": "bun run wrangler types --config .output/server/wrangler.json",
     "x:test": "vitest",
     "x:test:coverage": "vitest --coverage",
