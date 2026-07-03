@@ -1,6 +1,6 @@
 ---
 name: biomejs-biome-skilld
-description: "ALWAYS use when writing code importing \"@biomejs/biome\". Consult for debugging, best practices, or modifying @biomejs/biome, biomejs/biome, biomejs biome, biome."
+description: 'ALWAYS use when writing code importing "@biomejs/biome". Consult for debugging, best practices, or modifying @biomejs/biome, biomejs/biome, biomejs biome, biome.'
 metadata:
   version: 2.5.2
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # biomejs/biome `@biomejs/biome@2.5.2`
+
 **Tags:** nightly: 1.9.5-nightly.81fdedb, beta: 2.0.0-beta.6, latest: 2.5.2
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @biomejs/biome` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @biomejs/biome` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes in Biome v2.4.x — prioritising recent minor and patch releases where breaking changes and new APIs may not be known to LLMs trained on older data.
@@ -115,6 +117,7 @@ This section documents version-specific API changes in Biome v2.4.x — prioriti
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use Biome's zero-configuration defaults for new projects — the built-in configuration provides sensible rules and formatting behaviour without requiring setup [source](./.skilld/docs/README.md:L76-L85)
@@ -144,4 +147,5 @@ This section documents version-specific API changes in Biome v2.4.x — prioriti
 - Enable `extends` in your `biome.json` to inherit from a shared base configuration and override specific rules — this pattern is especially useful for monorepos or teams that want consistent defaults with per-project customisation [source](./.skilld/issues/issue-6945.md)
 
 - Combine linter rules from multiple domains (javascript, test, style, nursery) by enabling them per language when needed — for example, enable test-specific rules only in test files using file overrides to avoid false positives in production code [source](./.skilld/releases/@biomejs/biome@2.4.15.md:L15) [source](./.skilld/releases/@biomejs/biome@2.4.14.md:L15)
+
 <!-- /skilld:best-practices -->

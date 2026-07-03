@@ -1,6 +1,6 @@
 ---
 name: tsx-skilld
-description: "ALWAYS use when writing code importing \"tsx\". Consult for debugging, best practices, or modifying tsx."
+description: 'ALWAYS use when writing code importing "tsx". Consult for debugging, best practices, or modifying tsx.'
 metadata:
   version: 4.22.5
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # privatenumber/tsx `tsx@4.22.5`
+
 **Tags:** latest: 4.22.5
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p tsx` instead of grepping `.skilld/` directories. Run `skilld search --guide -p tsx` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -29,6 +31,7 @@ This section documents version-specific API changes — prioritize recent major/
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## tsx Best Practices
 
 ## Best Practices
@@ -60,4 +63,5 @@ This section documents version-specific API changes — prioritize recent major/
 - Attach the VS Code debugger to a running tsx process via `--inspect-brk` rather than launching tsx as the debug runtime to avoid configuration overhead [source](./.skilld/docs/vscode.md#method-2-attach-the-vs-code-debugger-to-a-running-nodejs-process)
 
 - Install `@types/node` alongside TypeScript for full IDE type hints and editor support, even though tsx does not require TypeScript to be installed [source](./.skilld/docs/typescript.md#installation)
+
 <!-- /skilld:best-practices -->

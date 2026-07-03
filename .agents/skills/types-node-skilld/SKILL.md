@@ -1,6 +1,6 @@
 ---
 name: types-node-skilld
-description: "ALWAYS use when writing code importing \"@types/node\". Consult for debugging, best practices, or modifying @types/node, types/node, types node, DefinitelyTyped."
+description: 'ALWAYS use when writing code importing "@types/node". Consult for debugging, best practices, or modifying @types/node, types/node, types node, DefinitelyTyped.'
 metadata:
   version: 26.1.0
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # DefinitelyTyped/DefinitelyTyped `@types/node@26.1.0`
+
 **Tags:** ts2.6: 12.12.6, ts2.2: 12.12.6, ts2.4: 12.12.6
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @types/node` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @types/node` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -51,6 +53,7 @@ This section documents version-specific API changes — prioritize recent major/
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Configure `lib` in `tsconfig.json` to include `ESNext` or specific ES-level libs (`es2025.iterator`) for ES builtin types like `Array.fromAsync` and async iterator methods—@types/node does not provide these definitions, TypeScript does via lib configuration [source](./.skilld/discussions/discussion-74504.md), [source](./.skilld/discussions/discussion-74956.md)
@@ -78,4 +81,5 @@ This section documents version-specific API changes — prioritize recent major/
 - Be aware that exception types from child process methods may not precisely match their declared types in all cases (e.g., `execSync` may return Buffer instead of string even when encoding is specified)—add explicit type casts when needed [source](./.skilld/discussions/discussion-75040.md)
 
 - Use `ConstructorParameters<typeof Constructor>[0]` as a workaround to extract and type init objects when explicit type definitions are missing (e.g., `HeadersInit` from `Headers` constructor)—this pattern ensures portability across JavaScript environments [source](./.skilld/discussions/discussion-74411.md)
+
 <!-- /skilld:best-practices -->

@@ -1,6 +1,6 @@
 ---
 name: nuxt-scripts-skilld
-description: "ALWAYS use when writing code importing \"@nuxt/scripts\". Consult for debugging, best practices, or modifying @nuxt/scripts, nuxt/scripts, nuxt scripts, scripts."
+description: 'ALWAYS use when writing code importing "@nuxt/scripts". Consult for debugging, best practices, or modifying @nuxt/scripts, nuxt/scripts, nuxt scripts, scripts.'
 metadata:
   version: 1.3.0
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # nuxt/scripts `@nuxt/scripts@1.3.0`
+
 **Tags:** beta: 1.0.0-beta.32, rc: 1.0.0-rc.11, latest: 1.3.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @nuxt/scripts` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @nuxt/scripts` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -133,6 +135,7 @@ This section documents version-specific API changes — prioritize recent major/
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Wrap `useScript()` calls in composables to create singleton instances — allows reuse across components without re-initializing, and centralizes configuration [source](./.skilld/docs/content/docs/1.guides/0.key-concepts.md:L25:33)
@@ -162,4 +165,5 @@ This section documents version-specific API changes — prioritize recent major/
 - Prefer vendor-native SPA support (e.g. `_iub.cs.api.activateSnippets()` for iubenda) over calling `reload()` on route changes — vendors optimise for their own DOM scanning patterns and avoid unnecessary full script re-execution [source](./.skilld/docs/content/docs/3.api/1.use-script.md:L115:128)
 
 - Use `proxy.alias` to replace third-party hostnames with opaque aliases in proxy paths (e.g. `us.i.posthog.com` → `ph`) — prevents ad-blockers and network observers from classifying requests by hostname, while the server resolves aliases back to real domains transparently [source](./.skilld/docs/content/docs/1.guides/2.first-party.md:L147:188)
+
 <!-- /skilld:best-practices -->

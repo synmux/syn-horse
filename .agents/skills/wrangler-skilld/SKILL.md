@@ -1,6 +1,6 @@
 ---
 name: wrangler-skilld
-description: "ALWAYS use when writing code importing \"wrangler\". Consult for debugging, best practices, or modifying wrangler, workers-sdk, workers sdk."
+description: 'ALWAYS use when writing code importing "wrangler". Consult for debugging, best practices, or modifying wrangler, workers-sdk, workers sdk.'
 metadata:
   version: 4.107.0
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # cloudflare/workers-sdk `wrangler@4.107.0`
+
 **Tags:** wrangler@2.2.4: 2.2.4, legacy: 3.114.17, latest: 4.107.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p wrangler` instead of grepping `.skilld/` directories. Run `skilld search --guide -p wrangler` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes in wrangler v4.x — prioritizing recent minor releases where APIs changed in ways that older training data may not reflect.
@@ -65,6 +67,7 @@ This section documents version-specific API changes in wrangler v4.x — priorit
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use `wrangler types` after changing bindings — do not manually define your Env interface. Run this command whenever you add or rename a binding to generate type definitions that match your configuration exactly, catching mismatches at compile time instead of deploy time [source](./.skilld/docs/workers/best-practices/workers-best-practices.md:L735:751)
@@ -94,4 +97,5 @@ This section documents version-specific API changes in wrangler v4.x — priorit
 - Always `await` or `ctx.waitUntil()` Promises — floating promises cause silent bugs and dropped results. Enable the `no-floating-promises` lint rule (@typescript-eslint/no-floating-promises or oxlint typescript/no-floating-promises) to catch these at development time [source](./.skilld/docs/workers/best-practices/workers-best-practices.md:L1219:1248)
 
 - Test with @cloudflare/vitest-pool-workers to access real bindings — this test environment runs tests inside the Workers runtime, giving access to KV, R2, D1, and Durable Objects. Note: the Vitest pool automatically injects `nodejs_compat`, so confirm your wrangler.jsonc includes the flag if your code depends on Node.js modules [source](./.skilld/docs/workers/best-practices/workers-best-practices.md:L1319:1342)
+
 <!-- /skilld:best-practices -->

@@ -1,6 +1,6 @@
 ---
 name: daisyui-skilld
-description: "ALWAYS use when writing code importing \"daisyui\". Consult for debugging, best practices, or modifying daisyui."
+description: 'ALWAYS use when writing code importing "daisyui". Consult for debugging, best practices, or modifying daisyui.'
 metadata:
   version: 5.6.10
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # saadeghi/daisyui `daisyui@5.6.10`
+
 **Tags:** alpha: 5.6.0-alpha.4, beta: 5.6.0-beta.0, latest: 5.6.10
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p daisyui` instead of grepping `.skilld/` directories. Run `skilld search --guide -p daisyui` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## daisyUI v5 API Changes
 
 This section documents version-specific API changes—prioritize recent major/minor releases.
@@ -95,6 +97,7 @@ This section documents version-specific API changes—prioritize recent major/mi
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices — daisyUI 5.6.10
 
 - Declare themes in the main `@plugin "daisyui"` block before customizing them with `@plugin "daisyui/theme"` — this ensures theme names are registered and customizations apply correctly [source](./skilld/discussions/discussion-4365.md#accepted-answer)
@@ -124,4 +127,5 @@ This section documents version-specific API changes—prioritize recent major/mi
 - Use semantic HTML elements (`<button>`, `<dialog>`, `<details>`) for daisyUI components — they come with built-in accessibility features and proper focus handling [source](./skilld/releases/CHANGELOG.md:L44)
 
 - Leverage `theme-controller` element pattern with input elements and theme switching — daisyUI automatically detects input values matching theme names for dynamic theme selection [source](./skilld/functions/pluginOptionsHandler.js:L25)
+
 <!-- /skilld:best-practices -->

@@ -1,6 +1,6 @@
 ---
 name: nuxt-icon-skilld
-description: "ALWAYS use when writing code importing \"@nuxt/icon\". Consult for debugging, best practices, or modifying @nuxt/icon, nuxt/icon, nuxt icon, icon."
+description: 'ALWAYS use when writing code importing "@nuxt/icon". Consult for debugging, best practices, or modifying @nuxt/icon, nuxt/icon, nuxt icon, icon.'
 metadata:
   version: 2.3.1
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # nuxt/icon `@nuxt/icon@2.3.1`
+
 **Tags:** latest: 2.3.1
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @nuxt/icon` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @nuxt/icon` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritize recent major/minor releases.
@@ -29,6 +31,7 @@ This section documents version-specific API changes — prioritize recent major/
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Use `createResolver(import.meta.url)` with `resolve()` for custom collection directories — ensures paths work correctly in regular projects and when used as extendable layers by other Nuxt projects [source](./.skilld/pkg/README.md:L159:182)
@@ -60,4 +63,5 @@ This section documents version-specific API changes — prioritize recent major/
 - Use `mode: 'svg'` for custom icons requiring fine-grained colour control — enables direct `fill="currentColor"` rendering instead of CSS mask-based rendering [source](./.skilld/issues/issue-402.md:L68:77)
 
 - Create icon aliases in `app.config.ts` to decouple component usage from collection names — makes it easier to swap icon sources without touching component code [source](./.skilld/pkg/README.md:L295:302)
+
 <!-- /skilld:best-practices -->

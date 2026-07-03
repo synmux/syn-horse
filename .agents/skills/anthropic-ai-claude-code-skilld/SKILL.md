@@ -1,6 +1,6 @@
 ---
 name: anthropic-ai-claude-code-skilld
-description: "Use Claude, Anthropic's AI assistant, right from your terminal. Claude can understand your codebase, edit files, run terminal commands, and handle entire workflows for you. ALWAYS use when writing code importing \"@anthropic-ai/claude-code\". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88."
+description: 'Use Claude, Anthropic''s AI assistant, right from your terminal. Claude can understand your codebase, edit files, run terminal commands, and handle entire workflows for you. ALWAYS use when writing code importing "@anthropic-ai/claude-code". Consult for debugging, best practices, or modifying @anthropic-ai/claude-code, anthropic-ai/claude-code, anthropic-ai claude-code, anthropic ai claude code, claude-code-2.1.88, claude code 2.1.88.'
 metadata:
   version: 2.1.198
   generated_by: cached
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # Exhen/claude-code-2.1.88 `@anthropic-ai/claude-code@2.1.198`
+
 **Tags:** stable: 2.1.187, next: 2.1.199, latest: 2.1.198
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @anthropic-ai/claude-code` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @anthropic-ai/claude-code` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes in @anthropic-ai/claude-code v2.1.198 — prioritize these when using the CLI or SDK.
@@ -45,6 +47,7 @@ This section documents version-specific API changes in @anthropic-ai/claude-code
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices — @anthropic-ai/claude-code@2.1.198
 
 ## Best Practices
@@ -76,4 +79,5 @@ This section documents version-specific API changes in @anthropic-ai/claude-code
 - Resume workflows from runId after edits to cache unchanged agent() calls — the longest unchanged prefix of agent() calls returns cached results instantly; only edited/new calls re-run, preserving prior work [source](./.skilld/pkg/sdk-tools.d.ts:L2449:2480)
 
 - Use `args` to parameterize workflows instead of side-channel files — pass arrays/objects as native JSON (not stringified), and they become the global `args` variable in the script [source](./.skilld/pkg/sdk-tools.d.ts:L2449:2480)
+
 <!-- /skilld:best-practices -->

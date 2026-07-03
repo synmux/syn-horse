@@ -1,6 +1,6 @@
 ---
 name: nuxt-content-skilld
-description: "ALWAYS use when writing code importing \"@nuxt/content\". Consult for debugging, best practices, or modifying @nuxt/content, nuxt/content, nuxt content, content."
+description: 'ALWAYS use when writing code importing "@nuxt/content". Consult for debugging, best practices, or modifying @nuxt/content, nuxt/content, nuxt content, content.'
 metadata:
   version: 3.15.0
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # nuxt/content `@nuxt/content@3.15.0`
+
 **Tags:** next: 3.0.0-alpha.8, alpha: 3.0.0-alpha.9, latest: 3.15.0
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p @nuxt/content` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @nuxt/content` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritise recent major/minor releases and v2→v3 migrations.
@@ -95,6 +97,7 @@ This section documents version-specific API changes — prioritise recent major/
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices for @nuxt/content v3.15.0
 
 ## Best Practices
@@ -126,6 +129,7 @@ This section documents version-specific API changes — prioritise recent major/
 - Avoid defining the same file in multiple collections — if a file matches multiple collection sources, hot reload breaks; use `exclude` patterns to prevent overlap [source](/Users/syn/.skilld/references/@nuxt/content@3.15.0/docs/content/docs/2.collections/1.define.md#what-are-content-collections)
 
 - Use `useSearchCollection()` for instant full-text search powered by SQLite FTS5 — zero-dependency built-in solution with prefix matching and snippet extraction [source](/Users/syn/.skilld/references/@nuxt/content@3.15.0/docs/content/docs/8.advanced/1.fulltext-search.md#built-in-fts5-search)
+
 <!-- /skilld:best-practices -->
 
 Related: zod-skilld

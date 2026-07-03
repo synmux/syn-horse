@@ -1,6 +1,6 @@
 ---
 name: ultracite-skilld
-description: "ALWAYS use when writing code importing \"ultracite\". Consult for debugging, best practices, or modifying ultracite."
+description: 'ALWAYS use when writing code importing "ultracite". Consult for debugging, best practices, or modifying ultracite.'
 metadata:
   version: 7.8.4
   generated_by: Anthropic · Haiku 4.5
@@ -8,6 +8,7 @@ metadata:
 ---
 
 # haydenbleasel/ultracite `ultracite@7.8.4`
+
 **Tags:** canary: 5.0.0--canary.162.3c1836f.0, latest: 7.8.4
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
@@ -17,6 +18,7 @@ metadata:
 Use `skilld search "query" -p ultracite` instead of grepping `.skilld/` directories. Run `skilld search --guide -p ultracite` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
+
 ## API Changes
 
 This section documents version-specific API changes — prioritise recent major/minor releases.
@@ -37,6 +39,7 @@ This section documents version-specific API changes — prioritise recent major/
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
+
 ## Best Practices
 
 - Extend framework-specific presets rather than using generic ones — each framework (TanStack, Next.js, Remix, Vue) has dedicated presets that layer framework-aware rules for naming conventions, generated files, and plugin integration [source](./.skilld/releases/ultracite@7.8.0.md#minor-changes)
@@ -66,6 +69,7 @@ This section documents version-specific API changes — prioritise recent major/
 - Keep Biome's default formatter settings unless overriding for a specific reason — Ultracite aligns with Biome's defaults (e.g., `formatter.quoteStyle: "double"`) to simplify migration and reduce cognitive overhead [source](./.skilld/discussions/discussion-168.md)
 
 - Monitor the Ultracite `/updates` page for rule change explanations — rule enablement/disablement decisions are documented with reasoning to help teams understand configuration drift [source](./.skilld/discussions/discussion-584.md)
+
 <!-- /skilld:best-practices -->
 
 Related: zod-skilld
