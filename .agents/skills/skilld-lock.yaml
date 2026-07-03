@@ -47,11 +47,11 @@ skills:
     generator: skilld
   nuxtjs-seo-skilld:
     packageName: "@nuxtjs/seo"
-    version: 5.3.1
-    packages: "@nuxtjs/seo@5.3.1"
+    version: 5.3.2
+    packages: "@nuxtjs/seo@5.3.2"
     repo: harlan-zw/nuxt-seo
-    source: "https://github.com/harlan-zw/nuxt-seo/tree/v5.3.1/docs"
-    syncedAt: 2026-06-25
+    source: "https://github.com/harlan-zw/nuxt-seo/tree/v5.3.2/docs"
+    syncedAt: 2026-07-03
     generator: skilld
   nuxthub-core-skilld:
     packageName: "@nuxthub/core"
@@ -244,11 +244,11 @@ skills:
     generator: skilld
   tsx-skilld:
     packageName: tsx
-    version: 4.22.5
-    packages: "tsx@4.22.5"
+    version: 4.23.0
+    packages: "tsx@4.23.0"
     repo: privatenumber/tsx
-    source: "https://github.com/privatenumber/tsx/tree/v4.22.5/docs"
-    syncedAt: 2026-07-02
+    source: "https://github.com/privatenumber/tsx/tree/v4.23.0/docs"
+    syncedAt: 2026-07-03
     generator: skilld
   ultracite-skilld:
     packageName: ultracite
@@ -275,11 +275,11 @@ skills:
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.198
-    packages: "@anthropic-ai/claude-code@2.1.198"
+    version: 2.1.200
+    packages: "@anthropic-ai/claude-code@2.1.200"
     repo: Exhen/claude-code-2.1.88
     source: "ungh://Exhen/claude-code-2.1.88"
-    syncedAt: 2026-07-02
+    syncedAt: 2026-07-03
     generator: skilld
   drizzle-orm-skilld:
     packageName: drizzle-orm
