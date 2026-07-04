@@ -65,7 +65,7 @@
     "db:migrate:local": "bun run wrangler d1 migrations apply syn-horse --local --config wrangler.dev.jsonc",
     "db:migrate:remote": "bun run wrangler d1 migrations apply syn-horse --remote --config wrangler.dev.jsonc",
     "db:studio": "bun run drizzle-kit studio",
-    "deploy": "bun run-s deploy:stamp deploy:hash build deploy:wrangler",
+    "deploy": "bun run-s deploy:stamp deploy:hash deploy:wrangler",
     "deploy:hash": "git rev-parse --short HEAD > .commithash",
     "deploy:nonprod": "bun run-s deploy:stamp deploy:hash build deploy:nonprod:wrangler",
     "deploy:nonprod:wrangler": "bun run wrangler versions upload",
