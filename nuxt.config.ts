@@ -91,7 +91,7 @@ export default defineNuxtConfig({
         weights: ["100 900"],
       },
       {
-        name: "JetBrains Mono",
+        name: "Space Mono",
         provider: "google",
         styles: ["normal", "italic"],
         weights: ["100 800"],

@@ -19,7 +19,7 @@
     "@takumi-rs/core": "^1.8.7",
     "@takumi-rs/wasm": "^1.8.7",
     "better-sqlite3": "^12.11.1",
-    "daisyui": "^5.6.10",
+    "daisyui": "^5.6.13",
     "drizzle-kit": "^0.31.10",
     "drizzle-orm": "^0.45.2",
     "eslint": "^10.6.0",
@@ -33,7 +33,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@anthropic-ai/claude-code": "^2.1.200",
+    "@anthropic-ai/claude-code": "^2.1.201",
     "@catppuccin/daisyui": "^2.1.1",
     "@catppuccin/tailwindcss": "^1.0.0",
     "@storybloq/storybloq": "^1.4.4",

@@ -275,11 +275,11 @@ skills:
     generator: skilld
   anthropic-ai-claude-code-skilld:
     packageName: "@anthropic-ai/claude-code"
-    version: 2.1.200
-    packages: "@anthropic-ai/claude-code@2.1.200"
+    version: 2.1.201
+    packages: "@anthropic-ai/claude-code@2.1.201"
     repo: Exhen/claude-code-2.1.88
     source: "ungh://Exhen/claude-code-2.1.88"
-    syncedAt: 2026-07-03
+    syncedAt: 2026-07-04
     generator: skilld
   drizzle-orm-skilld:
     packageName: drizzle-orm
@@ -297,11 +297,11 @@ skills:
     generator: skilld
   daisyui-skilld:
     packageName: daisyui
-    version: 5.6.10
-    packages: "daisyui@5.6.10"
+    version: 5.6.13
+    packages: "daisyui@5.6.13"
     repo: saadeghi/daisyui
-    source: "https://github.com/saadeghi/daisyui/tree/v5.6.10/docs"
-    syncedAt: 2026-07-02
+    source: "https://github.com/saadeghi/daisyui/tree/v5.6.13/docs"
+    syncedAt: 2026-07-04
     generator: skilld
   storybloq-storybloq-skilld:
     packageName: "@storybloq/storybloq"

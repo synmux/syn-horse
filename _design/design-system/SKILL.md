@@ -12,7 +12,7 @@ Critical brand rules to enforce:
 
 - lowercase by default; ALL CAPS for errors and threats
 - no emoji (kaomoji + unicode geometry only: ◆ ▶ ✶ ※ ▓ → ←)
-- VT323 for headers, Inter for body, JetBrains Mono for code
+- VT323 for headers, Inter for body, Space Mono for code
 - always layer scanlines + grain + (optional) vignette on full surfaces
 - square corners by default; --radius-1 (2px) for cards; pills only for badges
 - never use soft drop shadows — use glow halos and rgb-split text-shadow

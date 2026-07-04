@@ -9,7 +9,7 @@ Package manager: **bun**, pinned `bun@1.3.14` (package.json `packageManager`). E
 - **Content:** @nuxt/content 3 — `blog` collection (see `mem:core` source map).
 - **Validation:** zod 4 (v4 API: issue key is `error`, not `message`).
 - **OG images:** @takumi-rs/core + @takumi-rs/wasm 1.3 — render `app/components/OgImage/*.takumi.vue`.
-- **Nuxt modules:** @nuxt/fonts (VT323/Inter/JetBrains Mono via Google), @nuxt/icon, @nuxt/image, @nuxt/scripts, @nuxtjs/seo, @nuxtjs/turnstile, nuxt-security (SRI + CSP — `security.sri: true`), nuxt-gtag, @nuxthub/core.
+- **Nuxt modules:** @nuxt/fonts (VT323/Inter/Space Mono via Google), @nuxt/icon, @nuxt/image, @nuxt/scripts, @nuxtjs/seo, @nuxtjs/turnstile, nuxt-security (SRI + CSP — `security.sri: true`), nuxt-gtag, @nuxthub/core.
 - **Tooling:** eslint 10 (@nuxt/eslint flat config) + prettier 3 + trunk (@trunkio/launcher); types via tsc/vue-tsc; ctx7 (Context7) + skilld dev deps.
 - `openai` 6 and `uuid` 14 are dependencies; confirm call sites before assuming scope (IDs server-side use global `crypto.randomUUID()`, not the uuid pkg).
 

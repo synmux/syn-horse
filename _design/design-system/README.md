@@ -104,7 +104,7 @@ semantic vars (`--fg-1`, `--fg-2`, `--bg-elev-1`, `--accent`, etc) are defined i
 
 - **display / headers:** **VT323** (pixel/bitmap, license: SIL OFL via google fonts). Used at large sizes for headlines, section titles, terminal prompts. _flagged: substituted from google fonts since no custom font was provided._
 - **body / ui:** **Inter** (clean grotesque, geometric enough to feel modern, readable enough to not fight the pixel). 14–16px for ui, 17–19px for body.
-- **mono / code:** **JetBrains Mono** for code blocks, terminals, monospaced ui (timestamps, kbd hints).
+- **mono / code:** **Space Mono** for code blocks, terminals, monospaced ui (timestamps, kbd hints).
 
 scale follows a 1.25 modular scale, capped — see `colors_and_type.css`.
 
@@ -235,6 +235,6 @@ these were chosen by me from CDN/Google Fonts because no source assets were prov
 
 - **VT323** → display/header font (substitute for "pixel/bitmap font for headers")
 - **Inter** → body font (substitute for "clean sans body")
-- **JetBrains Mono** → mono font
+- **Space Mono** → mono font
 - **Lucide** → line icon set
 - **logo / wordmark** → drawn from scratch as inline SVG; happy to replace with a real asset

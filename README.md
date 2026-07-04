@@ -188,7 +188,7 @@ A separate Worker — the `syn-horse-notifications` queue consumer — runs each
 
 - [Nuxt 4](https://nuxt.com) with `compatibilityVersion: 4`
 - [@nuxt/content](https://content.nuxt.com) — drives the blog: a `blog` collection (`content/blog/*.md`, schema in `content.config.ts`) queried at runtime with `queryCollection("blog")`
-- [@nuxt/fonts](https://fonts.nuxt.com) — loads VT323, Inter and JetBrains Mono via the Google provider
+- [@nuxt/fonts](https://fonts.nuxt.com) — loads VT323, Inter and Space Mono via the Google provider
 - [@nuxthub/core](https://hub.nuxt.com) — provides the KV and R2 bindings
 - [nuxt-security](https://nuxt-security.com) — SRI, hashed scripts and styles, security headers
 - [Drizzle ORM](https://orm.drizzle.team) — D1-backed; the `/panic` endpoint validates, records to a `panic_pages` table, and enqueues to the `NOTIFICATIONS` queue (see [Paging](#paging)). Auto-imported `useDb(event)` helper lives in `server/utils/db.ts`.

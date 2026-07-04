@@ -71,7 +71,7 @@
 @theme {
   /* fonts — Inter is the default body font */
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --font-mono: "Space Mono", "SF Mono", Menlo, monospace;
   --font-display: "VT323", "Courier New", monospace;
 
   /* spacing — 4px base. `p-1` = 4px, `p-2` = 8px, … `p-32` = 128px */
