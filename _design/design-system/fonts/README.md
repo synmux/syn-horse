@@ -6,7 +6,7 @@ self-hosted, loaded via `@font-face` at the top of `../colors_and_type.css`.
 | ------------------ | ----------------------------------------------------------------------------------- | ----------------- | ------- |
 | **VT323**          | `VT323-Regular.ttf`                                                                 | 400               | SIL OFL |
 | **Inter**          | `Inter-VariableFont_opsz_wght.ttf`, `Inter-Italic-VariableFont_opsz_wght.ttf`       | 100–900 + italics | SIL OFL |
-| **Space Mono** | `SpaceMono-VariableFont_wght.ttf`, `SpaceMono-Italic-VariableFont_wght.ttf` | 100–900 + italics | SIL OFL |
+| **Space Mono**     | `SpaceMono-VariableFont_wght.ttf`, `SpaceMono-Italic-VariableFont_wght.ttf` | 100–900 + italics | SIL OFL |
 
 ## roles
 
