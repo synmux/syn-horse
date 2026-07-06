@@ -192,11 +192,11 @@ skills:
     generator: skilld
   ctx7-skilld:
     packageName: ctx7
-    version: 0.5.3
-    packages: "ctx7@0.5.3"
+    version: 0.5.4
+    packages: "ctx7@0.5.4"
     repo: upstash/context7
-    source: "https://github.com/upstash/context7/tree/ctx7@0.5.3/docs"
-    syncedAt: 2026-06-25
+    source: "https://github.com/upstash/context7/tree/ctx7@0.5.4/docs"
+    syncedAt: 2026-07-06
     generator: skilld
   nuxt-gtag-skilld:
     packageName: nuxt-gtag
@@ -297,18 +297,19 @@ skills:
     generator: skilld
   daisyui-skilld:
     packageName: daisyui
-    version: 5.6.13
-    packages: "daisyui@5.6.13"
+    version: 5.6.14
+    packages: "daisyui@5.6.14"
     repo: saadeghi/daisyui
-    source: "https://github.com/saadeghi/daisyui/tree/v5.6.13/docs"
-    syncedAt: 2026-07-04
+    source: "https://github.com/saadeghi/daisyui/tree/v5.6.14/docs"
+    syncedAt: 2026-07-06
     generator: skilld
   storybloq-storybloq-skilld:
     packageName: "@storybloq/storybloq"
-    version: 1.4.4
+    version: 1.5.0
+    packages: "@storybloq/storybloq@1.5.0"
     repo: Storybloq/storybloq
-    source: "https://github.com/Storybloq/storybloq/tree/v1.4.4/docs"
-    syncedAt: 2026-06-15
+    source: "https://github.com/Storybloq/storybloq/tree/v1.5.0/docs"
+    syncedAt: 2026-07-06
     generator: skilld
   vite-plugin-eslint2-skilld:
     packageName: vite-plugin-eslint2
