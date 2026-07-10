@@ -34,8 +34,6 @@ This left me with a simple JSON array of post content. I fed it to ChatGPT.
 ## The conversation
 
 ```plaintext
-🧑🏻‍🎤
-
 Analyse my Mastodon posts, the text of which are in an array in the attached file, and give me a humorous but insightful summary of who I am.
 
 `[ outbox_posts-only_plain.json ]`
