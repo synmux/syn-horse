@@ -1,15 +1,14 @@
 ---
 name: tailwindcss-cli-skilld
-description: 'ALWAYS use when writing code importing "@tailwindcss/cli". Consult for debugging, best practices, or modifying @tailwindcss/cli, tailwindcss/cli, tailwindcss cli, tailwindcss.'
+description: "ALWAYS use when writing code importing \"@tailwindcss/cli\". Consult for debugging, best practices, or modifying @tailwindcss/cli, tailwindcss/cli, tailwindcss cli, tailwindcss."
 metadata:
-  version: 4.3.2
+  version: 4.3.3
   generated_by: Anthropic · Haiku 4.5
-  generated_at: 2026-06-29
+  generated_at: 2026-07-18
 ---
 
-# tailwindlabs/tailwindcss `@tailwindcss/cli@4.3.2`
-
-**Tags:** internal: 0.0.0-internal.b2586d4e, next: 4.0.0, latest: 4.3.2
+# tailwindlabs/tailwindcss `@tailwindcss/cli@4.3.3`
+**Tags:** internal: 0.0.0-internal.b2586d4e, next: 4.0.0, insiders: 0.0.0-insiders.094bf62
 
 **References:** [package.json](./.skilld/pkg/package.json) • [README](./.skilld/pkg/README.md) • [Docs](./.skilld/docs/_INDEX.md) • [Issues](./.skilld/issues/_INDEX.md) • [Discussions](./.skilld/discussions/_INDEX.md) • [Releases](./.skilld/releases/_INDEX.md)
 
@@ -18,51 +17,31 @@ metadata:
 Use `skilld search "query" -p @tailwindcss/cli` instead of grepping `.skilld/` directories. Run `skilld search --guide -p @tailwindcss/cli` for full syntax, filters, and operators.
 
 <!-- skilld:api-changes -->
-
 ## API Changes
 
-This section documents version-specific API changes in @tailwindcss/cli v4.3.2 — prioritizing recent major/minor releases and significant deprecations.
+This section documents version-specific API changes in @tailwindcss/cli v4.x. The latest published version is v4.3.1 (not v4.3.3). Focus on recent major/minor releases.
 
-- NEW: `@container-size` utility — new in v4.3.0, generates CSS for container query size features [source](./.skilld/releases/v4.3.0.md:L11)
+- CHANGED: Spacing utilities (`m-0`, `left-0`, etc.) generate `0` instead of `calc(var(--spacing) * 0)`, and `m-1`, `left-1` generate `var(--spacing)` instead of `calc(var(--spacing) * 1)`. This is a silent output change affecting generated CSS — layouts may appear different if you relied on the previous calculation [source](./.skilld/releases/v4.3.1.md:L45:46)
 
-- NEW: `scrollbar-{auto,thin,none}` utilities for `scrollbar-width`, plus `scrollbar-thumb-*` / `scrollbar-track-*` color utilities for `scrollbar-color` — added v4.3.0 [source](./.skilld/releases/v4.3.0.md:L12)
+- NEW: `--silent` option for @tailwindcss/cli to suppress build output [source](./.skilld/releases/v4.3.1.md:L16)
 
-- NEW: `scrollbar-gutter-*` utilities — added v4.3.0, controls scrollbar gutter reservation [source](./.skilld/releases/v4.3.0.md:L13)
+- DEPRECATED: `start-*` and `end-*` utilities — use `inset-s-*` (inset-inline-start) and `inset-e-*` (inset-inline-end) instead [source](./.skilld/releases/v4.2.0.md:L42)
 
-- NEW: `zoom-*` utilities — added v4.3.0, generates CSS zoom values [source](./.skilld/releases/v4.3.0.md:L14)
+- NEW: `@tailwindcss/webpack` package — run Tailwind CSS as a webpack plugin alongside the existing CLI and PostCSS/Vite integrations [source](./.skilld/releases/v4.2.0.md:L12)
 
-- NEW: `tab-*` utilities — added v4.3.0, generates CSS for tab sizing and alignment [source](./.skilld/releases/v4.3.0.md:L15)
+- NEW: `@container-size` utility for CSS container queries; also new `@variant` support for stacked (e.g. `@variant hover:focus { … }`) and compound (e.g. `@variant hover, focus { … }`) variants [source](./.skilld/releases/v4.3.0.md:L11)
 
-- NEW: `@variant` with stacked and compound variants — v4.3.0 allows `@variant hover:focus { … }` and `@variant hover, focus { … }` syntax [source](./.skilld/releases/v4.3.0.md:L16:L17)
+- NEW: `scrollbar-*` family — `scrollbar-{auto,thin,none}` for `scrollbar-width`, `scrollbar-thumb-*` and `scrollbar-track-*` color utilities for `scrollbar-color`, and `scrollbar-gutter-*` utilities [source](./.skilld/releases/v4.3.0.md:L12:14)
 
-- NEW: `--default(…)` in functional `@utility` definitions — v4.3.0 adds support for default value fallbacks in `--value(…)` and `--modifier(…)` [source](./.skilld/releases/v4.3.0.md:L18)
+- NEW: Logical property utilities (v4.2.0) — `pbs-*` / `pbe-*` (padding-block), `mbs-*` / `mbe-*` (margin-block), `scroll-pbs-*` / `scroll-pbe-*`, `scroll-mbs-*` / `scroll-mbe-*`, `border-bs-*` / `border-be-*`, `inline-*` / `min-inline-*` / `max-inline-*`, `block-*` / `min-block-*` / `max-block-*`, and `inset-s-*` / `inset-e-*` / `inset-bs-*` / `inset-be-*` [source](./.skilld/releases/v4.2.0.md:L13:20)
 
-- DEPRECATED: `start-*` and `end-*` utilities — deprecated v4.2.0, migrate to `inset-s-*` and `inset-e-*` utilities which use logical properties [source](./.skilld/releases/v4.2.0.md:L42)
-
-- NEW: Logical property utilities — v4.2.0 adds complete set: `pbs-*` / `pbe-*` (padding-block), `mbs-*` / `mbe-*` (margin-block), `scroll-pbs-*` / `scroll-pbe-*`, `scroll-mbs-*` / `scroll-mbe-*`, `border-bs-*` / `border-be-*`, `inline-*` / `block-*` with min/max variants, and `inset-s-*` / `inset-e-*` / `inset-bs-*` / `inset-be-*` [source](./.skilld/releases/v4.2.0.md:L13:L20)
-
-- NEW: `font-features-*` utility — v4.2.0 adds utility for `font-feature-settings` CSS property [source](./.skilld/releases/v4.2.0.md:L21)
-
-- NEW: `@tailwindcss/webpack` package — v4.2.0 introduces webpack plugin support for running Tailwind as a webpack plugin [source](./.skilld/releases/v4.2.0.md:L12)
-
-- NEW: `--silent` option for @tailwindcss/cli — v4.3.1 adds CLI flag to suppress output [source](./.skilld/releases/v4.3.1.md:L16)
-
-- BREAKING: Spacing CSS generation changed — v4.3.1 generates `0` instead of `calc(var(--spacing) * 0)` for zero-value utilities, and `var(--spacing)` instead of `calc(var(--spacing) * 1)` for single-unit utilities [source](./.skilld/releases/v4.3.1.md:L45:L46)
-
-- NEW: Arbitrary value unit preservation in canonicalization — v4.3.0+ preserves original units in arbitrary values instead of normalizing to base units (e.g. `-mt-[20in]` stays as `mt-[-20in]`, not `mt-[-1920px]`) [source](./.skilld/releases/v4.3.0.md:L28)
-
-- NEW: `h-lh` / `min-h-lh` / `max-h-lh` utilities — v4.1.5 adds line-height-based sizing utilities [source](./.skilld/releases/CHANGELOG.md:L391)
-
-- NEW: `@tailwindcss/upgrade` tool for v4.* — v4.1.5 enables upgrading between v4.x versions and includes automatic arbitrary-to-named-value conversion (e.g. `h-[1lh]` → `h-lh`) [source](./.skilld/releases/v4.1.6.md:L11)
-
-**Also changed:** DEPRECATED `bg-{left,right}-{top,bottom}` in favor of `bg-{top,bottom}-{left,right}` · DEPRECATED `object-{left,right}-{top,bottom}` in favor of `object-{top,bottom}-{left,right}` · DEPRECATED `break-words` replaced by `wrap-break-word` · DEPRECATED `clip` utility, use `clip-path` · DEPRECATED `order-none`, use `order-0` · DEPRECATED `shadow-inner` · DEPRECATED `decoration-slice` and `decoration-clone`, use `box-decoration-slice` and `box-decoration-break` · NEW arbitrary `:has()` variants migrate from `[&:has(…)]` to `has-[…]` syntax · BREAKING spacing-scale logic — utilities now use division instead of multiplication in calc expressions for better semantics
+**Also changed:** `zoom-*` utilities · `tab-*` utilities · `font-features-*` utility for `font-feature-settings` · Support `--default(…)` in functional `@utility` definitions · Export missing `PluginWithConfig` type from `tailwindcss/plugin`
 <!-- /skilld:api-changes -->
 
 <!-- skilld:best-practices -->
-
 ## Best Practices
 
-- Use the `--silent` flag to suppress non-error output when running the CLI in automated pipelines or CI/CD environments — reduces log noise without losing error information [source](./.skilld/releases/v4.3.1.md:L11)
+- Use the `--silent` flag to suppress non-error output when running the CLI in automated pipelines or CI/CD environments — reduces log noise without losing error information [source](./.skilld/releases/v4.3.1.md:L10)
 
 - Use `--watch=always` to keep the CLI watching for changes even when stdin is closed — necessary for development servers and long-running processes that expect continuous rebuilds [source](./.skilld/releases/v4.1.11.md:L13)
 
@@ -70,24 +49,23 @@ This section documents version-specific API changes in @tailwindcss/cli v4.3.2 �
 
 - Specify the `--cwd` option explicitly when running the CLI from different directories or in containerised environments — ensures paths are resolved correctly relative to your project structure [source](./.skilld/docs/index.md:L1)
 
-- Generate output to a named file rather than piping to stdout in scripts — output to `/dev/stdout` is supported but can cause hangs in certain environments; explicit file output is more reliable [source](./.skilld/releases/v4.1.18.md:L25)
+- Use narrow `@source` patterns (e.g. `@source "../*.php"` not `@source "../**/*"`) to improve watch mode performance — overly broad patterns cause the CLI to scan unnecessary directories, especially with large directory structures [source](./.skilld/issues/issue-15750.md:L50)
 
-- Use the `canonicalize` subcommand to audit and suggest optimised class names — automatically converts verbose arbitrary utilities to Tailwind's built-in equivalents [source](./.skilld/releases/CHANGELOG.md)
-
-- Be aware that `--watch` mode scans more directories than strictly necessary based on `@source` directives — use narrow `@source` patterns (e.g. `@source "../*.php"` not `@source "../**/*"`) to improve watch mode performance, especially with large directory structures [source](./.skilld/issues/issue-15750.md:L50)
+- When using Docker bind mounts that don't forward filesystem events, use `chokidar-cli` as a workaround since the `--poll` option was removed — run `npx chokidar` with `--initial --polling` flags to detect changes in containerised environments [source](./.skilld/issues/issue-18540.md:L102)
 
 - Apply `--minify` (or `--optimize` without minification) at build time for production — reduces CSS bundle size significantly; most Tailwind projects ship under 10kB minified [source](./.skilld/releases/CHANGELOG.md)
 
-- When using Docker bind mounts that don't forward filesystem events, use `chokidar-cli` as a workaround since the `--poll` option was removed and `@parcel/watcher` doesn't support polling — run `npx chokidar` with `--initial --polling` flags [source](./.skilld/issues/issue-18540.md:L102)
+- Generate output to a named file rather than piping to stdout in scripts — output to `/dev/stdout` is supported but can cause hangs in certain environments; explicit file output is more reliable [source](./.skilld/releases/v4.1.18.md:L25)
 
-- Verify that duplicate CLI arguments are handled correctly in your build scripts — the CLI normalises duplicate flags, so ordering matters for overrides [source](./.skilld/releases/v4.1.18.md:L23)
+- Use the `canonicalize` subcommand to audit and suggest optimised class names — automatically converts verbose arbitrary utilities to Tailwind's built-in equivalents, respecting original units and operator spacing [source](./.skilld/releases/v4.3.0.md:L26)
 
-- Use `NODE_PATH` environment variable with standalone CLI binaries when you need to resolve external modules — necessary for isolated/offline environments using pre-built executables [source](./.skilld/releases/CHANGELOG.md:L19617)
+- Type-hint arbitrary values when using utilities with ambiguous prefixes — when font-size and text-color utilities share the same prefix (e.g. `text-*`), use type hints to specify which CSS property is intended [source](./.skilld/discussions/discussion-20141.md:L53)
 
-- Ensure tracked dependencies remain available when using `--watch` mode — the CLI now recovers gracefully if a tracked file is deleted and restored, but total removal can still interrupt watching [source](./.skilld/releases/v4.3.1.md:L24)
+- When defining custom `@utility` rules that accept spacing values, use `--spacing(--value(integer))` instead of trying to directly reference `--value(--spacing-*)` — spacing tokens are resolved through the function, not as theme variables [source](./.skilld/discussions/discussion-20218.md:L48)
 
-- Prefer explicit `--input` and `--output` flags over relying on defaults to avoid ambiguity in scripts — while defaults exist (`-` for stdout output), explicit paths are clearer for maintainability and reduce surprises in CI environments [source](./.skilld/docs/index.md:L1)
+- Preserve arbitrary values during canonicalization rather than expanding to theme scale when the value doesn't map cleanly — use arbitrary values like `w-[123px]` when they exactly match a design specification or when introducing a custom theme token would add unnecessary complexity [source](./.skilld/discussions/discussion-20142.md:L31)
 
+- Ensure tracked dependencies remain available in `--watch` mode — the CLI now recovers gracefully if a tracked file is deleted and restored, but total removal can interrupt watching; structure your source globs to be resilient to temporary file deletions [source](./.skilld/releases/v4.3.1.md:L24)
 <!-- /skilld:best-practices -->
 
 Related: tailwindcss-skilld
