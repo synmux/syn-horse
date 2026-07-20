@@ -43,3 +43,6 @@ logs
 
 # playwright
 .playwright-mcp
+
+# skilld
+.agents/skills/*-skilld
