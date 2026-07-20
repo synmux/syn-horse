@@ -1,25 +1,37 @@
 <script setup lang="ts">
-import { CV_ROLES, SIDE, TALKS } from "~/data/cv"
+// import { CV_ROLES, SIDE, TALKS } from "~/data/cv"
 import { SITE } from "~/data/site"
 
 useSeoMeta({
   title: `cv · ${SITE.name}`,
   description: "20+ years in devops, sre, and sysadmin."
 })
+
 </script>
 
 <template>
   <div class="page-shell">
-    <div class="eyebrow">▶ /cv · last revised 2026.03 · pdf available on request</div>
+    <div class="eyebrow">▶ /cv · last revised 2026.07 · just a pdf for now</div>
     <h1 class="page-h1">cv<span class="dot">.</span></h1>
     <p class="lede">
       20+ years in devops, sre, and sysadmin. terraform, pulumi, kubernetes, prometheus, more shellscript than is
-      strictly healthy, Opinions about <code>fish</code>.
+      strictly healthy, will tell you about <code>fish</code> whether you want to hear it or not.
+    </p>
+    <br />
+    <p>
+      <strong> contact me by email</strong> - the address is in the pdf.
+    </p>
+    <br />
+    <p>
+      I can't promise a fast response if you message me on linkedin, but you're welcome to peruse my profile.
     </p>
     <div class="cv-actions">
-      <button type="button" class="btn-syn fx-glitch">↓ download pdf</button>
-      <button type="button" class="btn-syn fx-glitch">↗ linkedin (don't)</button>
-      <button type="button" class="btn-syn fx-glitch">✉ email for full ref list</button>
+      <NuxtLink to="/files/cv.dave-williams.pdf" target="_blank" rel="noopener noreferrer">
+        <button type="button" class="btn-syn fx-glitch">↓ download pdf</button>
+      </NuxtLink>
+      <a href="https://www.linkedin.com/in/dcwilliams" target="_blank" rel="noopener noreferrer">
+        <button type="button" class="btn-syn fx-glitch">↗ linkedin (don't)</button>
+      </a>
     </div>
 
     <!--
