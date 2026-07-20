@@ -48,7 +48,7 @@ export default defineNuxtConfig({
   content: {
     database: {
       type: "d1",
-      bindingName: "DB",
+      bindingName: "DB_CONTENT",
     },
   },
   css: ["~/assets/css/main.css"],
@@ -107,21 +107,24 @@ export default defineNuxtConfig({
       dialect: "sqlite",
       driver: "d1",
       connection: { databaseId: "2722c422-9352-45b5-9e7f-a4f6504e4f85" },
+      binding: "DB",
     },
     // KV namespace (binding defaults to 'KV')
     kv: {
+      binding: "KV",
       driver: "cloudflare-kv-binding",
-      namespaceId: "e8ba4689173e4710aaff726ce8ddb225",
+      namespaceId: "3fa198f1477f456c8d27eb9a72562a4b",
     },
     // Cache KV namespace (binding defaults to 'CACHE')
     cache: {
+      binding: "CACHE",
       driver: "cloudflare-kv-binding",
-      namespaceId: "6d108e06dbe144ff9752c63084e4bd85",
+      namespaceId: "d7a8a6c935354a17a4c2d26bc1056710",
     },
     // R2 bucket (binding defaults to 'BLOB')
     blob: {
       driver: "cloudflare-r2",
-      bucketName: "blob-syn-horse",
+      bucketName: "syn-horse",
       binding: "BLOB",
     },
   },
@@ -187,13 +190,11 @@ export default defineNuxtConfig({
         },
         compatibility_date: compatibilityDate,
         compatibility_flags: ["nodejs_compat", "nodejs_compat_populate_process_env"],
-        // D1 binding for @nuxt/content. database_name must match the name registered in
-        // Cloudflare (verify with `wrangler d1 list`); database_id is authoritative for routing.
         d1_databases: [
           {
-            binding: "DB",
-            database_name: "syn-horse",
-            database_id: "2722c422-9352-45b5-9e7f-a4f6504e4f85",
+            binding: "DB_CONTENT", // D1 binding for @nuxt/content
+            database_name: "content-syn-horse",
+            database_id: "32a0099e-1ecf-4ff5-8abc-0fd52f90b482",
             migrations_dir: "server/db/migrations/sqlite",
             preview_database_id: "deab36c7-6839-4025-a9c2-16f61327abd7",
           },
@@ -207,16 +208,6 @@ export default defineNuxtConfig({
           binding: "IMAGES",
         },
         keep_names: true,
-        kv_namespaces: [
-          {
-            binding: "CACHE",
-            id: "d7a8a6c935354a17a4c2d26bc1056710",
-          },
-          {
-            binding: "KV",
-            id: "3fa198f1477f456c8d27eb9a72562a4b",
-          },
-        ],
         limits: {
           cpu_ms: 30_000,
         },
@@ -248,7 +239,7 @@ export default defineNuxtConfig({
             },
           ],
         },
-        r2_buckets: [{ binding: "BLOB", bucket_name: "syn-horse" }],
+        // r2_buckets: [{ binding: "BLOB", bucket_name: "syn-horse" }],
         routes: [
           {
             custom_domain: true,

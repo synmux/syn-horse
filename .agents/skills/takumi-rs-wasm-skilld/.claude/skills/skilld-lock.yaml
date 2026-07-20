@@ -1,8 +1,0 @@
-skills:
-  takumi-rs-wasm-skilld:
-    packageName: "@takumi-rs/wasm"
-    version: 1.7.0
-    repo: kane50613/takumi
-    source: "https://takumi.kane.tw/llms.txt"
-    syncedAt: 2026-06-05
-    generator: skilld

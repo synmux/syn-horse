@@ -4,7 +4,7 @@ import { SITE } from "~/data/site"
 
 useSeoMeta({
   title: `cv · ${SITE.name}`,
-  description: "10+ years in devops, sre, and sysadmin."
+  description: "20+ years in devops, sre, and sysadmin."
 })
 </script>
 
@@ -13,8 +13,8 @@ useSeoMeta({
     <div class="eyebrow">▶ /cv · last revised 2026.03 · pdf available on request</div>
     <h1 class="page-h1">cv<span class="dot">.</span></h1>
     <p class="lede">
-      10+ years in devops, sre, and sysadmin. terraform, nomad, kubernetes, prometheus, more bash than is strictly
-      healthy. terse on purpose.
+      20+ years in devops, sre, and sysadmin. terraform, pulumi, kubernetes, prometheus, more shellscript than is
+      strictly healthy, Opinions about <code>fish</code>.
     </p>
     <div class="cv-actions">
       <button type="button" class="btn-syn fx-glitch">↓ download pdf</button>
@@ -22,6 +22,7 @@ useSeoMeta({
       <button type="button" class="btn-syn fx-glitch">✉ email for full ref list</button>
     </div>
 
+    <!--
     <h2 class="cv-h2"><span class="num">01 ·</span> work</h2>
     <div v-for="(r, i) in CV_ROLES" :key="i" class="cv-role">
       <div class="left">
@@ -69,5 +70,5 @@ useSeoMeta({
         </p>
       </div>
     </div>
-  </div>
+  --></div>
 </template>
