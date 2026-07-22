@@ -32,7 +32,7 @@ const activeId = computed(() => {
     class="nav sticky top-8 z-99 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-b border-void-4 bg-void/70 px-4 py-3 font-sans text-[13px] backdrop-blur-md md:flex-nowrap md:gap-4.5 md:px-8 md:py-3.5"
   >
     <NuxtLink to="/" class="fx-glitch flex cursor-pointer items-center gap-2.5">
-      <img class="h-7 w-7 [image-rendering:pixelated]" src="/assets/logo-mark.svg" alt="" />
+      <img class="h-7 w-7 [image-rendering:pixelated]" src="/images/logo-mark.svg" alt="" />
       <span class="font-display text-[26px] leading-none tracking-[0.01em] text-paper">
         syn<span class="text-hot">.</span>horse
       </span>

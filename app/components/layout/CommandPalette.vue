@@ -121,7 +121,7 @@ useEventListener("keydown", (e: KeyboardEvent) => {
 <template>
   <div
     v-if="palette.isOpen.value"
-    class="fixed inset-0 z-[1000] flex items-start justify-center bg-void/85 pt-[12vh] backdrop-blur-[6px]"
+    class="fixed inset-0 z-1000 flex items-start justify-center bg-void/85 pt-[12vh] backdrop-blur-[6px]"
     @click.self="palette.hide()"
   >
     <div
