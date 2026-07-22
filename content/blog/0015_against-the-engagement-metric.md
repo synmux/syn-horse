@@ -2,9 +2,9 @@
 path: /blog/against-the-engagement-metric
 date: 2026-02-11
 title: "against the engagement metric"
-description: "on running a personal site with one number that goes up sometimes. (it is the uptime counter.)"
+description: "on running a personal site which apparently is of no interest to anyone."
 tags: ["rant", "meta"]
-read: "5 min"
+read: "a few minutes"
 future: true
 ---
 

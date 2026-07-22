@@ -2,9 +2,9 @@
 path: /blog/computers-got-too-polite
 date: 2026-04-18
 title: "computers got too polite"
-description: "every interface now sounds like a flight attendant who has been instructed never to say anything useful."
+description: "when computers started talking to us, they became insufferable"
 tags: ["rant"]
-read: "6 min"
+read: "a few minutes"
 future: true
 ---
 
