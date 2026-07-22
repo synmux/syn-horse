@@ -19,11 +19,10 @@ const { data: blogCount } = await useAsyncData(
         devops<br />and bad<br />ideas<span class="text-hot">.</span>
       </h1>
       <NuxtImg
-        src="/images/self/self-small.jpg"
+        src="/images/self/self-small-transbg.webp"
         alt="a portrait of syn"
         width="420"
         height="420"
-        sizes="100vw sm:50vw md:400px"
         class="aspect-square self-stretch h-full object-cover max-md:order-first max-md:mx-auto max-md:h-48 max-md:w-48"
       />
     </div>
