@@ -30,7 +30,7 @@ useSeoMeta({
         <button type="button" class="btn-syn fx-glitch">↓ download pdf</button>
       </NuxtLink>
       <a href="https://www.linkedin.com/in/dcwilliams" target="_blank" rel="noopener noreferrer">
-        <button type="button" class="btn-syn fx-glitch">↗ linkedin (don't)</button>
+        <button type="button" class="btn-syn fx-glitch">↗ linkedin (really?)</button>
       </a>
     </div>
 
