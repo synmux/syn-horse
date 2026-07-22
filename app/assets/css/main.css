@@ -814,7 +814,7 @@
     pointer-events: none;
     content: "";
     image-rendering: pixelated;
-    background-image: url("/assets/skull.svg");
+    background-image: url("/images/skull.svg");
     background-repeat: no-repeat;
     background-position: right -6px center;
     background-size: 112px;
@@ -882,6 +882,7 @@
     margin-top: 28px;
   }
   .blog-filter .tg {
+    -webkit-user-select: none;
     cursor: pointer;
     user-select: none;
   }

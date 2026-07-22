@@ -29,7 +29,7 @@ const activeId = computed(() => {
 
 <template>
   <nav
-    class="nav sticky top-8 z-[99] flex flex-wrap items-center gap-x-4 gap-y-1.5 border-b border-void-4 bg-void/70 px-4 py-3 font-sans text-[13px] backdrop-blur-md md:flex-nowrap md:gap-4.5 md:px-8 md:py-3.5"
+    class="nav sticky top-8 z-99 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-b border-void-4 bg-void/70 px-4 py-3 font-sans text-[13px] backdrop-blur-md md:flex-nowrap md:gap-4.5 md:px-8 md:py-3.5"
   >
     <NuxtLink to="/" class="fx-glitch flex cursor-pointer items-center gap-2.5">
       <img class="h-7 w-7 [image-rendering:pixelated]" src="/assets/logo-mark.svg" alt="" />
@@ -43,7 +43,7 @@ const activeId = computed(() => {
       :key="t.id"
       :to="t.to"
       :class="[
-        'fx-glitch relative px-1 py-1.5 font-sans text-[13px] lowercase transition-colors duration-[80ms] ease-snap hover:text-paper',
+        'fx-glitch relative px-1 py-1.5 font-sans text-[13px] lowercase transition-colors duration-80 ease-snap hover:text-paper',
         activeId === t.id ? 'text-paper' : 'text-paper-3'
       ]"
     >

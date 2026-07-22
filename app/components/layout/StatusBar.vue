@@ -49,7 +49,7 @@ const slug = computed(() => {
 
 <template>
   <div
-    class="statusbar sticky top-0 z-[100] flex h-8 items-center justify-between gap-3 overflow-hidden border-b border-void-4 bg-void/85 px-4.5 py-1.5 font-mono text-[11px] tracking-[0.08em] uppercase text-paper-3 backdrop-blur-md md:grid md:grid-cols-[auto_1fr_auto_auto_auto_auto_auto] md:justify-normal md:gap-4"
+    class="statusbar sticky top-0 z-100 flex h-8 items-center justify-between gap-3 overflow-hidden border-b border-void-4 bg-void/85 px-4.5 py-1.5 font-mono text-[11px] tracking-[0.08em] uppercase text-paper-3 backdrop-blur-md md:grid md:grid-cols-[auto_1fr_auto_auto_auto_auto_auto] md:justify-normal md:gap-4"
   >
     <span>
       light status:
