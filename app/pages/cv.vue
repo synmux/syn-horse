@@ -6,7 +6,6 @@ useSeoMeta({
   title: `cv · ${SITE.name}`,
   description: "20+ years in devops, sre, and sysadmin."
 })
-
 </script>
 
 <template>
@@ -18,13 +17,9 @@ useSeoMeta({
       strictly healthy, will tell you about <code>fish</code> whether you want to hear it or not.
     </p>
     <br />
-    <p>
-      <strong> contact me by email</strong> - the address is in the pdf.
-    </p>
+    <p><strong> contact me by email</strong> - the address is in the pdf.</p>
     <br />
-    <p>
-      I can't promise a fast response if you message me on linkedin, but you're welcome to peruse my profile.
-    </p>
+    <p>I can't promise a fast response if you message me on linkedin, but you're welcome to peruse my profile.</p>
     <div class="cv-actions">
       <NuxtLink to="/files/cv.dave-williams.pdf" target="_blank" rel="noopener noreferrer">
         <button type="button" class="btn-syn fx-glitch">↓ download pdf</button>

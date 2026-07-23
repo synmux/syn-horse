@@ -14,8 +14,8 @@ useSeoMeta({
     <div class="eyebrow">▶ /contact · email is open · so are dms, mostly</div>
     <h1 class="page-h1">say hi<span class="dot">.</span></h1>
     <p class="lede">
-      email works. signal works. the rest are listed because i feel obligated. lead with what you
-      want. don't bother with pleasantries.
+      email works. signal works. the rest are listed because i feel obligated. lead with what you want. don't bother
+      with pleasantries.
     </p>
     <div class="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-5">
       <div>
