@@ -15,9 +15,9 @@ I'd like to share a few of them with you. You won't find all of these useful in 
 
 ## Which shell?
 
-Many of the tools I'll mention are shell-agnostic, meaning that they don't care which shell you're using. The shell functions later in this piece are intended for [`fish`](https://github.com/fish-shell/fish-shell) and in most cases will not work directly in `bash` or `zsh`.
+Many of the tools I'll mention are shell-agnostic, meaning that they don't care which shell you're using. The shell functions later in this piece are intended for `fish` and in most cases will not work directly in `bash` or `zsh`.
 
-I am a big proponent of `fish`. It's not nothing that the syntax differs from what you might be more familiar with, but I like the changes.
+I am a big proponent of `fish`. It's not nothing that the syntax differs from what you might be more familiar with, but I like the changes: blocks that simply run to an `end` instead of `do`/`done` and `then`/`fi`, variables whose scope and export status you have to state outright rather than inferring from context, and first-class array variables with a dedicated helper for the one thing everybody actually wants to do to `$PATH`.
 
 One example is the following -
 
@@ -37,7 +37,6 @@ fi
 export FOO=BAR
 
 export PATH=$PATH:/path/to/bin
-
 ```
 
 ### `fish`
@@ -78,7 +77,7 @@ I'll admit that if you disregard the syntax changes, you can implement pretty mu
 
 ## Prompt
 
-I use [`tide`](https://github.com/IlanCosman/tide) and adore it. It's beautiful and asynchronous so it won't slow you down.
+I use `tide` and adore it. It's beautiful and asynchronous so it won't slow you down.
 
 ![CleanShot 2025-04-23 at 11.57.56@2x.png](Good%20Times%20in%20the%20Shell%201a2b7795690c80f28d17e8c525c3a81b/CleanShot_2025-04-23_at_11.57.562x.png)
 
@@ -86,7 +85,7 @@ It will be installed in the list of plugins below, starting its config routine w
 
 ## Shell Plugins
 
-The [`fisher`](https://github.com/jorgebucaran/fisher) plugin manager is a must-have. It does what it does quietly and without any hassle.
+The `fisher` plugin manager is a must-have. It does what it does quietly and without any hassle.
 
 Here is my `~/.config/fish/fish_plugins` -
 
@@ -108,10 +107,9 @@ nickeb96/puffer-fish           # Speed up directory navigation
 oh-my-fish/plugin-foreign-env  # Wrap bash/zsh syntax into fish
 oh-my-fish/plugin-osx          # macOS utility commands
 wfxr/forgit                    # Git utilities - requires fzf!
-
 ```
 
-When you've installed `fisher` and created this file, just run `fisher update` to get set up. If you've added [`tide`](https://github.com/IlanCosman/tide) then its configuration routine will also start at this point.
+When you've installed `fisher` and created this file, just run `fisher update` to get set up. If you've added `tide` then its configuration routine will also start at this point.
 
 ## Shell Functions
 
@@ -257,73 +255,73 @@ From here on, we're dealing with stuff that doesn't really care which shell you 
 
 They're sorted alphabetically rather than in any meaningful order.
 
-### [`atuin`](https://github.com/atuinsh/atuin)
+### `atuin`
 
 Oh, `atuin`, how I love thee. Its primary purpose is to sync your shell history between machines, and it does that very well. It also offers a simple synced key-value store and dotfile and script management, but I don't use those.
 
-### [`bat`](https://github.com/sharkdp/bat)
+### `bat`
 
 It's `cat`, but pretty! Smart enough to detect whether you're trying to output to a terminal, and add syntax highlighting, line numbers, and file headers, or whether it's being used in a pipe in which case it operates exactly the same as `cat`.
 
-### [`chezmoi`](https://github.com/twpayne/chezmoi)
+### `chezmoi`
 
 The One True Dotfile Manager. Provides a bulletproof system for syncing dotfiles to a Git repository, and thus syncing them between machines. Supports various forms of encryption for sensitive dotfiles, including `sops` and `age`.
 
-### [`direnv`](https://github.com/direnv/direnv)
+### `direnv`
 
 Simple environment management. Applies variable changes defined in `.env` files and removes them when you leave the directory in question. Simple, bulletproof, immensely useful. Plays nice with `fish`.
 
-### [`eza`](https://github.com/eza-community/eza)
+### `eza`
 
 Replacement for `ls`. You can pretty much alias `ls` to it and never look back. Faster, more flexible, better featured.
 
-### [`fzf`](https://github.com/junegunn/fzf)
+### `fzf`
 
 A very important building block for other tools. Provides a user interface to select options from a list - that's all. It can be - and is - used in interesting ways by other tools. Should be installed even if you never invoke it by hand.
 
-### [`lefthook`](https://github.com/evilmartians/lefthook)
+### `lefthook`
 
 One of many Git hook managers, this one is just my choice. If I'm not using `trunk` in a repository (which has its own hook management) this does the job nicely.
 
-### [`mise`](https://github.com/jdx/mise)
+### `mise`
 
 Absolutely key to my workflow. Version manager, environment manager, task runner. Using `mise` and `chezmoi` makes it really easy to sync my toolset between machines. It can handle language-specific packaging systems, as well as `ubi` to simply fetch GitHub release binaries.
 
-### [`opencommit`](https://github.com/di-sukharev/opencommit)
+### `opencommit`
 
 I don't know the last time I actually wrote a Git commit message. Uses an AI model to generate your commit message and pretty much always gets it right. Supports Gitmoji and Conventional Commits.
 
-### [`pik`](https://github.com/jacek-kurlit/pik)
+### `pik`
 
 Simple process killer. When you just want to nuke something and don't want to think about it too much, `pik` is here to help.
 
-### [`ripgrep`](https://github.com/BurntSushi/ripgrep)
+### `ripgrep`
 
 It's `grep` but specifically designed for codebases, and much faster because of it. Ignores things that you probably don't want to be searching.
 
-### [`shadowenv`](https://github.com/Shopify/shadowenv)
+### `shadowenv`
 
 When `direnv` is too simple, there's `shadowenv`. Uses a LISP config file and you can do some pretty interesting things with its logic.
 
-### [`tlm`](https://github.com/yusufcanb/tlm)
+### `tlm`
 
-Same idea as [`ai-shell`](https://github.com/BuilderIO/ai-shell) but using a locally-running model. Uses [`ollama`](https://github.com/ollama/ollama) to manage models, and allows you to turn free text into shell commands.
+Same idea as `ai-shell` but using a locally-running model. Uses `ollama` to manage models, and allows you to turn free text into shell commands.
 
-### [`xc`](https://github.com/joerdav/xc)
+### `xc`
 
-Task runner, notable for using [`README.md`](http://README.md) as its configuration file so that your documentation becomes your task runner config. I use `mise` for task management much more commonly, but generally I include the task specifications in `xc`'s format so it can be used too.
+Task runner, notable for using `README.md` as its configuration file so that your documentation becomes your task runner config. I use `mise` for task management much more commonly, but generally I include the task specifications in `xc`'s format so it can be used too.
 
-### [`zellij`](https://github.com/zellij-org/zellij)
+### `zellij`
 
 We all love `tmux`, but `zellij` is `tmux` on steroids. More batteries included, easier to configure, generally more flexible.
 
-#### [`zoxide`](https://github.com/ajeetdsouza/zoxide)
+### `zoxide`
 
 Directory jumper. Keeps track of all the directories you enter. When you want to go back into a directory, execute `z SEARCHTEXT` and you'll `cd` into the most recently used directory matching `SEARCHTEXT`.
 
 ## More
 
-There are so many more utilities I use, but I'm going to leave that for another post. If you want to skip the wait and explore yourself, here's my [`mise`](https://github.com/jdx/mise) config file which you can use to install pretty much everything I use.
+There are so many more utilities I use, but I'm going to leave that for another post. If you want to skip the wait and explore yourself, here's my `mise` config file which you can use to install pretty much everything I use.
 
 I've split it into two sections because Notion disables syntax highlighting over 10k characters. They should be combined into `~/.config/mise/config.toml`.
 
