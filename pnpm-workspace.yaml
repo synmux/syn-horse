@@ -2,8 +2,8 @@
 #
 # since pnpm 11 this file (camelCase keys) is the home for every setting that
 # is not auth or registry related. `.npmrc` is restricted to auth/registry
-# only and non-auth keys placed there are silently ignored - see `.npmrc` for
-# the equivalent ini spelling kept purely for reference.
+# only; non-auth keys placed there are silently ignored (verified on pnpm
+# 12.4.1, no warning is printed), which is why this repo has no `.npmrc`.
 
 allowBuilds:
   "@anthropic-ai/claude-code": true
