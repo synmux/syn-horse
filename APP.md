@@ -91,7 +91,7 @@ Request flow in words:
 
 | Layer           | Choice                                                                                                                                          | Notes                                                                                                                      |
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| Package manager | **bun** `1.3.14` (pinned)                                                                                                                       | ESM only (`"type": "module"`). Everything via `bun run …`.                                                                 |
+| Package manager | **pnpm** `12.4.1` (pinned via `packageManager` in `package.json`)                                                                               | ESM only (`"type": "module"`). Everything via `pnpm …`.                                                                    |
 | Framework       | **Nuxt 4.4** (`compatibilityVersion: 4`, `srcDir: app/`)                                                                                        | Vue 3.5, vue-router 5.                                                                                                     |
 | Server          | **Nitro** (nitropack 2.13)                                                                                                                      | `preset: "cloudflare_module"`, `nodeCompat: true`.                                                                         |
 | Deploy target   | **Cloudflare Workers** (wrangler 4)                                                                                                             | Smart placement, 30 s CPU limit, observability + source maps on.                                                           |
@@ -302,19 +302,19 @@ The single most useful planning fact: **the Worker is provisioned with far more 
 than the app currently uses.** Several bindings are bound in production with zero app code
 behind them - building a feature on them needs no new infrastructure.
 
-| Binding               | Type                                           | Emulated in `bun run dev`? | Used by app today?                                 |
-| --------------------- | ---------------------------------------------- | -------------------------- | -------------------------------------------------- |
-| `DB`                  | D1 database (`syn-horse`)                      | ✅ yes                     | ✅ `@nuxt/content` + `panic_pages`                 |
-| `KV`                  | KV namespace                                   | ✅ yes                     | ⚠️ via NuxtHub/framework; little/no direct app use |
-| `CACHE`               | KV namespace                                   | ✅ yes                     | ⚠️ framework cache                                 |
-| `BLOB`                | R2 bucket                                      | ✅ yes                     | ❌ not used by app code                            |
-| `NOTIFICATIONS`       | Queue **producer** (`syn-horse-notifications`) | ✅ yes                     | ✅ `/api/panic`                                    |
-| `CF_VERSION_METADATA` | version metadata                               | ✅ yes                     | version badge plumbing                             |
-| `AI`                  | Workers AI                                     | ❌ remote-only             | ❌ **unused**                                      |
-| `BROWSER`             | Browser Rendering                              | ❌ remote-only             | ❌ **unused**                                      |
-| `IMAGES`              | Images                                         | ❌ remote-only             | ❌ **unused**                                      |
-| `ANALYTICS`           | Analytics Engine dataset (`syn-horse`)         | ❌ remote-only             | ❌ **unused**                                      |
-| `ASSETS`              | Workers static assets                          | deploy-only                | serves `public/` + build output                    |
+| Binding               | Type                                           | Emulated in `pnpm dev`? | Used by app today?                                 |
+| --------------------- | ---------------------------------------------- | ----------------------- | -------------------------------------------------- |
+| `DB`                  | D1 database (`syn-horse`)                      | ✅ yes                  | ✅ `@nuxt/content` + `panic_pages`                 |
+| `KV`                  | KV namespace                                   | ✅ yes                  | ⚠️ via NuxtHub/framework; little/no direct app use |
+| `CACHE`               | KV namespace                                   | ✅ yes                  | ⚠️ framework cache                                 |
+| `BLOB`                | R2 bucket                                      | ✅ yes                  | ❌ not used by app code                            |
+| `NOTIFICATIONS`       | Queue **producer** (`syn-horse-notifications`) | ✅ yes                  | ✅ `/api/panic`                                    |
+| `CF_VERSION_METADATA` | version metadata                               | ✅ yes                  | version badge plumbing                             |
+| `AI`                  | Workers AI                                     | ❌ remote-only          | ❌ **unused**                                      |
+| `BROWSER`             | Browser Rendering                              | ❌ remote-only          | ❌ **unused**                                      |
+| `IMAGES`              | Images                                         | ❌ remote-only          | ❌ **unused**                                      |
+| `ANALYTICS`           | Analytics Engine dataset (`syn-horse`)         | ❌ remote-only          | ❌ **unused**                                      |
+| `ASSETS`              | Workers static assets                          | deploy-only             | serves `public/` + build output                    |
 
 Why some bindings are **not** emulated locally: wrangler's `getPlatformProxy()` switches to a
 remote authenticated session the moment any binding lacks local Miniflare emulation, which
@@ -402,42 +402,42 @@ Notes for extending it:
 
 ## 10. Build, dev, deploy & verify
 
-All via bun (authoritative list: `package.json` `scripts`).
+All via pnpm (authoritative list: `package.json` `scripts`).
 
 ```bash
-bun run dev                 # Nuxt dev on :3000; local CF bindings via Miniflare (wrangler.dev.jsonc)
-bun run build               # nuxt build → wrangler types (regenerates worker-configuration.d.ts)
-bun run preview             # build, then wrangler dev against .output/
-bun run deploy              # stamp buildtime+hash → build → wrangler deploy  ⚠️ explicit request only
-bun run deploy:nonprod      # wrangler versions upload (preview version, no prod promote)
+pnpm dev                    # Nuxt dev on :3000; local CF bindings via Miniflare (wrangler.dev.jsonc)
+pnpm build                  # nuxt build → wrangler types (regenerates worker-configuration.d.ts)
+pnpm preview                # build, then wrangler dev against .output/
+pnpm run deploy             # stamp buildtime+hash → build → wrangler deploy  ⚠️ explicit request only
+pnpm deploy:nonprod         # wrangler versions upload (preview version, no prod promote)
 
-bun run db:generate         # drizzle-kit generate → server/db/migrations/sqlite/
-bun run db:migrate:local    # wrangler d1 migrations apply syn-horse --local  --config wrangler.dev.jsonc
-bun run db:migrate:remote   # wrangler d1 migrations apply syn-horse --remote --config wrangler.dev.jsonc
-bun run db:studio           # drizzle-kit studio
+pnpm db:generate            # drizzle-kit generate → server/db/migrations/sqlite/
+pnpm db:migrate:local       # wrangler d1 migrations apply syn-horse --local  --config wrangler.dev.jsonc
+pnpm db:migrate:remote      # wrangler d1 migrations apply syn-horse --remote --config wrangler.dev.jsonc
+pnpm db:studio              # drizzle-kit studio
 ```
 
 **Verify gate (run before claiming a code task done):**
 
-1. `bun run lint:types` - `tsc --noEmit`, must pass clean.
-2. `bun run lint` - eslint + trunk + types together. Auto-fix with `bun run lint:fix` then
-   `bun run format`, then re-run.
-3. If bindings or DB schema changed: `bun run build` (also regenerates `worker-configuration.d.ts`).
+1. `pnpm lint:types` - `tsc --noEmit`, must pass clean.
+2. `pnpm lint` - eslint + trunk + types together. Auto-fix with `pnpm lint:fix` then
+   `pnpm format`, then re-run.
+3. If bindings or DB schema changed: `pnpm build` (also regenerates `worker-configuration.d.ts`).
 
 > ⚠️ **There is no working test runner.** The `x:test*` scripts call `vitest`/`playwright`,
 > neither of which is installed. "Run the tests" is currently impossible - verify changes
-> manually via `bun run dev` / `bun run preview`, or raise installing a runner. This is in
+> manually via `pnpm dev` / `pnpm preview`, or raise installing a runner. This is in
 > tension with the global "test everything" rule; flag it, don't silently skip.
 >
-> ⚠️ **`bun run lint` has known noise** (per the 2026-05-09 review): `lint:eslint` lints the
+> ⚠️ **`pnpm lint` has known noise** (per the 2026-05-09 review): `lint:eslint` lints the
 > frozen `_DIO/`/`_DSOY/`/`_design/` dirs, and `lint:trunk` flags installed agent-skill files.
 > Making the gate green is itself a backlog item (§12).
 
 **Migration application** - the two docs disagree and it is worth knowing before you run them:
 `AGENTS.md` (and Serena `core`) say local migrations **auto-apply via NuxtHub** on
-`bun run dev`; `README.md:63` says migrations sit at a non-default path NuxtHub **doesn't**
-watch. The safe operational truth: **remote is always explicit** (`bun run db:migrate:remote`);
-for local, run `bun run db:migrate:local` and don't assume auto-apply. `db:generate` produces
+`pnpm dev`; `README.md:63` says migrations sit at a non-default path NuxtHub **doesn't**
+watch. The safe operational truth: **remote is always explicit** (`pnpm db:migrate:remote`);
+for local, run `pnpm db:migrate:local` and don't assume auto-apply. `db:generate` produces
 no diff when you only touch a schema `enum` array. Reconciling this wording is a doc task (§12).
 
 ---
@@ -477,8 +477,8 @@ already attached by the `/api/**` route rule.
 ### Add a D1 table / column
 
 1. Edit `server/db/schema.ts` (use `text({ enum: [...] })` for fixed value sets; derive types).
-2. `bun run db:generate` → inspect the new `00NN_*.sql`.
-3. `bun run db:migrate:local`, test, then `bun run db:migrate:remote` before deploying code that
+2. `pnpm db:generate` → inspect the new `00NN_*.sql`.
+3. `pnpm db:migrate:local`, test, then `pnpm db:migrate:remote` before deploying code that
    needs the new shape.
 
 ### Add blog content
@@ -594,7 +594,7 @@ and reorganised by **theme + readiness**. Tags: 🟢 quick win · 🟡 needs des
 
 ### Tooling, docs & hygiene
 
-- 🟢 Make `bun run lint` (eslint + trunk) pass locally, or scope it away from frozen/skill dirs.
+- 🟢 Make `pnpm lint` (eslint + trunk) pass locally, or scope it away from frozen/skill dirs.
 - 🟡 Decide whether the `x:test*` scripts are real, and add a **smoke-test suite** for core routes
   (`/`, `/blog`, a known post, `/feed.xml`, `/robots.txt`, `/sitemap.xml`, `/api/panic` paths).
 - 🟢 Dependency audit - `openai`, `uuid`, `dotenv`/`@dotenvx/dotenvx`, `node-gyp`, `untun`,
@@ -626,7 +626,7 @@ and reorganised by **theme + readiness**. Tags: 🟢 quick win · 🟡 needs des
 
 **Technical gotchas:**
 
-- **No test runner** (§10). **`bun run lint` has known noise** (§10, §12).
+- **No test runner** (§10). **`pnpm lint` has known noise** (§10, §12).
 - **CSS keyframes are global** - duplicate names collide silently; keep them near the top of
   `main.css` and in scope of the `prefers-reduced-motion` block.
 - **`security.sri: true`** - avoid inline `:style` bindings; bind a class, dynamic value in CSS.
@@ -845,7 +845,7 @@ export function renderPostBodyToHtml(body: Parameters<typeof toHast>[0], baseUrl
 
   `/feed.xml` is outside `/api/**`, so it doesn't inherit the no-cache API rule. _Optional later
   optimisation:_ add `/feed.xml` to `nitro.prerender.routes` to emit a static file (zero runtime
-  cost) - but **validate** that `bun run build` actually emits it and that the content query runs
+  cost) - but **validate** that `pnpm build` actually emits it and that the content query runs
   at prerender (MODERATE confidence; no prerender exists in the repo today).
 
 - **Head:** add to `app.head.link` in `nuxt.config.ts` (import `SITE` for the href):
@@ -857,7 +857,7 @@ export function renderPostBodyToHtml(body: Parameters<typeof toHast>[0], baseUrl
 - **`SITE.feed` everywhere:** `app/pages/blog/index.vue` (`:href`), `app/pages/index.vue`,
   **`app/data/social.ts`** (the `/contact` link - the review catch).
 - **Dependencies:** add `feed` (runtime; tree is `feed → xml-js → sax`, all pure JS - bundling
-  under `cloudflare_module` is expected given `nodejs_compat`, but **confirm in `bun run build`**;
+  under `cloudflare_module` is expected given `nodejs_compat`, but **confirm in `pnpm build`**;
   `feed`'s `engines.node >=20` is build-time only). Declare `minimark` and `hast-util-to-html` as
   **direct** deps (already transitive - makes the imports honest and pins the contract).
 
@@ -866,10 +866,10 @@ export function renderPostBodyToHtml(body: Parameters<typeof toHast>[0], baseUrl
 - **Edge cases:** per-item render failure → catch, log, degrade to description-only; empty body
   (`value: []`) → `content` empty → `<content:encoded>` omitted; empty collection → valid
   item-less feed; `future` excluded in prod; relative URLs absolutised.
-- **Verification** (no automated test runner exists): `bun run dev` → fetch `/feed.xml`, assert
+- **Verification** (no automated test runner exists): `pnpm dev` → fetch `/feed.xml`, assert
   well-formed XML, newest-first, `<content:encoded>` with real HTML, absolute URLs; [W3C Feed
-  Validator](https://validator.w3.org/feed/); `bun run lint:types` + `bun run lint`; `bun run
-build` → `bun run preview` → fetch `/feed.xml` against prod output (confirm `feed` bundled,
+  Validator](https://validator.w3.org/feed/); `pnpm lint:types` + `pnpm lint`; `pnpm
+build` → `pnpm preview` → fetch `/feed.xml` against prod output (confirm `feed` bundled,
   `future` excluded, and that `nuxt-security`'s global headers don't disturb the XML body). A pure
   unit test for `renderPostBodyToHtml` is the natural first test if a runner ever lands.
 - **Risks:** (1) `feed` Workers bundling - expected, unconfirmed until build; (2) `minimark`

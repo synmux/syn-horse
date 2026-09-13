@@ -14,15 +14,15 @@ Toolchain versions are pinned in `mise.toml` and `.tool-versions`. With [`mise`]
 
 ```bash
 mise install
-bun install
+pnpm install
 ```
 
-If you would rather manage tools yourself: Node 24.16.0, Bun 1.3.14.
+If you would rather manage tools yourself: Node 24.20.0. pnpm is pinned by the `packageManager` field in `package.json` (currently pnpm 12.4.1).
 
 ## Development
 
 ```bash
-bun run dev
+pnpm dev
 ```
 
 Boots the Nuxt dev server on `http://localhost:3000`. Cloudflare bindings (D1, KV, Cache, R2, the `NOTIFICATIONS` queue, version metadata, vars) are wired through nitropack's built-in `cloudflare-dev` preset, which reads `wrangler.dev.jsonc` via `nitro.cloudflareDev.configPath` in `nuxt.config.ts`. AI, Browser, Images, and Analytics bindings exist in production but aren't emulated locally - they need an authenticated remote-bindings session, so they're left commented out in `wrangler.dev.jsonc` until dev code needs them.
@@ -30,27 +30,27 @@ Boots the Nuxt dev server on `http://localhost:3000`. Cloudflare bindings (D1, K
 ## Production
 
 ```bash
-bun run build      # nuxt build + wrangler types regen
-bun run preview    # local wrangler dev against .output/
-bun run deploy     # wrangler deploy (production)
+pnpm build         # nuxt build + wrangler types regen
+pnpm preview       # local wrangler dev against .output/
+pnpm run deploy        # wrangler deploy (production)
 ```
 
 ## Linting and formatting
 
 ```bash
-bun run lint              # eslint + trunk + tsc --noEmit
-bun run lint:types        # type check only
-bun run lint:fix          # eslint --fix + trunk fix
-bun run format            # prettier --write + trunk fmt
+pnpm lint                 # eslint + trunk + tsc --noEmit
+pnpm lint:types           # type check only
+pnpm lint:fix             # eslint --fix + trunk fix
+pnpm format               # prettier --write + trunk fmt
 ```
 
 ## Database (D1 + Drizzle)
 
 ```bash
-bun run db:generate         # drizzle-kit generate → server/db/migrations/sqlite/
-bun run db:migrate:local    # apply migrations to local Miniflare D1
-bun run db:migrate:remote   # apply migrations to production D1
-bun run db:studio           # drizzle-kit studio (browse the schema)
+pnpm db:generate            # drizzle-kit generate → server/db/migrations/sqlite/
+pnpm db:migrate:local       # apply migrations to local Miniflare D1
+pnpm db:migrate:remote      # apply migrations to production D1
+pnpm db:studio              # drizzle-kit studio (browse the schema)
 ```
 
 ### Setup at a glance
@@ -80,7 +80,7 @@ export type PageStatus = (typeof panicPages.$inferSelect)["status"]
 
 - **Frontend types:** `import type { Channel } from "~~/server/db/schema"` in any `.vue` or `.ts` file. Type-only imports are erased at compile time, so the client bundle never pulls the schema module - only the union literal travels.
 - **Server-side runtime validation:** `z.enum(panicPages.channel.enumValues)` - `enumValues` is Drizzle's typed runtime tuple, so the Zod validator and TypeScript stay in lockstep.
-- **SQL:** Drizzle's SQLite `enum` option is a TypeScript-only constraint; the column stays plain `TEXT` and `bun run db:generate` won't emit a diff when you only touch the enum array. Add a manual `CHECK (col IN (...))` clause to a migration if you also want database-level enforcement.
+- **SQL:** Drizzle's SQLite `enum` option is a TypeScript-only constraint; the column stays plain `TEXT` and `pnpm db:generate` won't emit a diff when you only touch the enum array. Add a manual `CHECK (col IN (...))` clause to a migration if you also want database-level enforcement.
 
 Adding or removing a value is a one-line edit to the schema array - TypeScript then surfaces every site that needs to handle it.
 
@@ -93,11 +93,11 @@ There's intentionally no `wrangler.{json,jsonc,toml}` at the repo root: nitropac
 ### Day-to-day loop
 
 1. Edit `server/db/schema.ts` - add or modify tables.
-2. `bun run db:generate` - `drizzle-kit generate` writes a new `00NN_*.sql` under `server/db/migrations/sqlite/` and updates `meta/_journal.json`.
+2. `pnpm db:generate` - `drizzle-kit generate` writes a new `00NN_*.sql` under `server/db/migrations/sqlite/` and updates `meta/_journal.json`.
 3. Inspect the generated SQL. If it's a destructive change, sanity-check against data you don't want to lose.
-4. Apply locally with `bun run db:migrate:local`. Test with `bun run dev`.
-5. Apply to production with `bun run db:migrate:remote` - before deploy if new code references new tables, after if only adding indexes / non-required columns.
-6. `bun run deploy` if you also changed worker code.
+4. Apply locally with `pnpm db:migrate:local`. Test with `pnpm dev`.
+5. Apply to production with `pnpm db:migrate:remote` - before deploy if new code references new tables, after if only adding indexes / non-required columns.
+6. `pnpm run deploy` if you also changed worker code.
 
 ### Bringing a cold environment up to date
 
@@ -106,14 +106,14 @@ If you're applying to a database that has tables but no `d1_migrations` tracking
 **Step 1** - inspect the target database
 
 ```bash
-bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
+pnpm wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
   --command "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"
 ```
 
 If `d1_migrations` appears in the output, also run:
 
 ```bash
-bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
+pnpm wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
   --command "SELECT name FROM d1_migrations ORDER BY id"
 ```
 
@@ -124,17 +124,17 @@ Swap `--remote` for `--local` to inspect the local Miniflare database.
 | State                                                   | What to do                                               |
 | ------------------------------------------------------- | -------------------------------------------------------- |
 | `panic_pages` already has the queue-era columns         | Nothing - skip to Step 3.                                |
-| `panic_pages` present, `d1_migrations` has the 0000 row | `bun run db:migrate:remote` (or `:local`).               |
+| `panic_pages` present, `d1_migrations` has the 0000 row | `pnpm db:migrate:remote` (or `:local`).                  |
 | `panic_pages` present but no `d1_migrations` 0000 row   | Backfill the tracking row first (see below), then apply. |
-| Empty                                                   | `bun run db:migrate:remote` - all three run from clean.  |
+| Empty                                                   | `pnpm db:migrate:remote` - all three run from clean.     |
 
 To backfill the tracking row:
 
 ```bash
-bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
+pnpm wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
   --command "CREATE TABLE IF NOT EXISTS d1_migrations(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, applied_at DATETIME DEFAULT CURRENT_TIMESTAMP); INSERT OR IGNORE INTO d1_migrations(name) VALUES ('0000_stale_omega_sentinel.sql');"
 
-bun run db:migrate:remote
+pnpm db:migrate:remote
 ```
 
 Same recipe works for local - swap `--remote` for `--local` and use `db:migrate:local`.
@@ -142,7 +142,7 @@ Same recipe works for local - swap `--remote` for `--local` and use `db:migrate:
 **Step 3** - verify
 
 ```bash
-bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
+pnpm wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
   --command "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"
 ```
 
@@ -153,10 +153,10 @@ Should list at least `d1_migrations`, `panic_pages`, `sqlite_sequence`.
 - **Turnstile secret key.** `NUXT_TURNSTILE_SECRET_KEY` must be set as a Workers secret - without it, `verifyTurnstileToken` returns `{ success: false }` and every `/panic` submission 403s:
 
   ```bash
-  bun run wrangler secret put NUXT_TURNSTILE_SECRET_KEY
+  pnpm wrangler secret put NUXT_TURNSTILE_SECRET_KEY
   ```
 
-- **Worker deploy.** `bun run db:migrate:remote` doesn't deploy code. Run `bun run deploy` after migrations land cleanly.
+- **Worker deploy.** `pnpm db:migrate:remote` doesn't deploy code. Run `pnpm run deploy` after migrations land cleanly.
 
 ## Pages
 

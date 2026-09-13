@@ -16,17 +16,19 @@
 
 ### verification and tooling
 
-- [ ] make `bun run lint` pass locally, or adjust the documented command. Today `bun run lint:eslint` checks `_DIO/`, `_DSOY/` and `_design/` even though they are frozen/export directories, while Trunk already ignores them.
-- [ ] make `bun run lint:trunk` pass, or scope Trunk away from generated/local agent skill files under `.agents/skills/**`; the current run reports markdown/yaml issues in installed skill files plus the intentional TODO in `server/api/panic.post.ts`.
+- [ ] make `pnpm lint` pass locally, or adjust the documented command. Today `pnpm lint:eslint` checks `_DIO/`, `_DSOY/` and `_design/` even though they are frozen/export directories, while Trunk already ignores them.
+- [ ] make `pnpm lint:trunk` pass, or scope Trunk away from generated/local agent skill files under `.agents/skills/**`; the current run reports markdown/yaml issues in installed skill files plus the intentional TODO in `server/api/panic.post.ts`.
 - [ ] decide whether the `x:test*` scripts are real project commands. They currently call `vitest` and `playwright`, but neither binary is installed as a direct dependency, so both version checks fail with `command not found`.
 - [ ] add a small smoke-test suite for core routes: `/`, `/blog`, one known `/blog/<slug>`, `/feed.xml`, `/robots.txt`, `/sitemap.xml`, and `/api/panic` validation failure/success paths.
 - [ ] add a content-asset check that scans Markdown image links and fails CI when the target is missing or accidentally relative to the wrong directory.
 - [ ] audit direct dependencies and move/remove packages that are only historical or optional peers: candidates include `openai`, `uuid`, `dotenv`, `@dotenvx/dotenvx`, `node-gyp`, `untun`, `nuxi`, `@catppuccin/*`, and possibly `@libsql/client` / `better-sqlite3` if they are only present for local `@nuxt/content` support.
 - [ ] consider gating `devtools.enabled` / timeline config to development only, unless the Nuxt production build is confirmed to tree-shake all devtools runtime.
 - [ ] avoid side effects in `nuxt.config.ts`: it writes `.buildtime` when imported if the file is missing. Prefer a build/deploy script, environment variable, or Nitro hook so config evaluation stays read-only.
-- [ ] fix the pinact `401 Bad credentials` failures in `bun run lint:trunk` (2026-08-16): pinact verifies GitHub Actions pin annotations against api.github.com and the ambient GitHub token is being rejected, producing 11 "security issues" across `.github/workflows/*` - refresh `gh auth` / `GITHUB_TOKEN` (or configure pinact's token) so the check can resolve commit hashes again
+- [ ] fix the pinact `401 Bad credentials` failures in `pnpm lint:trunk` (2026-08-16): pinact verifies GitHub Actions pin annotations against api.github.com and the ambient GitHub token is being rejected, producing 11 "security issues" across `.github/workflows/*` - refresh `gh auth` / `GITHUB_TOKEN` (or configure pinact's token) so the check can resolve commit hashes again
 - [ ] clear the two markdownlint findings under `.github/` (2026-08-16): `copilot-instructions.md` MD041 (first line should be a top-level heading) and `instructions/mermaid.instructions.md` MD034 (bare url) - `.github/` is on the do-not-modify list, so this needs explicit approval or a markdownlint ignore entry
 - [ ] revisit the `TMPDIR=/tmp` prefix on the `dev` script once `@nuxt/vite-builder` shortens its vite-node IPC socket name. On macOS the default `$TMPDIR` (`/var/folders/.../T/`, ~49 bytes) plus the builder's `nuxt-vite-node-<rand>/nuxt-vite-node-<pid>-<ts>.sock` path totals ~110 bytes, over the 104-byte `sun_path` limit, so vite-node IPC fails with `connect EINVAL` and the dev server dies on first request; `/tmp` shortens the path to ~66 bytes. Latest `@nuxt/vite-builder` (4.4.7) still constructs it this way.
+- [ ] remove the `bun = { version = '1.4.2' }` pin from `mise.toml` now that pnpm is the package manager; `README.md` says toolchain versions are pinned there, and `.tool-versions` already dropped bun. decide whether mise should install pnpm too or leave it to the `packageManager` field.
+- [ ] consider renaming the `deploy` script in `package.json`: bare `pnpm deploy` resolves to pnpm's built-in "deploy a package from a workspace" command, so docs have to say `pnpm run deploy` while every other script uses the bare form.
 
 ### content and blog
 
@@ -67,7 +69,7 @@
 ### docs and repo hygiene
 
 - [ ] update `DB.md` to match the current schema - it still describes `redirects` as active even though `server/db/schema.ts` only defines `panic_pages`. (`redirects` was never a Drizzle table, only `sql/redirects.sql`; `AGENTS.md`/`README.md` already corrected.)
-- [ ] align `DB.md` migration wording with `AGENTS.md`/`README.md`: local migrations auto-apply via NuxtHub on `bun run dev`; remote (`bun run db:migrate:remote`) stays explicit.
+- [ ] align `DB.md` migration wording with `AGENTS.md`/`README.md`: local migrations auto-apply via NuxtHub on `pnpm dev`; remote (`pnpm db:migrate:remote`) stays explicit.
 - [ ] update `.env.example` to distinguish active settings from leftovers. It lists OpenRouter, Anthropic, Linear, ControlD, and Sentry variables that do not appear in the current app/server code.
 - [ ] either refresh or remove `docs/RECOMMENDATIONS.md`; it reads like an older generic review and now overlaps/conflicts with this checkbox backlog.
 - [ ] document why `worker-configuration.d.ts` is tracked even though it is generated by `wrangler types`, and add a quick note on when it should be regenerated.

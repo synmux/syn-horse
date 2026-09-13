@@ -60,7 +60,7 @@ Changes this repo would need (all small, but several touch protected/fragile are
 
 - `nitro.preset` → `cloudflare_durable`; `nitro.experimental.websocket = true`.
 - The **`nitro.cloudflare.wrangler` block must gain** a `durable_objects` binding (`name` and `class_name` both `$DurableObject`) and a migration entry (`new_sqlite_classes: ["$DurableObject"]`) - verified that Nitro does _not_ add these to the generated deploy config automatically. That block is currently marked do-not-modify, so this is an explicit, user-authorised change.
-- `wrangler.dev.jsonc` gains the matching DO binding so `bun run preview` and migrations tooling stay coherent; `bun run build` regenerates `worker-configuration.d.ts`.
+- `wrangler.dev.jsonc` gains the matching DO binding so `pnpm preview` and migrations tooling stay coherent; `pnpm build` regenerates `worker-configuration.d.ts`.
 - Verification pass that `@nuxthub/core`, `nuxt-security` and the D1-backed `@nuxt/content` are indifferent to the preset swap (they should be, since durable extends module - but "should" needs checking).
 
 Trade-offs:
