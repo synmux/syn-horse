@@ -14,8 +14,6 @@ jobs:
           # version: 12 # specified by packageManager field in package.json
           runtime: node@24
           cache: true
-      - name: install
-        run: pnpm install --frozen-lockfile
       - name: trunk
         uses: trunk-io/trunk-action@e1234e67a86010d61ddac8d8ebf4b783e2ffd2fa # v2.0.0
       - name: typecheck
