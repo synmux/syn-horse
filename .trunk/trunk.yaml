@@ -76,10 +76,10 @@ lint:
         - TODO.md
 actions:
   definitions:
-    - id: bun-install
-      display_name: Install dependencies with bun
-      description: Run bun install to ensure dependencies are up to date
-      run: bun install && bun run format
+    - id: setup
+      display_name: Install dependencies and standardise formatting
+      description: Run pnpm install to ensure dependencies are up to date and format the code
+      run: pnpm install && pnpm run format
       triggers:
         - git_hooks:
             - pre-commit
