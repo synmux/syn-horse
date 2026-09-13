@@ -1,3 +1,6 @@
+# tgrep (<https://github.com/microsoft/tgrep>) index
+.tgrep/
+
 # Nuxt dev/build outputs
 .output
 .data
