@@ -14,13 +14,13 @@ version: 1.0.0
 
 ## Scripts
 
-- `bun run db:generate` - `drizzle-kit generate` reads `drizzle.config.ts` and writes new SQL to `server/db/migrations/sqlite/`.
-- `bun run db:migrate:local` - apply pending migrations to local Miniflare D1 via wrangler. `:remote` variant for production.
-- `bun run db:studio` - `drizzle-kit studio` (browse + edit the schema).
+- `pnpm db:generate` - `drizzle-kit generate` reads `drizzle.config.ts` and writes new SQL to `server/db/migrations/sqlite/`.
+- `pnpm db:migrate:local` - apply pending migrations to local Miniflare D1 via wrangler. `:remote` variant for production.
+- `pnpm db:studio` - `drizzle-kit studio` (browse + edit the schema).
 
 ## Local auto-applies, remote is explicit
 
-In practice NuxtHub's migration plugin applies pending local migrations on `bun run dev`, so `bun run db:migrate:local` is usually unnecessary - and the auto-apply can race a Miniflare reload (see "Cold environment recovery" for the `table already exists` / `duplicate column` fix). Production is never auto-applied: run `bun run db:migrate:remote` explicitly.
+In practice NuxtHub's migration plugin applies pending local migrations on `pnpm dev`, so `pnpm db:migrate:local` is usually unnecessary - and the auto-apply can race a Miniflare reload (see "Cold environment recovery" for the `table already exists` / `duplicate column` fix). Production is never auto-applied: run `pnpm db:migrate:remote` explicitly.
 
 ## Schema-driven enums (single source of truth)
 
@@ -40,7 +40,7 @@ export type PageStatus = (typeof panicPages.$inferSelect)["status"]
 
 - **Frontend / Vue:** `import type { Channel } from "~~/server/db/schema"`. Type-only imports are erased at compile time, so reaching into the server tree from a `.vue` file carries no runtime cost.
 - **Runtime validation (Zod):** `z.enum(panicPages.channel.enumValues)` - `enumValues` is Drizzle's typed runtime tuple, so Zod and TypeScript stay in lockstep.
-- **SQL:** Drizzle's SQLite `enum` is a TypeScript-only constraint. The column stays plain `TEXT`, no `CHECK` clause is emitted, and `bun run db:generate` produces no diff when you only touch the enum array. Add a manual `CHECK (col IN (...))` clause to a migration if you also want database-level enforcement.
+- **SQL:** Drizzle's SQLite `enum` is a TypeScript-only constraint. The column stays plain `TEXT`, no `CHECK` clause is emitted, and `pnpm db:generate` produces no diff when you only touch the enum array. Add a manual `CHECK (col IN (...))` clause to a migration if you also want database-level enforcement.
 
 Adding or removing a value only requires editing the schema array - TypeScript then surfaces every consumer that hasn't caught up.
 
@@ -51,11 +51,11 @@ No `wrangler.{json,jsonc,toml}` at the repo root by design - both the wrangler C
 ## Day-to-day loop
 
 1. Edit `server/db/schema.ts`.
-2. `bun run db:generate` - writes `00NN_*.sql` and updates `meta/_journal.json`.
+2. `pnpm db:generate` - writes `00NN_*.sql` and updates `meta/_journal.json`.
 3. Inspect the SQL; sanity-check destructive changes.
-4. `bun run db:migrate:local` then `bun run dev` to test.
-5. `bun run db:migrate:remote` - apply to production before deploy if new code references new tables, after if only adding indexes / non-required columns.
-6. `bun run deploy` if worker code also changed.
+4. `pnpm db:migrate:local` then `pnpm dev` to test.
+5. `pnpm db:migrate:remote` - apply to production before deploy if new code references new tables, after if only adding indexes / non-required columns.
+6. `pnpm run deploy` if worker code also changed.
 
 ## Cold environment recovery
 
@@ -64,25 +64,25 @@ If `d1_migrations` is missing, wrangler re-runs migration 0000 and fails with `t
 **Inspect:**
 
 ```bash
-bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
+pnpm wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
   --command "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"
 ```
 
 **Decision table:**
 
-| State                                                   | Action                                             |
-| ------------------------------------------------------- | -------------------------------------------------- |
-| `panic_pages` has `status` / `queueError` / `queuedAt`  | Up to date - nothing to do.                        |
-| `panic_pages` present, `d1_migrations` has the 0000 row | `bun run db:migrate:remote` (applies 0001/0002).   |
-| `panic_pages` present but no `d1_migrations` 0000 row   | Backfill then apply (see below).                   |
-| Empty                                                   | `bun run db:migrate:remote` - all three run clean. |
+| State                                                   | Action                                          |
+| ------------------------------------------------------- | ----------------------------------------------- |
+| `panic_pages` has `status` / `queueError` / `queuedAt`  | Up to date - nothing to do.                     |
+| `panic_pages` present, `d1_migrations` has the 0000 row | `pnpm db:migrate:remote` (applies 0001/0002).   |
+| `panic_pages` present but no `d1_migrations` 0000 row   | Backfill then apply (see below).                |
+| Empty                                                   | `pnpm db:migrate:remote` - all three run clean. |
 
 **Backfill tracking row:**
 
 ```bash
-bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
+pnpm wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
   --command "CREATE TABLE IF NOT EXISTS d1_migrations(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, applied_at DATETIME DEFAULT CURRENT_TIMESTAMP); INSERT OR IGNORE INTO d1_migrations(name) VALUES ('0000_stale_omega_sentinel.sql');"
-bun run db:migrate:remote
+pnpm db:migrate:remote
 ```
 
 Swap `--remote`/`db:migrate:remote` for `--local`/`db:migrate:local` to target Miniflare.
@@ -90,11 +90,11 @@ Swap `--remote`/`db:migrate:remote` for `--local`/`db:migrate:local` to target M
 **Verify** (should list `d1_migrations`, `panic_pages`, `sqlite_sequence`):
 
 ```bash
-bun run wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
+pnpm wrangler d1 execute syn-horse --remote --config wrangler.dev.jsonc \
   --command "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"
 ```
 
 ## Adjacent production requirements
 
-- **Turnstile secret:** `bun run wrangler secret put NUXT_TURNSTILE_SECRET_KEY` - without it every `/panic` submission 403s.
-- **Worker deploy is separate:** `db:migrate:remote` does not deploy code; run `bun run deploy` after migrations land.
+- **Turnstile secret:** `pnpm wrangler secret put NUXT_TURNSTILE_SECRET_KEY` - without it every `/panic` submission 403s.
+- **Worker deploy is separate:** `db:migrate:remote` does not deploy code; run `pnpm run deploy` after migrations land.

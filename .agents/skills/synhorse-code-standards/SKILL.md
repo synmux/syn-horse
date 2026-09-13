@@ -8,7 +8,7 @@ version: 1.0.0
 
 Write code that is **accessible, performant, type-safe and maintainable**. Favour clarity and explicit intent over brevity.
 
-Most of the mechanical rules below are enforced by `bun run lint` (eslint + trunk + `tsc --noEmit`). Run it rather than eyeballing. This document exists for the judgement calls the linter can't make.
+Most of the mechanical rules below are enforced by `pnpm lint` (eslint + trunk + `tsc --noEmit`). Run it rather than eyeballing. This document exists for the judgement calls the linter can't make.
 
 ## Type safety
 

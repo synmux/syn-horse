@@ -1,6 +1,6 @@
 # Tech stack
 
-Package manager: **bun**, pinned `bun@1.3.14` (package.json `packageManager`). Everything runs via `bun run …`. ESM only (`"type": "module"`). Pins below are major/minor that matter; see package.json for exact patch.
+Package manager: **pnpm**, pinned `pnpm@12.4.1` (package.json `packageManager`, provided by corepack). Everything runs via bare `pnpm <script>`, except `pnpm run deploy` because `pnpm deploy` is a pnpm built-in. Settings live in `pnpm-workspace.yaml` (see `mem:pnpm_config_gotchas`). ESM only (`"type": "module"`). Pins below are major/minor that matter; see package.json for exact patch.
 
 - **Framework:** Nuxt 4.4 (`srcDir: app/`), Vue 3.5, vue-router 5. Server = Nitro (nitropack 2.13).
 - **Deploy:** Cloudflare Workers, `nitro.preset = "cloudflare_module"`, wrangler 4.93.

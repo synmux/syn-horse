@@ -4,8 +4,8 @@ TypeScript 7's npm package is the Go-native compiler. It ships a working `tsc` b
 
 Whenever `typescript@7` is the hoisted root `node_modules/typescript`, every hoisted consumer of the classic API crashes at module load. Two known victims here:
 
-1. **`bun run eslint` / trunk eslint** — `ts-api-utils` (peer `typescript >=4.8.4`, so 7.x satisfies it) → `TypeError: Cannot read properties of undefined (reading 'Intrinsic')`. `@typescript-eslint/*` themselves are fine (peer `<6.1.0`, bun nests a TS 6 copy for them).
-2. **`bun install` itself** (via `prepare` → `nuxt prepare`) — `@nuxthub/core` `buildDatabaseSchema()` calls `tsdown.build()` to emit `.nuxt/hub/db/schema.d.mts`; `tsdown@0.18` → `rolldown-plugin-dts@0.20` does `require("typescript")` and evaluates `ts.sys.useCaseSensitiveFileNames` at top level of its tsc chunk → `TypeError: Cannot read properties of undefined (reading 'useCaseSensitiveFileNames')`, plugin `rolldown-plugin-dts:generate`. Postinstall exits 1.
+1. **`pnpm eslint` / trunk eslint** — `ts-api-utils` (peer `typescript >=4.8.4`, so 7.x satisfies it) → `TypeError: Cannot read properties of undefined (reading 'Intrinsic')`. `@typescript-eslint/*` themselves are fine (peer `<6.1.0`, bun nests a TS 6 copy for them).
+2. **`pnpm install` itself (originally observed under `bun install`)** (via `prepare` → `nuxt prepare`) — `@nuxthub/core` `buildDatabaseSchema()` calls `tsdown.build()` to emit `.nuxt/hub/db/schema.d.mts`; `tsdown@0.18` → `rolldown-plugin-dts@0.20` does `require("typescript")` and evaluates `ts.sys.useCaseSensitiveFileNames` at top level of its tsc chunk → `TypeError: Cannot read properties of undefined (reading 'useCaseSensitiveFileNames')`, plugin `rolldown-plugin-dts:generate`. Postinstall exits 1.
 
 ## Why no tsconfig.json change can fix it
 
@@ -25,12 +25,16 @@ Bun only supports top-level `overrides` (flat, by package name). Nested / parent
 
 ## The guard
 
-`package.json` devDependencies must declare `"typescript": "^6.x"` (6.0.3 was the last known-good). That keeps an API-complete compiler hoisted at root; `skilld` (which pins exact `typescript@7.0.2`) gets its own nested copy. `bun run lint:types` consequently runs classic tsc 6, not native tsc 7.
+`package.json` devDependencies must declare `"typescript": "^6.x"` (6.0.3 was the last known-good). That keeps an API-complete compiler hoisted at root; `skilld` (which pins exact `typescript@7.0.2`) gets its own nested copy. `pnpm lint:types` consequently runs classic tsc 6, not native tsc 7.
 
 Do not remove or bump the root `typescript` devDependency to 7 as "unused" — nothing imports it, but it exists to win hoisting. Dependabot has already done this once (8f8289e); consider a dependabot `ignore` rule for `typescript` major updates in `.github/dependabot.yml` (ask before editing `.github/`).
 
 ## If this resurfaces
 
-1. `bun pm why typescript` — check what resolves the ROOT copy.
+1. `pnpm why typescript` — check what resolves the ROOT copy.
 2. `node -e "const ts=require('typescript'); console.log(ts.version, typeof ts.sys, typeof ts.TypeFlags)"` from the repo root — `undefined undefined` means an API-less native build is hoisted.
-3. Restore the `^6` pin, `bun i`.
+3. Restore the `^6` pin, `pnpm install`.
+
+## Post-migration note (2026-09-13, pnpm 12.4.1)
+
+The project moved from bun to pnpm in 8b6f61e. The bun-specific analysis above (no nested overrides) is historical: pnpm supports parent-scoped `overrides` such as `"tsdown>typescript"` in `pnpm-workspace.yaml`. The `typescript@6.0.3` pin was kept anyway during the migration to satisfy the `@typescript-eslint` peer range (`<6.1.0`). Re-test before assuming the failure modes above still reproduce under pnpm.

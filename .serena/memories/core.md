@@ -32,7 +32,7 @@ Personal site of syn (Dave). Nuxt 4 (SSR) on Cloudflare Workers, single bespoke 
 
 ## Schema (D1 + Drizzle)
 
-`server/db/schema.ts` defines **only `panic_pages`** (two schema-driven enums: `channel` red|green, `status` queued|send_failed). `redirects` is a legacy hand-applied table in `sql/redirects.sql`, never in Drizzle migrations. Local migrations auto-apply via NuxtHub on `bun run dev`; remote is explicit (`db:migrate:remote`).
+`server/db/schema.ts` defines **only `panic_pages`** (two schema-driven enums: `channel` red|green, `status` queued|send_failed). `redirects` is a legacy hand-applied table in `sql/redirects.sql`, never in Drizzle migrations. Local migrations auto-apply via NuxtHub on `pnpm dev`; remote is explicit (`db:migrate:remote`).
 
 ## Project-wide invariants
 

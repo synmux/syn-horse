@@ -27,6 +27,7 @@
 - [ ] fix the pinact `401 Bad credentials` failures in `pnpm lint:trunk` (2026-08-16): pinact verifies GitHub Actions pin annotations against api.github.com and the ambient GitHub token is being rejected, producing 11 "security issues" across `.github/workflows/*` - refresh `gh auth` / `GITHUB_TOKEN` (or configure pinact's token) so the check can resolve commit hashes again
 - [ ] clear the two markdownlint findings under `.github/` (2026-08-16): `copilot-instructions.md` MD041 (first line should be a top-level heading) and `instructions/mermaid.instructions.md` MD034 (bare url) - `.github/` is on the do-not-modify list, so this needs explicit approval or a markdownlint ignore entry
 - [ ] revisit the `TMPDIR=/tmp` prefix on the `dev` script once `@nuxt/vite-builder` shortens its vite-node IPC socket name. On macOS the default `$TMPDIR` (`/var/folders/.../T/`, ~49 bytes) plus the builder's `nuxt-vite-node-<rand>/nuxt-vite-node-<pid>-<ts>.sock` path totals ~110 bytes, over the 104-byte `sun_path` limit, so vite-node IPC fails with `connect EINVAL` and the dev server dies on first request; `/tmp` shortens the path to ~66 bytes. Latest `@nuxt/vite-builder` (4.4.7) still constructs it this way.
+- [ ] replace the `bun-install` action in `.trunk/trunk.yaml` (runs `bun install && bun run format`) with a pnpm equivalent; the trunk toolchain is on the do-not-modify list so this needs explicit approval.
 
 ### content and blog
 
