@@ -8,7 +8,6 @@ TMPDIR = '/tmp'
 env_file = '.env'
 
 [tools]
-bun = { version = '1.4.2' }
 node = { version = '24.20.0' }
 
 [tasks]

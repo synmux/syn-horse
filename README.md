@@ -17,7 +17,7 @@ mise install
 pnpm install
 ```
 
-If you would rather manage tools yourself: Node 24.20.0. pnpm is pinned by the `packageManager` field in `package.json` (currently pnpm 12.4.1).
+If you would rather manage tools yourself: Node 24.20.0. pnpm is pinned by the `packageManager` field in `package.json` (currently pnpm 12.4.1) and provided by corepack, so run `corepack enable` once.
 
 ## Development
 
