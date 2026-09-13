@@ -1,3 +1,10 @@
+# pnpm project configuration.
+#
+# since pnpm 11 this file (camelCase keys) is the home for every setting that
+# is not auth or registry related. `.npmrc` is restricted to auth/registry
+# only and non-auth keys placed there are silently ignored - see `.npmrc` for
+# the equivalent ini spelling kept purely for reference.
+
 allowBuilds:
   "@anthropic-ai/claude-code": true
   "@parcel/watcher": true
@@ -6,4 +13,26 @@ allowBuilds:
   lefthook: true
   unrs-resolver: true
   workerd: true
+
 minimumReleaseAge: 10080 # minutes; 1 week
+
+# install behaviour carried over from the retired bunfig.toml `[install]` table.
+
+# install missing non-optional peerDependencies automatically. pnpm's default
+# and its closest match for bun's `install.peer = true`.
+autoInstallPeers: true
+
+# maximum child processes used to build node_modules, i.e. how many lifecycle
+# scripts run concurrently (bun: `install.concurrentScripts`). pnpm defaults
+# to 5; bun defaulted to cpu count x2 and the repo pinned 16.
+childConcurrency: 16
+
+# deliberately not carried over from bunfig.toml (verified against pnpm 12.4.1):
+# - optional / dev / production: no longer documented settings. `dev` and
+#   `production` are ignored here entirely (they are the `--dev` / `--prod`
+#   cli flags only); `optional` still works but is undocumented and true is
+#   the default, so it is left unset rather than relying on a ghost key.
+# - saveTextLockfile: pnpm-lock.yaml is always text yaml; no setting exists.
+# - frozenLockfile: left unset so pnpm keeps its default of `true` on CI and
+#   `false` locally. an explicit `false` here would disable the CI guard.
+# - dryRun: a per-invocation cli flag, not a project setting.
