@@ -8,19 +8,19 @@ const HEADER_MESSAGE_ID = "X-Message-Id";
 const HEADER_SELF_TOKEN = "X-Self-Token";
 
 const CORS_HEADERS: Record<string, string> = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "*",
   "Access-Control-Allow-Headers": "*",
+  "Access-Control-Allow-Methods": "*",
+  "Access-Control-Allow-Origin": "*",
   "Access-Control-Expose-Headers": "*",
   "Access-Control-Max-Age": "86400",
 };
 
 function ackResponse(body: string, status: number): Response {
-  return new Response(body, { status, headers: CORS_HEADERS });
+  return new Response(body, { headers: CORS_HEADERS, status });
 }
 
 function corsPreflightResponse(): Response {
-  return new Response(null, { status: 204, headers: CORS_HEADERS });
+  return new Response(null, { headers: CORS_HEADERS, status: 204 });
 }
 
 export const handleAck = (
@@ -42,10 +42,10 @@ export const handleAck = (
 
   if (!(messageId && selfToken)) {
     console.error({
+      headers: Object.fromEntries(req.headers),
       message: "ack rejected: missing headers",
       method: req.method,
       pathname,
-      headers: Object.fromEntries(req.headers),
     });
     return ackResponse("Missing required headers", 400);
   }

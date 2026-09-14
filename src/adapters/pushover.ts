@@ -25,8 +25,8 @@ interface ChannelConfig {
 const TRUNCATION_SUFFIX = "…[truncated]";
 
 const CHANNEL_CONFIG: Record<Channel, ChannelConfig> = {
-  red: { priority: 2, sound: "siren" },
   green: { priority: 0, sound: "pushover" },
+  red: { priority: 2, sound: "siren" },
 };
 
 const FALLBACK_CONFIG: ChannelConfig = CHANNEL_CONFIG.green;
@@ -117,14 +117,14 @@ const pushover: Adapter = {
     } catch (error) {
       if (error && typeof error === "object" && "statusCode" in error) {
         console.error({
-          message: "Pushover refused the notification",
           error,
+          message: "Pushover refused the notification",
         });
         return false;
       }
       console.error({
-        message: "Undefined error publishing Pushover notification",
         error,
+        message: "Undefined error publishing Pushover notification",
       });
       throw error;
     }

@@ -6,8 +6,8 @@
  * page was accepted and the 11th will be dropped.
  */
 export const RATE_LIMITS = {
-  hour: 10,
   day: 100,
+  hour: 10,
   lifetime: 1000,
 } as const;
 
@@ -35,8 +35,8 @@ export const RATE_LIMIT_PERIODS: readonly RateLimitPeriod[] = [
  * must persist for the lifetime of the source.
  */
 export const RATE_LIMIT_TTL_SECONDS: Record<RateLimitPeriod, number | null> = {
-  hour: 3600,
   day: 86_400,
+  hour: 3600,
   lifetime: null,
 };
 

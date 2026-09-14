@@ -20,10 +20,10 @@ export async function runLogging(
   payload: Payload
 ): Promise<StageResult> {
   await insertLogRow(env, {
-    id,
-    contact: payload.contact,
-    message: payload.message,
     channel: payload.channel,
+    contact: payload.contact,
+    id,
+    message: payload.message,
     source: payload.source,
   });
   return CONTINUE;

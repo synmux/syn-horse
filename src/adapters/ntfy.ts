@@ -50,27 +50,27 @@ const ntfy: Adapter = {
     try {
       const publishable: Config = {
         message: message.content,
-        topic: resolveTopic(env, message.channel),
         server,
+        topic: resolveTopic(env, message.channel),
         ...(token ? { authorization: token } : {}),
+        actions: [
+          {
+            clear: true,
+            headers: {
+              "X-Message-Id": message.id,
+              "X-Self-Token": env.SELF_TOKEN,
+            },
+            label: "ack",
+            type: "http",
+            url: "https://syn-horse-notifications.synmux.workers.dev/ack",
+          },
+        ],
         priority:
           message.channel === "red"
             ? MessagePriority.MAX
             : MessagePriority.DEFAULT,
         tags: [message.channel],
         title: message.channel,
-        actions: [
-          {
-            label: "ack",
-            type: "http",
-            url: "https://syn-horse-notifications.synmux.workers.dev/ack",
-            headers: {
-              "X-Message-Id": message.id,
-              "X-Self-Token": env.SELF_TOKEN,
-            },
-            clear: true,
-          },
-        ],
       };
       if (await publish(publishable)) {
         return true;
@@ -82,14 +82,14 @@ const ntfy: Adapter = {
         error.message.startsWith("Error while publishing message:")
       ) {
         console.error({
-          message: "Error while publishing message",
           error,
+          message: "Error while publishing message",
         });
         return false;
       }
       console.error({
-        message: "Undefined error publishing notification",
         error,
+        message: "Undefined error publishing notification",
       });
       throw error;
     }

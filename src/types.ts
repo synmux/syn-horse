@@ -34,5 +34,5 @@ export interface Adapter {
    *   refused. Network and protocol errors SHOULD be thrown so the caller
    *   can decide whether to retry the queue message.
    */
-  send(env: Env, message: Notification): Promise<boolean>;
+  send: (env: Env, message: Notification) => Promise<boolean>;
 }

@@ -153,17 +153,17 @@ ${payload.message}
 `;
   const response = await env.AI.run(MODERATION_MODEL, {
     messages: [
-      { role: "system", content: PROMPT },
-      { role: "user", content: userContent },
+      { content: PROMPT, role: "system" },
+      { content: userContent, role: "user" },
     ],
     response_format: {
-      type: "json_schema",
       json_schema: {
-        name: "moderation_result",
         description: "Classification label for a paging message",
+        name: "moderation_result",
         schema: MODERATION_RESPONSE_JSON_SCHEMA,
         strict: true,
       },
+      type: "json_schema",
     },
   });
 

@@ -74,6 +74,7 @@ export async function runDelivery(
     attempted.push(adapter.name);
 
     try {
+      // biome-ignore lint/performance/noAwaitInLoops: adapters are tried strictly in order so the stop/skip failure modes apply to the right one
       if (await adapter.send(env, notification)) {
         continue;
       }

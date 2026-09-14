@@ -55,13 +55,13 @@ export async function readCounters(
       const key = rateLimitKey(source, period);
       const raw = await env.KV.get(key);
       if (raw === null) {
-        return [period, { value: 0, existed: false }] as const;
+        return [period, { existed: false, value: 0 }] as const;
       }
       const value = Number.parseInt(raw, 10);
       if (Number.isNaN(value)) {
         throw new Error(`KV value for ${key} is not an integer: ${raw}`);
       }
-      return [period, { value, existed: true }] as const;
+      return [period, { existed: true, value }] as const;
     })
   );
   return Object.fromEntries(entries) as Counters;

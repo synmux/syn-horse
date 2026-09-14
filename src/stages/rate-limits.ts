@@ -32,20 +32,23 @@ export async function runRateLimits(
 ): Promise<StageResult> {
   try {
     const counters = await readCounters(env, payload.source);
-    for (const period of RATE_LIMIT_PERIODS) {
-      if (counters[period].value >= RATE_LIMITS[period]) {
-        await updateRateLimit(env, id, "drop", period, "dropped");
-        return STOP;
-      }
+    // Periods are ordered tightest-first, so the first violated window is the
+    // most specific one and is the one recorded on the log row.
+    const violatedPeriod = RATE_LIMIT_PERIODS.find(
+      (period) => counters[period].value >= RATE_LIMITS[period]
+    );
+    if (violatedPeriod) {
+      await updateRateLimit(env, id, "drop", violatedPeriod, "dropped");
+      return STOP;
     }
     await incrementCounters(env, payload.source, counters);
     await updateRateLimit(env, id, "accept", "none");
     return CONTINUE;
   } catch (err) {
     console.error({
-      messageId: id,
-      message: "rate-limit KV error",
       error: err instanceof Error ? err.message : String(err),
+      message: "rate-limit KV error",
+      messageId: id,
     });
     await updateRateLimit(env, id, "accept", "kv_error");
     return CONTINUE;

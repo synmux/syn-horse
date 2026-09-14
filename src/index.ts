@@ -41,42 +41,43 @@ export default {
       const parsed = safeParseMessage(message.body);
       if (!parsed.success) {
         console.error({
-          messageId: message.id,
-          message: "invalid queue message: does not match schema",
-          issues: parsed.error.issues,
           body: message.body,
+          issues: parsed.error.issues,
+          message: "invalid queue message: does not match schema",
+          messageId: message.id,
         });
         message.ack();
         continue;
       }
       const payload = parsed.data;
       try {
+        // biome-ignore lint/performance/noAwaitInLoops: each message is acked or retried individually, so the pipeline deliberately runs one message at a time
         if ((await runLogging(env, message.id, payload)).kind === STOP) {
           console.info({
-            stage: "logging",
             action: STOP,
-            payload,
             message: `STOP at logging for message ${message.id}`,
+            payload,
+            stage: "logging",
           });
           message.ack();
           continue;
         }
         if ((await runRateLimits(env, message.id, payload)).kind === STOP) {
           console.info({
-            stage: "rate-limiting",
             action: STOP,
-            payload,
             message: `STOP at rate limiting for message ${message.id}`,
+            payload,
+            stage: "rate-limiting",
           });
           message.ack();
           continue;
         }
         if ((await runAi(env, message.id, payload)).kind === STOP) {
           console.info({
-            stage: "ai",
             action: STOP,
-            payload,
             message: `STOP at ai for message ${message.id}`,
+            payload,
+            stage: "ai",
           });
           message.ack();
           continue;
@@ -85,9 +86,9 @@ export default {
         message.ack();
       } catch (err) {
         console.error({
-          messageId: message.id,
-          message: "pipeline failure",
           error: err instanceof Error ? err.message : String(err),
+          message: "pipeline failure",
+          messageId: message.id,
         });
         message.retry();
       }

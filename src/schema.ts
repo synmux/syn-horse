@@ -97,9 +97,9 @@ export function formatMessageSummary(payload: Payload): string {
 }
 
 export default {
+  formatMessageSummary,
+  isMessage,
   messageSchema,
   parseMessage,
   safeParseMessage,
-  isMessage,
-  formatMessageSummary,
 };
