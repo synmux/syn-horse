@@ -67,8 +67,8 @@ Configured in `wrangler.jsonc`:
 
 ## Prerequisites
 
-- Bun `1.3.14`
-- Node `24.16.0`
+- pnpm `12.4.1` (pinned in `package.json` `packageManager`; Corepack or mise will fetch it)
+- Node `24.20.0`
 - Wrangler `4.x`
 
 Pinned versions are defined in `.node-version`, `.tool-versions`, and `mise.toml`.
@@ -76,13 +76,13 @@ Pinned versions are defined in `.node-version`, `.tool-versions`, and `mise.toml
 ## Setup
 
 ```bash
-bun install
+pnpm install
 ```
 
 Then generate worker runtime types:
 
 ```bash
-bun run types
+pnpm run types
 ```
 
 ## Development
@@ -90,23 +90,23 @@ bun run types
 Run local worker:
 
 ```bash
-bun run dev
+pnpm run dev
 ```
 
-`bun run start` is equivalent.
+`pnpm run start` is equivalent.
 
 ## Database migrations
 
 Apply D1 migrations remotely:
 
 ```bash
-bun run db:migrate
+pnpm run db:migrate
 ```
 
 Apply migrations locally:
 
 ```bash
-bun run db:migrate:local
+pnpm run db:migrate:local
 ```
 
 ## Linting and formatting
@@ -114,31 +114,32 @@ bun run db:migrate:local
 Run full checks:
 
 ```bash
-bun run lint
+pnpm run lint
 ```
 
 Useful subsets:
 
 ```bash
-bun run lint:ultracite
-bun run lint:types
+pnpm run lint:ultracite
+pnpm run lint:types
 ```
 
 Format all files:
 
 ```bash
-bun run format
+pnpm run format
 ```
 
 ## Deployment
 
 ```bash
-bun run deploy
+pnpm run deploy
 ```
 
 ## Notes and gotchas
 
 - `worker-configuration.d.ts` is generated (`wrangler types`); avoid hand-editing.
-- `postinstall` runs type generation and formatting; `bun install` may rewrite generated/type-format-sensitive files.
+- `postinstall` runs `wrangler types`; a plain `pnpm install` may rewrite `worker-configuration.d.ts`.
+- Install policy is in `pnpm-workspace.yaml`: `allowBuilds` lists packages allowed to run install scripts (add new ones there or `pnpm add` fails), and `minimumReleaseAge` keeps resolved versions at least a week old.
 - `vitest` and `@cloudflare/vitest-pool-workers` are installed, but the repo currently has no test suite (`test` script and `*.test.*`/`*.spec.*` files are absent).
 - `.env.example` / `.dev.vars.example` are currently empty.
