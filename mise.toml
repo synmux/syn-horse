@@ -8,6 +8,3 @@ env_file = '.env'
 
 [tools]
 node = { version = '24.20.0' }
-
-[tasks]
-claude = 'npx --yes @anthropic-ai/claude-code@latest'

@@ -3,7 +3,6 @@ permissions: read-all
 on:
   push: null
   pull_request: null
-  workflow_call: null
 jobs:
   lint:
     runs-on: ubuntu-latest
