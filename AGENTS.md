@@ -109,13 +109,6 @@
 
 - Secrets are declared in `wrangler.jsonc` (`secrets.required`) and supplied out of band (e.g. `wrangler secret put`), not committed. `.env.example` and `.dev.vars.example` are currently empty.
 
-<!-- skilld -->
-
-Before modifying code, evaluate each installed skill against the current task.
-For each skill, determine YES/NO relevance and invoke all YES skills before proceeding.
-
-<!-- /skilld -->
-
 ## Ultracite Code Standards
 
 This project uses **Ultracite**, a zero-config preset that enforces strict code quality standards through automated formatting and linting.
@@ -242,3 +235,10 @@ Biome's linter will catch most issues automatically. Focus your attention on:
 ---
 
 Most formatting and common issues are automatically fixed by Biome. Run `bun x ultracite fix` before committing to ensure compliance.
+
+<!-- skilld -->
+
+Before modifying code, evaluate each installed skill against the current task.
+For each skill, determine YES/NO relevance and invoke all YES skills before proceeding.
+
+<!-- /skilld -->
