@@ -36,27 +36,27 @@ You have the `serena` MCP to help you navigate code; use it, it will make your l
 
 ## Where things live
 
-| Concern                      | Path                                                                                |
-| ---------------------------- | ----------------------------------------------------------------------------------- |
-| Pages (routes)               | `app/pages/**.vue`                                                                  |
-| Default layout               | `app/layouts/default.vue` (status bar, nav, FX overlays, palette, konami)           |
-| Error page                   | `app/error.vue` (wraps content in `<NuxtLayout name="default">`)                    |
-| Layout components            | `app/components/layout/*.vue` (auto-import as `<LayoutStatusBar />` etc.)           |
-| UI primitives                | `app/components/ui/*.vue`                                                           |
-| 404 component                | `app/components/NotFound.vue` (used by `error.vue`)                                 |
-| Composables (auto-imported)  | `app/composables/*.ts`                                                              |
-| Static content data          | `app/data/*.ts`                                                                     |
-| Site-wide constants          | `app/data/site.ts` (status string, version, urls)                                   |
-| Global CSS entry             | `app/assets/css/main.css`                                                           |
-| Cloudflare config            | `nuxt.config.ts` `nitro.cloudflare.wrangler` (do not modify)                        |
-| Drizzle schema               | `server/db/schema.ts`                                                               |
-| Drizzle migrations           | `server/db/migrations/sqlite/*.sql`                                                 |
-| Drizzle config               | `drizzle.config.ts` at repo root                                                    |
-| Server API routes            | `server/api/*.ts` (Nitro file routing - `panic.post.ts` → `POST /api/panic`)        |
-| Server utils (auto-imported) | `server/utils/*.ts` - `db.ts` (`useDb`), `pager.ts` (`usePager`), `content-sync.ts` |
-| Server middleware            | `server/middleware/*.ts` - `content-sync.ts` (see the blog note below)              |
-| Unit tests                   | `test/unit/*.test.ts` (vitest); test doubles and fixtures in `test/support/`        |
-| Local Nuxt modules           | `modules/*.ts` - `content-integrity.ts` (build-time content check)                  |
+| Concern                      | Path                                                                                                                                                    |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pages (routes)               | `app/pages/**.vue`                                                                                                                                      |
+| Default layout               | `app/layouts/default.vue` (status bar, nav, FX overlays, palette, konami)                                                                               |
+| Error page                   | `app/error.vue` (wraps content in `<NuxtLayout name="default">`)                                                                                        |
+| Layout components            | `app/components/layout/*.vue` (auto-import as `<LayoutStatusBar />` etc.)                                                                               |
+| UI primitives                | `app/components/ui/*.vue`                                                                                                                               |
+| 404 component                | `app/components/NotFound.vue` (used by `error.vue`)                                                                                                     |
+| Composables (auto-imported)  | `app/composables/*.ts`                                                                                                                                  |
+| Static content data          | `app/data/*.ts`                                                                                                                                         |
+| Site-wide constants          | `app/data/site.ts` (status string, version, urls)                                                                                                       |
+| Global CSS entry             | `app/assets/css/main.css`                                                                                                                               |
+| Cloudflare config            | `nuxt.config.ts` `nitro.cloudflare.wrangler` (do not modify)                                                                                            |
+| Drizzle schema               | `server/db/schema.ts`                                                                                                                                   |
+| Drizzle migrations           | `server/db/migrations/sqlite/*.sql`                                                                                                                     |
+| Drizzle config               | `drizzle.config.ts` at repo root                                                                                                                        |
+| Server API routes            | `server/api/*.ts` (Nitro file routing - `panic.post.ts` → `POST /api/panic`)                                                                            |
+| Server utils (auto-imported) | `server/utils/*.ts` - `db.ts` (`useDb`), `pager.ts` (`usePager`), `queue-message.ts` (queue wire contract), `content-sync.ts`, `content-sync-alerts.ts` |
+| Server middleware            | `server/middleware/*.ts` - `content-sync.ts` (see the blog note below)                                                                                  |
+| Unit tests                   | `test/unit/*.test.ts` (vitest); test doubles and fixtures in `test/support/`                                                                            |
+| Local Nuxt modules           | `modules/*.ts` - `content-integrity.ts` (build-time content check)                                                                                      |
 
 ## Conventions
 
@@ -74,7 +74,7 @@ You have the `serena` MCP to help you navigate code; use it, it will make your l
 
 - **Live status-bar clock.** `app/components/layout/StatusBar.vue` shows the current time and uptime; both spans are wrapped in `<ClientOnly>` with `--:--:--` placeholder fallbacks to avoid SSR/CSR drift. Never read `Date.now()` outside `onMounted` in components that render on the server.
 - **The blog is `@nuxt/content`-driven at runtime.** `app/pages/blog/index.vue` lists posts via `queryCollection("blog").order("date", "DESC")`; `app/pages/blog/[slug].vue` resolves a post with `queryCollection("blog").path(route.path)`, hides `future: true` posts outside dev, and 404s on miss. `@nuxt/content` v3 runs an in-browser SQLite WASM module for client-side queries (relevant to the CSP - hence `wasm-unsafe-eval`).
-- **Server-rendered content comes from a different database than client-side navigation.** SSR queries the `DB_CONTENT` D1 database; the browser queries its own copy of the dump bundled into the build. `server/middleware/content-sync.ts` is the only writer to that D1. At most once a minute per isolate, it compares D1 row-for-row with the bundled dump and rebuilds any drift in one transactional `batch()`, so the database repairs itself and needs no hand edits. Keep `@nuxt/content`'s own importer switched off with `integrityCheck = false` in the `nitro:config` hook in `nuxt.config.ts`; it skips failed statements, and once left production serving 5 of 15 posts. Each blog page passes its `useAsyncData(() => queryCollection(...))` `error.value` to `throwIfContentFailed()` from `app/utils/content-errors.ts`, so a failed query renders a 5xx instead of an empty list or a false 404. The home page only shows a post count, so it drops the number on failure and keeps rendering.
+- **Server-rendered content comes from a different database than client-side navigation.** SSR queries the `DB_CONTENT` D1 database; the browser queries its own copy of the dump bundled into the build. `server/middleware/content-sync.ts` is the only writer to that D1. At most once a minute per isolate, it compares D1 row-for-row with the bundled dump and rebuilds any drift in one transactional `batch()`, so the database repairs itself and needs no hand edits. If the sync keeps failing for a minute, it sends a red page on the `NOTIFICATIONS` queue (details in `synhorse-workers`). Keep `@nuxt/content`'s own importer switched off with `integrityCheck = false` in the `nitro:config` hook in `nuxt.config.ts`; it skips failed statements, and once left production serving 5 of 15 posts. Each blog page passes its `useAsyncData(() => queryCollection(...))` `error.value` to `throwIfContentFailed()` from `app/utils/content-errors.ts`, so a failed query renders a 5xx instead of an empty list or a false 404. The home page only shows a post count, so it drops the number on failure and keeps rendering.
 - **Broken content fails the build.** @nuxt/content turns frontmatter it cannot parse into a row of NULLs and garbage, and never checks the collection schema. `modules/content-integrity.ts` replays each generated dump and stops `pnpm build` if a source file has no row or a row fails its schema. A new collection must also be added to `collectionSchemas` in `content.config.ts`.
 - **`security.sri: true`** is on, plus `ssg.hashScripts/Styles/meta`. Avoid inline `:style="{ ... }"` bindings - bind a class and put the dynamic value in CSS instead.
 - **CSS keyframes are global** and collide silently across `main.css`. Check `synhorse-styling` before adding animations.

@@ -183,7 +183,9 @@ Should list at least `d1_migrations`, `panic_pages`, `sqlite_sequence`.
 
 `/panic` POSTs to `POST /api/panic`, which validates the form, checks Turnstile (production only), records the attempt in the `panic_pages` D1 table (`status`: `queued` or `send_failed`), and hands the message to a Cloudflare Queue (`NOTIFICATIONS` → `syn-horse-notifications`) via `usePager()` in `server/utils/pager.ts`.
 
-A separate Worker - the `syn-horse-notifications` queue consumer - runs each message through a four-stage pipeline: logging → per-source rate limits (KV) → AI moderation → delivery (email / ntfy / Pushover adapters). The wire format is a strict `{ channel, contact, message, source? }` envelope; moderation and the real delivery adapters are scaffolded but not yet live, so today delivery is an intentional no-op stub.
+A separate Worker - the `syn-horse-notifications` queue consumer, whose code lives on this repo's `notifications` branch - runs each message through a four-stage pipeline: logging → per-source rate limits (KV) → Workers AI moderation → delivery. Red pages go to Pushover at emergency priority and green ones to ntfy. The wire format is a strict `{ channel, contact, message, source? }` envelope, defined in `server/utils/queue-message.ts`.
+
+The same queue carries red pages from the content-sync middleware when the blog's content database has failed to sync for a minute; the time of the last page is kept in KV so an outage pages once an hour.
 
 ## Easter eggs
 
