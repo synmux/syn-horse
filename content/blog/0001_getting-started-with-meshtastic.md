@@ -33,7 +33,7 @@ You'll need a node. You have plenty of options, and I'd recommend three of them.
 
 ![meshtastic-heltec.jpg](/images/blog/2025-01-14_getting-started-with-meshtastic/meshtastic-heltec.jpg)
 
-The Heltec V3 is dirt cheap and has far better RF performance than it has any right to. You can pick one up on Amazon UK for £27. The Amazon listing might be a clone. If so, it does the job just as well. It has a small OLED display, but you're going to do most of your interacting with it using the mobile app, desktop app, or Web interface anyway.
+The Heltec V3 is dirt cheap and has far better RF performance than it has any right to. You can pick one up on Amazon UK for £27. The one on that listing might be a clone. If so, it does the job just as well. It has a small OLED display, but you're going to do most of your interacting with it using the mobile app, desktop app, or Web interface anyway.
 
 ### LILYGO T-Deck Plus
 

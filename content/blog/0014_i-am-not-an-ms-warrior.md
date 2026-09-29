@@ -53,7 +53,7 @@ We are not your inspiration porn.
 
 ## What Would Actually Help
 
-We need practical support, like [**accessible environments**](https://www.mssociety.org.uk/living-with-ms/home-and-travel/home-adaptations-equipment), [**research funding**](https://donate.mssociety.org.uk/), and [**affordable treatments**](https://www.ncbi.nlm.nih.gov/books/NBK572540/). We need people to understand that MS comes and goes, often without warning, and that a good day last week says nothing about today.
+We need practical support, like [**accessible environments**](https://www.mssociety.org.uk/living-with-ms/home-and-travel/home-adaptations-equipment), [**research funding**](https://donate.mssociety.org.uk/), and [**affordable treatments**](https://www.ncbi.nlm.nih.gov/books/NBK572540/). We need people to understand that MS symptoms come and go, often without warning, and that a good day last week says nothing about today.
 
 Living with MS isn't a moral achievement, and it isn't a moral failure either. It's just something that happened to us.
 

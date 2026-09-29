@@ -49,6 +49,6 @@ If you want to join in, we need **Responders**!
 
 If that's something you think you want to do, I've included a form below to register your interest and let me know the kinds of thing you think you'd be good at answering.
 
-This is an early stage, and I am powerfully AuDHD, so it may be some time before the site goes live. All I'm saying is that if you want to put your name forward, I'd love to hear it - but don't have any expectations about how long it'll be before you're actually called on to join the site.
+The project is at an early stage, and I am powerfully AuDHD, so it may be some time before the site goes live. All I'm saying is that if you want to put your name forward, I'd love to hear it - but don't have any expectations about how long it'll be before you're actually called on to join the site.
 
 If you want to join up, or share the link, the link you want is [Genderbase Responders](https://www.notion.so/1c3b7795690c8065957af15479af9c78).
