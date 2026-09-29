@@ -145,7 +145,8 @@ export const parseContentDump = (lines: readonly string[]): ContentDumpEntry[] =
     }
   })
 
-const isRowTag = (tag: string): boolean => tag !== STRUCTURE_TAG && tag !== META_TAG
+/** Whether a dump tag marks a content row, as opposed to `structure` (DDL) or `meta` (checksum bookkeeping). */
+export const isContentRowTag = (tag: string): boolean => tag !== STRUCTURE_TAG && tag !== META_TAG
 
 const checksumId = (collection: string): string => `checksum_${collection}`
 
@@ -312,7 +313,7 @@ export const synchroniseContentCollection = async ({
     collectionTable: findTableDefinition(entries, target.collectionTable, target.collection),
     infoTable: findTableDefinition(entries, target.infoTable, target.collection),
   }
-  const expectedRowHashes = new Set(entries.filter((entry) => isRowTag(entry.tag)).map((entry) => entry.tag))
+  const expectedRowHashes = new Set(entries.filter((entry) => isContentRowTag(entry.tag)).map((entry) => entry.tag))
 
   const state = await readContentState(database, target, definitions)
   const drift = describeDrift(state, target, expectedRowHashes)
