@@ -1,25 +1,29 @@
 /**
- * Paging for content-sync failures, sent through the `NOTIFICATIONS` queue on the red channel.
+ * Paging for content-sync failures, sent through the `NOTIFICATIONS` queue: a red page when an
+ * outage starts, and a green all-clear when it ends.
  *
  * The consumer (`syn-horse-notifications`, on this repo's `notifications` branch) delivers red
- * pages through Pushover at emergency priority, which re-alerts until acknowledged, so paging is
- * deliberately conservative:
+ * pages through Pushover at emergency priority, which re-alerts until acknowledged, and green
+ * ones through ntfy. So paging is deliberately conservative:
  * - each isolate tracks its own run of failures in memory, and only a run that has lasted
- *   `alertAfterFailingForMs` with no success in between is worth a page, so a failure that
+ *   `alertAfterFailingForMs` with no success in between is worth a red page, so a failure that
  *   heals on the next request never pages;
- * - the time of the last page is kept in KV, shared by every isolate, so an outage pages once
- *   per repeat window rather than once per isolate. KV is eventually consistent, so two data
- *   centres can occasionally both page within the first minute. If KV itself fails, the page
- *   goes out anyway: noise beats a missed outage;
- * - when a run that was worth a page ends, the stored time is cleared, so the next outage pages
- *   straight away.
+ * - the time of the last red page is kept in KV, shared by every isolate, so an outage pages
+ *   once per repeat window rather than once per isolate. If KV itself fails, the red page goes
+ *   out anyway: noise beats a missed outage;
+ * - after a sync succeeds, whichever isolate finds that stored time removes it and sends the
+ *   all-clear. That does not depend on the isolate that paged still being alive. If KV fails
+ *   here, no all-clear is sent, so a KV outage cannot turn into an all-clear every minute.
  *
- * The consumer's AI moderation is told to drop unclear red pages, so the message opens with a
- * plain sentence before any error detail.
+ * KV is eventually consistent, so two data centres can occasionally both send a page, or both
+ * an all-clear, within about a minute of each other.
+ *
+ * The consumer's AI moderation is told to drop unclear red pages, so each message opens with a
+ * plain sentence before any detail.
  */
 import type { QueueMessage } from "./queue-message"
 
-/** The `source` of every content-sync page, which gives these pages their own rate limits. */
+/** The `source` of every content-sync message, which gives them their own rate limits. */
 export const CONTENT_SYNC_ALERT_SOURCE = "content-sync.syn.horse"
 
 const CONTENT_SYNC_ALERT_CONTACT = "syn.horse content-sync"
@@ -45,14 +49,16 @@ export interface FailureRun {
 
 export type AlertClaim = { send: false } | { send: true; storeError?: string }
 
-/** The KV key holding the time of the last page for a collection. */
+export type RecoveryCheck = { announce: false; storeError?: string } | { announce: true; lastAlertAt?: number }
+
+/** The KV key holding the time of the last red page for a collection. */
 export const lastAlertKey = (collection: string): string => `${LAST_ALERT_KEY_PREFIX}${collection}`
 
 /**
  * Tracks runs of failures per key, in memory, for one isolate.
  *
  * - `recordFailure` extends (or starts) the run and reports how long it has lasted.
- * - `recordSuccess` ends the run, returning `true` if it had become worth a page.
+ * - `recordSuccess` ends the run.
  */
 export const createFailureTracker = ({
   alertAfterFailingForMs,
@@ -62,7 +68,6 @@ export const createFailureTracker = ({
   now?: () => number
 }) => {
   const failingSince = new Map<string, number>()
-  const alertWorthyRuns = new Set<string>()
 
   return {
     recordFailure: (key: string): FailureRun => {
@@ -70,15 +75,10 @@ export const createFailureTracker = ({
       const since = failingSince.get(key) ?? current
       failingSince.set(key, since)
       const failingForMs = current - since
-      const alertWorthy = failingForMs >= alertAfterFailingForMs
-      if (alertWorthy) {
-        alertWorthyRuns.add(key)
-      }
-      return { failingForMs, alertWorthy }
+      return { failingForMs, alertWorthy: failingForMs >= alertAfterFailingForMs }
     },
-    recordSuccess: (key: string): boolean => {
+    recordSuccess: (key: string): void => {
       failingSince.delete(key)
-      return alertWorthyRuns.delete(key)
     },
   }
 }
@@ -86,8 +86,8 @@ export const createFailureTracker = ({
 const describeError = (error: unknown): string => (error instanceof Error ? error.message : String(error))
 
 /**
- * Decides whether this caller should send the page, using the last page time in `store`, and
- * records the new time when it should. Fails open: if the store errors, the page is sent.
+ * Decides whether this caller should send the red page, using the last page time in `store`,
+ * and records the new time when it should. Fails open: if the store errors, the page is sent.
  */
 export const claimAlert = async ({
   store,
@@ -112,6 +112,24 @@ export const claimAlert = async ({
     return { send: true }
   } catch (error) {
     return { send: true, storeError: describeError(error) }
+  }
+}
+
+/**
+ * After a successful sync: if a red page is outstanding, removes its stored time and says to
+ * announce the recovery. Fails closed: if the store errors, nothing is announced.
+ */
+export const releaseAlert = async ({ store, key }: { store: LastAlertStore; key: string }): Promise<RecoveryCheck> => {
+  try {
+    const stored = await store.get(key)
+    if (stored === null) {
+      return { announce: false }
+    }
+    await store.delete(key)
+    const lastAlertAt = Date.parse(stored)
+    return Number.isFinite(lastAlertAt) ? { announce: true, lastAlertAt } : { announce: true }
+  } catch (error) {
+    return { announce: false, storeError: describeError(error) }
   }
 }
 
@@ -146,5 +164,31 @@ export const buildContentSyncAlert = ({
       `The server has been unable to sync the "${collection}" content database (D1)${where} ` +
       `for ${describeDuration(failingForMs)}. ` +
       `Those pages return 503 errors until it recovers. Last error: ${truncate(describeError(error))}`,
+  }
+}
+
+/** The green all-clear once a collection that paged is syncing again. */
+export const buildContentSyncRecovery = ({
+  collection,
+  lastAlertAt,
+  location,
+  now = Date.now,
+}: {
+  collection: string
+  /** When the red page went out, when known. */
+  lastAlertAt?: number
+  /** The Cloudflare data centre that saw the recovery, when known. */
+  location?: string
+  now?: () => number
+}): QueueMessage => {
+  const where = location ? ` in ${location}` : ""
+  const since = lastAlertAt === undefined ? "" : ` The red page went out ${describeDuration(now() - lastAlertAt)} ago.`
+  return {
+    channel: "green",
+    contact: CONTENT_SYNC_ALERT_CONTACT,
+    source: CONTENT_SYNC_ALERT_SOURCE,
+    message:
+      `All clear: syn.horse ${collection} pages are working again. ` +
+      `The "${collection}" content database (D1) is syncing normally${where}.${since}`,
   }
 }

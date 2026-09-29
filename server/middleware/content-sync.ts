@@ -12,9 +12,11 @@ import {
 } from "~~/server/utils/content-sync"
 import {
   buildContentSyncAlert,
+  buildContentSyncRecovery,
   claimAlert,
   createFailureTracker,
   lastAlertKey,
+  releaseAlert,
 } from "~~/server/utils/content-sync-alerts"
 import { usePager } from "~~/server/utils/pager"
 
@@ -95,12 +97,28 @@ const pageForOutage = async (event: H3Event, collection: string, error: unknown,
   }
 }
 
-/** Clears the last page time once an outage that paged is over, so the next outage pages at once. */
-const clearLastAlert = async (event: H3Event, collection: string) => {
-  try {
-    await event.context.cloudflare.env.KV.delete(lastAlertKey(collection))
-  } catch (error) {
-    console.error(`[content-sync] could not clear the last page time for "${collection}" in KV`, error)
+/**
+ * After a successful sync, sends the green all-clear if a red page is outstanding. Clearing the
+ * stored page time also means the next outage pages at once.
+ */
+const announceRecovery = async (event: H3Event, collection: string) => {
+  const check = await releaseAlert({ store: event.context.cloudflare.env.KV, key: lastAlertKey(collection) })
+  if (!check.announce) {
+    if (check.storeError) {
+      console.error(`[content-sync] could not check KV for an outstanding page: ${check.storeError}`)
+    }
+    return
+  }
+  const recovery = buildContentSyncRecovery({
+    collection,
+    lastAlertAt: check.lastAlertAt,
+    location: requestColo(event),
+  })
+  const result = await usePager(event).send(recovery)
+  if (result.ok) {
+    console.warn(`[content-sync] sent the all-clear on the green channel: ${recovery.message}`)
+  } else {
+    console.error(`[content-sync] could not queue the green all-clear: ${result.error}`)
   }
 }
 
@@ -120,7 +138,11 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    await runWithRevalidation(collection, () => synchronise(event, target))
+    await runWithRevalidation(collection, async () => {
+      await synchronise(event, target)
+      // Runs only when the sync itself ran (at most once a minute per isolate), after the response.
+      event.waitUntil(announceRecovery(event, collection))
+    })
   } catch (error) {
     console.error(`[content-sync] could not synchronise "${collection}" in D1`, error)
     const run = failureTracker.recordFailure(collection)
@@ -135,8 +157,5 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  if (failureTracker.recordSuccess(collection)) {
-    console.warn(`[content-sync] "${collection}" is syncing again after an outage that paged`)
-    event.waitUntil(clearLastAlert(event, collection))
-  }
+  failureTracker.recordSuccess(collection)
 })

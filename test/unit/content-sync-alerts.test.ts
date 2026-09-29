@@ -3,10 +3,12 @@ import { describe, expect, it } from "vitest"
 import type { LastAlertStore } from "../../server/utils/content-sync-alerts"
 import {
   buildContentSyncAlert,
+  buildContentSyncRecovery,
   claimAlert,
   CONTENT_SYNC_ALERT_SOURCE,
   createFailureTracker,
   lastAlertKey,
+  releaseAlert,
 } from "../../server/utils/content-sync-alerts"
 import { isValidSource } from "../../server/utils/queue-message"
 
@@ -75,19 +77,9 @@ describe("createFailureTracker", () => {
     tracker.recordFailure("blog")
     clock.advance(MINUTE / 2)
 
-    expect(tracker.recordSuccess("blog")).toBe(false)
+    tracker.recordSuccess("blog")
     clock.advance(MINUTE)
     expect(tracker.recordFailure("blog").alertWorthy).toBe(false)
-  })
-
-  it("reports, on success, whether the run that ended was worth a page", () => {
-    const { clock, tracker } = createTracker()
-    tracker.recordFailure("blog")
-    clock.advance(MINUTE)
-    tracker.recordFailure("blog")
-
-    expect(tracker.recordSuccess("blog")).toBe(true)
-    expect(tracker.recordSuccess("blog")).toBe(false)
   })
 
   it("tracks each key separately", () => {
@@ -150,6 +142,67 @@ describe("claimAlert", () => {
       send: true,
       storeError: "KV unavailable",
     })
+  })
+})
+
+describe("releaseAlert", () => {
+  const key = lastAlertKey("blog")
+
+  it("announces a recovery when a red page is outstanding, and clears it so only one announces", async () => {
+    const clock = createClock()
+    const store = new MemoryLastAlertStore()
+    await claimAlert({ store, key, repeatAfterMs: HOUR, now: clock.now })
+
+    await expect(releaseAlert({ store, key })).resolves.toEqual({ announce: true, lastAlertAt: clock.now() })
+    expect(store.entries.has(key)).toBe(false)
+    await expect(releaseAlert({ store, key })).resolves.toEqual({ announce: false })
+  })
+
+  it("stays quiet when no red page went out", async () => {
+    await expect(releaseAlert({ store: new MemoryLastAlertStore(), key })).resolves.toEqual({ announce: false })
+  })
+
+  it("still announces, without a time, when the stored value is unreadable", async () => {
+    const store = new MemoryLastAlertStore()
+    await store.put(key, "not a timestamp", { expirationTtl: 60 })
+
+    await expect(releaseAlert({ store, key })).resolves.toEqual({ announce: true })
+  })
+
+  it("fails closed, so a KV outage cannot send an all-clear on every sync", async () => {
+    await expect(releaseAlert({ store: new FailingLastAlertStore(), key })).resolves.toEqual({
+      announce: false,
+      storeError: "KV unavailable",
+    })
+  })
+})
+
+describe("buildContentSyncRecovery", () => {
+  it("sends an all-clear on the green channel from a source the consumer accepts", () => {
+    const recovery = buildContentSyncRecovery({ collection: "blog" })
+
+    expect(recovery.channel).toBe("green")
+    expect(recovery.source).toBe(CONTENT_SYNC_ALERT_SOURCE)
+    expect(recovery.message).toMatch(/^All clear: syn\.horse blog pages are working again\./)
+  })
+
+  it("says where it recovered and how long ago the red page went out", () => {
+    const clock = createClock()
+    const lastAlertAt = clock.now()
+    clock.advance(12 * MINUTE)
+
+    const recovery = buildContentSyncRecovery({ collection: "blog", lastAlertAt, location: "LHR", now: clock.now })
+
+    expect(recovery.message).toContain("syncing normally in LHR.")
+    expect(recovery.message).toContain("The red page went out 12 minutes ago.")
+  })
+
+  it("leaves out what it does not know", () => {
+    const recovery = buildContentSyncRecovery({ collection: "blog" })
+
+    expect(recovery.message).not.toContain(" in ")
+    expect(recovery.message).not.toContain("red page went out")
+    expect(recovery.message).toMatch(/syncing normally\.$/)
   })
 })
 
