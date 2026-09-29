@@ -52,16 +52,21 @@ watch(sel, async () => {
 })
 
 const keys = useMagicKeys()
-whenever(keys["/"], () => {
-  if (palette.isOpen.value) {
-    return
+// The proxy creates a ref for whichever key it is asked for, but indexing it is typed as
+// possibly undefined, so read the key through a getter.
+whenever(
+  () => keys["/"]?.value ?? false,
+  () => {
+    if (palette.isOpen.value) {
+      return
+    }
+    const focusedElement = document.activeElement as HTMLElement | null
+    if (focusedElement && (focusedElement.tagName === "INPUT" || focusedElement.tagName === "TEXTAREA")) {
+      return
+    }
+    palette.show()
   }
-  const t = document.activeElement as HTMLElement | null
-  if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA")) {
-    return
-  }
-  palette.show()
-})
+)
 
 const dispatch = (c: Command) => {
   palette.hide()
