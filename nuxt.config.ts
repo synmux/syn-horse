@@ -281,7 +281,7 @@ export default defineNuxtConfig({
         placement: {
           mode: "smart",
         },
-        preview_urls: true,
+        preview_urls: false,
         queues: {
           producers: [
             {
