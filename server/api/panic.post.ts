@@ -1,7 +1,8 @@
 import { z } from "zod"
 
 import { panicPages } from "~~/server/db/schema"
-import { extractSource, type QueueMessage, usePager } from "~~/server/utils/pager"
+import { extractSource, usePager } from "~~/server/utils/pager"
+import type { QueueMessage } from "~~/server/utils/queue-message"
 
 const PanicBody = z.object({
   channel: z.enum(panicPages.channel.enumValues),
