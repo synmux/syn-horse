@@ -18,7 +18,10 @@
 
 - [ ] make `pnpm lint` pass locally, or adjust the documented command. Today `pnpm lint:eslint` checks `_DIO/`, `_DSOY/` and `_design/` even though they are frozen/export directories, while Trunk already ignores them.
 - [ ] make `pnpm lint:trunk` pass, or scope Trunk away from generated/local agent skill files under `.agents/skills/**`; the current run reports markdown/yaml issues in installed skill files plus the intentional TODO in `server/api/panic.post.ts`.
-- [ ] decide whether the `x:test*` scripts are real project commands. They currently call `vitest` and `playwright`, but neither binary is installed as a direct dependency, so both version checks fail with `command not found`.
+- [ ] decide whether the remaining `x:test:*` scripts are real project commands. vitest is now installed and `pnpm test` / `pnpm test:watch` are real (2026-09-29); `x:test:coverage` needs `@vitest/coverage-v8`, `x:test:nuxt` / `x:test:unit` need vitest projects, and `x:test:e2e*` need playwright.
+- [ ] make `pnpm lint:types` actually type-check: switch it to `tsc -b --noEmit`. The root `tsconfig.json` is references-only, so `tsc --noEmit` checks zero files (it passed with a deliberate type error in place on 2026-09-29). Then fix the pre-existing error the real check reports: `@vueuse/core` cannot be resolved from `app/composables/useTime.ts` (it is not a direct dependency).
+- [ ] add `vue-tsc` (or `nuxi typecheck`) so `.vue` files are type-checked; `tsc -b` skips them.
+- [ ] run `pnpm test` in the `ci` workflow (`.github/` is on the do-not-modify list, so this needs explicit approval).
 - [ ] add a small smoke-test suite for core routes: `/`, `/blog`, one known `/blog/<slug>`, `/feed.xml`, `/robots.txt`, `/sitemap.xml`, and `/api/panic` validation failure/success paths.
 - [ ] add a content-asset check that scans Markdown image links and fails CI when the target is missing or accidentally relative to the wrong directory.
 - [ ] audit direct dependencies and move/remove packages that are only historical or optional peers: candidates include `openai`, `uuid`, `dotenv`, `@dotenvx/dotenvx`, `node-gyp`, `untun`, `nuxi`, `@catppuccin/*`, and possibly `@libsql/client` / `better-sqlite3` if they are only present for local `@nuxt/content` support.
@@ -38,6 +41,10 @@
 - [ ] wire the existing `SITE.feed` constant everywhere instead of hardcoding `/feed.xml` in multiple templates.
 - [ ] decide whether `sql/redirects.sql` and the old `/go/*` redirect data are still useful. `redirects` was never a Drizzle table (only `sql/redirects.sql`); some docs and archived files still imply it's active.
 - [ ] update stale blog docs: `docs/BLOG.md` still uses old `queryContent(...)` examples, while runtime code now uses `queryCollection(...)`.
+- [ ] stop other worker versions writing production's content D1. Preview URLs (`preview_urls: true`), gradual deployments and version splits all share `DB_CONTENT`, so when two versions with different content get traffic, `content-sync` in each rebuilds D1 to its own content. Each isolate re-checks at most once a minute, so they flip-flop for as long as both are live, and a request whose rebuild is overwritten before it verifies gets a 503. Options: `preview_urls: false`, or a separate content D1 for non-production versions (both touch the do-not-modify wrangler block). A "newest build wins" rule looks tempting, but it lets a preview built after the last deploy take over production's content until the next deploy.
+- [ ] fail the build when a post's markdown cannot be parsed. `@nuxt/content` only logs `"<id>" is ignored because parsing is failed` and drops the post from the dump.
+- [ ] alert on `[content-sync] could not synchronise` in Workers Logs, so D1 trouble reaches a human rather than only surfacing as 503s.
+- [ ] stop the site name appearing twice in page titles: `useSeoMeta` titles already end in `· syn.horse` and the SEO module appends another `| syn.horse`, giving titles such as `sdam, and living without recall · syn.horse | syn.horse`.
 
 ### app behaviour and ux
 

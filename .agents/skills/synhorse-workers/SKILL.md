@@ -1,6 +1,6 @@
 ---
 name: synhorse-workers
-description: "syn.horse Cloudflare Workers deployment topology - why there is no root wrangler config, how wrangler.dev.jsonc drives Miniflare dev bindings, Nitro server route conventions, and the /api/panic queue producer pipeline. ALWAYS use when editing nuxt.config.ts nitro config, wrangler.dev.jsonc, anything under server/api/ or server/utils/, adding or changing a binding, deploying, or debugging Nitro build 'externals are not allowed' errors."
+description: "syn.horse Cloudflare Workers deployment topology - why there is no root wrangler config, how wrangler.dev.jsonc drives Miniflare dev bindings, Nitro server route conventions, and the /api/panic queue producer pipeline. ALWAYS use when editing nuxt.config.ts nitro config, wrangler.dev.jsonc, anything under server/api/, server/utils/ or server/middleware/, debugging @nuxt/content D1 sync or missing blog posts, adding or changing a binding, deploying, or debugging Nitro build 'externals are not allowed' errors."
 version: 1.0.0
 ---
 
@@ -35,6 +35,17 @@ Set by `server/api/panic.post.ts`, the project's first Nitro route:
 - DB access goes through `useDb(event).insert(…)` from `server/utils/db.ts`.
 - Use `crypto.randomUUID()` for IDs (global on Workers; no `uuid` import needed).
 - The `/api/**` route rules in `nuxt.config.ts` already attach CORS, `Cache-Control: no-cache` and `X-Content-Type-Options: nosniff` - no per-route work required.
+
+## Content database sync (`DB_CONTENT`)
+
+Server-side `queryCollection()` reads the `DB_CONTENT` D1 database, and `server/middleware/content-sync.ts` keeps it identical to the dump bundled into the running build. `AGENTS.md` explains why, in its blog notes. What matters when working near it:
+
+- **Trigger.** It runs in front of every `POST /__nuxt_content/<collection>/query`, and skips for 60 s after a success in that isolate. It skips dev and prerender because those read a local SQLite database that @nuxt/content maintains itself.
+- **Module state holds plain data only**: the last success time and the decoded dump. Concurrent requests each run their own check instead of awaiting one shared promise, because a promise's I/O belongs to the request that started it, and it never settles if that request is cancelled. Keep it that way; the check is idempotent, so duplicate runs are safe.
+- **Behaviour.** In sync, it reads only `sqlite_master`, the `_content_info` checksum row and `_content_<collection>.__hash__`. Out of sync, it replays the full dump in one D1 `batch()`, which is a transaction, verifies the result, and logs `[content-sync] rebuilt "<collection>" in D1: <reasons>` as a warning. On any failure it logs `[content-sync] could not synchronise`, answers 503, and retries on the next request.
+- **Diagnosing production.** Check Workers Logs for the two lines above, then compare D1 with the dump: `SELECT id, version, ready FROM _content_info` and `SELECT id, __hash__ FROM _content_blog` against `/__nuxt_content/blog/sql_dump.txt`. The dump is base64-encoded gzipped JSON, and each line ends in ` -- <row hash>`. Repairs happen on the next revalidation; D1 needs no hand edits.
+- **Reproducing locally.** `pnpm build`, then `wrangler dev` against `.output/server/wrangler.json` (local D1), and stage a state with `wrangler d1 execute DB_CONTENT --local`. A `BEFORE INSERT ON _content_info` trigger that calls `RAISE(ABORT, ...)` makes the rebuild batch fail, which exercises the 503 and rollback paths.
+- **Keep `integrityCheck` off.** The `nitro:config` hook in `nuxt.config.ts` disables @nuxt/content's own importer outside dev, so the middleware stays the single writer; two writers race.
 
 ## Panic paging pipeline (Cloudflare Queues)
 

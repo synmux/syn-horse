@@ -39,9 +39,17 @@ pnpm run deploy        # wrangler deploy (production)
 
 ```bash
 pnpm lint                 # eslint + trunk + tsc --noEmit
-pnpm lint:types           # type check only
+pnpm lint:types           # tsc --noEmit, which checks no files (see TODO.md)
+pnpm tsc -b --noEmit      # the real type check, across all project references
 pnpm lint:fix             # eslint --fix + trunk fix
 pnpm format               # prettier --write + trunk fmt
+```
+
+## Testing
+
+```bash
+pnpm test                 # vitest unit tests (test/unit/)
+pnpm test:watch           # the same, in watch mode
 ```
 
 ## Database (D1 + Drizzle)
