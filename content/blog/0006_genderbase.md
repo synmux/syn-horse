@@ -41,7 +41,7 @@ The Asker will be asked for their email address, but will have the option not to
 
 Random pseudonyms will be allocated to the Responder and the Asker to support ongoing conversation. My current intent is to put limits on two-way chats. An Asker will always be able to send one message in response to a Responder message. The Responder can send as many messages as they like. The Responder also has the power to close the conversation, shutting it down for both participants and moving it to the queue for summarisation.
 
-The Responder will also have the option to shut the conversation down as abusive at any time, including before responding. If this goes as planned, it'll work as described. If we find that we're shutting down conversations too readily, we might move to a secondary queue of Responders who self-identify as more mentally resilient, who can either decide to keep the thread shut down or open the thread for themselves and the Asker. That's something which remains to be seen.
+The Responder will also have the option to shut the conversation down as abusive at any time, including before responding. If this goes as planned, it'll work as described. If we find that we're shutting down conversations too readily, we might move to a secondary queue of Responders who self-identify as more mentally resilient, who can either decide to keep the thread shut down or open the thread for themselves and the Asker.
 
 ## Get involved
 

@@ -119,7 +119,7 @@ Streamable HTTP is the new hotness. This modern protocol lets your tools chat ba
 
 ### SSE
 
-Deprecated, but refuses to die. Server-Sent Events (SSE) is the workhorse that refuses to be put out to pasture. Your client opens a persistent unidirectional server-to-client connection, then `POST`s requests over another more traditional channel. It's less clever than its younger sibling, but it plays nicely with virtually everything by virtue of being a special and unique snowflake, including those ancient proxies and overzealous firewalls your IT department insists on keeping around. MetaMCP's implementation even handles reconnections automatically, saving you from the tedium of error handling.
+Deprecated, but refuses to die. Server-Sent Events (SSE) is the workhorse nobody can bring themselves to put out to pasture. Your client opens a persistent unidirectional server-to-client connection, then `POST`s requests over another more traditional channel. It's less clever than its younger sibling, but it plays nicely with virtually everything by virtue of being a special and unique snowflake, including those ancient proxies and overzealous firewalls your IT department insists on keeping around. MetaMCP's implementation even handles reconnections automatically, saving you from the tedium of error handling.
 
 ### OpenAPI (with Schema)
 

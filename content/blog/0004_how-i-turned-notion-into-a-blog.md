@@ -123,7 +123,7 @@ Then I created a new [**Notion**](https://notion.com) database for the blog, and
 
 To this database, I added a couple of new properties.
 
-The first was `Published`. This was a Select comprising two options: **Yes** and **No**. Automation was configured to initialise it to **No** when a page was created.
+The first was `Published`. This was a Select comprising two options: **Yes** and **No**. I configured automation to initialise it to **No** when a page was created.
 
 The second was `Published Date`. This was a date field. I configured automation to set it to today's date when a page was created. It remained freely editable, this just ensured that it was valid and not empty by default.
 
@@ -181,7 +181,7 @@ First, I added a `Summary` field to the database, and configured [**Notion AI**]
 
 I also added a `Topics` field, also set to display on the list of posts, which uses [**Notion AI**](https://www.notion.com/product/ai) in **keywords** mode to flesh out the summary in a skimmable way. It's also useful for SEO, as it often picks up terms which are key to the content even when the post never uses them. Like `Summary`, it's set to update itself as the post's content is edited.
 
-I also display both on the post itself too, mostly for SEO reasons.
+I display both on the post itself too, mostly for SEO reasons.
 
 ### Making it look good
 

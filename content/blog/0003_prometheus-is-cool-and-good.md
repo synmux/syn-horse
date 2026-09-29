@@ -106,7 +106,7 @@ You can write an **Exporter** in any language, though the official Go client lib
 
 Grafana makes it easy to build attractive, real-time dashboards using the data from Prometheus.
 
-It can be run on-premises for free, or hosted by Grafana Labs. The hosted service includes a free tier with fairly impressive limits for a free tier (10,000 time series, 50GB logs).
+It can be run on-premises for free, or hosted by Grafana Labs. The hosted service includes a free tier with fairly impressive limits (10,000 time series, 50GB logs).
 
 It includes its own implementation of alerting, separate from the **Alert Manager**. You can use either or both of them, as they're independent of each other.
 
