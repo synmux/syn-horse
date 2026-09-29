@@ -136,6 +136,23 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
+  hooks: {
+    // @nuxt/content's built-in D1 importer skips statements that fail, treats a failed checksum
+    // read as an empty database (and drops the table), then marks the import complete anyway.
+    // That left production serving 5 of 15 posts. `server/middleware/content-sync.ts` replaces
+    // it with an atomic, self-healing sync, so the built-in one must not also write to D1. Dev
+    // is left alone: it reads a local SQLite database that @nuxt/content maintains itself.
+    "nitro:config"(nitroConfig) {
+      if (nitroConfig.dev) {
+        return
+      }
+      const contentRuntimeConfig = nitroConfig.runtimeConfig?.content
+      if (!contentRuntimeConfig) {
+        throw new Error("@nuxt/content runtime config is missing, so its D1 integrity check cannot be disabled")
+      }
+      contentRuntimeConfig.integrityCheck = false
+    },
+  },
   hub: {
     // D1 database (binding defaults to 'DB')
     db: {

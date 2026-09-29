@@ -44,6 +44,9 @@ logs
 # eslint cache
 .eslintcache
 
+# typescript incremental build info (`tsc -b` writes one for test/tsconfig.json)
+*.tsbuildinfo
+
 # playwright
 .playwright-mcp
 

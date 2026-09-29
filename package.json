@@ -50,6 +50,7 @@
     "typescript": "6.0.3",
     "untun": "^0.2.2",
     "vite-plugin-eslint2": "^5.3.0",
+    "vitest": "^5.0.1",
     "wrangler": "^4.136.2"
   },
   "engines": {
@@ -92,15 +93,15 @@
     "prepare:nuxt": "pnpm nuxt prepare",
     "preview": "pnpm run-s build preview:wrangler",
     "preview:wrangler": "pnpm wrangler dev",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "types": "pnpm run-s prepare:nuxt types:wrangler",
     "types:wrangler": "pnpm wrangler types --config .output/server/wrangler.json",
-    "x:test": "vitest",
     "x:test:coverage": "vitest --coverage",
     "x:test:e2e": "playwright test",
     "x:test:e2e:ui": "playwright test --ui",
     "x:test:nuxt": "vitest --project nuxt",
-    "x:test:unit": "vitest --project unit",
-    "x:test:watch": "vitest --watch"
+    "x:test:unit": "vitest --project unit"
   },
   "type": "module",
   "packageManager": "pnpm@12.4.1+sha512.2e81e399d73fe8390dab25e06aa788ab7a5908248d2f5a370f82b481147a6a7a367bf8048f9a6fdb6460f21a66f0542dedb8b94ca2c8723596741920b1656d4c"

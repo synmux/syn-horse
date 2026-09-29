@@ -1,0 +1,10 @@
+{
+  // Unit tests run under plain vitest (no Nuxt environment), but import code from app/ and
+  // server/, so they borrow the app config for `#app` paths plus the app's auto-import globals,
+  // and add Node's types for the `node:*` modules the test doubles use.
+  "extends": "../.nuxt/tsconfig.app.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["../.nuxt/types/imports.d.ts", "./**/*.ts", "../vitest.config.ts"]
+}
