@@ -23,9 +23,10 @@ All via pnpm. Authoritative source: package.json `scripts`.
 - `pnpm db:migrate:local` / `:remote` — `wrangler d1 migrations apply syn-horse` (passes `--config wrangler.dev.jsonc`; `--local` vs `--remote`).
 - `pnpm db:studio` — drizzle-kit studio.
 
-## Tests — NONE wired
+## Tests
 
-`x:test*` scripts exist but are parked; vitest/@playwright/test are NOT installed. See `mem:task_completion`.
+- `pnpm test` — vitest unit tests in `test/unit/` (test doubles, including a `node:sqlite` D1 stand-in, live in `test/support/`). CI runs them.
+- `pnpm test:watch` — the same, in watch mode.
 
 ## Darwin / shell notes
 

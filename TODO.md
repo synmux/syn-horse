@@ -18,10 +18,10 @@
 
 - [ ] make `pnpm lint` pass locally, or adjust the documented command. Today `pnpm lint:eslint` checks `_DIO/`, `_DSOY/` and `_design/` even though they are frozen/export directories, while Trunk already ignores them.
 - [ ] make `pnpm lint:trunk` pass, or scope Trunk away from generated/local agent skill files under `.agents/skills/**`; the current run reports markdown/yaml issues in installed skill files plus the intentional TODO in `server/api/panic.post.ts`.
-- [ ] decide whether the remaining `x:test:*` scripts are real project commands. vitest is now installed and `pnpm test` / `pnpm test:watch` are real (2026-09-29); `x:test:coverage` needs `@vitest/coverage-v8`, `x:test:nuxt` / `x:test:unit` need vitest projects, and `x:test:e2e*` need playwright.
+- [x] remove the `x:test:*` placeholder scripts (coverage, e2e, nuxt and unit projects), none of which had their tooling installed; `pnpm test` / `pnpm test:watch` cover the unit tests (2026-09-29).
 - [x] make `pnpm lint:types` actually type-check. It ran `tsc --noEmit`, which checks zero files because the root `tsconfig.json` is references-only. It now runs `nuxt typecheck` (2026-09-29). `@vueuse/core` is a direct dependency, and the one error the real check found, in `CommandPalette.vue`, is fixed.
 - [x] add `vue-tsc` so `.vue` files are type-checked (2026-09-29, through `nuxt typecheck`).
-- [ ] run `pnpm test` in the `ci` workflow (`.github/` is on the do-not-modify list, so this needs explicit approval).
+- [x] run `pnpm test` in the `ci` workflow, between typecheck and build (2026-09-29; editing `.github/` for this was approved).
 - [ ] add a small smoke-test suite for core routes: `/`, `/blog`, one known `/blog/<slug>`, `/feed.xml`, `/robots.txt`, `/sitemap.xml`, and `/api/panic` validation failure/success paths.
 - [ ] add a content-asset check that scans Markdown image links and fails CI when the target is missing or accidentally relative to the wrong directory.
 - [ ] audit direct dependencies and move/remove packages that are only historical or optional peers: candidates include `openai`, `uuid`, `dotenv`, `@dotenvx/dotenvx`, `node-gyp`, `untun`, `nuxi`, `@catppuccin/*`, and possibly `@libsql/client` / `better-sqlite3` if they are only present for local `@nuxt/content` support.
@@ -42,9 +42,9 @@
 - [ ] decide whether `sql/redirects.sql` and the old `/go/*` redirect data are still useful. `redirects` was never a Drizzle table (only `sql/redirects.sql`); some docs and archived files still imply it's active.
 - [ ] update stale blog docs: `docs/BLOG.md` still uses old `queryContent(...)` examples, while runtime code now uses `queryCollection(...)`.
 - [x] stop other worker versions writing production's content D1: `preview_urls` is off (2026-09-29). Gradual deployments and version splits would still share `DB_CONTENT`; while two versions with different content get traffic, `content-sync` in each rebuilds D1 to its own content, so they flip-flop. Give non-production versions their own content D1 before using either. A "newest build wins" rule looks tempting, but it lets a preview built after the last deploy take over production's content.
-- [ ] fail the build when a post's markdown cannot be parsed. `@nuxt/content` only logs `"<id>" is ignored because parsing is failed` and drops the post from the dump.
-- [ ] alert on `[content-sync] could not synchronise` in Workers Logs, so D1 trouble reaches a human rather than only surfacing as 503s.
-- [ ] stop the site name appearing twice in page titles: `useSeoMeta` titles already end in `· syn.horse` and the SEO module appends another `| syn.horse`, giving titles such as `sdam, and living without recall · syn.horse | syn.horse`.
+- [x] fail the build on broken content (2026-09-29). @nuxt/content turned unparseable frontmatter into a row of NULLs and garbage, and never checked the schema; a file that made the parser throw was dropped with a warning. `modules/content-integrity.ts` now stops the build if a file has no row or a row fails its schema.
+- [ ] alert on `[content-sync] could not synchronise`, so D1 trouble reaches a human rather than only surfacing as 503s. Plan: deliver through Pushover by reusing the panic pipeline. Send a message on the `NOTIFICATIONS` queue and let the `syn-horse-notifications` consumer's Pushover adapter deliver it. That way the Pushover keys live only in the consumer Worker's secrets, rather than in Workers Builds variables, which exist only during the build. Waiting on syn to set up Pushover.
+- [x] stop the site name appearing twice in page titles (2026-09-29). Pages set only their own title, and the SEO module's template adds `· syn.horse`. The same fix gave every page its own og:title and og:description; both had been the site defaults everywhere.
 
 ### app behaviour and ux
 

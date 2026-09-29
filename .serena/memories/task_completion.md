@@ -2,15 +2,16 @@
 
 Run before claiming any code task done (all via pnpm):
 
-1. `pnpm lint:types` — `tsc --noEmit`; must pass clean.
-2. `pnpm lint` — eslint + trunk + types together (the full gate).
-3. If bindings or DB schema changed: `pnpm build` (also regenerates `worker-configuration.d.ts` via wrangler types) — confirm it builds.
+1. `pnpm test` — vitest unit tests; must pass.
+2. `pnpm lint:types` — `nuxt typecheck` (vue-tsc over app, server, config and `test/`, `.vue` files included); must pass clean.
+3. `pnpm lint` — eslint + trunk + types together (the full gate).
+4. If bindings, DB schema or content changed: `pnpm build` (also regenerates `worker-configuration.d.ts` via wrangler types, and fails if a post is missing from the content dump) — confirm it builds.
 
 Auto-fix first with `pnpm lint:fix` then `pnpm format`, then re-run the gate.
 
-## No automated tests (important)
+## Tests
 
-There is **no working test runner**: `x:test*` scripts are parked and vitest/@playwright/test are not in devDependencies, so "run the tests" is not currently possible. Verify changes manually (`pnpm dev` / `pnpm preview`) or raise installing a runner with the user. This is in tension with the global "test everything" rule — flag it, don't silently skip.
+Unit tests live in `test/unit/` with doubles in `test/support/`. New logic with side effects gets a test there. There are no browser or end-to-end tests; verify UI changes with `pnpm preview` (or `pnpm dev`).
 
 ## DB change flow
 

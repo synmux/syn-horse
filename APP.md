@@ -103,7 +103,7 @@ Request flow in words:
 | Fonts           | **@nuxt/fonts** (Google provider)                                                                                                               | VT323 (display), Inter (100–900 + italic), Space Mono (100–800 + italic).                                                  |
 | Nuxt modules    | `@nuxt/icon`, `@nuxt/image`, `@nuxt/scripts`, `@nuxt/eslint`, `@nuxthub/core`, `nuxt-security`, `nuxt-gtag`, `@nuxtjs/turnstile`, `@nuxtjs/seo` | See §8.                                                                                                                    |
 | Tooling         | eslint 10 (flat) + prettier 3 + trunk; tsc/vue-tsc for types                                                                                    | `ctx7` (Context7) + `skilld` dev deps generate agent skills.                                                               |
-| Tests           | **none wired**                                                                                                                                  | `x:test*` scripts exist but vitest/playwright are **not installed**. See §10.                                              |
+| Tests           | **vitest**                                                                                                                                      | `pnpm test` runs `test/unit/*.test.ts`; CI runs it too. No browser or end-to-end tests yet. See §10.                       |
 
 Dependencies worth knowing about for planning: `openai`/`uuid`/`@catppuccin/*`/`untun` are
 present but largely historical or optional - IDs are generated with global
@@ -419,15 +419,15 @@ pnpm db:studio              # drizzle-kit studio
 
 **Verify gate (run before claiming a code task done):**
 
-1. `pnpm lint:types` - `tsc --noEmit`, must pass clean.
-2. `pnpm lint` - eslint + trunk + types together. Auto-fix with `pnpm lint:fix` then
+1. `pnpm test` - vitest unit tests in `test/unit/`, must pass.
+2. `pnpm lint:types` - `nuxt typecheck` (vue-tsc over every project, `.vue` files included),
+   must pass clean.
+3. `pnpm lint` - eslint + trunk + types together. Auto-fix with `pnpm lint:fix` then
    `pnpm format`, then re-run.
-3. If bindings or DB schema changed: `pnpm build` (also regenerates `worker-configuration.d.ts`).
+4. If bindings, DB schema or content changed: `pnpm build` (also regenerates
+   `worker-configuration.d.ts`, and fails if a post is missing from the content dump).
 
-> ⚠️ **There is no working test runner.** The `x:test*` scripts call `vitest`/`playwright`,
-> neither of which is installed. "Run the tests" is currently impossible - verify changes
-> manually via `pnpm dev` / `pnpm preview`, or raise installing a runner. This is in
-> tension with the global "test everything" rule; flag it, don't silently skip.
+> There are no browser or end-to-end tests: verify UI changes via `pnpm preview` or `pnpm dev`.
 >
 > ⚠️ **`pnpm lint` has known noise** (per the 2026-05-09 review): `lint:eslint` lints the
 > frozen `_DIO/`/`_DSOY/`/`_design/` dirs, and `lint:trunk` flags installed agent-skill files.
@@ -595,8 +595,8 @@ and reorganised by **theme + readiness**. Tags: 🟢 quick win · 🟡 needs des
 ### Tooling, docs & hygiene
 
 - 🟢 Make `pnpm lint` (eslint + trunk) pass locally, or scope it away from frozen/skill dirs.
-- 🟡 Decide whether the `x:test*` scripts are real, and add a **smoke-test suite** for core routes
-  (`/`, `/blog`, a known post, `/feed.xml`, `/robots.txt`, `/sitemap.xml`, `/api/panic` paths).
+- 🟡 Add a **smoke-test suite** for core routes (`/`, `/blog`, a known post, `/feed.xml`,
+  `/robots.txt`, `/sitemap.xml`, `/api/panic` paths). Unit tests run under vitest already.
 - 🟢 Dependency audit - `openai`, `uuid`, `dotenv`/`@dotenvx/dotenvx`, `node-gyp`, `untun`,
   `nuxi`, `@catppuccin/*`, and maybe `@libsql/client`/`better-sqlite3`.
 - 🟢 Update stale docs: `docs/BLOG.md` (still uses `queryContent(...)`), `DB.md` (still describes
