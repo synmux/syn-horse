@@ -89,7 +89,7 @@ You have the `serena` MCP to help you navigate code; use it, it will make your l
 
 - `pnpm dev` - local dev server on `http://localhost:3000` (the wrangler dev block configures binding to a tailnet host; ignore unless you need it).
 - `pnpm test` - vitest unit tests.
-- `pnpm tsc -b --noEmit` - the real typecheck (walks the project references, including `test/tsconfig.json`). `pnpm lint:types` (`tsc --noEmit`) checks no files at all, because the root `tsconfig.json` is references-only - see `TODO.md`.
+- `pnpm lint:types` - `nuxt typecheck`, which runs `vue-tsc` over every project the root `tsconfig.json` references (app, server, shared, config and `test/`), `.vue` files included. Should always pass.
 - `pnpm lint` - eslint + trunk + typecheck.
 - `pnpm build` - runs the Nuxt build then `wrangler types` to regenerate `worker-configuration.d.ts`.
 - `pnpm preview` - local wrangler dev against the production build output.

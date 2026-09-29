@@ -38,9 +38,8 @@ pnpm run deploy        # wrangler deploy (production)
 ## Linting and formatting
 
 ```bash
-pnpm lint                 # eslint + trunk + tsc --noEmit
-pnpm lint:types           # tsc --noEmit, which checks no files (see TODO.md)
-pnpm tsc -b --noEmit      # the real type check, across all project references
+pnpm lint                 # eslint + trunk + nuxt typecheck
+pnpm lint:types           # nuxt typecheck (vue-tsc over app, server, config and tests)
 pnpm lint:fix             # eslint --fix + trunk fix
 pnpm format               # prettier --write + trunk fmt
 ```
