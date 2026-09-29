@@ -8,7 +8,7 @@ TMPDIR = '/tmp'
 env_file = '.env'
 
 [tools]
-node = { version = '24' }
+node = { version = '24.21.0' }
 
 [tasks]
 claude = 'npx --yes @anthropic-ai/claude-code@latest'
