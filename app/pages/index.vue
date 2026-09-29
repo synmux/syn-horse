@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { SITE } from "~/data/site"
 
-const { data: blogCount } = await useAsyncData(
+// A failed count leaves the blog card without a number rather than failing the home page;
+// the blog pages themselves report content failures as errors.
+const { data: blogCount, error: blogCountError } = await useAsyncData(
   "home-blog-count",
   () => {
     const query = queryCollection("blog")
@@ -51,7 +53,7 @@ const { data: blogCount } = await useAsyncData(
       </NuxtLink>
       <NuxtLink to="/blog" class="home-card fx-glitch">
         <div class="home-card-head">/ blog</div>
-        <h3 class="home-card-title">{{ blogCount }} posts</h3>
+        <h3 class="home-card-title">{{ blogCountError ? "posts" : `${blogCount} posts` }}</h3>
         <p class="home-card-body">cli, meshtastic, ms, sdam. infrequent. mostly coherent.</p>
         <span class="home-card-arrow">read posts →</span>
       </NuxtLink>
