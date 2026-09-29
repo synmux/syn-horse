@@ -18,6 +18,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "@takumi-rs/core": "^2.14.0",
     "@takumi-rs/wasm": "^2.14.0",
+    "@vueuse/core": "^15.0.0",
     "better-sqlite3": "^13.0.3",
     "daisyui": "^5.7.43",
     "drizzle-orm": "^0.45.3",
@@ -51,6 +52,7 @@
     "untun": "^0.2.2",
     "vite-plugin-eslint2": "^5.3.0",
     "vitest": "^5.0.1",
+    "vue-tsc": "^3.3.11",
     "wrangler": "^4.136.2"
   },
   "engines": {
@@ -86,7 +88,7 @@
     "lint:fix": "pnpm run-s lint:eslint:fix lint:trunk:fix",
     "lint:trunk": "pnpm trunk check -a",
     "lint:trunk:fix": "pnpm trunk check -a --fix",
-    "lint:types": "pnpm tsc --noEmit",
+    "lint:types": "pnpm nuxt typecheck",
     "postinstall": "pnpm prepare",
     "prepare": "pnpm run-s prepare:nuxt",
     "prepare:skilld": "skilld prepare || true",
