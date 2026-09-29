@@ -145,7 +145,7 @@ The backend is intentionally tiny - **one route**:
   - `pager.ts` → `usePager(event)`, `extractSource(event)`, type `Pager`.
   - `queue-message.ts` → the consumer's wire format, type `QueueMessage`, and `isValidSource`
     (its patterns kept byte-identical to the consumer Worker's).
-  - `content-sync.ts` / `content-sync-alerts.ts` → the content D1 sync and its red pages.
+  - `content-sync.ts` / `content-sync-alerts.ts` → the content D1 sync, its red pages and green all-clears.
 
 `/api/**` route rules (in `nuxt.config.ts`) already attach CORS, `Cache-Control: no-cache`,
 `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `X-XSS-Protection: 0` - so new API
@@ -346,7 +346,7 @@ are post-launch).
   delivery: red through Pushover at emergency priority, green through ntfy. The wire envelope
   is `{ channel, contact, message, source? }` (`server/utils/queue-message.ts`), and
   `isValidSource` must stay byte-identical to the consumer's `HOSTNAME_RE`. `/api/panic` and the
-  content-sync middleware (red pages when the blog's D1 cannot sync) both send on it.
+  content-sync middleware (a red page when the blog's D1 cannot sync, a green all-clear when it recovers) both send on it.
 - **SEO** (`@nuxtjs/seo`) - sitemap/robots/OG/schema-org. `site.url = https://syn.horse`,
   `indexable: true`. Per-page metadata today is just `useSeoMeta({ title, description })`;
   canonical URLs, `og:image`, article metadata, and OG-image wiring are **not yet done** (§12).

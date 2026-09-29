@@ -185,7 +185,7 @@ Should list at least `d1_migrations`, `panic_pages`, `sqlite_sequence`.
 
 A separate Worker - the `syn-horse-notifications` queue consumer, whose code lives on this repo's `notifications` branch - runs each message through a four-stage pipeline: logging → per-source rate limits (KV) → Workers AI moderation → delivery. Red pages go to Pushover at emergency priority and green ones to ntfy. The wire format is a strict `{ channel, contact, message, source? }` envelope, defined in `server/utils/queue-message.ts`.
 
-The same queue carries red pages from the content-sync middleware when the blog's content database has failed to sync for a minute; the time of the last page is kept in KV so an outage pages once an hour.
+The same queue carries red pages from the content-sync middleware when the blog's content database has failed to sync for a minute, and a green all-clear when it recovers. The time of the last page is kept in KV, so an outage pages once an hour and gets one all-clear.
 
 ## Easter eggs
 
