@@ -1,6 +1,8 @@
 <script setup lang="ts">
 definePageMeta({ layout: false })
 
+useSeoMeta({ title: "void" })
+
 const router = useRouter()
 
 function goBack() {

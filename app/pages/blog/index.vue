@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from "vue"
-import { SITE } from "~/data/site"
 
 useSeoMeta({
-  title: `blog · ${SITE.name}`,
+  title: "blog",
   description: "essays, notes, and shouts into the void."
 })
 

@@ -20,7 +20,7 @@ if (!page.value) {
 }
 
 useSeoMeta({
-  title: () => `${page.value?.title} · ${SITE.name}`,
+  title: () => page.value?.title,
   description: () => page.value?.description
 })
 

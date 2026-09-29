@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { DOMAINS, type DomainCls } from "~/data/domains"
-import { SITE } from "~/data/site"
 
 useSeoMeta({
-  title: `domains · ${SITE.name}`,
+  title: "domains",
   description: "the syn.* family."
 })
 

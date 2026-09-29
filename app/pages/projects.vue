@@ -2,7 +2,6 @@
 import { computed } from "vue"
 import { useKonamiState } from "~/composables/useKonamiState"
 import { ABANDONED_PROJECTS, PROJECTS, type Project } from "~/data/projects"
-import { SITE } from "~/data/site"
 
 const { commandsEnabled } = useKonamiState()
 
@@ -28,7 +27,7 @@ const cards = computed<ProjectCard[]>(() => {
 })
 
 useSeoMeta({
-  title: `projects · ${SITE.name}`,
+  title: "projects",
   description: "things i made on purpose."
 })
 </script>

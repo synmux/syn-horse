@@ -72,6 +72,11 @@ export default defineNuxtConfig({
           name: "apple-mobile-web-app-title",
         },
       ],
+      // The SEO module's title template is `%s %separator %siteName`; pages set only their own
+      // title, so this gives "blog · syn.horse" and plain "syn.horse" on the home page.
+      templateParams: {
+        separator: "·",
+      },
     },
   },
   compatibilityDate,

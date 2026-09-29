@@ -1,9 +1,8 @@
 <script setup lang="ts">
 // import { CV_ROLES, SIDE, TALKS } from "~/data/cv"
-import { SITE } from "~/data/site"
 
 useSeoMeta({
-  title: `cv · ${SITE.name}`,
+  title: "cv",
   description: "20+ years in devops, sre, and sysadmin."
 })
 </script>

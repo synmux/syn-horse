@@ -2,7 +2,6 @@
 import { computed } from "vue"
 import { useKonamiState } from "~/composables/useKonamiState"
 import { GOODIES, type Goody, SECRET_GOODIES } from "~/data/goodies"
-import { SITE } from "~/data/site"
 
 const { commandsEnabled } = useKonamiState()
 
@@ -19,7 +18,7 @@ const rows = computed<GoodyRow[]>(() => {
 })
 
 useSeoMeta({
-  title: `goodies · ${SITE.name}`,
+  title: "goodies",
   description: "files i keep public. take what you want."
 })
 </script>

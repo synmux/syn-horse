@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { IM } from "~/data/im"
-import { SITE } from "~/data/site"
 import { SOCIAL } from "~/data/social"
 
 useSeoMeta({
-  title: `contact · ${SITE.name}`,
+  title: "contact",
   description: "email, signal, and a few obligated others."
 })
 </script>

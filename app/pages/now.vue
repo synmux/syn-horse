@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { SITE } from "~/data/site"
-
 useSeoMeta({
-  title: `now · ${SITE.name}`,
+  title: "now",
   description: "what i'm actually doing this month."
 })
 </script>

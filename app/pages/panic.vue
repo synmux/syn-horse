@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { SITE } from "~/data/site"
 import type { Channel } from "~~/server/db/schema"
 
 useSeoMeta({
-  title: `panic · ${SITE.name}`,
+  title: "panic",
   description: "page syn. red for emergencies, green for everything else."
 })
 
