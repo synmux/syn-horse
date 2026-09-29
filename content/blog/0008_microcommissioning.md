@@ -9,17 +9,17 @@ read: "4 min"
 
 ## What is Microcommissioning?
 
-I've been thinking about what we can do in tech land to address the fact that artists have been undeniably shafted by the rise of generative AI.
+I've been thinking about what we can do in tech land to address the fact that artists have been shafted by the rise of generative AI.
 
-I'm exploring the concept of a microcommissioning platform – a dedicated space where people can connect with artists for small-scale artwork at accessible price points (typically £20 or less, though this is just an initial idea).
+I'm exploring the concept of a microcommissioning platform: a place where people can commission small pieces of art from artists for £20 or less. That price is a starting point, not a rule.
 
-Unlike general freelance marketplaces, this platform would be specifically optimised for quick, clearly-defined art requests with streamlined processes for both artists and clients.
+General freelance marketplaces try to do everything. This one would handle small, clearly defined art requests, with as little admin as possible for artists and clients.
 
-Artists would benefit from volume and efficiency, while clients would get authentic, human-created work without breaking the bank - and, most importantly, not resorting to a plagiarism machine.
+Artists would benefit from volume, and clients would get human-made work without breaking the bank - and without resorting to a plagiarism machine.
 
 ## Is this a good idea?
 
-Before diving deeper into development, I'd love to hear from artists.
+Before I build anything, I'd love to hear from artists.
 
 - Does this seem like a sensible way to short-circuit generative AI?
 - Would this model work for you?

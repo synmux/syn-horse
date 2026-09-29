@@ -13,11 +13,11 @@ Hello again, Internet.
 
 You may remember me as the idiot who strapped a children's toy to their head and thought, _"Yes. You know what this needs? A direct connection to some vibrators."_
 
-It's been a few years since what was then called **Project Neurokink** went quiet - ADHD bites even the most noble scientific pursuits, it seems - but I've been remembering when I was that lunatic who was trying to make telepathic orgasm control a reality. Well, I'm still here, still in possession of both my engineering skills and my questionable judgment, and I think it's time to dust off the old EEG headset.
+It's been a few years since what was then called **Project Neurokink** went quiet - ADHD bites even the most noble scientific pursuits, it seems - but I've been remembering when I was that lunatic trying to make telepathic orgasm control a reality. Well, I'm still here, still in possession of both my engineering skills and my questionable judgment, and I think it's time to dust off the old EEG headset.
 
 Oh, and it has a new name. Project Neurakink. Yes, with an 'a'. Look, if Elon Musk can put chips in people's brains with [**Neuralink**](https://neuralink.com) to [**make them play chess with their thoughts**](https://www.bbc.co.uk/news/business-68622781), surely I can strap a gadget to someone's head to control a vibrator.
 
-Mine's - admittedly arguably - more useful to society anyway.
+Mine's arguably more useful to society anyway.
 
 ## Yes, Alright, The Name
 
@@ -35,7 +35,7 @@ But, in the end, I settled on _Neurakink_ for three reasons:
 - It might piss Elon Musk off.
 - Fuck you.
 
-Now, I'm quite aware than point 2 comes with the possible result of a cease & desist from some law firm with an improbably long name.
+Now, I'm aware that point 2 might earn me a cease & desist from some law firm with an improbably long name.
 
 Thing is, though, I'm not making any claims that would lead me to be confused with Musk's ventures. I'd need to check with a lawyer, but I could likely ignore it because I'm not [**passing off**](https://en.wikipedia.org/wiki/Passing_off).
 
@@ -51,7 +51,7 @@ You see, while the NeuroSky chipset in use produces an "attention" metric which 
 
 Specifically, I saw the possibility of creating sex toys that could read your mind. Not in a creepy "knows your PIN number" way, but in a "knows when you're about to climax and stops just to be difficult" way. The technical term is "edging," though I prefer "automated frustration delivery system."
 
-The initial system just uses a vibrator, and only uses on/off states. Future changes could include varying the strength of the vibrator - the [**Lovense Lush**](https://www.lovense.co.uk/bluetooth-remote-control-vibrator) both springs to mind as appropriate and is in my arsenal - as well as adding other transducers like an e-stim unit, like my finest purchase, the venerable [**ET-312B**](https://blog.erostek.com/getting-started/powerful-et312/) which might be discontinued, but has never been beaten.
+The initial system uses a single vibrator with on/off states. Future versions could vary the strength - the [**Lovense Lush**](https://www.lovense.co.uk/bluetooth-remote-control-vibrator) springs to mind, and is already in my arsenal. They could also add other transducers like an e-stim unit. My finest purchase, the venerable [**ET-312B**](https://blog.erostek.com/getting-started/powerful-et312/), might be discontinued, but it has never been beaten.
 
 ## The Prototype
 
@@ -63,7 +63,7 @@ Turns out, climaxing and concentrating on a foam sphere produce surprisingly dif
 
 ## Beyond Basic Bastardry
 
-The applications, as I discovered through extensive "research," were rather broader than just the evil edge-and-denial system I'd initially envisioned. Picture this: long-distance relationships where you could literally feel your partner's arousal levels from across the globe. Sex toys that learn your patterns better than you know them yourself. BDSM scenes where the dominant doesn't even need to touch the controls - just think particularly stern thoughts.
+The applications, as I discovered through extensive "research," went well beyond the evil edge-and-denial system I'd initially envisioned. Picture this: long-distance relationships where you could feel your partner's arousal levels from across the globe. Sex toys that learn your patterns better than you know them yourself. BDSM scenes where the dominant doesn't even need to touch the controls - just think particularly stern thoughts.
 
 Of course, there were challenges. Mapping pleasure responses across different brains is like trying to write universal directions to Narnia - everyone's wardrobe is slightly different. The sensor needed training, the software needed refinement, and I needed to stop giggling every time I explained the project to someone new.
 
@@ -79,7 +79,7 @@ Turns out that you can get proper brain-reading kit for less than a grand these 
 
 ![MindWave](../images/blog/2025-08-26_neurakink/neurosky.png)
 
-There's [**NeuroSky's MindWave**](https://store.neurosky.com/pages/mindwave) at £103, which is basically what I was hacking but without the voided warranty. [**OpenBCI**](https://www.opensourceimaging.org/project/openbci/) will sell you completely open-source gear where you can fiddle with every last bit - literally - for about £500. They're the Linux of brain interfaces, if Linux required you to attach electrodes to your skull.
+There's [**NeuroSky's MindWave**](https://store.neurosky.com/pages/mindwave) at £103, which is what I was hacking but without the voided warranty. [**OpenBCI**](https://www.opensourceimaging.org/project/openbci/) will sell you completely open-source gear where you can fiddle with every last bit - literally - for about £500. They're the Linux of brain interfaces, if Linux required you to attach electrodes to your skull.
 
 ![Emotiv](../images/blog/2025-08-26_neurakink/emotiv.png)
 
@@ -95,13 +95,13 @@ For those with deeper pockets and fewer scruples about looking ridiculous, there
 
 ![FreeEEG32](../images/blog/2025-08-26_neurakink/freeeeg.png)
 
-The truly ambitious can get 32 channels for about £850 with the [**FreeEEG32**](https://www.crowdsupply.com/neuroidss/freeeeg32), though you'll need to stack electrodes on top of that. Thirty-two channels! The original MindFlex had one. That's like going from a kazoo to a symphony orchestra, except the symphony is playing the song of your junk. Minor problem: they're no longer selling the boards, but the whole product is open source with [**the design files on GitHub**](https://github.com/neuroidss/FreeEEG32-beta) so it remains just about within the realm of possibility.
+The ambitious can get 32 channels for about £850 with the [**FreeEEG32**](https://www.crowdsupply.com/neuroidss/freeeeg32), though you'll need to stack electrodes on top of that. Thirty-two channels! The original MindFlex had one. That's like going from a kazoo to a symphony orchestra, except the symphony is playing the song of your junk. Minor problem: they're no longer selling the boards, but the whole product is open source with [**the design files on GitHub**](https://github.com/neuroidss/FreeEEG32-beta) so it remains just about possible.
 
 The only flaw, really, is that I'm unemployed and can barely pay my hosting bill. But these options go on my list of incredibly shiny shit to purchase if I have a windfall, and I can still develop with the good old MindFlex.
 
 ## The Second Coming (Pun Absolutely Intended)
 
-So why am I bringing this all back now? Well, partly because the technology has improved dramatically since 2015, partly because I miss the delightful emails from people offering to help with "testing," and partly because I've never quite shaken the feeling that the world needs more ridiculous sex-tech projects run by people who are just clever enough to be dangerous.
+So why am I bringing this all back now? Partly because the technology has improved dramatically since 2015. Partly because I miss the delightful emails from people offering to help with "testing." And partly because I've never shaken the feeling that the world needs more ridiculous sex-tech projects run by people who are just clever enough to be dangerous.
 
 Project Neurakink is coming back. The headset is ready, the code is being resurrected from whatever digital grave I buried it in, and I'm ready to once again walk that fine line between innovation and insanity.
 

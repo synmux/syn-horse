@@ -17,7 +17,7 @@ I'd like to share a few of them with you. You won't find all of these useful in 
 
 Many of the tools I'll mention are shell-agnostic, meaning that they don't care which shell you're using. The shell functions later in this piece are intended for `fish` and in most cases will not work directly in `bash` or `zsh`.
 
-I am a big proponent of `fish`. It's not nothing that the syntax differs from what you might be more familiar with, but I like the changes: blocks that simply run to an `end` instead of `do`/`done` and `then`/`fi`, variables whose scope and export status you have to state outright rather than inferring from context, and first-class array variables with a dedicated helper for the one thing everybody actually wants to do to `$PATH`.
+I am a big proponent of `fish`. The syntax takes some getting used to if you're coming from `bash` or `zsh`, but I like the changes. Blocks run to an `end` instead of `do`/`done` and `then`/`fi`. You state a variable's scope and export status outright instead of leaving it to context. Arrays are first-class, with a dedicated helper for the one thing everybody actually wants to do to `$PATH`.
 
 One example is the following -
 
@@ -69,7 +69,7 @@ fish_add_path /path/to/bin  # edits $fish_user_paths, persists forever (scope U)
                             # fish variables can be arrays, -a appends to it
 ```
 
-There is of course more, but this is just an example of how the syntax feels more mature.
+That's a small sample, but it shows how much more mature the syntax feels.
 
 Autosuggestions and syntax highlighting come out of the box on `fish`, whereas you need a third-party plugin on `bash` or `zsh`.
 
@@ -109,7 +109,7 @@ oh-my-fish/plugin-osx          # macOS utility commands
 wfxr/forgit                    # Git utilities - requires fzf!
 ```
 
-When you've installed `fisher` and created this file, just run `fisher update` to get set up. If you've added `tide` then its configuration routine will also start at this point.
+When you've installed `fisher` and created this file, run `fisher update` to get set up. If you've added `tide` then its configuration routine will also start at this point.
 
 ## Shell Functions
 
@@ -251,13 +251,13 @@ set fish_pager_color_secondary F8F8F2 # the background color of the every second
 
 ## Standalone Utilities
 
-From here on, we're dealing with stuff that doesn't really care which shell you use. If they have shell integration, generally it works for `bash`, `zsh`, and `fish`.
+From here on, we're dealing with stuff that doesn't care which shell you use. If they have shell integration, generally it works for `bash`, `zsh`, and `fish`.
 
 They're sorted alphabetically rather than in any meaningful order.
 
 ### `atuin`
 
-Oh, `atuin`, how I love thee. Its primary purpose is to sync your shell history between machines, and it does that very well. It also offers a simple synced key-value store and dotfile and script management, but I don't use those.
+Oh, `atuin`, how I love thee. Its primary purpose is to sync your shell history between machines, and it does that well. It also offers a synced key-value store and dotfile and script management, but I don't use those.
 
 ### `bat`
 
@@ -277,7 +277,7 @@ Replacement for `ls`. You can pretty much alias `ls` to it and never look back. 
 
 ### `fzf`
 
-A very important building block for other tools. Provides a user interface to select options from a list - that's all. It can be - and is - used in interesting ways by other tools. Should be installed even if you never invoke it by hand.
+An important building block for other tools. Provides a user interface to select options from a list - that's all. It can be - and is - used in interesting ways by other tools. Should be installed even if you never invoke it by hand.
 
 ### `lefthook`
 
@@ -285,7 +285,7 @@ One of many Git hook managers, this one is just my choice. If I'm not using `tru
 
 ### `mise`
 
-Absolutely key to my workflow. Version manager, environment manager, task runner. Using `mise` and `chezmoi` makes it really easy to sync my toolset between machines. It can handle language-specific packaging systems, as well as `ubi` to simply fetch GitHub release binaries.
+Absolutely key to my workflow. Version manager, environment manager, task runner. With `mise` and `chezmoi` together, syncing my toolset between machines is painless. It can handle language-specific packaging systems, as well as `ubi` to fetch GitHub release binaries.
 
 ### `opencommit`
 
@@ -305,7 +305,7 @@ When `direnv` is too simple, there's `shadowenv`. Uses a LISP config file and yo
 
 ### `tlm`
 
-Same idea as `ai-shell` but using a locally-running model. Uses `ollama` to manage models, and allows you to turn free text into shell commands.
+Same idea as `ai-shell` but using a locally-running model. Uses `ollama` to manage models, and turns free text into shell commands.
 
 ### `xc`
 
@@ -317,11 +317,11 @@ We all love `tmux`, but `zellij` is `tmux` on steroids. More batteries included,
 
 ### `zoxide`
 
-Directory jumper. Keeps track of all the directories you enter. When you want to go back into a directory, execute `z SEARCHTEXT` and you'll `cd` into the most recently used directory matching `SEARCHTEXT`.
+Directory jumper. Keeps track of all the directories you enter. When you want to go back into a directory, run `z SEARCHTEXT` and you'll `cd` into the most recently used directory matching `SEARCHTEXT`.
 
 ## More
 
-There are so many more utilities I use, but I'm going to leave that for another post. If you want to skip the wait and explore yourself, here's my `mise` config file which you can use to install pretty much everything I use.
+I use plenty more utilities, but they can wait for another post. If you want to skip the wait and explore yourself, here's my `mise` config file which you can use to install pretty much everything I use.
 
 I've split it into two sections because Notion disables syntax highlighting over 10k characters. They should be combined into `~/.config/mise/config.toml`.
 
