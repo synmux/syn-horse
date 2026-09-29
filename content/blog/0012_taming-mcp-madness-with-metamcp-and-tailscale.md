@@ -9,36 +9,36 @@ read: "17 min"
 
 ## Death by a Thousand Configurations
 
-You're a modern developer, which means you've got more development tools than a Victorian surgeon had bloodletting instruments. Cursor here, Visual Studio Code there, Claude Desktop lurking in the corner, and Goose doing... whatever it is Goose does. I've never quite figured it out. In any case, each one needs its own MCP configuration, and suddenly you're spending more time configuring tools than actually using them.
+You're a modern developer, which means you've got more development tools than a Victorian surgeon had bloodletting instruments. Cursor here, Visual Studio Code there, Claude Desktop lurking in the corner, and Goose doing... whatever it is Goose does. I've never figured it out. In any case, each one needs its own MCP configuration, and suddenly you're spending more time configuring tools than actually using them.
 
-It's rather like having to repeat your symptoms to every person long the phone chain to the doctor. Exhausting, repetitive, and frankly beneath us all.
+It's like having to repeat your symptoms to every person along the phone chain to the doctor. Exhausting, repetitive, and frankly beneath us all.
 
 ## The Unlikely Hero
 
 [https://github.com/metatool-ai/metamcp](https://github.com/metatool-ai/metamcp)
 
-MetaMCP wasn't supposed to be the solution to our collective configuration nightmare. It's a MCP aggregator with debug facilities, and it's far too early in its development to be what I'd call production-ready. But much like how I use my ESD tweezers for everything except handling delicate components, MetaMCP turns out to do the job just fine.
+MetaMCP wasn't supposed to be the solution to our collective configuration nightmare. It's an MCP aggregator with debug facilities, and it's far too early in its development to be what I'd call production-ready. But much like how I use my ESD tweezers for everything except handling delicate components, MetaMCP turns out to do the job just fine.
 
 Think of it as the Switzerland of MCP management - neutral territory where all your tools can peacefully coexist.
 
 ## Docker to the Rescue
 
-Setting up MetaMCP requires PostgreSQL, because of course it does. Fortunately, they've provided a Docker Compose file, turning deployment into IKEA furniture - theoretically straightforward, occasionally baffling, but ultimately functional.
+Setting up MetaMCP requires PostgreSQL, because of course it does. Fortunately, they've provided a Docker Compose file, turning deployment into IKEA furniture - theoretically straightforward, occasionally baffling, and functional once you're done.
 
 You've got options for your Docker host:
 
 - **Docker Desktop**: The official choice. Runs anywhere a GUI does. Might be a hot mess, but it won't get in your way. Has its own MCP platform, but it doesn't compare to MetaMCP.
 - **Orb Stack**: macOS only, but less bloated, with interesting designs on virtualisation too. You'll have to make minor adjustments (for example `docker compose` instead of `docker-compose`).
-- **A remote Docker instance:** if you've got a NAS handy, that's a great choice as long as you can get Tailscale running on it (with access to the Tailscale CLI to set up `serve` or `funnel`) . I can tell you that this is possible with QNAP devices, because that's what I use.
+- **A remote Docker instance:** if you've got a NAS handy, that's a great choice as long as you can get Tailscale running on it (with access to the Tailscale CLI to set up `serve` or `funnel`). I can tell you that this is possible with QNAP devices, because that's what I use.
 - **Kubernetes:** godspeed, you YAML-wielding maniac. You might be able to generate initial objects from the Docker Compose file, but it'll take some tinkering.
 
-Pick your poison. The big takeaway, really, is that if you use a remote instance of some sort, you might have to do some massaging later.
+Pick your poison. If you use a remote instance of some sort, expect to do some massaging later.
 
 My recommendation: when you're starting out exploring this, deploy locally. You can always get interesting once you've seen how it all fits together.
 
 ## Ports and Protocols
 
-MetaMCP listens on port 12008 via HTTP, which is perfectly adequate if you're keeping things local.
+MetaMCP listens on port 12008 over HTTP, which is perfectly adequate if you're keeping things local.
 
 But what if you want to access your MCPs from other machines? What if your NAS is hosting the party, and your laptop wants an invite?
 
@@ -50,7 +50,7 @@ This is where Tailscale enters, stage left, wearing a nifty cape and promising t
 
 While you _can_ integrate Tailscale on beefier Mikrotiks by using the container system, it feels like a hack. This is because it's a hack.
 
-_Tailscale. Darlings. Cozy up with Mikrotik. Maybe they've got a contract with ZeroTier, in which case there's nothing much to be done, but if they **could** integrate Tailscale - even as an optional package - I'd be overjoyed._
+_Tailscale. Darlings. Cosy up with Mikrotik. Maybe they've got a contract with ZeroTier, in which case there's nothing much to be done, but if they **could** integrate Tailscale - even as an optional package - I'd be overjoyed._
 
 ### Tailscale Serve: The Sensible Option
 
@@ -74,7 +74,7 @@ The `--bg` parameter makes the Tailscale CLI terminate and keep the tunnel up, o
 
 ### Tailscale Funnel: YOLO Mode For Your Data
 
-If you're feeling particularly adventurous (or reckless, depending on your perspective), you can use Tailscale Funnel to expose your MetaMCP to the entire internet.
+If you're feeling adventurous (or reckless, depending on your perspective), you can use Tailscale Funnel to expose your MetaMCP to the entire internet.
 
 [Tailscale Funnel](https://tailscale.com/kb/1223/funnel)
 
@@ -87,7 +87,7 @@ By default, it's like leaving your front door open with a sign saying "Free MCPs
 
 Remember that your MCPs generally authenticate to any backend involved themselves. If someone has access to call the tools on your MCPs, they can use those credentials without having to know them.
 
-That, as you might imagine, would be \*bad**\*.**
+That, as you might imagine, would be **bad**.
 
 ## Organisation for the Overwhelmed
 
@@ -119,11 +119,11 @@ Streamable HTTP is the new hotness. This modern protocol lets your tools chat ba
 
 ### SSE
 
-Deprecated, but refuses to die. Server-Sent Events (SSE) is the workhorse that refuses to be put out to pasture. Your client opens a persistent unidirectional server-to-client connection, then `POST`s requests over another more traditional channel. Not quite as clever as its younger sibling, but it plays nicely with virtually everything by virtue of being a special and unique snowflake, including those ancient proxies and overzealous firewalls your IT department insists on keeping around. MetaMCP's implementation even handles reconnections automatically, saving you from the tedium of error handling.
+Deprecated, but refuses to die. Server-Sent Events (SSE) is the workhorse that refuses to be put out to pasture. Your client opens a persistent unidirectional server-to-client connection, then `POST`s requests over another more traditional channel. It's less clever than its younger sibling, but it plays nicely with virtually everything by virtue of being a special and unique snowflake, including those ancient proxies and overzealous firewalls your IT department insists on keeping around. MetaMCP's implementation even handles reconnections automatically, saving you from the tedium of error handling.
 
 ### OpenAPI (with Schema)
 
-MetaMCP claims that its OpenAPI implementation exists to serve [**Open WebUI**](https://openwebui.com). Which is fine. This is an unusual choice for an MCP aggregator otherwise, but quite a cool one. It makes its tools available over a standard REST API, with a full (generated) schema. Unless you're using [**Open WebUI**](https://openwebui.com) specifically, you probably won't use this, but it provides extreme flexibility in terms of how you might consume its tools.
+MetaMCP claims that its OpenAPI implementation exists to serve [**Open WebUI**](https://openwebui.com). Which is fine. This is an unusual choice for an MCP aggregator otherwise, but a cool one. It makes its tools available over a standard REST API, with a full (generated) schema. Unless you're using [**Open WebUI**](https://openwebui.com) specifically, you probably won't use this, but it gives you a lot of flexibility in how you consume its tools.
 
 ## When Your Host Is Really Crusty
 
@@ -131,7 +131,7 @@ Not every host supports HTTP MCPs, even with `SSE`. Many older or smaller hosts 
 
 MetaMCP doesn't speak `STDIO` directly. Fortunately, you can use the `mcp-remote` npm package to proxy everything through `STDIO`.
 
-Just run:
+Run:
 
 ```bash
 npx -y mcp-remote <your-url-here>
@@ -145,7 +145,7 @@ The MetaMCP web UI uses a username and password (and also OIDC). Boring, fine, d
 
 ### API Keys
 
-You can provision static API keys which are provided as `Bearer` tokens with the `Authorization` header. Simple, easy, does the job, but to my knowledge MetaMCP doesn't offer an API which you could use to provision these tokens, leaving you to configure them through the UI. Or get creative and set up some kind of middleware which validates alternative tokens and uses the real token to hit the MCPs; bit of a hack.
+You can provision static API keys, which clients send as `Bearer` tokens in the `Authorization` header. Simple, does the job, but to my knowledge MetaMCP doesn't offer an API which you could use to provision these tokens, leaving you to configure them through the UI. Or get creative and set up some kind of middleware which validates alternative tokens and uses the real token to hit the MCPs; bit of a hack.
 
 ### OAuth
 
@@ -155,16 +155,16 @@ I haven't been able to get this to work. It's marked beta and seems to be so new
 
 I've been talking to a Tailscale bigwig who mentions they're thinking about how they might support OIDC through their automatic authentication (currently using the custom headers we spoke about previously).
 
-If this happens, and if MetaMCP's OAuth implementation matures in the direction I expect, it may become possible to let Tailscale handle the authentication flow; if you talk to MetaMCP via Tailscale, authenticated MCP endpoints might 'just work'.
+If that happens, and MetaMCP's OAuth implementation matures in the direction I expect, Tailscale could handle the authentication flow. Talk to MetaMCP over Tailscale and authenticated MCP endpoints would 'just work'.
 
 Even if not, middleware may offer this ability. Strictly speaking, you could use middleware to accept the current custom headers set by `tailscale serve`. But middleware, too, is under active development.
 
-Currently, you have to configure it by editing JSON in the database directly. It's a faff and a half. Yet again, MetaMCP proves very cool, but less than production-ready.
+Currently, you have to configure it by editing JSON in the database directly. It's a faff and a half. Yet again, MetaMCP proves cool, but less than production-ready.
 
 This is all a little way off, if it even happens. But it's an impressive possibility.
 
 ## The Bottom Line
 
-MetaMCP might not be quite production-ready, but it's a very impressive platform. Sometimes the best solutions are the crackpot ones. It's turned my configuration nightmare into something almost manageable, which in the world of developer tooling is practically a miracle.
+MetaMCP might not be production-ready, but it's an impressive platform. Sometimes the best solutions are the crackpot ones. It's turned my configuration nightmare into something almost manageable, which in the world of developer tooling is practically a miracle.
 
 Now, if you'll excuse me, I need to go and add another seventeen MCPs to my setup. I'm not done until Claude can make the coffee.

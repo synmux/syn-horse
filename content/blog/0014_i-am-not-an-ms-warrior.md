@@ -15,11 +15,11 @@ When MS does its damage, that damage is forever. Your brain doesn't heal like th
 
 These symptoms will be there until the day I die, and they'll get worse with time.
 
-That's the slow decline. As more of the brain gets damaged, more things go wrong. I will become incontinent at some point. I am losing fine motor control, and I will continue to. My memory is heavily impacted ([**and was terrible in a quite interesting way in the first place**](https://blog.dave.io/sdam)), having become a one-hour sliding window. I adapt by ticketing everything, no matter how small, in [**Linear**](https://linear.app). I have built my own tooling, and benefit heavily from AI ([**Claude**](https://claude.ai) particularly, because [**Anthropic**](https://anthropic.com) are by far the least worst in the field).
+That's the slow decline. As more of the brain gets damaged, more things go wrong. I will become incontinent at some point. I am losing fine motor control, and I will continue to. My memory has shrunk to a one-hour sliding window, and [**it was terrible in an interesting way in the first place**](/blog/sdam-and-living-without-recall). I adapt by ticketing everything, no matter how small, in [**Linear**](https://linear.app). I have built my own tooling, and lean heavily on AI - mostly [**Claude**](https://claude.ai), because [**Anthropic**](https://anthropic.com) are by far the least worst in the field.
 
 I take a [**disease modifying treatment**](https://www.mssociety.org.uk/living-with-ms/treatments-and-therapies/disease-modifying-therapies) to target the relapses. I inject magic goo every month. Before it, I would lose a sense entirely for 3-4 months. _Sight_. _Hearing_. _Taste_. All have disappeared for a period. I am, however, a [**Kesimpta (ofatumumab)**](https://www.mssociety.org.uk/living-with-ms/treatments-and-therapies/disease-modifying-therapies/ofatumumab-kesimpta) success story.
 
-The [**Kesimpta**](https://www.mssociety.org.uk/living-with-ms/treatments-and-therapies/disease-modifying-therapies/ofatumumab-kesimpta) depletes immune B-cells with alarming specificity. It has stopped my relapses, which has slowed lesion development significantly. The only side effects of note are increased vulnerability to upper respiratory infections, at which point you just skip your dose until they resolve, and an inability to receive new live vaccines.
+The [**Kesimpta**](https://www.mssociety.org.uk/living-with-ms/treatments-and-therapies/disease-modifying-therapies/ofatumumab-kesimpta) depletes immune B-cells with alarming specificity. It has stopped my relapses, which has slowed lesion development significantly. The only side effects of note are increased vulnerability to upper respiratory infections, at which point you skip your dose until they resolve, and an inability to receive new live vaccines.
 
 The DMT preserves as much brain as possible for neuroplastic remodelling; while the brain can't heal, it can reroute. For that, you need to keep as much healthy brain as you can get.
 
@@ -39,15 +39,15 @@ If you frame dealing with MS as a battle, then you fail when you don't successfu
 
 We _manage_ MS. There is no battle to be fought. No amount of positive thinking or beetroot or going for a walk or _fucking [**ivermectin**](https://en.wikipedia.org/wiki/Ivermectin#COVID-19_misinformation)_ is going to stop you having MS, and stop you having to deal with everything which comes with it.
 
-The toxic positivity of the "warrior" narrative also creates a false dichotomy: either you're "fighting bravely" or you're "giving up." There's no space for the nuanced reality that most of us with MS live in. Some days are about adaptation, some about rest, some about pushing through, and some about mourning what's been lost. None of these approaches makes you more or less worthy of support and understanding.
+The toxic positivity of the "warrior" narrative also creates a false dichotomy: either you're "fighting bravely" or you're "giving up." There's no space for the messy reality most of us with MS live in. Some days are about adaptation, some about rest, some about pushing through, and some about mourning what's been lost. None of these approaches makes you more or less worthy of support and understanding.
 
 ## It's Not Even About Us
 
 And let's be clear about something: the "warrior" language is often more about making other people comfortable than supporting those with MS. It's easier for the non-disabled world to process "inspiring fighter" than "person living with an unpredictable, sometimes devastating condition who occasionally needs to vent about it without being told they're not being positive enough."
 
-"You're so brave" becomes code for "please don't tell me how bad it really is". I can forgive that, to a degree. Especially with people I'm close with. It protects them. But "warrior" rhetoric provides so many opportunities for empty pseudo-support without actually engaging with the situation.
+"You're so brave" becomes code for "please don't tell me how bad it really is". I can forgive that to a degree, especially from people I'm close to, because it protects them. But "warrior" rhetoric provides so many opportunities for empty pseudo-support without actually engaging with the situation.
 
-The rhetoric also individualises what is fundamentally a medical condition. The warrior language implies that if you just fight hard enough, stay positive enough, you'll somehow "win" - which creates this insidious suggestion that if you're struggling, it's because you're _not warrioring hard enough_. It completely ignores the reality that MS is a neurological condition that does what it wants regardless of your attitude or fighting spirit.
+The rhetoric also turns a medical condition into a test of personal grit. The warrior language implies that if you fight hard enough and stay positive enough, you'll somehow "win". Flip that round and, if you're struggling, it's because you're _not warrioring hard enough_. MS is a neurological condition, and it does what it wants regardless of your attitude or fighting spirit.
 
 Sometimes the MS wins, and that doesn't make us failures or weak. We'll get up and we'll carry on. Don't judge us for how long that takes.
 
@@ -57,9 +57,9 @@ We are not your inspiration porn. Instead, there's an opportunity for something 
 
 What those of us with MS need isn't to be called warriors. We need practical support. We need [**accessible environments**](https://www.mssociety.org.uk/living-with-ms/home-and-travel/home-adaptations-equipment). We need [**research funding**](https://donate.mssociety.org.uk/). We need [**affordable treatments**](https://www.ncbi.nlm.nih.gov/books/NBK572540/). We need understanding that our conditions fluctuate, often unpredictably.
 
-We need acknowledgement without agenda or bullshit. Space for the full range of experiences. Recognition that living with MS is not a moral achievement or failure - it's just our reality.
+We need acknowledgement without agenda or bullshit. Space for the full range of experiences. Recognition that living with MS is neither a moral achievement nor a moral failure.
 
-So please, if you know someone with MS, maybe resist the urge to call them a warrior. Instead, ask them what they need. Listen when they talk about their experiences without trying to reframe them as overplayed inspirational narratives. Recognise that managing MS isn't a battle - it's just life, with its own unique challenges and occasional victories.
+So please, if you know someone with MS, maybe resist the urge to call them a warrior. Instead, ask them what they need. Listen when they talk about their experiences without trying to reframe them as inspirational narratives. Managing MS is life, with its own challenges and occasional victories.
 
 > This piece is _heavy_ opinion. If someone with MS tells you that they _like_ the warrior terminology, ignore absolutely everything I've said and call them a warrior. This is one person's viewpoint and it will _not_ apply to everyone.
 

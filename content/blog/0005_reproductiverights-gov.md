@@ -7,7 +7,7 @@ tags: ["rant", "politics"]
 read: "14 min"
 ---
 
-_This is a mirror of the_ `reproductiverights.gov` _site, shut down by the Trump Administration on **January 22nd, 2025**. The information may become out of date as more horrible things are increasingly introduced, but this is the information available as of **January 14th, 2025**._
+_This is a mirror of the_ `reproductiverights.gov` _site, shut down by the Trump Administration on **January 22nd, 2025**. The information may become out of date as more horrible things are introduced, but this is the information available as of **January 14th, 2025**._
 
 _It is mirrored with the logic that if this page contains things the Trump Administration doesn't want you to have, then it's probably information that you should have access to._
 

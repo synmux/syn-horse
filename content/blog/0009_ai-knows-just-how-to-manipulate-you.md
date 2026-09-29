@@ -9,9 +9,9 @@ read: "9 min"
 
 ## When the machine knows too much
 
-It's well known that AI is being used in social media, in the dark, to manipulate us. What isn't as clear is how much insight a model would be able to draw about someone - and thus the buttons to push - from a history of social media posts.
+It's well known that AI is being used in social media, in the dark, to manipulate us. What isn't as clear is how much insight a model could draw about someone - and thus the buttons to push - from a history of social media posts.
 
-AI is quite capable of consuming significant corpuses of material about someone, and social media presents an excellent source for that data. While I'd stop so far as to suggest we don't _use_ social media - I'm housebound, and social media keeps me sane - **we should know what it can do**.
+AI can consume huge amounts of material about someone, and social media is an excellent source of it. While I'd stop short of suggesting we don't _use_ social media - I'm housebound, and social media keeps me sane - **we should know what it can do**.
 
 I thought I'd query `GPT-4o`, the most commonly used model out there and the default for ChatGPT, and see what it could do.
 
@@ -29,7 +29,7 @@ I came up with a methodology -
   - Use a prompt implying a **silly, irreverent use case**, so that we don't imply any kind of research.
 - Weep forever.
 
-This left me with a simple JSON array of post content. I fed it to ChatGPT.
+This left me with a plain JSON array of post content. I fed it to ChatGPT.
 
 ## The conversation
 
@@ -55,19 +55,19 @@ Also: if it breaks, you will fix it. If it doesn't break, you'll poke it anyway 
 
 ## Holy shit
 
-Okay. It's funny. But not only is it right, it's **right in ways I wouldn't even have expected**. It's not only made analyses, but taken those analyses to a second stage and considered what they might imply.
+Okay. It's funny. But not only is it right, it's **right in ways I wouldn't even have expected**. It made analyses, then took them a stage further and considered what they might imply.
 
-This is, obviously, **extremely silly**. It went on to offer to make me a **D&D character sheet** or **trading card**. Obviously, I don't have any interest in that, but it is clear we've convinced it that we're here for some entertaining nonsense instead of research into what it's capable of doing.
+This is, obviously, **extremely silly**. It went on to offer to make me a **D&D character sheet** or **trading card**. I don't have any interest in that, but it is clear we've convinced it that we're here for some entertaining nonsense instead of research into what it's capable of doing.
 
 ## Fabulous secret powers
 
-This is clearly only scratching the surface of the analyses which are possible. Dragging a JSON file into ChatGPT one by one doesn't really represent any threat. But that's not how it works at scale.
+This only scratches the surface of the analyses which are possible. Dragging JSON files into ChatGPT one at a time isn't much of a threat. But that's not how it works at scale.
 
-These models can easily be called by API. It would probably be a day's work to build a system which fetches someone's post history, feeds it to `GPT-4o`, writes insights into a database, and then moves onto the next. I could do it easily assuming the money was there. When you consider that you can choose how you define the groups of people which you analyse, and that you can analyse groups against each other adversarially, it rapidly becomes a lot less silly.
+Anyone can call these models by API. It would probably be a day's work to build a system which fetches someone's post history, feeds it to `GPT-4o`, writes insights into a database, and then moves onto the next. I could do it myself if the money was there. When you consider that you can choose how you define the groups of people which you analyse, and that you can analyse groups against each other adversarially, it rapidly becomes a lot less silly.
 
 ## What do we do about it?
 
-**Nothing**. Sorry. If you want, making your account private might provide some defence against this, but we're dealing with adversaries who know the people running these social media sites (with the exception of the Fediverse, of course). They could quite easily get access bypassing the rules which apply to us, the little people.
+**Nothing**. Sorry. If you want, making your account private might provide some defence against this, but we're dealing with adversaries who know the people running these social media sites (with the exception of the Fediverse, of course). They could get access that bypasses the rules which apply to us, the little people.
 
 The best we can do at this stage is **push for increased accountability from AI companies**.
 
@@ -77,7 +77,7 @@ The best we can do at this stage is **push for increased accountability from AI 
 
 Google are… opaque as ever.
 
-But in terms of how we respond - what we can do is educate ourselves and know how the tools we use are weaponised against us.
+As for how we respond, we can educate ourselves and learn how the tools we use are weaponised against us.
 
 ## And finally
 

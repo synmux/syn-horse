@@ -13,7 +13,7 @@ read: "21 min"
 
 People hear that and smile politely, the way you do when someone says they're "bad with names". But I don't mean "bad with names." I mean there's no drawer in my head to pull from. No internal Rolodex. No sepia-toned cutaway to a moment in 2009 where I'm wearing a questionable polo neck and playing vinyl on a woodgrain monstrosity.
 
-What I experience comes with a different architecture entirely.
+My memory is built differently.
 
 ## Growing Up Different
 
@@ -21,7 +21,7 @@ When you do something strange for long enough, you assume everyone else is doing
 
 I spent years being told off for "not remembering" and thought, well, fuck, my brain's just lazy. That was a common theme, actually. _My brain_ is lazy. Not _I'm_ lazy. It comes from having to have a constant fight with it to achieve anything.
 
-Anyway. I quietly built workarounds.
+Anyway. I built workarounds and didn't mention them.
 
 ```plaintext
 <syn> I honestly couldn't tell you what colour anyone's eyes are
@@ -31,7 +31,7 @@ Anyway. I quietly built workarounds.
 
 One awkward detail complicates this story: I'm clever. Unfairly, almost comically clever.
 
-I don't say that to be an insufferable prick, though I'm sure the talent is there. I fail in many other ways. There are a great many "standard life skills" that I'm truly abysmal at. But I _am_ clever; it's just a truth, it doesn't need to come with a value judgment.
+I don't say that to be an insufferable prick, though I'm sure the talent is there. I fail in many other ways. I'm abysmal at a great many "standard life skills". But I _am_ clever; it's a fact, and it doesn't need to come with a value judgment.
 
 The sort of clever, to get to the point, which papers over structural cracks by inventing an entirely new structure and then getting confused if anyone notices the scaffolding.
 
@@ -41,9 +41,9 @@ Not "a bit dodgy." Absent.
 
 ## The Architecture of Reconstruction
 
-Here's the bit that unnerves people: I don't remember. I reconstruct.
+This is the bit that unnerves people. When I recall something, I'm reconstructing it.
 
-Where most folks reach back and retrieve a scene, I assemble a plausible version on the fly from base principles, stored truths, and patterns. Think: semantic Lego. I don't have the set photo on the box; I've just got a bucket of pieces and an excellent sense of physics.
+Where most folks reach back and retrieve a scene, I assemble a plausible version on the fly from base principles, stored truths, and patterns. It's semantic Lego. I don't have the set photo on the box; I've got a bucket of pieces and an excellent sense of physics.
 
 ### You ask about last week's meeting?
 
@@ -53,7 +53,7 @@ I infer who was there, what they care about, our norms, and the likely trajector
 
 I model my behaviour, the room layout, and probability. The result looks like memory; I often find the keys.
 
-But this method has a failure mode: if one foundational "brick" is wrong, the whole thing deviates. The story remains coherent, persuasive, even elegant - just not true. And because there's no stored scene to cross-check, I can't look inward and say, "Hang on, that's not what happened." I can only accept better evidence and update the model. It's architectural, not deceitful.
+But this method has a failure mode: if one foundational "brick" is wrong, the whole thing deviates. The story remains coherent, persuasive, even elegant - and wrong. There's no stored scene to cross-check, so I can't look inward and say, "Hang on, that's not what happened." I can only accept better evidence and update the model. Nobody is being deceived; that's how the thing is built.
 
 ```plaintext
 <syn> episodic memory does not exist for me
@@ -61,15 +61,15 @@ But this method has a failure mode: if one foundational "brick" is wrong, the wh
 <syn> and those facts are then used to reconstruct a "memory" simulacrum
 ```
 
-What I didn't realise was this: there's a word for it. Whereas I thought I was just broken, it took me 41 years to find out that [**Severely Deficient Autobiographical Memory (SDAM)**](https://www.sadied.com/sdam) exists. I am also [**aphantasic**](https://www.sadied.com/aphantasia) and [**alexithymic**](https://www.psychologytoday.com/us/basics/alexithymia), two things which are both _excellent_ words, and classically comorbid with SDAM. We'll come back to them later.
+What I didn't realise was that there's a word for it. I thought I was broken, and it took me 41 years to find out that [**Severely Deficient Autobiographical Memory (SDAM)**](https://www.sadied.com/sdam) exists. I am also [**aphantasic**](https://www.sadied.com/aphantasia) and [**alexithymic**](https://www.psychologytoday.com/us/basics/alexithymia), two things which are both _excellent_ words, and classically comorbid with SDAM. We'll come back to them later.
 
-It's hard to have an emotion if you can't remember it five minutes later. To me, emotional memory is not a _memory of the thing_, but a _memory of a description of the thing_. I can tell you how I felt, because I have a description of it. But I can't feel it again.
+It's hard to have an emotion if you can't remember it five minutes later. To me, emotional memory is a _memory of a description of the thing_. I can tell you how I felt, because I have a description of it. But I can't feel it again.
 
 ## When It Works (And Fails)
 
-Most days, no one notices. My reconstructions are fast, high-fidelity, and socially useful. I've trained them for years. My system works, and substitutes effectively for a memory to the degree that I'm pretty sure nobody even thought about this.
+Most days, no one notices. My reconstructions are fast, high-fidelity, and socially useful. I've trained them for years. My system substitutes for a memory well enough that I'm pretty sure nobody has ever thought about it.
 
-But here's the rub, dear reader. When it goes wrong, it goes gloriously wrong. One incorrect assumption and I've "remembered" a version of events that never existed. Not maliciously. Not even sloppily. Just confidently assembling a cathedral on a plate of jelly.
+But here's the rub, dear reader. When it goes wrong, it goes gloriously wrong. One incorrect assumption and I've "remembered" a version of events that never existed. There's no malice in it, or even sloppiness; I'm confidently assembling a cathedral on a plate of jelly.
 
 ```plaintext
 <mog> You remember stories though
@@ -85,7 +85,7 @@ But here's the rub, dear reader. When it goes wrong, it goes gloriously wrong. O
 <syn> it'll illustrate the same point, but won't be the correct specific chain of events
 ```
 
-Cue someone I trust saying, "That didn't happen." And me thinking, fair enough, let's rewrite the foundation and rebuild. And that is _so often_ read as doubting what they're telling me. It's not. I'm trying to find the broken piece in the increasingly unwieldy box.
+Cue someone I trust saying, "That didn't happen." And me thinking, fair enough, let's rewrite the foundation and rebuild. And that is _so often_ read as doubting what they're telling me. I'm trying to find the broken piece in an unwieldy box.
 
 It couldn't be further from the truth, in fact, because the _reason_ I'm quizzing them (the term 'interrogate' has been used) is because I trust them, and if they say one thing but my model says another, something is wrong somewhere.
 
@@ -93,7 +93,7 @@ If I didn't trust them, I'd just move on and we wouldn't be having the conversat
 
 ## Why Emotion Matters
 
-Episodic memory is glued together by feeling. For many people, the way they felt in a moment acts as an anchor: fear, joy, embarrassment - boom, there's the scene. When emotion is muted, unlabelled, or filed away as metadata rather than sensation, that glue never quite sets.
+Episodic memory is glued together by feeling. For many people, the way they felt in a moment is the anchor. Fear, joy, embarrassment - boom, there's the scene. When emotion is muted, unlabelled, or filed away as metadata instead of sensation, that glue never sets.
 
 ### Aphantasia
 
@@ -107,9 +107,9 @@ Discovered relatively recently (named in 2015), it affects roughly 2-5% of peopl
 
 ### Alexithymia
 
-Essentially when your emotional processing system runs on dialup whilst everyone else has broadband.
+When your emotional processing system runs on dial-up and everyone else has broadband.
 
-You know something is happening in there, but identifying whether it's anger, sadness, hunger, or a particularly difficult fart becomes a guessing game. People with alexithymia struggle to recognise and describe their own emotions, often experiencing them as vague physical sensations rather than distinct feelings.
+You know something is happening in there, but whether it's anger, sadness, hunger, or a difficult fart is anyone's guess. People with alexithymia struggle to recognise and describe their own emotions, often experiencing them as vague physical sensations instead of distinct feelings.
 
 It's like having all your emotions labelled in a foreign language you never learnt, so when someone asks "how are you feeling?" you're stuck offering helpful insights like "bad" or "not good" whilst your body does its own mysterious thing.
 
@@ -135,13 +135,13 @@ All this turns out to be suspiciously convenient for negative emotional experien
 <mog> I dunno. You're interesting
 ```
 
-And yes, if you spend years in low-level fight-or-flight, the amygdala hogs the mic and the hippocampus stops laying down rich episodic tapes. It's not a character flaw. It's a traffic diversion.
+And yes, if you spend years in low-level fight-or-flight, the amygdala hogs the mic and the hippocampus stops laying down rich episodic tapes. Call it a traffic diversion, not a character flaw.
 
 ## Living in Real Time
 
 Here's the odd part: it feels normal. The reconstruction is automatic, like breathing through a snorkel - you still get air, you just do it differently. I don't notice I'm building until the structure wobbles.
 
-From the outside, I look just like everyone else. Under the bonnet, I'm running a just-in-time cognition pipeline with aggressive caching and no archive. Which is why social interaction can feel like a full-body workout: everything is inference, all the time, all at once.
+From the outside, I look like everyone else. Under the bonnet, I'm running a just-in-time cognition pipeline with aggressive caching and no archive. That's why social interaction can feel like a full-body workout; everything is inference, all the time.
 
 ## Building Guardrails
 
@@ -154,20 +154,20 @@ You can live well like this - if you respect the architecture.
 
 ## Being Believed
 
-The hardest part isn't the forgetting; it's being misunderstood. When I say "my memory is bad," people hear "keys, names, birthdays." I mean "I don't have the mental video player you do." Every act of recall is an act of creation. That's both powerful and precarious. It's also my normal.
+The hardest part is being misunderstood. When I say "my memory is bad," people hear "keys, names, birthdays." I mean "I don't have the mental video player you do." Every act of recall is an act of creation. That's powerful and precarious, and it's my normal.
 
 ## What This Is (And Isn't)
 
-- It's **not** laziness, nor lying, nor convenient amnesia.
-- It **is** a brain that privileges semantic knowledge over episodic replay, likely shaped by temperament, wiring, and long-term stress.
-- It **is** trainable at the systems level, not curable at the vibes level.
-- And crucially: it works - until it doesn't - so **build guardrails**.
+- It's **not** laziness, lying, or convenient amnesia.
+- It **is** a brain that favours semantic knowledge over episodic replay, likely shaped by temperament, wiring, and long-term stress.
+- You can't cure it, but you can build systems around it.
+- It works until it doesn't, so **build guardrails**.
 
 ## The Quiet Upside
 
-When the past isn't constantly replaying, you get an unusual freedom to be present. To update quickly. To choose deliberately. There's less gravitational pull from yesterday, more room for today. That's not nothing.
+When the past isn't constantly replaying, you get an unusual freedom to be present. To update quickly. To choose deliberately. Yesterday has less of a pull on me, which leaves more room for today. I'll take that.
 
-I can't remember like you can. But I can build - reliably, usefully, and with care. Most of the time, the house stands.
+I can't remember like you can. But I can build, and most of the time, the house stands.
 
 And when it doesn't, I rebuild it better.
 
