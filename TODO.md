@@ -90,3 +90,16 @@
 - [ ] add per-page and per-post social metadata: canonical URL, `og:image`, `og:type`, article published time, article tags, and a default social card.
 - [ ] verify `@nuxtjs/seo` route output after build/preview: sitemap index, content URLs, robots rules, canonical URLs, and hidden/future post exclusion.
 - [ ] add `link rel="alternate" type="application/rss+xml"` to the head once `/feed.xml` exists.
+
+## bug hunt (2026-10-14)
+
+Confirmed by two reviewers, each trying to disprove the other's findings.
+
+- [ ] stop inherited object keys resolving as content collections. `resolveContentTarget` in `server/utils/content-sync.ts:104-111` indexes plain manifest objects, so `POST /__nuxt_content/constructor/query` (also `toString`, `valueOf`, `__proto__`, …) builds a target, the dump fetch fails, and the middleware returns 503 instead of 404. Two such requests reaching one isolate at least 60s apart make `failureTracker` report the run as alert-worthy, so the middleware enqueues a red "constructor pages are down" page. That needs no auth and no Turnstile, and allows about one page per name per hour. Use `Object.hasOwn` (or a `Map`) for the manifest lookups.
+- [ ] make `/api/panic` report a failed queue send. `server/api/panic.post.ts:67-88` stores `send_failed` but still returns `{ ok: true }`, and `app/pages/panic.vue:64-65` shows "paged." either way, so a red page that never left looks delivered.
+- [ ] take the panic `source` from `CF-Connecting-IP` only. `extractSource` in `server/utils/pager.ts:19-37` prefers the leftmost `X-Forwarded-For` entry, which the client controls (Cloudflare appends to an existing header), so a caller can set any IP or a hostname such as `content-sync.syn.horse` as the message source.
+- [ ] write the content-sync red-page claim to KV only after the queue send succeeds. `pageForOutage` (`server/middleware/content-sync.ts:79-98`) claims first, so a failed send suppresses retries for the full hour, and recovery later sends a green all-clear for a red page that never went out.
+- [ ] retry the content-sync green all-clear when its send fails. `announceRecovery` (`server/middleware/content-sync.ts:104-123`) deletes the KV key before sending, so a failed send loses the all-clear permanently.
+- [ ] fix the sitemap: a production build lists only the 10 static routes and omits every blog post (supersedes the "verify" items above).
+- [ ] either compare row content as well as `__hash__` in content-sync drift detection, or stop claiming it repairs manual edits. An `UPDATE` that keeps `__hash__` reports no drift (`server/utils/content-sync.ts:214-220, 255-263`), contradicting the header at lines 12-13 and the note at `server/middleware/content-sync.ts:24`.
+- [ ] read panic validation messages from `data.data.issues`. Nitro wraps `createError({ data })` in the response body, so `app/pages/panic.vue:71` always falls back to "validation failed" (low impact: the client guards mirror the server's limits).
