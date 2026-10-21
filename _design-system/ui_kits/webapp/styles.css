@@ -1,0 +1,46 @@
+/* webapp ui kit — layout + kit-only pieces. primitives come from the design system. */
+@import url('../../styles.css');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); color: var(--fg-1); font-family: var(--font-body); height: 100vh; overflow: hidden; }
+#root { height: 100vh; }
+
+/* shell layout */
+.shell { display: grid; grid-template-rows: var(--statusbar-h) 1fr var(--marquee-h); grid-template-columns: var(--siderail-w) 1fr; height: 100vh; }
+.siderail { background: var(--void-2); border-right: 1px solid var(--void-4); display: flex; flex-direction: column; align-items: center; padding: 12px 0; gap: 4px; }
+.siderail .nav-btn { width: 40px; height: 40px; display: grid; place-items: center; color: var(--fg-3); cursor: pointer; border: 1px solid transparent; background: transparent; transition: all 80ms var(--ease-snap); }
+.siderail .nav-btn:hover { color: var(--hot); border-color: var(--hot); text-shadow: var(--rgb-split); }
+.siderail .nav-btn.active { color: var(--paper); border-color: var(--hot); background: var(--void-3); }
+.main { overflow-y: auto; position: relative; }
+.main-inner { padding: 32px 40px; max-width: 1200px; }
+
+/* fx layer */
+.fx-layer { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
+.fx-scan { position: absolute; inset: 0; background: repeating-linear-gradient(to bottom, rgba(255,255,255,.04) 0, rgba(255,255,255,.04) 1px, transparent 1px, transparent 3px); animation: flicker 4s ease-in-out infinite; }
+@keyframes flicker { 0%,100% { opacity: 1; } 50% { opacity: .6; } }
+.fx-grain-bg { position: absolute; inset: 0; opacity: .04; mix-blend-mode: overlay; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"); }
+
+/* page chrome */
+.page-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 28px; gap: 16px; }
+.page-head h1 { font-family: var(--font-display); font-size: 64px; line-height: 1.15; color: var(--paper); margin-top: 4px; padding-bottom: 8px; font-weight: 400; }
+.page-head .sub { font-family: var(--font-mono); font-size: 12px; color: var(--fg-3); letter-spacing: .08em; text-transform: uppercase; margin-top: 4px; }
+.page-head .actions { display: flex; gap: 10px; align-items: center; }
+.label { display: block; font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+
+/* command palette */
+.cp-overlay { position: fixed; inset: 0; background: rgba(13,2,33,.85); backdrop-filter: blur(8px); z-index: 1000; display: grid; place-items: start center; padding-top: 12vh; }
+.cp { width: min(640px, 90vw); background: var(--void-2); border: 2px solid var(--hot); box-shadow: 0 0 40px rgba(255,113,206,.4); }
+.cp-input { padding: 16px 20px; border-bottom: 1px solid var(--void-4); display: flex; align-items: center; gap: 10px; }
+.cp-input input { flex: 1; background: transparent; border: 0; outline: 0; color: var(--paper); font-family: var(--font-display); font-size: 24px; }
+.cp-input input::placeholder { color: var(--fg-3); }
+.cp-list { max-height: 320px; overflow-y: auto; }
+.cp-item { padding: 10px 20px; display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 14px; color: var(--paper-2); }
+.cp-item:hover, .cp-item.active { background: var(--void-3); color: var(--paper); }
+.cp-item .kbd { margin-left: auto; font-family: var(--font-mono); font-size: 11px; color: var(--fg-3); }
+.cp-section { padding: 8px 20px 4px; font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); text-transform: uppercase; letter-spacing: .1em; }
+
+/* folder tabs */
+.tabs { display: flex; gap: 0; border-bottom: 1px solid var(--void-4); margin-bottom: 24px; }
+.tab { padding: 8px 14px; border: 1px solid transparent; border-bottom: 0; font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-3); cursor: pointer; background: transparent; margin-bottom: -1px; }
+.tab.active { color: var(--paper); border-color: var(--void-4); border-bottom-color: var(--bg); background: var(--bg); position: relative; }
+.tab.active::before { content: ''; position: absolute; top: -1px; left: 0; right: 0; height: 2px; background: var(--hot); }
