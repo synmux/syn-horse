@@ -352,19 +352,7 @@ export default defineNuxtConfig({
           statusCode: 301,
         },
       },
-      "/ssh/config/": {
-        redirect: {
-          to: "https://public.syn.horse/ssh/config",
-          statusCode: 301,
-        },
-      },
       "/ssh/keys": {
-        redirect: {
-          to: "https://public.syn.horse/ssh/keys",
-          statusCode: 301,
-        },
-      },
-      "/ssh/keys/": {
         redirect: {
           to: "https://public.syn.horse/ssh/keys",
           statusCode: 301,
@@ -376,19 +364,7 @@ export default defineNuxtConfig({
           statusCode: 301,
         },
       },
-      "/gpg/agent/": {
-        redirect: {
-          to: "https://public.syn.horse/gpg/agent",
-          statusCode: 301,
-        },
-      },
       "/gpg/config": {
-        redirect: {
-          to: "https://public.syn.horse/gpg/config",
-          statusCode: 301,
-        },
-      },
-      "/gpg/config/": {
         redirect: {
           to: "https://public.syn.horse/gpg/config",
           statusCode: 301,
@@ -400,31 +376,13 @@ export default defineNuxtConfig({
           statusCode: 301,
         },
       },
-      "/gpg/keys/": {
-        redirect: {
-          to: "https://public.syn.horse/gpg/keys",
-          statusCode: 301,
-        },
-      },
       "/git": {
         redirect: {
           to: "https://public.syn.horse/git",
           statusCode: 301,
         },
       },
-      "/git/": {
-        redirect: {
-          to: "https://public.syn.horse/git",
-          statusCode: 301,
-        },
-      },
       "/sudo": {
-        redirect: {
-          to: "https://public.syn.horse/sudo",
-          statusCode: 301,
-        },
-      },
-      "/sudo/": {
         redirect: {
           to: "https://public.syn.horse/sudo",
           statusCode: 301,

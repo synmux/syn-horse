@@ -15,4 +15,4 @@ Full list is in CLAUDE.md (always in context). These are the load-bearing, proje
 - **Commits:** Conventional Commits + GitMoji, multiline with full detail; commit per feature/fix/refactor.
 - **Deferrals:** append `- [ ]` items to `TODO.md` (imperative, lowercase, grouped).
 
-**Do-not-modify zones:** `_design/`, `_DSOY/`, `_DIO/`, the `nitro.cloudflare.wrangler` block in `nuxt.config.ts`, generated `worker-configuration.d.ts`, easter-egg files under `public/{sudo,git,gpg,ssh}`, and `.github/` + trunk toolchain (unless explicitly asked).
+**Do-not-modify zones:** `_design/`, `_DSOY/`, `_DIO/`, the `nitro.cloudflare.wrangler` block in `nuxt.config.ts`, generated `worker-configuration.d.ts`, the easter-egg redirects to `public.syn.horse` in `nitro.routeRules`, and `.github/` + trunk toolchain (unless explicitly asked).

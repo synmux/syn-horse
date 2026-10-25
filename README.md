@@ -223,7 +223,7 @@ app/
   layouts/default.vue
   pages/                       # index, now, projects, cv, contact, domains, blog/
 content/blog/                  # markdown posts - live @nuxt/content source
-public/                        # static assets, easter-egg config files
+public/                        # static assets (favicons, web manifest, images)
 server/
   api/                         # Nitro API routes (panic.post.ts → POST /api/panic)
   db/                          # drizzle schema + migrations (sqlite/)
