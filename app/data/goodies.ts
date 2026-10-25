@@ -25,7 +25,7 @@ export const GOODIES: Goody[] = [
     path: "gpg",
     size: "~12k",
     desc: "my public gpg keys. encrypt things to me, verify things from me.",
-    url: "https://public.syn.horse/gpg/keys",
+    url: "https://public.syn.horse/gpg",
   },
   {
     path: "nf.tar.zst",
@@ -35,13 +35,13 @@ export const GOODIES: Goody[] = [
   },
   {
     path: "ssh",
-    size: "~7k",
+    size: "~1k",
     desc: "my public ssh keys. drop them in authorized_keys and we're flatmates.",
-    url: "https://public.syn.horse/ssh/keys",
+    url: "https://public.syn.horse/ssh",
   },
   {
     path: "sudo",
-    size: "~32b",
+    size: "~88b",
     desc: "one line of sudoers, should you wish to give me root.",
     url: "https://public.syn.horse/sudo",
   },

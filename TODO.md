@@ -4,7 +4,7 @@
 
 - [x] abandoned projects which appear when in konami code mode and disappear otherwise (folded into the year-sorted project grid, animated in/out)
 - [ ] swap the placeholder secret goodies in `app/data/goodies.ts` (`/horse`, `/konami`, `/mixtape`) for real files published at public.syn.horse - they 404 until then
-- [ ] republish the easter-egg redirect targets on public.syn.horse, or remove their redirects. `/ssh/config`, `/ssh/keys`, `/gpg/agent`, `/gpg/config`, `/gpg/keys` and `/git` in `nitro.routeRules` all 301 to files that 404 there (checked 2026-10-25); only `/sudo` resolves. the `/gpg/keys` and `/ssh/keys` goodies in `app/data/goodies.ts` link to the same dead files.
+- [x] fix the dead easter-egg redirect targets (2026-10-25). `/ssh/config`, `/ssh/keys`, `/gpg/agent`, `/gpg/config`, `/gpg/keys` and `/git` all 301'd to files that 404 on public.syn.horse. `/ssh` and `/gpg` now redirect to the published key files, `/git` is gone, and the gpg and ssh goodies link to the same files.
 - [ ] create API endpoint for the notification endpoint to write logs to the DB, so that we can remove the notification worker's DB binding and the underlying DB, and write to our primary DB.
 - [ ] add retry policy + dead-letter handling on the consumer side once it lands.
 - [ ] consider a second `Pager` implementation on the producer side (e.g. a direct synchronous channel) if/when needed - extend `usePager()` to choose based on channel or runtime config.

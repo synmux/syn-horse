@@ -191,7 +191,7 @@ The same queue carries red pages from the content-sync middleware when the blog'
 
 - Press `/` anywhere to open the command palette.
 - Up Up Down Down Left Right Left Right B A.
-- `/sudo`, `/git`, `/gpg/agent`, `/gpg/config`, `/ssh/config` - config files served as plain text. SSH public keys at `/ssh/keys`.
+- `/sudo`, `/ssh` and `/gpg` - 301s to plain text on public.syn.horse: a line of sudoers, SSH public keys and GPG public keys.
 
 ## Tech
 

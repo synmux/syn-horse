@@ -346,39 +346,15 @@ export default defineNuxtConfig({
           "X-XSS-Protection": "0",
         },
       },
-      "/ssh/config": {
+      "/ssh": {
         redirect: {
-          to: "https://public.syn.horse/ssh/config",
+          to: "https://public.syn.horse/ssh",
           statusCode: 301,
         },
       },
-      "/ssh/keys": {
+      "/gpg": {
         redirect: {
-          to: "https://public.syn.horse/ssh/keys",
-          statusCode: 301,
-        },
-      },
-      "/gpg/agent": {
-        redirect: {
-          to: "https://public.syn.horse/gpg/agent",
-          statusCode: 301,
-        },
-      },
-      "/gpg/config": {
-        redirect: {
-          to: "https://public.syn.horse/gpg/config",
-          statusCode: 301,
-        },
-      },
-      "/gpg/keys": {
-        redirect: {
-          to: "https://public.syn.horse/gpg/keys",
-          statusCode: 301,
-        },
-      },
-      "/git": {
-        redirect: {
-          to: "https://public.syn.horse/git",
+          to: "https://public.syn.horse/gpg",
           statusCode: 301,
         },
       },
