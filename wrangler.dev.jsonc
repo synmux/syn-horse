@@ -1,5 +1,5 @@
 // Dev-only wrangler config consumed exclusively by nitropack's built-in
-// cloudflare-dev preset (via `nitro.cloudflareDev.configPath` in
+// cloudflare-dev preset (via `nitro.cloudflare.dev.configPath` in
 // `nuxt.config.ts`) so that `wrangler.getPlatformProxy()` can stand up a
 // Miniflare emulation of our Cloudflare bindings during `bun run dev`.
 //

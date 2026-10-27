@@ -93,6 +93,11 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
+  eslint: {
+    checker: {
+      eslintPath: "eslint",
+    },
+  },
   experimental: {
     componentIslands: true,
     defaults: {
@@ -184,18 +189,14 @@ export default defineNuxtConfig({
       binding: "BLOB",
     },
   },
-  i18n: {
-    defaultLocale: "en",
-    locales: [
-      {
-        code: "en",
-        language: "en-GB",
-      },
-    ],
+  image: {
+    cloudflare: {
+      baseURL: "https://syn.horse",
+    },
   },
   modules: [
     // nitropack's built-in cloudflare-dev preset already provides the dev-time
-    // Miniflare proxy (configured via `nitro.cloudflareDev.configPath` below).
+    // Miniflare proxy (configured via `nitro.cloudflare.dev.configPath` below).
     // Listing the legacy `nitro-cloudflare-dev` module here too produced two
     // racing `getPlatformProxy()` plugins; the legacy one assigns
     // `globalThis.__env__ = Promise<env>` initially, so NuxtHub's migrations
@@ -214,16 +215,18 @@ export default defineNuxtConfig({
     "@nuxtjs/seo",
   ],
   nitro: {
-    // `nitro-cloudflare-dev` reads this file (via `wrangler.getPlatformProxy()`)
-    // to expose Cloudflare bindings to the dev server. The filename intentionally
-    // avoids `wrangler.{json,jsonc,toml}` so nitropack's cloudflare preset (and
-    // the wrangler CLI) won't auto-discover and merge it into the generated deploy
-    // config in `.output/server/wrangler.json`. Without this, `globalThis.__env__.DB`
-    // is empty in dev and NuxtHub's migration runner fails with "DB binding not found".
-    cloudflareDev: {
-      configPath: "wrangler.dev.jsonc",
-    },
     cloudflare: {
+      // nitropack's cloudflare-dev preset reads this file (via `wrangler.getPlatformProxy()`)
+      // to expose Cloudflare bindings to the dev server. The filename intentionally
+      // avoids `wrangler.{json,jsonc,toml}` so nitropack's cloudflare preset (and
+      // the wrangler CLI) won't auto-discover and merge it into the generated deploy
+      // config in `.output/server/wrangler.json`. Without this, `globalThis.__env__.DB`
+      // is empty in dev and NuxtHub's migration runner fails with "DB binding not found".
+      // This used to be top-level `nitro.cloudflareDev`; nitropack 2.13.5 dropped that
+      // type and only reads it as a legacy fallback, with `cloudflare.dev` taking precedence.
+      dev: {
+        configPath: "wrangler.dev.jsonc",
+      },
       deployConfig: true,
       nodeCompat: true,
       wrangler: {
@@ -278,7 +281,6 @@ export default defineNuxtConfig({
             head_sampling_rate: 1,
             invocation_logs: true,
           },
-          // @ts-expect-error: types are lagging reality
           traces: {
             enabled: true,
           },
@@ -316,20 +318,10 @@ export default defineNuxtConfig({
         workers_dev: true,
       },
     },
-    eslint: {
-      checker: {
-        eslintPath: "eslint",
-      },
-    },
     experimental: {
       wasm: true,
     },
     preset: "cloudflare_module",
-    image: {
-      cloudflare: {
-        baseURL: "https://syn.horse",
-      },
-    },
     // unwasm can't lift shiki's onig.wasm `env` host-imports into ES imports
     // (Emscripten output isn't lift-able), so it falls back to shiki's inlined
     // `wasm.mjs` glue - the canonical path. Silence the noisy fallback warning.
@@ -428,6 +420,7 @@ export default defineNuxtConfig({
     },
   },
   site: {
+    defaultLocale: "en-GB",
     indexable: true,
     name: "syn.horse",
     url: "https://syn.horse",
