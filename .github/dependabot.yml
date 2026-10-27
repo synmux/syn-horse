@@ -16,6 +16,11 @@ updates:
     schedule:
       interval: daily
     open-pull-requests-limit: 100
+    ignore:
+      # typescript-eslint supports typescript >=4.8.4 <6.1.0 only (typescript-eslint/typescript-eslint#10940).
+      # Drop this rule once typescript-eslint supports TypeScript 7.
+      - dependency-name: typescript
+        versions: [">=6.1.0"]
     assignees:
       - synmux
     groups:
