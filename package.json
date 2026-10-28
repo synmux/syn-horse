@@ -33,7 +33,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@anthropic-ai/claude-code": "^2.1.304",
+    "@anthropic-ai/claude-code": "^2.1.306",
     "@catppuccin/daisyui": "^2.1.1",
     "@catppuccin/tailwindcss": "^1.0.0",
     "@iconify-json/grommet-icons": "^1.2.4",
