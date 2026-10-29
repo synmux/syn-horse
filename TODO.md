@@ -1,5 +1,9 @@
 # to-do list
 
+## ideas
+
+- swap out the pixel font which is a bit of an AI tell for Kode Mono and see how it looks (<https://fonts.google.com/specimen/Kode+Mono?preview.script=Latn>)
+
 ## features
 
 - [x] abandoned projects which appear when in konami code mode and disappear otherwise (folded into the year-sorted project grid, animated in/out)
