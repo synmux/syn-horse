@@ -141,6 +141,12 @@ export default defineNuxtConfig({
         styles: ["normal", "italic"],
         weights: ["100 800"],
       },
+      {
+        name: "Kode Mono",
+        provider: "google",
+        styles: ["normal"],
+        weights: ["400"],
+      },
     ],
   },
   future: {
