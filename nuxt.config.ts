@@ -362,6 +362,12 @@ export default defineNuxtConfig({
           statusCode: 301,
         },
       },
+      "/wg": {
+        redirect: {
+          to: "https://public.syn.horse/wg",
+          statusCode: 301,
+        },
+      },
       // "/gender":s { isr: 3600 },
       // "/api": { prerender: true },
       // "/todo": { ssr: false }, // Client-only interactive page
