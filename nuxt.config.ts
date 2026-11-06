@@ -358,6 +358,12 @@ export default defineNuxtConfig({
       silent: true,
     },
     routeRules: {
+      "/**": {
+        headers: {
+          "X-Clacks-Overhead":
+            "GNU Terry Pratchett, Myke Eales, Greg Miell, Bat Duffy, Ellen Leary, Walter Leary, Charlie Williams, Alice Williams, Patrick Stewart, Walter Koenig, David Bowie",
+        },
+      },
       "/api/**": {
         cors: true,
         headers: {
