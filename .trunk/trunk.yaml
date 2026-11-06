@@ -23,7 +23,7 @@ lint:
     - osv-scanner
   enabled:
     - svgo@4.1.0
-    - grype@0.121.1
+    - grype@0.121.2
     - shellcheck@0.11.0
     - shfmt@3.14.1
     - trunk-toolbox@0.7.0
@@ -92,4 +92,4 @@ actions:
     - trunk-upgrade-available
 tools:
   enabled:
-    - oxfmt@0.76.0
+    - oxfmt@0.77.0

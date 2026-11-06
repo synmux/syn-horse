@@ -25,6 +25,29 @@ if (commitHash.length === 0) {
   }
 }
 
+const configFileHeaders = {
+  "Cache-Control": "no-cache, no-store, must-revalidate",
+  "Content-Type": "text/plain",
+  Expires: "0",
+  Link: '<https://basilisk.gallery/@syn>; rel="me"',
+  Pragma: "no-cache",
+  "X-Content-Type-Options": "nosniff",
+}
+
+const getConfigFileHeaders = (filename?: string) => {
+  if (!filename) {
+    return {
+      ...configFileHeaders,
+      "Content-Disposition": "inline",
+    }
+  } else {
+    return {
+      ...configFileHeaders,
+      "Content-Disposition": `inline; filename="${filename}"`,
+    }
+  }
+}
+
 export default defineNuxtConfig({
   app: {
     head: {
@@ -345,42 +368,21 @@ export default defineNuxtConfig({
         },
       },
       "/ssh": {
-        redirect: {
-          to: "https://public.syn.horse/ssh",
-          statusCode: 301,
-        },
+        static: true,
+        headers: getConfigFileHeaders("authorized_keys"),
       },
       "/gpg": {
-        redirect: {
-          to: "https://public.syn.horse/gpg",
-          statusCode: 301,
-        },
+        static: true,
+        headers: getConfigFileHeaders(),
       },
       "/sudo": {
-        redirect: {
-          to: "https://public.syn.horse/sudo",
-          statusCode: 301,
-        },
+        static: true,
+        headers: getConfigFileHeaders("syn"),
       },
       "/wg": {
-        redirect: {
-          to: "https://public.syn.horse/wg",
-          statusCode: 301,
-        },
+        static: true,
+        headers: getConfigFileHeaders(),
       },
-      // "/gender":s { isr: 3600 },
-      // "/api": { prerender: true },
-      // "/todo": { ssr: false }, // Client-only interactive page
-      // "/go/**": {
-      //   headers: {
-      //     "Cache-Control": "no-cache, no-store, must-revalidate",
-      //   },
-      // },
-      // "/.well-known/nostr.json": {
-      //   headers: {
-      //     "Access-Control-Allow-Origin": "*",
-      //   },
-      // },
     },
   },
   router: {
