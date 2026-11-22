@@ -361,7 +361,7 @@ export default defineNuxtConfig({
       "/**": {
         headers: {
           "X-Clacks-Overhead":
-            "GNU Terry Pratchett, Myke Eales, Greg Miell, Bat Duffy, Ellen Leary, Walter Leary, Charlie Williams, Alice Williams, Patrick Stewart, Walter Koenig, David Bowie",
+            "GNU Terry Pratchett, Myke Eales, Greg Miell, Bat Duffy, Ellen Leary, Walter Leary, Charlie Williams, Alice Williams, Patrick Stewart, Walter Koenig, David Bowie, Stanislav Petrov",
         },
       },
       "/api/**": {
