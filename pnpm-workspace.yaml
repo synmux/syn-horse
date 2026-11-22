@@ -36,3 +36,16 @@ childConcurrency: 16
 # - frozenLockfile: left unset so pnpm keeps its default of `true` on CI and
 #   `false` locally. an explicit `false` here would disable the CI guard.
 # - dryRun: a per-invocation cli flag, not a project setting.
+
+permissions:
+  "@nuxtjs/seo":
+    skills: true
+  "@storybloq/storybloq":
+    skills: true
+
+skills:
+  dirs:
+    - .agents/skills
+    - .claude/skills
+    - .github/skills
+    - .warp/skills
